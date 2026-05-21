@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Johnnie Bikinis Inc — Wholesale Catalog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C8A951;
+  --gold2: #F0D98A;
+  --black: #080808;
+  --dark: #101010;
+  --card: #161616;
+  --border: rgba(200,169,81,0.18);
+  --white: #F5F0E8;
+  --muted: rgba(245,240,232,0.45);
+  --red: #C0392B;
+  --green: #25D366;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--gold);padding:9px 24px;text-align:center;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--black);font-weight:600}
+.topbar a{color:var(--black);text-decoration:none;font-weight:700}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:68px;background:rgba(8,8,8,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;color:var(--gold);letter-spacing:.06em;text-decoration:none}
+.nav-logo span{font-weight:400;font-style:italic;color:var(--white);font-size:1.1rem}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-wa{background:var(--green);color:#fff !important;padding:9px 20px;border-radius:2px;font-weight:600 !important;display:flex;align-items:center;gap:7px;transition:opacity .2s}
+.nav-wa:hover{opacity:.85}
+
+/* ── HERO ── */
+.hero{min-height:92vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:80px 64px;position:relative;z-index:2}
+.hero-eyebrow{font-size:.62rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--gold)}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,5.5vw,5.5rem);font-weight:700;line-height:1.02;margin-bottom:24px}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:.85rem;color:var(--muted);line-height:1.85;max-width:420px;margin-bottom:40px}
+.hero-stats{display:flex;gap:40px;margin-bottom:44px;padding-top:32px;border-top:1px solid var(--border)}
+.stat-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--gold);display:block}
+.stat-lbl{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:2px;display:block}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-gold{background:var(--gold);color:var(--black);padding:15px 36px;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;text-decoration:none;transition:all .25s;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:8px}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-2px)}
+.btn-outline{border:1px solid var(--border);color:var(--white);padding:15px 36px;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:all .25s;font-family:'DM Sans',sans-serif}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.hero-right{position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;height:100%;gap:3px}
+.hero-img{width:100%;height:100%;object-fit:cover;filter:brightness(.8);transition:filter .4s}
+.hero-img:hover{filter:brightness(1)}
+.hero-img:first-child{grid-row:span 2}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,var(--black) 0%,transparent 30%);pointer-events:none}
+
+/* ── MARQUEE ── */
+.marquee{background:var(--gold);padding:12px 0;overflow:hidden;display:flex}
+.marquee-inner{display:flex;gap:56px;animation:marquee 22s linear infinite;white-space:nowrap}
+.marquee-inner span{font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--black);font-weight:700;flex-shrink:0}
+.marquee-inner span::before{content:'✦  '}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── SECTION ── */
+.section-head{text-align:center;padding:80px 24px 48px}
+.section-tag{font-size:.6rem;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:12px}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.4rem);font-weight:700;line-height:1.1}
+.section-title em{font-style:italic;color:var(--gold)}
+.section-sub{margin-top:12px;font-size:.78rem;color:var(--muted);max-width:520px;margin-left:auto;margin-right:auto;line-height:1.8}
+
+/* ── FILTER TABS ── */
+.filter-bar{display:flex;justify-content:center;gap:0;padding:0 24px 48px;flex-wrap:wrap}
+.filter-btn{background:none;border:1px solid var(--border);color:var(--muted);padding:11px 26px;font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:all .22s;margin:-1px}
+.filter-btn:hover,.filter-btn.active{background:var(--gold);border-color:var(--gold);color:var(--black);font-weight:600;z-index:1;position:relative}
+
+/* ── PRODUCT GRID ── */
+.catalog{padding:0 40px 100px}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:3px}
+.product-card{background:var(--card);position:relative;overflow:hidden;cursor:pointer;transition:transform .3s}
+.product-card.hidden{display:none}
+.product-card:hover{transform:translateY(-3px)}
+.product-thumb{position:relative;aspect-ratio:3/4;overflow:hidden}
+.product-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease;filter:brightness(.88)}
+.product-card:hover .product-thumb img{transform:scale(1.06);filter:brightness(.75)}
+.product-badge{position:absolute;top:14px;left:14px;background:var(--gold);color:var(--black);font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;padding:5px 10px}
+.product-body{padding:18px 20px 20px;border-top:1px solid var(--border)}
+.product-model{font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.product-name{font-family:'Playfair Display',serif;font-size:1.18rem;font-weight:700;margin-bottom:8px}
+.product-row{display:flex;justify-content:space-between;align-items:flex-end;margin-top:10px}
+.product-sizes{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.product-price{text-align:right}
+.price-unit{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold);font-weight:700}
+.price-dozen{font-size:.6rem;color:var(--muted);margin-top:1px}
+.product-order-btn{display:block;width:100%;margin-top:14px;background:var(--green);color:#fff;text-align:center;padding:11px;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;text-decoration:none;transition:opacity .2s;font-family:'DM Sans',sans-serif}
+.product-order-btn:hover{opacity:.85}
+.product-order-btn svg{vertical-align:middle;margin-right:6px}
+
+/* ── HOW IT WORKS ── */
+.how{background:var(--dark);padding:80px 40px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;max-width:1100px;margin:48px auto 0}
+.how-card{background:var(--card);padding:40px 28px;text-align:center;border:1px solid var(--border)}
+.how-num{font-family:'Playfair Display',serif;font-size:3rem;color:var(--gold);opacity:.25;font-weight:700;line-height:1;margin-bottom:16px}
+.how-icon{font-size:1.8rem;margin-bottom:12px;display:block}
+.how-title{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;margin-bottom:8px;color:var(--white)}
+.how-desc{font-size:.72rem;color:var(--muted);line-height:1.75}
+
+/* ── INFO BANNER ── */
+.info-banner{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--gold);padding:20px 28px;margin:0 40px 60px;display:flex;gap:16px;align-items:flex-start}
+.info-banner svg{flex-shrink:0;margin-top:2px}
+.info-banner p{font-size:.77rem;color:var(--muted);line-height:1.75}
+.info-banner strong{color:var(--white)}
+
+/* ── CTA ── */
+.cta-block{background:linear-gradient(135deg,#1a1200 0%,var(--black) 100%);border-top:1px solid var(--border);padding:90px 48px;text-align:center;position:relative;overflow:hidden}
+.cta-block::before{content:'JOHNNIE';position:absolute;font-family:'Playfair Display',serif;font-size:14rem;font-weight:700;color:rgba(200,169,81,.04);top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none;letter-spacing:.1em}
+.cta-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,4rem);font-weight:700;margin-bottom:16px;position:relative}
+.cta-title em{color:var(--gold);font-style:italic}
+.cta-sub{color:var(--muted);font-size:.82rem;line-height:1.8;margin-bottom:40px;position:relative;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-wa-btn{display:inline-flex;align-items:center;gap:12px;background:var(--green);color:#fff;padding:18px 48px;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;text-decoration:none;transition:all .3s;font-family:'DM Sans',sans-serif;position:relative}
+.cta-wa-btn:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(37,211,102,.35)}
+.cta-phone{margin-top:18px;font-size:.72rem;color:var(--muted);position:relative}
+.cta-phone strong{color:var(--gold)}
+
+/* ── FOOTER ── */
+footer{background:var(--black);border-top:1px solid var(--border);padding:52px 48px 28px}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:40px}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--gold);letter-spacing:.06em;display:block;margin-bottom:12px}
+.footer-logo span{font-weight:400;font-style:italic;color:var(--white);font-size:1.1rem}
+.footer-about{font-size:.73rem;color:var(--muted);line-height:1.8;max-width:280px;margin-bottom:20px}
+.footer-contact a{display:flex;align-items:center;gap:8px;color:var(--green);text-decoration:none;font-size:.75rem;font-weight:600;margin-top:8px}
+.footer-col h4{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.footer-col a,.footer-col p{display:block;color:var(--muted);text-decoration:none;font-size:.73rem;margin-bottom:8px;transition:color .2s;line-height:1.7}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:gap}
+.footer-copy{font-size:.62rem;color:var(--muted);letter-spacing:.08em}
+
+/* ── WA FLOAT ── */
+.wa-float{position:fixed;bottom:28px;right:28px;z-index:200;background:var(--green);color:#fff;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 6px 28px rgba(37,211,102,.45);animation:pulse-wa 2.5s ease-in-out infinite}
+@keyframes pulse-wa{0%,100%{box-shadow:0 6px 28px rgba(37,211,102,.45)}50%{box-shadow:0 6px 44px rgba(37,211,102,.7)}}
+.wa-float svg{width:26px;height:26px}
+
+/* ── MODAL ── */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;padding:20px}
+.modal-bg.open{opacity:1;pointer-events:all}
+.modal{background:var(--card);border:1px solid var(--border);max-width:900px;width:100%;max-height:90vh;overflow-y:auto;display:grid;grid-template-columns:1fr 1fr;position:relative}
+.modal-img{width:100%;height:100%;object-fit:cover;min-height:460px}
+.modal-body{padding:44px 36px;display:flex;flex-direction:column;justify-content:center}
+.modal-tag{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.modal-name{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;margin-bottom:6px;line-height:1.1}
+.modal-desc{font-size:.76rem;color:var(--muted);line-height:1.85;margin:14px 0 20px}
+.modal-table{width:100%;border-collapse:collapse;margin-bottom:24px}
+.modal-table td{padding:8px 0;font-size:.73rem;border-bottom:1px solid var(--border)}
+.modal-table td:first-child{color:var(--muted);width:110px;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase}
+.modal-table td:last-child{color:var(--white);font-weight:500}
+.modal-price-block{background:rgba(200,169,81,.08);border:1px solid var(--border);border-left:3px solid var(--gold);padding:16px 20px;margin-bottom:24px;display:flex;gap:28px}
+.modal-price-item .lbl{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.modal-price-item .val{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);font-weight:700}
+.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--muted);font-size:1.6rem;cursor:pointer;z-index:10;transition:color .2s;line-height:1}
+.modal-close:hover{color:var(--white)}
+.modal-wa{display:block;background:var(--green);color:#fff;text-align:center;padding:14px;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;text-decoration:none;transition:opacity .2s}
+.modal-wa:hover{opacity:.85}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-left{padding:100px 28px 48px}
+  .hero-right{height:60vw}
+  .hero-overlay{background:linear-gradient(to top,var(--black) 0%,transparent 40%)}
+  nav{padding:0 24px}
+  .how-grid{grid-template-columns:1fr 1fr}
+  .footer-inner{grid-template-columns:1fr}
+  .modal{grid-template-columns:1fr}
+  .modal-img{min-height:280px;height:55vw}
+  .catalog{padding:0 12px 80px}
+  .info-banner{margin:0 12px 40px}
+}
+@media(max-width:600px){
+  .nav-links{display:none}
+  .product-grid{grid-template-columns:1fr 1fr;gap:2px}
+  .how-grid{grid-template-columns:1fr}
+  .modal-price-block{flex-direction:column;gap:12px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">🌴 Wholesale Orders Only · WhatsApp: <a href="https://wa.me/5841432009211" target="_blank">+58 414 320 9211</a> · Min. order applies · Colors always in stock</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">JOHNNIE <span>Bikinis Inc</span></a>
+  <div class="nav-links">
+    <a href="#catalog">Catalog</a>
+    <a href="#how">How to Order</a>
+    <a href="#cta">Contact</a>
+    <a href="https://wa.me/5841432009211?text=Hola! I want to place a wholesale order." target="_blank" class="nav-wa">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp Order
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Wholesale · B2B Catalog</div>
+    <h1 class="hero-title">Premium<br>Bikinis <em>Made</em><br>to Resell</h1>
+    <p class="hero-sub">Micro bikinis, trikinis, bodies & hilo designs. High-quality lycra. Available in all solid matte colors — printed editions limited. Order direct via WhatsApp.</p>
+    <div class="hero-stats">
+      <div><span class="stat-val">14+</span><span class="stat-lbl">Models</span></div>
+      <div><span class="stat-val">S→L</span><span class="stat-lbl">All Sizes</span></div>
+      <div><span class="stat-val">∞</span><span class="stat-lbl">Colors</span></div>
+    </div>
+    <div class="hero-btns">
+      <a href="#catalog" class="btn-gold">View Catalog</a>
+      <a href="https://wa.me/5841432009211?text=Hola! I want wholesale pricing." target="_blank" class="btn-outline">WhatsApp Us</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-grid">
+      <img src="PHOTO-2026-05-19-16-17-29.jpg" alt="Bikini #AI" class="hero-img">
+      <img src="PHOTO-2026-05-19-16-17-29_4.jpg" alt="Bikini #WQ" class="hero-img">
+      <img src="PHOTO-2026-05-19-16-17-30_4.jpg" alt="Body #AV" class="hero-img">
+    </div>
+    <div class="hero-overlay"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-inner">
+    <span>Micro Bikinis</span><span>Trikinis</span><span>Bodies</span><span>Hilo VIP</span>
+    <span>S / M / L</span><span>All Colors</span><span>Wholesale Prices</span><span>Order via WhatsApp</span>
+    <span>Premium Lycra</span><span>Colombia Made</span><span>Fast Dispatch</span>
+    <span>Micro Bikinis</span><span>Trikinis</span><span>Bodies</span><span>Hilo VIP</span>
+    <span>S / M / L</span><span>All Colors</span><span>Wholesale Prices</span><span>Order via WhatsApp</span>
+    <span>Premium Lycra</span><span>Colombia Made</span><span>Fast Dispatch</span>
+  </div>
+</div>
+
+<!-- INFO BANNER -->
+<div style="margin-top:60px" class="info-banner">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8A951" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <p><strong>How ordering works:</strong> Browse the catalog below, click any product to see full details and pricing, then tap <strong>"Order on WhatsApp"</strong> to message us directly. We'll confirm availability, color options, and shipping. <strong>Solid matte colors always in stock.</strong> Printed/metallic editions may be limited.</p>
+</div>
+
+<!-- CATALOG -->
+<section id="catalog">
+  <div class="section-head">
+    <span class="section-tag">Wholesale Catalog</span>
+    <h2 class="section-title">All <em>Models</em></h2>
+    <p class="section-sub">Click any product to see details and place your order on WhatsApp.</p>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filter('all',this)">All Styles</button>
+    <button class="filter-btn" onclick="filter('bikini',this)">Bikinis</button>
+    <button class="filter-btn" onclick="filter('body',this)">Bodies</button>
+    <button class="filter-btn" onclick="filter('triquini',this)">Trikinis</button>
+    <button class="filter-btn" onclick="filter('hilo',this)">Bikini Hilo VIP</button>
+  </div>
+
+  <div class="catalog">
+    <div class="product-grid" id="grid">
+
+      <!-- BIKINI #AI -->
+      <div class="product-card" data-cat="bikini" onclick="openModal({
+        img:'PHOTO-2026-05-19-16-17-29.jpg',
+        tag:'Bikini',model:'#AI',name:'Bikini Rojo AI',
+        desc:'Red satin-finish micro triangle top with ultra-thin G-string. A flagship silhouette — bestseller. Available in all solid matte colors year-round.',
+        sizes:'S / M',colors:'All solid matte · Limited prints',unit:'$8',dozen:'$85 / doz',wa:'Bikini %23AI (S%2FM)'
+      })">
+        <div class="product-thumb">
+          <div class="product-badge">Bikini</div>
+          <img src="PHOTO-2026-05-19-16-17-29.jpg" alt="Bikini #AI">
+        </div>
+        <div class="product-body">
+          <div class="product-model">Model #AI</div>
+          <div class="product-name">Bikini Rojo AI</div>
+          <div class="product-row">
+            <div class="product-sizes">Sizes: S / M</div>
+            <div class="product-price">
+              <div class="price-unit">$8 / unit</div>
+              <div class="price-dozen">$85 / dozen</div>
+            </div>
+          </div>
+          <a href="https://wa.me/5841432009211?text=Hola!+I+want+to+order+Bikini+%23AI+(S%2FM)" target="_blank" class="product-order-btn" onclick="event.stopPropagation()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order on WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- BIKINI #HH Beach -->
+      <div class="product-card" data-cat="bikini" onclick="openModal({
+        img:'PHOTO-2026-05-19-16-17-29_2.jpg',
+        tag:'Bikini',model:'#HH',name:'Bikini HH Rojo',
+        desc:'Bold red beach bikini. Structured triangle top with full coverage bottom. Athletic and sexy. Available in S/M/L — great for curvier body types.',
+        sizes:'S / M / L',colors:'All solid matte · Metallic · Prints',unit:'$8',dozen:'$85 / doz',wa:'Bikini+%23HH+(S%2FM%2FL)'
+      })">
+        <div class="product-thumb">
+          <div class="product-badge">Bikini</div>
+          <img src="PHOTO-2026-05-19-16-17-29_2.jpg" alt="Bikini #HH">
+        </div>
+        <div class="product-body">
+          <div class="product-model">Model #HH</div>
+          <div class="product-name">Bikini HH Rojo</div>
+          <div class="product-row">
+            <div class="product-sizes">Sizes: S / M / L</div>
+            <div class="product-price">
+              <div class="price-unit">$8 / unit</div>
+              <div class="price-dozen">$85 / dozen</div>
+            </div>
+          </div>
+          <a href="https://wa.me/5841432009211?text=Hola!+I+want+to+order+Bikini+%23HH+(S%2FM%2FL)" target="_blank" class="product-order-btn" onclick="event.stopPropagation()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order on WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- BIKINI #XT LN Black -->
+      <div class="product-card" data-cat="bikini" onclick="openModal({
+        img:'PHOTO-2026-05-19-16-17-29_3.jpg',
+        tag:'Bikini',model:'#XT LN',name:'Bikini Xtreme Negro',
+        desc:'Ultra-minimal black string bikini. Razor-thin straps with micro triangle top. The Xtreme silhouette — for the most daring style. Black trim (LN) always in stock.',
+        sizes:'SSS / Xtreme',colors:'Black trim (LN) · All solid matte',unit:'$9',dozen:'$95 / doz',wa:'Bikini+%23XT+LN+(SSS%2FXTREME)'
+      })">
+        <div class="product-thumb">
+          <div class="product-badge">Bikini</div>
+          <img src="PHOTO-2026-05-19-16-17-29_3.jpg" alt="Bikini #XT LN">
+        </div>
+        <div class="product-body">
+          <div class="product-model">Model #XT LN</div>
+          <div class="product-name">Bikini Xtreme Negro</div>
+          <div class="product-row">
+            <div class="product-sizes">Sizes: SSS / Xtreme</div>
+            <div class="product-price">
+              <div class="price-unit">$9 / unit</div>
+              <div class="price-dozen">$95 / dozen</div>
+            </div>
+          </div>
+          <a href="https://wa.me/5841432009211?text=Hola!+I+want+to+order+Bikini+%23XT+LN+(SSS%2FXTREME)" target="_blank" class="product-order-btn" onclick="event.stopPropagation()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order on WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- BIKINI #WQ White -->
+      <div class="product-card" data-cat="bikini" onclick="openModal({
+        img:'PHOTO-2026-05-19-16-17-29_4.jpg',
+        tag:'Bikini',model:'#WQ',name:'Bikini Blanco WQ',
+        desc:'White strappy cutout bikini with body-chain detail. Cutout panels on top with hilo bottom. Luxury look — perfect for premium boutiques.',
+        sizes:'S / M',colors:'White · All solid matte',unit:'$11',dozen:'$115 / doz',wa:'Bikini+%23WQ+(S%2FM)'
+      })">
+        <div class="product-thumb">
+          <div class="product-badge">Bikini</div>
+          <img src="PHOTO-2026-05-19-16-17-29_4.jpg" alt="Bikini #WQ White">
+        </div>
+        <div class="product-body">
+          <div class="product-model">Model #WQ</div>
+          <div class="product-name">Bikini Blanco WQ</div>
+          <div class="product-row">
+            <div class="product-sizes">Sizes: S / M</div>
+            <div class="product-price">
+              <div class="price-unit">$11 / unit</div>
+              <div class="price-dozen">$115 / dozen</div>
+            </div>
+          </div>
+          <a href="https://wa.me/5841432009211?text=Hola!+I+want+to+order+Bikini+%23WQ+(S%2FM)" target="_blank" class="product-order-btn" onclick="event.stopPropagation()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order on WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- BIKINI #HH Hilo -->
+      <div class="product-card" data-cat="bikini" onclick="openModal({
+        img:'PHOTO-2026-05-19-16-17-29_5.jpg',
+        tag:'Bikini',model:'#HH Hilo',name:'Bikini Hilo Metallic',
+        desc:'Dark holographic metallic triangle top with hilo G-string. Maximum coverage front, minimal back. High-glam poolside look.',
+        sizes:'M / L',colors:'Metallic · All solid matte',unit:'$10',dozen:'$105 / doz',wa:'Bikini+%23HH+Hilo+(M%2FL)'
+      })">
+        <div class="product-thumb">
+          <div class="product-badge">Bikini</div>
+          <img src="PHOTO-2026-05-19-16-17-29_5.jpg" alt="Bikini #HH Hilo">
+        </div>
+        <div class="product-body">
+          <div class="product-model">Model #HH Hilo</div>
+          <div class="product-name">Bikini Hilo Metallic</div>
+          <div class="product-row">
+            <div class="product-sizes">Sizes: M / L</div>
+            <div class="product-price">
+              <div class="price-unit">$10 / unit</div>
+              <div class="price-dozen">$105 / dozen</div>
+            </div>
+          </div>
+          <a href="https://wa.me/5841432009211?text=Hola!+I+want+to+order+Bikini+%23HH+Hilo+(M%2FL)" target="_blank" class="product-order-btn" onclick="event.stopPropagation()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order on WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- BIKINI #AI Beach -->
+      <div class="product-card" data-cat="bikini" onclick="openModal({
+        img:'PHOTO-2026-05-19-16-17-30.jpg',
+        tag:'Bikini',model:'#AI',name:'Bikini AI Beach',
+        desc:'Red micro bikini — same flagship AI silhouette shot on the beach. Mesh triangle top variation. Fits multiple body types beautifully.',
+        sizes:'S / M',colors:'All solid matte · Limited prints',unit:'$8',dozen:'$85 / doz',wa:'Bikini+%23AI+Beach+(S%2FM)'
+      })">
+        <div class="product-thumb">
+          <div class="product-badge">Bikini</div>
+          <img src="PHOTO-2026-05-19-16-17-30.jpg" alt="Bikini #AI Beach">
+        </div>
+        <div class="product-body">
+          <div class="product-model">Model #AI</div>
+          <div class="product-name">Bikini AI Beach</div>
+          <div class="product-row">
+            <div class="product-sizes">Sizes: S / M</div>
+            <div class="product-price">
+              <div class="price-unit">$8 / unit</div>
+              <div class="price-dozen">$85 / dozen</div>
+            </div>
+          </div>
+          <a href="https://wa.me/5841432009211?text=Hola!+I+want+to+order+Bikini+%23AI+Beach+(S%2FM)" target="_blank" class="product-order-btn" onclick="event.stopPropagation()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order on WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- BIKINI #XT Pink -->
+      <div class="product-card" data-cat="bikini" onclick="openModal({
+        img:'PHOTO-2026-05-19-16-17-30_2.jpg',
+        tag:'Bikini',model:'#XT',name:'Bikini Xtreme Rosa',
+        desc:'Ultra-micro pink Xtreme line bikini shot on a boat. Barely-there triangle top with minimal bottom. The ultimate micro silhouette for bold buyers.',
+        sizes:'SSS / S / M',colors:'All solid matte · Prints',unit:'$9',dozen:'$95 / doz',wa:'Bikini+%23XT+Rosa+(SSS%2FS%2FM)'
+      })">
+        <div class="product-thumb">
+          <div class="product-badge">Bikini</div>
+          <img src="PHOTO-2026-05-19-16-17-30_2.jpg" alt="Bikini #XT Pink">
+        </div>
+        <div class="product-body">
+          <div class="product-model">Model #XT</div>
+          <div class="product-name">Bikini Xtreme Rosa</div>
+          <div class="product-row">
+            <div class="product-sizes">Sizes: SSS / S / M</div>
+            <div class="product-price">
+              <div class="price-unit">$9 / unit</div>
+              <div class="price-dozen">$95 / dozen</div>
+            </div>
+          </div>
+          <a href="https://wa.me/5841432009211?text=Hola!+I+want+to+order+Bikini+%23XT+Rosa+(SSS%2FS%2FM)" target="_blank" class="product-order-btn" onclick="event.stopPropagation()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order on WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- BIK XT Yellow -->
+      <div class="product-card" data-cat="bikini" onclick="openModal({
+        img:'PHOTO-2026-05-19-16-17-30_3.jpg',
+        tag:'Bikini',model:'BIK XT',name:'Bikini XT Dorado',
+        desc:'Sparkling yellow metallic triangle top with thong G-string. The XT line in metallic finish. Glam beachwear for boutiques targeting party & beach markets.',
+        sizes:'SS / S / M',colors:'Metallic · Solid matte · Prints',unit:'$9',dozen:'$95 / doz',wa:'Bikini+XT+Dorado+(SS%2FS%2FM)'
+      })">
+        <div class="product-thumb">
+          <div class="product-badge">Bikini</div>
+          <img src="PHOTO-2026-05-19-16-17-30_3.jpg" alt="BIK XT Yellow">
+        </div>
+        <div class="product-body">
+          <div class="product-model">BIK XT</div>
+          <div class="product-name">Bikini XT Dorado</div>
+          <div class="product-row">
+            <div class="product-sizes">Sizes: SS / S / M</div>
+            <div class="product-price">
+              <div class="price-unit">$9 / unit</div>
+              <div class="price-dozen">$95 / dozen</div>
+            </div>
+          </div>
+          <a href="https://wa.me/5841432009211?text=Hola!+I+want+to+order+Bikini+XT+Dorado+(SS%2FS%2FM)" target="_blank" class="product-order-btn" onclick="event.stopPropagation()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order on WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- BODY #AV -->
+      <div class="product-card" data-cat="body" onclick="openModal({
+        img:'PHOTO-2026-05-19-16-17-30_4.jpg',
+        tag:'Body / Monokini',model:'#AV',name:'Body Rosa AV',
+        desc:'Pink cutout monokini with high-cut legs and open-waist panel. Structured scoop neckline. One size fits most — perfect pool/beach statement piece for boutiques.',
+        sizes:'U (One Size)',colors:'All solid matte · Prints',unit:'$12',dozen:'$125 / doz',wa:'Body+%23AV+(U)'
+      })">
+        <div class="product-thumb">
+          <div class="product-badge">Body</div>
+          <img src="PHOTO-2026-05-19-16-17-30_4.jpg" alt="Body #AV">
+        </div>
+        <div class="product-body">
+          <div class="product-model">Model #AV</div>
+          <div class="product-name">Body Rosa AV</div>
+          <div class="product-row">
+            <div class="product-sizes">Size: U (One Size)</div>
+            <div class="product-price">
+              <div class="price-unit">$12 / unit</div>
+              <div class="price-dozen">$125 / dozen</div>
+            </div>
+          </div>
+          <a href="https://wa.me/5841432009211?text=Hola!+I+want+to+order+Body+%23AV+(U)" target="_blank" class="product-order-btn" onclick="event.stopPropagation()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order on WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- BODY BH -->
+      <div class="product-card" data-cat="body" onclick="openModal({
+        img:'PHOTO-2026-05-19-16-17-30_5.jpg',
+        tag:'Body / Monokini',model:'BH',name:'Body Negro BH',
+        desc:'Sleek black monokini with deep-V spaghetti straps. Completely open back down to hilo cut. High-leg front. Clean, powerful, minimal — a wardrobe staple.',
+        sizes:'S / M',colors:'All solid matte',unit:'$12',dozen:'$125 / doz',wa:'Body+BH+(S%2FM)'
+      })">
+        <div class="product-thumb">
+          <div class="product-badge">Body</div>
+          <img src="PHOTO-2026-05-19-16-17-30_5.jpg" alt="Body BH Black">
+        </div>
+        <div class="product-body">
+          <div class="product-model">Model BH</div>
+          <div class="product-name">Body Negro BH</div>
+          <div class="product-row">
+            <div class="product-sizes">Sizes: S / M</div>
+            <div class="product-price">
+              <div class="price-unit">$12 / unit</div>
+              <div class="price-dozen">$125 / dozen</div>
+            </div>
+          </div>
+          <a href="https://wa.me/5841432009211?text=Hola!+I+want+to+order+Body+BH+(S%2FM)" target="_blank" class="product-order-btn" onclick="event.stopPropagation()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order on WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- TRIQUINI #SE -->
+      <div class="product-card" data-cat="triquini" onclick="openModal({
+        img:'PHOTO-2026-05-19-16-17-30_6.jpg',
+        tag:'Trikini',model:'#SE',name:'Triquini Rosa SE',
+        desc:'Pink halter-neck deep-plunge trikini with ultra-thin hilo sides. The SE silhouette is a top seller — beach, pool, events. Available in all solid matte colors always. Prints limited.',
+        sizes:'U (One Size)',colors:'All solid matte · Limited prints',unit:'$13',dozen:'$135 / doz',wa:'Triquini+%23SE+(U)'
+      })">
+        <div class="product-thumb">
+          <div class="product-badge">Trikini</div>
+          <img src="PHOTO-2026-05-19-16-17-30_6.jpg" alt="Triquini #SE Pink">
+        </div>
+        <div class="product-body">
+          <div class="product-model">Triquini #SE</div>
+          <div class="product-name">Triquini Rosa SE</div>
+          <div class="product-row">
+            <div class="product-sizes">Size: U (One Size)</div>
+            <div class="product-price">
+              <div class="price-unit">$13 / unit</div>
+              <div class="price-dozen">$135 / dozen</div>
+            </div>
+          </div>
+          <a href="https://wa.me/5841432009211?text=Hola!+I+want+to+order+Triquini+%23SE+(U)" target="_blank" class="product-order-btn" onclick="event.stopPropagation()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order on WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- TRIQUINI #KK Orange -->
+      <div class="product-card" data-cat="triquini" onclick="openModal({
+        img:'PHOTO-2026-05-19-16-17-31.jpg',
+        tag:'Trikini',model:'#KK',name:'Triquini Naranja KK',
+        desc:'Bold orange one-strap asymmetric trikini. Deep-plunge front with hilo sides. The KK is a showstopper — ideal for boutiques that want exclusive statement pieces.',
+        sizes:'U (One Size)',colors:'All solid matte · Prints',unit:'$13',dozen:'$135 / doz',wa:'Triquini+%23KK+(U)'
+      })">
+        <div class="product-thumb">
+          <div class="product-badge">Trikini</div>
+          <img src="PHOTO-2026-05-19-16-17-31.jpg" alt="Triquini #KK Orange">
+        </div>
+        <div class="product-body">
+          <div class="product-model">Triquini #KK</div>
+          <div class="product-name">Triquini Naranja KK</div>
+          <div class="product-row">
+            <div class="product-sizes">Size: U (One Size)</div>
+            <div class="product-price">
+              <div class="price-unit">$13 / unit</div>
+              <div class="price-dozen">$135 / dozen</div>
+            </div>
+          </div>
+          <a href="https://wa.me/5841432009211?text=Hola!+I+want+to+order+Triquini+%23KK+(U)" target="_blank" class="product-order-btn" onclick="event.stopPropagation()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order on WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- TRIQUINI #TK Red -->
+      <div class="product-card" data-cat="triquini" onclick="openModal({
+        img:'PHOTO-2026-05-19-16-17-28_2.jpg',
+        tag:'Trikini',model:'#TK',name:'Triquini Rojo TK',
+        desc:'Red halter-neck trikini with deep center-front panel and hilo cut. Feminine and powerful. One size fits all — goes from XS to M. Bestselling trikini model.',
+        sizes:'U (One Size)',colors:'All solid matte · Metallic · Prints',unit:'$13',dozen:'$135 / doz',wa:'Triquini+%23TK+(U)'
+      })">
+        <div class="product-thumb">
+          <div class="product-badge">Trikini</div>
+          <img src="PHOTO-2026-05-19-16-17-28_2.jpg" alt="Triquini #TK Red">
+        </div>
+        <div class="product-body">
+          <div class="product-model">Triquini #TK</div>
+          <div class="product-name">Triquini Rojo TK</div>
+          <div class="product-row">
+            <div class="product-sizes">Size: U (One Size)</div>
+            <div class="product-price">
+              <div class="price-unit">$13 / unit</div>
+              <div class="price-dozen">$135 / dozen</div>
+            </div>
+          </div>
+          <a href="https://wa.me/5841432009211?text=Hola!+I+want+to+order+Triquini+%23TK+(U)" target="_blank" class="product-order-btn" onclick="event.stopPropagation()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order on WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- BIKINI HILO VIP -->
+      <div class="product-card" data-cat="hilo" onclick="openModal({
+        img:'PHOTO-2026-05-19-16-17-28.jpg',
+        tag:'Bikini Hilo VIP',model:'BIK XT VIP',name:'Bikini Hilo VIP',
+        desc:'The VIP line — premium Bikini Hilo in multiple finish variations. Available in: XT (Vivos Licras), XT LD (Vivos Dorados), XT LP (Vivos Plateados), XT LN (Vivos Negros), XT LT (Vivos Transparente). Sizes S/M. Colors: Metallic · Estampados · Unicolor.',
+        sizes:'S / M',colors:'XT · XT LD · XT LP · XT LN · XT LT · M22',unit:'$14',dozen:'$149 / doz',wa:'Bikini+Hilo+VIP+(S%2FM)'
+      })">
+        <div class="product-thumb">
+          <div class="product-badge">Hilo VIP</div>
+          <img src="PHOTO-2026-05-19-16-17-28.jpg" alt="Bikini Hilo VIP">
+        </div>
+        <div class="product-body">
+          <div class="product-model">BIK XT VIP</div>
+          <div class="product-name">Bikini Hilo VIP</div>
+          <div class="product-row">
+            <div class="product-sizes">Sizes: S / M</div>
+            <div class="product-price">
+              <div class="price-unit">$14 / unit</div>
+              <div class="price-dozen">$149 / dozen</div>
+            </div>
+          </div>
+          <a href="https://wa.me/5841432009211?text=Hola!+I+want+to+order+Bikini+Hilo+VIP+(S%2FM)" target="_blank" class="product-order-btn" onclick="event.stopPropagation()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order on WhatsApp
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /product-grid -->
+  </div><!-- /catalog -->
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-head" style="padding-top:0">
+    <span class="section-tag">Process</span>
+    <h2 class="section-title">How to <em>Order</em></h2>
+    <p class="section-sub">Simple wholesale ordering in 4 steps. No account needed.</p>
+  </div>
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-num">01</div>
+      <span class="how-icon">👀</span>
+      <div class="how-title">Browse Catalog</div>
+      <div class="how-desc">Explore all models, sizes, and price tiers above. Click any product to see full details.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num">02</div>
+      <span class="how-icon">💬</span>
+      <div class="how-title">Message on WhatsApp</div>
+      <div class="how-desc">Tap "Order on WhatsApp" on any product. Tell us model, size, color, and quantity.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num">03</div>
+      <span class="how-icon">✅</span>
+      <div class="how-title">Confirm & Pay</div>
+      <div class="how-desc">We confirm stock availability, send payment details, and finalize your wholesale order.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num">04</div>
+      <span class="how-icon">📦</span>
+      <div class="how-title">We Ship</div>
+      <div class="how-desc">Order is packed and dispatched. Solid matte colors always in stock. Prints may vary.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-block" id="cta">
+  <h2 class="cta-title">Ready to <em>Stock Up?</em></h2>
+  <p class="cta-sub">Message us directly on WhatsApp to place your wholesale order, ask about minimum quantities, or request a custom color run.</p>
+  <a href="https://wa.me/5841432009211?text=Hola!+I+want+to+place+a+wholesale+order+with+Johnnie+Bikinis+Inc." target="_blank" class="cta-wa-btn">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Chat on WhatsApp
+  </a>
+  <div class="cta-phone">Direct line: <strong>+58 414 320 9211</strong></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <span class="footer-logo">JOHNNIE <span>Bikinis Inc</span></span>
+      <p class="footer-about">Premium wholesale micro bikinis, trikinis, and bodies. Solid matte colors always available. Printed and metallic editions may be limited. Order via WhatsApp.</p>
+      <div class="footer-contact">
+        <a href="https://wa.me/5841432009211" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          +58 414 320 9211
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Catalog</h4>
+      <a href="#catalog" onclick="filter('bikini',document.querySelector('[onclick*=bikini]'))">Bikinis</a>
+      <a href="#catalog" onclick="filter('body',document.querySelector('[onclick*=body]'))">Bodies</a>
+      <a href="#catalog" onclick="filter('triquini',document.querySelector('[onclick*=triquini]'))">Trikinis</a>
+      <a href="#catalog" onclick="filter('hilo',document.querySelector('[onclick*=hilo]'))">Bikini Hilo VIP</a>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <p>Solid matte colors: always in stock</p>
+      <p>Metallic / prints: limited availability</p>
+      <p>Min. order: ask via WhatsApp</p>
+      <p>International shipping available</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Johnnie Bikinis Inc. All rights reserved. Wholesale only.</div>
+    <div class="footer-copy">WhatsApp: +58 414 320 9211</div>
+  </div>
+</footer>
+
+<!-- WA FLOAT -->
+<a href="https://wa.me/5841432009211?text=Hola!+I+want+to+place+a+wholesale+order." target="_blank" class="wa-float" title="Order on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modalBg" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <img src="" alt="" class="modal-img" id="modalImg">
+    <div class="modal-body">
+      <div class="modal-tag" id="modalTag"></div>
+      <div class="modal-name" id="modalName"></div>
+      <div class="modal-desc" id="modalDesc"></div>
+      <table class="modal-table">
+        <tr><td>Model</td><td id="modalModel"></td></tr>
+        <tr><td>Sizes</td><td id="modalSizes"></td></tr>
+        <tr><td>Colors</td><td id="modalColors"></td></tr>
+      </table>
+      <div class="modal-price-block">
+        <div class="modal-price-item">
+          <div class="lbl">Unit Price</div>
+          <div class="val" id="modalUnit"></div>
+        </div>
+        <div class="modal-price-item">
+          <div class="lbl">Per Dozen</div>
+          <div class="val" id="modalDozen"></div>
+        </div>
+      </div>
+      <a href="#" target="_blank" class="modal-wa" id="modalWa">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white" style="vertical-align:middle;margin-right:8px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Order This Model on WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+function filter(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.product-card').forEach(card => {
+    card.classList.toggle('hidden', cat !== 'all' && card.dataset.cat !== cat);
+  });
+}
+
+function openModal(p) {
+  document.getElementById('modalImg').src = p.img;
+  document.getElementById('modalImg').alt = p.name;
+  document.getElementById('modalTag').textContent = p.tag;
+  document.getElementById('modalName').textContent = p.name;
+  document.getElementById('modalDesc').textContent = p.desc;
+  document.getElementById('modalModel').textContent = p.model;
+  document.getElementById('modalSizes').textContent = p.sizes;
+  document.getElementById('modalColors').textContent = p.colors;
+  document.getElementById('modalUnit').textContent = p.unit;
+  document.getElementById('modalDozen').textContent = p.dozen;
+  document.getElementById('modalWa').href = 'https://wa.me/5841432009211?text=Hola!+I+want+to+order+' + p.wa;
+  document.getElementById('modalBg').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modalBg')) {
+    document.getElementById('modalBg').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal({}); });
+</script>
+</body>
+</html>
