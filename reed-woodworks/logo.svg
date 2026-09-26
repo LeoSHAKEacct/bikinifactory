@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" role="img" aria-label="Reed Custom Woodworks logo">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#D9A566"/><stop offset="1" stop-color="#A8692E"/>
+    </linearGradient>
+  </defs>
+  <circle cx="240" cy="240" r="228" fill="#1E1812"/>
+  <circle cx="240" cy="240" r="212" fill="none" stroke="url(#g)" stroke-width="3"/>
+  <circle cx="240" cy="240" r="200" fill="none" stroke="url(#g)" stroke-width="1" opacity=".6"/>
+  <!-- growth rings -->
+  <g fill="none" stroke="url(#g)" opacity=".22" stroke-width="1.5">
+    <ellipse cx="240" cy="226" rx="120" ry="112"/><ellipse cx="238" cy="224" rx="100" ry="92"/>
+    <ellipse cx="236" cy="222" rx="80" ry="73"/><ellipse cx="235" cy="221" rx="60" ry="55"/>
+  </g>
+  <!-- monogram R with a chisel leg -->
+  <g fill="url(#g)" transform="translate(0,-12)">
+    <path d="M186 150h66c38 0 62 20 62 52 0 25-15 42-38 49l46 79h-38l-41-74h-24v74h-33zM219 178v52h31c19 0 30-10 30-26s-11-26-30-26z"/>
+  </g>
+  <path d="M178 326h124" stroke="url(#g)" stroke-width="3" stroke-linecap="round"/>
+  <path id="top" d="M84 240a156 156 0 0 1 312 0" fill="none"/>
+  <path id="bot" d="M62 240a178 178 0 0 0 356 0" fill="none"/>
+  <text font-family="Georgia, 'Times New Roman', serif" font-size="30" letter-spacing="10" fill="#EDE3D3" font-weight="700">
+    <textPath href="#top" startOffset="50%" text-anchor="middle">REED</textPath>
+  </text>
+  <text font-family="Georgia, 'Times New Roman', serif" font-size="22" letter-spacing="7" fill="#D9A566">
+    <textPath href="#bot" startOffset="50%" text-anchor="middle">CUSTOM WOODWORKS</textPath>
+  </text>
+  <g fill="#D9A566"><circle cx="72" cy="240" r="4"/><circle cx="408" cy="240" r="4"/></g>
+  <text x="240" y="352" text-anchor="middle" font-family="Georgia, serif" font-size="13" letter-spacing="5" fill="#EDE3D3" opacity=".75">HENDERSON · NV</text>
+</svg>

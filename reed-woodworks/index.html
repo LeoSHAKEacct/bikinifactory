@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reed Custom Woodworks | Henderson, NV Custom Furniture & Cabinetry</title>
+<meta name="description" content="Reed Custom Woodworks builds handcrafted custom furniture, cabinetry, built-ins and live-edge pieces in Henderson and the Las Vegas valley.">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<meta property="og:title" content="Reed Custom Woodworks">
+<meta property="og:description" content="Handcrafted custom woodwork in Henderson, NV.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --ink:#1E1812; --ink2:#2A221A; --cream:#F5EFE4; --paper:#EDE3D3;
+    --oak:#C98B4A; --oak2:#A8692E; --text:#2B241D; --muted:#6F6457;
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:Inter,system-ui,sans-serif;color:var(--text);background:var(--cream);line-height:1.6;overflow-x:hidden}
+  h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.1;letter-spacing:-.01em}
+  a{color:inherit}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+
+  /* nav */
+  nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,box-shadow .3s}
+  nav.solid{background:rgba(30,24,18,.95);backdrop-filter:blur(8px);box-shadow:0 2px 20px rgba(0,0,0,.25)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--paper)}
+  .brand img{width:44px;height:44px}
+  .brand b{font-family:Fraunces,serif;font-size:18px;letter-spacing:.04em;display:block;line-height:1}
+  .brand small{font-size:10px;letter-spacing:.28em;color:var(--oak);text-transform:uppercase}
+  .links{display:flex;gap:28px;align-items:center}
+  .links a{color:var(--paper);text-decoration:none;font-size:14px;font-weight:500;opacity:.85}
+  .links a:hover{opacity:1;color:var(--oak)}
+  .btn{display:inline-block;background:var(--oak);color:var(--ink)!important;opacity:1!important;padding:12px 22px;border-radius:4px;font-weight:600;text-decoration:none;font-size:14px;transition:transform .2s,background .2s;border:0;cursor:pointer}
+  .btn:hover{background:#D9A566;transform:translateY(-1px)}
+  .btn.ghost{background:transparent;color:var(--paper)!important;border:1px solid rgba(237,227,211,.4)}
+  .btn.ghost:hover{border-color:var(--oak);color:var(--oak)!important}
+  .burger{display:none;background:none;border:0;color:var(--paper);font-size:26px;cursor:pointer}
+
+  /* hero */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;background:var(--ink);color:var(--paper);overflow:hidden}
+  .grain{position:absolute;inset:0;width:100%;height:100%;opacity:.55}
+  .hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,transparent 0%,rgba(30,24,18,.85) 70%)}
+  .hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center;padding-top:90px;padding-bottom:60px}
+  .eyebrow{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--oak);font-weight:600;margin-bottom:18px}
+  .hero h1{font-size:clamp(42px,6.5vw,78px);font-weight:800;margin-bottom:22px}
+  .hero h1 em{font-style:italic;font-weight:400;color:var(--oak)}
+  .hero p{font-size:18px;max-width:520px;opacity:.8;margin-bottom:32px}
+  .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-logo{width:100%;max-width:380px;justify-self:center;filter:drop-shadow(0 30px 60px rgba(0,0,0,.5));animation:float 8s ease-in-out infinite}
+  @keyframes float{50%{transform:translateY(-10px) rotate(-1deg)}}
+
+  /* strip */
+  .strip{background:var(--oak);color:var(--ink);padding:16px 0;overflow:hidden;white-space:nowrap}
+  .strip div{display:inline-block;animation:marq 30s linear infinite;font-family:Fraunces,serif;font-size:18px;font-weight:600}
+  .strip span{margin:0 26px}
+  @keyframes marq{to{transform:translateX(-50%)}}
+
+  section{padding:100px 0}
+  .head{max-width:640px;margin-bottom:56px}
+  .head h2{font-size:clamp(32px,4.5vw,50px);margin-bottom:14px}
+  .head p{color:var(--muted);font-size:17px}
+
+  /* services */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .card{background:#fff;border:1px solid #E6DCCB;border-radius:6px;padding:32px 28px;transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;left:0;top:0;height:3px;width:0;background:var(--oak);transition:width .4s}
+  .card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(43,36,29,.08)}
+  .card:hover::before{width:100%}
+  .card svg{width:42px;height:42px;stroke:var(--oak2);fill:none;stroke-width:1.6;margin-bottom:18px}
+  .card h3{font-size:22px;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:15px}
+
+  /* about */
+  .about{background:var(--ink);color:var(--paper);position:relative;overflow:hidden}
+  .about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;position:relative;z-index:1}
+  .about h2{font-size:clamp(32px,4.5vw,50px);margin-bottom:20px}
+  .about p{opacity:.78;margin-bottom:16px;font-size:17px}
+  .panel{aspect-ratio:4/5;border-radius:6px;overflow:hidden;position:relative;box-shadow:0 30px 60px rgba(0,0,0,.4)}
+  .panel svg{width:100%;height:100%;display:block}
+  .panel .tag{position:absolute;left:20px;bottom:20px;background:rgba(30,24,18,.85);padding:14px 18px;border-left:3px solid var(--oak)}
+  .panel .tag b{font-family:Fraunces,serif;font-size:20px;display:block}
+  .panel .tag small{font-size:12px;opacity:.7;letter-spacing:.1em;text-transform:uppercase}
+  .stats{display:flex;gap:40px;margin-top:32px;flex-wrap:wrap}
+  .stats b{font-family:Fraunces,serif;font-size:40px;color:var(--oak);display:block;line-height:1}
+  .stats small{font-size:12px;letter-spacing:.15em;text-transform:uppercase;opacity:.65}
+
+  /* woods */
+  .woods{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+  .wood{border-radius:6px;overflow:hidden;background:#fff;border:1px solid #E6DCCB}
+  .wood svg{display:block;width:100%;height:120px}
+  .wood div{padding:12px 14px}
+  .wood b{font-family:Fraunces,serif;font-size:17px}
+  .wood small{display:block;color:var(--muted);font-size:12px}
+
+  /* process */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;counter-reset:s}
+  .step{padding-top:24px;border-top:1px solid #D8CCB8}
+  .step::before{counter-increment:s;content:"0" counter(s);font-family:Fraunces,serif;font-size:44px;color:var(--oak);display:block;line-height:1;margin-bottom:12px}
+  .step h3{font-size:20px;margin-bottom:6px}
+  .step p{color:var(--muted);font-size:15px}
+
+  /* contact */
+  .contact{background:var(--paper)}
+  .contact .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px}
+  .info h2{font-size:clamp(32px,4.5vw,50px);margin-bottom:16px}
+  .info p{color:var(--muted);margin-bottom:28px;font-size:17px}
+  .row{display:flex;gap:14px;align-items:flex-start;margin-bottom:18px}
+  .row svg{flex:none;width:22px;height:22px;stroke:var(--oak2);fill:none;stroke-width:1.8;margin-top:2px}
+  .row b{display:block;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+  .row a,.row span{color:var(--muted);text-decoration:none}
+  .row a:hover{color:var(--oak2)}
+  form{background:#fff;padding:36px;border-radius:6px;box-shadow:0 20px 50px rgba(43,36,29,.08)}
+  label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+  input,select,textarea{width:100%;padding:12px 14px;border:1px solid #DCD0BD;border-radius:4px;font:inherit;font-size:15px;background:#FBF8F3;margin-bottom:16px}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--oak);border-color:transparent}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  form .btn{width:100%;padding:15px;font-size:15px}
+  .note{font-size:12px;color:var(--muted);margin-top:10px;text-align:center}
+  .map{margin-top:24px;border-radius:6px;overflow:hidden;height:220px;border:1px solid #D8CCB8}
+  .map iframe{width:100%;height:100%;border:0}
+
+  footer{background:var(--ink);color:var(--paper);padding:50px 0 30px}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  footer p{font-size:13px;opacity:.55}
+  footer .soc a{display:inline-flex;width:40px;height:40px;border:1px solid rgba(237,227,211,.25);border-radius:50%;align-items:center;justify-content:center;margin-left:8px}
+  footer .soc a:hover{border-color:var(--oak)}
+  footer .soc svg{width:18px;height:18px;fill:var(--paper)}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s}
+  .reveal.in{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .links{display:none;position:absolute;top:72px;left:0;right:0;background:var(--ink);flex-direction:column;padding:24px;gap:18px}
+    .links.open{display:flex}
+    .burger{display:block}
+    .hero .wrap,.about .wrap,.contact .wrap{grid-template-columns:1fr}
+    .hero-logo{max-width:220px;order:-1}
+    .grid{grid-template-columns:1fr 1fr}
+    .woods{grid-template-columns:repeat(3,1fr)}
+    .steps{grid-template-columns:1fr 1fr}
+    section{padding:72px 0}
+  }
+  @media (max-width:560px){
+    .grid,.steps,.two{grid-template-columns:1fr}
+    .woods{grid-template-columns:1fr 1fr}
+    form{padding:24px}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="wg" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".004 .09" numOctaves="4" seed="7"/>
+      <feColorMatrix values="0 0 0 0 .8  0 0 0 0 .55  0 0 0 0 .3  0 0 0 1.4 -.35"/>
+    </filter>
+  </defs>
+</svg>
+
+<nav id="nav">
+  <div class="wrap">
+    <a href="#top" class="brand"><img src="logo.svg" alt=""><span><b>REED</b><small>Custom Woodworks</small></span></a>
+    <button class="burger" aria-label="Menu" onclick="document.querySelector('.links').classList.toggle('open')">☰</button>
+    <div class="links">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#process">Process</a>
+      <a href="#contact" class="btn">Get a Quote</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <svg class="grain" preserveAspectRatio="none" viewBox="0 0 1000 800"><rect width="1000" height="800" filter="url(#wg)"/></svg>
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Henderson · Las Vegas Valley</div>
+      <h1>Built by hand.<br><em>Made to last.</em></h1>
+      <p>Custom furniture, cabinetry and built-ins designed around your space and crafted one piece at a time in Henderson, Nevada.</p>
+      <div class="cta">
+        <a href="#contact" class="btn">Start Your Project</a>
+        <a href="https://www.facebook.com/ReedCustomWoodworks/" target="_blank" rel="noopener" class="btn ghost">See Our Work</a>
+      </div>
+    </div>
+    <img class="hero-logo" src="logo.svg" alt="Reed Custom Woodworks">
+  </div>
+</header>
+
+<div class="strip" aria-hidden="true"><div>
+  <span>Custom Furniture</span>✦<span>Kitchen Cabinets</span>✦<span>Built-ins</span>✦<span>Live-Edge Tables</span>✦<span>Floating Shelves</span>✦<span>Mantels</span>✦<span>Barn Doors</span>✦
+  <span>Custom Furniture</span>✦<span>Kitchen Cabinets</span>✦<span>Built-ins</span>✦<span>Live-Edge Tables</span>✦<span>Floating Shelves</span>✦<span>Mantels</span>✦<span>Barn Doors</span>✦
+</div></div>
+
+<section id="services">
+  <div class="wrap">
+    <div class="head reveal">
+      <div class="eyebrow">What we build</div>
+      <h2>Woodwork made for the way you live</h2>
+      <p>From a single floating shelf to a whole-room build-out, every piece is measured, designed and finished for your home.</p>
+    </div>
+    <div class="grid">
+      <div class="card reveal"><svg viewBox="0 0 48 48"><path d="M6 20h36v6H6zM10 26v16M38 26v16M6 20l4-8h28l4 8"/></svg><h3>Custom Furniture</h3><p>Dining tables, desks, benches, beds and consoles built to your dimensions and style.</p></div>
+      <div class="card reveal"><svg viewBox="0 0 48 48"><rect x="6" y="6" width="36" height="36" rx="1"/><path d="M24 6v36M6 22h36M18 14h2M28 14h2M18 30h2M28 30h2"/></svg><h3>Cabinetry</h3><p>Kitchen, bathroom, laundry and garage cabinets with solid-wood construction.</p></div>
+      <div class="card reveal"><svg viewBox="0 0 48 48"><path d="M6 42V8h36v34M6 18h36M6 30h36M20 8v34"/></svg><h3>Built-ins & Shelving</h3><p>Entertainment walls, bookcases, closets and floating shelves that fit perfectly.</p></div>
+      <div class="card reveal"><svg viewBox="0 0 48 48"><path d="M4 22c6-4 12 2 20-1s14 3 20 0v6c-6 3-12-3-20 0S10 23 4 28z"/><path d="M12 28v14M36 28v14"/></svg><h3>Live-Edge Pieces</h3><p>Slab tables, counters and mantels that celebrate the natural edge of the wood.</p></div>
+      <div class="card reveal"><svg viewBox="0 0 48 48"><path d="M10 4h28v40H10zM10 4l14 20L10 44M38 4L24 24l14 20M4 4h40"/></svg><h3>Doors & Trim</h3><p>Barn doors, wainscoting, beams and finish carpentry to elevate any room.</p></div>
+      <div class="card reveal"><svg viewBox="0 0 48 48"><path d="M8 40l24-24M28 12l8 8 6-6-8-8zM8 40l-4 4M14 34l4 4"/></svg><h3>Repair & Refinish</h3><p>Restoring heirlooms and giving tired pieces new life with a lasting finish.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <svg class="grain" style="position:absolute;inset:0;width:100%;height:100%;opacity:.18" preserveAspectRatio="none" viewBox="0 0 1000 800"><rect width="1000" height="800" filter="url(#wg)"/></svg>
+  <div class="wrap">
+    <div class="panel reveal">
+      <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
+        <defs><filter id="wg2"><feTurbulence type="fractalNoise" baseFrequency=".006 .12" numOctaves="4" seed="3"/><feColorMatrix values="0 0 0 0 .55  0 0 0 0 .34  0 0 0 0 .17  0 0 0 .9 .25"/></filter></defs>
+        <rect width="400" height="500" fill="#7A4A22"/><rect width="400" height="500" filter="url(#wg2)"/>
+        <g fill="none" stroke="#3B2412" opacity=".35"><ellipse cx="260" cy="180" rx="60" ry="22"/><ellipse cx="260" cy="180" rx="38" ry="12"/><ellipse cx="260" cy="180" rx="16" ry="5"/></g>
+        <image href="logo.svg" x="120" y="150" width="160" height="160" opacity=".92"/>
+      </svg>
+      <div class="tag"><b>Every piece, start to finish</b><small>One shop · One craftsman</small></div>
+    </div>
+    <div class="reveal">
+      <div class="eyebrow">About the shop</div>
+      <h2>Local craftsmanship, not mass production</h2>
+      <p>Reed Custom Woodworks is a Henderson-based shop building one-of-a-kind pieces for homes across the Las Vegas valley. No catalogs, no flat-pack. Just quality lumber, careful joinery and finishes that hold up to real life.</p>
+      <p>You work directly with the builder from the first sketch to install day, so every detail is exactly how you pictured it.</p>
+      <div class="stats">
+        <div><b>100%</b><small>Custom built</small></div>
+        <div><b>Local</b><small>Henderson, NV</small></div>
+        <div><b>1:1</b><small>With the maker</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="woods">
+  <div class="wrap">
+    <div class="head reveal">
+      <div class="eyebrow">Materials</div>
+      <h2>Choose your wood</h2>
+      <p>We source quality hardwoods and help you pick the species, stain and finish that suits your space.</p>
+    </div>
+    <div class="woods reveal" id="woodlist"></div>
+  </div>
+</section>
+
+<section id="process" style="background:#fff">
+  <div class="wrap">
+    <div class="head reveal">
+      <div class="eyebrow">How it works</div>
+      <h2>From idea to install</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><h3>Consult</h3><p>Tell us what you need. Share photos, measurements or inspiration and we talk through options.</p></div>
+      <div class="step reveal"><h3>Design & Quote</h3><p>You get a clear design and a straightforward quote with materials and timeline.</p></div>
+      <div class="step reveal"><h3>Build</h3><p>Your piece is crafted by hand in our Henderson shop, with updates along the way.</p></div>
+      <div class="step reveal"><h3>Deliver</h3><p>We deliver and install, making sure everything fits and finishes perfectly.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="info reveal">
+      <div class="eyebrow">Get in touch</div>
+      <h2>Let's build something great</h2>
+      <p>Send a few details about your project and we'll get back to you with ideas and a free estimate.</p>
+      <div class="row"><svg viewBox="0 0 24 24"><path d="M12 22s7-7 7-12a7 7 0 10-14 0c0 5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><div><b>Shop</b><a href="https://maps.google.com/?q=8691+Ivy+Glen+Cir,+Henderson,+NV+89074" target="_blank" rel="noopener">8691 Ivy Glen Cir<br>Henderson, NV 89074</a></div></div>
+      <div class="row"><svg viewBox="0 0 24 24"><path d="M4 4h16v12H8l-4 4z"/></svg><div><b>Message</b><a href="https://m.me/ReedCustomWoodworks" target="_blank" rel="noopener">Chat on Facebook Messenger</a></div></div>
+      <div class="row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b>Service area</b><span>Henderson, Las Vegas, Summerlin, Boulder City</span></div></div>
+      <div class="map"><iframe loading="lazy" title="Map" src="https://www.google.com/maps?q=8691+Ivy+Glen+Cir,+Henderson,+NV+89074&output=embed"></iframe></div>
+    </div>
+    <form class="reveal" id="quote">
+      <div class="two">
+        <div><label for="n">Name</label><input id="n" required placeholder="Your name"></div>
+        <div><label for="p">Phone</label><input id="p" type="tel" placeholder="(702) 555-0123"></div>
+      </div>
+      <label for="e">Email</label><input id="e" type="email" placeholder="you@email.com">
+      <div class="two">
+        <div><label for="t">Project type</label><select id="t"><option>Custom furniture</option><option>Cabinetry</option><option>Built-ins / shelving</option><option>Live-edge piece</option><option>Doors / trim</option><option>Repair / refinish</option><option>Something else</option></select></div>
+        <div><label for="b">Budget</label><select id="b"><option>Not sure yet</option><option>Under $1,000</option><option>$1,000 – $3,000</option><option>$3,000 – $7,500</option><option>$7,500+</option></select></div>
+      </div>
+      <label for="m">Tell us about it</label><textarea id="m" rows="5" required placeholder="Size, wood, style, timeline..."></textarea>
+      <button class="btn" type="submit">Request a Free Estimate</button>
+      <div class="note">Your request opens in Messenger so it goes straight to the shop.</div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="#top" class="brand"><img src="logo.svg" alt=""><span><b>REED</b><small>Custom Woodworks</small></span></a>
+    <p>© <span id="y"></span> Reed Custom Woodworks · Henderson, NV</p>
+    <div class="soc"><a href="https://www.facebook.com/ReedCustomWoodworks/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M14 8h3V4h-3c-2.8 0-4 1.7-4 4.3V10H7v4h3v8h4v-8h3l1-4h-4V8.6c0-.4.3-.6.6-.6z"/></svg></a></div>
+  </div>
+</footer>
+
+<script>
+  const nav=document.getElementById('nav');
+  const onScroll=()=>nav.classList.toggle('solid',scrollY>40);
+  addEventListener('scroll',onScroll);onScroll();
+  document.querySelectorAll('.links a').forEach(a=>a.addEventListener('click',()=>document.querySelector('.links').classList.remove('open')));
+  document.getElementById('y').textContent=new Date().getFullYear();
+
+  const woods=[['White Oak','#C9A57A','Strong, timeless grain'],['Walnut','#5B3A26','Rich and dark'],['Maple','#E3C9A0','Clean and bright'],['Cherry','#A2553A','Warms with age'],['Hickory','#B98A5A','Rustic and tough']];
+  document.getElementById('woodlist').innerHTML=woods.map(([n,c,d],i)=>`<div class="wood"><svg viewBox="0 0 200 120" preserveAspectRatio="none"><filter id="w${i}"><feTurbulence type="fractalNoise" baseFrequency=".005 .14" numOctaves="4" seed="${i*5+2}"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 -.1"/></filter><rect width="200" height="120" fill="${c}"/><rect width="200" height="120" filter="url(#w${i})"/></svg><div><b>${n}</b><small>${d}</small></div></div>`).join('');
+
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  document.getElementById('quote').addEventListener('submit',ev=>{
+    ev.preventDefault();
+    const v=id=>document.getElementById(id).value.trim();
+    const msg=`Hi Reed Custom Woodworks! I'd like an estimate.\nName: ${v('n')}\nPhone: ${v('p')}\nEmail: ${v('e')}\nProject: ${v('t')}\nBudget: ${v('b')}\n\n${v('m')}`;
+    try{navigator.clipboard.writeText(msg)}catch(e){}
+    window.open('https://m.me/ReedCustomWoodworks?text='+encodeURIComponent(msg),'_blank');
+  });
+</script>
+</body>
+</html>
