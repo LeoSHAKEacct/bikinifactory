@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Luxury Auto Tri-State</title>
+<meta name="description" content="Quality used cars and SUVs at 809 Broadway, Newark, NJ. Browse the inventory and message us on WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f5f2; --surface:#ffffff; --ink:#15161a; --muted:#5d6068; --line:#e3e1dc;
+  --gold:#c9a227; --gold-ink:#7a5f0a; --dark:#101114; --wa:#1fa855;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d0e11; --surface:#17191e; --ink:#f1f0ec; --muted:#a3a6ad; --line:#2a2d34;
+    --gold:#d8b23a; --gold-ink:#e7c95c; --dark:#07080a; --wa:#25c064;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d0e11; --surface:#17191e; --ink:#f1f0ec; --muted:#a3a6ad; --line:#2a2d34;
+  --gold:#d8b23a; --gold-ink:#e7c95c; --dark:#07080a; --wa:#25c064;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+h1,h2,h3,.brand{font-family:Oswald,Impact,sans-serif;letter-spacing:.02em;text-transform:uppercase}
+
+/* header */
+header{position:sticky;top:0;z-index:10;background:var(--dark);color:#fff;border-bottom:3px solid var(--gold)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;text-decoration:none}
+.brand small{display:block;font-size:11px;letter-spacing:.3em;color:var(--gold);font-weight:500}
+.shield{width:34px;height:38px;flex:none}
+nav{display:flex;gap:18px;font-size:14px}
+nav a{text-decoration:none;opacity:.85}
+nav a:hover{opacity:1;color:var(--gold)}
+@media (max-width:720px){nav{display:none}}
+
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:10px 18px;font:600 14px Inter,sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn-wa{background:var(--wa);color:#fff}
+.btn-wa:hover{filter:brightness(1.08)}
+.btn-ghost{background:transparent;color:inherit;border:1.5px solid currentColor}
+.wa-ico{width:18px;height:18px;flex:none}
+
+/* hero */
+.hero{background:radial-gradient(1200px 400px at 80% -10%,rgba(201,162,39,.35),transparent 60%),var(--dark);color:#fff;padding:64px 0 56px}
+.hero h1{font-size:clamp(36px,6vw,64px);line-height:1.02;margin:0 0 14px}
+.hero h1 span{color:var(--gold)}
+.hero p{max-width:560px;color:#cfd1d6;margin:0 0 26px;font-size:17px}
+.hero .cta{display:flex;flex-wrap:wrap;gap:12px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px;font-size:13px;color:#cfd1d6}
+.chips span{border:1px solid #33363d;border-radius:999px;padding:6px 12px}
+
+/* catalogue */
+section{padding:48px 0}
+.sec-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px;margin-bottom:22px}
+.sec-head h2{font-size:32px;margin:0}
+.sec-head p{margin:4px 0 0;color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.filters input{min-width:0;flex:1 1 200px;padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit}
+.pill{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 14px;font:500 14px Inter,sans-serif;cursor:pointer}
+.pill[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.12)}
+.pic{position:relative;aspect-ratio:16/10;display:grid;place-items:center;background:linear-gradient(180deg,#e9e7e2,#d7d4cd)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pic{background:linear-gradient(180deg,#23262d,#1a1c21)}}
+:root[data-theme="dark"] .pic{background:linear-gradient(180deg,#23262d,#1a1c21)}
+.pic svg{width:82%;height:auto}
+.tag{position:absolute;top:10px;left:10px;background:var(--dark);color:var(--gold);font:600 11px Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:4px 8px;border-radius:6px}
+.body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.body h3{font-size:20px;margin:0}
+.meta{color:var(--muted);font-size:14px;display:flex;gap:8px;flex-wrap:wrap}
+.meta b{font-weight:500}
+.dot{width:12px;height:12px;border-radius:50%;display:inline-block;vertical-align:-1px;border:1px solid rgba(0,0,0,.2);margin-right:4px}
+.price{margin-top:auto;padding-top:10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.price span{font:600 15px Inter,sans-serif;color:var(--gold-ink)}
+.price .btn{padding:8px 14px;font-size:13px}
+.empty{display:none;text-align:center;color:var(--muted);padding:40px 0}
+
+/* why */
+.why{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.feat div{padding:18px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.feat h3{font-size:18px;margin:0 0 6px;color:var(--gold-ink)}
+.feat p{margin:0;color:var(--muted);font-size:15px}
+
+/* visit */
+.visit{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
+@media (max-width:820px){.visit{grid-template-columns:1fr}}
+.info{background:var(--dark);color:#fff;border-radius:14px;padding:28px}
+.info h2{margin:0 0 16px;font-size:30px}
+.info dl{margin:0 0 22px;display:grid;grid-template-columns:auto 1fr;gap:10px 16px}
+.info dt{color:var(--gold);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.08em;padding-top:2px}
+.info dd{margin:0}
+.info a{text-decoration:none}
+.map{border-radius:14px;overflow:hidden;border:1px solid var(--line);min-height:320px;background:var(--surface)}
+.map iframe{width:100%;height:100%;min-height:320px;border:0;display:block}
+
+footer{padding:26px 0 90px;color:var(--muted);font-size:13px;text-align:center}
+footer a{color:var(--gold-ink)}
+
+.fab{position:fixed;right:16px;bottom:16px;z-index:20;width:58px;height:58px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.fab svg{width:30px;height:30px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <svg class="shield" viewBox="0 0 34 38" aria-hidden="true"><path d="M17 1 32 6v12c0 9-6.5 15.5-15 19C8.5 33.5 2 27 2 18V6z" fill="#101114" stroke="#c9a227" stroke-width="2"/><path d="m17 9 2 4.3 4.7.5-3.5 3.2 1 4.6-4.2-2.4-4.2 2.4 1-4.6-3.5-3.2 4.7-.5z" fill="#c9a227"/></svg>
+      <span>Luxury Auto<small>Tri-State</small></span>
+    </a>
+    <nav><a href="#inventory">Inventory</a><a href="#why">Why us</a><a href="#visit">Visit</a></nav>
+    <a class="btn btn-wa js-wa" data-msg="Hi Luxury Auto Tri-State! I'd like to know more about your inventory." href="#"><svg class="wa-ico" viewBox="0 0 24 24" fill="#fff"><use href="#wa"/></svg>WhatsApp</a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <h1>Drive home <span>today.</span><br>Quality used cars in Newark.</h1>
+      <p>Hand-picked sedans and SUVs from Honda, Jeep, Hyundai, Kia, Chevrolet, Ford, Infiniti and more. Browse the lot below and message us on WhatsApp — we answer fast.</p>
+      <div class="cta">
+        <a class="btn btn-wa js-wa" data-msg="Hi! I'm interested in a car. What do you have available?" href="#"><svg class="wa-ico" viewBox="0 0 24 24" fill="#fff"><use href="#wa"/></svg>Chat on WhatsApp</a>
+        <a class="btn btn-ghost" href="#inventory">See inventory</a>
+      </div>
+      <div class="chips"><span>809 Broadway, Newark NJ</span><span>Open Mon – Sat</span><span>(973) 609-9171</span></div>
+    </div>
+  </div>
+
+  <section id="inventory">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2>Inventory</h2><p><span id="count"></span> vehicles on the lot · inventory changes weekly</p></div>
+        <div class="filters" role="group" aria-label="Filter inventory">
+          <input id="q" type="search" placeholder="Search make or model…" aria-label="Search">
+          <button class="pill" data-type="all" aria-pressed="true">All</button>
+          <button class="pill" data-type="SUV" aria-pressed="false">SUVs</button>
+          <button class="pill" data-type="Sedan" aria-pressed="false">Sedans</button>
+        </div>
+      </div>
+      <div class="grid" id="grid"></div>
+      <p class="empty" id="empty">No matches — <a class="js-wa" data-msg="Hi! I'm looking for a specific car, can you help?" href="#">ask us on WhatsApp</a>, we may have it coming in.</p>
+    </div>
+  </section>
+
+  <section id="why" class="why">
+    <div class="wrap">
+      <div class="sec-head"><div><h2>Why Luxury Auto</h2><p>Straightforward car buying, the way it should be.</p></div></div>
+      <div class="feat">
+        <div><h3>Real inventory</h3><p>The cars you see here are on our lot in Newark. Come see them in person.</p></div>
+        <div><h3>Test drives</h3><p>Send us a message to book a time and take the car for a spin before you buy.</p></div>
+        <div><h3>Fast answers</h3><p>Message us on WhatsApp for photos, videos, price and availability on any car.</p></div>
+        <div><h3>Happy customers</h3><p>Check our Instagram for real deliveries and testimonials from Newark and the Tri-State.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="visit">
+    <div class="wrap visit">
+      <div class="info">
+        <h2>Come visit us!</h2>
+        <dl>
+          <dt>Address</dt><dd><a href="https://maps.google.com/?q=809+Broadway,+Newark,+NJ+07104" target="_blank" rel="noopener">809 Broadway<br>Newark, NJ 07104</a></dd>
+          <dt>Phone</dt><dd><a class="js-tel" href="#"></a></dd>
+          <dt>Hours</dt><dd>Monday – Saturday<br>Sunday: closed</dd>
+          <dt>Social</dt><dd><a href="https://www.instagram.com/luxuryautotristate/" target="_blank" rel="noopener">@luxuryautotristate</a></dd>
+        </dl>
+        <a class="btn btn-wa js-wa" data-msg="Hi! I'd like to schedule a visit / test drive." href="#"><svg class="wa-ico" viewBox="0 0 24 24" fill="#fff"><use href="#wa"/></svg>Book a test drive</a>
+      </div>
+      <div class="map"><iframe title="Map to 809 Broadway, Newark NJ" loading="lazy" src="https://maps.google.com/maps?q=809%20Broadway%2C%20Newark%2C%20NJ%2007104&z=15&output=embed"></iframe></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  © <span id="yr"></span> Luxury Auto Tri-State LLC · 809 Broadway, Newark, NJ 07104 · <a href="https://www.instagram.com/luxuryautotristate/" target="_blank" rel="noopener">Instagram</a>
+</footer>
+
+<a class="fab js-wa" data-msg="Hi Luxury Auto Tri-State!" href="#" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24" fill="#fff"><use href="#wa"/></svg></a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.8 14.02c-.24.68-1.42 1.3-1.96 1.35-.5.05-.97.23-3.28-.68-2.78-1.1-4.54-3.94-4.68-4.12-.13-.18-1.1-1.47-1.1-2.8 0-1.33.7-1.99.95-2.26.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.47.24.56.8 1.94.87 2.08.07.14.12.3.02.48-.1.18-.14.3-.28.46-.14.16-.29.36-.42.48-.14.14-.28.29-.12.56.16.27.72 1.19 1.55 1.93 1.07.95 1.97 1.25 2.24 1.39.27.14.43.12.59-.07.16-.18.68-.8.86-1.07.18-.27.36-.23.61-.14.25.09 1.58.75 1.85.88.27.14.45.2.52.32.07.11.07.66-.17 1.33z"/></symbol>
+</svg>
+
+<script>
+/* ===== Edit these two lines to update contact info ===== */
+const WHATSAPP = "19736099171";          // country code + number, digits only
+const PHONE_DISPLAY = "(973) 609-9171";
+
+/* ===== Inventory — edit freely. price: "" shows "Call for price" ===== */
+const CARS = [
+  {make:"Honda",     model:"Accord",          type:"Sedan", color:"Burgundy", hex:"#6b1f2a", price:""},
+  {make:"Jeep",      model:"Grand Cherokee",  type:"SUV",   color:"Red",      hex:"#9e1b24", price:""},
+  {make:"Honda",     model:"CR-V",            type:"SUV",   color:"Blue",     hex:"#23386b", price:""},
+  {make:"Jeep",      model:"Grand Cherokee",  type:"SUV",   color:"White",    hex:"#f2f2ef", price:""},
+  {make:"Ford",      model:"Fusion",          type:"Sedan", color:"Silver",   hex:"#b8bec6", price:""},
+  {make:"Chevrolet", model:"Cruze",           type:"Sedan", color:"Black",    hex:"#1d1f24", price:""},
+  {make:"Kia",       model:"Sorento",         type:"SUV",   color:"White",    hex:"#f2f2ef", price:""},
+  {make:"Infiniti",  model:"FX",              type:"SUV",   color:"Silver",   hex:"#b8bec6", price:""},
+  {make:"Jeep",      model:"Cherokee",        type:"SUV",   color:"Silver",   hex:"#a9aeb5", price:""},
+  {make:"Hyundai",   model:"Sonata",          type:"Sedan", color:"Red",      hex:"#a3161f", price:""},
+  {make:"Hyundai",   model:"Elantra",         type:"Sedan", color:"Grey",     hex:"#4a4f57", price:""},
+  {make:"Hyundai",   model:"Santa Fe",        type:"SUV",   color:"Dark Grey",hex:"#383c43", price:""},
+  {make:"Hyundai",   model:"Santa Fe Sport",  type:"SUV",   color:"Grey",     hex:"#4d5259", price:""},
+  {make:"Infiniti",  model:"G37",             type:"Sedan", color:"White",    hex:"#f2f2ef", price:""},
+];
+
+const waLink = msg => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+
+const sedan = c => `<svg viewBox="0 0 220 90" aria-hidden="true"><ellipse cx="110" cy="80" rx="96" ry="6" fill="rgba(0,0,0,.18)"/><path d="M12 62c0-9 5-14 16-16l30-5 26-17c6-4 12-5 20-5h36c9 0 15 3 21 8l18 15 22 4c9 2 14 7 14 14v6c0 3-2 5-5 5H17c-3 0-5-2-5-5z" fill="${c}" stroke="rgba(0,0,0,.35)" stroke-width="1.5"/><path d="M66 41l22-14c4-3 9-4 15-4h13v18zM123 23h19c7 0 11 2 16 6l14 12h-49z" fill="#2b3340" opacity=".85"/><circle cx="55" cy="72" r="13" fill="#15161a"/><circle cx="55" cy="72" r="6" fill="#9aa0a8"/><circle cx="168" cy="72" r="13" fill="#15161a"/><circle cx="168" cy="72" r="6" fill="#9aa0a8"/><rect x="198" y="52" width="10" height="5" rx="2" fill="#ffd66b"/></svg>`;
+const suv = c => `<svg viewBox="0 0 220 96" aria-hidden="true"><ellipse cx="110" cy="86" rx="98" ry="6" fill="rgba(0,0,0,.18)"/><path d="M10 66c0-9 4-15 14-17l24-4 18-24c4-5 9-7 16-7h66c7 0 12 2 17 7l20 22 20 3c8 1 13 7 13 14v10c0 3-2 5-5 5H15c-3 0-5-2-5-5z" fill="${c}" stroke="rgba(0,0,0,.35)" stroke-width="1.5"/><path d="M56 44l15-21c3-4 6-5 11-5h28v26zM117 18h30c5 0 9 2 12 5l18 21h-60z" fill="#2b3340" opacity=".85"/><rect x="72" y="8" width="90" height="4" rx="2" fill="#2b2e35"/><circle cx="54" cy="76" r="14" fill="#15161a"/><circle cx="54" cy="76" r="6.5" fill="#9aa0a8"/><circle cx="168" cy="76" r="14" fill="#15161a"/><circle cx="168" cy="76" r="6.5" fill="#9aa0a8"/><rect x="198" y="56" width="10" height="6" rx="2" fill="#ffd66b"/></svg>`;
+
+const grid = document.getElementById("grid");
+grid.innerHTML = CARS.map(car => {
+  const name = `${car.make} ${car.model}`;
+  const msg = `Hi! Is the ${car.color.toLowerCase()} ${name} still available? What's the price?`;
+  return `<article class="card" data-type="${car.type}" data-search="${(name+" "+car.color+" "+car.type).toLowerCase()}">
+    <div class="pic"><span class="tag">${car.type}</span>${car.type==="SUV"?suv(car.hex):sedan(car.hex)}</div>
+    <div class="body">
+      <h3>${name}</h3>
+      <div class="meta"><span><i class="dot" style="background:${car.hex}"></i><b>${car.color}</b></span><span>· Pre-owned</span></div>
+      <div class="price"><span>${car.price || "Call for price"}</span>
+        <a class="btn btn-wa" target="_blank" rel="noopener" href="${waLink(msg)}"><svg class="wa-ico" viewBox="0 0 24 24" fill="#fff"><use href="#wa"/></svg>Ask</a></div>
+    </div></article>`;
+}).join("");
+
+document.querySelectorAll(".js-wa").forEach(a => { a.href = waLink(a.dataset.msg || "Hi!"); a.target = "_blank"; a.rel = "noopener"; });
+document.querySelectorAll(".js-tel").forEach(a => { a.href = "tel:+" + WHATSAPP; a.textContent = PHONE_DISPLAY; });
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+let type = "all";
+const q = document.getElementById("q");
+function apply(){
+  const term = q.value.trim().toLowerCase();
+  let n = 0;
+  grid.querySelectorAll(".card").forEach(el => {
+    const ok = (type==="all" || el.dataset.type===type) && (!term || el.dataset.search.includes(term));
+    el.style.display = ok ? "" : "none"; if (ok) n++;
+  });
+  document.getElementById("count").textContent = n;
+  document.getElementById("empty").style.display = n ? "none" : "block";
+}
+document.querySelectorAll(".pill").forEach(b => b.addEventListener("click", () => {
+  type = b.dataset.type;
+  document.querySelectorAll(".pill").forEach(p => p.setAttribute("aria-pressed", p===b));
+  apply();
+}));
+q.addEventListener("input", apply);
+apply();
+</script>
+</body>
+</html>
