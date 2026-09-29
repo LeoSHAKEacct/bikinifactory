@@ -56,8 +56,8 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:7
 .hero-card .cap b{display:block;color:var(--text);font:600 15px "Space Grotesk"}
 @media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-card{justify-self:start;width:220px;margin-top:10px;transform:none;animation:none}}
 /* stylized portrait */
-.photo{position:absolute;inset:0;background-size:cover;background-position:center 20%;filter:grayscale(1) contrast(1.25) brightness(.95)}
-.photo-tint{position:absolute;inset:0;background:linear-gradient(160deg,rgba(243,220,164,.55),rgba(216,180,106,.25) 40%,rgba(10,20,40,.7));mix-blend-mode:color}
+.photo{position:absolute;inset:0;background-size:cover;background-position:center;filter:saturate(.75) contrast(1.12) brightness(.97)}
+.photo-tint{position:absolute;inset:0;background:linear-gradient(160deg,rgba(243,220,164,.55),rgba(216,180,106,.25) 40%,rgba(10,20,40,.7));mix-blend-mode:soft-light}
 .photo-glow{position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(5,7,12,.85)),radial-gradient(circle at 30% 20%,rgba(79,216,255,.18),transparent 50%)}
 .photo-lines{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px);pointer-events:none}
 /* gallery */
@@ -107,7 +107,7 @@ section{padding:120px 0;position:relative}
 
 /* about */
 .about{display:grid;grid-template-columns:1fr 1.1fr;gap:70px;align-items:center}
-.portrait{position:relative;aspect-ratio:4/5;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(160deg,#1a1f2c,#07090f)}
+.portrait{position:relative;aspect-ratio:620/525;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(160deg,#1a1f2c,#07090f)}
 .portrait .mono{position:absolute;inset:0;display:grid;place-items:center;font:700 min(34vw,190px) "Space Grotesk";color:transparent;-webkit-text-stroke:1px rgba(216,180,106,.45)}
 .portrait .scan{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 20px var(--cyan);animation:scan 4s ease-in-out infinite}
 @keyframes scan{0%,100%{top:8%}50%{top:92%}}
