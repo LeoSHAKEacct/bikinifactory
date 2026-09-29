@@ -57,7 +57,9 @@ header.scrolled{background:rgba(7,8,11,.85);backdrop-filter:blur(14px);border-co
 /* hero */
 .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;overflow:hidden;isolation:isolate}
 .bronx{position:absolute;inset:0;z-index:-2}
-.bronx svg{width:100%;height:100%}
+.bronx{background:#111}
+.slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.08);transition:opacity 1.6s ease,transform 7s ease-out}
+.slide.on{opacity:1;transform:scale(1)}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:
   linear-gradient(90deg,rgba(7,8,11,.92) 0%,rgba(7,8,11,.55) 50%,rgba(7,8,11,.05) 100%),
   linear-gradient(0deg,var(--bg) 0%,transparent 30%)}
@@ -126,13 +128,8 @@ section{padding:110px 0;position:relative}
   linear-gradient(155deg,rgba(0,0,0,.35) 23px,transparent 23px);
   background-size:auto,58px 58px,58px 58px,58px 58px,58px 58px;
   background-position:0 0,0 2px,4px 35px,29px 31px,34px 6px}
-.brick-real{background-color:#3b1a13;background-image:
-  linear-gradient(rgba(7,8,11,.76),rgba(7,8,11,.86)),
-  linear-gradient(90deg,#1c0c08 2px,transparent 2px),
-  linear-gradient(#1c0c08 2px,transparent 2px),
-  linear-gradient(90deg,#1c0c08 2px,transparent 2px);
-  background-size:auto,64px 52px,64px 26px,64px 52px;
-  background-position:0 0,0 0,0 0,32px 26px}
+.brick-real{background:linear-gradient(rgba(7,8,11,.84),rgba(7,8,11,.9)),url('https://commons.wikimedia.org/wiki/Special:FilePath/Graffiti_on_a_Brick_Wall.jpg?width=1920') center/cover fixed #2a130e}
+@media (max-width:980px){.brick-real{background-attachment:scroll}}
 .why{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
 .why-card{padding:30px 24px;border-radius:var(--radius);background:rgba(13,15,20,.8);border:1px solid var(--line);backdrop-filter:blur(4px)}
 .why-card .ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:rgba(227,181,74,.12);color:var(--gold);margin-bottom:18px}
@@ -225,7 +222,8 @@ footer{border-top:1px solid var(--line);padding:50px 0 110px;color:var(--muted);
   .bigcta{padding:50px 20px}
 }
 @media (prefers-reduced-motion:reduce){
-  .train,.ticker-track,.neon,.fab.wa::after{animation:none}
+  .ticker-track,.fab.wa::after{animation:none}
+  .slide{transition:none}
   .reveal{opacity:1;transform:none}
 }
 </style>
@@ -285,7 +283,7 @@ footer{border-top:1px solid var(--line);padding:50px 0 110px;color:var(--muted);
 
 <!-- ============ Hero ============ -->
 <section class="hero" style="padding:0">
-  <div class="bronx" data-bronx="hero"></div>
+  <div class="bronx slides" id="heroSlides"><div class="slide on" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Burnside_Avenue_Station_on_the_4_Train.JPG?width=1920')"></div><div class="slide" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/The_Bronx_Graffiti.jpg?width=1920')"></div><div class="slide" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Yankee_stadium_exterior.jpg?width=1920')"></div><div class="slide" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/New_York_City_Skyline_at_night.jpg?width=1920')"></div></div>
   <div class="wrap">
     <div class="hero-inner">
       <span class="eyebrow">The Bronx · New York City</span>
@@ -437,7 +435,7 @@ footer{border-top:1px solid var(--line);padding:50px 0 110px;color:var(--muted);
 <section style="padding-top:40px">
   <div class="wrap">
     <div class="bigcta reveal">
-      <div class="bronx" data-bronx="cta"></div>
+      <div class="bronx"><div class="slide on" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Manhattan_Skyline_night.jpg?width=1920')"></div></div>
       <span class="tag" style="font-size:1.6rem;display:block;margin-bottom:10px;transform:rotate(-2deg)">Your dream ride is waiting</span>
       <h2>Come Through <span class="gold">the BX</span></h2>
       <p>Luxury Dreams Auto Group — quality cars, real deals, Bronx love.</p>
@@ -452,7 +450,7 @@ footer{border-top:1px solid var(--line);padding:50px 0 110px;color:var(--muted);
 <footer>
   <div class="wrap foot">
     <a href="#top" class="logo"><div class="logo-mark">LD</div><div class="logo-text"><b>LUXURY DREAMS</b><span>Auto Group · Bronx</span></div></a>
-    <div>© <span id="yr"></span> Luxury Dreams Auto Group · Bronx, NY · <a href="tel:+13476811500" style="color:var(--gold)">+1 347 681 1500</a></div>
+    <div>© <span id="yr"></span> Luxury Dreams Auto Group · Bronx, NY · <a href="tel:+13476811500" style="color:var(--gold)">+1 347 681 1500</a><br><small style="opacity:.6">NYC photos via <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</small></div>
   </div>
 </footer>
 
@@ -464,91 +462,10 @@ footer{border-top:1px solid var(--line);padding:50px 0 110px;color:var(--muted);
 <script>
 const PHONE = "13476811500";
 
-/* ---------- Bronx night scene (SVG) ---------- */
-function rng(seed){return()=>{seed=(seed*16807)%2147483647;return(seed-1)/2147483646}}
-function bronxScene(seed){
-  const r = rng(seed), W = 1600, H = 900;
-  let s = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="sky${seed}" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#05060a"/><stop offset=".55" stop-color="#1a1426"/><stop offset=".8" stop-color="#4a2530"/><stop offset="1" stop-color="#8a4a2e"/>
-    </linearGradient>
-    <radialGradient id="glow${seed}" cx=".7" cy=".75" r=".6"><stop offset="0" stop-color="#e3b54a" stop-opacity=".35"/><stop offset="1" stop-color="#e3b54a" stop-opacity="0"/></radialGradient>
-    <linearGradient id="street${seed}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#15161b"/><stop offset="1" stop-color="#07080b"/></linearGradient>
-    <pattern id="bricks${seed}" width="24" height="12" patternUnits="userSpaceOnUse"><rect width="24" height="12" fill="#5a2418"/><path d="M0 0h24M0 6h24M12 0v6M0 6v6M24 6v6" stroke="#2c100a" stroke-width="1"/></pattern>
-  </defs>
-  <rect width="${W}" height="${H}" fill="url(#sky${seed})"/>
-  <rect width="${W}" height="${H}" fill="url(#glow${seed})"/>`;
-  // stars
-  for(let i=0;i<70;i++) s+=`<circle cx="${r()*W}" cy="${r()*330}" r="${r()*1.3+.3}" fill="#fff" opacity="${r()*.6+.2}"/>`;
-  // moon
-  s+=`<circle cx="1260" cy="150" r="46" fill="#f5e7c4" opacity=".9"/><circle cx="1276" cy="140" r="46" fill="#1a1426" opacity=".55"/>`;
-  // far skyline (Manhattan in the distance)
-  s+=`<g fill="#1b1a26">`;
-  let x=0; while(x<W){const w=30+r()*60,h=120+r()*260;s+=`<rect x="${x}" y="${600-h}" width="${w}" height="${h+10}"/>`;
-    if(r()>.85) s+=`<rect x="${x+w/2-2}" y="${600-h-40}" width="4" height="40"/>`; x+=w+2;}
-  // Empire-state-ish + Chrysler-ish
-  s+=`<path d="M300 600V300h16v-30h8v-40h6v-60h4v60h6v40h8v30h16v300z"/><path d="M560 600V320h40v-40l-20-60-20 60v40z"/>`;
-  s+=`</g>`;
-  for(let i=0;i<180;i++) s+=`<rect x="${r()*W}" y="${320+r()*270}" width="2" height="3" fill="#f3d58a" opacity="${r()*.5+.15}"/>`;
-  // Yankee Stadium lights glow
-  s+=`<g opacity=".9"><ellipse cx="1060" cy="600" rx="220" ry="40" fill="#fff4d0" opacity=".08"/>
-    <path d="M900 560h320l-20 40H920z" fill="#262532"/>`;
-  for(let i=0;i<6;i++){const lx=910+i*60;s+=`<rect x="${lx}" y="470" width="4" height="90" fill="#2d2c3a"/><rect x="${lx-12}" y="462" width="28" height="10" fill="#fffbe8"/><ellipse cx="${lx+2}" cy="470" rx="40" ry="22" fill="#fffbe8" opacity=".08"/>`;}
-  s+=`</g>`;
-  // mid tenements (brick w/ fire escapes)
-  x=-20; while(x<W+40){
-    const w=150+r()*130, h=240+r()*170, y=780-h;
-    s+=`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#bricks${seed})"/><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#000" opacity="${.35+r()*.25}"/>`;
-    s+=`<rect x="${x-4}" y="${y-10}" width="${w+8}" height="12" fill="#2a0f09"/>`;
-    const cols=Math.floor(w/38), rows=Math.floor(h/56);
-    for(let c=0;c<cols;c++)for(let rr=0;rr<rows-1;rr++){
-      const wx=x+14+c*38, wy=y+18+rr*56, lit=r();
-      const col = lit>.72?'#ffd27a':lit>.62?'#8fc9ff':'#120a08';
-      s+=`<rect x="${wx}" y="${wy}" width="18" height="28" fill="${col}" opacity="${lit>.62?.9:1}"/><rect x="${wx-2}" y="${wy+28}" width="22" height="3" fill="#8a7a6a" opacity=".5"/>`;
-    }
-    // fire escape
-    const fx=x+w*.25, fw=w*.5;
-    for(let rr=1;rr<rows-1;rr++){const fy=y+rr*56+12;
-      s+=`<g stroke="#0a0a0a" stroke-width="2" fill="none"><path d="M${fx} ${fy}h${fw}"/><path d="M${fx} ${fy-12}h${fw}"/>`;
-      for(let k=0;k<=fw;k+=8)s+=`<path d="M${fx+k} ${fy-12}v12"/>`;
-      s+=`<path d="M${fx+fw*.2} ${fy}l${fw*.5} -44"/></g>`;}
-    // water tower
-    if(r()>.6){const tx=x+w*.6;s+=`<g fill="#1a0c08"><path d="M${tx} ${y-10}l6 -30h36l6 30z" opacity=".0"/><rect x="${tx}" y="${y-58}" width="40" height="40" rx="3"/><path d="M${tx-4} ${y-58}l24 -16 24 16z"/><path d="M${tx+4} ${y-18}v10M${tx+36} ${y-18}v10" stroke="#1a0c08" stroke-width="3"/></g>`;}
-    x+=w+(r()*6);
-  }
-  // graffiti on the wall at street level
-  const tags=["BX","LUXURY","DREAMS","718","BRONX"];
-  const gcols=["#e3b54a","#e2372c","#4fd8ff","#ff5fb0","#7bff8a"];
-  for(let i=0;i<7;i++){const t=tags[Math.floor(r()*tags.length)];
-    s+=`<text x="${r()*W}" y="${735+r()*30}" font-family="Permanent Marker, cursive" font-size="${26+r()*22}" fill="${gcols[Math.floor(r()*gcols.length)]}" opacity=".55" transform="rotate(${-8+r()*10} 0 0)" style="transform-box:fill-box;transform-origin:center">${t}</text>`;}
-  // elevated subway (4 train) steel structure
-  s+=`<g fill="#0c0c10"><rect x="0" y="600" width="${W}" height="26"/><rect x="0" y="626" width="${W}" height="6" fill="#1d1d24"/>`;
-  for(let px=40;px<W;px+=140){s+=`<rect x="${px}" y="632" width="14" height="190"/><path d="M${px-30} 632h74l-30 26h-14z" />`;
-    s+=`<path d="M${px+14} 640l126 0" stroke="#0c0c10" stroke-width="4"/><path d="M${px+14} 660l63 -28 63 28" stroke="#15151b" stroke-width="3" fill="none"/>`;}
-  s+=`</g>`;
-  // train
-  s+=`<g class="train">`;
-  for(let c=0;c<5;c++){const cx=c*262;
-    s+=`<rect x="${cx}" y="548" width="256" height="54" rx="6" fill="#aab0bb"/><rect x="${cx}" y="590" width="256" height="6" fill="#6d7380"/>`;
-    for(let w=0;w<7;w++)s+=`<rect x="${cx+14+w*34}" y="558" width="24" height="18" rx="2" fill="#ffe6a6" opacity=".9"/>`;
-    s+=`<rect x="${cx+120}" y="556" width="16" height="34" fill="#5d636e"/>`;}
-  s+=`<circle cx="${5*262-16}" cy="566" r="12" fill="#1f8a3c"/><text x="${5*262-16}" y="572" font-family="Inter,Arial" font-weight="800" font-size="16" fill="#fff" text-anchor="middle">4</text>`;
-  s+=`<rect x="${5*262-10}" y="585" width="8" height="5" fill="#fffbe0"/></g>`;
-  // street
-  s+=`<rect x="0" y="780" width="${W}" height="120" fill="url(#street${seed})"/>`;
-  s+=`<rect x="0" y="778" width="${W}" height="6" fill="#2a2b31"/>`;
-  for(let lx=0;lx<W;lx+=120)s+=`<rect x="${lx}" y="846" width="60" height="4" fill="#e3b54a" opacity=".5"/>`;
-  // street lights + reflections
-  for(let lx=160;lx<W;lx+=360){s+=`<rect x="${lx}" y="660" width="6" height="120" fill="#101014"/><path d="M${lx+3} 660q0 -18 30 -18h14" stroke="#101014" stroke-width="5" fill="none"/><ellipse cx="${lx+46}" cy="646" rx="12" ry="5" fill="#ffd98a"/><path d="M${lx+36} 648l-40 132h100l-40 -132z" fill="#ffd98a" opacity=".07"/><ellipse cx="${lx+46}" cy="820" rx="70" ry="10" fill="#ffd98a" opacity=".12"/>`;}
-  // neon sign
-  s+=`<g class="neon"><rect x="1180" y="690" width="230" height="56" rx="8" fill="#0a0a0e" stroke="#e3b54a" stroke-width="3"/><text x="1295" y="728" text-anchor="middle" font-family="Anton,Impact" font-size="30" fill="#ffd97a" style="filter:drop-shadow(0 0 6px #e3b54a)">AUTO GROUP</text></g>`;
-  // parked car silhouettes
-  s+=`<use href="#car-suv" x="${80}" y="740" width="300" height="112" fill="#050507"/><use href="#car-sedan" x="${760}" y="752" width="280" height="98" fill="#050507"/>`;
-  s+=`</svg>`;
-  return s;
-}
-document.querySelectorAll('[data-bronx]').forEach((el,i)=>el.innerHTML=bronxScene(i?97:42));
+/* ---------- Hero photo slideshow ---------- */
+(()=>{const sl=[...document.querySelectorAll('#heroSlides .slide')];let i=0;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  setInterval(()=>{sl[i].classList.remove('on');i=(i+1)%sl.length;sl[i].classList.add('on')},6000);})();
 
 /* ---------- Inventory ---------- */
 const cars=[
