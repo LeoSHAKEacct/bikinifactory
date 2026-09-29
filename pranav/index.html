@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pranav Sheth — Dubai Real Estate & Development</title>
+<meta name="description" content="Pranav Sheth — Top 1% broker and new developer in Dubai. 1B+ AED closed. Exclusive mandates. Buy, sell, rent and invest in off-plan and development projects across Dubai.">
+<meta name="theme-color" content="#05070c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#05070c; --bg2:#0a0e17; --panel:rgba(255,255,255,.035); --line:rgba(255,255,255,.09);
+  --text:#eef1f7; --muted:#8b93a7; --gold:#d8b46a; --gold2:#f3dca4; --cyan:#4fd8ff;
+  --radius:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.display{font-family:"Space Grotesk",sans-serif;letter-spacing:-.02em;line-height:1.05}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+.gold{background:linear-gradient(100deg,var(--gold2),var(--gold) 45%,#a8823e);-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{font:500 12px/1 "Space Grotesk";letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.eyebrow::before{content:"";display:inline-block;width:28px;height:1px;background:var(--gold);vertical-align:middle;margin-right:12px}
+
+/* nav */
+nav{position:fixed;inset:0 0 auto;z-index:50;transition:.4s}
+nav.scrolled{background:rgba(5,7,12,.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{font:700 18px "Space Grotesk";letter-spacing:.14em}
+.logo span{color:var(--gold)}
+.links{display:flex;gap:32px;font-size:14px;color:var(--muted)}
+.links a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:999px;font:600 14px "Space Grotesk";letter-spacing:.04em;cursor:pointer;border:0;transition:.3s}
+.btn-gold{background:linear-gradient(100deg,var(--gold2),var(--gold));color:#140f05;box-shadow:0 10px 40px -10px rgba(216,180,106,.6)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 16px 50px -10px rgba(216,180,106,.8)}
+.btn-ghost{border:1px solid var(--line);color:var(--text);background:var(--panel)}
+.btn-ghost:hover{border-color:var(--gold)}
+.nav-cta{padding:10px 18px}
+@media(max-width:860px){.links{display:none}}
+
+/* hero */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+#sky{position:absolute;inset:0;width:100%;height:100%}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(216,180,106,.12),transparent 55%),linear-gradient(180deg,transparent 60%,var(--bg));pointer-events:none}
+.grid-floor{position:absolute;left:-50%;right:-50%;bottom:-10%;height:55%;background-image:linear-gradient(rgba(79,216,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(79,216,255,.12) 1px,transparent 1px);background-size:60px 60px;transform:perspective(600px) rotateX(62deg);transform-origin:bottom;mask-image:linear-gradient(to top,#000,transparent 80%);animation:floor 6s linear infinite;pointer-events:none}
+@keyframes floor{to{background-position:0 60px}}
+.hero-inner{position:relative;z-index:2;padding-top:90px}
+.hero h1{font-size:clamp(46px,9vw,124px);font-weight:700;margin:22px 0 18px}
+.hero p.lead{font-size:clamp(17px,2vw,21px);color:#c3c9d6;max-width:620px}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px}
+.typed{color:var(--cyan);font-family:"Space Grotesk";border-right:2px solid var(--cyan);padding-right:4px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{border-color:transparent}}
+.badge{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--panel);font-size:13px;color:#c3c9d6;backdrop-filter:blur(8px)}
+.dot{width:8px;height:8px;border-radius:50%;background:#35e08a;box-shadow:0 0 12px #35e08a;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:2;font-size:11px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:10px}
+.scroll-hint i{width:1px;height:40px;background:linear-gradient(var(--gold),transparent);animation:drop 2s infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* stats */
+.stats{position:relative;z-index:3;margin-top:-70px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:var(--radius);background:rgba(10,14,23,.75);backdrop-filter:blur(16px);overflow:hidden}
+.stat{padding:30px 26px;border-right:1px solid var(--line)}
+.stat:last-child{border:0}
+.stat b{display:block;font:700 clamp(30px,4vw,46px) "Space Grotesk"}
+.stat span{font-size:13px;color:var(--muted);letter-spacing:.04em}
+@media(max-width:760px){.stats-grid{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+section{padding:120px 0;position:relative}
+.sec-head{max-width:720px;margin-bottom:60px}
+.sec-head h2{font-size:clamp(34px,5vw,60px);margin-top:18px}
+.sec-head p{color:var(--muted);margin-top:18px;font-size:17px}
+
+/* about */
+.about{display:grid;grid-template-columns:1fr 1.1fr;gap:70px;align-items:center}
+.portrait{position:relative;aspect-ratio:4/5;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(160deg,#1a1f2c,#07090f)}
+.portrait .mono{position:absolute;inset:0;display:grid;place-items:center;font:700 min(34vw,190px) "Space Grotesk";color:transparent;-webkit-text-stroke:1px rgba(216,180,106,.45)}
+.portrait .scan{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 20px var(--cyan);animation:scan 4s ease-in-out infinite}
+@keyframes scan{0%,100%{top:8%}50%{top:92%}}
+.portrait .tag{position:absolute;left:18px;bottom:18px;right:18px;padding:16px 18px;border-radius:14px;background:rgba(5,7,12,.7);backdrop-filter:blur(10px);border:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.portrait .corner{position:absolute;width:26px;height:26px;border:2px solid var(--gold)}
+.c1{top:14px;left:14px;border-right:0!important;border-bottom:0!important}.c2{top:14px;right:14px;border-left:0!important;border-bottom:0!important}
+.about blockquote{font:500 clamp(22px,2.6vw,30px)/1.3 "Space Grotesk";margin:26px 0;padding-left:22px;border-left:2px solid var(--gold)}
+.about p{color:#b9c0cf;margin-bottom:16px}
+.checks{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
+.checks li{display:flex;gap:10px;font-size:14px;color:#d4d9e3}
+.checks li::before{content:"◆";color:var(--gold);font-size:10px;margin-top:5px}
+@media(max-width:900px){.about{grid-template-columns:1fr;gap:40px}.checks{grid-template-columns:1fr}}
+
+/* services */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{position:relative;padding:34px 30px;border-radius:var(--radius);border:1px solid var(--line);background:var(--panel);overflow:hidden;transition:transform .2s,border-color .3s;transform-style:preserve-3d}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%),rgba(216,180,106,.14),transparent 45%);opacity:0;transition:.3s}
+.card:hover{border-color:rgba(216,180,106,.4)}
+.card:hover::before{opacity:1}
+.card .num{font:500 12px "Space Grotesk";color:var(--muted);letter-spacing:.2em}
+.card svg{width:40px;height:40px;stroke:var(--gold);fill:none;stroke-width:1.4;margin:26px 0 20px}
+.card h3{font-size:24px;margin-bottom:12px}
+.card p{color:var(--muted);font-size:15px}
+@media(max-width:900px){.cards{grid-template-columns:1fr}}
+
+/* process timeline */
+.bg-alt{background:linear-gradient(180deg,var(--bg),var(--bg2) 20%,var(--bg2) 80%,var(--bg))}
+.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative}
+.timeline::before{content:"";position:absolute;top:22px;left:0;right:0;height:1px;background:var(--line)}
+.timeline .bar{position:absolute;top:22px;left:0;height:1px;width:0;background:linear-gradient(90deg,var(--gold),var(--cyan));box-shadow:0 0 12px var(--cyan);transition:width 2.2s cubic-bezier(.2,.8,.2,1)}
+.timeline.in .bar{width:100%}
+.step{padding-right:20px;position:relative}
+.step .node{width:44px;height:44px;border-radius:50%;border:1px solid var(--gold);background:var(--bg2);display:grid;place-items:center;font:600 13px "Space Grotesk";color:var(--gold);position:relative;z-index:2}
+.step h4{font:600 18px "Space Grotesk";margin:22px 0 8px}
+.step p{font-size:14px;color:var(--muted)}
+@media(max-width:900px){.timeline{grid-template-columns:1fr;gap:34px}.timeline::before,.timeline .bar{display:none}}
+
+/* areas marquee */
+.marquee{overflow:hidden;border-block:1px solid var(--line);padding:26px 0;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.marquee .track{display:flex;gap:56px;width:max-content;animation:mq 40s linear infinite}
+.marquee span{font:600 clamp(26px,4vw,44px) "Space Grotesk";color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.25);white-space:nowrap;transition:.3s}
+.marquee span:hover{color:var(--gold);-webkit-text-stroke-color:var(--gold)}
+.marquee em{color:var(--gold);font-style:normal;font-size:24px;align-self:center}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ROI calculator */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:30px;border:1px solid var(--line);border-radius:24px;padding:40px;background:var(--panel)}
+.calc label{display:block;font-size:13px;color:var(--muted);margin:22px 0 10px;display:flex;justify-content:space-between}
+.calc label b{color:var(--text);font:600 15px "Space Grotesk"}
+input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--gold) var(--p,50%),rgba(255,255,255,.12) var(--p,50%));outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--gold2);box-shadow:0 0 0 6px rgba(216,180,106,.2);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border:0;border-radius:50%;background:var(--gold2);cursor:pointer}
+.result{border-radius:18px;padding:30px;background:linear-gradient(160deg,rgba(216,180,106,.12),rgba(79,216,255,.05));border:1px solid rgba(216,180,106,.25);display:flex;flex-direction:column;justify-content:center}
+.result .big{font:700 clamp(36px,5vw,56px) "Space Grotesk"}
+.result .row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--muted)}
+.result .row b{color:var(--text);font-family:"Space Grotesk"}
+.disclaimer{font-size:11px;color:var(--muted);margin-top:16px}
+@media(max-width:860px){.calc{grid-template-columns:1fr;padding:24px}}
+
+/* form */
+.contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:start}
+.contact-info a.line{display:flex;gap:14px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);font-size:15px;transition:.3s}
+.contact-info a.line:hover{color:var(--gold);padding-left:8px}
+.contact-info small{display:block;color:var(--muted);font-size:12px}
+.icon{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);display:grid;place-items:center;flex:none}
+.icon svg{width:18px;height:18px;stroke:var(--gold);fill:none;stroke-width:1.6}
+.form{border:1px solid var(--line);border-radius:24px;padding:36px;background:rgba(10,14,23,.8);position:relative;overflow:hidden}
+.progress{height:3px;background:rgba(255,255,255,.08);border-radius:3px;margin-bottom:30px;overflow:hidden}
+.progress i{display:block;height:100%;width:25%;background:linear-gradient(90deg,var(--gold),var(--cyan));transition:width .5s}
+.stepnum{font:500 12px "Space Grotesk";color:var(--muted);letter-spacing:.2em;margin-bottom:10px}
+.fstep{display:none;animation:fin .5s}
+.fstep.active{display:block}
+@keyframes fin{from{opacity:0;transform:translateX(24px)}}
+.fstep h3{font-size:26px;margin-bottom:24px}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0}
+.chip span{display:block;padding:16px 18px;border-radius:14px;border:1px solid var(--line);background:var(--panel);cursor:pointer;font-size:14px;transition:.25s}
+.chip span small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.chip input:checked+span{border-color:var(--gold);background:rgba(216,180,106,.1);box-shadow:inset 0 0 0 1px var(--gold)}
+.chip input:focus-visible+span{outline:2px solid var(--cyan)}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:8px}
+.field input,.field select,.field textarea{width:100%;padding:15px 16px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text);font:inherit;font-size:15px;transition:.25s}
+.field select option{background:#0a0e17}
+.field input:focus,.field select:focus,.field textarea:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 4px rgba(216,180,106,.12)}
+.field.err input,.field.err select{border-color:#ff6b6b}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-nav{display:flex;justify-content:space-between;align-items:center;margin-top:28px;gap:12px}
+.errmsg{color:#ff8a8a;font-size:13px;min-height:18px;margin-top:10px}
+.done{text-align:center;padding:30px 0}
+.done .ring{width:84px;height:84px;margin:0 auto 24px;border-radius:50%;border:2px solid var(--gold);display:grid;place-items:center;font-size:34px;color:var(--gold);box-shadow:0 0 40px rgba(216,180,106,.35)}
+.done p{color:var(--muted);margin:10px 0 24px}
+@media(max-width:900px){.contact{grid-template-columns:1fr}.form{padding:24px}.chips,.two{grid-template-columns:1fr}}
+
+footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+
+.wa-float{position:fixed;right:20px;bottom:20px;z-index:60;width:58px;height:58px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 10px 30px rgba(37,211,102,.45);transition:.3s}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float svg{width:30px;height:30px;fill:#fff}
+
+.reveal{opacity:0;transform:translateY(40px);transition:1s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+#cursor{position:fixed;width:400px;height:400px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(79,216,255,.06),transparent 60%);transform:translate(-50%,-50%);z-index:1;left:-500px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+
+<nav id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo">PRANAV<span>.</span>SHETH</a>
+    <div class="links">
+      <a href="#about">About</a><a href="#services">Services</a><a href="#process">Process</a><a href="#invest">Invest</a><a href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="btn btn-gold nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="sky"></canvas>
+  <div class="grid-floor"></div>
+  <div class="wrap hero-inner">
+    <span class="badge"><i class="dot"></i> Available 24/7 · Dubai, UAE 🇦🇪</span>
+    <h1>Building<br><span class="gold">Dubai's Skyline.</span></h1>
+    <p class="lead">Top 1% broker &amp; new developer. Exclusive mandates only. I help you <span class="typed" id="typed">buy</span> across Dubai.</p>
+    <div class="ctas">
+      <a href="#contact" class="btn btn-gold">Start Your Project →</a>
+      <a href="https://www.instagram.com/exclusivewithpranav/" target="_blank" rel="noopener" class="btn btn-ghost">Watch on Instagram</a>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll<i></i></div>
+</header>
+
+<div class="wrap stats">
+  <div class="stats-grid reveal">
+    <div class="stat"><b><span class="gold" data-count="1" data-suffix="B+">0</span></b><span>AED in deals closed</span></div>
+    <div class="stat"><b><span data-count="1" data-prefix="Top " data-suffix="%">0</span></b><span>Broker in Dubai</span></div>
+    <div class="stat"><b><span data-count="7600" data-suffix="+">0</span></b><span>Community on Instagram</span></div>
+    <div class="stat"><b><span data-count="24" data-suffix="/7">0</span></b><span>Always open</span></div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap about">
+    <div class="portrait reveal" id="tilt">
+      <div class="mono">PS</div>
+      <div class="scan"></div>
+      <div class="corner c1"></div><div class="corner c2"></div>
+      <div class="tag"><span><b>Pranav Sheth</b><br><small style="color:var(--muted)">Broker · Developer</small></span><span class="gold" style="font:600 13px 'Space Grotesk'">VERIFIED ✦</span></div>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">About</span>
+      <blockquote>“You <span class="gold">ARE</span> allowed to rebuild your life at any age. Nothing is final.”</blockquote>
+      <p>I'm Pranav Sheth — a Dubai real estate broker turned developer. Over <b>1 billion AED</b> in transactions closed, working exclusively on mandates where I can deliver real results for my clients.</p>
+      <p>When you see me on site, it's because I'm building what I promised. From ground-breaking to handover, I stay hands-on so investors and end-users get exactly what they were sold.</p>
+      <ul class="checks">
+        <li>Exclusive mandates only</li><li>Off-plan &amp; new developments</li>
+        <li>Buy · Sell · Rent all over Dubai</li><li>On-site construction oversight</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="marquee"><div class="track" id="mq"></div></div>
+
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">What I Do</span>
+      <h2>From blueprint to <span class="gold">handover.</span></h2>
+      <p>A single point of contact for every stage of your Dubai property journey.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal"><span class="num">01</span>
+        <svg viewBox="0 0 40 40"><path d="M4 36h32M8 36V14l8-6v28M16 36V4l10 6v26M26 36V18h8v18"/></svg>
+        <h3>Project Development</h3><p>New developments from land to launch — feasibility, design partners, construction and sales strategy.</p></div>
+      <div class="card reveal"><span class="num">02</span>
+        <svg viewBox="0 0 40 40"><path d="M20 4l16 8-16 8-16-8zM4 20l16 8 16-8M4 28l16 8 16-8"/></svg>
+        <h3>Off-Plan Investment</h3><p>Early access to exclusive launches with payment plans, before they reach the open market.</p></div>
+      <div class="card reveal"><span class="num">03</span>
+        <svg viewBox="0 0 40 40"><path d="M6 18L20 6l14 12v16H6z"/><path d="M16 34V24h8v10"/></svg>
+        <h3>Buy</h3><p>Villas, penthouses and apartments sourced to your brief, negotiated to the best terms.</p></div>
+      <div class="card reveal"><span class="num">04</span>
+        <svg viewBox="0 0 40 40"><path d="M6 30l10-10 6 6 12-14"/><path d="M26 12h8v8"/></svg>
+        <h3>Sell</h3><p>Exclusive-mandate marketing with reels, premium content and a qualified buyer network.</p></div>
+      <div class="card reveal"><span class="num">05</span>
+        <svg viewBox="0 0 40 40"><circle cx="14" cy="20" r="7"/><path d="M21 20h14M30 20v6M35 20v4"/></svg>
+        <h3>Rent &amp; Lease</h3><p>Tenant sourcing and leasing for owners, and move-in-ready homes for residents.</p></div>
+      <div class="card reveal"><span class="num">06</span>
+        <svg viewBox="0 0 40 40"><path d="M20 4v32M10 12h14a6 6 0 010 12H14a6 6 0 000 12h16"/></svg>
+        <h3>Portfolio Advisory</h3><p>Market reads — crash or correction? — and a data-backed plan for yield and capital growth.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="process" class="bg-alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">The Process</span>
+      <h2>Inside an <span class="gold">exclusive deal.</span></h2>
+    </div>
+    <div class="timeline" id="timeline">
+      <div class="bar"></div>
+      <div class="step"><div class="node">01</div><h4>Discovery</h4><p>Your goals, budget and timeline on a quick call.</p></div>
+      <div class="step"><div class="node">02</div><h4>Strategy</h4><p>Curated shortlist or development plan with the numbers.</p></div>
+      <div class="step"><div class="node">03</div><h4>Access</h4><p>Private viewings, site visits and off-market inventory.</p></div>
+      <div class="step"><div class="node">04</div><h4>Close</h4><p>Negotiation, paperwork and DLD transfer handled.</p></div>
+      <div class="step"><div class="node">05</div><h4>Handover</h4><p>Construction tracked on site until the keys are yours.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="invest">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Investor Tool</span>
+      <h2>Run your <span class="gold">numbers.</span></h2>
+      <p>A quick estimate of rental yield and capital growth on a Dubai property.</p>
+    </div>
+    <div class="calc reveal">
+      <div>
+        <label>Property price <b id="vPrice"></b></label>
+        <input type="range" id="price" min="500000" max="20000000" step="50000" value="2500000">
+        <label>Expected annual rent <b id="vRent"></b></label>
+        <input type="range" id="rent" min="30000" max="1500000" step="5000" value="170000">
+        <label>Annual appreciation <b id="vApp"></b></label>
+        <input type="range" id="app" min="0" max="15" step="0.5" value="6">
+        <label>Holding period <b id="vYears"></b></label>
+        <input type="range" id="years" min="1" max="15" step="1" value="5">
+      </div>
+      <div class="result">
+        <span class="eyebrow">Projected total return</span>
+        <div class="big gold" id="rTotal">—</div>
+        <div class="row"><span>Gross rental yield</span><b id="rYield">—</b></div>
+        <div class="row"><span>Rental income</span><b id="rIncome">—</b></div>
+        <div class="row"><span>Estimated value at exit</span><b id="rExit">—</b></div>
+        <a href="#contact" class="btn btn-gold" style="margin-top:24px;justify-content:center" id="calcCta">Discuss this investment →</a>
+        <p class="disclaimer">Illustrative only — not financial advice. Excludes fees, service charges and financing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="bg-alt">
+  <div class="wrap contact">
+    <div class="reveal contact-info">
+      <span class="eyebrow">Let's Talk</span>
+      <h2 style="font-size:clamp(34px,5vw,56px);margin:18px 0">Tell me what you're <span class="gold">building.</span></h2>
+      <p style="color:var(--muted);margin-bottom:30px">Four quick steps. Your request lands straight in my WhatsApp so I can reply fast.</p>
+      <a class="line" href="https://wa.me/971555366354" target="_blank" rel="noopener"><span class="icon"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"/></svg></span><span><small>WhatsApp / Call</small>+971 55 536 6354</span></a>
+      <a class="line" href="mailto:pranav@shethrealestate.in"><span class="icon"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 6l8 7 8-7"/></svg></span><span><small>Email</small>pranav@shethrealestate.in</span></a>
+      <a class="line" href="https://www.instagram.com/exclusivewithpranav/" target="_blank" rel="noopener"><span class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg></span><span><small>Instagram</small>@exclusivewithpranav</span></a>
+      <a class="line" href="https://shethrealestate.in" target="_blank" rel="noopener"><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg></span><span><small>Company</small>shethrealestate.in</span></a>
+    </div>
+
+    <form class="form reveal" id="lead" novalidate>
+      <div class="progress"><i id="bar"></i></div>
+
+      <div class="fstep active" data-step="1">
+        <div class="stepnum">STEP 1 / 4</div>
+        <h3>What can I help you with?</h3>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="goal" value="Buy a property"><span>🏙️ Buy<small>Home or investment</small></span></label>
+          <label class="chip"><input type="radio" name="goal" value="Sell my property"><span>📈 Sell<small>Exclusive mandate</small></span></label>
+          <label class="chip"><input type="radio" name="goal" value="Rent / Lease"><span>🔑 Rent<small>Tenant or landlord</small></span></label>
+          <label class="chip"><input type="radio" name="goal" value="Off-plan investment"><span>🏗️ Off-Plan<small>New launches</small></span></label>
+          <label class="chip"><input type="radio" name="goal" value="Development partnership"><span>🤝 Develop<small>JV / land / partner</small></span></label>
+          <label class="chip"><input type="radio" name="goal" value="Something else"><span>✦ Other<small>Just ask</small></span></label>
+        </div>
+      </div>
+
+      <div class="fstep" data-step="2">
+        <div class="stepnum">STEP 2 / 4</div>
+        <h3>Your project details</h3>
+        <div class="field"><label>Property type</label>
+          <select name="type"><option>Apartment</option><option>Villa / Townhouse</option><option>Penthouse</option><option>Land / Plot</option><option>Commercial</option><option>Not sure yet</option></select></div>
+        <div class="field"><label>Budget (AED)</label>
+          <select name="budget"><option>Under 1M</option><option>1M – 3M</option><option>3M – 7M</option><option>7M – 15M</option><option>15M+</option><option>Prefer to discuss</option></select></div>
+        <div class="field"><label>Timeline</label>
+          <select name="timeline"><option>Immediately</option><option>Within 3 months</option><option>3–6 months</option><option>Just exploring</option></select></div>
+      </div>
+
+      <div class="fstep" data-step="3">
+        <div class="stepnum">STEP 3 / 4</div>
+        <h3>How do I reach you?</h3>
+        <div class="field"><label>Full name *</label><input name="name" autocomplete="name" required></div>
+        <div class="two">
+          <div class="field"><label>Email *</label><input name="email" type="email" autocomplete="email" required></div>
+          <div class="field"><label>WhatsApp (with country code) *</label><input name="phone" type="tel" autocomplete="tel" placeholder="+971 …" required></div>
+        </div>
+        <div class="field"><label>City / Country *</label><input name="city" autocomplete="country-name" required></div>
+      </div>
+
+      <div class="fstep" data-step="4">
+        <div class="stepnum">STEP 4 / 4</div>
+        <h3>Anything else I should know?</h3>
+        <div class="field"><label>Message (optional)</label><textarea name="msg" rows="5" placeholder="Preferred areas, bedrooms, questions…"></textarea></div>
+      </div>
+
+      <div class="fstep" data-step="5">
+        <div class="done">
+          <div class="ring">✓</div>
+          <h3>Request ready.</h3>
+          <p>WhatsApp should open with your details. If it didn't, use a button below.</p>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+            <a class="btn btn-gold" id="waLink" target="_blank" rel="noopener">Send on WhatsApp</a>
+            <a class="btn btn-ghost" id="mailLink">Send by Email</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="errmsg" id="err"></div>
+      <div class="form-nav" id="fnav">
+        <button type="button" class="btn btn-ghost" id="back" style="visibility:hidden">← Back</button>
+        <button type="button" class="btn btn-gold" id="next">Continue →</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr"></span> Pranav Sheth · Sheth Real Estate · Dubai, UAE</span>
+    <span>Buy · Sell · Rent · Develop</span>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/971555366354" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 3a13 13 0 00-11.2 19.6L3 29l6.6-1.7A13 13 0 1016 3zm0 23.7a10.7 10.7 0 01-5.5-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.7 10.7 0 1116 26.7zm5.9-8c-.3-.2-1.9-1-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.8 8.8 0 01-4.4-3.8c-.3-.6.3-.5.9-1.7a.6.6 0 000-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 00-.9.4 3.6 3.6 0 00-1.1 2.7 6.3 6.3 0 001.3 3.3 14.3 14.3 0 005.5 4.9c2 .9 2.8.9 3.8.8a3.3 3.3 0 002.2-1.5 2.7 2.7 0 00.2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg>
+</a>
+
+<script>
+const WA = "971555366354", EMAIL = "pranav@shethrealestate.in";
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+/* nav */
+const nav = document.getElementById("nav");
+addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 30), {passive:true});
+
+/* cursor glow */
+const cur = document.getElementById("cursor");
+addEventListener("pointermove", e => { cur.style.left = e.clientX + "px"; cur.style.top = e.clientY + "px"; });
+
+/* animated skyline */
+(() => {
+  const c = document.getElementById("sky"), x = c.getContext("2d");
+  let W, H, towers = [], stars = [], t = 0;
+  function build() {
+    W = c.width = c.offsetWidth * devicePixelRatio; H = c.height = c.offsetHeight * devicePixelRatio;
+    towers = []; let px = 0;
+    while (px < W) {
+      const w = (18 + Math.random() * 46) * devicePixelRatio;
+      const h = H * (0.12 + Math.random() * 0.34) * (Math.random() < .06 ? 1.7 : 1);
+      towers.push({x: px, w, h, spire: Math.random() < .25, lit: Array.from({length: 40}, () => Math.random()), rise: 0});
+      px += w + 3 * devicePixelRatio;
+    }
+    // hero landmark tower
+    const mid = towers[Math.floor(towers.length * .72)];
+    if (mid) { mid.h = H * .78; mid.spire = true; mid.w = Math.max(mid.w, 30 * devicePixelRatio); mid.hero = true; }
+    stars = Array.from({length: 120}, () => ({x: Math.random() * W, y: Math.random() * H * .55, r: Math.random() * 1.3 * devicePixelRatio, p: Math.random() * 6}));
+  }
+  function draw() {
+    t += .016;
+    x.clearRect(0, 0, W, H);
+    for (const s of stars) { x.globalAlpha = .3 + .5 * Math.abs(Math.sin(t + s.p)); x.fillStyle = "#cfe6ff"; x.fillRect(s.x, s.y, s.r, s.r); }
+    x.globalAlpha = 1;
+    const base = H * .86;
+    towers.forEach((tw, i) => {
+      tw.rise = Math.min(1, tw.rise + (reduce ? 1 : .012 + (i % 7) * .001));
+      const e = 1 - Math.pow(1 - tw.rise, 3), h = tw.h * e, top = base - h;
+      const g = x.createLinearGradient(0, top, 0, base);
+      g.addColorStop(0, tw.hero ? "#2a2416" : "#141b2a"); g.addColorStop(1, "#070a12");
+      x.fillStyle = g; x.fillRect(tw.x, top, tw.w, h);
+      x.strokeStyle = tw.hero ? "rgba(216,180,106,.7)" : "rgba(79,216,255,.18)"; x.lineWidth = devicePixelRatio;
+      x.strokeRect(tw.x + .5, top + .5, tw.w - 1, h);
+      if (tw.spire && e > .98) {
+        x.beginPath(); x.moveTo(tw.x + tw.w / 2, top - (tw.hero ? H * .12 : 30 * devicePixelRatio)); x.lineTo(tw.x + tw.w / 2, top); x.stroke();
+        const blink = .5 + .5 * Math.sin(t * 3 + i);
+        x.fillStyle = `rgba(255,80,80,${blink})`; x.beginPath(); x.arc(tw.x + tw.w / 2, top - (tw.hero ? H * .12 : 30 * devicePixelRatio), 2 * devicePixelRatio, 0, 7); x.fill();
+      }
+      // windows
+      const cs = 7 * devicePixelRatio, rows = Math.floor(h / cs), cols = Math.max(1, Math.floor(tw.w / cs) - 1);
+      for (let r = 1; r < rows; r++) for (let k = 0; k < cols; k++) {
+        const v = tw.lit[(r * 7 + k * 3) % 40];
+        if (v > .72) { x.fillStyle = tw.hero ? `rgba(243,220,164,${.4 + .4 * Math.sin(t + v * 9)})` : `rgba(216,180,106,${.25 + .25 * Math.sin(t * .6 + v * 20)})`; x.fillRect(tw.x + cs * .6 + k * cs, top + r * cs, 2 * devicePixelRatio, 3 * devicePixelRatio); }
+      }
+    });
+    // crane
+    const cx = W * .28, ch = H * .42;
+    x.strokeStyle = "rgba(216,180,106,.55)"; x.lineWidth = 1.5 * devicePixelRatio;
+    x.beginPath(); x.moveTo(cx, base); x.lineTo(cx, base - ch); x.stroke();
+    const ang = Math.sin(t * .3) * .25, arm = W * .09;
+    x.beginPath(); x.moveTo(cx - arm * .35 * Math.cos(ang), base - ch); x.lineTo(cx + arm * Math.cos(ang), base - ch - arm * Math.sin(ang) * .2); x.stroke();
+    const hx = cx + arm * .8 * Math.cos(ang), hy = base - ch + (ch * .3) * (.5 + .5 * Math.sin(t * .5));
+    x.beginPath(); x.moveTo(hx, base - ch); x.lineTo(hx, hy); x.stroke();
+    x.fillStyle = "rgba(216,180,106,.8)"; x.fillRect(hx - 6 * devicePixelRatio, hy, 12 * devicePixelRatio, 5 * devicePixelRatio);
+    // reflection
+    x.save(); x.globalAlpha = .12; x.translate(0, base * 2); x.scale(1, -1);
+    x.drawImage(c, 0, 0, W, base, 0, 0, W, base); x.restore();
+    if (!reduce) requestAnimationFrame(draw);
+  }
+  build(); draw();
+  let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { build(); if (reduce) draw(); }, 200); });
+})();
+
+/* typed words */
+(() => {
+  const el = document.getElementById("typed"), words = ["buy", "sell", "rent", "invest off-plan", "develop"];
+  let w = 0, i = words[0].length, del = true, hold = 10;
+  if (reduce) return;
+  setInterval(() => {
+    if (hold > 0) { hold--; return; }
+    const word = words[w];
+    i += del ? -1 : 1; el.textContent = word.slice(0, i);
+    if (!del && i === word.length) { del = true; hold = 10; }
+    else if (del && i === 0) { del = false; w = (w + 1) % words.length; }
+  }, 110);
+})();
+
+/* marquee */
+(() => {
+  const areas = ["Downtown Dubai", "Dubai Marina", "Palm Jumeirah", "Business Bay", "Dubai Hills", "JVC", "Emaar Beachfront", "Dubai Creek Harbour", "MBR City", "Jumeirah Bay", "DIFC", "Dubai South"];
+  const html = areas.map(a => `<span>${a}</span><em>✦</em>`).join("");
+  document.getElementById("mq").innerHTML = html + html;
+})();
+
+/* reveal + counters + timeline */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  e.target.classList.add("in"); io.unobserve(e.target);
+  e.target.querySelectorAll("[data-count]").forEach(count);
+}), {threshold: .15});
+document.querySelectorAll(".reveal,#timeline").forEach(el => io.observe(el));
+function count(el) {
+  const end = +el.dataset.count, pre = el.dataset.prefix || "", suf = el.dataset.suffix || "", d = 1800, s = performance.now();
+  (function f(n) { const p = Math.min(1, (n - s) / d), v = Math.round(end * (1 - Math.pow(1 - p, 4)));
+    el.textContent = pre + v.toLocaleString("en") + suf; if (p < 1) requestAnimationFrame(f); })(s);
+}
+
+/* card spotlight + tilt */
+document.querySelectorAll(".card").forEach(c => c.addEventListener("pointermove", e => {
+  const r = c.getBoundingClientRect(); c.style.setProperty("--mx", e.clientX - r.left + "px"); c.style.setProperty("--my", e.clientY - r.top + "px");
+}));
+const tilt = document.getElementById("tilt");
+tilt.addEventListener("pointermove", e => { const r = tilt.getBoundingClientRect(), px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
+  tilt.style.transform = `perspective(900px) rotateY(${px * 10}deg) rotateX(${-py * 10}deg)`; });
+tilt.addEventListener("pointerleave", () => tilt.style.transform = "");
+
+/* calculator */
+(() => {
+  const $ = id => document.getElementById(id), aed = n => "AED " + Math.round(n).toLocaleString("en");
+  const inputs = ["price", "rent", "app", "years"].map($);
+  function calc() {
+    inputs.forEach(i => i.style.setProperty("--p", ((i.value - i.min) / (i.max - i.min)) * 100 + "%"));
+    const P = +$("price").value, R = +$("rent").value, A = +$("app").value / 100, Y = +$("years").value;
+    $("vPrice").textContent = aed(P); $("vRent").textContent = aed(R); $("vApp").textContent = A * 100 + "%"; $("vYears").textContent = Y + (Y > 1 ? " years" : " year");
+    const exit = P * Math.pow(1 + A, Y), income = R * Y, total = exit - P + income;
+    $("rYield").textContent = (R / P * 100).toFixed(1) + "%"; $("rIncome").textContent = aed(income); $("rExit").textContent = aed(exit);
+    $("rTotal").textContent = aed(total) + " · " + (total / P * 100).toFixed(0) + "%";
+  }
+  inputs.forEach(i => i.addEventListener("input", calc)); calc();
+  $("calcCta").addEventListener("click", () => {
+    const m = document.querySelector("#lead [name=msg]");
+    m.value = `Investor calculator: price ${$("vPrice").textContent}, rent ${$("vRent").textContent}/yr, ${$("vYears").textContent} hold.`;
+    const r = document.querySelector('#lead [value="Off-plan investment"]'); if (r && !document.querySelector("#lead [name=goal]:checked")) r.checked = true;
+  });
+})();
+
+/* multi-step lead form */
+(() => {
+  const f = document.getElementById("lead"), steps = [...f.querySelectorAll(".fstep")];
+  const back = document.getElementById("back"), next = document.getElementById("next"), err = document.getElementById("err"), bar = document.getElementById("bar");
+  let cur = 1;
+  function show(n) {
+    steps.forEach(s => s.classList.toggle("active", +s.dataset.step === n));
+    cur = n; bar.style.width = Math.min(100, n * 25) + "%"; err.textContent = "";
+    back.style.visibility = n > 1 && n < 5 ? "visible" : "hidden";
+    next.textContent = n === 4 ? "Send Request ✦" : "Continue →";
+    document.getElementById("fnav").style.display = n === 5 ? "none" : "flex";
+  }
+  function valid(n) {
+    f.querySelectorAll(".field.err").forEach(x => x.classList.remove("err"));
+    if (n === 1 && !f.querySelector("[name=goal]:checked")) return "Pick one option to continue.";
+    if (n === 3) {
+      const bad = [];
+      const chk = (name, ok) => { if (!ok) { bad.push(name); f.querySelector(`[name=${name}]`).closest(".field").classList.add("err"); } };
+      const v = k => f[k].value.trim();
+      chk("name", v("name").length > 1);
+      chk("email", /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v("email")));
+      chk("phone", v("phone").replace(/\D/g, "").length >= 8);
+      chk("city", v("city").length > 1);
+      if (bad.length) return "Please check the highlighted fields.";
+    }
+    return "";
+  }
+  f.querySelectorAll("[name=goal]").forEach(r => r.addEventListener("change", () => setTimeout(() => show(2), 250)));
+  back.onclick = () => show(cur - 1);
+  next.onclick = () => {
+    const e = valid(cur); if (e) { err.textContent = e; return; }
+    if (cur < 4) return show(cur + 1);
+    const d = Object.fromEntries(new FormData(f));
+    const text = `Hi Pranav, I found you through your website.\n\n• Interested in: ${d.goal}\n• Property type: ${d.type}\n• Budget: AED ${d.budget}\n• Timeline: ${d.timeline}\n\nName: ${d.name}\nEmail: ${d.email}\nWhatsApp: ${d.phone}\nLocation: ${d.city}` + (d.msg ? `\n\nNotes: ${d.msg}` : "");
+    const wa = `https://wa.me/${WA}?text=${encodeURIComponent(text)}`;
+    document.getElementById("waLink").href = wa;
+    document.getElementById("mailLink").href = `mailto:${EMAIL}?subject=${encodeURIComponent("Website enquiry — " + d.goal)}&body=${encodeURIComponent(text)}`;
+    show(5); window.open(wa, "_blank", "noopener");
+  };
+  f.addEventListener("keydown", e => { if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") { e.preventDefault(); next.click(); } });
+  show(1);
+})();
+</script>
+</body>
+</html>
