@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Plumber","name":"Fix UAE","url":"https://www.fixuae.com","telephone":"+971568131980","email":"info@fixuae.com","aggregateRating":{"@type":"AggregateRating","ratingValue":"5","bestRating":"5","ratingCount":"367"},"areaServed":["Ajman","Dubai","Sharjah"],"address":{"@type":"PostalAddress","addressRegion":"Ajman","addressCountry":"AE"},"openingHours":"Mo-Su 00:00-23:59"}
 </script>
@@ -19,7 +20,7 @@
   :root {
     --navy: #1b1d22; --navy-dark: #0f1013; --blue: #1a7fd6; --water: #3fa9f5;
     --sky: #e8f3fd; --orange: #e4202a; --orange-dark: #c4121c; --uae-green: #00843d; --green: #25d366;
-    --ink: #10223a; --muted: #5b6b80; --line: #e3e9f1; --soft: #f5f8fc;
+    --call: #1668e3; --call-dark: #0f55c2; --ink: #10223a; --muted: #5b6b80; --line: #e3e9f1; --soft: #f5f8fc;
   }
   html { scroll-behavior: smooth; }
   body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: var(--ink); background: #fff; line-height: 1.5; -webkit-font-smoothing: antialiased; }
@@ -31,11 +32,10 @@
   header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
   header .container { display: flex; align-items: center; justify-content: space-between; height: 68px; }
   .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; color: var(--navy); }
-  .brand img { height: 44px; width: auto; }
-  .brand.has-logo .brand-fallback { display: none; }
-  .brand-fallback { display: flex; align-items: center; gap: 10px; }
-  .brand-mark { width: 40px; height: 44px; display: block; }
-  .wordmark { font-size: 26px; font-weight: 800; letter-spacing: -.5px; color: var(--orange); line-height: 1; }
+  .brand img { height: 48px; width: auto; display: block; }
+  .nav { display: flex; align-items: center; gap: 24px; font-weight: 700; font-size: 15px; color: var(--muted); }
+  .nav a:hover { color: var(--orange); }
+  .head-call { padding: 11px 18px; font-size: 15px; }
   .rating { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; font-size: 14px; color: #d4d6dc; font-weight: 600; }
   .rating .stars { color: #ffc107; letter-spacing: 2px; font-size: 16px; }
   .flagbar { height: 5px; background: linear-gradient(90deg, var(--orange) 0 25%, var(--uae-green) 25% 50%, #fff 50% 75%, #000 75%); }
@@ -45,8 +45,8 @@
 
   .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 800; font-size: 16px; padding: 15px 24px; border-radius: 14px; border: 0; cursor: pointer; font-family: inherit; white-space: nowrap; transition: transform .15s, background .15s; }
   .btn:active { transform: scale(.97); }
-  .btn-call { background: var(--orange); color: #fff; box-shadow: 0 8px 20px rgba(228,32,42,.35); }
-  .btn-call:hover { background: var(--orange-dark); }
+  .btn-call { background: var(--call); color: #fff; box-shadow: 0 8px 20px rgba(22,104,227,.35); }
+  .btn-call:hover { background: var(--call-dark); }
   .btn-wa { background: var(--green); color: #fff; box-shadow: 0 8px 20px rgba(37,211,102,.3); }
   .btn-wa:hover { background: #1ebe5a; }
 
@@ -112,12 +112,52 @@
   .review .stars { color: #ffc107; letter-spacing: 2px; margin-bottom: 8px; }
   .review b { display: block; margin-top: 10px; color: #fff; font-size: 14px; }
   @media (max-width: 640px) { .reviews { grid-template-columns: 1fr; } }
+
+  /* All services */
+  .svc-tabs, .em-tabs { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 22px; }
+  .svc-tabs button, .em-tabs button { font: inherit; font-weight: 800; font-size: 15px; padding: 10px 18px; border-radius: 999px; border: 2px solid var(--line); background: #fff; color: var(--navy); cursor: pointer; transition: all .2s; }
+  .svc-tabs button[aria-selected="true"], .em-tabs button[aria-selected="true"] { background: var(--navy); border-color: var(--navy); color: #fff; }
+  .svc-tabs button span, .em-tabs button span { opacity: .6; font-weight: 700; margin-left: 4px; }
+  .svc-list { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; max-width: 820px; margin: 0 auto; min-height: 120px; align-content: flex-start; }
+  .svc { display: inline-flex; align-items: center; gap: 8px; padding: 12px 16px; border-radius: 14px; background: var(--soft); font-weight: 700; font-size: 15px; color: var(--navy-dark); border: 2px solid transparent; transition: transform .2s, border-color .2s, background .2s; animation: rise .35s both; }
+  .svc::after { content: '→'; color: var(--green); font-weight: 800; transition: transform .2s; }
+  .svc:hover { border-color: var(--orange); background: #fff; transform: translateY(-2px); }
+  .svc:hover::after { transform: translateX(3px); }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+
+  /* Areas map */
+  .areas { background: var(--navy-dark); color: #fff; }
+  .areas h2 { color: #fff; }
+  .areas .sub { color: #b8bcc6; }
+  .areas .sub b { color: #7ef0a8; font-variant-numeric: tabular-nums; }
+  .finder { display: flex; gap: 8px; max-width: 520px; margin: 0 auto 18px; }
+  .finder input { flex: 1; min-width: 0; font: inherit; font-size: 16px; padding: 14px 16px; border-radius: 14px; border: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.08); color: #fff; outline: none; }
+  .finder input::placeholder { color: #9aa0ab; }
+  .finder input:focus { border-color: var(--green); }
+  .finder button { font: inherit; font-weight: 800; padding: 0 18px; border-radius: 14px; border: 0; background: var(--green); color: #fff; cursor: pointer; }
+  .answer { text-align: center; min-height: 28px; font-weight: 700; margin-bottom: 14px; }
+  .answer a { color: #7ef0a8; text-decoration: underline; }
+  .em-tabs button { background: transparent; color: #fff; border-color: rgba(255,255,255,.2); }
+  .em-tabs button[aria-selected="true"] { background: var(--uae-green); border-color: var(--uae-green); }
+  #map { height: 460px; border-radius: 22px; overflow: hidden; border: 1px solid rgba(255,255,255,.14); background: #1d2128; }
+  .leaflet-container { font-family: inherit; }
+  .pin { animation: pinpop .5s cubic-bezier(.3,1.6,.5,1) both; transform-box: fill-box; transform-origin: center; }
+  @keyframes pinpop { from { transform: scale(0); opacity: 0; } }
+  .pin-hot { animation: hot 1s ease-in-out 3; transform-box: fill-box; transform-origin: center; }
+  @keyframes hot { 50% { transform: scale(2.2); } }
+  .leaflet-popup-content { font-size: 14px; font-weight: 600; margin: 12px 14px; }
+  .leaflet-popup-content b { display: block; font-size: 16px; color: var(--navy-dark); }
+  .leaflet-popup-content a.pop-wa { display: inline-block; margin-top: 8px; background: var(--green); color: #fff; padding: 7px 12px; border-radius: 10px; font-weight: 800; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 22px; max-height: 190px; overflow: auto; padding: 4px; }
+  .chip { font: inherit; font-size: 13px; font-weight: 700; padding: 7px 12px; border-radius: 999px; background: rgba(0,132,61,.18); border: 1px solid rgba(126,240,168,.35); color: #c9f7da; cursor: pointer; transition: background .2s; }
+  .chip:hover { background: var(--uae-green); color: #fff; }
+  @media (max-width: 640px) { #map { height: 360px; } .chips { max-height: 150px; } }
   /* Final */
   .final { background: linear-gradient(120deg, var(--orange), #b50f18); color: #fff; text-align: center; }
   .final h2 { color: #fff; }
   .phone { display: inline-block; font-size: clamp(38px, 7vw, 64px); font-weight: 800; letter-spacing: -1.5px; margin: 6px 0 24px; }
   .final .ctas { justify-content: center; }
-  .final .btn-call { background: #fff; color: var(--orange-dark); box-shadow: none; }
+  .final .btn-call { background: var(--call); color: #fff; }
 
   footer { background: var(--navy-dark); color: #9fb6ce; font-size: 14px; padding: 28px 0 96px; }
   footer .container { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
@@ -133,7 +173,9 @@
   }
   @media (max-width: 640px) {
     .container { padding: 0 16px; }
-    header .live { display: none; }
+    .nav { display: none; }
+    .brand img { height: 40px; }
+    .head-call { padding: 10px 12px; font-size: 14px; }
     section { padding: 56px 0; }
     .tiles { grid-template-columns: 1fr 1fr; gap: 10px; }
     .tile { padding: 20px 8px; font-size: 15px; }
@@ -151,28 +193,11 @@
 
 <header>
   <div class="container">
-    <a href="#top" class="brand" id="brand" aria-label="Fix UAE">
-      <!-- Drop his logo in this folder as logo.png and it replaces the text mark automatically -->
-      <img src="logo.png" alt="Fix UAE" onload="document.getElementById('brand').classList.add('has-logo')" onerror="this.remove()">
-      <span class="brand-fallback">
-        <svg class="brand-mark" viewBox="0 0 40 44" aria-hidden="true">
-          <defs><clipPath id="sh"><path d="M20 1l17 6v14c0 11-7.5 18.5-17 22C10.5 39.5 3 32 3 21V7z"/></clipPath></defs>
-          <g clip-path="url(#sh)">
-            <rect x="0" y="0" width="12" height="44" fill="#e4202a"/>
-            <rect x="12" y="0" width="28" height="15" fill="#00843d"/>
-            <rect x="12" y="15" width="28" height="14" fill="#fff"/>
-            <rect x="12" y="29" width="28" height="15" fill="#111"/>
-          </g>
-          <path d="M20 1l17 6v14c0 11-7.5 18.5-17 22C10.5 39.5 3 32 3 21V7z" fill="none" stroke="#111" stroke-width="2"/>
-          <path d="M28.5 13.5a4.5 4.5 0 0 1-5.8 5.8l-7.4 7.4a1.8 1.8 0 0 1-2.6-2.6l7.4-7.4a4.5 4.5 0 0 1 5.8-5.8l-2.8 2.8.6 2 2 .6z" fill="#e4202a" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/>
-        </svg>
-        <span class="wordmark">Fix UAE</span>
-      </span>
-    </a>
-    <span class="live"><span class="dot"></span>Open now · 24/7</span>
-    <a href="tel:+971568131980" class="btn btn-call" style="padding:11px 18px;font-size:15px;">
+    <a href="#top" class="brand" aria-label="Fix UAE home"><img src="logo.png" alt="Fix UAE" width="165" height="48"></a>
+    <nav class="nav"><a href="#services">Services</a><a href="#areas">Areas</a><span class="live"><span class="dot"></span>Open 24/7</span></nav>
+    <a href="tel:+971568131980" class="btn btn-call head-call">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1l-2.2 2.2z"/></svg>
-      Call
+      056 813 1980
     </a>
   </div>
   <div class="flagbar"></div>
@@ -286,12 +311,37 @@
     </div>
   </section>
 
+  <section id="services" style="padding-top:0;">
+    <div class="container">
+      <h2>Everything we fix</h2>
+      <p class="sub">Pick a service. It opens WhatsApp, ready to send.</p>
+      <div class="svc-tabs" role="tablist" id="svcTabs"></div>
+      <div class="svc-list" id="svcList"></div>
+    </div>
+  </section>
+
+  <section class="areas" id="areas">
+    <div class="container">
+      <h2>Do we come to you?</h2>
+      <p class="sub"><b id="areaCount">0</b> areas lit up across Dubai, Sharjah &amp; Ajman.</p>
+      <form class="finder" id="finder">
+        <input id="areaInput" list="areaNames" placeholder="Type your area… e.g. Al Nuaimia" autocomplete="off" aria-label="Your area">
+        <datalist id="areaNames"></datalist>
+        <button type="submit">Check</button>
+      </form>
+      <div class="answer" id="answer" aria-live="polite"></div>
+      <div class="em-tabs" id="emTabs"></div>
+      <div id="map" role="img" aria-label="Map of areas Fix UAE serves"></div>
+      <div class="chips" id="chips"></div>
+    </div>
+  </section>
+
   <section class="final">
     <div class="container">
       <h2>Broken? Call. Fixed.</h2>
       <a href="tel:+971568131980" class="phone">056 813 1980</a>
       <div class="ctas">
-        <a href="tel:+971568131980" class="btn btn-call">Call now</a>
+        <a href="tel:+971568131980" class="btn btn-call">📞 Call 056 813 1980</a>
         <a href="#" data-wa="Hi Fix UAE, I need a plumber." class="btn btn-wa">WhatsApp</a>
       </div>
     </div>
@@ -306,17 +356,160 @@
 </footer>
 
 <div class="mobile-bar">
-  <a href="tel:+971568131980" class="btn btn-call">Call</a>
+  <a href="tel:+971568131980" class="btn btn-call">📞 056 813 1980</a>
   <a href="#" data-wa="Hi Fix UAE, I need a plumber." class="btn btn-wa">WhatsApp</a>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
   var WA = 'https://wa.me/971568131980?text=';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.querySelectorAll('[data-wa]').forEach(function (a) {
     a.href = WA + encodeURIComponent(a.getAttribute('data-wa'));
     a.target = '_blank'; a.rel = 'noopener';
   });
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+
+  // ---------- Services ----------
+  var SERVICES = {
+    'Plumbing': ['Plumbing Repair','Plumbing Installation','Plumbing Inspection','Emergency Plumbing','Pipes Repair & Installation','Gas Line Repair','Tankless Water Heater Installation'],
+    'Drains': ['Drain Repair','Drain Survey','Drain Installation','Kitchen Sink Drain','Drain Line Jetting','Toilet Drain Cleaner','Leaking Pipes Repair','Sump Pump Repair','Water Heater Repair','Water Line Repair','Bathroom Plumbing Repair'],
+    'Carpentry': ['Carpentry Service','Carpentry Contractors','Commercial Carpentry','Exterior Carpentry','Finish Work Carpentry','Kitchen Carpentry','Trim Carpentry'],
+    'More': ['Electrician','Painting Service']
+  };
+  var svcTabs = document.getElementById('svcTabs'), svcList = document.getElementById('svcList');
+  function showSvc(cat) {
+    [].forEach.call(svcTabs.children, function (b) { b.setAttribute('aria-selected', b.dataset.cat === cat); });
+    svcList.innerHTML = '';
+    SERVICES[cat].forEach(function (name, i) {
+      var a = document.createElement('a');
+      a.className = 'svc'; a.textContent = name; a.style.animationDelay = (i * 40) + 'ms';
+      a.href = WA + encodeURIComponent('Hi Fix UAE, I need: ' + name + '.'); a.target = '_blank'; a.rel = 'noopener';
+      svcList.appendChild(a);
+    });
+  }
+  Object.keys(SERVICES).forEach(function (cat) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.setAttribute('role', 'tab'); b.dataset.cat = cat;
+    b.innerHTML = cat + '<span>' + SERVICES[cat].length + '</span>';
+    b.onclick = function () { showSvc(cat); };
+    svcTabs.appendChild(b);
+  });
+  showSvc('Plumbing');
+
+  // ---------- Areas (approximate locations) ----------
+  var AREAS = [
+    ['Academic City','Dubai',25.121,55.415],['Al Barsha','Dubai',25.113,55.200],['Al Furjan','Dubai',25.030,55.150],['Al Garhoud','Dubai',25.243,55.350],['Al Jaddaf','Dubai',25.220,55.333],
+    ['Al Mamzar','Dubai',25.297,55.345],['Al Manara','Dubai',25.143,55.220],['Al Rashidiya','Dubai',25.228,55.390],['Al Warqa','Dubai',25.190,55.420],['Al Warsan','Dubai',25.160,55.410],
+    ['Al Wasl','Dubai',25.195,55.250],['Arabian Ranches','Dubai',25.052,55.265],['Arabian Ranches 2','Dubai',25.035,55.278],['Arabian Ranches 3','Dubai',25.040,55.305],['Arjan','Dubai',25.060,55.235],
+    ['Barsha Heights','Dubai',25.097,55.177],['Bawadi','Dubai',24.975,55.265],['Bluewaters','Dubai',25.080,55.120],['Business Bay','Dubai',25.186,55.270],['City of Arabia','Dubai',25.085,55.300],
+    ['Culture Village','Dubai',25.225,55.330],['Damac Hills','Dubai',25.025,55.250],['Damac Hills 2','Dubai',24.995,55.340],['Downtown Dubai','Dubai',25.195,55.275],['Dubai Design District','Dubai',25.187,55.298],
+    ['Dubai Hills Estate','Dubai',25.110,55.250],['Dubai Internet City','Dubai',25.095,55.160],['Dubai Investment Park','Dubai',24.990,55.170],['Dubai Marina','Dubai',25.080,55.140],['Dubai Maritime City','Dubai',25.270,55.268],
+    ['Dubai Residence Complex','Dubai',25.090,55.385],['Dubai Silicon Oasis','Dubai',25.120,55.380],['Dubai South','Dubai',24.900,55.160],['Dubai Sports City','Dubai',25.040,55.220],['Dubai Studio City','Dubai',25.042,55.245],
+    ['Dubailand','Dubai',25.080,55.330],['Green Community','Dubai',25.000,55.170],['Jebel Ali','Dubai',25.005,55.080],['Jumeirah','Dubai',25.210,55.250],['Jumeirah Beach Residence','Dubai',25.078,55.133],
+    ['Jumeirah Heights','Dubai',25.068,55.152],['Jumeirah Park','Dubai',25.050,55.160],['Meydan City','Dubai',25.160,55.300],['Umm Suqeim','Dubai',25.150,55.205],
+    ['Abu Shagara','Sharjah',25.335,55.395],['Al Azra','Sharjah',25.312,55.470],['Al Butain','Sharjah',25.362,55.392],['Al Fisht','Sharjah',25.352,55.380],['Al Gharayen','Sharjah',25.372,55.405],
+    ['Al Gharb','Sharjah',25.360,55.380],['Al Hazana','Sharjah',25.330,55.420],['Al Heerah Suburb','Sharjah',25.378,55.418],['Al Homah','Sharjah',25.300,55.460],['Al Jazzat','Sharjah',25.338,55.458],
+    ['Al Jubail','Sharjah',25.356,55.397],['Al Juraina','Sharjah',25.290,55.460],['Al Khaledia Suburb','Sharjah',25.365,55.412],['Al Khizamia','Sharjah',25.330,55.390],['Al Majaz','Sharjah',25.325,55.385],
+    ['Al Manakh','Sharjah',25.348,55.402],['Al Mansoura','Sharjah',25.342,55.402],['Al Mareija','Sharjah',25.358,55.388],['Al Mirgab','Sharjah',25.356,55.393],['Al Mujarrah','Sharjah',25.362,55.387],
+    ['Al Nahda','Sharjah',25.300,55.370],['Al Qasimia','Sharjah',25.345,55.390],['Al Ramla','Sharjah',25.350,55.430],['Al Riffah','Sharjah',25.302,55.430],['Al Sabkha','Sharjah',25.360,55.384],
+    ['Al Sweihat','Sharjah',25.332,55.440],['Al Taawun','Sharjah',25.310,55.370],['Halwan Suburb','Sharjah',25.352,55.418],['Maysaloon','Sharjah',25.345,55.396],['Muwaileh','Sharjah',25.300,55.460],['Muwailih Commercial','Sharjah',25.310,55.448],
+    ['Ain Ajman','Ajman',25.383,55.505],['Ajman Downtown','Ajman',25.405,55.445],['Ajman Global City','Ajman',25.360,55.560],['Ajman Uptown','Ajman',25.430,55.555],['Al Aaliah','Ajman',25.390,55.495],
+    ['Al Bahia','Ajman',25.430,55.520],['Al Bustan','Ajman',25.400,55.455],['Al Hamidiyah','Ajman',25.395,55.505],['Al Hello','Ajman',25.370,55.570],['Al Humaid City','Ajman',25.385,55.580],
+    ['Al Jurf','Ajman',25.410,55.490],['Al Mowaihat','Ajman',25.388,55.470],['Al Nakhil','Ajman',25.412,55.450],['Al Nuaimia','Ajman',25.393,55.460],['Al Owan','Ajman',25.375,55.525],
+    ['Al Raqaib','Ajman',25.370,55.510],['Al Rashidiya (Ajman)','Ajman',25.408,55.440],['Al Rawda','Ajman',25.400,55.490],['Al Rumaila','Ajman',25.418,55.440],['Al Sawan','Ajman',25.420,55.452],
+    ['Al Yasmeen','Ajman',25.402,55.520],['Al Zahra','Ajman',25.395,55.515],['Al Zahya','Ajman',25.430,55.495],['Emirates City','Ajman',25.435,55.570],['Liwara 2','Ajman',25.380,55.540],
+    ['Al Manama','Ajman',25.330,56.000],['Masfout','Ajman',24.810,56.100]
+  ];
+  var chipsEl = document.getElementById('chips'), emTabs = document.getElementById('emTabs'),
+      answer = document.getElementById('answer'), input = document.getElementById('areaInput'),
+      dl = document.getElementById('areaNames'), countEl = document.getElementById('areaCount');
+  var markers = {}, map = null, currentEm = 'All';
+  var norm = function (t) { return t.toLowerCase().replace(/\(.*?\)/g, '').replace(/[^a-z0-9]/g, ''); };
+
+  AREAS.forEach(function (a) { var o = document.createElement('option'); o.value = a[0]; dl.appendChild(o); });
+
+  function renderChips() {
+    chipsEl.innerHTML = '';
+    AREAS.filter(function (a) { return currentEm === 'All' || a[1] === currentEm; }).forEach(function (a) {
+      var c = document.createElement('button'); c.type = 'button'; c.className = 'chip'; c.textContent = a[0];
+      c.onclick = function () { showArea(a); };
+      chipsEl.appendChild(c);
+    });
+  }
+  ['All', 'Dubai', 'Sharjah', 'Ajman'].forEach(function (em) {
+    var n = em === 'All' ? AREAS.length : AREAS.filter(function (a) { return a[1] === em; }).length;
+    var b = document.createElement('button'); b.type = 'button'; b.dataset.em = em;
+    b.innerHTML = em + '<span>' + n + '</span>';
+    b.setAttribute('aria-selected', em === 'All');
+    b.onclick = function () {
+      currentEm = em;
+      [].forEach.call(emTabs.children, function (x) { x.setAttribute('aria-selected', x.dataset.em === em); });
+      renderChips();
+      if (map) {
+        var pts = AREAS.filter(function (a) { return (em === 'All' || a[1] === em) && a[3] < 55.8 && a[2] > 24.85; }).map(function (a) { return [a[2], a[3]]; });
+        map.flyToBounds(pts, { padding: [30, 30], duration: .8 });
+      }
+    };
+    emTabs.appendChild(b);
+  });
+  renderChips();
+
+  function popupHtml(a) {
+    return '<b>✅ Yes! ' + a[0] + '</b>' + a[1] + ' — we fix it here.<br><a class="pop-wa" target="_blank" rel="noopener" href="' +
+      WA + encodeURIComponent('Hi Fix UAE, I need a plumber in ' + a[0] + ', ' + a[1] + '.') + '">Book in ' + a[0] + ' →</a>';
+  }
+  function showArea(a) {
+    answer.innerHTML = '✅ Yes, we cover <b>' + a[0] + '</b>! <a target="_blank" rel="noopener" href="' + WA +
+      encodeURIComponent('Hi Fix UAE, I need a plumber in ' + a[0] + ', ' + a[1] + '.') + '">Book on WhatsApp →</a>';
+    if (!map) return;
+    var m = markers[a[0]];
+    map.flyTo([a[2], a[3]], 14, { duration: 1 });
+    map.once('moveend', function () {
+      m.openPopup();
+      var el = m.getElement(); if (el) { el.classList.remove('pin-hot'); void el.getBBox; el.classList.add('pin-hot'); }
+    });
+    document.getElementById('map').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  document.getElementById('finder').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var q = norm(input.value); if (!q) return;
+    var hit = AREAS.filter(function (a) { return norm(a[0]) === q; })[0] || AREAS.filter(function (a) { return norm(a[0]).indexOf(q) > -1; })[0];
+    if (hit) { input.value = hit[0]; showArea(hit); }
+    else answer.innerHTML = '🤔 Not on our list yet — <a target="_blank" rel="noopener" href="' + WA +
+      encodeURIComponent('Hi Fix UAE, do you cover ' + input.value + '?') + '">ask us, we probably come there too →</a>';
+  });
+
+  function lightUp() {
+    // count-up + staggered pins when the map scrolls into view
+    var i = 0, total = AREAS.length;
+    var t = setInterval(function () {
+      if (i >= total) { clearInterval(t); return; }
+      var a = AREAS[i++];
+      countEl.textContent = i;
+      if (map) {
+        var m = L.circleMarker([a[2], a[3]], { radius: 7, color: '#ffffff', weight: 2, fillColor: '#00a651', fillOpacity: .95, className: 'pin' })
+          .addTo(map).bindPopup(popupHtml(a)).bindTooltip(a[0], { direction: 'top', offset: [0, -6] });
+        markers[a[0]] = m;
+      }
+    }, reduce ? 0 : 25);
+  }
+  if (window.L) {
+    map = L.map('map', { scrollWheelZoom: false, dragging: !L.Browser.mobile, tap: false, zoomControl: true, attributionControl: true })
+      .fitBounds([[24.93, 55.05], [25.46, 55.60]]);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      maxZoom: 18, subdomains: 'abcd',
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
+    }).addTo(map);
+  } else {
+    document.getElementById('map').style.display = 'none';
+  }
+  var started = false;
+  var obs = 'IntersectionObserver' in window ? new IntersectionObserver(function (en) {
+    if (en[0].isIntersecting && !started) { started = true; lightUp(); obs.disconnect(); }
+  }, { threshold: .25 }) : null;
+  obs ? obs.observe(document.getElementById('areas')) : lightUp();
 
   // Leak mini-game
   var game = document.getElementById('game'), drops = document.getElementById('drops'),
@@ -324,7 +517,6 @@
       btn = document.getElementById('fixBtn'), fixText = document.getElementById('fixText'),
       label = document.getElementById('gameLabel'), burst = document.getElementById('burst');
   var NS = 'http://www.w3.org/2000/svg', liters = 0, state = 'leaking', timers = [];
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function spawnDrop() {
     if (state !== 'leaking' || reduce) return;
