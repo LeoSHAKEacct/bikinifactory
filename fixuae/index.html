@@ -100,6 +100,15 @@
   .tile small { font-weight: 600; font-size: 13px; color: var(--green); display: flex; align-items: center; gap: 4px; opacity: 0; transform: translateY(-4px); transition: opacity .2s, transform .2s; }
   .tile:hover small { opacity: 1; transform: none; }
 
+  .city { position: relative; overflow: hidden; }
+  .city .container { position: relative; z-index: 1; }
+  .skyline { position: absolute; left: 0; right: 0; top: 0; width: 100%; height: 300px; color: #dfe4ec; z-index: 0; pointer-events: none;
+    -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent); }
+  .trust { text-align: center; margin-top: 48px; }
+  .trust .badge { display: inline-flex; align-items: center; gap: 8px; background: #fdecec; color: var(--orange); font-weight: 800; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; padding: 7px 14px; border-radius: 999px; margin-bottom: 12px; }
+  .trust h3 { font-size: clamp(26px, 3.4vw, 38px); line-height: 1.1; letter-spacing: -1px; font-weight: 800; color: var(--navy-dark); }
+  .trust p { color: var(--muted); font-size: 17px; margin-top: 6px; }
+  @media (max-width: 640px) { .skyline { height: 200px; } }
   /* Facts */
   .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 40px; }
   .fact { text-align: center; padding: 22px 10px; border-radius: 18px; border: 1px solid var(--line); }
@@ -219,7 +228,7 @@
             WhatsApp
           </a>
         </div>
-        <div class="rating"><span class="stars">★★★★★</span>5/5 · 367 ratings</div>
+        <div class="rating"><span class="stars">★★★★★</span>5/5 · 367 ratings · Most trusted in town</div>
       </div>
 
       <!-- Fun: fix the leak yourself -->
@@ -268,7 +277,24 @@
     </div>
   </section>
 
-  <section>
+  <section class="city">
+      <svg class="skyline" viewBox="0 0 1440 260" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+        <g fill="currentColor">
+          <rect x="0" y="200" width="60" height="60"/><rect x="50" y="170" width="40" height="90"/><rect x="95" y="210" width="45" height="50"/>
+          <path d="M150 260V70q70 40 78 190z"/><rect x="146" y="40" width="4" height="220"/>
+          <rect x="235" y="190" width="50" height="70"/><rect x="290" y="150" width="30" height="110"/>
+          <path d="M330 260V105l26-30v185z"/><path d="M364 260V125l22-24v159z"/>
+          <rect x="395" y="200" width="45" height="60"/>
+          <path fill-rule="evenodd" d="M450 260V115h80v145zm14-10h52V132h-52z"/>
+          <rect x="540" y="175" width="36" height="85"/><rect x="580" y="140" width="28" height="120"/><rect x="612" y="195" width="40" height="65"/><rect x="656" y="160" width="34" height="100"/>
+          <polygon points="710,260 710,200 714,200 714,165 722,165 722,130 730,130 730,95 738,95 738,62 745,62 745,34 751,34 751,12 756,12 756,0 758.5,0 760,0 761.5,0 764,0 764,12 769,12 769,34 775,34 775,62 782,62 782,95 790,95 790,130 798,130 798,165 806,165 806,200 810,200 810,260"/>
+          <rect x="830" y="150" width="34" height="110"/><rect x="868" y="185" width="44" height="75"/><rect x="916" y="120" width="26" height="140"/>
+          <path d="M950 260V95q12-10 24 0v165z"/><rect x="982" y="70" width="28" height="190" rx="4"/><rect x="1016" y="165" width="40" height="95"/>
+          <rect x="1062" y="195" width="36" height="65"/>
+          <path fill-rule="evenodd" d="M1105 260v-40a55 60 0 1 1 110 0v40h-20v-40a35 40 0 1 0-70 0v40z"/>
+          <rect x="1225" y="150" width="32" height="110"/><rect x="1262" y="185" width="46" height="75"/><rect x="1312" y="130" width="24" height="130"/><rect x="1340" y="175" width="50" height="85"/><rect x="1394" y="205" width="46" height="55"/>
+        </g>
+      </svg>
     <div class="container">
       <h2>What's broken?</h2>
       <p class="sub">Tap it. We'll handle the rest.</p>
@@ -299,10 +325,15 @@
         </a>
       </div>
 
+      <div class="trust">
+        <div class="badge">🏆 #1 in town</div>
+        <h3>The most reliable fixers in town.</h3>
+        <p>More clients than anyone else, 367 five-star ratings and counting.</p>
+      </div>
       <div class="facts">
+        <div class="fact"><b>#1</b><span>Most clients</span></div>
+        <div class="fact"><b>367</b><span>5★ ratings</span></div>
         <div class="fact"><b>24/7</b><span>Day &amp; night</span></div>
-        <div class="fact"><b>Fast</b><span>Same-day visits</span></div>
-        <div class="fact"><b>Fair</b><span>Price upfront</span></div>
       </div>
       <div class="reviews">
         <div class="review"><div class="stars">★★★★★</div>“They came in time, their service is amazing. I was just impressed.”<b>— Smith Gary</b></div>
