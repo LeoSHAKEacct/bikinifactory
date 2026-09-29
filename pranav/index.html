@@ -43,8 +43,39 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:7
 
 /* hero */
 .hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
-#sky{position:absolute;inset:0;width:100%;height:100%}
+#sky{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:screen;opacity:.55}
+.hero-bg{position:absolute;inset:0;overflow:hidden;background:#05070c}
+.hero-bg .slide{position:absolute;inset:-4%;background-size:cover;background-position:center;opacity:0;transform:scale(1.12);transition:opacity 2s ease,transform 9s linear;filter:saturate(1.1) contrast(1.05)}
+.hero-bg .slide.on{opacity:1;transform:scale(1)}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,12,.92) 0%,rgba(5,7,12,.6) 45%,rgba(5,7,12,.25) 100%),linear-gradient(180deg,rgba(5,7,12,.3),transparent 30%)}
 .hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(216,180,106,.12),transparent 55%),linear-gradient(180deg,transparent 60%,var(--bg));pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.4fr .8fr;gap:50px;align-items:center}
+.hero-card{position:relative;justify-self:end;width:min(340px,100%);aspect-ratio:3/4;border-radius:26px;overflow:hidden;border:1px solid rgba(216,180,106,.4);box-shadow:0 40px 90px -30px rgba(0,0,0,.9),0 0 60px -20px rgba(216,180,106,.35);transform:perspective(900px) rotateY(-8deg);animation:float 7s ease-in-out infinite}
+@keyframes float{50%{transform:perspective(900px) rotateY(-8deg) translateY(-14px)}}
+.hero-card .cap{position:absolute;left:14px;right:14px;bottom:14px;padding:12px 14px;border-radius:14px;background:rgba(5,7,12,.65);backdrop-filter:blur(10px);border:1px solid var(--line);font-size:12px;color:var(--muted)}
+.hero-card .cap b{display:block;color:var(--text);font:600 15px "Space Grotesk"}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-card{justify-self:start;width:220px;margin-top:10px;transform:none;animation:none}}
+/* stylized portrait */
+.photo{position:absolute;inset:0;background-size:cover;background-position:center 20%;filter:grayscale(1) contrast(1.25) brightness(.95)}
+.photo-tint{position:absolute;inset:0;background:linear-gradient(160deg,rgba(243,220,164,.55),rgba(216,180,106,.25) 40%,rgba(10,20,40,.7));mix-blend-mode:color}
+.photo-glow{position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(5,7,12,.85)),radial-gradient(circle at 30% 20%,rgba(79,216,255,.18),transparent 50%)}
+.photo-lines{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px);pointer-events:none}
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:260px;gap:16px}
+.tile{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#0d1220}
+.tile.big{grid-column:span 2;grid-row:span 2}
+.tile.wide{grid-column:span 2}
+.tile .img{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.tile:hover .img{transform:scale(1.08)}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(5,7,12,.9))}
+.tile .lbl{position:absolute;left:20px;bottom:18px;z-index:2}
+.tile .lbl small{display:block;font:500 11px "Space Grotesk";letter-spacing:.24em;color:var(--gold);text-transform:uppercase}
+.tile .lbl b{font:600 22px "Space Grotesk"}
+@media(max-width:900px){.gallery{grid-template-columns:1fr 1fr;grid-auto-rows:180px}.tile.big{grid-column:span 2}}
+.photo-band{position:relative;overflow:hidden}
+.photo-band .bandimg{position:absolute;inset:-20% 0;background-size:cover;background-position:center;opacity:.22;will-change:transform}
+.photo-band::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,var(--bg),transparent 25%,transparent 75%,var(--bg))}
+.photo-band>.wrap{position:relative;z-index:2}
 .grid-floor{position:absolute;left:-50%;right:-50%;bottom:-10%;height:55%;background-image:linear-gradient(rgba(79,216,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(79,216,255,.12) 1px,transparent 1px);background-size:60px 60px;transform:perspective(600px) rotateX(62deg);transform-origin:bottom;mask-image:linear-gradient(to top,#000,transparent 80%);animation:floor 6s linear infinite;pointer-events:none}
 @keyframes floor{to{background-position:0 60px}}
 .hero-inner{position:relative;z-index:2;padding-top:90px}
@@ -199,15 +230,23 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
 </nav>
 
 <header class="hero" id="top">
+  <div class="hero-bg" id="heroBg"></div>
   <canvas id="sky"></canvas>
   <div class="grid-floor"></div>
-  <div class="wrap hero-inner">
+  <div class="wrap hero-inner hero-grid">
+    <div>
     <span class="badge"><i class="dot"></i> Available 24/7 · Dubai, UAE 🇦🇪</span>
     <h1>Building<br><span class="gold">Dubai's Skyline.</span></h1>
     <p class="lead">Top 1% broker &amp; new developer. Exclusive mandates only. I help you <span class="typed" id="typed">buy</span> across Dubai.</p>
     <div class="ctas">
       <a href="#contact" class="btn btn-gold">Start Your Project →</a>
       <a href="https://www.instagram.com/exclusivewithpranav/" target="_blank" rel="noopener" class="btn btn-ghost">Watch on Instagram</a>
+    </div>
+    </div>
+    <div class="hero-card">
+      <div class="photo" style="background-image:url(pranav.jpg)"></div>
+      <div class="photo-tint"></div><div class="photo-glow"></div><div class="photo-lines"></div>
+      <div class="cap"><b>Pranav Sheth</b>Broker &amp; Developer · Dubai</div>
     </div>
   </div>
   <div class="scroll-hint">Scroll<i></i></div>
@@ -225,7 +264,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
 <section id="about">
   <div class="wrap about">
     <div class="portrait reveal" id="tilt">
-      <div class="mono">PS</div>
+      <div class="photo" style="background-image:url(pranav.jpg)"></div>
+      <div class="photo-tint"></div><div class="photo-glow"></div><div class="photo-lines"></div>
       <div class="scan"></div>
       <div class="corner c1"></div><div class="corner c2"></div>
       <div class="tag"><span><b>Pranav Sheth</b><br><small style="color:var(--muted)">Broker · Developer</small></span><span class="gold" style="font:600 13px 'Space Grotesk'">VERIFIED ✦</span></div>
@@ -244,6 +284,22 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
 </section>
 
 <div class="marquee"><div class="track" id="mq"></div></div>
+
+<section id="dubai">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Where I Work</span>
+      <h2>All over <span class="gold">Dubai.</span></h2>
+      <p>From Downtown towers to Palm waterfronts and the new projects rising in between.</p>
+    </div>
+    <div class="gallery">
+      <div class="tile big reveal"><div class="img" data-img="lRCWtOEPwiY"></div><div class="lbl"><small>Downtown</small><b>Burj Khalifa District</b></div></div>
+      <div class="tile reveal"><div class="img" data-img="dYLzGcPqrtE"></div><div class="lbl"><small>Waterfront</small><b>Palm Jumeirah</b></div></div>
+      <div class="tile reveal"><div class="img" data-img="O8IjeygwJlc"></div><div class="lbl"><small>Development</small><b>Rising Now</b></div></div>
+      <div class="tile wide reveal"><div class="img" data-img="2fqptw4fKWI"></div><div class="lbl"><small>Coastline</small><b>Marina &amp; JBR</b></div></div>
+    </div>
+  </div>
+</section>
 
 <section id="services">
   <div class="wrap">
@@ -275,7 +331,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
   </div>
 </section>
 
-<section id="process" class="bg-alt">
+<section id="process" class="bg-alt photo-band">
+  <div class="bandimg" data-img="UxYEwaanctE"></div>
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">The Process</span>
@@ -323,7 +380,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
   </div>
 </section>
 
-<section id="contact" class="bg-alt">
+<section id="contact" class="bg-alt photo-band">
+  <div class="bandimg" data-img="9n7rZJLWY7o"></div>
   <div class="wrap contact">
     <div class="reveal contact-info">
       <span class="eyebrow">Let's Talk</span>
@@ -417,6 +475,30 @@ const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 document.getElementById("yr").textContent = new Date().getFullYear();
 
 /* nav */
+/* real Dubai photos (Unsplash) — load then fade in; gradient stays if a photo fails */
+const img = (id, w) => `https://unsplash.com/photos/${id}/download?w=${w}`;
+function setBg(el, id, w) {
+  const i = new Image();
+  i.onload = () => { el.style.backgroundImage = `url("${i.src}")`; el.classList.add("loaded"); };
+  i.src = img(id, w);
+}
+document.querySelectorAll("[data-img]").forEach(el => setBg(el, el.dataset.img, el.classList.contains("bandimg") ? 1920 : 1200));
+(() => {
+  const bg = document.getElementById("heroBg"), ids = ["j-nRfGUHswQ", "lRCWtOEPwiY", "9n7rZJLWY7o", "2fqptw4fKWI"];
+  const slides = ids.map(id => { const s = document.createElement("div"); s.className = "slide"; bg.appendChild(s); setBg(s, id, 1920); return s; });
+  let k = 0;
+  const next = () => {
+    const ready = slides.filter(s => s.classList.contains("loaded"));
+    if (!ready.length) return;
+    slides.forEach(s => s.classList.remove("on"));
+    ready[k++ % ready.length].classList.add("on");
+  };
+  const first = setInterval(() => { if (slides.some(s => s.classList.contains("loaded"))) { clearInterval(first); next(); if (!reduce) setInterval(next, 7000); } }, 200);
+})();
+addEventListener("scroll", () => {
+  document.querySelectorAll(".bandimg").forEach(b => { const r = b.parentElement.getBoundingClientRect(); b.style.transform = `translateY(${r.top * -0.15}px)`; });
+}, {passive:true});
+
 const nav = document.getElementById("nav");
 addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 30), {passive:true});
 
