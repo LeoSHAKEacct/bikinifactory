@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Luxury Dreams Auto Group — Bronx, NY | Quality Pre-Owned Cars</title>
+<meta name="description" content="Luxury Dreams Auto Group in the Bronx, NY. Quality pre-owned luxury cars, SUVs and sedans. Financing for all credit types, trade-ins welcome. Call +1 347 681 1500.">
+<meta name="theme-color" content="#07080b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07080b; --bg2:#0d0f14; --panel:rgba(255,255,255,.04); --line:rgba(255,255,255,.1);
+  --text:#f2f2f2; --muted:#9aa0ab; --gold:#e3b54a; --gold2:#ffd97a; --red:#e2372c; --brick:#7a2f22;
+  --radius:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img,svg{display:block}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+h1,h2,h3,.display{font-family:Anton,Impact,sans-serif;font-weight:400;letter-spacing:.01em;line-height:1;text-transform:uppercase}
+.tag{font-family:"Permanent Marker",cursive;color:var(--gold);text-transform:none;letter-spacing:0}
+.gold{background:linear-gradient(100deg,var(--gold2),var(--gold) 50%,#b8862a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.78rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.eyebrow::before{content:"";width:28px;height:2px;background:var(--gold)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 26px;border-radius:999px;font-weight:700;font-size:.95rem;letter-spacing:.02em;transition:transform .2s,box-shadow .2s,background .2s;cursor:pointer;border:0;font-family:inherit}
+.btn svg{width:18px;height:18px;flex:none}
+.btn-gold{background:linear-gradient(100deg,var(--gold2),var(--gold));color:#111;box-shadow:0 10px 30px -10px rgba(227,181,74,.6)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 16px 40px -12px rgba(227,181,74,.8)}
+.btn-wa{background:#25d366;color:#062b14}
+.btn-wa:hover{transform:translateY(-2px)}
+.btn-ghost{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--text);backdrop-filter:blur(8px)}
+.btn-ghost:hover{background:rgba(255,255,255,.12)}
+
+/* nav */
+header{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+header.scrolled{background:rgba(7,8,11,.85);backdrop-filter:blur(14px);border-color:var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-mark{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--gold2),var(--gold) 60%,#8a6420);display:grid;place-items:center;color:#111;font-family:Anton;font-size:1.25rem;box-shadow:0 6px 20px -6px rgba(227,181,74,.6)}
+.logo-text{line-height:1.05}
+.logo-text b{font-family:Anton;font-weight:400;font-size:1.2rem;letter-spacing:.04em;display:block}
+.logo-text span{font-size:.66rem;letter-spacing:.3em;color:var(--muted);text-transform:uppercase}
+.nav-links{display:flex;gap:30px;font-size:.9rem;font-weight:500;color:#d6d8dd}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{display:flex;gap:10px;align-items:center}
+.nav-cta .btn{padding:11px 18px;font-size:.85rem}
+.burger{display:none;background:none;border:0;color:var(--text);width:44px;height:44px;cursor:pointer}
+.burger svg{width:26px;height:26px;margin:auto}
+.mobile-menu{display:none}
+
+/* hero */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;overflow:hidden;isolation:isolate}
+.bronx{position:absolute;inset:0;z-index:-2}
+.bronx svg{width:100%;height:100%}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:
+  linear-gradient(90deg,rgba(7,8,11,.92) 0%,rgba(7,8,11,.55) 50%,rgba(7,8,11,.05) 100%),
+  linear-gradient(0deg,var(--bg) 0%,transparent 30%)}
+.hero-inner{padding:140px 0 110px;max-width:720px}
+.hero h1{font-size:clamp(3.2rem,9vw,7.2rem);margin:18px 0 6px}
+.hero h1 .tag{display:block;font-size:.42em;margin-top:10px;transform:rotate(-3deg);transform-origin:left}
+.hero p.lead{font-size:clamp(1.02rem,1.6vw,1.2rem);color:#c9ccd3;max-width:560px;margin:22px 0 34px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+.hero-badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:38px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--line);font-size:.82rem;color:#dfe1e6;backdrop-filter:blur(6px)}
+.chip i{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-size:.7rem;letter-spacing:.3em;color:var(--muted);text-transform:uppercase}
+
+/* train animation */
+@keyframes train{from{transform:translateX(-1400px)}to{transform:translateX(2200px)}}
+.train{animation:train 16s linear infinite}
+@keyframes flicker{0%,100%{opacity:1}45%{opacity:.85}50%{opacity:.35}55%{opacity:.9}}
+.neon{animation:flicker 5s infinite}
+@keyframes twinkle{0%,100%{opacity:.9}50%{opacity:.35}}
+
+/* ticker */
+.ticker{background:var(--gold);color:#111;overflow:hidden;white-space:nowrap;border-block:3px solid #111}
+.ticker-track{display:inline-flex;gap:46px;padding:13px 0;animation:tick 32s linear infinite;font-family:Anton;font-size:1.15rem;letter-spacing:.06em;text-transform:uppercase}
+.ticker-track span::after{content:"★";margin-left:46px}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+section{padding:110px 0;position:relative}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:50px}
+.sec-head h2{font-size:clamp(2.4rem,5.5vw,4.4rem);margin-top:14px}
+.sec-head p{color:var(--muted);max-width:440px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:-60px;position:relative;z-index:3}
+.stat{background:var(--bg2);padding:30px 26px}
+.stat b{font-family:Anton;font-weight:400;font-size:2.4rem;display:block;line-height:1}
+.stat span{color:var(--muted);font-size:.88rem}
+
+/* inventory */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:30px}
+.filter{padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:transparent;color:#cfd2d8;font-weight:600;font-size:.85rem;cursor:pointer;font-family:inherit;transition:.2s}
+.filter:hover{border-color:var(--gold);color:var(--gold)}
+.filter.active{background:var(--gold);border-color:var(--gold);color:#111}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.car{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:transform .3s,border-color .3s;display:flex;flex-direction:column}
+.car:hover{transform:translateY(-6px);border-color:rgba(227,181,74,.5)}
+.car-img{position:relative;aspect-ratio:16/10;overflow:hidden;background:#111}
+.car-img svg.scene{position:absolute;inset:0;width:100%;height:100%}
+.car-img .badge{position:absolute;top:14px;left:14px;background:rgba(0,0,0,.65);border:1px solid var(--line);padding:5px 11px;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;backdrop-filter:blur(6px)}
+.car-body{padding:22px;display:flex;flex-direction:column;gap:12px;flex:1}
+.car-body h3{font-size:1.6rem}
+.car-body .type{color:var(--gold);font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.specs{display:flex;flex-wrap:wrap;gap:6px}
+.specs span{font-size:.76rem;color:#c3c6cd;background:var(--panel);border:1px solid var(--line);padding:4px 10px;border-radius:8px}
+.car-foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px dashed var(--line)}
+.car-foot .price{font-weight:700;font-size:.95rem}
+.car-foot .price small{display:block;color:var(--muted);font-weight:500;font-size:.72rem}
+.car-foot a{font-size:.82rem;font-weight:700;color:var(--gold);display:inline-flex;gap:6px;align-items:center}
+.inv-note{margin-top:26px;color:var(--muted);font-size:.9rem;text-align:center}
+
+/* brick wall section */
+.brick{background-color:#2a130e;background-image:
+  linear-gradient(0deg,rgba(7,8,11,.88),rgba(7,8,11,.88)),
+  linear-gradient(335deg,rgba(0,0,0,.35) 23px,transparent 23px),
+  linear-gradient(155deg,rgba(0,0,0,.35) 23px,transparent 23px),
+  linear-gradient(335deg,rgba(0,0,0,.35) 23px,transparent 23px),
+  linear-gradient(155deg,rgba(0,0,0,.35) 23px,transparent 23px);
+  background-size:auto,58px 58px,58px 58px,58px 58px,58px 58px;
+  background-position:0 0,0 2px,4px 35px,29px 31px,34px 6px}
+.brick-real{background-color:#3b1a13;background-image:
+  linear-gradient(rgba(7,8,11,.76),rgba(7,8,11,.86)),
+  linear-gradient(90deg,#1c0c08 2px,transparent 2px),
+  linear-gradient(#1c0c08 2px,transparent 2px),
+  linear-gradient(90deg,#1c0c08 2px,transparent 2px);
+  background-size:auto,64px 52px,64px 26px,64px 52px;
+  background-position:0 0,0 0,0 0,32px 26px}
+.why{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.why-card{padding:30px 24px;border-radius:var(--radius);background:rgba(13,15,20,.8);border:1px solid var(--line);backdrop-filter:blur(4px)}
+.why-card .ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:rgba(227,181,74,.12);color:var(--gold);margin-bottom:18px}
+.why-card .ic svg{width:26px;height:26px}
+.why-card h3{font-size:1.5rem;margin-bottom:8px}
+.why-card p{color:var(--muted);font-size:.93rem}
+
+/* financing */
+.fin{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center}
+.fin-list{list-style:none;display:grid;gap:14px;margin:26px 0 34px}
+.fin-list li{display:flex;gap:14px;align-items:flex-start;color:#d4d6dc}
+.fin-list li svg{width:22px;height:22px;flex:none;color:var(--gold);margin-top:2px}
+.calc{background:var(--bg2);border:1px solid var(--line);border-radius:22px;padding:32px;position:relative;overflow:hidden}
+.calc::before{content:"";position:absolute;inset:-1px;border-radius:22px;padding:1px;background:linear-gradient(140deg,var(--gold),transparent 40%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.calc h3{font-size:1.8rem;margin-bottom:22px}
+.field{margin-bottom:20px}
+.field label{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted);margin-bottom:8px}
+.field label b{color:var(--text)}
+input[type=range]{width:100%;accent-color:var(--gold)}
+.result{margin-top:10px;padding:22px;border-radius:14px;background:rgba(227,181,74,.08);border:1px solid rgba(227,181,74,.3);text-align:center}
+.result b{font-family:Anton;font-weight:400;font-size:3rem;display:block;line-height:1.1}
+.result small{color:var(--muted);font-size:.78rem}
+
+/* trade-in / contact form */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:22px;padding:34px}
+.card h3{font-size:2rem;margin-bottom:8px}
+.card > p{color:var(--muted);margin-bottom:24px}
+form{display:grid;gap:14px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+input,select,textarea{width:100%;background:#0a0b0f;border:1px solid var(--line);color:var(--text);border-radius:12px;padding:14px 16px;font-family:inherit;font-size:.95rem;outline:none;transition:border-color .2s}
+input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+textarea{min-height:100px;resize:vertical}
+.info-list{display:grid;gap:18px;margin:10px 0 28px}
+.info{display:flex;gap:16px;align-items:center}
+.info .ic{width:50px;height:50px;border-radius:14px;background:rgba(227,181,74,.12);color:var(--gold);display:grid;place-items:center;flex:none}
+.info .ic svg{width:22px;height:22px}
+.info small{display:block;color:var(--muted);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}
+.info b{font-size:1.08rem}
+.map{border-radius:16px;overflow:hidden;border:1px solid var(--line);height:240px;filter:grayscale(1) invert(.92) contrast(.9)}
+.map iframe{width:100%;height:100%;border:0}
+
+/* big cta */
+.bigcta{position:relative;overflow:hidden;border-radius:26px;padding:70px 40px;text-align:center;isolation:isolate}
+.bigcta .bronx{z-index:-2}
+.bigcta::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at center,rgba(7,8,11,.55),rgba(7,8,11,.92))}
+.bigcta h2{font-size:clamp(2.4rem,6vw,5rem)}
+.bigcta p{color:#cfd2d8;margin:14px auto 30px;max-width:540px}
+.bigcta .hero-actions{justify-content:center}
+
+footer{border-top:1px solid var(--line);padding:50px 0 110px;color:var(--muted);font-size:.88rem}
+.foot{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:center}
+
+/* floating buttons */
+.floaters{position:fixed;right:18px;bottom:18px;z-index:60;display:flex;flex-direction:column;gap:12px}
+.fab{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.5);transition:transform .2s}
+.fab:hover{transform:scale(1.08)}
+.fab svg{width:28px;height:28px}
+.fab.wa{background:#25d366;color:#fff}
+.fab.call{background:var(--gold);color:#111}
+.fab.wa::after{content:"";position:absolute;width:58px;height:58px;border-radius:50%;border:2px solid #25d366;animation:ping 2s infinite}
+@keyframes ping{from{transform:scale(1);opacity:.8}to{transform:scale(1.6);opacity:0}}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s,transform .8s}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:980px){
+  .nav-links,.nav-cta .btn-ghost{display:none}
+  .burger{display:block}
+  .mobile-menu{position:fixed;inset:74px 0 auto 0;background:rgba(7,8,11,.97);border-bottom:1px solid var(--line);padding:10px 20px 24px;flex-direction:column;z-index:49}
+  .mobile-menu.open{display:flex}
+  .mobile-menu a{padding:14px 0;border-bottom:1px solid var(--line);font-weight:600}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .why{grid-template-columns:repeat(2,1fr)}
+  .fin,.contact{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:620px){
+  section{padding:80px 0}
+  .wrap{padding:0 16px}
+  .grid,.why{grid-template-columns:1fr}
+  .row2{grid-template-columns:1fr}
+  .nav-cta .btn-gold{display:none}
+  .hero-actions .btn{flex:1 1 100%}
+  .hero::after{background:linear-gradient(0deg,rgba(7,8,11,.96) 20%,rgba(7,8,11,.55) 70%,rgba(7,8,11,.35))}
+  .hero-inner{padding:120px 0 90px}
+  .card,.calc{padding:24px}
+  .stat{padding:22px 18px}
+  .stat b{font-size:1.9rem}
+  .bigcta{padding:50px 20px}
+}
+@media (prefers-reduced-motion:reduce){
+  .train,.ticker-track,.neon,.fab.wa::after{animation:none}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ SVG sprites ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1l-.9 1.2c-.2.2-.3.2-.6.1a8.1 8.1 0 0 1-4-3.5c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 1.9.8 2.6.9 3.6.7.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.3c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.3 8.3 0 1 1 12 20.3z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.3 7 13 7 13s7-7.7 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3 4 6v6c0 5 3.4 8.3 8 9 4.6-.7 8-4 8-9V6l-8-3z"/><path fill="none" stroke="currentColor" stroke-width="2" d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-cash" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="i-swap" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="m11 12 9-9m-4 4 3 3m-6 0 2 2"/></symbol>
+
+    <!-- car silhouettes -->
+    <symbol id="car-sedan" viewBox="0 0 400 140"><path d="M20 102c-6 0-10-5-9-11l3-16c1-6 6-10 12-11l60-8 52-30c10-6 21-9 33-9h86c14 0 27 5 37 13l36 28 46 8c10 2 18 10 19 20l2 12c1 7-4 13-11 13h-26a40 40 0 0 0-79 0H121a40 40 0 0 0-79 0z"/><path fill="rgba(255,255,255,.18)" d="M150 52l28-17c8-5 16-7 25-7h32l4 24zm100 0-3-24h37c10 0 19 3 26 9l19 15z"/><circle cx="82" cy="104" r="30"/><circle cx="310" cy="104" r="30"/><circle cx="82" cy="104" r="14" fill="#555"/><circle cx="310" cy="104" r="14" fill="#555"/></symbol>
+    <symbol id="car-suv" viewBox="0 0 400 150"><path d="M16 112c-6 0-10-5-9-11l2-24c1-8 7-14 15-15l30-4 34-36c7-8 18-12 29-12h168c11 0 21 5 28 13l30 35 30 6c10 2 17 11 17 21v16c0 6-5 11-11 11h-22a40 40 0 0 0-79 0H127a40 40 0 0 0-79 0z"/><path fill="rgba(255,255,255,.18)" d="M104 58l26-28c4-5 10-7 16-7h52v35zm108 0V23h60v35zm74 0V23h14c6 0 11 3 15 7l24 28z"/><circle cx="88" cy="114" r="31"/><circle cx="318" cy="114" r="31"/><circle cx="88" cy="114" r="15" fill="#555"/><circle cx="318" cy="114" r="15" fill="#555"/></symbol>
+    <symbol id="car-coupe" viewBox="0 0 400 130"><path d="M18 96c-6 0-10-5-9-10l3-12c2-7 8-12 15-13l70-10 60-26c12-5 25-8 38-8h52c16 0 31 6 42 16l30 24 50 8c9 1 16 9 17 18l1 10c1 5-3 10-9 10h-30a40 40 0 0 0-79 0H122a40 40 0 0 0-79 0z"/><path fill="rgba(255,255,255,.18)" d="M160 50l40-18c8-3 16-5 25-5h14l2 23zm92 0-2-23h8c12 0 23 4 31 11l14 12z"/><circle cx="82" cy="98" r="29"/><circle cx="312" cy="98" r="29"/><circle cx="82" cy="98" r="13" fill="#555"/><circle cx="312" cy="98" r="13" fill="#555"/></symbol>
+  </defs>
+</svg>
+
+<!-- ============ Header ============ -->
+<header id="top">
+  <div class="wrap nav">
+    <a href="#top" class="logo" aria-label="Luxury Dreams Auto Group home">
+      <div class="logo-mark">LD</div>
+      <div class="logo-text"><b>LUXURY DREAMS</b><span>Auto Group · Bronx</span></div>
+    </a>
+    <nav class="nav-links">
+      <a href="#inventory">Inventory</a>
+      <a href="#why">Why Us</a>
+      <a href="#financing">Financing</a>
+      <a href="#trade">Trade-In</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="https://wa.me/13476811500" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>WhatsApp</a>
+      <a class="btn btn-gold" href="tel:+13476811500"><svg><use href="#i-phone"/></svg>(347) 681-1500</a>
+      <button class="burger" id="burger" aria-label="Open menu"><svg viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#inventory">Inventory</a>
+  <a href="#why">Why Us</a>
+  <a href="#financing">Financing</a>
+  <a href="#trade">Trade-In</a>
+  <a href="#contact">Contact</a>
+  <a href="tel:+13476811500" style="color:var(--gold)">Call (347) 681-1500</a>
+</div>
+
+<!-- ============ Hero ============ -->
+<section class="hero" style="padding:0">
+  <div class="bronx" data-bronx="hero"></div>
+  <div class="wrap">
+    <div class="hero-inner">
+      <span class="eyebrow">The Bronx · New York City</span>
+      <h1>Drive the <span class="gold">Dream</span><span class="tag">Straight outta the BX</span></h1>
+      <p class="lead">Quality pre-owned luxury cars, SUVs and daily drivers — hand-picked, inspected and ready to roll. Financing for every credit situation. Trade-ins welcome.</p>
+      <div class="hero-actions">
+        <a class="btn btn-gold" href="tel:+13476811500"><svg><use href="#i-phone"/></svg>Call (347) 681-1500</a>
+        <a class="btn btn-wa" href="https://wa.me/13476811500?text=Hi%20Luxury%20Dreams%2C%20I%27m%20interested%20in%20a%20car" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>WhatsApp Us</a>
+        <a class="btn btn-ghost" href="#inventory">View Inventory <svg><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="hero-badges">
+        <span class="chip"><i></i>All Credit Welcome</span>
+        <span class="chip"><i></i>Trade-Ins Accepted</span>
+        <span class="chip"><i></i>Luxury · SUVs · Sedans</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Luxury Dreams Auto Group</span><span>Bronx, NY</span><span>All Credit Approved</span><span>Trade-Ins Welcome</span><span>Call (347) 681-1500</span><span>Luxury · SUVs · Sedans</span>
+    <span>Luxury Dreams Auto Group</span><span>Bronx, NY</span><span>All Credit Approved</span><span>Trade-Ins Welcome</span><span>Call (347) 681-1500</span><span>Luxury · SUVs · Sedans</span>
+  </div>
+</div>
+
+<!-- ============ Stats ============ -->
+<div class="wrap" style="padding-top:90px">
+  <div class="stats reveal">
+    <div class="stat"><b class="gold">BX</b><span>Proudly Bronx-based</span></div>
+    <div class="stat"><b>100%</b><span>Vehicles inspected</span></div>
+    <div class="stat"><b>All</b><span>Credit types welcome</span></div>
+    <div class="stat"><b>1 Call</b><span>Is all it takes</span></div>
+  </div>
+</div>
+
+<!-- ============ Inventory ============ -->
+<section id="inventory">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="eyebrow">Featured Inventory</span>
+        <h2>On the <span class="gold">Lot</span></h2>
+      </div>
+      <p>Our inventory moves fast. Tap any car to check availability, price and photos on WhatsApp.</p>
+    </div>
+    <div class="filters reveal" id="filters">
+      <button class="filter active" data-f="all">All</button>
+      <button class="filter" data-f="luxury">Luxury</button>
+      <button class="filter" data-f="suv">SUV</button>
+      <button class="filter" data-f="sedan">Sedan</button>
+      <button class="filter" data-f="sport">Sport</button>
+    </div>
+    <div class="grid" id="grid"></div>
+    <p class="inv-note">Looking for something specific? <a href="https://wa.me/13476811500?text=Hi%2C%20I%27m%20looking%20for%20a%20specific%20car%3A%20" target="_blank" rel="noopener" style="color:var(--gold);font-weight:700">Tell us what you want</a> — we'll find it.</p>
+  </div>
+</section>
+
+<!-- ============ Why us ============ -->
+<section id="why" class="brick-real">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="eyebrow">Why Luxury Dreams</span>
+        <h2>Bronx Built. <span class="gold">Bronx Trusted.</span></h2>
+      </div>
+      <p>We're a neighborhood dealer — no games, no pressure. Just good cars and straight talk.</p>
+    </div>
+    <div class="why">
+      <div class="why-card reveal"><div class="ic"><svg><use href="#i-shield"/></svg></div><h3>Inspected</h3><p>Every car is checked before it hits the lot, so you drive off with confidence.</p></div>
+      <div class="why-card reveal"><div class="ic"><svg><use href="#i-cash"/></svg></div><h3>Financing</h3><p>Good credit, bad credit, first-time buyer — we work with you to get approved.</p></div>
+      <div class="why-card reveal"><div class="ic"><svg><use href="#i-swap"/></svg></div><h3>Trade-Ins</h3><p>Bring your current ride. We'll give you a fair offer toward your next one.</p></div>
+      <div class="why-card reveal"><div class="ic"><svg><use href="#i-key"/></svg></div><h3>Fast Deals</h3><p>Pick your car, sign, and drive. Most deals done same day.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Financing ============ -->
+<section id="financing">
+  <div class="wrap fin">
+    <div class="reveal">
+      <span class="eyebrow">Financing</span>
+      <h2 style="font-size:clamp(2.4rem,5.5vw,4.4rem);margin-top:14px">Get <span class="gold">Approved</span><br>Get Rolling</h2>
+      <ul class="fin-list">
+        <li><svg><use href="#i-check"/></svg><span><b>All credit welcome</b> — good, bad, or no credit history.</span></li>
+        <li><svg><use href="#i-check"/></svg><span><b>First-time buyers</b> — we'll walk you through every step.</span></li>
+        <li><svg><use href="#i-check"/></svg><span><b>Flexible down payments</b> built around your budget.</span></li>
+        <li><svg><use href="#i-check"/></svg><span><b>Trade-in value</b> applied straight to your deal.</span></li>
+      </ul>
+      <div class="hero-actions">
+        <a class="btn btn-gold" href="#contact">Apply Now <svg><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-ghost" href="tel:+13476811500"><svg><use href="#i-phone"/></svg>Talk to Us</a>
+      </div>
+    </div>
+    <div class="calc reveal">
+      <h3>Payment <span class="gold">Estimator</span></h3>
+      <div class="field"><label>Vehicle price <b id="vPrice"></b></label><input type="range" id="price" min="5000" max="120000" step="500" value="35000"></div>
+      <div class="field"><label>Down payment <b id="vDown"></b></label><input type="range" id="down" min="0" max="40000" step="500" value="5000"></div>
+      <div class="field"><label>Term <b id="vTerm"></b></label><input type="range" id="term" min="24" max="84" step="12" value="60"></div>
+      <div class="field"><label>Interest rate (APR) <b id="vRate"></b></label><input type="range" id="rate" min="0" max="25" step="0.5" value="9"></div>
+      <div class="result"><small>Estimated monthly payment</small><b class="gold" id="monthly">$0</b><small>Estimate only. Actual rate and terms depend on credit approval.</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Trade-in + Contact ============ -->
+<section id="trade" class="brick-real">
+  <div class="wrap contact" id="contact">
+    <div class="card reveal">
+      <span class="eyebrow">Trade-In · Apply · Ask</span>
+      <h3 style="margin-top:14px">Send Us a <span class="gold">Message</span></h3>
+      <p>Fill this out and it opens straight in WhatsApp — we'll get right back to you.</p>
+      <form id="leadForm">
+        <div class="row2">
+          <input name="name" placeholder="Your name" required>
+          <input name="phone" type="tel" placeholder="Phone number" required>
+        </div>
+        <select name="topic">
+          <option>I'm interested in a car</option>
+          <option>I want to apply for financing</option>
+          <option>I want to trade in my car</option>
+          <option>Other question</option>
+        </select>
+        <div class="row2">
+          <input name="car" placeholder="Car you want (optional)">
+          <input name="trade" placeholder="Your trade-in (year/make/model)">
+        </div>
+        <textarea name="msg" placeholder="Anything else? Budget, color, mileage…"></textarea>
+        <button class="btn btn-wa" type="submit"><svg><use href="#i-wa"/></svg>Send on WhatsApp</button>
+      </form>
+    </div>
+    <div class="card reveal">
+      <span class="eyebrow">Visit / Call</span>
+      <h3 style="margin-top:14px">Find Us in the <span class="gold">Bronx</span></h3>
+      <p>Call or WhatsApp before you come so we have your car ready.</p>
+      <div class="info-list">
+        <a class="info" href="tel:+13476811500"><div class="ic"><svg><use href="#i-phone"/></svg></div><div><small>Call</small><b>+1 (347) 681-1500</b></div></a>
+        <a class="info" href="https://wa.me/13476811500" target="_blank" rel="noopener"><div class="ic"><svg><use href="#i-wa"/></svg></div><div><small>WhatsApp</small><b>Message us anytime</b></div></a>
+        <div class="info"><div class="ic"><svg><use href="#i-pin"/></svg></div><div><small>Location</small><b>The Bronx, New York</b></div></div>
+        <div class="info"><div class="ic"><svg><use href="#i-clock"/></svg></div><div><small>Hours</small><b>Call for today's hours</b></div></div>
+      </div>
+      <div class="map"><iframe title="Map of the Bronx" loading="lazy" src="https://www.google.com/maps?q=Bronx,+NY&output=embed"></iframe></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Big CTA ============ -->
+<section style="padding-top:40px">
+  <div class="wrap">
+    <div class="bigcta reveal">
+      <div class="bronx" data-bronx="cta"></div>
+      <span class="tag" style="font-size:1.6rem;display:block;margin-bottom:10px;transform:rotate(-2deg)">Your dream ride is waiting</span>
+      <h2>Come Through <span class="gold">the BX</span></h2>
+      <p>Luxury Dreams Auto Group — quality cars, real deals, Bronx love.</p>
+      <div class="hero-actions">
+        <a class="btn btn-gold" href="tel:+13476811500"><svg><use href="#i-phone"/></svg>(347) 681-1500</a>
+        <a class="btn btn-wa" href="https://wa.me/13476811500" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <a href="#top" class="logo"><div class="logo-mark">LD</div><div class="logo-text"><b>LUXURY DREAMS</b><span>Auto Group · Bronx</span></div></a>
+    <div>© <span id="yr"></span> Luxury Dreams Auto Group · Bronx, NY · <a href="tel:+13476811500" style="color:var(--gold)">+1 347 681 1500</a></div>
+  </div>
+</footer>
+
+<div class="floaters">
+  <a class="fab call" href="tel:+13476811500" aria-label="Call"><svg><use href="#i-phone"/></svg></a>
+  <a class="fab wa" href="https://wa.me/13476811500" target="_blank" rel="noopener" aria-label="WhatsApp"><svg><use href="#i-wa"/></svg></a>
+</div>
+
+<script>
+const PHONE = "13476811500";
+
+/* ---------- Bronx night scene (SVG) ---------- */
+function rng(seed){return()=>{seed=(seed*16807)%2147483647;return(seed-1)/2147483646}}
+function bronxScene(seed){
+  const r = rng(seed), W = 1600, H = 900;
+  let s = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky${seed}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#05060a"/><stop offset=".55" stop-color="#1a1426"/><stop offset=".8" stop-color="#4a2530"/><stop offset="1" stop-color="#8a4a2e"/>
+    </linearGradient>
+    <radialGradient id="glow${seed}" cx=".7" cy=".75" r=".6"><stop offset="0" stop-color="#e3b54a" stop-opacity=".35"/><stop offset="1" stop-color="#e3b54a" stop-opacity="0"/></radialGradient>
+    <linearGradient id="street${seed}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#15161b"/><stop offset="1" stop-color="#07080b"/></linearGradient>
+    <pattern id="bricks${seed}" width="24" height="12" patternUnits="userSpaceOnUse"><rect width="24" height="12" fill="#5a2418"/><path d="M0 0h24M0 6h24M12 0v6M0 6v6M24 6v6" stroke="#2c100a" stroke-width="1"/></pattern>
+  </defs>
+  <rect width="${W}" height="${H}" fill="url(#sky${seed})"/>
+  <rect width="${W}" height="${H}" fill="url(#glow${seed})"/>`;
+  // stars
+  for(let i=0;i<70;i++) s+=`<circle cx="${r()*W}" cy="${r()*330}" r="${r()*1.3+.3}" fill="#fff" opacity="${r()*.6+.2}"/>`;
+  // moon
+  s+=`<circle cx="1260" cy="150" r="46" fill="#f5e7c4" opacity=".9"/><circle cx="1276" cy="140" r="46" fill="#1a1426" opacity=".55"/>`;
+  // far skyline (Manhattan in the distance)
+  s+=`<g fill="#1b1a26">`;
+  let x=0; while(x<W){const w=30+r()*60,h=120+r()*260;s+=`<rect x="${x}" y="${600-h}" width="${w}" height="${h+10}"/>`;
+    if(r()>.85) s+=`<rect x="${x+w/2-2}" y="${600-h-40}" width="4" height="40"/>`; x+=w+2;}
+  // Empire-state-ish + Chrysler-ish
+  s+=`<path d="M300 600V300h16v-30h8v-40h6v-60h4v60h6v40h8v30h16v300z"/><path d="M560 600V320h40v-40l-20-60-20 60v40z"/>`;
+  s+=`</g>`;
+  for(let i=0;i<180;i++) s+=`<rect x="${r()*W}" y="${320+r()*270}" width="2" height="3" fill="#f3d58a" opacity="${r()*.5+.15}"/>`;
+  // Yankee Stadium lights glow
+  s+=`<g opacity=".9"><ellipse cx="1060" cy="600" rx="220" ry="40" fill="#fff4d0" opacity=".08"/>
+    <path d="M900 560h320l-20 40H920z" fill="#262532"/>`;
+  for(let i=0;i<6;i++){const lx=910+i*60;s+=`<rect x="${lx}" y="470" width="4" height="90" fill="#2d2c3a"/><rect x="${lx-12}" y="462" width="28" height="10" fill="#fffbe8"/><ellipse cx="${lx+2}" cy="470" rx="40" ry="22" fill="#fffbe8" opacity=".08"/>`;}
+  s+=`</g>`;
+  // mid tenements (brick w/ fire escapes)
+  x=-20; while(x<W+40){
+    const w=150+r()*130, h=240+r()*170, y=780-h;
+    s+=`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#bricks${seed})"/><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#000" opacity="${.35+r()*.25}"/>`;
+    s+=`<rect x="${x-4}" y="${y-10}" width="${w+8}" height="12" fill="#2a0f09"/>`;
+    const cols=Math.floor(w/38), rows=Math.floor(h/56);
+    for(let c=0;c<cols;c++)for(let rr=0;rr<rows-1;rr++){
+      const wx=x+14+c*38, wy=y+18+rr*56, lit=r();
+      const col = lit>.72?'#ffd27a':lit>.62?'#8fc9ff':'#120a08';
+      s+=`<rect x="${wx}" y="${wy}" width="18" height="28" fill="${col}" opacity="${lit>.62?.9:1}"/><rect x="${wx-2}" y="${wy+28}" width="22" height="3" fill="#8a7a6a" opacity=".5"/>`;
+    }
+    // fire escape
+    const fx=x+w*.25, fw=w*.5;
+    for(let rr=1;rr<rows-1;rr++){const fy=y+rr*56+12;
+      s+=`<g stroke="#0a0a0a" stroke-width="2" fill="none"><path d="M${fx} ${fy}h${fw}"/><path d="M${fx} ${fy-12}h${fw}"/>`;
+      for(let k=0;k<=fw;k+=8)s+=`<path d="M${fx+k} ${fy-12}v12"/>`;
+      s+=`<path d="M${fx+fw*.2} ${fy}l${fw*.5} -44"/></g>`;}
+    // water tower
+    if(r()>.6){const tx=x+w*.6;s+=`<g fill="#1a0c08"><path d="M${tx} ${y-10}l6 -30h36l6 30z" opacity=".0"/><rect x="${tx}" y="${y-58}" width="40" height="40" rx="3"/><path d="M${tx-4} ${y-58}l24 -16 24 16z"/><path d="M${tx+4} ${y-18}v10M${tx+36} ${y-18}v10" stroke="#1a0c08" stroke-width="3"/></g>`;}
+    x+=w+(r()*6);
+  }
+  // graffiti on the wall at street level
+  const tags=["BX","LUXURY","DREAMS","718","BRONX"];
+  const gcols=["#e3b54a","#e2372c","#4fd8ff","#ff5fb0","#7bff8a"];
+  for(let i=0;i<7;i++){const t=tags[Math.floor(r()*tags.length)];
+    s+=`<text x="${r()*W}" y="${735+r()*30}" font-family="Permanent Marker, cursive" font-size="${26+r()*22}" fill="${gcols[Math.floor(r()*gcols.length)]}" opacity=".55" transform="rotate(${-8+r()*10} 0 0)" style="transform-box:fill-box;transform-origin:center">${t}</text>`;}
+  // elevated subway (4 train) steel structure
+  s+=`<g fill="#0c0c10"><rect x="0" y="600" width="${W}" height="26"/><rect x="0" y="626" width="${W}" height="6" fill="#1d1d24"/>`;
+  for(let px=40;px<W;px+=140){s+=`<rect x="${px}" y="632" width="14" height="190"/><path d="M${px-30} 632h74l-30 26h-14z" />`;
+    s+=`<path d="M${px+14} 640l126 0" stroke="#0c0c10" stroke-width="4"/><path d="M${px+14} 660l63 -28 63 28" stroke="#15151b" stroke-width="3" fill="none"/>`;}
+  s+=`</g>`;
+  // train
+  s+=`<g class="train">`;
+  for(let c=0;c<5;c++){const cx=c*262;
+    s+=`<rect x="${cx}" y="548" width="256" height="54" rx="6" fill="#aab0bb"/><rect x="${cx}" y="590" width="256" height="6" fill="#6d7380"/>`;
+    for(let w=0;w<7;w++)s+=`<rect x="${cx+14+w*34}" y="558" width="24" height="18" rx="2" fill="#ffe6a6" opacity=".9"/>`;
+    s+=`<rect x="${cx+120}" y="556" width="16" height="34" fill="#5d636e"/>`;}
+  s+=`<circle cx="${5*262-16}" cy="566" r="12" fill="#1f8a3c"/><text x="${5*262-16}" y="572" font-family="Inter,Arial" font-weight="800" font-size="16" fill="#fff" text-anchor="middle">4</text>`;
+  s+=`<rect x="${5*262-10}" y="585" width="8" height="5" fill="#fffbe0"/></g>`;
+  // street
+  s+=`<rect x="0" y="780" width="${W}" height="120" fill="url(#street${seed})"/>`;
+  s+=`<rect x="0" y="778" width="${W}" height="6" fill="#2a2b31"/>`;
+  for(let lx=0;lx<W;lx+=120)s+=`<rect x="${lx}" y="846" width="60" height="4" fill="#e3b54a" opacity=".5"/>`;
+  // street lights + reflections
+  for(let lx=160;lx<W;lx+=360){s+=`<rect x="${lx}" y="660" width="6" height="120" fill="#101014"/><path d="M${lx+3} 660q0 -18 30 -18h14" stroke="#101014" stroke-width="5" fill="none"/><ellipse cx="${lx+46}" cy="646" rx="12" ry="5" fill="#ffd98a"/><path d="M${lx+36} 648l-40 132h100l-40 -132z" fill="#ffd98a" opacity=".07"/><ellipse cx="${lx+46}" cy="820" rx="70" ry="10" fill="#ffd98a" opacity=".12"/>`;}
+  // neon sign
+  s+=`<g class="neon"><rect x="1180" y="690" width="230" height="56" rx="8" fill="#0a0a0e" stroke="#e3b54a" stroke-width="3"/><text x="1295" y="728" text-anchor="middle" font-family="Anton,Impact" font-size="30" fill="#ffd97a" style="filter:drop-shadow(0 0 6px #e3b54a)">AUTO GROUP</text></g>`;
+  // parked car silhouettes
+  s+=`<use href="#car-suv" x="${80}" y="740" width="300" height="112" fill="#050507"/><use href="#car-sedan" x="${760}" y="752" width="280" height="98" fill="#050507"/>`;
+  s+=`</svg>`;
+  return s;
+}
+document.querySelectorAll('[data-bronx]').forEach((el,i)=>el.innerHTML=bronxScene(i?97:42));
+
+/* ---------- Inventory ---------- */
+const cars=[
+  {name:"Mercedes-Benz S-Class",type:"luxury",body:"sedan",specs:["V6/V8","AWD 4MATIC","Leather","Panoramic roof"],c1:"#1b1b22",c2:"#3a3a48",paint:"#0d0d10"},
+  {name:"BMW X5",type:"suv",body:"suv",specs:["xDrive","3rd-row option","Navigation","Heated seats"],c1:"#0f1d2e",c2:"#2a4466",paint:"#0b1623"},
+  {name:"Range Rover Sport",type:"luxury",body:"suv",specs:["4WD","Air suspension","Meridian audio","Loaded"],c1:"#1e1a13",c2:"#4a3f2a",paint:"#15120c"},
+  {name:"Audi A6",type:"sedan",body:"sedan",specs:["Quattro AWD","Virtual cockpit","Sunroof","Clean title"],c1:"#1a1a1a",c2:"#505050",paint:"#222"},
+  {name:"Dodge Charger",type:"sport",body:"sedan",specs:["V8 option","RWD","Sport mode","Bold look"],c1:"#2b0b0b",c2:"#6b1a16",paint:"#3a0d0a"},
+  {name:"Cadillac Escalade",type:"luxury",body:"suv",specs:["V8","7 seats","Premium sound","Heated/cooled"],c1:"#111",c2:"#34343a",paint:"#050505"},
+  {name:"Honda Accord",type:"sedan",body:"sedan",specs:["Great MPG","Backup cam","Bluetooth","Reliable"],c1:"#1c2027",c2:"#48505e",paint:"#3a414c"},
+  {name:"Jeep Grand Cherokee",type:"suv",body:"suv",specs:["4x4","Tow ready","Uconnect","All-weather"],c1:"#0e1a12",c2:"#284a32",paint:"#1a2a1e"},
+  {name:"Chevrolet Camaro",type:"sport",body:"coupe",specs:["Coupe","RWD","Sport exhaust","Head turner"],c1:"#2b2308",c2:"#6b5714",paint:"#c99a14"},
+];
+function carCard(c,i){
+  const sym = c.body==="suv"?"car-suv":c.body==="coupe"?"car-coupe":"car-sedan";
+  const msg = encodeURIComponent(`Hi Luxury Dreams! Is the ${c.name} available? Please send price & photos.`);
+  return `<article class="car reveal" data-type="${c.type}">
+    <div class="car-img">
+      <svg class="scene" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
+        <defs><linearGradient id="cg${i}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c.c2}"/><stop offset="1" stop-color="${c.c1}"/></linearGradient>
+        <radialGradient id="cs${i}" cx=".5" cy=".3" r=".7"><stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>
+        <rect width="400" height="250" fill="url(#cg${i})"/><rect width="400" height="250" fill="url(#cs${i})"/>
+        <g fill="#000" opacity=".25">${[...Array(9)].map((_,k)=>`<rect x="${k*48-10}" y="${40+((k*37)%60)}" width="40" height="200"/>`).join('')}</g>
+        <rect y="190" width="400" height="60" fill="#000" opacity=".45"/>
+        <ellipse cx="200" cy="208" rx="160" ry="12" fill="#000" opacity=".6"/>
+        <use href="#${sym}" x="30" y="${c.body==='suv'?72:84}" width="340" height="${c.body==='suv'?128:118}" fill="${c.paint}" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/>
+        <text x="380" y="36" text-anchor="end" font-family="Permanent Marker,cursive" font-size="20" fill="#e3b54a" opacity=".7">BX</text>
+      </svg>
+      <span class="badge">${c.type}</span>
+    </div>
+    <div class="car-body">
+      <span class="type">Pre-owned · ${c.body}</span>
+      <h3>${c.name}</h3>
+      <div class="specs">${c.specs.map(s=>`<span>${s}</span>`).join('')}</div>
+      <div class="car-foot">
+        <div class="price">Call for price<small>Financing available</small></div>
+        <a href="https://wa.me/${PHONE}?text=${msg}" target="_blank" rel="noopener">Check it <svg width="16" height="16"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </article>`;
+}
+const grid=document.getElementById('grid');
+grid.innerHTML=cars.map(carCard).join('');
+document.getElementById('filters').addEventListener('click',e=>{
+  const b=e.target.closest('.filter'); if(!b) return;
+  document.querySelectorAll('.filter').forEach(f=>f.classList.toggle('active',f===b));
+  const f=b.dataset.f;
+  grid.querySelectorAll('.car').forEach(c=>c.style.display=(f==='all'||c.dataset.type===f)?'':'none');
+});
+
+/* ---------- Payment calculator ---------- */
+const $=id=>document.getElementById(id);
+const money=n=>'$'+Math.round(n).toLocaleString('en-US');
+function calc(){
+  const P=+$('price').value, D=Math.min(+$('down').value,P), n=+$('term').value, apr=+$('rate').value;
+  const L=P-D, i=apr/1200;
+  const m = L<=0?0 : i===0? L/n : L*i/(1-Math.pow(1+i,-n));
+  $('vPrice').textContent=money(P); $('vDown').textContent=money(D);
+  $('vTerm').textContent=n+' months'; $('vRate').textContent=apr+'%';
+  $('monthly').textContent=money(m)+'/mo';
+}
+['price','down','term','rate'].forEach(id=>$(id).addEventListener('input',calc)); calc();
+
+/* ---------- Lead form -> WhatsApp ---------- */
+$('leadForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const d=Object.fromEntries(new FormData(e.target));
+  const lines=[`Hi Luxury Dreams Auto Group!`,`Name: ${d.name}`,`Phone: ${d.phone}`,`Topic: ${d.topic}`];
+  if(d.car) lines.push(`Car I want: ${d.car}`);
+  if(d.trade) lines.push(`My trade-in: ${d.trade}`);
+  if(d.msg) lines.push(`Message: ${d.msg}`);
+  window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(lines.join('\n'))}`,'_blank','noopener');
+});
+
+/* ---------- UI ---------- */
+$('yr').textContent=new Date().getFullYear();
+const header=document.querySelector('header');
+addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>30),{passive:true});
+$('burger').addEventListener('click',()=>$('mobileMenu').classList.toggle('open'));
+document.querySelectorAll('#mobileMenu a').forEach(a=>a.addEventListener('click',()=>$('mobileMenu').classList.remove('open')));
+const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
