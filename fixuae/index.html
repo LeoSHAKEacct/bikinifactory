@@ -498,10 +498,15 @@
   if (window.L) {
     map = L.map('map', { scrollWheelZoom: false, dragging: !L.Browser.mobile, tap: false, zoomControl: true, attributionControl: true })
       .fitBounds([[24.93, 55.05], [25.46, 55.60]]);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-      maxZoom: 18, subdomains: 'abcd',
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
-    }).addTo(map);
+    var esri = 'https://server.arcgisonline.com/ArcGIS/rest/services/';
+    var satellite = L.layerGroup([
+      L.tileLayer(esri + 'World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 18, attribution: 'Imagery &copy; Esri, Maxar, Earthstar Geographics' }),
+      L.tileLayer(esri + 'Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', { maxZoom: 18 })
+    ]).addTo(map);
+    var street = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+    L.control.layers({ 'Satellite': satellite, 'Street map': street }, null, { position: 'topright' }).addTo(map);
   } else {
     document.getElementById('map').style.display = 'none';
   }
