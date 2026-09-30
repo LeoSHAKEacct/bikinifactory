@@ -234,6 +234,11 @@ footer{border-top:1px solid var(--line);padding:50px 0 40px;color:var(--dim);fon
 .wa-float:hover{transform:scale(1.08)}
 .wa-float svg{width:30px;height:30px;color:#fff}
 
+.avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;border:1px solid var(--gold);box-shadow:0 0 0 5px rgba(201,162,99,.12)}
+.banner cite{display:flex!important;flex-direction:column;align-items:center;gap:14px}
+.contact-me{display:flex;align-items:center;gap:16px;margin:26px 0 4px}
+.contact-me b{font-family:var(--serif);font-weight:500;font-size:1.4rem;display:block;line-height:1.1}
+.contact-me span{font-size:.8rem;color:var(--muted)}
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s ease}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
@@ -286,8 +291,8 @@ footer{border-top:1px solid var(--line);padding:50px 0 40px;color:var(--dim);fon
       </div>
     </div>
     <div class="hero-right reveal">
-      <div class="portrait" id="portrait">
-        <img src="hasan.jpg" alt="Hasan Al-Awani" onload="this.parentNode.classList.add('has-img')" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='https://unavatar.io/instagram/realestatewithhasan?fallback=false'}else{this.remove()}">
+      <div class="portrait has-img" id="portrait">
+        <img src="hasan.jpg" alt="Hasan Al-Awani">
         <div class="mono">HA</div>
         <div class="portrait-cap">
           <div><span>Advisor · Dubai</span><b>Hasan Al-Awani</b></div>
@@ -401,7 +406,7 @@ footer{border-top:1px solid var(--line);padding:50px 0 40px;color:var(--dim);fon
   <div class="wrap">
     <span class="eyebrow reveal">Philosophy</span>
     <blockquote class="reveal">Hype sells projects. <em>Honesty builds wealth.</em></blockquote>
-    <cite class="reveal">Hasan Al-Awani</cite>
+    <cite class="reveal"><img class="avatar" src="hasan-face.jpg" alt="Hasan Al-Awani">Hasan Al-Awani</cite>
   </div>
 </div>
 
@@ -423,6 +428,7 @@ footer{border-top:1px solid var(--line);padding:50px 0 40px;color:var(--dim);fon
     <div class="reveal">
       <span class="eyebrow">Start Here</span>
       <h2>Let's talk about <em>your next move.</em></h2>
+      <div class="contact-me"><img class="avatar" src="hasan-face.jpg" alt="Hasan Al-Awani"><div><b>Hasan Al-Awani</b><span>Replies personally on WhatsApp</span></div></div>
       <p class="lead">Whether you're buying your first unit or building a portfolio, one conversation will tell you whether Dubai makes sense for you, and where.</p>
       <div class="contact-list">
         <a class="cl" href="https://wa.me/971502676956" target="_blank" rel="noopener"><span class="ic"><svg><use href="#i-wa"/></svg></span><span><small>WhatsApp</small><b>+971 50 267 6956</b></span></a>
