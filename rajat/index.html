@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rajat Seth — Dubai Real Estate Advisor · CEO, VAU Real Estate</title>
+<meta name="description" content="Rajat Seth, CEO of VAU Real Estate. Trusted advisor with 16 years of experience in Dubai's real estate market. Buy, sell, rent and invest in Dubai.">
+<meta name="theme-color" content="#0c1a2b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ivory:#f7f4ee; --paper:#fffdf9; --navy:#0c1a2b; --navy2:#13263d; --ink:#1b2533; --muted:#6b7482;
+  --line:rgba(12,26,43,.12); --sand:#b8925a; --sand2:#d9bd8c; --blue:#3897f0; --radius:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ivory);color:var(--ink);font-family:Manrope,system-ui,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-height:1.05;letter-spacing:-.01em;color:var(--navy)}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.eyebrow{font:600 12px/1 Manrope;letter-spacing:.26em;text-transform:uppercase;color:var(--sand)}
+section{padding:110px 0}
+@media(max-width:760px){section{padding:76px 0}}
+.sec-head{max-width:640px;margin-bottom:52px}
+.sec-head h2{font-size:clamp(36px,5vw,54px);margin:14px 0 14px}
+.sec-head p{color:var(--muted)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 26px;border-radius:999px;font:700 14px Manrope;letter-spacing:.03em;cursor:pointer;border:0;transition:transform .25s,box-shadow .25s,background .25s}
+.btn svg{width:18px;height:18px;flex:none}
+.btn-sand{background:var(--sand);color:#fff;box-shadow:0 12px 30px -12px rgba(184,146,90,.8)}
+.btn-sand:hover{transform:translateY(-2px);background:#a9834c}
+.btn-navy{background:var(--navy);color:#fff}
+.btn-navy:hover{transform:translateY(-2px);background:var(--navy2)}
+.btn-line{border:1px solid rgba(255,255,255,.35);color:#fff;background:rgba(255,255,255,.06)}
+.btn-line:hover{background:rgba(255,255,255,.14)}
+
+/* nav */
+nav{position:fixed;inset:0 0 auto;z-index:50;transition:background .35s,box-shadow .35s}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:74px}
+.logo{display:flex;flex-direction:column;line-height:1;color:#fff;transition:color .35s}
+.logo b{font:600 25px "Cormorant Garamond";letter-spacing:.02em}
+.logo small{font:600 10px Manrope;letter-spacing:.3em;text-transform:uppercase;color:var(--sand2);margin-top:4px}
+.links{display:flex;gap:30px;font-size:14px;font-weight:500;color:rgba(255,255,255,.8)}
+.links a:hover{color:#fff}
+nav.solid{background:rgba(255,253,249,.92);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
+nav.solid .logo{color:var(--navy)}
+nav.solid .links{color:var(--muted)}
+nav.solid .links a:hover{color:var(--navy)}
+.nav-cta{padding:11px 20px}
+@media(max-width:900px){.links{display:none}}
+
+/* hero */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;color:#fff;background:var(--navy);overflow:hidden;padding:120px 0 80px}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0c1a2b,#1d3554);background-size:cover;background-position:center;transform:scale(1.06);transition:opacity 1.6s;opacity:.0}
+.hero-bg.loaded{opacity:1}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,26,43,.94) 0%,rgba(12,26,43,.78) 45%,rgba(12,26,43,.35) 100%),linear-gradient(0deg,rgba(12,26,43,.7),transparent 40%)}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.25fr .75fr;gap:60px;align-items:center;width:100%}
+.hero h1{color:#fff;font-size:clamp(48px,7.4vw,92px);margin:20px 0 22px}
+.hero h1 em{font-style:italic;color:var(--sand2)}
+.hero p.lead{font-size:clamp(16px,1.6vw,19px);color:rgba(255,255,255,.82);max-width:540px;margin-bottom:34px}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap}
+.portrait{justify-self:end;text-align:center}
+.portrait .ring{width:min(300px,70vw);aspect-ratio:1;border-radius:50%;padding:8px;background:conic-gradient(from 200deg,var(--sand2),var(--sand),#7d5f33,var(--sand2));box-shadow:0 40px 80px -30px rgba(0,0,0,.8)}
+.portrait img{width:100%;height:100%;border-radius:50%;object-fit:cover;transform:scale(1.06);border:6px solid var(--navy)}
+.portrait .ring{overflow:hidden}
+.portrait .tag{display:inline-flex;align-items:center;gap:8px;margin-top:22px;padding:10px 18px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);font-size:13px;font-weight:600;backdrop-filter:blur(6px)}
+.verified{width:16px;height:16px;flex:none}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;gap:40px}.portrait{justify-self:start;text-align:left;order:-1}.portrait .ring{width:150px}.portrait .tag{margin-top:14px}}
+
+/* stats */
+.stats{background:var(--paper);border-bottom:1px solid var(--line);padding:0}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:38px 20px;text-align:center;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.stat b{display:block;font:600 46px/1 "Cormorant Garamond";color:var(--navy)}
+.stat span{font-size:13px;color:var(--muted);letter-spacing:.04em}
+@media(max-width:760px){.stats .wrap{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+/* about */
+.about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.about-img{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:4/5;background:linear-gradient(160deg,#1d3554,#0c1a2b) center/cover}
+.about-img .badge{position:absolute;left:20px;bottom:20px;right:20px;background:rgba(255,253,249,.94);border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:16px}
+.about-img .badge b{font:600 40px/1 "Cormorant Garamond";color:var(--sand)}
+.about-img .badge span{font-size:14px;color:var(--ink);font-weight:600;line-height:1.35}
+.about h2{font-size:clamp(36px,4.6vw,52px);margin:14px 0 22px}
+.about p{color:var(--muted);margin-bottom:16px}
+.about ul{list-style:none;margin:26px 0 32px;display:grid;gap:12px}
+.about li{display:flex;gap:12px;align-items:flex-start;font-weight:500}
+.about li::before{content:"";flex:none;width:20px;height:20px;margin-top:3px;border-radius:50%;background:var(--sand) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/12px no-repeat}
+@media(max-width:900px){.about .wrap{grid-template-columns:1fr;gap:44px}.about-img{aspect-ratio:4/3}}
+
+/* services */
+.services{background:var(--paper)}
+.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.svc{padding:32px 26px;border:1px solid var(--line);border-radius:var(--radius);background:var(--ivory);transition:transform .3s,box-shadow .3s,border-color .3s}
+.svc:hover{transform:translateY(-6px);box-shadow:0 24px 50px -28px rgba(12,26,43,.45);border-color:var(--sand2)}
+.svc .ic{width:50px;height:50px;border-radius:14px;background:var(--navy);display:grid;place-items:center;margin-bottom:22px}
+.svc .ic svg{width:24px;height:24px;stroke:var(--sand2);fill:none;stroke-width:1.6}
+.svc h3{font-size:28px;margin-bottom:10px}
+.svc p{font-size:14.5px;color:var(--muted)}
+@media(max-width:980px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.svc-grid{grid-template-columns:1fr}}
+
+/* listings */
+.list-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.listing{border-radius:var(--radius);overflow:hidden;background:var(--paper);border:1px solid var(--line);display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s}
+.listing:hover{transform:translateY(-6px);box-shadow:0 30px 60px -32px rgba(12,26,43,.5)}
+.listing .ph{position:relative;aspect-ratio:4/3;background:linear-gradient(150deg,#2a5d7c,#0c1a2b) center/cover}
+.listing .pill{position:absolute;top:16px;left:16px;background:var(--navy);color:#fff;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:7px 12px;border-radius:999px}
+.listing .body{padding:24px 24px 26px;display:flex;flex-direction:column;flex:1}
+.listing small{color:var(--sand);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.listing h3{font-size:27px;margin:6px 0 10px}
+.listing p{font-size:14.5px;color:var(--muted);flex:1}
+.listing .meta{display:flex;gap:16px;margin:18px 0 20px;font-size:13px;font-weight:600;color:var(--ink)}
+.listing .ask{font-weight:700;font-size:14px;color:var(--navy);display:inline-flex;gap:8px;align-items:center}
+.listing .ask:hover{color:var(--sand)}
+.list-note{margin-top:30px;text-align:center;color:var(--muted)}
+.list-note a{color:var(--navy);font-weight:700;border-bottom:1px solid var(--sand)}
+@media(max-width:980px){.list-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.list-grid{grid-template-columns:1fr}}
+
+/* why dubai */
+.why{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.why h2{color:#fff}
+.why .sec-head p{color:rgba(255,255,255,.7)}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);overflow:hidden}
+.why-grid div{background:var(--navy);padding:34px 28px}
+.why-grid b{display:block;font:600 44px/1 "Cormorant Garamond";color:var(--sand2);margin-bottom:12px}
+.why-grid h3{color:#fff;font:700 15px Manrope;margin-bottom:8px}
+.why-grid p{font-size:14px;color:rgba(255,255,255,.65)}
+@media(max-width:980px){.why-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.why-grid{grid-template-columns:1fr}}
+
+/* booking */
+.book{padding:0;margin-top:-1px}
+.book-card{position:relative;top:-60px;margin-bottom:-60px;background:var(--paper);border:1px solid var(--line);border-radius:28px;padding:48px;display:grid;grid-template-columns:auto 1fr auto;gap:36px;align-items:center;box-shadow:0 40px 80px -40px rgba(12,26,43,.45)}
+.book-card img{width:96px;height:96px;border-radius:50%;object-fit:cover;border:3px solid var(--sand2)}
+.book-card h2{font-size:clamp(30px,3.6vw,42px);margin:8px 0 8px}
+.book-card p{color:var(--muted);font-size:15px}
+.slots{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.slots span{font-size:12.5px;font-weight:600;padding:7px 12px;border-radius:999px;background:var(--ivory);border:1px solid var(--line)}
+@media(max-width:900px){.book-card{grid-template-columns:1fr;padding:30px 24px;gap:20px;top:-40px;margin-bottom:-40px}.book-card img{width:76px;height:76px}.book-card .btn{width:100%}}
+
+/* contact */
+.contact .wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:start}
+.contact h2{font-size:clamp(36px,4.6vw,52px);margin:14px 0 18px}
+.contact .intro{color:var(--muted);margin-bottom:30px}
+.cline{display:flex;gap:16px;align-items:center;padding:18px 0;border-top:1px solid var(--line)}
+.cline:last-child{border-bottom:1px solid var(--line)}
+.cline .ic{width:44px;height:44px;border-radius:50%;background:var(--navy);display:grid;place-items:center;flex:none}
+.cline .ic svg{width:19px;height:19px;stroke:var(--sand2);fill:none;stroke-width:1.7}
+.cline small{display:block;font-size:12px;color:var(--muted);letter-spacing:.06em}
+.cline b{font-weight:600;color:var(--navy)}
+.cline:hover b{color:var(--sand)}
+form{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:38px;box-shadow:0 30px 70px -45px rgba(12,26,43,.5)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--navy);margin-bottom:7px}
+.field input,.field select,.field textarea{width:100%;font:500 15px Manrope;color:var(--ink);background:var(--ivory);border:1px solid var(--line);border-radius:12px;padding:13px 15px;outline:none;transition:border-color .2s,box-shadow .2s;appearance:none}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7482' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:16px;padding-right:40px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--sand);box-shadow:0 0 0 4px rgba(184,146,90,.15)}
+.field.bad input{border-color:#c0392b}
+.choices{display:flex;flex-wrap:wrap;gap:8px}
+.choices label{margin:0;cursor:pointer;position:relative}
+.choices input{position:absolute;opacity:0;pointer-events:none}
+.choices span{display:inline-block;padding:9px 15px;border-radius:999px;border:1px solid var(--line);background:var(--ivory);font-size:13.5px;font-weight:600;color:var(--ink);transition:.2s}
+.choices input:checked+span{background:var(--navy);border-color:var(--navy);color:#fff}
+.choices input:focus-visible+span{outline:2px solid var(--sand);outline-offset:2px}
+.form-foot{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+.form-foot .btn{flex:1;min-width:200px}
+.form-msg{margin-top:16px;font-size:14px;font-weight:600;min-height:20px}
+.form-msg.err{color:#c0392b}
+.form-msg.ok{color:#1e8a52}
+@media(max-width:900px){.contact .wrap{grid-template-columns:1fr;gap:44px}form{padding:26px 20px}.row2{grid-template-columns:1fr;gap:0}}
+
+footer{background:var(--navy);color:rgba(255,255,255,.6);padding:34px 0;font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:var(--sand2)}
+
+.wa-float{position:fixed;right:20px;bottom:20px;z-index:60;width:58px;height:58px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 12px 30px -8px rgba(37,211,102,.7);transition:transform .25s}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float svg{width:30px;height:30px;fill:#fff}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s,transform .9s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="#3897f0" d="M12 1l2.6 2.1 3.3-.4 1 3.2 3 1.6-1 3.2 1 3.2-3 1.6-1 3.2-3.3-.4L12 23l-2.6-2.1-3.3.4-1-3.2-3-1.6 1-3.2-1-3.2 3-1.6 1-3.2 3.3.4z"/><path d="M7.5 12.2l3 3 6-6.2" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" fill="none"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<nav id="nav">
+  <div class="wrap">
+    <a class="logo" href="#top"><b>Rajat Seth</b><small>VAU Real Estate</small></a>
+    <div class="links">
+      <a href="#about">About</a><a href="#services">Services</a><a href="#listings">Listings</a><a href="#why">Why Dubai</a><a href="#contact">Contact</a>
+    </div>
+    <a class="btn btn-sand nav-cta" href="#book" data-book><svg><use href="#i-cal"/></svg>Book a Call</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-bg" data-img="j-nRfGUHswQ" data-w="1920"></div>
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Dubai Real Estate · Since 2010</span>
+      <h1>Your trusted advisor in <em>Dubai</em> property.</h1>
+      <p class="lead">I'm Rajat Seth, CEO of VAU Real Estate. For 16 years I've helped families and investors buy, sell, rent and invest across Dubai — with honest advice and no pressure.</p>
+      <div class="ctas">
+        <a class="btn btn-sand" href="#book" data-book><svg><use href="#i-cal"/></svg>Book a Consultation</a>
+        <a class="btn btn-line" href="#contact">Send a Message <svg><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+    <div class="portrait reveal">
+      <div class="ring"><img src="rajat.jpg" alt="Rajat Seth, CEO of VAU Real Estate" width="384" height="384"></div>
+      <div class="tag"><svg class="verified"><use href="#i-check"/></svg>@rajatseth.realtor</div>
+    </div>
+  </div>
+</header>
+
+<section class="stats">
+  <div class="wrap">
+    <div class="stat"><b>16+</b><span>Years in Dubai</span></div>
+    <div class="stat"><b>18K</b><span>Instagram Community</span></div>
+    <div class="stat"><b>345+</b><span>Market Insights Shared</span></div>
+    <div class="stat"><b>CEO</b><span>VAU Real Estate</span></div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="about-img reveal" data-img="lRCWtOEPwiY" data-w="1200">
+      <div class="badge"><b>16</b><span>Years guiding clients through Dubai's property market</span></div>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">About Rajat</span>
+      <h2>Advice you can trust, from someone who's seen every cycle.</h2>
+      <p>Since 2010 I've watched Dubai's market rise, correct and rise again. That experience is what I bring to every client — whether you're renting your first villa, buying a family home, or building a portfolio of off-plan investments.</p>
+      <p>As CEO of VAU Real Estate, I lead a team that puts clients first: clear numbers, straight answers and the right property — not just the next one.</p>
+      <ul>
+        <li>Buying, selling, renting and leasing across Dubai</li>
+        <li>Off-plan &amp; investment strategy, including DAMAC Lagoons</li>
+        <li>Guidance for overseas buyers and Golden Visa investors</li>
+      </ul>
+      <a class="btn btn-navy" href="#book" data-book><svg><use href="#i-cal"/></svg>Book a Free Call</a>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">What I Do</span>
+      <h2>Every step of your Dubai property journey.</h2>
+      <p>One advisor, from the first conversation to the keys in your hand.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg></div><h3>Buy</h3><p>Apartments, villas and townhouses — shortlisted to your budget, lifestyle and goals.</p></div>
+      <div class="svc reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 19l6-6 4 4 7-8M15 9h6v6"/></svg></div><h3>Sell</h3><p>Accurate pricing, professional marketing and qualified buyers to get you the best price.</p></div>
+      <div class="svc reveal"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M14 9l2 2"/></svg></div><h3>Rent &amp; Lease</h3><p>Luxury rentals for tenants, and reliable, vetted tenants for landlords.</p></div>
+      <div class="svc reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 21V9l8-5 8 5v12M9 21v-6h6v6M4 21h16"/></svg></div><h3>Invest</h3><p>Off-plan launches and high-yield opportunities, explained with real numbers.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="listings">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Featured Properties</span>
+      <h2>Recently on my desk.</h2>
+      <p>A taste of what I'm working on. Ask me for availability, floor plans and pricing.</p>
+    </div>
+    <div class="list-grid">
+      <article class="listing reveal">
+        <div class="ph" data-img="2fqptw4fKWI" data-w="900"><span class="pill">For Rent</span></div>
+        <div class="body">
+          <small>Near Downtown &amp; Business Bay</small>
+          <h3>4-Bedroom Luxury Villa</h3>
+          <p>Spacious villa with a private pool, minutes from Downtown Dubai and Business Bay.</p>
+          <div class="meta"><span>4 BR</span><span>Private Pool</span><span>Villa</span></div>
+          <a class="ask" href="#contact" data-ask="4-Bedroom Luxury Villa near Downtown & Business Bay (rent)">Ask about this property <svg width="16" height="16"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+      <article class="listing reveal">
+        <div class="ph" data-img="9n7rZJLWY7o" data-w="900"><span class="pill">For Rent</span></div>
+        <div class="body">
+          <small>Malta · DAMAC Lagoons</small>
+          <h3>4-Bedroom Townhouse</h3>
+          <p>Mediterranean-inspired living by the crystal lagoons — a true resort lifestyle for families.</p>
+          <div class="meta"><span>4 BR</span><span>Lagoon Access</span><span>Townhouse</span></div>
+          <a class="ask" href="#contact" data-ask="Malta, DAMAC Lagoons — 4 BR Townhouse (rent)">Ask about this property <svg width="16" height="16"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+      <article class="listing reveal">
+        <div class="ph" data-img="lRCWtOEPwiY" data-w="900"><span class="pill">For Rent</span></div>
+        <div class="body">
+          <small>Costa Brava · DAMAC Lagoons</small>
+          <h3>3-Bedroom Townhouse</h3>
+          <p>Bright Spanish-themed townhouse steps from beaches, lagoons and community amenities.</p>
+          <div class="meta"><span>3 BR</span><span>Beach Lagoon</span><span>Townhouse</span></div>
+          <a class="ask" href="#contact" data-ask="Costa Brava, DAMAC Lagoons — 3 BR Townhouse (rent)">Ask about this property <svg width="16" height="16"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+    </div>
+    <p class="list-note reveal">See new listings every week on <a href="https://www.instagram.com/rajatseth.realtor/" target="_blank" rel="noopener">@rajatseth.realtor</a></p>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Why Invest in Dubai?</span>
+      <h2>One of the world's strongest property markets.</h2>
+      <p>The reasons my clients keep choosing Dubai — and keep coming back for more.</p>
+    </div>
+    <div class="why-grid reveal">
+      <div><b>0%</b><h3>Income tax on rent</h3><p>Keep more of your rental income and capital gains.</p></div>
+      <div><b>6–8%</b><h3>Typical rental yields</h3><p>Among the highest gross yields of any global city.</p></div>
+      <div><b>10 yr</b><h3>Golden Visa</h3><p>Long-term residency for qualifying property investors.</p></div>
+      <div><b>100%</b><h3>Freehold ownership</h3><p>Foreigners can fully own property in designated areas.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="book" id="book">
+  <div class="wrap">
+    <div class="book-card reveal">
+      <img src="rajat.jpg" alt="" width="96" height="96">
+      <div>
+        <span class="eyebrow">Free 30-Minute Consultation</span>
+        <h2>Book a call with Rajat.</h2>
+        <p>Pick a time that suits you. We'll talk through your goals, budget and the best areas — no obligation.</p>
+        <div class="slots"><span>📞 Phone or Zoom</span><span>🕘 30 minutes</span><span>🌍 Any time zone</span></div>
+      </div>
+      <a class="btn btn-sand" id="bookBtn" href="#contact" data-book><svg><use href="#i-cal"/></svg>Book Me</a>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Get in Touch</span>
+      <h2>Let's find your place in Dubai.</h2>
+      <p class="intro">Tell me what you're looking for and I'll come back to you personally — usually the same day.</p>
+      <a class="cline" id="waLine" href="#" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"/></svg></span><span><small>WhatsApp / Call</small><b id="phoneTxt"></b></span></a>
+      <a class="cline" id="mailLine" href="#"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M4 7l8 6 8-6"/></svg></span><span><small>Email</small><b id="emailTxt"></b></span></a>
+      <a class="cline" href="https://www.instagram.com/rajatseth.realtor/" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg></span><span><small>Instagram</small><b>@rajatseth.realtor</b></span></a>
+      <a class="cline" href="https://www.instagram.com/vaurealestate.ae/" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 21V9l8-5 8 5v12M9 21v-6h6v6"/></svg></span><span><small>Company</small><b>VAU Real Estate · Dubai, UAE</b></span></a>
+    </div>
+
+    <form id="leadForm" class="reveal" novalidate>
+      <div class="field">
+        <label>I'm interested in</label>
+        <div class="choices">
+          <label><input type="radio" name="interest" value="Buying" checked><span>Buying</span></label>
+          <label><input type="radio" name="interest" value="Selling"><span>Selling</span></label>
+          <label><input type="radio" name="interest" value="Renting"><span>Renting</span></label>
+          <label><input type="radio" name="interest" value="Investing"><span>Investing</span></label>
+          <label><input type="radio" name="interest" value="Booking a consultation"><span>Book a Call</span></label>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="f-name">Full name *</label><input id="f-name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="f-phone">Phone / WhatsApp *</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="+971 …" required></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="f-email">Email *</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="f-budget">Budget (AED)</label>
+          <select id="f-budget" name="budget"><option>Prefer to discuss</option><option>Under 1M</option><option>1M – 3M</option><option>3M – 7M</option><option>7M+</option><option>Rental: under 200K / yr</option><option>Rental: 200K+ / yr</option></select></div>
+      </div>
+      <div class="field"><label for="f-msg">Message</label><textarea id="f-msg" name="msg" rows="4" placeholder="Areas, bedrooms, timeline, questions…"></textarea></div>
+      <div class="form-foot">
+        <button class="btn btn-sand" type="submit" data-via="wa">Send via WhatsApp</button>
+        <button class="btn btn-navy" type="submit" data-via="mail">Send via Email</button>
+      </div>
+      <div class="form-msg" id="formMsg" role="status"></div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr"></span> Rajat Seth · CEO, <a href="https://www.instagram.com/vaurealestate.ae/" target="_blank" rel="noopener">VAU Real Estate</a> · Dubai, UAE</span>
+    <span>#DubaiRealEstate · #InvestInDubai</span>
+  </div>
+</footer>
+
+<a class="wa-float" id="waFloat" href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 3a13 13 0 00-11.2 19.6L3 29l6.6-1.7A13 13 0 1016 3zm0 23.7a10.7 10.7 0 01-5.5-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.7 10.7 0 1116 26.7zm5.9-8c-.3-.2-1.9-1-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.8 8.8 0 01-4.4-3.8c-.3-.6.3-.5.9-1.7a.6.6 0 000-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 00-.9.4 3.6 3.6 0 00-1.1 2.7 6.3 6.3 0 001.3 3.3 14.3 14.3 0 005.5 4.9c2 .9 2.8.9 3.8.8a3.3 3.3 0 002.2-1.5 2.7 2.7 0 00.2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg>
+</a>
+
+<script>
+/* ===== Edit these ===== */
+const WA = "971500000000";               // TODO: Rajat's WhatsApp number, digits only with country code
+const PHONE_DISPLAY = "+971 50 000 0000"; // TODO
+const EMAIL = "info@vaurealestate.ae";     // TODO: confirm email
+const BOOKING_URL = "";                    // TODO: paste Calendly link here, e.g. https://calendly.com/rajatseth/30min
+/* ====================== */
+
+const $ = id => document.getElementById(id);
+$("yr").textContent = new Date().getFullYear();
+$("phoneTxt").textContent = PHONE_DISPLAY;
+$("emailTxt").textContent = EMAIL;
+$("waLine").href = $("waFloat").href = `https://wa.me/${WA}?text=${encodeURIComponent("Hi Rajat, I found you through your website.")}`;
+$("mailLine").href = `mailto:${EMAIL}`;
+
+/* nav */
+const nav = $("nav");
+const onScroll = () => nav.classList.toggle("solid", scrollY > 40);
+addEventListener("scroll", onScroll, {passive:true}); onScroll();
+
+/* Dubai photos (Unsplash) — gradient stays if a photo fails */
+document.querySelectorAll("[data-img]").forEach(el => {
+  const i = new Image();
+  i.onload = () => { el.style.backgroundImage = `url("${i.src}")`; el.classList.add("loaded"); };
+  i.src = `https://unsplash.com/photos/${el.dataset.img}/download?w=${el.dataset.w || 1200}`;
+});
+document.querySelector(".hero-bg").classList.add("loaded");
+
+/* reveal */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), {threshold:.12});
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+/* Book Me: opens Calendly once BOOKING_URL is set; until then, preselects "Book a Call" in the form */
+const form = $("leadForm");
+document.querySelectorAll("[data-book]").forEach(a => {
+  if (a.id !== "bookBtn" && !BOOKING_URL) return; // nav/hero buttons scroll to the booking card
+  if (BOOKING_URL) { a.href = BOOKING_URL; a.target = "_blank"; a.rel = "noopener"; return; }
+  a.addEventListener("click", () => {
+    form.querySelector('input[value="Booking a consultation"]').checked = true;
+    $("f-msg").placeholder = "Preferred days/times for the call and your time zone…";
+    setTimeout(() => $("f-name").focus({preventScroll:true}), 600);
+  });
+});
+
+/* listing "ask" links prefill the message */
+document.querySelectorAll("[data-ask]").forEach(a => a.addEventListener("click", () => {
+  const t = a.dataset.ask;
+  form.querySelector(`input[value="${/rent/i.test(t) ? "Renting" : "Buying"}"]`).checked = true;
+  $("f-msg").value = `I'm interested in: ${t}. Is it still available?`;
+}));
+
+/* contact form → WhatsApp or email */
+let via = "wa";
+form.querySelectorAll("button[type=submit]").forEach(b => b.addEventListener("click", () => via = b.dataset.via));
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  const msg = $("formMsg"), d = Object.fromEntries(new FormData(form));
+  let ok = true;
+  ["name", "phone", "email"].forEach(n => {
+    const el = form.elements[n], bad = !el.value.trim() || (n === "email" && !el.checkValidity());
+    el.closest(".field").classList.toggle("bad", bad);
+    if (bad) ok = false;
+  });
+  if (!ok) { msg.className = "form-msg err"; msg.textContent = "Please fill in your name, phone and a valid email."; return; }
+  const text = [
+    `Hi Rajat, new enquiry from your website:`,
+    `Interest: ${d.interest}`,
+    `Name: ${d.name}`,
+    `Phone: ${d.phone}`,
+    `Email: ${d.email}`,
+    `Budget: ${d.budget}`,
+    d.msg ? `Message: ${d.msg}` : ""
+  ].filter(Boolean).join("\n");
+  if (via === "mail") location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Website enquiry — " + d.interest)}&body=${encodeURIComponent(text)}`;
+  else window.open(`https://wa.me/${WA}?text=${encodeURIComponent(text)}`, "_blank", "noopener");
+  msg.className = "form-msg ok";
+  msg.textContent = "Thank you! Your message is ready to send — Rajat will be in touch shortly.";
+});
+</script>
+</body>
+</html>
