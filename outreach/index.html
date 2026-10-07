@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shake Outreach — Your Always-On Sales Agent</title>
+<title>Shake Outreach</title>
 <meta name="description" content="Shake Outreach researches your market, finds the right decision-makers, writes personal emails, follows up and books meetings — around the clock.">
 <meta name="theme-color" content="#f5f3ef">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,11 +11,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f5f3ef; --bg2:#ecE9e3; --card:#ffffff; --ink:#16151a; --ink2:#3d3b44; --muted:#7a7782;
+  --bg:#f5f3ef; --card:#ffffff; --header:rgba(245,243,239,.82); --inv:#16151a; --inv-fg:#ffffff; --inv-muted:#b7b4bd; --placeholder:#aaa6b0; --ink:#16151a; --ink2:#3d3b44; --muted:#7a7782;
   --line:#e2ded6; --accent:#ff5a36; --accent-soft:#ffe6df; --green:#1f9d63; --green-soft:#dcf3e7;
   --amber:#c9850a; --amber-soft:#fbefd4; --grey-soft:#efedea; --radius:18px;
   --shadow:0 1px 2px rgba(22,21,26,.04),0 12px 40px -16px rgba(22,21,26,.18);
 }
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121116; --card:#1c1b21; --header:rgba(18,17,22,.82); --ink:#f1eff4; --ink2:#c9c6cf; --muted:#8e8a96; --line:#2e2c35; --accent:#ff6a48; --accent-soft:#3a2019; --green:#4cc58c; --green-soft:#16301f; --amber:#e3a63a; --amber-soft:#3a2d12; --grey-soft:#2a2830; --inv:#26242c; --inv-fg:#f6f4f8; --inv-muted:#aeaab6; --placeholder:#6f6b77; color-scheme:dark;}}
+:root[data-theme="dark"]{--bg:#121116; --card:#1c1b21; --header:rgba(18,17,22,.82); --ink:#f1eff4; --ink2:#c9c6cf; --muted:#8e8a96; --line:#2e2c35; --accent:#ff6a48; --accent-soft:#3a2019; --green:#4cc58c; --green-soft:#16301f; --amber:#e3a63a; --amber-soft:#3a2d12; --grey-soft:#2a2830; --inv:#26242c; --inv-fg:#f6f4f8; --inv-muted:#aeaab6; --placeholder:#6f6b77; color-scheme:dark;}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -33,19 +35,19 @@ section{padding:110px 0}
 
 /* buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;padding:14px 24px;font:600 .95rem Inter,sans-serif;cursor:pointer;transition:transform .15s,background .2s,box-shadow .2s}
-.btn-dark{background:var(--ink);color:#fff}
+.btn-dark{background:var(--ink);color:var(--bg)}
 .btn-dark:hover{transform:translateY(-1px);box-shadow:0 10px 24px -10px rgba(22,21,26,.6)}
 .btn-accent{background:var(--accent);color:#fff}
 .btn-accent:hover{transform:translateY(-1px);box-shadow:0 10px 24px -10px rgba(255,90,54,.7)}
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-.btn-ghost:hover{background:#fff}
+.btn-ghost:hover{background:var(--card)}
 
 /* nav */
-header{position:sticky;top:0;z-index:50;background:rgba(245,243,239,.82);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .2s}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--header);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .2s}
 header.scrolled{border-color:var(--line)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
 .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.05rem}
-.logo-mark{width:30px;height:30px;border-radius:9px;background:var(--ink);display:grid;place-items:center}
+.logo-mark{width:30px;height:30px;border-radius:9px;background:var(--inv);display:grid;place-items:center}
 .logo-mark span{width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(255,90,54,.25)}
 .nav-links{display:flex;gap:30px;font-size:.92rem;color:var(--ink2)}
 .nav-links a:hover{color:var(--ink)}
@@ -58,12 +60,12 @@ header.scrolled{border-color:var(--line)}
 
 /* hero */
 .hero{padding:80px 0 40px;text-align:center}
-.pill{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 14px 6px 8px;font-size:.83rem;color:var(--ink2);margin-bottom:28px}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 14px 6px 8px;font-size:.83rem;color:var(--ink2);margin-bottom:28px}
 .pill b{background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:2px 9px;font-size:.72rem;letter-spacing:.04em}
 .hero .lead{margin:24px auto 0;font-size:1.2rem}
-.try{margin:38px auto 0;max-width:560px;display:flex;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px;box-shadow:var(--shadow)}
+.try{margin:38px auto 0;max-width:560px;display:flex;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px;box-shadow:var(--shadow)}
 .try input{flex:1;min-width:0;border:0;outline:0;background:transparent;font:500 1rem Inter,sans-serif;padding:0 16px;color:var(--ink)}
-.try input::placeholder{color:#aaa6b0}
+.try input::placeholder{color:var(--placeholder)}
 .hint{margin-top:14px;font-size:.84rem;color:var(--muted)}
 
 /* demo console */
@@ -81,7 +83,7 @@ header.scrolled{border-color:var(--line)}
 .step.active .dot::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 1s infinite}
 .step.done{color:var(--ink)}
 .step.done .dot{border-color:var(--green);background:var(--green)}
-.step.done .dot::after{content:"";width:9px;height:5px;border:2px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.step.done .dot::after{content:"";width:9px;height:5px;border:2px solid var(--card);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
 @keyframes pulse{50%{opacity:.3}}
 .summary{background:var(--bg);border-radius:14px;padding:16px;font-size:.9rem;color:var(--ink2);margin-top:auto;min-height:76px}
 .summary b{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;font-weight:600}
@@ -105,7 +107,7 @@ header.scrolled{border-color:var(--line)}
 .track{display:flex;gap:14px;width:max-content;animation:scroll 50s linear infinite}
 .marquee:hover .track{animation-play-state:paused}
 @keyframes scroll{to{transform:translateX(-50%)}}
-.chip{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 18px;font-size:.92rem;color:var(--ink2);white-space:nowrap;display:flex;align-items:center;gap:10px}
+.chip{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;font-size:.92rem;color:var(--ink2);white-space:nowrap;display:flex;align-items:center;gap:10px}
 .chip b{color:var(--ink)}
 .chip i{font-style:normal;font-size:1.1rem}
 
@@ -139,27 +141,15 @@ header.scrolled{border-color:var(--line)}
 
 /* infra stats */
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
-.stat{background:var(--ink);color:#fff;border-radius:var(--radius);padding:30px}
-.stat .big{font-family:"Instrument Serif",serif;font-size:2.8rem;line-height:1;color:#fff}
+.stat{background:var(--inv);color:var(--inv-fg);border-radius:var(--radius);padding:30px}
+.stat .big{font-family:"Instrument Serif",serif;font-size:2.8rem;line-height:1;color:var(--inv-fg)}
 .stat .big em{color:var(--accent);font-style:normal}
 .stat h3{font-size:1.02rem;margin:16px 0 6px}
-.stat p{color:#b7b4bd;font-size:.92rem}
+.stat p{color:var(--inv-muted);font-size:.92rem}
 
 /* for who */
 .who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
 .who-grid .card .ico{width:44px;height:44px;border-radius:12px;background:var(--accent-soft);display:grid;place-items:center;font-size:1.3rem}
-
-/* pricing */
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px;align-items:stretch}
-.plan{display:flex;flex-direction:column}
-.plan.hot{background:var(--ink);color:#fff;border-color:var(--ink)}
-.plan.hot p,.plan.hot li{color:#cfccd4}
-.plan .price{font-family:"Instrument Serif",serif;font-size:3rem;line-height:1;margin:18px 0 4px}
-.plan .price small{font-family:Inter,sans-serif;font-size:.9rem;color:var(--muted)}
-.plan ul{list-style:none;display:grid;gap:10px;margin:22px 0 26px;font-size:.93rem;color:var(--ink2)}
-.plan ul li::before{content:"✓";color:var(--accent);font-weight:700;margin-right:10px}
-.plan .btn{margin-top:auto}
-.plan .badge{align-self:flex-start;background:var(--accent);color:#fff;font-size:.72rem;font-weight:600;padding:4px 10px;border-radius:999px;margin-bottom:10px}
 
 /* faq */
 .faq{max-width:760px;margin:48px auto 0}
@@ -172,18 +162,16 @@ details[open] summary::after{transform:rotate(45deg)}
 details p{color:var(--ink2);margin-top:12px}
 
 /* cta + footer */
-.cta{background:var(--ink);color:#fff;border-radius:32px;padding:80px 30px;text-align:center;position:relative;overflow:hidden}
+.cta{background:var(--inv);color:var(--inv-fg);border-radius:32px;padding:80px 30px;text-align:center;position:relative;overflow:hidden}
 .cta::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(255,90,54,.35),transparent 65%);top:-260px;left:50%;transform:translateX(-50%)}
 .cta h2{position:relative}
-.cta .lead{color:#cfccd4;position:relative;margin:18px auto 0}
+.cta .lead{color:var(--inv-muted);position:relative;margin:18px auto 0}
 .cta .try{position:relative;box-shadow:none}
 footer{padding:50px 0 40px;color:var(--muted);font-size:.88rem}
 .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
 .foot nav{display:flex;gap:22px;flex-wrap:wrap}
 .foot a:hover{color:var(--ink)}
 
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s}
-.reveal.in{opacity:1;transform:none}
 
 @media (max-width:920px){
   .nav-links,.nav-right .btn-ghost{display:none}
@@ -193,7 +181,7 @@ footer{padding:50px 0 40px;color:var(--muted);font-size:.88rem}
   .steps{grid-template-columns:1fr 1fr}
   .split{grid-template-columns:1fr;gap:36px}
   .split.rev .panel{order:2}
-  .stats,.who-grid,.plans{grid-template-columns:1fr}
+  .stats,.who-grid{grid-template-columns:1fr}
   section{padding:80px 0}
 }
 @media (max-width:560px){
@@ -203,7 +191,7 @@ footer{padding:50px 0 40px;color:var(--muted);font-size:.88rem}
   .nav-right .btn-dark{display:none}
   .bar{width:44px}
 }
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.tbl tr.row{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.tbl tr.row{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -214,20 +202,18 @@ footer{padding:50px 0 40px;color:var(--muted);font-size:.88rem}
     <nav class="nav-links">
       <a href="#how">How it works</a>
       <a href="#inbox">Inbox</a>
-      <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
     </nav>
     <div class="nav-right">
-      <a href="#start" class="btn btn-ghost">Log in</a>
-      <a href="#start" class="btn btn-dark">Start free</a>
+      <a href="#start" class="btn btn-dark">Get started</a>
       <button class="burger" aria-label="Menu" onclick="document.getElementById('mobile').classList.toggle('open')">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
     </div>
   </div>
   <div class="mobile" id="mobile">
-    <a href="#how">How it works</a><a href="#inbox">Inbox</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
-    <a href="#start" class="btn btn-dark" style="margin-top:8px">Start free</a>
+    <a href="#how">How it works</a><a href="#inbox">Inbox</a><a href="#faq">FAQ</a>
+    <a href="#start" class="btn btn-dark" style="margin-top:8px">Get started</a>
   </div>
 </header>
 
@@ -242,7 +228,7 @@ footer{padding:50px 0 40px;color:var(--muted);font-size:.88rem}
       <input id="site" type="text" placeholder="Enter your website, e.g. yourbrand.com" aria-label="Your website" autocomplete="off">
       <button class="btn btn-accent" type="submit">See it work →</button>
     </form>
-    <p class="hint">No credit card. Your first campaign is ready in about 5 minutes.</p>
+    <p class="hint">Your first campaign is ready in about 5 minutes.</p>
 
     <div class="demo" id="demo">
       <div class="demo-bar"><i></i><i></i><i></i><span class="url" id="demoUrl">app.shakeoutreach.com/new-campaign</span></div>
@@ -277,23 +263,23 @@ footer{padding:50px 0 40px;color:var(--muted);font-size:.88rem}
     <div class="chip"><i>🔥</i>Sending domains <b>warmed for you</b></div>
     <div class="chip"><i>⏱️</i>About <b>15 minutes a day</b> of your time</div>
     <div class="chip"><i>📊</i>See <b>cost per lead</b> for every campaign</div>
-    <div class="chip"><i>💸</i><b>Pay as you go</b>, no annual contract</div>
+    <div class="chip"><i>📥</i>Every reply in <b>one inbox</b></div>
   </div>
 </div>
 
 <!-- HOW IT WORKS -->
 <section id="how">
   <div class="wrap">
-    <div class="center reveal">
+    <div class="center">
       <span class="eyebrow">How it works</span>
       <h2>From a web address<br>to a <em>full calendar</em>.</h2>
       <p class="lead">You give it your website. It does the prospecting work a full sales team would do — and shows you every step.</p>
     </div>
     <div class="steps">
-      <div class="card reveal"><div class="num">01</div><h3>Learns your business</h3><p>Reads your site and offer, then works out which kinds of customers are most likely to buy.</p></div>
-      <div class="card reveal"><div class="num">02</div><h3>Finds the right people</h3><p>Pulls verified contacts for the decision-makers in each segment — not generic info@ inboxes.</p></div>
-      <div class="card reveal"><div class="num">03</div><h3>Writes like you would</h3><p>Every email references something real about the prospect’s company. You approve the tone once.</p></div>
-      <div class="card reveal"><div class="num">04</div><h3>Books the meeting</h3><p>Handles replies and follow-ups, answers simple questions and drops booked calls on your calendar.</p></div>
+      <div class="card"><div class="num">01</div><h3>Learns your business</h3><p>Reads your site and offer, then works out which kinds of customers are most likely to buy.</p></div>
+      <div class="card"><div class="num">02</div><h3>Finds the right people</h3><p>Pulls verified contacts for the decision-makers in each segment — not generic info@ inboxes.</p></div>
+      <div class="card"><div class="num">03</div><h3>Writes like you would</h3><p>Every email references something real about the prospect’s company. You approve the tone once.</p></div>
+      <div class="card"><div class="num">04</div><h3>Books the meeting</h3><p>Handles replies and follow-ups, answers simple questions and drops booked calls on your calendar.</p></div>
     </div>
   </div>
 </section>
@@ -301,7 +287,7 @@ footer{padding:50px 0 40px;color:var(--muted);font-size:.88rem}
 <!-- CAMPAIGNS + INBOX -->
 <section id="inbox" style="padding-top:0">
   <div class="wrap">
-    <div class="split reveal">
+    <div class="split">
       <div>
         <span class="eyebrow">Campaigns</span>
         <h2>It tests every segment. <em>You keep the winners.</em></h2>
@@ -327,7 +313,7 @@ footer{padding:50px 0 40px;color:var(--muted);font-size:.88rem}
       </div>
     </div>
 
-    <div class="split rev reveal">
+    <div class="split rev">
       <div class="panel mail">
         <div class="meta">
           <span>To</span><span>Maria, Owner · Coastline Swim Co.</span>
@@ -366,15 +352,15 @@ footer{padding:50px 0 40px;color:var(--muted);font-size:.88rem}
 <!-- INFRA -->
 <section style="padding-top:0">
   <div class="wrap">
-    <div class="center reveal">
+    <div class="center">
       <span class="eyebrow">Under the hood</span>
       <h2>The boring setup? <em>Already done.</em></h2>
       <p class="lead">No buying domains, no DNS records, no weeks of warming up inboxes. Just type your web address and go.</p>
     </div>
     <div class="stats">
-      <div class="stat reveal"><div class="big">Day <em>1</em></div><h3>Pre-warmed sending domains</h3><p>Your emails go out from warmed, monitored inboxes from the first day, so they land in the inbox — not spam.</p></div>
-      <div class="stat reveal"><div class="big"><em>✓</em> Verified</div><h3>Decision-maker contacts</h3><p>Every address is checked before sending. You reach owners, founders and buyers — the people who can say yes.</p></div>
-      <div class="stat reveal"><div class="big">$<em>0.05</em></div><h3>Per email, pay as you go</h3><p>Top up when you want. No seats, no annual contract, no setup fee.</p></div>
+      <div class="stat"><div class="big">Day <em>1</em></div><h3>Pre-warmed sending domains</h3><p>Your emails go out from warmed, monitored inboxes from the first day, so they land in the inbox — not spam.</p></div>
+      <div class="stat"><div class="big"><em>✓</em> Verified</div><h3>Decision-maker contacts</h3><p>Every address is checked before sending. You reach owners, founders and buyers — the people who can say yes.</p></div>
+      <div class="stat"><div class="big"><em>24</em>/7</div><h3>Always running</h3><p>Campaigns keep sending, following up and answering replies on nights and weekends, so the pipeline never stalls.</p></div>
     </div>
   </div>
 </section>
@@ -382,46 +368,14 @@ footer{padding:50px 0 40px;color:var(--muted);font-size:.88rem}
 <!-- WHO -->
 <section style="padding-top:0">
   <div class="wrap">
-    <div class="center reveal">
+    <div class="center">
       <span class="eyebrow">Built for</span>
       <h2>Small teams with <em>big pipelines</em> to fill.</h2>
     </div>
     <div class="who-grid">
-      <div class="card reveal"><div class="ico">🧑‍💼</div><h3>Founders selling solo</h3><p>No sales hire yet? Get a steady flow of conversations without spending your evenings on prospecting.</p></div>
-      <div class="card reveal"><div class="ico">🏭</div><h3>Manufacturers &amp; wholesalers</h3><p>Reach retailers, boutiques and buyers in new regions — and see which customer types order most.</p></div>
-      <div class="card reveal"><div class="ico">🤝</div><h3>Agencies &amp; services</h3><p>Fill your own pipeline, or run campaigns for clients with separate workspaces and reports.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section id="pricing" style="padding-top:0">
-  <div class="wrap">
-    <div class="center reveal">
-      <span class="eyebrow">Pricing</span>
-      <h2>Start small. <em>Scale what works.</em></h2>
-      <p class="lead">Every plan includes research, writing, follow-ups and warmed domains.</p>
-    </div>
-    <div class="plans">
-      <div class="card plan reveal">
-        <h3>Starter</h3><p>Try it on one segment.</p>
-        <div class="price">$39 <small>/ month</small></div>
-        <ul><li>~800 emails</li><li>1 active campaign</li><li>Pre-warmed domain</li><li>Email support</li></ul>
-        <a href="#start" class="btn btn-ghost">Start free</a>
-      </div>
-      <div class="card plan hot reveal">
-        <span class="badge">Most popular</span>
-        <h3>Growth</h3><p>For a steady weekly pipeline.</p>
-        <div class="price">$149 <small>/ month</small></div>
-        <ul><li>~3,500 emails</li><li>Unlimited campaigns</li><li>Auto-replies &amp; meeting booking</li><li>CRM export</li></ul>
-        <a href="#start" class="btn btn-accent">Start free</a>
-      </div>
-      <div class="card plan reveal">
-        <h3>Pay as you go</h3><p>Top up whenever you need.</p>
-        <div class="price">$0.05 <small>/ email</small></div>
-        <ul><li>No monthly fee</li><li>All features included</li><li>Credits never expire</li><li>Volume discounts</li></ul>
-        <a href="#start" class="btn btn-ghost">Talk to us</a>
-      </div>
+      <div class="card"><div class="ico">🧑‍💼</div><h3>Founders selling solo</h3><p>No sales hire yet? Get a steady flow of conversations without spending your evenings on prospecting.</p></div>
+      <div class="card"><div class="ico">🏭</div><h3>Manufacturers &amp; wholesalers</h3><p>Reach retailers, boutiques and buyers in new regions — and see which customer types order most.</p></div>
+      <div class="card"><div class="ico">🤝</div><h3>Agencies &amp; services</h3><p>Fill your own pipeline, or run campaigns for clients with separate workspaces and reports.</p></div>
     </div>
   </div>
 </section>
@@ -429,17 +383,17 @@ footer{padding:50px 0 40px;color:var(--muted);font-size:.88rem}
 <!-- FAQ -->
 <section id="faq" style="padding-top:0">
   <div class="wrap">
-    <div class="center reveal">
+    <div class="center">
       <span class="eyebrow">FAQ</span>
       <h2>Questions, <em>answered.</em></h2>
     </div>
-    <div class="faq reveal">
+    <div class="faq">
       <details><summary>Do I need my own domain or email setup?</summary><p>No. We provide pre-warmed sending domains connected to your brand. If you’d rather send from your own inboxes, you can connect them in a couple of clicks.</p></details>
       <details><summary>Can I review emails before they go out?</summary><p>Yes. You can approve every email, approve the first batch only, or let it run fully on autopilot once you’re happy with the tone.</p></details>
-      <details><summary>Where do the contacts come from?</summary><p>We combine public company data with verified business contact sources, then check every address before sending. You only pay for emails that are actually sent.</p></details>
+      <details><summary>Where do the contacts come from?</summary><p>We combine public company data with verified business contact sources, then check every address before sending.</p></details>
       <details><summary>Is cold email allowed?</summary><p>B2B outreach is legal in most countries when it’s relevant, identifies the sender and offers an easy opt-out. Every email includes one, and opt-outs are honoured automatically.</p></details>
       <details><summary>How fast will I see replies?</summary><p>Most campaigns start sending the same day. Replies usually start coming in within the first week, depending on your market and offer.</p></details>
-      <details><summary>Can I cancel anytime?</summary><p>Yes. Plans are month to month, and pay-as-you-go credits never expire.</p></details>
+      <details><summary>Does it cost anything?</summary><p>No. Shake Outreach is our own in-house tool, built for our team. There are no plans or fees.</p></details>
     </div>
   </div>
 </section>
@@ -447,12 +401,12 @@ footer{padding:50px 0 40px;color:var(--muted);font-size:.88rem}
 <!-- CTA -->
 <section id="start" style="padding-top:0">
   <div class="wrap">
-    <div class="cta reveal">
+    <div class="cta">
       <h2>Your next customer is<br><em>one email away.</em></h2>
-      <p class="lead">Enter your website and get your first best-fit prospects in minutes.</p>
+      <p class="lead">Enter a website and get the first best-fit prospects in minutes.</p>
       <form class="try" id="tryForm2" style="margin-top:34px">
         <input type="text" placeholder="yourbrand.com" aria-label="Your website" autocomplete="off">
-        <button class="btn btn-accent" type="submit">Start free →</button>
+        <button class="btn btn-accent" type="submit">Get started →</button>
       </form>
     </div>
   </div>
@@ -462,7 +416,7 @@ footer{padding:50px 0 40px;color:var(--muted);font-size:.88rem}
 <footer>
   <div class="wrap foot">
     <a href="#" class="logo"><span class="logo-mark"><span></span></span>Shake Outreach</a>
-    <nav><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="mailto:hello@shakeoutreach.com">Contact</a><a href="#">Privacy</a><a href="#">Terms</a></nav>
+    <nav><a href="#how">How it works</a><a href="#faq">FAQ</a></nav>
     <span>© <span id="yr"></span> Shake Outreach</span>
   </div>
 </footer>
@@ -481,9 +435,6 @@ document.querySelectorAll('#mobile a').forEach(a => a.addEventListener('click', 
 const track = document.getElementById('track');
 track.innerHTML += track.innerHTML;
 
-// reveal on scroll
-const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold:.12});
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 // ---- interactive demo (simulated) ----
 const profiles = [
