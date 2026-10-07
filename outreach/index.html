@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shake Outreach — Your Always-On Sales Agent</title>
+<meta name="description" content="Shake Outreach researches your market, finds the right decision-makers, writes personal emails, follows up and books meetings — around the clock.">
+<meta name="theme-color" content="#f5f3ef">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f3ef; --bg2:#ecE9e3; --card:#ffffff; --ink:#16151a; --ink2:#3d3b44; --muted:#7a7782;
+  --line:#e2ded6; --accent:#ff5a36; --accent-soft:#ffe6df; --green:#1f9d63; --green-soft:#dcf3e7;
+  --amber:#c9850a; --amber-soft:#fbefd4; --grey-soft:#efedea; --radius:18px;
+  --shadow:0 1px 2px rgba(22,21,26,.04),0 12px 40px -16px rgba(22,21,26,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+.serif{font-family:"Instrument Serif",Georgia,serif;font-weight:400}
+h1,h2{font-family:"Instrument Serif",Georgia,serif;font-weight:400;letter-spacing:-.01em;line-height:1.02}
+h1{font-size:clamp(2.7rem,7vw,5.4rem)}
+h2{font-size:clamp(2.1rem,4.6vw,3.6rem)}
+h1 em,h2 em{color:var(--accent)}
+.eyebrow{display:inline-block;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.lead{font-size:1.12rem;color:var(--ink2);max-width:600px}
+section{padding:110px 0}
+.center{text-align:center}.center .lead{margin:18px auto 0}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;padding:14px 24px;font:600 .95rem Inter,sans-serif;cursor:pointer;transition:transform .15s,background .2s,box-shadow .2s}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{transform:translateY(-1px);box-shadow:0 10px 24px -10px rgba(22,21,26,.6)}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-accent:hover{transform:translateY(-1px);box-shadow:0 10px 24px -10px rgba(255,90,54,.7)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost:hover{background:#fff}
+
+/* nav */
+header{position:sticky;top:0;z-index:50;background:rgba(245,243,239,.82);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .2s}
+header.scrolled{border-color:var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.05rem}
+.logo-mark{width:30px;height:30px;border-radius:9px;background:var(--ink);display:grid;place-items:center}
+.logo-mark span{width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(255,90,54,.25)}
+.nav-links{display:flex;gap:30px;font-size:.92rem;color:var(--ink2)}
+.nav-links a:hover{color:var(--ink)}
+.nav-right{display:flex;gap:10px;align-items:center}
+.nav-right .btn{padding:10px 18px;font-size:.88rem}
+.burger{display:none;background:none;border:0;width:40px;height:40px;cursor:pointer}
+.mobile{display:none;flex-direction:column;gap:4px;padding:8px 20px 20px;border-bottom:1px solid var(--line)}
+.mobile a{padding:10px 0;font-weight:500}
+.mobile.open{display:flex}
+
+/* hero */
+.hero{padding:80px 0 40px;text-align:center}
+.pill{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 14px 6px 8px;font-size:.83rem;color:var(--ink2);margin-bottom:28px}
+.pill b{background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:2px 9px;font-size:.72rem;letter-spacing:.04em}
+.hero .lead{margin:24px auto 0;font-size:1.2rem}
+.try{margin:38px auto 0;max-width:560px;display:flex;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px;box-shadow:var(--shadow)}
+.try input{flex:1;min-width:0;border:0;outline:0;background:transparent;font:500 1rem Inter,sans-serif;padding:0 16px;color:var(--ink)}
+.try input::placeholder{color:#aaa6b0}
+.hint{margin-top:14px;font-size:.84rem;color:var(--muted)}
+
+/* demo console */
+.demo{margin:56px auto 0;max-width:980px;background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);text-align:left;overflow:hidden}
+.demo-bar{display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+.demo-bar i{width:10px;height:10px;border-radius:50%;background:var(--line);display:block}
+.demo-bar .url{margin-left:12px;background:var(--bg);border-radius:8px;padding:4px 12px;flex:1;max-width:340px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.demo-body{display:grid;grid-template-columns:1fr 1.25fr;min-height:360px}
+.demo-left{padding:26px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:14px}
+.demo-right{padding:26px}
+.step{display:flex;gap:12px;align-items:flex-start;font-size:.92rem;color:var(--muted);transition:color .3s}
+.step .dot{flex:none;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;margin-top:1px;transition:all .3s}
+.step.active{color:var(--ink)}
+.step.active .dot{border-color:var(--accent);background:var(--accent-soft)}
+.step.active .dot::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 1s infinite}
+.step.done{color:var(--ink)}
+.step.done .dot{border-color:var(--green);background:var(--green)}
+.step.done .dot::after{content:"";width:9px;height:5px;border:2px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+@keyframes pulse{50%{opacity:.3}}
+.summary{background:var(--bg);border-radius:14px;padding:16px;font-size:.9rem;color:var(--ink2);margin-top:auto;min-height:76px}
+.summary b{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;font-weight:600}
+.tbl{width:100%;border-collapse:collapse;font-size:.9rem}
+.tbl th{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:left;padding:0 0 10px}
+.tbl th:last-child,.tbl td:last-child{text-align:right}
+.tbl td{padding:11px 0;border-top:1px solid var(--line)}
+.tbl tr.row{opacity:0;transform:translateY(6px);transition:all .4s}
+.tbl tr.row.in{opacity:1;transform:none}
+.bar{display:inline-block;vertical-align:middle;width:70px;height:6px;border-radius:6px;background:var(--grey-soft);margin-right:10px;overflow:hidden}
+.bar span{display:block;height:100%;background:var(--accent);border-radius:6px}
+.tag{display:inline-block;font-size:.75rem;font-weight:600;padding:3px 10px;border-radius:999px}
+.tag.g{background:var(--green-soft);color:var(--green)}
+.tag.a{background:var(--amber-soft);color:var(--amber)}
+.tag.n{background:var(--grey-soft);color:var(--muted)}
+.demo-title{font-weight:600;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.demo-title small{color:var(--muted);font-weight:500}
+
+/* marquee of outcomes */
+.marquee{overflow:hidden;padding:30px 0;-webkit-mask:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.track{display:flex;gap:14px;width:max-content;animation:scroll 50s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.chip{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 18px;font-size:.92rem;color:var(--ink2);white-space:nowrap;display:flex;align-items:center;gap:10px}
+.chip b{color:var(--ink)}
+.chip i{font-style:normal;font-size:1.1rem}
+
+/* how it works */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:56px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.card .num{font-family:"Instrument Serif",serif;font-size:2.4rem;color:var(--accent);line-height:1}
+.card h3{font-size:1.08rem;margin:14px 0 8px}
+.card p{color:var(--ink2);font-size:.94rem}
+
+/* split blocks */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.split + .split{margin-top:110px}
+.split .lead{margin-top:18px}
+.ticks{list-style:none;margin-top:24px;display:grid;gap:12px}
+.ticks li{display:flex;gap:12px;color:var(--ink2)}
+.ticks li::before{content:"";flex:none;width:20px;height:20px;border-radius:50%;background:var(--green-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.5 2.5L14 7.5' fill='none' stroke='%231f9d63' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain;margin-top:2px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:24px}
+
+/* email mock */
+.mail{font-size:.92rem}
+.mail .meta{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding-bottom:14px;border-bottom:1px solid var(--line);color:var(--muted)}
+.mail .meta span:nth-child(even){color:var(--ink)}
+.mail .body{padding-top:14px;color:var(--ink2);display:grid;gap:10px}
+.mail mark{background:var(--accent-soft);color:var(--ink);padding:0 3px;border-radius:4px}
+.reply{margin-top:16px;background:var(--bg);border-radius:14px;padding:14px 16px;font-size:.9rem}
+.reply .who{font-weight:600;font-size:.82rem;margin-bottom:4px;display:flex;justify-content:space-between}
+.reply .who span{color:var(--muted);font-weight:500}
+.reply.agent{background:var(--green-soft)}
+.booked{display:flex;align-items:center;gap:10px;margin-top:14px;font-weight:600;color:var(--green);font-size:.9rem}
+
+/* infra stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
+.stat{background:var(--ink);color:#fff;border-radius:var(--radius);padding:30px}
+.stat .big{font-family:"Instrument Serif",serif;font-size:2.8rem;line-height:1;color:#fff}
+.stat .big em{color:var(--accent);font-style:normal}
+.stat h3{font-size:1.02rem;margin:16px 0 6px}
+.stat p{color:#b7b4bd;font-size:.92rem}
+
+/* for who */
+.who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
+.who-grid .card .ico{width:44px;height:44px;border-radius:12px;background:var(--accent-soft);display:grid;place-items:center;font-size:1.3rem}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px;align-items:stretch}
+.plan{display:flex;flex-direction:column}
+.plan.hot{background:var(--ink);color:#fff;border-color:var(--ink)}
+.plan.hot p,.plan.hot li{color:#cfccd4}
+.plan .price{font-family:"Instrument Serif",serif;font-size:3rem;line-height:1;margin:18px 0 4px}
+.plan .price small{font-family:Inter,sans-serif;font-size:.9rem;color:var(--muted)}
+.plan ul{list-style:none;display:grid;gap:10px;margin:22px 0 26px;font-size:.93rem;color:var(--ink2)}
+.plan ul li::before{content:"✓";color:var(--accent);font-weight:700;margin-right:10px}
+.plan .btn{margin-top:auto}
+.plan .badge{align-self:flex-start;background:var(--accent);color:#fff;font-size:.72rem;font-weight:600;padding:4px 10px;border-radius:999px;margin-bottom:10px}
+
+/* faq */
+.faq{max-width:760px;margin:48px auto 0}
+details{border-top:1px solid var(--line);padding:20px 0}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;font-weight:600;font-size:1.05rem;display:flex;justify-content:space-between;gap:20px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-weight:400;font-size:1.5rem;line-height:1;color:var(--muted);transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--ink2);margin-top:12px}
+
+/* cta + footer */
+.cta{background:var(--ink);color:#fff;border-radius:32px;padding:80px 30px;text-align:center;position:relative;overflow:hidden}
+.cta::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(255,90,54,.35),transparent 65%);top:-260px;left:50%;transform:translateX(-50%)}
+.cta h2{position:relative}
+.cta .lead{color:#cfccd4;position:relative;margin:18px auto 0}
+.cta .try{position:relative;box-shadow:none}
+footer{padding:50px 0 40px;color:var(--muted);font-size:.88rem}
+.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+.foot nav{display:flex;gap:22px;flex-wrap:wrap}
+.foot a:hover{color:var(--ink)}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:920px){
+  .nav-links,.nav-right .btn-ghost{display:none}
+  .burger{display:block}
+  .demo-body{grid-template-columns:1fr}
+  .demo-left{border-right:0;border-bottom:1px solid var(--line)}
+  .steps{grid-template-columns:1fr 1fr}
+  .split{grid-template-columns:1fr;gap:36px}
+  .split.rev .panel{order:2}
+  .stats,.who-grid,.plans{grid-template-columns:1fr}
+  section{padding:80px 0}
+}
+@media (max-width:560px){
+  .steps{grid-template-columns:1fr}
+  .try{flex-direction:column;border-radius:20px}
+  .try input{padding:12px 14px}
+  .nav-right .btn-dark{display:none}
+  .bar{width:44px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.tbl tr.row{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap nav">
+    <a href="#" class="logo"><span class="logo-mark"><span></span></span>Shake Outreach</a>
+    <nav class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#inbox">Inbox</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-right">
+      <a href="#start" class="btn btn-ghost">Log in</a>
+      <a href="#start" class="btn btn-dark">Start free</a>
+      <button class="burger" aria-label="Menu" onclick="document.getElementById('mobile').classList.toggle('open')">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile" id="mobile">
+    <a href="#how">How it works</a><a href="#inbox">Inbox</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
+    <a href="#start" class="btn btn-dark" style="margin-top:8px">Start free</a>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <span class="pill"><b>NEW</b> Meetings booked straight into your calendar</span>
+    <h1>Your sales team that<br><em>never clocks out.</em></h1>
+    <p class="lead">Shake Outreach studies your market, finds the people who actually make the buying decision, writes them a personal email, follows up, and books the meeting — all while you run your business.</p>
+    <form class="try" id="tryForm">
+      <input id="site" type="text" placeholder="Enter your website, e.g. yourbrand.com" aria-label="Your website" autocomplete="off">
+      <button class="btn btn-accent" type="submit">See it work →</button>
+    </form>
+    <p class="hint">No credit card. Your first campaign is ready in about 5 minutes.</p>
+
+    <div class="demo" id="demo">
+      <div class="demo-bar"><i></i><i></i><i></i><span class="url" id="demoUrl">app.shakeoutreach.com/new-campaign</span></div>
+      <div class="demo-body">
+        <div class="demo-left">
+          <div class="step" data-s="0"><span class="dot"></span><span>Reading your website</span></div>
+          <div class="step" data-s="1"><span class="dot"></span><span>Mapping who buys from you</span></div>
+          <div class="step" data-s="2"><span class="dot"></span><span>Scoring customer segments</span></div>
+          <div class="step" data-s="3"><span class="dot"></span><span>Finding decision-makers</span></div>
+          <div class="step" data-s="4"><span class="dot"></span><span>Drafting personal emails</span></div>
+          <div class="summary" id="summary"><b>What you do</b><span id="summaryText">Type your website above and hit “See it work”.</span></div>
+        </div>
+        <div class="demo-right">
+          <div class="demo-title">Best-fit customers <small id="foundCount">—</small></div>
+          <table class="tbl" id="fitTable">
+            <thead><tr><th>Segment</th><th>Fit score</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="track" id="track">
+    <div class="chip"><i>📬</i>Emails written from <b>real research</b>, not templates</div>
+    <div class="chip"><i>🎯</i>Reaches the <b>owner or decision-maker</b></div>
+    <div class="chip"><i>🔁</i>Follow-ups sent <b>automatically</b></div>
+    <div class="chip"><i>📅</i>Replies turned into <b>booked calls</b></div>
+    <div class="chip"><i>🔥</i>Sending domains <b>warmed for you</b></div>
+    <div class="chip"><i>⏱️</i>About <b>15 minutes a day</b> of your time</div>
+    <div class="chip"><i>📊</i>See <b>cost per lead</b> for every campaign</div>
+    <div class="chip"><i>💸</i><b>Pay as you go</b>, no annual contract</div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">How it works</span>
+      <h2>From a web address<br>to a <em>full calendar</em>.</h2>
+      <p class="lead">You give it your website. It does the prospecting work a full sales team would do — and shows you every step.</p>
+    </div>
+    <div class="steps">
+      <div class="card reveal"><div class="num">01</div><h3>Learns your business</h3><p>Reads your site and offer, then works out which kinds of customers are most likely to buy.</p></div>
+      <div class="card reveal"><div class="num">02</div><h3>Finds the right people</h3><p>Pulls verified contacts for the decision-makers in each segment — not generic info@ inboxes.</p></div>
+      <div class="card reveal"><div class="num">03</div><h3>Writes like you would</h3><p>Every email references something real about the prospect’s company. You approve the tone once.</p></div>
+      <div class="card reveal"><div class="num">04</div><h3>Books the meeting</h3><p>Handles replies and follow-ups, answers simple questions and drops booked calls on your calendar.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMPAIGNS + INBOX -->
+<section id="inbox" style="padding-top:0">
+  <div class="wrap">
+    <div class="split reveal">
+      <div>
+        <span class="eyebrow">Campaigns</span>
+        <h2>It tests every segment. <em>You keep the winners.</em></h2>
+        <p class="lead">Each customer type runs as its own campaign. Ones that convert get scaled up, ones that don’t get paused — and you see the cost per lead the whole time.</p>
+        <ul class="ticks">
+          <li>Live results for every segment</li>
+          <li>Budget shifts automatically to what’s working</li>
+          <li>Pause, edit or add a segment in one click</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="demo-title">Campaigns <small>example: swimwear manufacturer</small></div>
+        <table class="tbl">
+          <thead><tr><th>Segment</th><th>Status</th><th>Cost / lead</th></tr></thead>
+          <tbody>
+            <tr><td>Swim boutiques</td><td><span class="tag g">Scaling</span></td><td>$1.42</td></tr>
+            <tr><td>Resort &amp; hotel shops</td><td><span class="tag g">Scaling</span></td><td>$1.78</td></tr>
+            <tr><td>Influencer brands</td><td><span class="tag a">Testing</span></td><td>$2.10</td></tr>
+            <tr><td>Surf shops</td><td><span class="tag a">Testing</span></td><td>$2.65</td></tr>
+            <tr><td>Department stores</td><td><span class="tag n">Paused</span></td><td>$6.40</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="split rev reveal">
+      <div class="panel mail">
+        <div class="meta">
+          <span>To</span><span>Maria, Owner · Coastline Swim Co.</span>
+          <span>Subject</span><span>Your new resort line</span>
+        </div>
+        <div class="body">
+          <p>Hi Maria,</p>
+          <p>Saw you just opened <mark>a second store in Tulum</mark> — and that your <mark>recycled-nylon pieces sold out</mark> last season. Congrats.</p>
+          <p>We manufacture private-label swimwear in small runs (from 50 pieces), so you can test new cuts without sitting on stock.</p>
+          <p>Worth a 15-minute call next week?</p>
+        </div>
+        <div class="reply">
+          <div class="who">Maria <span>2h later</span></div>
+          Yes, actually perfect timing. What’s your lead time?
+        </div>
+        <div class="reply agent">
+          <div class="who">Shake Outreach <span>auto-reply</span></div>
+          About 3–4 weeks for a first run. Here’s a link to pick a time that suits you →
+        </div>
+        <div class="booked">✓ Call booked · Thursday 10:30</div>
+      </div>
+      <div>
+        <span class="eyebrow">Inbox</span>
+        <h2>Emails that read like <em>you did the homework.</em></h2>
+        <p class="lead">Before writing, the agent looks at each prospect’s company — recent news, products, locations — so the first line is about them, not you. When they reply, it keeps the conversation going and books the call.</p>
+        <ul class="ticks">
+          <li>Personal first line for every prospect</li>
+          <li>Smart follow-ups that stop the moment someone replies</li>
+          <li>Hand off to you at any point</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFRA -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">Under the hood</span>
+      <h2>The boring setup? <em>Already done.</em></h2>
+      <p class="lead">No buying domains, no DNS records, no weeks of warming up inboxes. Just type your web address and go.</p>
+    </div>
+    <div class="stats">
+      <div class="stat reveal"><div class="big">Day <em>1</em></div><h3>Pre-warmed sending domains</h3><p>Your emails go out from warmed, monitored inboxes from the first day, so they land in the inbox — not spam.</p></div>
+      <div class="stat reveal"><div class="big"><em>✓</em> Verified</div><h3>Decision-maker contacts</h3><p>Every address is checked before sending. You reach owners, founders and buyers — the people who can say yes.</p></div>
+      <div class="stat reveal"><div class="big">$<em>0.05</em></div><h3>Per email, pay as you go</h3><p>Top up when you want. No seats, no annual contract, no setup fee.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">Built for</span>
+      <h2>Small teams with <em>big pipelines</em> to fill.</h2>
+    </div>
+    <div class="who-grid">
+      <div class="card reveal"><div class="ico">🧑‍💼</div><h3>Founders selling solo</h3><p>No sales hire yet? Get a steady flow of conversations without spending your evenings on prospecting.</p></div>
+      <div class="card reveal"><div class="ico">🏭</div><h3>Manufacturers &amp; wholesalers</h3><p>Reach retailers, boutiques and buyers in new regions — and see which customer types order most.</p></div>
+      <div class="card reveal"><div class="ico">🤝</div><h3>Agencies &amp; services</h3><p>Fill your own pipeline, or run campaigns for clients with separate workspaces and reports.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" style="padding-top:0">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">Pricing</span>
+      <h2>Start small. <em>Scale what works.</em></h2>
+      <p class="lead">Every plan includes research, writing, follow-ups and warmed domains.</p>
+    </div>
+    <div class="plans">
+      <div class="card plan reveal">
+        <h3>Starter</h3><p>Try it on one segment.</p>
+        <div class="price">$39 <small>/ month</small></div>
+        <ul><li>~800 emails</li><li>1 active campaign</li><li>Pre-warmed domain</li><li>Email support</li></ul>
+        <a href="#start" class="btn btn-ghost">Start free</a>
+      </div>
+      <div class="card plan hot reveal">
+        <span class="badge">Most popular</span>
+        <h3>Growth</h3><p>For a steady weekly pipeline.</p>
+        <div class="price">$149 <small>/ month</small></div>
+        <ul><li>~3,500 emails</li><li>Unlimited campaigns</li><li>Auto-replies &amp; meeting booking</li><li>CRM export</li></ul>
+        <a href="#start" class="btn btn-accent">Start free</a>
+      </div>
+      <div class="card plan reveal">
+        <h3>Pay as you go</h3><p>Top up whenever you need.</p>
+        <div class="price">$0.05 <small>/ email</small></div>
+        <ul><li>No monthly fee</li><li>All features included</li><li>Credits never expire</li><li>Volume discounts</li></ul>
+        <a href="#start" class="btn btn-ghost">Talk to us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="padding-top:0">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>Questions, <em>answered.</em></h2>
+    </div>
+    <div class="faq reveal">
+      <details><summary>Do I need my own domain or email setup?</summary><p>No. We provide pre-warmed sending domains connected to your brand. If you’d rather send from your own inboxes, you can connect them in a couple of clicks.</p></details>
+      <details><summary>Can I review emails before they go out?</summary><p>Yes. You can approve every email, approve the first batch only, or let it run fully on autopilot once you’re happy with the tone.</p></details>
+      <details><summary>Where do the contacts come from?</summary><p>We combine public company data with verified business contact sources, then check every address before sending. You only pay for emails that are actually sent.</p></details>
+      <details><summary>Is cold email allowed?</summary><p>B2B outreach is legal in most countries when it’s relevant, identifies the sender and offers an easy opt-out. Every email includes one, and opt-outs are honoured automatically.</p></details>
+      <details><summary>How fast will I see replies?</summary><p>Most campaigns start sending the same day. Replies usually start coming in within the first week, depending on your market and offer.</p></details>
+      <details><summary>Can I cancel anytime?</summary><p>Yes. Plans are month to month, and pay-as-you-go credits never expire.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="start" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta reveal">
+      <h2>Your next customer is<br><em>one email away.</em></h2>
+      <p class="lead">Enter your website and get your first best-fit prospects in minutes.</p>
+      <form class="try" id="tryForm2" style="margin-top:34px">
+        <input type="text" placeholder="yourbrand.com" aria-label="Your website" autocomplete="off">
+        <button class="btn btn-accent" type="submit">Start free →</button>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a href="#" class="logo"><span class="logo-mark"><span></span></span>Shake Outreach</a>
+    <nav><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="mailto:hello@shakeoutreach.com">Contact</a><a href="#">Privacy</a><a href="#">Terms</a></nav>
+    <span>© <span id="yr"></span> Shake Outreach</span>
+  </div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// sticky header border
+const hdr = document.querySelector('header');
+addEventListener('scroll', () => hdr.classList.toggle('scrolled', scrollY > 8), {passive:true});
+
+// close mobile menu on link click
+document.querySelectorAll('#mobile a').forEach(a => a.addEventListener('click', () => document.getElementById('mobile').classList.remove('open')));
+
+// duplicate marquee for seamless loop
+const track = document.getElementById('track');
+track.innerHTML += track.innerHTML;
+
+// reveal on scroll
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold:.12});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// ---- interactive demo (simulated) ----
+const profiles = [
+  { match:/swim|bikini|beach|surf/i,
+    summary:'Makes swimwear and beachwear, sold wholesale to retailers.',
+    rows:[['Swim boutiques',94],['Resort & hotel shops',89],['Surf shops',83],['Influencer brands',78],['Department stores',61]] },
+  { match:/car|auto|motor|dealer/i,
+    summary:'Sells quality pre-owned vehicles with financing options.',
+    rows:[['Small business fleets',91],['Rideshare drivers',86],['Corporate HR (relocation)',79],['Credit unions',74],['Car rental agencies',66]] },
+  { match:/estate|realty|property|build|develop/i,
+    summary:'Real estate development and property investment.',
+    rows:[['Family offices',93],['Relocating executives',87],['Private wealth advisors',84],['Corporate HR (relocation)',76],['Interior design studios',68]] },
+  { match:/.*/,
+    summary:'A growing business looking for its next customers.',
+    rows:[['Owner-led SMBs',92],['Regional distributors',87],['Agencies & consultancies',81],['Franchise operators',75],['Enterprise teams',62]] }
+];
+
+let running = false;
+function runDemo(raw){
+  if (running) return;
+  running = true;
+  const site = (raw || 'yourbrand.com').trim().replace(/^https?:\/\//,'').replace(/\/.*$/,'') || 'yourbrand.com';
+  const p = profiles.find(x => x.match.test(site));
+  const steps = [...document.querySelectorAll('.step')];
+  const tbody = document.querySelector('#fitTable tbody');
+  const summary = document.getElementById('summaryText');
+  const count = document.getElementById('foundCount');
+  document.getElementById('demoUrl').textContent = 'app.shakeoutreach.com/new?site=' + site;
+  steps.forEach(s => s.className = 'step');
+  tbody.innerHTML = '';
+  summary.textContent = 'Reading ' + site + '…';
+  count.textContent = 'analyzing…';
+
+  let i = 0;
+  const tick = () => {
+    if (i > 0) steps[i-1].className = 'step done';
+    if (i === 1) summary.textContent = p.summary;
+    if (i === 3) p.rows.forEach((r, k) => {
+      const tr = document.createElement('tr');
+      tr.className = 'row';
+      tr.innerHTML = `<td>${r[0]}</td><td><span class="bar"><span style="width:${r[1]}%"></span></span>${r[1]}%</td>`;
+      tbody.appendChild(tr);
+      setTimeout(() => tr.classList.add('in'), 150 * k);
+    });
+    if (i === 4) count.textContent = (1200 + Math.floor(Math.random()*3800)).toLocaleString() + ' decision-makers found';
+    if (i < steps.length) { steps[i].className = 'step active'; i++; setTimeout(tick, 900); }
+    else { running = false; }
+  };
+  tick();
+}
+
+document.getElementById('tryForm').addEventListener('submit', e => {
+  e.preventDefault();
+  runDemo(document.getElementById('site').value);
+});
+document.getElementById('tryForm2').addEventListener('submit', e => {
+  e.preventDefault();
+  const v = e.target.querySelector('input').value;
+  document.getElementById('site').value = v;
+  document.getElementById('demo').scrollIntoView({behavior:'smooth', block:'center'});
+  setTimeout(() => runDemo(v), 500);
+});
+
+// autoplay once when the demo first comes into view
+const demoIO = new IntersectionObserver(es => { if (es[0].isIntersecting) { runDemo('bikinifactory.com'); demoIO.disconnect(); } }, {threshold:.4});
+demoIO.observe(document.getElementById('demo'));
+</script>
+</body>
+</html>
