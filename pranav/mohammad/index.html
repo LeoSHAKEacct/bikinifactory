@@ -53,28 +53,23 @@ header{position:sticky;top:0;z-index:40;background:rgba(20,35,29,.94);backdrop-f
 .hero h1 em{font-style:italic;color:var(--gold2)}
 .hero .lead{color:rgba(255,255,255,.78);font-size:clamp(1rem,2.1vw,1.15rem);max-width:600px;margin:0 auto}
 
-.console{margin:38px auto 0;max-width:780px;background:var(--paper);color:var(--ink);border-radius:28px;padding:28px 22px 22px;box-shadow:0 40px 90px -40px rgba(0,0,0,.7)}
-.mic{position:relative;width:68px;height:68px;border-radius:50%;border:0;background:var(--green);color:var(--gold2);display:grid;place-items:center;margin:0 auto;transition:transform .2s,background .2s;box-shadow:0 16px 36px -14px rgba(20,35,29,.8)}
-.mic:hover{transform:scale(1.04)}
-.mic svg{width:28px;height:28px}
+.console{margin:34px auto 0;max-width:720px;display:flex;align-items:center;gap:8px;background:var(--paper);border-radius:999px;padding:7px;box-shadow:0 30px 70px -30px rgba(0,0,0,.7)}
+.console input{flex:1;min-width:0;background:transparent;border:0;color:var(--ink);padding:12px 6px;font:inherit;font-size:1rem}
+.console input:focus{outline:none}
+.console:focus-within{box-shadow:0 0 0 3px var(--gold2),0 30px 70px -30px rgba(0,0,0,.7)}
+.go{border:0;border-radius:999px;background:var(--green);color:#fff;font-weight:600;padding:0 22px;height:46px;flex:none}
+.mic{position:relative;width:46px;height:46px;border-radius:50%;border:0;background:var(--gold2);color:var(--green);display:grid;place-items:center;flex:none;transition:transform .2s,background .2s}
+.mic:hover{transform:scale(1.05)}
+.mic svg{width:20px;height:20px}
 .mic::before,.mic::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--gold);opacity:0}
-.mic.listening{background:var(--gold2);color:var(--green)}
+.mic.listening{background:var(--green);color:var(--gold2)}
 .mic.listening::before{animation:ring 1.6s ease-out infinite}
 .mic.listening::after{animation:ring 1.6s ease-out .8s infinite}
 @keyframes ring{from{transform:scale(1);opacity:.8}to{transform:scale(1.75);opacity:0}}
-.mic-label{margin-top:14px;font-size:.92rem;color:var(--muted);min-height:1.4em}
-.transcript{margin:10px auto 0;min-height:1.6em;font-family:Fraunces;font-size:clamp(1.25rem,3.2vw,1.65rem);line-height:1.25;max-width:640px}
-.transcript .interim{color:var(--dim)}
-.notice{display:none;margin-top:10px;font-size:.85rem;color:#a4501f}
-.or{display:flex;align-items:center;gap:12px;color:var(--dim);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;margin:20px 0 14px}
-.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
-form.typed{display:flex;gap:8px}
-form.typed input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:14px 18px;font:inherit;font-size:1rem}
-form.typed input:focus{outline:2px solid var(--gold);outline-offset:1px}
-form.typed button{border:0;border-radius:999px;background:var(--green);color:#fff;font-weight:600;padding:0 22px}
-.examples{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px}
-.examples button{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:7px 13px;font-size:.83rem}
-.examples button:hover{border-color:var(--gold);color:var(--ink)}
+.status{min-height:1.5em;margin-top:10px;font-size:.9rem;color:var(--gold2)}
+.examples{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:4px auto 0;max-width:760px}
+.examples button{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.8);border-radius:999px;padding:6px 12px;font-size:.8rem}
+.examples button:hover{border-color:var(--gold2);color:#fff}
 
 /* results */
 #results{padding:56px 0 20px;scroll-margin-top:70px}
@@ -163,9 +158,8 @@ footer p{max-width:900px}
   .brand small{display:none}
   .nav .btn span{display:none}
   .hero{padding:44px 0 60px}
-  .console{padding:22px 14px 18px;border-radius:22px}
-  .mic{width:62px;height:62px}
-  form.typed button{padding:0 16px}
+  .go{padding:0 14px}
+  .console input{font-size:.95rem}
   .grid{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -200,24 +194,19 @@ footer p{max-width:900px}
       <h1 class="serif">Just say what you're looking for. <em>We'll find the home.</em></h1>
       <p class="lead">Tap the mic and talk the way you would to an agent, like “three bedroom house in Floral Park under a million”. We'll match it against the OneKey MLS.</p>
 
-      <div class="console">
-        <button class="mic" id="mic" aria-label="Start voice search" aria-pressed="false">
+      <form class="console" id="typed">
+        <button type="button" class="mic" id="mic" aria-label="Start voice search" aria-pressed="false">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v5M8 22h8"/></svg>
         </button>
-        <div class="mic-label" id="micLabel">Tap and talk</div>
-        <div class="transcript" id="transcript" aria-live="polite"></div>
-        <div class="notice" id="notice"></div>
-        <div class="or">or type it</div>
-        <form class="typed" id="typed">
-          <input id="q" type="text" placeholder="e.g. 2 bedroom co-op in Glen Oaks under 450k" autocomplete="off" aria-label="Describe the home you want">
-          <button type="submit">Search</button>
-        </form>
-        <div class="examples" id="examples">
-          <button type="button">3 bedroom house in Floral Park under $1 million</button>
-          <button type="button">2 bed co-op in Glen Oaks under 450k</button>
-          <button type="button">Rent a 3 bedroom in Bellerose under $4,000 a month</button>
-          <button type="button">4 bedroom 3 bath in New Hyde Park</button>
-        </div>
+        <input id="q" type="text" placeholder="Tap the mic or type what you want" autocomplete="off" aria-label="Describe the home you want">
+        <button type="submit" class="go">Search</button>
+      </form>
+      <div class="status" id="micLabel" aria-live="polite"></div>
+      <div class="examples" id="examples">
+        <button type="button">3 bedroom house in Floral Park under $1 million</button>
+        <button type="button">2 bed co-op in Glen Oaks under 450k</button>
+        <button type="button">Rent a 3 bedroom in Bellerose under $4,000 a month</button>
+        <button type="button">4 bedroom 3 bath in New Hyde Park</button>
       </div>
     </div>
   </section>
@@ -721,22 +710,21 @@ $("yr").textContent = new Date().getFullYear();
 $("dataDate").textContent = DATA_DATE;
 
 /* ================= Voice ================= */
-const mic = $("mic"), micLabel = $("micLabel"), tx = $("transcript"), notice = $("notice");
+const mic = $("mic"), micLabel = $("micLabel"), q = $("q");
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 let rec = null, listening = false, finalText = "";
-const showNotice = t => { notice.textContent = t; notice.style.display = "block"; };
+const showNotice = t => { micLabel.textContent = t; };
 
 if (!SR){
-  micLabel.textContent = "Voice search works in Chrome, Edge and Safari. You can type below.";
-  mic.addEventListener("click", () => { showNotice("This browser doesn't support voice input, so type what you're looking for below."); $("q").focus(); });
+  mic.addEventListener("click", () => { showNotice("Voice search works in Chrome, Edge and Safari. Type your search instead."); q.focus(); });
 } else {
   rec = new SR();
   rec.lang = "en-US"; rec.interimResults = true; rec.continuous = false;
   rec.onstart = () => {
     listening = true; finalText = "";
     mic.classList.add("listening"); mic.setAttribute("aria-pressed","true"); mic.setAttribute("aria-label","Stop listening");
-    micLabel.textContent = "Listening… what kind of home are you looking for?";
-    tx.textContent = ""; notice.style.display = "none";
+    micLabel.textContent = "Listening… tell me what kind of home you want";
+    q.value = "";
   };
   rec.onresult = e => {
     let interim = "";
@@ -744,8 +732,7 @@ if (!SR){
       const t = e.results[i][0].transcript;
       if (e.results[i].isFinal) finalText += t; else interim += t;
     }
-    tx.textContent = finalText;
-    if (interim){ const s = document.createElement("span"); s.className = "interim"; s.textContent = interim; tx.append(s); }
+    q.value = finalText + interim;
   };
   rec.onerror = e => {
     const msgs = {
@@ -759,8 +746,8 @@ if (!SR){
   rec.onend = () => {
     listening = false;
     mic.classList.remove("listening"); mic.setAttribute("aria-pressed","false"); mic.setAttribute("aria-label","Start voice search");
-    micLabel.textContent = "Tap to search again";
-    if (finalText.trim()){ $("q").value = finalText.trim(); search(finalText); }
+    if (micLabel.textContent.startsWith("Listening")) micLabel.textContent = "";
+    if (finalText.trim()){ q.value = finalText.trim(); search(finalText); }
   };
   mic.addEventListener("click", () => {
     if (listening){ rec.stop(); return; }
