@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mohammad Ahmed — Real Estate | Floral Park, Queens &amp; Nassau</title>
+<meta name="description" content="Just say what you're looking for. Voice home search across Floral Park, Bellerose, Glen Oaks, New Hyde Park, Elmont and Queens Village with Mohammad Ahmed, HomeSmart CrossIsland. Call (917) 292-4125.">
+<meta name="theme-color" content="#14231d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f2ea; --paper:#fffdf8; --ink:#16201b; --muted:#5f6b64; --dim:#8b958f; --line:#e3dccd;
+  --green:#14231d; --green2:#1f3a2e; --gold:#c8944a; --gold2:#e7b86c; --ok:#2f7d55;
+  --radius:18px; --shadow:0 18px 50px -28px rgba(20,35,29,.45);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+img{display:block;max-width:100%}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.serif{font-family:Fraunces,Georgia,serif;font-weight:400;letter-spacing:-.01em}
+.eyebrow{font-size:.74rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:0;border-radius:999px;padding:13px 22px;font-weight:600;font-size:.95rem;transition:transform .15s,background .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn svg{width:18px;height:18px;flex:none}
+.btn-gold{background:var(--gold2);color:var(--green)}
+.btn-gold:hover{background:#f0c47c}
+.btn-dark{background:var(--green);color:#fff}
+.btn-line{background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff}
+
+/* header */
+header{position:sticky;top:0;z-index:40;background:rgba(20,35,29,.94);backdrop-filter:blur(12px);color:#fff}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.mark{width:40px;height:40px;border-radius:12px;background:var(--gold2);color:var(--green);display:grid;place-items:center;font-family:Fraunces;font-weight:600;font-size:1.15rem;flex:none}
+.brand b{display:block;font-weight:600;font-size:1rem;white-space:nowrap}
+.brand small{display:block;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);white-space:nowrap}
+.nav-links{display:flex;gap:26px;font-size:.9rem;color:rgba(255,255,255,.78)}
+.nav-links a:hover{color:var(--gold2)}
+.nav .btn{padding:10px 16px;font-size:.88rem}
+
+/* hero */
+.hero{position:relative;background:var(--green);color:#fff;padding:70px 0 90px;overflow:hidden;isolation:isolate}
+.mosaic{position:absolute;inset:0;z-index:-1;display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:1fr;gap:6px;opacity:.22;transform:rotate(-4deg) scale(1.25)}
+.mosaic div{background-size:cover;background-position:center;border-radius:10px;min-height:120px}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(700px 400px at 50% 40%,rgba(20,35,29,.55),rgba(20,35,29,.96) 75%)}
+.hero-inner{text-align:center}
+.hero h1{font-size:clamp(2.5rem,6.4vw,4.6rem);line-height:1.02;margin:14px auto 16px;max-width:15ch}
+.hero h1 em{font-style:italic;color:var(--gold2)}
+.hero .lead{color:rgba(255,255,255,.78);font-size:clamp(1rem,2.1vw,1.15rem);max-width:600px;margin:0 auto}
+
+.console{margin:38px auto 0;max-width:780px;background:var(--paper);color:var(--ink);border-radius:28px;padding:28px 22px 22px;box-shadow:0 40px 90px -40px rgba(0,0,0,.7)}
+.mic{position:relative;width:108px;height:108px;border-radius:50%;border:0;background:var(--green);color:var(--gold2);display:grid;place-items:center;margin:0 auto;transition:transform .2s,background .2s;box-shadow:0 16px 36px -14px rgba(20,35,29,.8)}
+.mic:hover{transform:scale(1.04)}
+.mic svg{width:40px;height:40px}
+.mic::before,.mic::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--gold);opacity:0}
+.mic.listening{background:var(--gold2);color:var(--green)}
+.mic.listening::before{animation:ring 1.6s ease-out infinite}
+.mic.listening::after{animation:ring 1.6s ease-out .8s infinite}
+@keyframes ring{from{transform:scale(1);opacity:.8}to{transform:scale(1.75);opacity:0}}
+.mic-label{margin-top:14px;font-size:.92rem;color:var(--muted);min-height:1.4em}
+.transcript{margin:10px auto 0;min-height:1.6em;font-family:Fraunces;font-size:clamp(1.25rem,3.2vw,1.65rem);line-height:1.25;max-width:640px}
+.transcript .interim{color:var(--dim)}
+.notice{display:none;margin-top:10px;font-size:.85rem;color:#a4501f}
+.or{display:flex;align-items:center;gap:12px;color:var(--dim);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;margin:20px 0 14px}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+form.typed{display:flex;gap:8px}
+form.typed input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:14px 18px;font:inherit;font-size:1rem}
+form.typed input:focus{outline:2px solid var(--gold);outline-offset:1px}
+form.typed button{border:0;border-radius:999px;background:var(--green);color:#fff;font-weight:600;padding:0 22px}
+.examples{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px}
+.examples button{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:7px 13px;font-size:.83rem}
+.examples button:hover{border-color:var(--gold);color:var(--ink)}
+
+/* results */
+#results{padding:56px 0 20px;scroll-margin-top:70px}
+.heard{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin-bottom:22px;display:none}
+.heard.show{display:block}
+.heard-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.heard-row strong{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-right:4px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--green);color:#fff;border:0;border-radius:999px;padding:6px 8px 6px 12px;font-size:.82rem;font-weight:500}
+.chip span{display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.18);font-size:.8rem;line-height:1}
+.chip:hover span{background:var(--gold2);color:var(--green)}
+.chip.static{padding-right:12px;background:var(--line);color:var(--muted)}
+.summary{margin-top:12px;display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between}
+.summary p{color:var(--muted);font-size:.95rem}
+.summary .btn{padding:10px 16px;font-size:.88rem}
+
+.results-head{display:flex;flex-wrap:wrap;gap:12px;align-items:end;justify-content:space-between;margin-bottom:18px}
+.results-head h2{font-size:clamp(1.7rem,3.6vw,2.4rem);line-height:1.1}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{background:transparent;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:.85rem;color:var(--muted)}
+.tab[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:#fff}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px}
+.home{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;animation:rise .35s ease both}
+.home:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.photo{position:relative;aspect-ratio:4/3;background:#ddd6c7 center/cover no-repeat}
+.badge{position:absolute;top:12px;left:12px;background:rgba(20,35,29,.88);color:#fff;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
+.fit{position:absolute;top:12px;right:12px;background:var(--gold2);color:var(--green);font-size:.75rem;font-weight:700;padding:5px 10px;border-radius:999px}
+.home-body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.price{font-family:Fraunces;font-size:1.55rem;font-weight:600;line-height:1.1}
+.price small{font-family:Inter;font-size:.85rem;font-weight:500;color:var(--muted)}
+.specs{display:flex;gap:14px;font-size:.88rem;color:var(--ink)}
+.specs b{font-weight:600}
+.addr{font-size:.9rem;color:var(--muted)}
+.why{margin-top:4px;display:flex;flex-wrap:wrap;gap:5px}
+.why span{font-size:.72rem;background:#e9f2ec;color:var(--ok);padding:3px 8px;border-radius:999px;font-weight:500}
+.home-actions{display:flex;gap:8px;margin-top:auto;padding-top:12px}
+.home-actions a{flex:1;text-align:center;font-size:.85rem;font-weight:600;padding:10px;border-radius:12px;border:1px solid var(--line)}
+.home-actions a.primary{background:var(--green);color:#fff;border-color:var(--green)}
+.home-actions a:hover{border-color:var(--gold)}
+.empty{grid-column:1/-1;background:var(--paper);border:1px dashed var(--line);border-radius:var(--radius);padding:34px 20px;text-align:center;color:var(--muted)}
+.empty .btn{margin-top:14px}
+.more{text-align:center;margin-top:26px}
+
+/* services */
+section.block{padding:90px 0 10px}
+section.block h2{font-size:clamp(2rem,4.4vw,3rem);line-height:1.05;margin-top:10px;max-width:20ch}
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+.svc{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.svc .ico{width:46px;height:46px;border-radius:14px;background:var(--green);color:var(--gold2);display:grid;place-items:center;margin-bottom:16px}
+.svc .ico svg{width:22px;height:22px}
+.svc h3{font-family:Fraunces;font-weight:600;font-size:1.35rem;margin-bottom:6px}
+.svc p{color:var(--muted);font-size:.95rem}
+.svc a{display:inline-block;margin-top:14px;font-weight:600;font-size:.9rem;color:var(--green);border-bottom:2px solid var(--gold2)}
+
+.areas{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.areas button{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:10px 16px;font-size:.92rem;color:var(--ink)}
+.areas button:hover{background:var(--green);color:#fff;border-color:var(--green)}
+
+/* contact */
+.contact{margin-top:90px;background:var(--green);color:#fff;border-radius:28px;padding:44px 32px;display:grid;grid-template-columns:1.1fr 1fr;gap:36px;align-items:start}
+.contact h2{font-size:clamp(2rem,4vw,2.8rem);line-height:1.05}
+.contact p{color:rgba(255,255,255,.75);margin-top:12px}
+.contact-lines{margin-top:24px;display:grid;gap:12px}
+.contact-lines a,.contact-lines div{display:flex;gap:12px;align-items:center;color:#fff}
+.contact-lines svg{width:20px;height:20px;color:var(--gold2);flex:none}
+.contact form{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:20px;display:grid;gap:10px}
+.contact label{font-size:.78rem;letter-spacing:.06em;color:rgba(255,255,255,.7)}
+.contact input,.contact select,.contact textarea{width:100%;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.18);border-radius:12px;color:#fff;padding:12px 14px;font:inherit;font-size:.95rem}
+.contact select option{color:#111}
+.contact textarea{min-height:90px;resize:vertical}
+.contact input:focus,.contact select:focus,.contact textarea:focus{outline:2px solid var(--gold2);outline-offset:0}
+
+footer{padding:40px 0 50px;font-size:.78rem;color:var(--dim)}
+footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;margin-bottom:14px;color:var(--muted);font-size:.85rem}
+footer p{max-width:900px}
+
+
+@media (max-width:860px){
+  .nav-links{display:none}
+  .services{grid-template-columns:1fr}
+  .contact{grid-template-columns:1fr;padding:32px 20px}
+  .mosaic{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:560px){
+  .brand small{display:none}
+  .nav .btn span{display:none}
+  .hero{padding:44px 0 60px}
+  .console{padding:22px 14px 18px;border-radius:22px}
+  .mic{width:92px;height:92px}
+  form.typed button{padding:0 16px}
+  .grid{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <span class="mark">MA</span>
+      <span><b>Mohammad Ahmed</b><small>HomeSmart CrossIsland</small></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#results">Find a home</a>
+      <a href="#services">Buy · Sell · Rent</a>
+      <a href="#areas">Neighborhoods</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-gold" href="tel:+19172924125">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+      <span>(917) 292-4125</span>
+    </a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="mosaic" id="mosaic" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <div class="eyebrow">Floral Park · Queens · Nassau</div>
+      <h1 class="serif">Just say what you're looking for. <em>We'll find the home.</em></h1>
+      <p class="lead">Tap the mic and talk the way you would to an agent, like “three bedroom house in Floral Park under a million”. We'll match it against the OneKey MLS.</p>
+
+      <div class="console">
+        <button class="mic" id="mic" aria-label="Start voice search" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v5M8 22h8"/></svg>
+        </button>
+        <div class="mic-label" id="micLabel">Tap and talk</div>
+        <div class="transcript" id="transcript" aria-live="polite"></div>
+        <div class="notice" id="notice"></div>
+        <div class="or">or type it</div>
+        <form class="typed" id="typed">
+          <input id="q" type="text" placeholder="e.g. 2 bedroom co-op in Glen Oaks under 450k" autocomplete="off" aria-label="Describe the home you want">
+          <button type="submit">Search</button>
+        </form>
+        <div class="examples" id="examples">
+          <button type="button">3 bedroom house in Floral Park under $1 million</button>
+          <button type="button">2 bed co-op in Glen Oaks under 450k</button>
+          <button type="button">Rent a 3 bedroom in Bellerose under $4,000 a month</button>
+          <button type="button">4 bedroom 3 bath in New Hyde Park</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="results" class="wrap">
+    <div class="heard" id="heard">
+      <div class="heard-row"><strong>Searching for</strong><span id="chips" class="heard-row"></span></div>
+      <div class="summary">
+        <p id="summary"></p>
+        <a class="btn btn-dark" id="liveLink" href="https://homes.mohammadahmedre.com/idx/search/advanced" target="_blank" rel="noopener">
+          See every live match on the MLS
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="results-head">
+      <div>
+        <div class="eyebrow" id="resultsEyebrow">Around Floral Park right now</div>
+        <h2 class="serif" id="resultsTitle">Homes near the office</h2>
+      </div>
+      <div class="tabs" id="tabs">
+        <button class="tab" data-kind="all" aria-pressed="true">All</button>
+        <button class="tab" data-kind="house" aria-pressed="false">Houses</button>
+        <button class="tab" data-kind="coop" aria-pressed="false">Co-ops &amp; condos</button>
+        <button class="tab" data-kind="rental" aria-pressed="false">Rentals</button>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="more" id="more"></div>
+  </section>
+
+  <section class="block wrap" id="services">
+    <div class="eyebrow">How I can help</div>
+    <h2 class="serif">Buying, selling or renting, one local agent handles it all.</h2>
+    <div class="services">
+      <div class="svc">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></div>
+        <h3>Buy</h3>
+        <p>Houses, co-ops and condos from Queens Village to New Hyde Park. I'll set up showings, write the offer and see you through to closing.</p>
+        <a href="#top" data-focus>Start a search</a>
+      </div>
+      <div class="svc">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <h3>Sell</h3>
+        <p>Find out what your home is worth today. You get a pricing plan from recent nearby sales and an MLS listing that reaches every buyer's agent.</p>
+        <a href="#contact" data-topic="Selling my home">Get a free valuation</a>
+      </div>
+      <div class="svc">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 9.2-9.2M18 5l3 3M15 8l2 2"/></svg></div>
+        <h3>Rent</h3>
+        <p>Apartments and whole houses for rent, for tenants and landlords both. Tell me your budget and move-in date and I'll shortlist the best fits.</p>
+        <a href="#contact" data-topic="Renting">Find a rental</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block wrap" id="areas">
+    <div class="eyebrow">Neighborhoods</div>
+    <h2 class="serif">Where I work, on both sides of the city line.</h2>
+    <div class="areas" id="areaBtns"></div>
+  </section>
+
+  <section class="wrap" id="contact">
+    <div class="contact">
+      <div>
+        <div class="eyebrow">Let's talk</div>
+        <h2 class="serif">Tell me what you need. I'll answer the same day.</h2>
+        <p>Whether you're ready to tour this weekend or just starting to look, call, text or send a note.</p>
+        <div class="contact-lines">
+          <a href="tel:+19172924125"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>(917) 292-4125</a>
+          <a href="sms:+19172924125"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text me</a>
+          <a href="mailto:mohammad.ahmed.re@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>mohammad.ahmed.re@gmail.com</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=52+King+St+Floral+Park+NY+11001" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>52 King St, Floral Park, NY 11001</a>
+        </div>
+      </div>
+      <form id="contactForm">
+        <div><label for="cName">Name</label><input id="cName" required autocomplete="name"></div>
+        <div><label for="cPhone">Phone</label><input id="cPhone" type="tel" autocomplete="tel"></div>
+        <div><label for="cTopic">I'm interested in</label>
+          <select id="cTopic"><option>Buying a home</option><option>Selling my home</option><option>Renting</option><option>Something else</option></select></div>
+        <div><label for="cMsg">Message</label><textarea id="cMsg"></textarea></div>
+        <button class="btn btn-gold" type="submit">Send to Mohammad</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="wrap">
+    <div class="row"><span>© <span id="yr"></span> Mohammad Ahmed · HomeSmart CrossIsland</span><span>52 King St, Floral Park, NY 11001</span></div>
+    <p>© OneKey MLS. All rights reserved. The data relating to real estate for sale on this web site comes in part from the Internet Data Exchange Program of OKMLS. Real estate listings held by IDX brokerage firms other than HomeSmart CrossIsland are marked with the Internet Data Exchange logo or thumbnail logo, and detailed information about them includes the name of the listing brokers. Information provided is deemed reliable but not guaranteed. Featured listings on this page were last refreshed on <span id="dataDate"></span>; tap any home for its current status.</p>
+  </footer>
+</main>
+
+
+<script>
+/* ================= Listings =================
+   Snapshot of active OneKey MLS listings around the office, from Mohammad's IDX feed.
+   Row: [listingId, urlSlug, photoPath, price, beds, baths, sqft, address, town, zip, kind]
+   kind: house | coop | rental. In production, replace with the IDX Broker API.        */
+const IDX = "https://homes.mohammadahmedre.com";
+const DATA_DATE = "October 9, 2026";
+const ROWS = [
+// houses for sale
+["1032432","129-Greenway-W-New-Hyde-Park-NY-11040","1c75/57c16f3e456b257c51b4b6c4fda8368c",1000000,4,2,1522,"129 Greenway W","New Hyde Park","11040","house"],
+["1024945","8617-253rd-Street-Bellerose-NY-11426","683b/b386df7b1a19846340d82339d7380c1b",999999,4,2,1485,"86-17 253rd Street","Bellerose","11426","house"],
+["1034978","108-Marcus-Avenue-New-Hyde-Park-NY-11040","cfe4/4efc5f5f3aa3afb1417e2419edc3438a",999999,3,3,1440,"108 Marcus Avenue","New Hyde Park","11040","house"],
+["1041567","146-Beverly-Avenue-Floral-Park-NY-11001","a355/553a4431da9ea791a3e5ac3b4816531e",999999,4,2,1634,"146 Beverly Avenue","Floral Park","11001","house"],
+["1051360","84-Robby-Lane-Manhasset-Hills-NY-11040","c569/965c1b2d397cc2ff6e3834d36ecf65c9",999999,3,3,1595,"84 Robby Lane","Manhasset Hills","11040","house"],
+["984388","34-Vandewater-Avenue-Floral-Park-NY-11001","cca0/0accc758a022e9e2267cc645d9f15939",999990,4,3,2264,"34 Vandewater Avenue","Floral Park","11001","house"],
+["1016382","41-Kingston-Street-Elmont-NY-11003","092c/c29062682ed99adbd7c8e2310e0037f7",999000,4,4,2576,"41 Kingston Street","Elmont","11003","house"],
+["1017362","264-Doherty-Avenue-Elmont-NY-11003","dd26/62dd551e2b7f29d8bea128cf384f64af",999000,4,3,1965,"264 Doherty Avenue","Elmont","11003","house"],
+["1019743","65-Moore-Street-New-Hyde-Park-NY-11040","89be/eb98450f929539b89e1286ce3806993c",999000,4,2,1670,"65 Moore Street","New Hyde Park","11040","house"],
+["1028581","1602-Imperial-Avenue-New-Hyde-Park-NY-11040","3eba/abe3e2d1eac4e4ad4810a6a47da8e9f7",999000,3,3,2052,"1602 Imperial Avenue","New Hyde Park","11040","house"],
+["1030970","1430-Omega-Street-Elmont-NY-11003","fbc5/5cbf4446b5f01017baeebdac1b624758",999000,5,3,2216,"1430 Omega Street","Elmont","11003","house"],
+["1036788","43-Scott-Street-New-Hyde-Park-NY-11040","63b6/6b3643c6f6e4fc93808b5bad96c89267",999000,4,2,1387,"43 Scott Street","New Hyde Park","11040","house"],
+["1045886","8777-254th-Street-Bellerose-NY-11426","66e8/8e66e7e0d8ee102ab3b1184d22f5454a",999000,4,3,1110,"87-77 254th Street","Bellerose","11426","house"],
+["1048294","85-22-213th-Street-Hollis-Hills-NY-11427","3d39/93d3231d0a7033cc3826994db04d1744",999000,3,2,2587,"85-22 213th Street","Hollis Hills","11427","house"],
+["1055995","54-Rose-Lane-New-Hyde-Park-NY-11040","6a75/57a6bb22a31bc2fa0fb0551de09dc36d",999000,4,2,1414,"54 Rose Lane","New Hyde Park","11040","house"],
+["1044227","85-Joseph-Street-New-Hyde-Park-NY-11040","af19/91fa0d7db32bb7920e507e8256af48e5",998000,3,2,1341,"85 Joseph Street","New Hyde Park","11040","house"],
+["1054943","93-1st-Street-New-Hyde-Park-NY-11040","46df/fd6433607b9dab8cc245a460c2bc18a7",998000,3,2,1314,"93 1st Street","New Hyde Park","11040","house"],
+["1018277","169-Landau-Avenue-Floral-Park-NY-11001","3a5e/e5a310f9028768301a790ec45e9aa144",995000,3,3,1463,"169 Landau Avenue","Floral Park","11001","house"],
+["981058","50-New-Hyde-Park-Road-New-Hyde-Park-NY-11040","e635/536e0d01346be12ec894f4f7ff3495c0",995000,3,2,1600,"50 New Hyde Park Road","New Hyde Park","11040","house"],
+["1040559","82-11-262nd-Street-Floral-Park-NY-11004","7594/495762a4cab646834da811ec1e5ac093",990000,4,3,1832,"82-11 262nd Street","Floral Park","11004","house"],
+["1050243","676-6th-Avenue-New-Hyde-Park-NY-11040","cb77/77bc551aac3ab533e1e6ec05de3c39d6",990000,4,3,2011,"676 6th Avenue","New Hyde Park","11040","house"],
+["1024415","249-Bedford-Avenue-New-Hyde-Park-NY-11040","d004/400d06a10e73ddc5f1af376fb5c3ad71",989000,3,3,1784,"249 Bedford Avenue","New Hyde Park","11040","house"],
+["1029348","236-11-Seward-Avenue-Bellerose-Manor-NY-11427","8fe9/9ef853aba71c269b25ea3cf76c257363",989000,3,2,1800,"236-11 Seward Avenue","Bellerose Manor","11427","house"],
+["1030315","166-Beech-Street-Floral-Park-NY-11001","1083/3801b8fff6ed1e2160807662f4aa2fcc",988888,4,3,1513,"166 Beech Street","Floral Park","11001","house"],
+["1017856","82-Superior-Road-Floral-Park-NY-11001","2fd3/3df26eb42fd379b9587d4d1c26d1eabd",988000,3,2,1568,"82 Superior Road","Floral Park","11001","house"],
+["954941","918-N-6th-Street-North-New-Hyde-Park-NY-11040","7e24/42e773a52142048c851aa37a51d81410",1500000,4,4,2700,"918 N 6th Street","North New Hyde Park","11040","house"],
+["1022700","8015-Little-Neck-Parkway-Glen-Oaks-NY-11004","1a00/00a15b7f9a0b8b057b6c5daa3486d302",1499000,5,5,2885,"80-15 Little Neck Parkway","Glen Oaks","11004","house"],
+["1060308","115-Marguerite-Avenue-Elmont-NY-11003","de44/44ed16dbfd966de36eb51d99ddd969e8",1499000,5,5,2800,"115 Marguerite Avenue","Elmont","11003","house"],
+["1025719","642-Lenore-Lane-Elmont-NY-11003","89e0/0e98a22b4f80b5d6ecc061b95ffb01b7",1498000,4,4,3605,"642 Lenore Lane","Elmont","11003","house"],
+["1022839","10-Hazel-Place-Floral-Park-NY-11001","f1b2/2b1feba1237ba6c5a6fc428ff5bb990e",1495000,4,4,2257,"10 Hazel Place","Floral Park","11001","house"],
+["1025777","78-Ontario-Road-Floral-Park-NY-11001","3d8c/c8d3ff6ef154274dd760b1b2efbad1f1",1495000,4,4,2602,"78 Ontario Road","Floral Park","11001","house"],
+["1024991","16-Ashland-Avenue-New-Hyde-Park-NY-11040","f0e0/0e0fee4565c240972a7037023162ac92",1488888,4,4,2609,"16 Ashland Avenue","New Hyde Park","11040","house"],
+["1040035","43-Baxter-Avenue-New-Hyde-Park-NY-11040","7149/9417e70d95badde83208adfecae3852f",1485000,6,4,2236,"43 Baxter Avenue","New Hyde Park","11040","house"],
+["1012692","228-Robby-Lane-Manhasset-Hills-NY-11040","28c7/7c82a6107f8db019a047534e1c479c77",1475000,4,3,2613,"228 Robby Lane","Manhasset Hills","11040","house"],
+["988333","447-Keller-Avenue-Elmont-NY-11003","7bfb/bfb791e7e89c97ab0dbf73f5b81e19a0",1450888,5,4,0,"447 Keller Avenue","Elmont","11003","house"],
+["1037390","105-Moore-Street-New-Hyde-Park-NY-11040","5b84/48b551ddcc3ecc262e837ac904ffabe0",1450000,5,3,2090,"105 Moore Street","New Hyde Park","11040","house"],
+["1042484","5-Elm-Avenue-Floral-Park-NY-11001","5718/8175bddbc16848087c168e75b2d12ca6",1450000,4,3,2510,"5 Elm Avenue","Floral Park","11001","house"],
+["1058714","22-Clover-Avenue-Floral-Park-NY-11001","4c5e/e5c42379c15933849a2639a4cf637cda",1450000,5,5,3336,"22 Clover Avenue","Floral Park","11001","house"],
+["972201","85-Violet-Avenue-Floral-Park-NY-11001","0827/728050959bf8968b5a41599d7d25b328",1399000,4,4,3400,"85 Violet Avenue","Floral Park","11001","house"],
+["1024872","1320-R-Street-Elmont-NY-11003","13ea/ae3140ee081ab6fa9649ec662a02c919",1395000,5,3,3000,"1320 R Street","Elmont","11003","house"],
+["1028154","8764-257th-Street-Floral-Park-NY-11001","ccc9/9ccc8ccb0b695cf3051045ccf5e1428a",1395000,4,4,2736,"87-64 257th Street","Floral Park","11001","house"],
+["1022527","26-Patton-Boulevard-New-Hyde-Park-NY-11040","b8ef/fe8bb56d82733360748d4c97ae425de8",1375000,4,3,1934,"26 Patton Boulevard","New Hyde Park","11040","house"],
+["1046862","154-Celler-Avenue-New-Hyde-Park-NY-11040","232a/a23272b34c9f5b0de9cbe1968bc6e4c2",1375000,3,3,2300,"154 Celler Avenue","New Hyde Park","11040","house"],
+["1028516","8315-264th-Street-Glen-Oaks-NY-11004","7fb5/5bf740c1b76e8aa8b330544ec2d02b1b",1349900,3,2,1364,"83-15 264th Street","Glen Oaks","11004","house"],
+["1043538","83-12-249th-Street-Floral-Park-NY-11426","ab70/07ba21b315e8000aff3cbe14c7b5e004",1349888,3,4,1920,"83-12 249th Street","Floral Park","11426","house"],
+["981143","8227-265th-Street-Glen-Oaks-NY-11004","aa71/17aa606bdb9055ee14de6740b4723053",1348888,4,4,2272,"82-27 265th Street","Glen Oaks","11004","house"],
+["1025340","31-Bellwood-Drive-New-Hyde-Park-NY-11040","b5a4/4a5ba78c742b7a404d6cd3cb6054c4c9",1300000,3,3,1748,"31 Bellwood Drive","New Hyde Park","11040","house"],
+// co-ops & condos for sale
+["1052319","255-21-74th-Avenue-H-1-Glen-Oaks-NY-11004","aa81/18aabea26d34c868befcd503b59d2bd7",569900,2,1,992,"255-21 74th Avenue #H-1","Glen Oaks","11004","coop"],
+["1058325","264-63-Langston-Avenue-2nd-floor-Glen-Oaks-NY-11004","a54f/f45a2f7b73514b0f8cf06ac7e7f0b318",489900,2,1,764,"264-63 Langston Avenue, 2nd fl","Glen Oaks","11004","coop"],
+["1028088","247-28-76th-Avenue-A-Bellerose-NY-11426","52d2/2d25394522f125e0a598f1e2c88e8178",479999,2,1,750,"247-28 76th Avenue #A","Bellerose","11426","coop"],
+["1050606","247-48-77th-Crescent-Lower-Bellerose-NY-11426","f4d8/8d4f867da3917ad5f1a637ab9c0f4ac4",479999,2,1,850,"247-48 77th Crescent, Lower","Bellerose","11426","coop"],
+["1026603","72-59-Little-Neck-Parkway-H-1-Glen-Oaks-NY-11004","c300/003c822af6d585f7fa38a36b756f18b5",469900,3,1,812,"72-59 Little Neck Parkway #H-1","Glen Oaks","11004","coop"],
+["1023331","73-03-Little-Neck-H-1-Glen-Oaks-NY-11004","6847/7486bea3dacbc773873b9fb8952945bf",459900,3,1,812,"73-03 Little Neck Parkway #H-1","Glen Oaks","11004","coop"],
+["1053137","73-61-260th-Street-H-1-Glen-Oaks-NY-11004","5fa5/5af5e5098ef813152cfa5fa138329e50",459900,2,1,812,"73-61 260th Street #H-1","Glen Oaks","11004","coop"],
+["1048908","260-13-74th-Avenue-1-Glen-Oaks-NY-11004","dc66/66cd8dc8b51e87885d9906d4a71d154b",449000,2,1,721,"260-13 74th Avenue #1","Glen Oaks","11004","coop"],
+["1035846","73-23-255th-Street-G-2-Glen-Oaks-NY-11004","3a66/66a39c04b76093e9d6e73d696c207f5e",429900,2,1,755,"73-23 255th Street #G-2","Glen Oaks","11004","coop"],
+["1029805","81-11-Langdale-Street-216A-New-Hyde-Park-NY-11040","a185/581aa4d278766ebd00010d95a7c5b4eb",425000,2,1,750,"81-11 Langdale Street #216A","New Hyde Park","11040","coop"],
+["1032430","255-34-74th-Avenue-G-1-Glen-Oaks-NY-11004","0ea3/3ae0704ece2b7b27c4221ebf115fa2ca",419900,2,1,721,"255-34 74th Avenue #G-1","Glen Oaks","11004","coop"],
+["1003749","254-25-75th-Avenue-2nd-fl-Glen-Oaks-NY-11004","836e/e638d7b88c737cb9decc69a00afba757",415900,3,1,856,"254-25 75th Avenue, 2nd fl","Glen Oaks","11004","coop"],
+["1019353","268-37-82nd-Avenue-274A-New-Hyde-Park-NY-11040","72e4/4e2737b13ef4fc61abed1d28b865dd46",415000,2,1,700,"268-37 82nd Avenue #274A","New Hyde Park","11040","coop"],
+["1037581","91-Tulip-Avenue-C1-Floral-Park-NY-11001","d6e7/7e6db92602b3526e4de48589192c12d9",399990,2,1,900,"91 Tulip Avenue #C1","Floral Park","11001","coop"],
+["1030714","75-18-263rd-G-1-Glen-Oaks-NY-11004","2ca4/4ac297a136edce9a1765ce71e0289f26",399900,2,1,721,"75-18 263rd Street #G-1","Glen Oaks","11004","coop"],
+["1031006","82-75-Langdale-Street-103A-New-Hyde-Park-NY-11040","39e7/7e93c7e153aa63f1dfe2d0f23fbad278",399900,2,1,681,"82-75 Langdale Street #103A","New Hyde Park","11040","coop"],
+["1024893","72-75-Little-Neck-Parkway-G-2-Glen-Oaks-NY-11004","1659/95615b03bdf4c55e2dcdd552a186f714",399000,2,1,766,"72-75 Little Neck Parkway #G-2","Glen Oaks","11004","coop"],
+["1035510","254-11-73rd-Road-Unit-B-Glen-Oaks-NY-11004","3253/3523a2ed30d925e27b5084d077ba0ff4",399000,2,1,651,"254-11 73rd Road, Unit B","Glen Oaks","11004","coop"],
+["964076","260-56-75th-Avenue-One-Glen-Oaks-NY-11004","851c/c158500786c8203e5e77eb43601eacf2",395000,2,1,721,"260-56 75th Avenue","Glen Oaks","11004","coop"],
+["1018481","260-11-73rd-Avenue-E-2-Glen-Oaks-NY-11004","e866/668e50b311f75d846eff98e951024e24",389900,2,1,766,"260-11 73rd Avenue #E-2","Glen Oaks","11004","coop"],
+["1048222","255-15-75th-Avenue-G-1-Glen-Oaks-NY-11004","c302/203cd356b36a35050a93c893cc8e0dad",389900,2,1,721,"255-15 75th Avenue #G-1","Glen Oaks","11004","coop"],
+["1050830","251-35-71st-Road-51-A-Bellerose-NY-11426","9a5b/b5a9daa2043bb50dafe227ab77ab9eed",389888,2,1,900,"251-35 71st Road #51A","Bellerose","11426","coop"],
+// rentals (price per month)
+["1060075","72-Primrose-Avenue-Floral-Park-NY-11001","ea79/97aed275ad0c5b7e7facbf698b8fd759",6200,4,3,1476,"72 Primrose Avenue","Floral Park","11001","rental"],
+["1035257","111-Fulton-Avenue-Garden-City-Park-NY-11040","2fa3/3af21cc1b7824d14c3d68d3d0d485a83",5900,4,3,2664,"111 Fulton Avenue","Garden City Park","11040","rental"],
+["1023982","19-Aberdeen-Road-New-Hyde-Park-NY-11040","17ba/ab71fbd8c40a7f4c62493268e52655e7",5500,4,2,1361,"19 Aberdeen Road","New Hyde Park","11040","rental"],
+["977089","81-Gerard-Avenue-New-Hyde-Park-NY-11040","723d/d327e8cc7e0f3555a413a0fce44024a3",5500,6,2,1792,"81 Gerard Avenue","New Hyde Park","11040","rental"],
+["1057635","1001-5th-Avenue-New-Hyde-Park-NY-11040","9db4/4bd9e55deb27c1f45b1acb325daa16ac",5000,4,2,1950,"1001 5th Avenue","New Hyde Park","11040","rental"],
+["1058977","20911-85th-Avenue-Hollis-Hills-NY-11427","8546/645850ac6f4808838962d11b6b56d791",4800,4,2,1000,"209-11 85th Avenue","Hollis Hills","11427","rental"],
+["1056477","54-Vanderbilt-Avenue-Floral-Park-NY-11001","86a6/6a68ca815baab2999bf598b52ddb41f7",4700,3,2,1130,"54 Vanderbilt Avenue","Floral Park","11001","rental"],
+["1022074","17-Main-Street-Floral-Park-NY-11001","c873/378c93c5932bd9b0675da39bcd2e1c2e",4600,4,3,1497,"17 Main Street","Floral Park","11001","rental"],
+["1056877","711-Covert-Avenue-New-Hyde-Park-NY-11040","cb59/95bc49f6798db78d3878b5dedd4b8a5a",4500,4,2,1338,"711 Covert Avenue","New Hyde Park","11040","rental"],
+["1029819","8729-254th-Street-Bellerose-NY-11426","62e5/5e268ca1196c9b32afb100061459609e",4000,3,2,1422,"87-29 254th Street","Bellerose","11426","rental"],
+["1037426","8903-249th-Street-Bellerose-NY-11426","27b5/5b72907ea398cd9fe9ae8fd78d34a98b",4000,3,3,1490,"89-03 249th Street","Bellerose","11426","rental"],
+["971303","248-20-Jericho-Turnpike-2nd-Bellerose-Village-NY-11001","883b/b388c9153eb481da8ee1e195db9e7299",3900,3,2,1700,"248-20 Jericho Turnpike, 2nd fl","Bellerose Village","11001","rental"],
+["1026740","90-21-Winchester-Blvd-Queens-Village-NY-11428","6e5e/e5e63ebfa6e4bada06ca40657ba75df3",3800,3,1,900,"90-21 Winchester Blvd","Queens Village","11428","rental"],
+["1058280","8815-215th-Place-Apt-1-Queens-Village-NY-11427","6562/2656c1790f57c76a4a9beca32b8ae6fe",3800,3,1,1616,"88-15 215th Place, Apt 1","Queens Village","11427","rental"],
+["1006628","9050-Francis-Lewis-Boulevard-Queens-Village-NY-11428","c4af/fa4cf2eb2b6d7d8f5e72263c4b747c12",3750,3,2,2396,"90-50 Francis Lewis Boulevard","Queens Village","11428","rental"],
+["1031853","9206-242nd-Street-Bellerose-NY-11426","5f31/13f5377849da59fea2f016f97b487dc9",3650,3,2,2836,"92-06 242nd Street","Bellerose","11426","rental"],
+["1029034","267-Plainfield-Avenue-1F-Floral-Park-NY-11001","44b1/1b44c1db917ca76c6e8b60d603e2e3a2",3600,2,2,1000,"267 Plainfield Avenue #1F","Floral Park","11001","rental"],
+["1037362","76-29-271st-Street-2nd-Fl-New-Hyde-Park-NY-11040","adc1/1cda7d571e8982a992cdbd9bd4897033",3600,3,1,1480,"76-29 271st Street, 2nd fl","New Hyde Park","11040","rental"],
+["1037901","182-Lowell-Avenue-upper-Floral-Park-NY-11001","acdf/fdcaff986502e6ad0a877c454a9bf78c",3600,3,1,0,"182 Lowell Avenue, Upper","Floral Park","11001","rental"],
+["1042874","30-7th-Street-2Fl-New-Hyde-Park-NY-11040","eca9/9ace799408a7b3c982ef5cb71f2255f8",3500,3,1,2324,"30 7th Street, 2nd fl","New Hyde Park","11040","rental"],
+["1045930","9320-243rd-Street-Bellerose-NY-11426","e3b4/4b3ec9b4c9f3c3899271b955406b32f2",3350,3,2,1432,"93-20 243rd Street","Bellerose","11426","rental"],
+["1045649","8833-Ransom-Street-Queens-Village-NY-11427","4aec/cea4530a51a37b0a45d32f57ab4f78c5",3300,3,2,4750,"88-33 Ransom Street","Queens Village","11427","rental"],
+["981760","248-20-Jericho-Turnpike-1A-Floral-Park-NY-11001","1532/235196935bdf4e8121ba75cad9f1713c",3250,2,2,1700,"248-20 Jericho Turnpike #1A","Floral Park","11001","rental"],
+["1029008","267-Plainfield-Avenue-2F-Floral-Park-NY-11001","1325/52317ac72ca3951e27cb0dfdd3dc75f3",3200,2,1,1000,"267 Plainfield Avenue #2F","Floral Park","11001","rental"],
+];
+const HOMES = ROWS.map(([id,slug,photo,price,beds,baths,sqft,address,town,zip,kind]) => ({
+  id, price, beds, baths, sqft, address, town, zip, kind,
+  photo: `https://s3.amazonaws.com/mlsphotos.idxbroker.com/photos/${photo}/c056`,
+  url: `${IDX}/idx/details/listing/c056/${id}/${slug}`,
+}));
+
+/* ================= Places =================
+   Spoken place name -> zip codes. Towns with featured listings first, then the
+   wider service area (those still work through the live MLS search link).     */
+const PLACES = {
+  "Floral Park":["11001","11004"], "Bellerose":["11426","11001"], "Bellerose Village":["11001"], "Bellerose Manor":["11427"],
+  "Glen Oaks":["11004"], "New Hyde Park":["11040"], "North New Hyde Park":["11040"], "Garden City Park":["11040"],
+  "Manhasset Hills":["11040"], "Elmont":["11003"], "Queens Village":["11427","11428","11429"], "Hollis Hills":["11427"],
+  "Little Neck":["11362","11363"], "Douglaston":["11363"], "Bayside":["11361","11364"], "Fresh Meadows":["11365","11366"],
+  "Hollis":["11423"], "Jamaica Estates":["11432"], "Jamaica":["11432","11433","11434","11435"], "Cambria Heights":["11411"],
+  "Rosedale":["11422"], "Laurelton":["11413"], "Franklin Square":["11010"], "Garden City":["11530"], "Mineola":["11501"],
+  "Williston Park":["11596"], "Albertson":["11507"], "Great Neck":["11020","11021","11023","11024"], "Manhasset":["11030"],
+  "Valley Stream":["11580","11581"], "West Hempstead":["11552"], "Hempstead":["11550"], "Uniondale":["11553"],
+  "Lynbrook":["11563"], "Malverne":["11565"], "Hicksville":["11801"], "Westbury":["11590"], "Levittown":["11756"],
+  "Roslyn":["11576"], "Port Washington":["11050"], "Rockville Centre":["11570"], "Baldwin":["11510"],
+};
+const HOME_AREA = ["11001","11004","11426","11040","11003","11427","11428"];
+const NEARBY = { "Floral Park":["Bellerose","Glen Oaks","New Hyde Park"], "Bellerose":["Floral Park","Glen Oaks","Queens Village"] };
+const SPOKEN = Object.keys(PLACES).sort((a,b)=>b.length-a.length);
+
+/* ================= Natural-language parser ================= */
+const WORDNUM = {zero:0,one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10,a:1,single:1,studio:0};
+const toNum = w => (w in WORDNUM ? WORDNUM[w] : parseFloat(w));
+
+function parseMoney(s){
+  // "$1.2 million", "1,200,000", "800k", "800 thousand", "4000", "4 grand"
+  const m = s.replace(/,/g,"").match(/\$?\s*(\d+(?:\.\d+)?)\s*(million|mil|m\b|thousand|grand|k\b)?/i);
+  if (!m) return null;
+  let n = parseFloat(m[1]); const u = (m[2]||"").toLowerCase();
+  if (u.startsWith("m")) n *= 1e6; else if (u) n *= 1e3;
+  return n;
+}
+
+function parse(text){
+  const t = " " + text.toLowerCase().replace(/[–—-]/g," ").replace(/\s+/g," ") + " ";
+  const c = {};
+
+  // intent & type
+  if (/\b(rent|rental|renting|lease|leasing|per month|a month|monthly|\/mo)\b/.test(t)) c.kind = "rental";
+  if (/\b(co ?op|coop|cooperative|condo|condominium)s?\b/.test(t)) c.kind = c.kind || "coop";
+  else if (/\b(apartment|apt)s?\b/.test(t) && !c.kind) c.kind = "coop";
+  if (/\b(house|houses|single family|colonial|cape|ranch|split level|detached|hi ranch)\b/.test(t) && c.kind !== "rental") c.kind = "house";
+  if (/\b(buy|buying|purchase|for sale)\b/.test(t) && c.kind === "rental") delete c.kind;
+
+  // beds & baths
+  const NUM = "\\b(\\d+(?:\\.5)?|zero|one|two|three|four|five|six|seven|eight|a|single)";
+  let m = t.match(new RegExp(NUM + "\\s*(?:\\+|plus|or more)?\\s*(?:bed|beds|bedroom|bedrooms|br|bdr|bd)\\b"));
+  if (m) c.beds = toNum(m[1]);
+  else if (/\bstudio\b/.test(t)) c.beds = 0;
+  m = t.match(new RegExp(NUM + "\\s*(?:\\+|plus|or more)?\\s*(?:full )?(?:bath|baths|bathroom|bathrooms|ba)\\b"));
+  if (m) c.baths = toNum(m[1]);
+
+  // price
+  const MONEY = "(\\$?\\s*\\d[\\d,]*(?:\\.\\d+)?\\s*(?:million|mil|m\\b|thousand|grand|k\\b)?)";
+  const scale = n => n < 100 ? (c.kind === "rental" ? n*1e3 : n*1e6) : n; // "under 1.2" -> $1.2M, "under 4" (rent) -> $4,000
+  if ((m = t.match(new RegExp("between\\s+" + MONEY + "\\s+(?:and|to)\\s+" + MONEY)))){
+    let a = parseMoney(m[1]), b = scale(parseMoney(m[2]));
+    if (a < b / 100) a *= b >= 1e6 && a < 100 ? 1e6 : 1e3; // "between 800 and 900 thousand", "between 1 and 1.5 million"
+    c.minPrice = Math.min(a,b); c.maxPrice = Math.max(a,b);
+  } else {
+    if ((m = t.match(new RegExp("(?:under|below|less than|up to|max(?:imum)?|no more than|at most|budget(?: is| of)?|within)\\s+" + MONEY)))) c.maxPrice = scale(parseMoney(m[1]));
+    if ((m = t.match(new RegExp("(?:over|above|more than|at least|min(?:imum)?|starting at|from)\\s+" + MONEY)))) c.minPrice = scale(parseMoney(m[1]));
+    if ((m = t.match(new RegExp("(?:around|about|roughly|near|approximately|close to)\\s+" + MONEY)))){
+      const v = scale(parseMoney(m[1])); c.minPrice = Math.round(v*0.85); c.maxPrice = Math.round(v*1.1);
+    }
+    if (c.maxPrice == null && c.minPrice == null && (m = t.match(/\$\s*\d[\d,.]*\s*(?:million|mil|m\b|thousand|grand|k\b)?|\b\d[\d,.]*\s*(?:million|thousand|grand|k)\b/))) c.maxPrice = parseMoney(m[0]);
+  }
+  if (c.maxPrice && !c.kind && c.maxPrice < 15000) c.kind = "rental";
+  if (c.minPrice && !c.kind && c.minPrice < 15000) c.kind = "rental";
+
+  // places: named towns, spoken zip codes, "near the office"
+  const places = [];
+  let rest = t;
+  for (const name of SPOKEN){
+    const re = new RegExp("\\b" + name.toLowerCase() + "\\b");
+    if (re.test(rest)){ places.push(name); rest = rest.replace(re, " "); }
+  }
+  const zips = [...t.matchAll(/\b(1\d{4})\b/g)].map(x=>x[1]);
+  if (places.length) c.places = places;
+  if (zips.length) c.zips = zips;
+  return c;
+}
+
+/* ================= Matching ================= */
+function zipsFor(c){
+  const z = new Set(c.zips || []);
+  (c.places || []).forEach(p => PLACES[p].forEach(x => z.add(x)));
+  return [...z];
+}
+
+function score(h, c){
+  const why = [];
+  let s = 0;
+  if (c.kind){ if (h.kind !== c.kind) return null; why.push(KIND_LABEL[h.kind]); s += 2; }
+  else if (h.kind === "rental") s -= 0.5; // assume buying unless they say rent
+
+  if (c.beds != null){
+    if (h.beds < c.beds) return null;
+    s += h.beds === c.beds ? 3 : 2; why.push(`${h.beds} bed`);
+  }
+  if (c.baths != null){
+    if (h.baths < Math.floor(c.baths)) return null;
+    s += 1.5; why.push(`${h.baths} bath`);
+  }
+  if (c.maxPrice != null){
+    if (h.price > c.maxPrice * 1.05) return null;
+    if (h.price <= c.maxPrice){ s += 3; why.push("in budget"); } else { s += 0.5; why.push("just over budget"); }
+    s += 1 - Math.abs(c.maxPrice - h.price) / c.maxPrice; // closer to budget = better use of it
+  }
+  if (c.minPrice != null){
+    if (h.price < c.minPrice * 0.95) return null;
+    s += 1;
+  }
+  const zips = zipsFor(c);
+  if (zips.length){
+    const named = (c.places||[]).some(p => h.town.toLowerCase() === p.toLowerCase());
+    const zipHit = zips.includes(h.zip);
+    const near = (c.places||[]).some(p => (NEARBY[p]||[]).some(n => h.town === n));
+    if (named || zipHit){ s += 4; why.push(h.town); }
+    else if (near){ s += 1; why.push(`near ${c.places[0]}`); }
+    else return null;
+  }
+  return { ...h, s, why };
+}
+
+function match(c){
+  return HOMES.map(h => score(h, c)).filter(Boolean).sort((a,b) => b.s - a.s || a.price - b.price);
+}
+
+/* ================= Live MLS link ================= */
+function liveUrl(c){
+  const p = new URLSearchParams();
+  p.set("pt", c.kind === "rental" ? "rnt" : "sfr");
+  const zips = zipsFor(c);
+  p.set("ccz","zipcode");
+  (zips.length ? zips : HOME_AREA).forEach(z => p.append("zipcode[]", z));
+  if (c.minPrice) p.set("lp", Math.round(c.minPrice));
+  if (c.maxPrice) p.set("hp", Math.round(c.maxPrice));
+  if (c.beds) p.set("bd", c.beds);
+  if (c.baths) p.set("tb", Math.floor(c.baths));
+  if (c.kind === "coop"){ p.append("a_propSubType[]","Stock Cooperative"); p.append("a_propSubType[]","Condominium"); }
+  if (c.kind === "house") p.append("a_propSubType[]","Single Family Residence");
+  return `${IDX}/idx/results/listings?${p}`;
+}
+
+/* ================= Rendering ================= */
+const $ = id => document.getElementById(id);
+const KIND_LABEL = { house:"House", coop:"Co-op / condo", rental:"For rent" };
+const money = n => "$" + Math.round(n).toLocaleString("en-US");
+const short = n => n >= 1e6 ? "$" + (+(n/1e6).toFixed(2)) + "M" : n >= 1e4 ? "$" + Math.round(n/1e3) + "K" : money(n);
+const PAGE = 12;
+let shown = [], limit = PAGE, criteria = null, tab = "all";
+
+function homeCard(h, i){
+  const el = document.createElement("article");
+  el.className = "home";
+  el.style.animationDelay = Math.min(i, 8) * 35 + "ms";
+  el.innerHTML = `
+    <a class="photo" href="${h.url}" target="_blank" rel="noopener" style="background-image:url('${h.photo}')" aria-label="View listing">
+      <span class="badge">${KIND_LABEL[h.kind]}</span>
+      ${criteria && i < 3 ? `<span class="fit">${i === 0 ? "Best match" : "Great match"}</span>` : ""}
+    </a>
+    <div class="home-body">
+      <div class="price">${money(h.price)}${h.kind === "rental" ? " <small>/ month</small>" : ""}</div>
+      <div class="specs"><span><b>${h.beds}</b> bd</span><span><b>${h.baths}</b> ba</span>${h.sqft ? `<span><b>${h.sqft.toLocaleString()}</b> sqft</span>` : ""}</div>
+      <div class="addr"></div>
+      ${h.why && h.why.length ? `<div class="why">${h.why.map(w => `<span>✓ ${w}</span>`).join("")}</div>` : ""}
+      <div class="home-actions">
+        <a class="primary" href="${h.url}" target="_blank" rel="noopener">View home</a>
+        <a href="#contact" data-tour="${h.address}, ${h.town}">Book a tour</a>
+      </div>
+    </div>`;
+  el.querySelector(".addr").textContent = `${h.address}, ${h.town}, NY ${h.zip}`;
+  return el;
+}
+
+function render(){
+  const grid = $("grid");
+  const list = tab === "all" ? shown : shown.filter(h => h.kind === tab);
+  grid.replaceChildren(...list.slice(0, limit).map(homeCard));
+  if (!list.length){
+    grid.innerHTML = `<div class="empty"><p>None of the featured homes fit every detail. The full MLS has many more, so the live search below is worth a look, or Mohammad can set up an alert for you.</p>
+      <a class="btn btn-dark" href="${criteria ? liveUrl(criteria) : IDX + "/idx/search/advanced"}" target="_blank" rel="noopener">Search the full MLS</a></div>`;
+  }
+  $("more").innerHTML = list.length > limit ? `<button class="btn btn-dark" id="moreBtn">Show ${Math.min(PAGE, list.length - limit)} more</button>` : "";
+  const mb = $("moreBtn"); if (mb) mb.onclick = () => { limit += PAGE; render(); };
+}
+
+function chipsFor(c){
+  const out = [];
+  if (c.kind) out.push(["kind", KIND_LABEL[c.kind]]);
+  if (c.beds != null) out.push(["beds", c.beds === 0 ? "Studio" : `${c.beds}+ beds`]);
+  if (c.baths != null) out.push(["baths", `${c.baths}+ baths`]);
+  if (c.minPrice != null && c.maxPrice != null) out.push(["price", `${short(c.minPrice)}–${short(c.maxPrice)}`]);
+  else if (c.maxPrice != null) out.push(["maxPrice", `Under ${short(c.maxPrice)}`]);
+  else if (c.minPrice != null) out.push(["minPrice", `Over ${short(c.minPrice)}`]);
+  (c.places || []).forEach(p => out.push(["place:" + p, p]));
+  (c.zips || []).forEach(z => out.push(["zip:" + z, z]));
+  return out;
+}
+
+function removeCriterion(key){
+  const c = { ...criteria };
+  if (key === "price"){ delete c.minPrice; delete c.maxPrice; }
+  else if (key.startsWith("place:")) c.places = c.places.filter(p => p !== key.slice(6));
+  else if (key.startsWith("zip:")) c.zips = c.zips.filter(z => z !== key.slice(4));
+  else delete c[key];
+  if (c.places && !c.places.length) delete c.places;
+  if (c.zips && !c.zips.length) delete c.zips;
+  apply(c, { scroll:false });
+}
+
+function describe(c, n){
+  const [one, many] = { rental:["rental","rentals"], coop:["co-op or condo","co-ops and condos"], house:["house","houses"] }[c.kind] || ["home","homes"];
+  const where = c.places ? ` in ${c.places.join(" or ")}` : c.zips ? ` in ${c.zips.join(", ")}` : "";
+  return `${n || "No"} featured ${n === 1 ? one : many}${where} match${n === 1 ? "es" : ""} your search.`;
+}
+
+function apply(c, { speak=false, scroll=true, raw="" } = {}){
+  criteria = c; limit = PAGE; tab = c.kind || "all";
+  document.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-pressed", b.dataset.kind === tab));
+  shown = match(c);
+  const chips = chipsFor(c);
+  $("heard").classList.add("show");
+  $("chips").innerHTML = "";
+  if (!chips.length) $("chips").innerHTML = '<span class="chip static">Anything nearby</span>';
+  chips.forEach(([key, label]) => {
+    const b = document.createElement("button");
+    b.className = "chip"; b.title = "Remove";
+    b.innerHTML = `${label} <span aria-hidden="true">×</span>`;
+    b.setAttribute("aria-label", `Remove ${label}`);
+    b.onclick = () => removeCriterion(key);
+    $("chips").appendChild(b);
+  });
+  const sentence = describe(c, shown.length);
+  $("summary").textContent = (raw ? `“${raw}” · ` : "") + sentence;
+  $("liveLink").href = liveUrl(c);
+  $("resultsEyebrow").textContent = "Your matches";
+  $("resultsTitle").textContent = shown.length ? `${shown.length} home${shown.length === 1 ? "" : "s"} that fit` : "Let's widen the search";
+  render();
+  if (scroll) $("results").scrollIntoView({ behavior:"smooth", block:"start" });
+  if (speak && "speechSynthesis" in window){
+    const top = shown[0];
+    const line = top
+      ? `${sentence} The best match is ${top.address} in ${top.town}, ${top.beds} bedrooms for ${top.kind === "rental" ? money(top.price) + " a month" : money(top.price)}.`
+      : `${sentence} Tap "see every live match" to search the full MLS.`;
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(line.replace(/\$/g,"")); u.lang = "en-US";
+    speechSynthesis.speak(u);
+  }
+}
+
+function search(text, opts = {}){
+  text = text.trim(); if (!text) return;
+  apply(parse(text), { ...opts, raw:text });
+}
+
+/* initial state */
+shown = HOMES.filter(h => h.kind === "house").slice(0,4)
+  .concat(HOMES.filter(h => h.kind === "coop").slice(0,4), HOMES.filter(h => h.kind === "rental").slice(0,4));
+const ALL_DEFAULT = shown;
+render();
+
+document.querySelectorAll(".tab").forEach(b => b.onclick = () => {
+  tab = b.dataset.kind; limit = PAGE;
+  document.querySelectorAll(".tab").forEach(x => x.setAttribute("aria-pressed", x === b));
+  if (!criteria) shown = tab === "all" ? ALL_DEFAULT : HOMES.filter(h => h.kind === tab);
+  render();
+});
+
+$("typed").addEventListener("submit", e => { e.preventDefault(); search($("q").value); });
+$("examples").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  $("q").value = b.textContent; search(b.textContent);
+});
+
+/* neighborhoods */
+const AREA_LIST = ["Floral Park","Bellerose","Glen Oaks","New Hyde Park","Elmont","Queens Village","Hollis Hills","Manhasset Hills","Garden City Park","Little Neck","Franklin Square","Garden City"];
+AREA_LIST.forEach(a => {
+  const b = document.createElement("button"); b.textContent = a;
+  b.onclick = () => { $("q").value = `Homes in ${a}`; apply({ places:[a] }, { raw:`Homes in ${a}` }); };
+  $("areaBtns").appendChild(b);
+});
+
+/* hero mosaic from live listing photos */
+HOMES.filter(h => h.kind !== "coop").slice(0, 18).forEach(h => {
+  const d = document.createElement("div"); d.style.backgroundImage = `url('${h.photo}')`; $("mosaic").appendChild(d);
+});
+
+/* contact: prefill + mailto */
+document.addEventListener("click", e => {
+  const tour = e.target.closest("[data-tour]");
+  if (tour){ $("cTopic").value = "Buying a home"; $("cMsg").value = `I'd like to tour ${tour.dataset.tour}.`; }
+  const topic = e.target.closest("[data-topic]");
+  if (topic){ const v = topic.dataset.topic; [...$("cTopic").options].forEach(o => { if (o.text.startsWith(v.split(" ")[0])) $("cTopic").value = o.text; }); }
+  if (e.target.closest("[data-focus]")) setTimeout(() => $("q").focus(), 400);
+});
+$("contactForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const body = `Name: ${$("cName").value}\nPhone: ${$("cPhone").value}\nInterested in: ${$("cTopic").value}\n\n${$("cMsg").value}` +
+    (criteria ? `\n\nMy search: ${chipsFor(criteria).map(x => x[1]).join(", ")}` : "");
+  location.href = `mailto:mohammad.ahmed.re@gmail.com?subject=${encodeURIComponent($("cTopic").value + " — website inquiry")}&body=${encodeURIComponent(body)}`;
+});
+
+$("yr").textContent = new Date().getFullYear();
+$("dataDate").textContent = DATA_DATE;
+
+/* ================= Voice ================= */
+const mic = $("mic"), micLabel = $("micLabel"), tx = $("transcript"), notice = $("notice");
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+let rec = null, listening = false, finalText = "";
+const showNotice = t => { notice.textContent = t; notice.style.display = "block"; };
+
+if (!SR){
+  micLabel.textContent = "Voice search works in Chrome, Edge and Safari. You can type below.";
+  mic.addEventListener("click", () => { showNotice("This browser doesn't support voice input, so type what you're looking for below."); $("q").focus(); });
+} else {
+  rec = new SR();
+  rec.lang = "en-US"; rec.interimResults = true; rec.continuous = false;
+  rec.onstart = () => {
+    listening = true; finalText = "";
+    mic.classList.add("listening"); mic.setAttribute("aria-pressed","true"); mic.setAttribute("aria-label","Stop listening");
+    micLabel.textContent = "Listening… what kind of home are you looking for?";
+    tx.textContent = ""; notice.style.display = "none";
+  };
+  rec.onresult = e => {
+    let interim = "";
+    for (let i = e.resultIndex; i < e.results.length; i++){
+      const t = e.results[i][0].transcript;
+      if (e.results[i].isFinal) finalText += t; else interim += t;
+    }
+    tx.textContent = finalText;
+    if (interim){ const s = document.createElement("span"); s.className = "interim"; s.textContent = interim; tx.append(s); }
+  };
+  rec.onerror = e => {
+    const msgs = {
+      "not-allowed":"Microphone access is blocked. Allow it in your browser settings, or type below.",
+      "service-not-allowed":"Microphone access is blocked. Allow it in your browser settings, or type below.",
+      "no-speech":"I didn't catch that. Tap the mic and try again.",
+      "network":"Voice search needs an internet connection. You can type below instead.",
+    };
+    showNotice(msgs[e.error] || "Voice input stopped. Try again or type below.");
+  };
+  rec.onend = () => {
+    listening = false;
+    mic.classList.remove("listening"); mic.setAttribute("aria-pressed","false"); mic.setAttribute("aria-label","Start voice search");
+    micLabel.textContent = "Tap to search again";
+    if (finalText.trim()){ $("q").value = finalText.trim(); search(finalText, { speak:true }); }
+  };
+  mic.addEventListener("click", () => {
+    if (listening){ rec.stop(); return; }
+    if ("speechSynthesis" in window) speechSynthesis.cancel();
+    try { rec.start(); } catch {}
+  });
+}
+</script>
+</body>
+</html>
