@@ -54,9 +54,9 @@ header{position:sticky;top:0;z-index:40;background:rgba(20,35,29,.94);backdrop-f
 .hero .lead{color:rgba(255,255,255,.78);font-size:clamp(1rem,2.1vw,1.15rem);max-width:600px;margin:0 auto}
 
 .console{margin:38px auto 0;max-width:780px;background:var(--paper);color:var(--ink);border-radius:28px;padding:28px 22px 22px;box-shadow:0 40px 90px -40px rgba(0,0,0,.7)}
-.mic{position:relative;width:108px;height:108px;border-radius:50%;border:0;background:var(--green);color:var(--gold2);display:grid;place-items:center;margin:0 auto;transition:transform .2s,background .2s;box-shadow:0 16px 36px -14px rgba(20,35,29,.8)}
+.mic{position:relative;width:68px;height:68px;border-radius:50%;border:0;background:var(--green);color:var(--gold2);display:grid;place-items:center;margin:0 auto;transition:transform .2s,background .2s;box-shadow:0 16px 36px -14px rgba(20,35,29,.8)}
 .mic:hover{transform:scale(1.04)}
-.mic svg{width:40px;height:40px}
+.mic svg{width:28px;height:28px}
 .mic::before,.mic::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--gold);opacity:0}
 .mic.listening{background:var(--gold2);color:var(--green)}
 .mic.listening::before{animation:ring 1.6s ease-out infinite}
@@ -164,7 +164,7 @@ footer p{max-width:900px}
   .nav .btn span{display:none}
   .hero{padding:44px 0 60px}
   .console{padding:22px 14px 18px;border-radius:22px}
-  .mic{width:92px;height:92px}
+  .mic{width:62px;height:62px}
   form.typed button{padding:0 16px}
   .grid{grid-template-columns:1fr}
 }
@@ -640,7 +640,7 @@ function describe(c, n){
   return `${n || "No"} featured ${n === 1 ? one : many}${where} match${n === 1 ? "es" : ""} your search.`;
 }
 
-function apply(c, { speak=false, scroll=true, raw="" } = {}){
+function apply(c, { scroll=true, raw="" } = {}){
   criteria = c; limit = PAGE; tab = c.kind || "all";
   document.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-pressed", b.dataset.kind === tab));
   shown = match(c);
@@ -663,15 +663,6 @@ function apply(c, { speak=false, scroll=true, raw="" } = {}){
   $("resultsTitle").textContent = shown.length ? `${shown.length} home${shown.length === 1 ? "" : "s"} that fit` : "Let's widen the search";
   render();
   if (scroll) $("results").scrollIntoView({ behavior:"smooth", block:"start" });
-  if (speak && "speechSynthesis" in window){
-    const top = shown[0];
-    const line = top
-      ? `${sentence} The best match is ${top.address} in ${top.town}, ${top.beds} bedrooms for ${top.kind === "rental" ? money(top.price) + " a month" : money(top.price)}.`
-      : `${sentence} Tap "see every live match" to search the full MLS.`;
-    speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(line.replace(/\$/g,"")); u.lang = "en-US";
-    speechSynthesis.speak(u);
-  }
 }
 
 function search(text, opts = {}){
@@ -769,11 +760,10 @@ if (!SR){
     listening = false;
     mic.classList.remove("listening"); mic.setAttribute("aria-pressed","false"); mic.setAttribute("aria-label","Start voice search");
     micLabel.textContent = "Tap to search again";
-    if (finalText.trim()){ $("q").value = finalText.trim(); search(finalText, { speak:true }); }
+    if (finalText.trim()){ $("q").value = finalText.trim(); search(finalText); }
   };
   mic.addEventListener("click", () => {
     if (listening){ rec.stop(); return; }
-    if ("speechSynthesis" in window) speechSynthesis.cancel();
     try { rec.start(); } catch {}
   });
 }
