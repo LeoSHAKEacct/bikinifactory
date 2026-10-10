@@ -1,6 +1,6 @@
 {
-  "name": "Ximena",
-  "phone": "+573011169363",
+  "name": "OKOK",
+  "phone": "573217455367",
   "waMessage": "Hola {nombre}, quiero reservar un masaje",
   "seo": {
     "title": "{nombre} · Masajes",
@@ -13,7 +13,7 @@
     "reserve": "Reservar"
   },
   "hero": {
-    "photo": "foto-mv2us1qi.jpg",
+    "photo": "",
     "eyebrow": "Masajes · Medellín",
     "title": "Relajación y placer",
     "titleAccent": "en un masaje",
@@ -30,28 +30,28 @@
     "body": "Ven y disfruta de un agradable masaje relajante. Cada movimiento que realizaré con mis suaves manos está diseñado para reconectar tu cuerpo con tu energía, para que por medio de unas delicadas caricias y nuestro toque erótico llegues a ese éxtasis de placer."
   },
   "services": {
-    "eyebrow": "Tântrico - Masajista en Panty - 1 Estimulacón",
+    "eyebrow": "Mis masajes",
     "title": "Elige tu experiencia",
     "items": [
       {
-        "name": "Masaje 30 min",
-        "desc": "120.000$"
+        "name": "Masaje Veloterapia",
+        "desc": "Un ritual cálido y envolvente que despierta cada rincón de tu piel."
       },
       {
-        "name": "Masaje 45 min",
-        "desc": "150.000$"
+        "name": "Masaje Sensorial",
+        "desc": "Caricias lentas y suaves que activan todos tus sentidos."
       },
       {
-        "name": "Masaje 60 min",
-        "desc": "180.000$"
+        "name": "Masaje Academia",
+        "desc": "Una experiencia guiada para descubrir y disfrutar el arte del tacto."
       },
       {
-        "name": "Masaje 90 min",
-        "desc": "300.000$"
+        "name": "Masaje 4 Manos",
+        "desc": "El doble de manos, el doble de sensaciones, en perfecta sincronía."
       },
       {
-        "name": "Masaje 120 min",
-        "desc": "360.000$"
+        "name": "Masaje Lingam",
+        "desc": "Un masaje tántrico profundo para liberar tu energía y llegar al éxtasis."
       }
     ],
     "benefit": "Reduce las tensiones musculares y mejora la circulación, para una sensación de relajación de cuerpo y mente."
@@ -83,12 +83,12 @@
     ],
     "gallery": [
       {
-        "photo": "galeria1-mv2us1qi-2.jpg",
+        "photo": "",
         "caption": "",
         "placeholder": "Sala de masajes"
       },
       {
-        "photo": "galeria2-mv2us1qi-3.jpg",
+        "photo": "",
         "caption": "",
         "placeholder": "Ambiente"
       },
