@@ -31,6 +31,12 @@ a{color:inherit}
 .tab.dirty .dot{display:inline-block}
 .spacer{flex:1}
 .status{color:var(--muted);font-size:13px;white-space:nowrap}
+.status.pending{color:var(--gold)}
+.status.pending::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gold);margin-right:8px;animation:blink 1s infinite}
+.status.live{color:var(--ok)}
+.status.live a{color:inherit}
+.status.slow{color:var(--err)}
+@keyframes blink{50%{opacity:.25}}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 16px;border-radius:10px;border:1px solid var(--line2);background:transparent;cursor:pointer;font-weight:500;white-space:nowrap;text-decoration:none}
 .btn:hover{background:rgba(255,255,255,.05)}
 .btn:disabled{opacity:.5;cursor:not-allowed}
@@ -266,9 +272,39 @@ function renderTabs() {
   $('tabs').innerHTML = SITES.map(function (s) {
     return '<button class="tab' + (s.slug === state.slug ? ' on' : '') + (isDirty(s.slug) ? ' dirty' : '') + '" data-slug="' + s.slug + '"><span class="dot"></span>' + s.label + '</button>';
   }).join('');
-  var dirty = isDirty(state.slug);
-  $('status').textContent = dirty ? 'Cambios sin publicar' : 'Todo publicado';
+  var dirty = isDirty(state.slug), dep = deploys[state.slug], st = $('status');
+  st.className = 'status';
+  if (dirty) st.textContent = 'Cambios sin publicar';
+  else if (dep && dep.state === 'pending') { st.textContent = 'Publicando en Vercel…'; st.className = 'status pending'; }
+  else if (dep && dep.state === 'live') { st.innerHTML = '✓ En vivo · <a href="/' + state.slug + '/" target="_blank" rel="noopener">ver sitio</a>'; st.className = 'status live'; }
+  else if (dep && dep.state === 'slow') { st.textContent = 'Vercel está tardando, revisa en unos minutos'; st.className = 'status slow'; }
+  else st.textContent = 'Todo publicado';
   $('publish').disabled = !dirty;
+}
+
+// After publishing, poll the live site until it serves the new content.
+var deploys = {};
+function watchDeploy(slug, content) {
+  var want = JSON.stringify(content), started = Date.now();
+  var dep = deploys[slug] = { state: 'pending' };
+  renderTabs();
+  (function check() {
+    if (deploys[slug] !== dep) return;
+    fetch('/' + slug + '/content.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .catch(function () { return null; })
+      .then(function (live) {
+        if (deploys[slug] !== dep) return;
+        if (live && JSON.stringify(live) === want) {
+          dep.state = 'live'; renderTabs();
+          toast('✓ <b>' + esc(siteLabel(slug)) + '</b> ya está en vivo: <a href="/' + slug + '/" target="_blank" rel="noopener"><b>' + esc(location.host) + '/' + slug + '/</b></a>', 'ok', 9000);
+        } else if (Date.now() - started > 4 * 60 * 1000) {
+          dep.state = 'slow'; renderTabs();
+        } else {
+          setTimeout(check, 5000);
+        }
+      });
+  })();
 }
 $('tabs').addEventListener('click', function (e) {
   var b = e.target.closest('.tab'); if (!b) return;
@@ -313,7 +349,7 @@ function renderEditor() {
   if (state.slug !== 'alana') html += '<button class="btn small" id="copyAlana">Copiar textos de Alana</button>';
   html += '<button class="btn small danger" id="discard"' + (isDirty(state.slug) ? '' : ' disabled') + '>Descartar cambios</button></div>';
   html += '<div class="note" style="background:rgba(236,95,122,.07);border-color:var(--line2);color:var(--rose2)">Tip: escribe <b>{nombre}</b> o <b>{telefono}</b> en cualquier texto y se reemplaza solo.</div>';
-  html += '<div class="note">Editando <b>' + esc(siteLabel(state.slug)) + '</b> · link: <b>' + esc(location.host) + '/' + state.slug + '/</b><br>Los cambios se ven al lado al instante. Con <b>Publicar en Vercel</b> quedan en vivo en ~1 minuto.</div>';
+  html += '<div class="note">Editando <b>' + esc(siteLabel(state.slug)) + '</b> · link: <b>' + esc(location.host) + '/' + state.slug + '/</b><br>Los cambios se ven al lado al instante. Con <b>Publicar en Vercel</b> quedan en vivo en ~1 minuto; arriba verás cuándo está listo.</div>';
 
   FORM.forEach(function (sec, si) {
     var open = si in openState ? openState[si] : sec.open;
@@ -512,7 +548,8 @@ $('publish').addEventListener('click', async function () {
     state.drafts[slug] = clone(content);
     saveDraft(slug);
     renderTabs(); renderEditor(); pushPreview();
-    toast('¡Publicado! <b>' + esc(siteLabel(slug)) + '</b> estará en vivo en ~1 minuto en <a href="/' + slug + '/" target="_blank" rel="noopener"><b>' + esc(location.host) + '/' + slug + '/</b></a>', 'ok', 9000);
+    toast('¡Guardado! Vercel está publicando <b>' + esc(siteLabel(slug)) + '</b>, toma ~1 minuto. Te aviso aquí cuando esté en vivo.', 'ok', 7000);
+    watchDeploy(slug, content);
   } catch (e) {
     toast('No se pudo publicar: ' + esc(e.message), 'err', 8000);
   } finally {
