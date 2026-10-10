@@ -133,7 +133,12 @@ section{padding:96px 0}
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:13px;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:12px;
 }
 .gallery .ph svg{width:28px;height:28px;color:var(--gold);opacity:.7}
-@media (max-width:620px){.gallery{grid-template-columns:repeat(2,1fr)}.gallery .ph:last-child{display:none}}
+.gallery .room{grid-column:span 2;grid-row:span 2;position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);aspect-ratio:1312/1199}
+.gallery .room img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease}
+.gallery .room:hover img{transform:scale(1.04)}
+.gallery .room figcaption{position:absolute;left:16px;bottom:16px;padding:8px 16px;border-radius:999px;background:rgba(20,12,9,.72);backdrop-filter:blur(8px);border:1px solid var(--line);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2)}
+.gallery .room ~ .ph{aspect-ratio:auto}
+@media (max-width:620px){.gallery{grid-template-columns:repeat(2,1fr)}.gallery .room{grid-row:auto}.gallery .room ~ .ph{aspect-ratio:1}}
 
 /* zones */
 .zones{background:var(--bg2);border-block:1px solid var(--line)}
@@ -256,7 +261,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 96px;text-align:center;co
       </div>
     </div>
     <div class="gallery">
-      <div class="ph reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-8 8"/></svg>Camilla de masajes<br>próximamente</div>
+      <figure class="room reveal"><img src="/alana/sala.jpg" alt="Sala de masajes con camilla, velas y luz cálida" loading="lazy"><figcaption>Sala de masajes</figcaption></figure>
       <div class="ph reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-8 8"/></svg>Ambiente<br>próximamente</div>
       <div class="ph reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-8 8"/></svg>Amenidades<br>próximamente</div>
     </div>
