@@ -69,14 +69,14 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .hero .ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
 .portrait{position:relative;justify-self:center;width:100%;max-width:420px}
 .portrait::before{
-  content:"";position:absolute;inset:-14px -14px 14px 14px;border:1px solid var(--gold);border-radius:220px 220px 22px 22px;opacity:.45;
+  content:"";position:absolute;inset:-14px -14px 14px 14px;border:1.5px solid #d9a86c;border-radius:220px 220px 22px 22px;opacity:.8;box-shadow:0 0 18px -4px rgba(217,168,108,.45);
 }
 .portrait img{
   position:relative;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 30%;
   border-radius:220px 220px 22px 22px;box-shadow:0 40px 90px -30px rgba(0,0,0,.8),0 0 80px -20px rgba(236,95,122,.35);
 }
 .portrait .badge{
-  position:absolute;left:-18px;bottom:34px;background:rgba(21,7,10,.88);backdrop-filter:blur(8px);
+  position:absolute;right:-18px;bottom:-18px;text-align:right;background:rgba(21,7,10,.88);backdrop-filter:blur(8px);
   border:1px solid var(--line);border-radius:16px;padding:12px 18px;font-size:13px;color:var(--muted);
 }
 .portrait .badge b{display:block;font-family:"Cormorant Garamond",serif;font-size:22px;font-weight:500;color:var(--gold2);font-style:italic}
@@ -86,7 +86,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
   .hero .lead{margin:0 auto}
   .hero .ctas{justify-content:center}
   .portrait{order:-1;max-width:340px}
-  .portrait .badge{left:50%;transform:translateX(-50%);bottom:-20px;white-space:nowrap}
+  .portrait .badge{left:50%;right:auto;text-align:center;transform:translateX(-50%);bottom:-20px;white-space:nowrap}
 }
 
 /* sections */
