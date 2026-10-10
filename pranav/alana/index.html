@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Alana · Masajes</title>
 <meta name="description" content="Alana — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta.">
-<meta name="theme-color" content="#140c09">
+<meta name="theme-color" content="#15070a">
 <meta property="og:title" content="Alana · Relajación y placer en un masaje">
 <meta property="og:description" content="Masaje sensorial, 4 manos, lingam y más. Medellín · Itagüí · La Estrella · Sabaneta.">
 <meta property="og:image" content="/alana/alana.jpg">
@@ -14,8 +14,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#140c09; --bg2:#1d120d; --panel:rgba(255,236,220,.04); --line:rgba(232,196,160,.16);
-  --text:#f7ebe1; --muted:#c4ab98; --gold:#d9a86c; --gold2:#f3d3a6; --rose:#c77d6b;
+  --bg:#15070a; --bg2:#220b11; --panel:rgba(255,220,226,.045); --line:rgba(244,160,176,.18);
+  --text:#fdeef0; --muted:#d3a9b2; --gold:#ec5f7a; --gold2:#ffc4cf; --rose:#c3163f;
   --wa:#25d366;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -36,7 +36,7 @@ img{display:block;max-width:100%}
 
 /* nav */
 nav{position:fixed;inset:0 0 auto;z-index:20;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
-nav.solid{background:rgba(20,12,9,.86);backdrop-filter:blur(12px);border-color:var(--line)}
+nav.solid{background:rgba(21,7,10,.86);backdrop-filter:blur(12px);border-color:var(--line)}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
 .logo{font-family:"Cormorant Garamond",serif;font-size:28px;font-style:italic;font-weight:500;letter-spacing:.02em}
 .nav-links{display:flex;gap:28px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
@@ -58,8 +58,8 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .hero{
   position:relative;min-height:100vh;display:flex;align-items:center;padding:110px 0 70px;
   background:
-    radial-gradient(ellipse 60% 50% at 75% 35%,rgba(217,168,108,.20),transparent 70%),
-    radial-gradient(ellipse 50% 60% at 10% 90%,rgba(199,125,107,.16),transparent 70%);
+    radial-gradient(ellipse 60% 50% at 75% 35%,rgba(236,95,122,.20),transparent 70%),
+    radial-gradient(ellipse 50% 60% at 10% 90%,rgba(195,22,63,.16),transparent 70%);
 }
 .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
 .hero h1{font-size:clamp(44px,7vw,84px);line-height:1.02;font-weight:500;margin:18px 0 22px;letter-spacing:-.01em}
@@ -73,10 +73,10 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 }
 .portrait img{
   position:relative;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 30%;
-  border-radius:220px 220px 22px 22px;box-shadow:0 40px 90px -30px rgba(0,0,0,.8),0 0 80px -20px rgba(217,168,108,.35);
+  border-radius:220px 220px 22px 22px;box-shadow:0 40px 90px -30px rgba(0,0,0,.8),0 0 80px -20px rgba(236,95,122,.35);
 }
 .portrait .badge{
-  position:absolute;left:-18px;bottom:34px;background:rgba(20,12,9,.88);backdrop-filter:blur(8px);
+  position:absolute;left:-18px;bottom:34px;background:rgba(21,7,10,.88);backdrop-filter:blur(8px);
   border:1px solid var(--line);border-radius:16px;padding:12px 18px;font-size:13px;color:var(--muted);
 }
 .portrait .badge b{display:block;font-family:"Cormorant Garamond",serif;font-size:22px;font-weight:500;color:var(--gold2);font-style:italic}
@@ -109,15 +109,15 @@ section{padding:96px 0}
   position:relative;padding:30px 24px 28px;border-radius:20px;background:var(--panel);border:1px solid var(--line);
   transition:transform .25s,border-color .25s,background .25s;overflow:hidden;
 }
-.svc::after{content:"";position:absolute;inset:auto -40% -60% auto;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(217,168,108,.18),transparent 70%);transition:transform .4s}
-.svc:hover{transform:translateY(-4px);border-color:rgba(217,168,108,.45);background:rgba(255,236,220,.06)}
+.svc::after{content:"";position:absolute;inset:auto -40% -60% auto;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(236,95,122,.18),transparent 70%);transition:transform .4s}
+.svc:hover{transform:translateY(-4px);border-color:rgba(236,95,122,.45);background:rgba(255,220,226,.07)}
 .svc:hover::after{transform:scale(1.4)}
 .svc .num{font-family:"Cormorant Garamond",serif;font-style:italic;color:var(--gold);font-size:20px}
 .svc h3{font-family:"Cormorant Garamond",serif;font-size:27px;font-weight:500;line-height:1.15;margin:10px 0 8px}
 .svc p{font-size:14.5px;color:var(--muted)}
 .benefit{
   margin:40px auto 0;max-width:720px;text-align:center;padding:22px 26px;border-radius:18px;
-  border:1px dashed rgba(217,168,108,.35);color:var(--gold2);font-size:17px;
+  border:1px dashed rgba(236,95,122,.35);color:var(--gold2);font-size:17px;
 }
 
 /* facilities */
@@ -129,14 +129,14 @@ section{padding:96px 0}
 .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
 .gallery .ph{
   aspect-ratio:4/5;border-radius:18px;border:1px solid var(--line);
-  background:linear-gradient(160deg,rgba(217,168,108,.10),rgba(199,125,107,.05) 60%,transparent),var(--bg2);
+  background:linear-gradient(160deg,rgba(236,95,122,.10),rgba(195,22,63,.05) 60%,transparent),var(--bg2);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:13px;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:12px;
 }
 .gallery .ph svg{width:28px;height:28px;color:var(--gold);opacity:.7}
 .gallery .room{grid-column:span 2;grid-row:span 2;position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);aspect-ratio:1312/1199}
 .gallery .room img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease}
 .gallery .room:hover img{transform:scale(1.04)}
-.gallery .room figcaption{position:absolute;left:16px;bottom:16px;padding:8px 16px;border-radius:999px;background:rgba(20,12,9,.72);backdrop-filter:blur(8px);border:1px solid var(--line);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2)}
+.gallery .room figcaption{position:absolute;left:16px;bottom:16px;padding:8px 16px;border-radius:999px;background:rgba(21,7,10,.72);backdrop-filter:blur(8px);border:1px solid var(--line);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2)}
 .gallery .room ~ .ph{aspect-ratio:auto}
 @media (max-width:620px){.gallery{grid-template-columns:repeat(2,1fr)}.gallery .room{grid-row:auto}.gallery .room ~ .ph{aspect-ratio:1}}
 
@@ -147,7 +147,7 @@ section{padding:96px 0}
 .zones .note{text-align:center;color:var(--muted);margin-top:26px}
 
 /* cta */
-.cta{text-align:center;padding:110px 0 120px;background:radial-gradient(ellipse 50% 70% at 50% 100%,rgba(217,168,108,.18),transparent 70%)}
+.cta{text-align:center;padding:110px 0 120px;background:radial-gradient(ellipse 50% 70% at 50% 100%,rgba(236,95,122,.18),transparent 70%)}
 .cta h2{font-family:"Cormorant Garamond",serif;font-size:clamp(46px,8vw,92px);font-weight:500;font-style:italic;line-height:1}
 .cta p{color:var(--muted);margin:18px auto 34px;max-width:28em;font-size:18px}
 .cta .phone{display:block;margin-top:18px;color:var(--muted);letter-spacing:.12em;font-size:14px}
