@@ -1,10 +1,10 @@
 {
-  "name": "OKOK",
+  "name": "TESTTESTTEST",
   "phone": "573217455367",
-  "waMessage": "Hola {nombre}, quiero reservar un masaje",
+  "waMessage": "interior desing is with us",
   "seo": {
     "title": "{nombre} · Masajes",
-    "description": "{nombre} — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta."
+    "description": "interior desing is with us"
   },
   "nav": {
     "services": "Masajes",
