@@ -120,8 +120,11 @@ function photoRefs(slug, content) {
     if (!IMAGE_NAME.test(ref.name)) throw userError(`Referencia de foto inválida: ${v}`);
     refs.push(ref);
   };
-  add((content.hero || {}).photo);
-  ((content.facilities || {}).gallery || []).forEach(g => add(g.photo));
+  // Any "photo" field, in any section.
+  (function walk(o) {
+    if (Array.isArray(o)) return o.forEach(walk);
+    if (o && typeof o === 'object') Object.keys(o).forEach(k => (k === 'photo' && typeof o[k] === 'string' ? add(o[k]) : walk(o[k])));
+  })(content);
   return refs;
 }
 

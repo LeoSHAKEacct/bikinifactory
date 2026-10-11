@@ -20,7 +20,8 @@ function buildPage(slug, content) {
   const fill = v => String(v || '').replace(/\{nombre\}/g, name);
   const title = fill(seo.title) || name || 'Masajes';
   const desc = fill(seo.description);
-  const ogImage = photoUrl((content.hero || {}).photo, slug);
+  const hero = Array.isArray(content.sections) ? content.sections.find(x => x.type === 'hero') : content.hero;
+  const ogImage = photoUrl((hero || {}).photo, slug);
   // Inline JSON must not be able to close the <script> tag.
   const json = JSON.stringify({ slug, content })
     .replace(/</g, '\\u003c').replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
