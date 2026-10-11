@@ -79,6 +79,8 @@
 
     var waIcon = '<svg><use href="#wa"/></svg>';
     var sections = migrate(c).sections;
+    var bookingOn = Boolean(c.booking && c.booking.enabled === 'yes');
+    current = { c: c, slug: slug, sections: sections, preview: Boolean(opts.preview) };
     // The first section of each type gets the id the menu links to.
     var ANCHORS = { services: 'masajes', facilities: 'instalaciones', zones: 'zonas' };
     var used = {};
@@ -110,9 +112,11 @@
           '<div class="divider">✦</div>' + (x.body ? '<p class="body">' + lines(x.body) + '</p>' : '') +
           '</div></section>';
       },
-      services: function (x, id) {
+      services: function (x, id, si) {
         var items = (x.items || []).map(function (s, i) {
-          return '<article class="svc reveal"><div class="num">' + (i < 9 ? '0' : '') + (i + 1) + '</div><h3>' + esc(s.name) + '</h3><p>' + lines(s.desc) + '</p></article>';
+          var book = bookingOn && s.bookable !== 'no'
+            ? '<button type="button" class="book-btn" data-s="' + si + '" data-i="' + i + '">' + esc(c.booking.button || 'Reservar') + '</button>' : '';
+          return '<article class="svc reveal"><div class="num">' + (i < 9 ? '0' : '') + (i + 1) + '</div><h3>' + esc(s.name) + '</h3><p>' + lines(s.desc) + '</p>' + book + '</article>';
         }).join('');
         return '<section id="' + id + '"><div class="wrap">' + head(x) +
           '<div class="grid">' + items + '</div>' +
@@ -191,6 +195,117 @@
       els.forEach(function (el) { io.observe(el); });
     }
   }
+
+  // ---------- bookings ----------
+  var current = null;
+  var DAYFMT = new Intl.DateTimeFormat('es', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' });
+  var LONGFMT = new Intl.DateTimeFormat('es', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' });
+  function dayLabel(d, long) { return (long ? LONGFMT : DAYFMT).format(new Date(d + 'T12:00:00Z')); }
+  function bookingDays(cfg) {
+    var tz = cfg.timezone || 'America/Bogota', allowed = (cfg.days || [1, 2, 3, 4, 5, 6]).map(Number), out = [];
+    var today = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+    var base = Date.parse(today + 'T12:00:00Z');
+    for (var k = 0; k <= (+cfg.maxDays || 30) && out.length < 60; k++) {
+      var dt = new Date(base + k * 864e5);
+      if (allowed.indexOf(dt.getUTCDay()) >= 0) out.push(dt.toISOString().slice(0, 10));
+    }
+    return out;
+  }
+  function waLink(text) { return 'https://wa.me/' + digits(current.c.phone) + '?text=' + encodeURIComponent(text); }
+
+  function openBooking(si, ii) {
+    var c = current.c, item = current.sections[si].items[ii], cfg = c.booking || {};
+    var st = { si: si, ii: ii, item: item, date: null, time: null };
+    var m = document.createElement('div');
+    m.className = 'bk-modal';
+    m.innerHTML = '<div class="bk-card" role="dialog" aria-modal="true"><button type="button" class="bk-x" aria-label="Cerrar">✕</button>' +
+      '<div class="eyebrow">' + esc(cfg.button || 'Reservar') + '</div><h3>' + esc(item.name) + '</h3>' +
+      '<p class="bk-sub">' + (+item.duration || 60) + ' min</p><div class="bk-body"></div></div>';
+    document.body.appendChild(m);
+    document.body.style.overflow = 'hidden';
+    var body = m.querySelector('.bk-body');
+    function close() { m.remove(); document.body.style.overflow = ''; }
+    m.addEventListener('click', function (e) { if (e.target === m || e.target.closest('.bk-x')) close(); });
+    var fallback = function (msg) {
+      body.innerHTML = '<p class="bk-msg">' + esc(msg) + '</p><a class="btn btn-wa bk-wide" target="_blank" rel="noopener" href="' +
+        esc(waLink('Hola ' + (c.name || '') + ', quiero reservar: ' + item.name)) + '"><svg><use href="#wa"/></svg>Reservar por WhatsApp</a>';
+    };
+    if (current.preview) return fallback('Vista previa: las reservas funcionan en el sitio publicado, con Google Calendar conectado.');
+
+    function stepDays() {
+      var days = bookingDays(cfg);
+      body.innerHTML = '<div class="bk-label">Elige el día</div><div class="bk-days">' + days.map(function (d) {
+        return '<button type="button" data-d="' + d + '"' + (d === st.date ? ' class="on"' : '') + '>' + esc(dayLabel(d)) + '</button>';
+      }).join('') + '</div><div class="bk-slots"></div>';
+      body.querySelector('.bk-days').onclick = function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        st.date = b.dataset.d;
+        [].forEach.call(this.children, function (x) { x.classList.toggle('on', x === b); });
+        loadSlots();
+      };
+      if (st.date) loadSlots();
+    }
+    function loadSlots() {
+      var box = body.querySelector('.bk-slots');
+      box.innerHTML = '<div class="bk-label">Horarios</div><p class="bk-msg">Buscando horarios libres…</p>';
+      var want = st.date;
+      fetch('/api/slots?slug=' + encodeURIComponent(current.slug) + '&s=' + si + '&i=' + ii + '&date=' + want)
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (r) {
+          if (st.date !== want) return;
+          if (!r.ok) return fallback(r.j.error || 'No se pudieron cargar los horarios.');
+          box.innerHTML = '<div class="bk-label">Horarios · ' + esc(dayLabel(want)) + '</div>' + (r.j.slots.length
+            ? '<div class="bk-times">' + r.j.slots.map(function (t) { return '<button type="button" data-t="' + t + '">' + t + '</button>'; }).join('') + '</div>'
+            : '<p class="bk-msg">No hay horarios libres este día. Prueba otro.</p>');
+          var times = box.querySelector('.bk-times');
+          if (times) times.onclick = function (e) { var b = e.target.closest('button'); if (b) { st.time = b.dataset.t; stepForm(); } };
+        })
+        .catch(function () { fallback('Sin conexión. Intenta de nuevo o reserva por WhatsApp.'); });
+    }
+    function stepForm(err) {
+      body.innerHTML = '<p class="bk-pick">' + esc(dayLabel(st.date, true)) + ' · <b>' + st.time + '</b> <button type="button" class="bk-change">Cambiar</button></p>' +
+        '<form class="bk-form"><label>Tu nombre<input name="name" required maxlength="80" autocomplete="name"></label>' +
+        '<label>Tu teléfono / WhatsApp<input name="phone" type="tel" required maxlength="30" autocomplete="tel"></label>' +
+        '<label>Nota (opcional)<textarea name="note" maxlength="500" rows="2"></textarea></label>' +
+        '<input name="website" tabindex="-1" autocomplete="off" class="bk-hp" aria-hidden="true">' +
+        (err ? '<p class="bk-err">' + esc(err) + '</p>' : '') +
+        '<button type="submit" class="btn btn-wa bk-wide">Confirmar reserva</button></form>';
+      body.querySelector('.bk-change').onclick = stepDays;
+      var f = body.querySelector('form');
+      if (st.form) { f.name.value = st.form.name; f.phone.value = st.form.phone; f.note.value = st.form.note; }
+      f.onsubmit = function (e) {
+        e.preventDefault();
+        st.form = { name: f.name.value, phone: f.phone.value, note: f.note.value };
+        var btn = f.querySelector('button[type=submit]'); btn.disabled = true; btn.textContent = 'Reservando…';
+        fetch('/api/book', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+          slug: current.slug, s: si, i: ii, date: st.date, time: st.time,
+          name: st.form.name, phone: st.form.phone, note: st.form.note, website: f.website.value
+        }) })
+          .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, status: r.status, j: j }; }); })
+          .then(function (r) {
+            if (r.ok) return stepDone();
+            if (r.status === 409 && /horario/.test(r.j.error || '')) { st.time = null; stepDays(); body.insertAdjacentHTML('afterbegin', '<p class="bk-err">' + esc(r.j.error) + '</p>'); return; }
+            if (r.status >= 500 || r.status === 409) return fallback(r.j.error || 'No se pudo reservar.');
+            stepForm(r.j.error || 'Revisa los datos.');
+          })
+          .catch(function () { stepForm('Sin conexión. Intenta de nuevo.'); });
+      };
+    }
+    function stepDone() {
+      var text = 'Hola ' + (c.name || '') + ', acabo de reservar desde tu página:\n' +
+        '• ' + item.name + '\n• ' + dayLabel(st.date, true) + ' a las ' + st.time + '\n' +
+        '• Nombre: ' + st.form.name + '\n• Teléfono: ' + st.form.phone + (st.form.note ? '\n• Nota: ' + st.form.note : '');
+      body.innerHTML = '<div class="bk-done">✓</div><p class="bk-ok"><b>¡Reserva confirmada!</b><br>' + esc(item.name) + '<br>' +
+        esc(dayLabel(st.date, true)) + ' · ' + st.time + '</p>' +
+        '<p class="bk-msg">Último paso: avisa por WhatsApp para recibir la confirmación.</p>' +
+        '<a class="btn btn-wa bk-wide" target="_blank" rel="noopener" href="' + esc(waLink(text)) + '"><svg><use href="#wa"/></svg>Enviar aviso por WhatsApp</a>';
+    }
+    stepDays();
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('.book-btn');
+    if (b && current) openBooking(+b.dataset.s, +b.dataset.i);
+  });
 
   window.renderSite = render;
   window.siteMigrate = migrate;

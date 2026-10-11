@@ -65,7 +65,7 @@ details.sec>summary .n{font-family:"Cormorant Garamond",serif;font-style:italic;
 label.f{display:flex;flex-direction:column;gap:6px}
 label.f>span{font-size:12px;letter-spacing:.06em;color:var(--muted)}
 label.f>span em{font-style:normal;color:var(--gold);opacity:.85}
-input[type=text],input[type=tel],textarea,select{
+input[type=text],input[type=tel],input[type=time],textarea,select{color-scheme:dark;
   width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:9px 11px;outline:none;
 }
 textarea{resize:vertical;min-height:70px;line-height:1.5}
@@ -124,6 +124,13 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
 .hist-row div{flex:1;min-width:0}
 .hist-row small{display:block;color:var(--muted)}
 .card.wide{max-width:460px}
+.days{display:flex;gap:6px;flex-wrap:wrap}
+.day{display:flex;align-items:center;gap:5px;padding:7px 10px;border:1px solid var(--line);border-radius:9px;cursor:pointer;font-size:13px}
+.day:has(input:checked){border-color:var(--rose);background:rgba(236,95,122,.1)}
+.cal-box{display:flex;align-items:center;gap:12px;padding:12px;border:1px dashed var(--line2);border-radius:12px}
+.cal-box.ok{border-style:solid;border-color:rgba(37,211,102,.4);background:rgba(37,211,102,.06)}
+.cal-box div{flex:1;min-width:0}
+.cal-box small{display:block;color:var(--muted);font-size:12.5px;line-height:1.4;overflow-wrap:anywhere}
 .sec-hint{color:var(--muted);font-weight:400;font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;flex:1}
 .sum-tools{display:flex;gap:4px;flex:none}
 .sum-tools .icon-btn{width:26px;height:26px;font-size:13px}
@@ -237,7 +244,7 @@ var SECTION_TYPES = {
   services: { label: 'Lista (masajes, servicios, productos)', fields: [
     ['eyebrow', 'Texto pequeño (dorado)'], ['title', 'Título'],
     { list: 'items', label: 'Elemento', add: '+ Agregar elemento', empty: { name: 'Nuevo', desc: '' },
-      fields: [['name', 'Nombre'], ['desc', 'Descripción', 'textarea']] },
+      fields: [['name', 'Nombre'], ['desc', 'Descripción', 'textarea'], ['bookable', 'Reservas', 'select', 'si la agenda está activa', 'BOOKABLE'], ['duration', 'Duración de la cita', 'select', '', 'DURATION']] },
     ['benefit', 'Frase final (vacío = ocultar)', 'textarea']
   ], blank: { eyebrow: 'Texto pequeño', title: 'Nueva lista', items: [{ name: 'Elemento 1', desc: '' }], benefit: '' } },
   facilities: { label: 'Instalaciones y galería', fields: [
@@ -257,7 +264,27 @@ var SECTION_TYPES = {
   ], blank: { eyebrow: 'Texto pequeño', title: '¡Escríbeme!', text: '', button: 'WhatsApp {telefono}' } }
 };
 var migrate = window.siteMigrate;
+// Booking settings (content.booking). First option = server default.
+var BOOKING = [
+  ['booking.enabled', 'Mostrar botón de reservar en las listas', 'select', '', 'YESNO'],
+  ['booking.button', 'Texto del botón', 'text', 'Ej: Reservar, Agendar cita'],
+  ['booking.timezone', 'Zona horaria', 'select', '', 'TZ'],
+  ['booking.days', 'Días que atiendes', 'days'],
+  ['booking.start', 'Abre a las', 'time', '', '09:00'],
+  ['booking.end', 'Cierra a las', 'time', '', '19:00'],
+  ['booking.step', 'Horarios cada', 'select', '', 'STEP'],
+  ['booking.minNotice', 'Reservar con anticipación mínima de', 'select', '', 'NOTICE'],
+  ['booking.maxDays', 'Mostrar días hacia adelante', 'select', '', 'MAXDAYS']
+];
+var DAYS = [[1, 'Lun'], [2, 'Mar'], [3, 'Mié'], [4, 'Jue'], [5, 'Vie'], [6, 'Sáb'], [0, 'Dom']];
 var OPTIONS = {
+  YESNO: [['no', 'No'], ['yes', 'Sí']],
+  BOOKABLE: [['', 'Se puede reservar'], ['no', 'No se reserva (solo informativo)']],
+  DURATION: [['60', '1 hora'], ['15', '15 min'], ['30', '30 min'], ['45', '45 min'], ['90', '1 h 30 min'], ['120', '2 horas'], ['180', '3 horas'], ['240', '4 horas']],
+  TZ: [['America/Bogota', 'Colombia / Perú / Ecuador'], ['America/Mexico_City', 'México (centro)'], ['America/Caracas', 'Venezuela'], ['America/Santiago', 'Chile'], ['America/Argentina/Buenos_Aires', 'Argentina'], ['America/Sao_Paulo', 'Brasil (São Paulo)'], ['America/New_York', 'EE. UU. (este)'], ['America/Los_Angeles', 'EE. UU. (pacífico)'], ['Europe/Madrid', 'España'], ['Europe/Lisbon', 'Portugal']],
+  STEP: [['30', '30 min'], ['15', '15 min'], ['60', '1 hora']],
+  NOTICE: [['2', '2 horas'], ['0', 'Sin mínimo'], ['1', '1 hora'], ['4', '4 horas'], ['12', '12 horas'], ['24', '1 día'], ['48', '2 días']],
+  MAXDAYS: [['30', '30 días'], ['7', '7 días'], ['14', '14 días'], ['60', '60 días']],
   FIT: [['', 'Llenar el marco (puede recortar los bordes)'], ['contain', 'Foto completa (sin recortar)']],
   POS: [['', 'Automático'], ['top', 'Arriba (caras, techos)'], ['center', 'Centro'], ['bottom', 'Abajo (pisos, muebles)']]
 };
@@ -274,7 +301,7 @@ var RESERVED = ['admin', 'api', '_site', 'anamaria', 'mohammad', 'index', 'sites
 
 // published: what is live (content.json on main) · saved: last version stored in the cloud
 // drafts: what is in the editor now. Edits autosave to the cloud a moment after typing stops.
-var state = { slug: null, sites: [], published: {}, saved: {}, drafts: {}, password: '' };
+var state = { slug: null, sites: [], published: {}, saved: {}, drafts: {}, password: '', calendar: {} };
 var saving = {}, saveTimers = {}, saveErrors = {}, deploys = {}, localImages = {};
 try { state.password = sessionStorage.getItem('adminpw') || ''; } catch (e) {}
 try { Object.keys(localStorage).forEach(function (k) { if (/^(draft:|newsites$)/.test(k)) localStorage.removeItem(k); }); } catch (e) {}
@@ -349,6 +376,7 @@ async function loadSite(slug) {
   var j = await api('GET', '/api/load?slug=' + encodeURIComponent(slug));
   state.published[slug] = j.published && migrate(j.published);
   state.saved[slug] = migrate(j.draft || j.published);
+  state.calendar[slug] = j.calendar || {};
   state.drafts[slug] = clone(state.saved[slug]);
 }
 
@@ -463,6 +491,15 @@ function fieldHtml(path, label, type, hint, value, opts) {
   }
   if (type === 'textarea') return '<label class="f">' + lab + '<textarea data-path="' + esc(path) + '">' + esc(value) + '</textarea></label>';
   if (type === 'lines') return '<label class="f">' + lab + '<textarea data-path="' + esc(path) + '" data-lines="1">' + esc((value || []).join('\n')) + '</textarea></label>';
+  if (type === 'time') {
+    return '<label class="f">' + lab + '<input type="time" data-path="' + esc(path) + '" value="' + esc(value || opts) + '"></label>';
+  }
+  if (type === 'days') {
+    var on = (value || [1, 2, 3, 4, 5, 6]).map(Number);
+    return '<div class="f"><label class="f"><span>' + esc(label) + '</span></label><div class="days">' + DAYS.map(function (dd) {
+      return '<label class="day"><input type="checkbox" data-days="' + esc(path) + '" value="' + dd[0] + '"' + (on.indexOf(dd[0]) >= 0 ? ' checked' : '') + '>' + dd[1] + '</label>';
+    }).join('') + '</div></div>';
+  }
   if (type === 'select') {
     return '<label class="f">' + lab + '<select data-path="' + esc(path) + '">' + OPTIONS[opts].map(function (o) {
       return '<option value="' + o[0] + '"' + (o[0] === (value || '') ? ' selected' : '') + '>' + esc(o[1]) + '</option>';
@@ -492,6 +529,22 @@ function renderEditor() {
   var open = function (key, dflt) { return key in openState ? openState[key] : dflt; };
   html += '<details class="sec" data-key="g"' + (open('g', true) ? ' open' : '') + '><summary><span class="n">⚙</span>General</summary><div class="sec-body">';
   GENERAL.forEach(function (f) { html += fieldHtml(f[0], f[1], f[2], f[3], get(d, f[0])); });
+  html += '</div></details>';
+
+  var cal = state.calendar[state.slug] || {};
+  html += '<details class="sec" data-key="b"' + (open('b', false) ? ' open' : '') + '><summary><span class="n">📅</span>Agenda y reservas' +
+    '<span class="sec-hint">' + (get(d, 'booking.enabled') === 'yes' ? (cal.email ? 'Activa' : 'Falta conectar Google') : 'Desactivada') + '</span></summary><div class="sec-body">';
+  if (!cal.configured) {
+    html += '<div class="note">Falta configurar Google en Vercel (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET y TOKEN_KEY). Pídeselo al profesor.</div>';
+  } else if (cal.email) {
+    html += '<div class="cal-box ok"><div><b>✓ Google Calendar conectado</b><small>' + esc(cal.email) + '</small></div>' +
+      '<button type="button" class="btn small danger" id="calDisconnect">Desconectar</button></div>';
+  } else {
+    html += '<div class="cal-box"><div><b>Google Calendar sin conectar</b><small>Las reservas se guardan en tu calendario y solo se ofrecen horarios libres.</small></div>' +
+      '<button type="button" class="btn small primary" id="calConnect">Conectar Google Calendar</button></div>';
+  }
+  BOOKING.forEach(function (f) { html += fieldHtml(f[0], f[1], f[2], f[3], get(d, f[0]), f[4]); });
+  html += '<div class="note">La duración de cada cita y si se puede reservar se eligen en cada elemento de las secciones <b>Lista</b>. Cuando alguien reserva, el evento se crea en tu Google Calendar y al cliente se le abre WhatsApp con el aviso para tu número.</div>';
   html += '</div></details>';
 
   var secs = d.sections || [];
@@ -551,7 +604,15 @@ function changed(rerender) {
 }
 
 $('editor').addEventListener('input', function (e) {
-  var el = e.target, path = el.dataset.path; if (!path) return;
+  var el = e.target;
+  if (el.dataset.days) {
+    var picked = [].slice.call(document.querySelectorAll('input[data-days="' + el.dataset.days + '"]'))
+      .filter(function (x) { return x.checked; }).map(function (x) { return +x.value; });
+    set(draft(), el.dataset.days, picked);
+    changed(false);
+    return;
+  }
+  var path = el.dataset.path; if (!path) return;
   var v = el.value;
   if (el.dataset.lines) v = v.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
   if (path === 'phone') v = v.replace(/[^\d+ ]/g, '');
@@ -602,6 +663,13 @@ $('editor').addEventListener('click', function (e) {
   } else if (t.id === 'discard') {
     if (!confirm('¿Volver a la versión que está en vivo? Se pierden los cambios sin publicar de ' + siteLabel(state.slug) + '.')) return;
     state.drafts[state.slug] = clone(state.published[state.slug]); changed(true);
+  } else if (t.id === 'calConnect') {
+    connectCalendar();
+  } else if (t.id === 'calDisconnect') {
+    if (!confirm('¿Desconectar Google Calendar? Las reservas dejarán de funcionar hasta conectar otra vez.')) return;
+    api('POST', '/api/google-disconnect', { slug: state.slug })
+      .then(function () { state.calendar[state.slug].email = null; renderEditor(); toast('Google Calendar desconectado.', 'ok'); })
+      .catch(function (x) { toast(esc(x.message), 'err'); });
   } else if (t.id === 'dupSite') {
     openNewSite(state.slug);
   } else if (t.id === 'history') {
@@ -766,6 +834,32 @@ $('nsForm').onsubmit = async function (e) {
     btn.disabled = false;
   }
 };
+
+// ---------- Google Calendar ----------
+async function refreshCalendar(slug) {
+  var j = await api('GET', '/api/load?slug=' + encodeURIComponent(slug));
+  state.calendar[slug] = j.calendar || {};
+  if (slug === state.slug) renderEditor();
+}
+async function connectCalendar() {
+  var slug = state.slug;
+  var win = window.open('', 'gcal', 'width=520,height=700'); // open now so popup blockers allow it
+  try {
+    var j = await api('POST', '/api/google-connect', { slug: slug });
+    if (win) win.location = j.url; else location.href = j.url;
+    var timer = setInterval(function () {
+      if (win && win.closed) { clearInterval(timer); refreshCalendar(slug); }
+    }, 1000);
+  } catch (e) {
+    if (win) win.close();
+    toast(esc(e.message), 'err', 8000);
+  }
+}
+addEventListener('message', function (e) {
+  if (e.origin !== location.origin || !e.data || e.data.type !== 'calendar-connected') return;
+  if (e.data.slug) refreshCalendar(e.data.slug);
+  toast(e.data.ok ? '✓ Google Calendar conectado.' : 'No se pudo conectar Google Calendar.', e.data.ok ? 'ok' : 'err');
+});
 
 // ---------- history ----------
 async function openHistory() {
