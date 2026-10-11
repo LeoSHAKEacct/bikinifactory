@@ -27,7 +27,7 @@
       "badgeTitle": "{nombre}",
       "badgeText": "Apartamento discreto · Domicilios",
       "photoFit": "contain",
-      "photoPos": "bottom"
+      "photoPos": ""
     },
     {
       "type": "intro",
