@@ -131,7 +131,8 @@
         {
           "photo": "foto-mv38bciw.jpg",
           "caption": "",
-          "placeholder": "Amenidades"
+          "placeholder": "Amenidades",
+          "pos": "bottom"
         }
       ]
     },
