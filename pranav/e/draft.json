@@ -26,7 +26,8 @@
       "ctaSecondary": "Ver masajes",
       "badgeTitle": "{nombre}",
       "badgeText": "Apartamento discreto · Domicilios",
-      "photoFit": "contain"
+      "photoFit": "contain",
+      "photoPos": "bottom"
     },
     {
       "type": "intro",
