@@ -26,7 +26,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .logo{font-family:"Cormorant Garamond",serif;font-size:28px;font-style:italic;font-weight:500;letter-spacing:.02em}
 .nav-links{display:flex;gap:28px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .nav-links a:hover{color:var(--gold2)}
-@media (max-width:760px){.nav-links{display:none}}
+@media (max-width:760px){.nav-links{display:none}.logo{font-size:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100vw - 190px)}}
 
 /* buttons */
 .btn{
@@ -56,12 +56,13 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .portrait::before{
   content:"";position:absolute;inset:-14px -14px 14px 14px;border:1.5px solid #d9a86c;border-radius:220px 220px 22px 22px;opacity:.8;box-shadow:0 0 18px -4px rgba(217,168,108,.45);
 }
-.portrait img{
-  position:relative;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 30%;
-  border-radius:220px 220px 22px 22px;box-shadow:0 40px 90px -30px rgba(0,0,0,.8),0 0 80px -20px rgba(236,95,122,.35);
+.portrait .pframe{
+  width:100%;aspect-ratio:4/5;border-radius:220px 220px 22px 22px;
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.8),0 0 80px -20px rgba(236,95,122,.35);
 }
+.portrait .pframe .main{object-position:center 30%}
 .portrait .badge{
-  position:absolute;right:-18px;bottom:-18px;text-align:right;background:rgba(21,7,10,.88);backdrop-filter:blur(8px);
+  position:absolute;right:-18px;top:calc(100% - 12px);text-align:right;background:rgba(21,7,10,.88);backdrop-filter:blur(8px);
   border:1px solid var(--line);border-radius:16px;padding:12px 18px;font-size:13px;color:var(--muted);
 }
 .portrait .badge b{display:block;font-family:"Cormorant Garamond",serif;font-size:22px;font-weight:500;color:var(--gold2);font-style:italic}
@@ -71,7 +72,8 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
   .hero .lead{margin:0 auto}
   .hero .ctas{justify-content:center}
   .portrait{order:-1;max-width:340px}
-  .portrait .badge{left:50%;right:auto;text-align:center;transform:translateX(-50%);bottom:-20px;white-space:nowrap}
+  .portrait{margin-bottom:48px}
+  .portrait .badge{left:50%;right:auto;text-align:center;transform:translateX(-50%);white-space:nowrap}
 }
 
 /* sections */
@@ -119,8 +121,9 @@ section{padding:96px 0}
 }
 .gallery .ph svg{width:28px;height:28px;color:var(--gold);opacity:.7}
 .gallery .room{grid-column:span 2;grid-row:span 2;position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);aspect-ratio:1312/1199}
-.gallery .room img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease}
-.gallery .room:hover img{transform:scale(1.04)}
+.gallery figure .pframe{position:absolute;inset:0}
+.gallery figure .main{transition:transform 1.2s ease}
+.gallery figure:hover .main{transform:scale(1.04)}
 .gallery figure figcaption{position:absolute;left:16px;bottom:16px;padding:8px 16px;border-radius:999px;background:rgba(21,7,10,.72);backdrop-filter:blur(8px);border:1px solid var(--line);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2)}
 .gallery .room ~ .ph{aspect-ratio:auto}
 @media (max-width:620px){.gallery{grid-template-columns:repeat(2,1fr)}.gallery .room{grid-row:auto}.gallery .room ~ .ph{aspect-ratio:1}}
@@ -157,8 +160,6 @@ footer{border-top:1px solid var(--line);padding:28px 0 96px;text-align:center;co
 
 /* editable-template extras */
 .gallery .shot{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);margin:0}
-.gallery .shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease}
-.gallery .shot:hover img{transform:scale(1.04)}
 .gallery .room ~ .shot{min-height:160px}
 .gallery figure{margin:0}
 @media (max-width:620px){.gallery .room ~ .shot{aspect-ratio:1}}
@@ -170,3 +171,14 @@ footer{border-top:1px solid var(--line);padding:28px 0 96px;text-align:center;co
 }
 .portrait .ph-photo svg{width:40px;height:40px;color:var(--gold);opacity:.7}
 .empty-note{text-align:center;color:var(--muted);font-size:14px}
+
+/* Photo frame: fills (may crop, with a chosen focus) or shows the whole photo over a blurred copy */
+.pframe{position:relative;overflow:hidden;background:var(--bg2)}
+.pframe img{display:block;width:100%;height:100%;object-fit:cover}
+.pframe .blur{position:absolute;inset:0;filter:blur(20px) brightness(.75) saturate(1.15);transform:scale(1.25)}
+.pframe .main{position:relative}
+.pframe.contain .main{object-fit:contain;object-position:center!important}
+.pframe.top .main{object-position:center 0%}
+.pframe.center .main{object-position:center 50%}
+.pframe.bottom .main{object-position:center 100%}
+.gallery figure figcaption{z-index:1}

@@ -28,6 +28,15 @@
     if (d.length === 12 && d.indexOf('57') === 0) return '+57 ' + d.slice(2, 5) + ' ' + d.slice(5, 8) + ' ' + d.slice(8);
     return d ? '+' + d : '';
   }
+  // fit: "contain" shows the whole photo over a blurred copy; otherwise it fills
+  // the frame. pos picks what stays visible when filling: top, center, bottom.
+  function frame(url, alt, fit, pos, lazy) {
+    var contain = fit === 'contain', u = esc(url), l = lazy ? ' loading="lazy"' : '';
+    return '<div class="pframe' + (contain ? ' contain' : '') + (!contain && /^(top|center|bottom)$/.test(pos) ? ' ' + pos : '') + '">' +
+      (contain ? '<img class="blur" src="' + u + '" alt=""' + l + '>' : '') +
+      '<img class="main" src="' + u + '" alt="' + esc(alt || '') + '"' + l + '></div>';
+  }
+
   function photoUrl(v, slug) {
     if (!v) return '';
     if (/^(data:|https?:|\/)/.test(v)) return v;
@@ -83,7 +92,7 @@
       hero: function (h, id, i) {
         var url = photoUrl(h.photo, slug);
         var portrait = url
-          ? '<img src="' + esc(url) + '" alt="' + t('name') + '">'
+          ? frame(url, c.name, h.photoFit, h.photoPos)
           : '<div class="ph-photo">' + PHOTO_ICON + 'Foto principal<br>próximamente</div>';
         var badge = (h.badgeTitle || h.badgeText) ? '<div class="badge"><b>' + esc(h.badgeTitle) + '</b>' + esc(h.badgeText) + '</div>' : '';
         var tag = i === 0 ? 'header' : 'section';
@@ -118,7 +127,7 @@
         var gallery = (x.gallery || []).map(function (g, i) {
           var url = photoUrl(g.photo, slug), cls = i === 0 ? 'room' : 'shot';
           if (url) {
-            return '<figure class="' + cls + ' reveal"><img src="' + esc(url) + '" alt="' + esc(g.caption || '') + '" loading="lazy">' +
+            return '<figure class="' + cls + ' reveal">' + frame(url, g.caption, g.fit, g.pos, true) +
               (g.caption ? '<figcaption>' + esc(g.caption) + '</figcaption>' : '') + '</figure>';
           }
           return '<div class="' + (i === 0 ? 'room ' : '') + 'ph reveal">' + PHOTO_ICON + esc(g.placeholder || g.caption || 'Foto') + '<br>próximamente</div>';

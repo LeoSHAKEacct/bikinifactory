@@ -219,6 +219,8 @@ var GENERAL = [
 var SECTION_TYPES = {
   hero: { label: 'Portada', fields: [
     ['photo', 'Foto principal', 'image'],
+    ['photoFit', 'Ajuste de la foto', 'select', '', 'FIT'],
+    ['photoPos', 'Enfoque (si llena el marco)', 'select', '', 'POS'],
     ['eyebrow', 'Texto pequeño arriba (dorado)'],
     ['title', 'Título'],
     ['titleAccent', 'Título, parte en color'],
@@ -243,7 +245,7 @@ var SECTION_TYPES = {
     { list: 'items', label: 'Comodidad', add: '+ Agregar comodidad', empty: { icon: 'star', title: 'Nueva', desc: '' },
       fields: [['icon', 'Ícono', 'icon'], ['title', 'Título'], ['desc', 'Descripción']] },
     { list: 'gallery', label: 'Foto', fixed: true, sub: 'Galería (la primera es la grande)',
-      fields: [['photo', 'Foto', 'image'], ['caption', 'Texto sobre la foto'], ['placeholder', 'Texto si no hay foto']] }
+      fields: [['photo', 'Foto', 'image'], ['fit', 'Ajuste de la foto', 'select', '', 'FIT'], ['pos', 'Enfoque (si llena el marco)', 'select', '', 'POS'], ['caption', 'Texto sobre la foto'], ['placeholder', 'Texto si no hay foto']] }
   ], blank: { eyebrow: 'Texto pequeño', title: 'Nueva galería', items: [], gallery: [{ photo: '', caption: '', placeholder: 'Foto 1' }, { photo: '', caption: '', placeholder: 'Foto 2' }, { photo: '', caption: '', placeholder: 'Foto 3' }] } },
   zones: { label: 'Zonas / lugares', fields: [
     ['eyebrow', 'Texto pequeño (dorado)'], ['title', 'Título'], ['text', 'Texto', 'textarea'],
@@ -255,6 +257,10 @@ var SECTION_TYPES = {
   ], blank: { eyebrow: 'Texto pequeño', title: '¡Escríbeme!', text: '', button: 'WhatsApp {telefono}' } }
 };
 var migrate = window.siteMigrate;
+var OPTIONS = {
+  FIT: [['', 'Llenar el marco (puede recortar los bordes)'], ['contain', 'Foto completa (sin recortar)']],
+  POS: [['', 'Automático'], ['top', 'Arriba (caras, techos)'], ['center', 'Centro'], ['bottom', 'Abajo (pisos, muebles)']]
+};
 // Calls fn on every "photo" field in content and stores what it returns.
 function mapPhotos(o, fn) {
   if (Array.isArray(o)) o.forEach(function (x) { mapPhotos(x, fn); });
@@ -445,7 +451,7 @@ async function saveNow(slug) {
 $('saveBtn').addEventListener('click', function () { saveNow(state.slug); });
 
 // ---------- editor ----------
-function fieldHtml(path, label, type, hint, value) {
+function fieldHtml(path, label, type, hint, value, opts) {
   var lab = '<span>' + esc(label) + (hint ? ' <em>· ' + esc(hint) + '</em>' : '') + '</span>';
   if (type === 'image') {
     var url = photoUrl(value, state.slug);
@@ -457,6 +463,11 @@ function fieldHtml(path, label, type, hint, value) {
   }
   if (type === 'textarea') return '<label class="f">' + lab + '<textarea data-path="' + esc(path) + '">' + esc(value) + '</textarea></label>';
   if (type === 'lines') return '<label class="f">' + lab + '<textarea data-path="' + esc(path) + '" data-lines="1">' + esc((value || []).join('\n')) + '</textarea></label>';
+  if (type === 'select') {
+    return '<label class="f">' + lab + '<select data-path="' + esc(path) + '">' + OPTIONS[opts].map(function (o) {
+      return '<option value="' + o[0] + '"' + (o[0] === (value || '') ? ' selected' : '') + '>' + esc(o[1]) + '</option>';
+    }).join('') + '</select></label>';
+  }
   if (type === 'icon') {
     return '<label class="f">' + lab + '<select data-path="' + esc(path) + '">' + ICONS.map(function (i) {
       return '<option value="' + i[0] + '"' + (i[0] === value ? ' selected' : '') + '>' + i[1] + '</option>';
@@ -502,7 +513,7 @@ function renderEditor() {
       '<button type="button" class="btn small" data-sec-dup="' + si + '">Duplicar</button>' +
       '<button type="button" class="btn small danger" data-sec-del="' + si + '">Eliminar</button></div>';
     def.fields.forEach(function (f) {
-      if (Array.isArray(f)) { html += fieldHtml(base + f[0], f[1], f[2], f[3], get(sec, f[0])); return; }
+      if (Array.isArray(f)) { html += fieldHtml(base + f[0], f[1], f[2], f[3], get(sec, f[0]), f[4]); return; }
       var lp = base + f.list, items = sec[f.list] || [];
       if (f.sub) html += '<div class="sub">' + esc(f.sub) + '</div>';
       items.forEach(function (it, i) {
@@ -513,7 +524,7 @@ function renderEditor() {
             '<button type="button" class="icon-btn" title="Eliminar" data-del="' + lp + '|' + i + '">✕</button>';
         }
         html += '</div>';
-        f.fields.forEach(function (sf) { html += fieldHtml(lp + '.' + i + '.' + sf[0], sf[1], sf[2], sf[3], it[sf[0]]); });
+        f.fields.forEach(function (sf) { html += fieldHtml(lp + '.' + i + '.' + sf[0], sf[1], sf[2], sf[3], it[sf[0]], sf[4]); });
         html += '</div>';
       });
       if (!f.fixed) html += '<button type="button" class="btn small" data-add="' + lp + '|' + sec.type + '|' + f.list + '">' + esc(f.add) + '</button>';
