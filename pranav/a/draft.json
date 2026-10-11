@@ -119,7 +119,8 @@
         {
           "photo": "foto-mv3892ic.jpg",
           "caption": "",
-          "placeholder": "Sala de masajes"
+          "placeholder": "Sala de masajes",
+          "pos": "center"
         },
         {
           "photo": "",
