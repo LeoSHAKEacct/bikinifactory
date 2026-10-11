@@ -1,5 +1,5 @@
 {
-  "name": "Interior Design Ximena",
+  "name": "Ximena",
   "phone": "573011169363",
   "waMessage": "Hola {nombre}, quiero reservar un masaje",
   "seo": {
@@ -16,7 +16,7 @@
   "sections": [
     {
       "type": "hero",
-      "photo": "",
+      "photo": "foto-mv3883ei.jpg",
       "eyebrow": "Masajes · Medellín",
       "title": "Relajación y placer",
       "titleAccent": "en un masaje",
@@ -117,19 +117,22 @@
       ],
       "gallery": [
         {
-          "photo": "",
+          "photo": "foto-mv38bvnv.jpg",
           "caption": "",
-          "placeholder": "Sala de masajes"
+          "placeholder": "Sala de masajes",
+          "pos": "center"
         },
         {
-          "photo": "",
+          "photo": "foto-mv38au44.jpg",
           "caption": "",
-          "placeholder": "Ambiente"
+          "placeholder": "Ambiente",
+          "pos": "top"
         },
         {
-          "photo": "",
+          "photo": "foto-mv38bciw.jpg",
           "caption": "",
-          "placeholder": "Amenidades"
+          "placeholder": "Amenidades",
+          "pos": "bottom"
         }
       ]
     },
