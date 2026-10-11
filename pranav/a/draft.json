@@ -62,6 +62,34 @@
       "benefit": "Reduce las tensiones musculares y mejora la circulación, para una sensación de relajación de cuerpo y mente."
     },
     {
+      "type": "services",
+      "eyebrow": "Masajes Eróticos",
+      "title": "Atrévete a vivir esta magnifica experiencia",
+      "items": [
+        {
+          "name": "",
+          "desc": "Un ritual cálido y envolvente que despierta cada rincón de tu piel."
+        },
+        {
+          "name": "Masaje Sensorial",
+          "desc": "Caricias lentas y suaves que activan todos tus sentidos."
+        },
+        {
+          "name": "Masaje Academia",
+          "desc": "Una experiencia guiada para descubrir y disfrutar el arte del tacto."
+        },
+        {
+          "name": "Masaje 4 Manos",
+          "desc": "El doble de manos, el doble de sensaciones, en perfecta sincronía."
+        },
+        {
+          "name": "Masaje Lingam",
+          "desc": "Un masaje tántrico profundo para liberar tu energía y llegar al éxtasis."
+        }
+      ],
+      "benefit": "Reduce las tensiones musculares y mejora la circulación, para una sensación de relajación de cuerpo y mente."
+    },
+    {
       "type": "facilities",
       "eyebrow": "Instalaciones",
       "title": "Comodidad y total discreción",
