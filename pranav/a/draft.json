@@ -125,7 +125,8 @@
         {
           "photo": "foto-mv38au44.jpg",
           "caption": "",
-          "placeholder": "Ambiente"
+          "placeholder": "Ambiente",
+          "pos": "top"
         },
         {
           "photo": "",
