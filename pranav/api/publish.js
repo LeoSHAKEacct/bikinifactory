@@ -11,7 +11,10 @@
 const { checkPassword } = require('./_auth');
 const { buildPage } = require('./_shell');
 
-const SLUGS = ['alana', 'a', 'b', 'c'];
+// New site addresses: lowercase letters, numbers and dashes. Some names are
+// taken by other pages or the admin itself.
+const SLUG = /^[a-z0-9][a-z0-9-]{0,29}$/;
+const RESERVED = ['admin', 'api', '_site', 'anamaria', 'mohammad', 'index', 'sites', 'public', 'static'];
 const IMAGE_NAME = /^[a-z0-9][a-z0-9-]{0,60}\.(jpg|jpeg|png|webp)$/;
 const MAX_IMAGE_BYTES = 3 * 1024 * 1024;
 
@@ -69,6 +72,21 @@ async function commitFiles(files, message) {
   }
 }
 
+async function readSites(dir, branch) {
+  const file = await gh(`/contents/${dir}/sites.json?ref=${branch}`);
+  return JSON.parse(Buffer.from(file.content, 'base64').toString('utf8'));
+}
+
+async function pathExists(path, branch) {
+  try {
+    await gh(`/contents/${path}?ref=${branch}`);
+    return true;
+  } catch (e) {
+    if (e.status === 404) return false;
+    throw e;
+  }
+}
+
 module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   if (!checkPassword(req)) return res.status(401).json({ error: 'Contraseña incorrecta.' });
@@ -76,8 +94,7 @@ module.exports = async (req, res) => {
     return res.status(500).json({ error: 'Falta configurar GITHUB_TOKEN en Vercel.' });
   }
 
-  const { slug, content, images } = req.body || {};
-  if (!SLUGS.includes(slug)) return res.status(400).json({ error: 'Sitio desconocido.' });
+  const { slug, content, images, create } = req.body || {};
   if (!content || typeof content !== 'object' || Array.isArray(content)) {
     return res.status(400).json({ error: 'Contenido inválido.' });
   }
@@ -87,8 +104,36 @@ module.exports = async (req, res) => {
   }
 
   const dir = (process.env.SITE_DIR || 'pranav').replace(/^\/+|\/+$/g, '');
+  const branch = process.env.GITHUB_BRANCH || 'main';
   const prefix = dir ? `${dir}/${slug}` : slug;
   const files = [];
+
+  let sites;
+  try {
+    sites = await readSites(dir, branch);
+  } catch (e) {
+    return res.status(502).json({ error: `No se pudo leer la lista de sitios: ${e.message}` });
+  }
+  const known = sites.some(s => s.slug === slug);
+  if (create) {
+    const label = String(create.label || '').trim().slice(0, 40);
+    if (typeof slug !== 'string' || !SLUG.test(slug) || RESERVED.includes(slug)) {
+      return res.status(400).json({ error: 'Dirección inválida. Usa letras minúsculas, números o guiones.' });
+    }
+    if (!label) return res.status(400).json({ error: 'Falta el nombre del sitio.' });
+    if (known) return res.status(409).json({ error: `Ya existe un sitio en /${slug}/.` });
+    try {
+      if (await pathExists(prefix, branch)) {
+        return res.status(409).json({ error: `La dirección /${slug}/ ya está en uso por otra página.` });
+      }
+    } catch (e) {
+      return res.status(502).json({ error: e.message });
+    }
+    sites.push({ slug, label });
+    files.push({ path: `${dir}/sites.json`, content: JSON.stringify(sites, null, 2) + '\n', encoding: 'utf-8' });
+  } else if (!known) {
+    return res.status(400).json({ error: 'Sitio desconocido.' });
+  }
 
   for (const [name, data] of Object.entries(images || {})) {
     if (!IMAGE_NAME.test(name) || typeof data !== 'string') {
@@ -105,7 +150,7 @@ module.exports = async (req, res) => {
   files.push({ path: `${prefix}/index.html`, content: buildPage(slug, content), encoding: 'utf-8' });
 
   try {
-    const sha = await commitFiles(files, `Admin: publish /${slug}`);
+    const sha = await commitFiles(files, create ? `Admin: create /${slug}` : `Admin: publish /${slug}`);
     res.status(200).json({ ok: true, commit: sha, url: `/${slug}/` });
   } catch (e) {
     res.status(502).json({ error: e.message });

@@ -29,6 +29,8 @@ a{color:inherit}
 .tab.on{background:var(--rose);border-color:var(--rose);color:#fff}
 .tab .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);display:none}
 .tab.dirty .dot{display:inline-block}
+.tab.add{border-style:dashed;color:var(--gold)}
+.tab.add:hover{border-color:var(--gold)}
 .spacer{flex:1}
 .status{color:var(--muted);font-size:13px;white-space:nowrap}
 .status.pending{color:var(--gold)}
@@ -153,15 +155,29 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
     </div>
   </form>
 </div>
+<div class="modal" id="nsModal">
+  <form class="card" id="nsForm">
+    <h3>Nuevo sitio</h3>
+    <p>Se crea una copia que puedes editar. Queda en vivo cuando pulses <b>Publicar en Vercel</b>.</p>
+    <label class="f"><span>Dirección</span>
+      <div style="display:flex;align-items:center;gap:6px"><span id="nsHost" style="color:var(--muted);font-size:13px;white-space:nowrap"></span><input type="text" id="nsSlug" placeholder="d" autocomplete="off"></div>
+    </label>
+    <label class="f"><span>Nombre de la pestaña <em>· solo se ve en el panel</em></span><input type="text" id="nsLabel" placeholder="Sitio D" maxlength="40"></label>
+    <label class="f"><span>Copiar textos de</span><select id="nsSrc"></select></label>
+    <label style="display:flex;gap:8px;align-items:center;color:var(--muted)"><input type="checkbox" id="nsPhotos"> Copiar también las fotos</label>
+    <div class="err" id="nsErr"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button type="button" class="btn" id="nsCancel">Cancelar</button>
+      <button type="submit" class="btn primary">Crear sitio</button>
+    </div>
+  </form>
+</div>
 <div class="toast" id="toast"></div>
 
 <script>
-var SITES = [
-  { slug: 'alana', label: 'Alana' },
-  { slug: 'a', label: 'Sitio A' },
-  { slug: 'b', label: 'Sitio B' },
-  { slug: 'c', label: 'Sitio C' }
-];
+// Loaded from /sites.json at startup; new sites are added from the panel.
+var SITES = [{ slug: 'alana', label: 'Alana' }];
+var RESERVED = ['admin', 'api', '_site', 'anamaria', 'mohammad', 'index', 'sites', 'public', 'static'];
 var ICONS = [['home','Casa'],['parking','Parqueadero'],['shield','Discreción'],['drink','Bebida'],['heart','Corazón'],['star','Estrella'],['candle','Vela'],['car','Carro / domicilio']];
 
 // Form layout: [path, label, type, hint]
@@ -213,7 +229,7 @@ var FORM = [
   ]}
 ];
 
-var state = { slug: 'alana', published: {}, drafts: {}, password: '' };
+var state = { slug: 'alana', published: {}, drafts: {}, password: '', isNew: {} };
 try { state.password = sessionStorage.getItem('adminpw') || ''; } catch (e) {}
 
 var $ = function (id) { return document.getElementById(id); };
@@ -231,9 +247,10 @@ function photoUrl(v, slug) {
   if (/^(data:|https?:|\/)/.test(v)) return localImages[v] || v;
   return localImages['/' + slug + '/' + v] || '/' + slug + '/' + v;
 }
-function siteLabel(slug) { return SITES.filter(function (s) { return s.slug === slug; })[0].label; }
+function siteLabel(slug) { var s = SITES.filter(function (x) { return x.slug === slug; })[0]; return s ? s.label : slug; }
 function draft() { return state.drafts[state.slug]; }
 function isDirty(slug) {
+  if (state.isNew[slug]) return true;
   return state.drafts[slug] && state.published[slug] && JSON.stringify(state.drafts[slug]) !== JSON.stringify(state.published[slug]);
 }
 
@@ -260,7 +277,7 @@ function loadDraft(slug) {
 }
 
 async function loadSite(slug) {
-  if (state.published[slug]) return;
+  if (state.published[slug] || state.isNew[slug]) return;
   var r = await fetch('/' + slug + '/content.json?t=' + Date.now(), { cache: 'no-store' });
   if (!r.ok) throw new Error('No se pudo cargar /' + slug + '/content.json');
   state.published[slug] = await r.json();
@@ -271,10 +288,11 @@ async function loadSite(slug) {
 function renderTabs() {
   $('tabs').innerHTML = SITES.map(function (s) {
     return '<button class="tab' + (s.slug === state.slug ? ' on' : '') + (isDirty(s.slug) ? ' dirty' : '') + '" data-slug="' + s.slug + '"><span class="dot"></span>' + s.label + '</button>';
-  }).join('');
+  }).join('') + '<button class="tab add" id="addSite">+ Nuevo sitio</button>';
   var dirty = isDirty(state.slug), dep = deploys[state.slug], st = $('status');
   st.className = 'status';
-  if (dirty) st.textContent = 'Cambios sin publicar';
+  if (state.isNew[state.slug]) st.textContent = 'Sitio nuevo, sin publicar';
+  else if (dirty) st.textContent = 'Cambios sin publicar';
   else if (dep && dep.state === 'pending') { st.textContent = 'Publicando en Vercel…'; st.className = 'status pending'; }
   else if (dep && dep.state === 'live') { st.innerHTML = '✓ En vivo · <a href="/' + state.slug + '/" target="_blank" rel="noopener">ver sitio</a>'; st.className = 'status live'; }
   else if (dep && dep.state === 'slow') { st.textContent = 'Vercel está tardando, revisa en unos minutos'; st.className = 'status slow'; }
@@ -308,6 +326,7 @@ function watchDeploy(slug, content) {
 }
 $('tabs').addEventListener('click', function (e) {
   var b = e.target.closest('.tab'); if (!b) return;
+  if (b.id === 'addSite') { openNewSite(); return; }
   switchSite(b.dataset.slug);
 });
 
@@ -533,7 +552,7 @@ $('publish').addEventListener('click', async function () {
     var r = await fetch('/api/publish', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-admin-password': state.password },
-      body: JSON.stringify({ slug: slug, content: content, images: images })
+      body: JSON.stringify({ slug: slug, content: content, images: images, create: state.isNew[slug] ? { label: siteLabel(slug) } : undefined })
     });
     var j = await r.json().catch(function () { return {}; });
     if (r.status === 401) {
@@ -546,6 +565,7 @@ $('publish').addEventListener('click', async function () {
     Object.keys(images).forEach(function (name) { localImages['/' + slug + '/' + name] = images[name]; });
     state.published[slug] = content;
     state.drafts[slug] = clone(content);
+    delete state.isNew[slug]; saveNewSites();
     saveDraft(slug);
     renderTabs(); renderEditor(); pushPreview();
     toast('¡Guardado! Vercel está publicando <b>' + esc(siteLabel(slug)) + '</b>, toma ~1 minuto. Te aviso aquí cuando esté en vivo.', 'ok', 7000);
@@ -561,7 +581,65 @@ addEventListener('beforeunload', function (e) {
   if (SITES.some(function (s) { return isDirty(s.slug); })) { e.preventDefault(); e.returnValue = ''; }
 });
 
-switchSite('alana');
+// ---------- new sites ----------
+function saveNewSites() {
+  try { localStorage.setItem('newsites', JSON.stringify(state.isNew)); } catch (e) {}
+}
+function openNewSite() {
+  $('nsSlug').value = ''; $('nsLabel').value = ''; $('nsErr').textContent = ''; $('nsPhotos').checked = false;
+  $('nsSrc').innerHTML = SITES.filter(function (s) { return !state.isNew[s.slug]; }).map(function (s) {
+    return '<option value="' + esc(s.slug) + '"' + (s.slug === state.slug ? ' selected' : '') + '>' + esc(s.label) + ' (/' + esc(s.slug) + '/)</option>';
+  }).join('');
+  $('nsHost').textContent = location.host + '/';
+  $('nsModal').classList.add('on'); $('nsSlug').focus();
+}
+$('nsCancel').onclick = function () { $('nsModal').classList.remove('on'); };
+$('nsSlug').addEventListener('input', function () {
+  $('nsErr').textContent = '';
+  this.value = this.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9-]/g, '-').replace(/^-+/, '').slice(0, 30);
+});
+$('nsForm').onsubmit = async function (e) {
+  e.preventDefault();
+  var slug = $('nsSlug').value.replace(/-+$/, ''), label = $('nsLabel').value.trim(), src = $('nsSrc').value;
+  var err = function (m) { $('nsErr').textContent = m; };
+  if (!slug) return err('Escribe la dirección, por ejemplo: d');
+  if (RESERVED.indexOf(slug) >= 0) return err('Esa dirección está reservada, elige otra.');
+  if (SITES.some(function (s) { return s.slug === slug; })) return err('Ya existe un sitio en /' + slug + '/.');
+  if (!label) label = 'Sitio ' + slug.toUpperCase();
+  try { await loadSite(src); } catch (x) { return err(x.message); }
+  var c = clone(state.drafts[src]);
+  var photo = function (v) {
+    if (!$('nsPhotos').checked || !v) return '';
+    return /^(data:|https?:|\/)/.test(v) ? v : '/' + src + '/' + v;
+  };
+  c.hero.photo = photo(c.hero.photo);
+  ((c.facilities || {}).gallery || []).forEach(function (g) { g.photo = photo(g.photo); if (!g.photo) g.caption = ''; });
+  SITES.push({ slug: slug, label: label });
+  state.isNew[slug] = { label: label }; saveNewSites();
+  state.drafts[slug] = c;
+  saveDraft(slug);
+  $('nsModal').classList.remove('on');
+  await switchSite(slug);
+  toast('Sitio <b>' + esc(label) + '</b> creado como borrador. Edítalo y pulsa <b>Publicar en Vercel</b> para ponerlo en vivo.', 'ok', 8000);
+};
+
+(async function start() {
+  try {
+    var r = await fetch('/sites.json?t=' + Date.now(), { cache: 'no-store' });
+    if (r.ok) SITES = await r.json();
+  } catch (e) {}
+  // Restore sites created here but not yet published (or still deploying).
+  try {
+    var pending = JSON.parse(localStorage.getItem('newsites') || '{}');
+    Object.keys(pending).forEach(function (slug) {
+      if (SITES.some(function (s) { return s.slug === slug; })) return;
+      var d = loadDraft(slug); if (!d) return;
+      SITES.push({ slug: slug, label: pending[slug].label });
+      state.isNew[slug] = pending[slug]; state.drafts[slug] = d;
+    });
+  } catch (e) {}
+  switchSite(SITES[0].slug);
+})();
 </script>
 </body>
 </html>
