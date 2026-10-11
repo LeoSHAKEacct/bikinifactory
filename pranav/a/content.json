@@ -67,24 +67,24 @@
       "title": "Atrévete a vivir esta magnifica experiencia in your home",
       "items": [
         {
-          "name": "Product demo meeting 5",
+          "name": "Massaje 30 min",
           "desc": "150.000$"
         },
         {
-          "name": "Product demo meeting 4",
+          "name": "Massaje 45 min",
           "desc": "180.000$"
         },
         {
-          "name": "Product demo meeting 2",
-          "desc": ""
+          "name": "Massaje 30 min",
+          "desc": "180.000$"
         },
         {
-          "name": "Product demo meeting",
-          "desc": ""
+          "name": "Massaje 45 min",
+          "desc": "200.000$"
         },
         {
-          "name": "Product demo meeting",
-          "desc": "400.000$"
+          "name": "Massaje 60 min",
+          "desc": "250.000$"
         }
       ],
       "benefit": "Reduce las tensiones musculares y mejora la circulación, para una sensación de relajación de cuerpo y mente."
