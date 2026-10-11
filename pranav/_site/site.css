@@ -182,3 +182,32 @@ footer{border-top:1px solid var(--line);padding:28px 0 96px;text-align:center;co
 .pframe.center .main{object-position:center 50%}
 .pframe.bottom .main{object-position:center 100%}
 .gallery figure figcaption{z-index:1}
+
+/* bookings */
+.svc{display:flex;flex-direction:column}
+.book-btn{margin-top:auto;align-self:flex-start;position:relative;z-index:1;margin-top:16px;padding:9px 18px;border-radius:999px;border:1px solid var(--gold);background:transparent;color:var(--gold2);font:inherit;font-weight:500;font-size:14px;cursor:pointer;transition:background .2s,color .2s}
+.book-btn:hover{background:var(--gold);color:#fff}
+.bk-modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:16px}
+.bk-card{position:relative;width:100%;max-width:440px;max-height:calc(100vh - 32px);overflow:auto;background:var(--bg2);border:1px solid var(--line);border-radius:22px;padding:26px 22px 22px;box-shadow:0 30px 80px -20px rgba(0,0,0,.8)}
+.bk-card h3{font-family:"Cormorant Garamond",serif;font-size:30px;font-weight:500;line-height:1.1;margin:6px 0 2px}
+.bk-sub{color:var(--muted);font-size:14px;margin-bottom:16px}
+.bk-x{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;font-size:14px}
+.bk-label{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#d9a86c;margin:14px 0 8px}
+.bk-days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.bk-days button,.bk-times button{flex:none;padding:9px 13px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--text);font:inherit;font-size:14px;cursor:pointer;text-transform:capitalize}
+.bk-days button.on,.bk-days button:hover,.bk-times button:hover{border-color:var(--gold);color:var(--gold2)}
+.bk-days button.on{background:rgba(236,95,122,.15)}
+.bk-times{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:8px}
+.bk-msg{color:var(--muted);font-size:14px;margin:10px 0}
+.bk-err{color:#ff8a8a;font-size:14px;margin:8px 0}
+.bk-pick{font-size:15px;text-transform:capitalize;margin-bottom:6px}
+.bk-change{background:none;border:0;color:var(--gold2);text-decoration:underline;cursor:pointer;font:inherit;font-size:13px;text-transform:none}
+.bk-form{display:flex;flex-direction:column;gap:12px;margin-top:10px}
+.bk-form label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted)}
+.bk-form input,.bk-form textarea{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:10px;padding:11px 12px;color:var(--text);font:inherit;font-size:15px;outline:none}
+.bk-form input:focus,.bk-form textarea:focus{border-color:var(--gold)}
+.bk-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.bk-wide{width:100%;margin-top:8px}
+.bk-done{width:56px;height:56px;border-radius:50%;background:rgba(37,211,102,.15);color:var(--wa);display:flex;align-items:center;justify-content:center;font-size:28px;margin:6px auto 10px}
+.bk-ok{text-align:center;line-height:1.6;text-transform:none}
+.bk-ok b{font-family:"Cormorant Garamond",serif;font-size:24px;font-weight:500}
