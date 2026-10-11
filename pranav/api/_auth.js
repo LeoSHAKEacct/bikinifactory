@@ -10,4 +10,13 @@ function checkPassword(req) {
   return crypto.timingSafeEqual(a, b);
 }
 
-module.exports = { checkPassword };
+// Sends an error and returns false unless the request may use the admin API.
+function guard(req, res, method) {
+  if (req.method !== method) { res.status(405).json({ error: 'Method not allowed' }); return false; }
+  if (!process.env.ADMIN_PASSWORD) { res.status(500).json({ error: 'Falta configurar ADMIN_PASSWORD en Vercel.' }); return false; }
+  if (!checkPassword(req)) { res.status(401).json({ error: 'Contraseña incorrecta.' }); return false; }
+  if (!process.env.GITHUB_TOKEN) { res.status(500).json({ error: 'Falta configurar GITHUB_TOKEN en Vercel.' }); return false; }
+  return true;
+}
+
+module.exports = { checkPassword, guard };
