@@ -67,23 +67,23 @@
       "title": "Atrévete a vivir esta magnifica experiencia in your home",
       "items": [
         {
-          "name": "Massaje 30 min",
+          "name": "Product demo meeting 5",
           "desc": "150.000$"
         },
         {
-          "name": "Massaje 45 min",
+          "name": "Product demo meeting 4",
           "desc": "180.000$"
         },
         {
-          "name": "Massaje 60 min",
+          "name": "Product demo meeting 2",
           "desc": ""
         },
         {
-          "name": "Massaje 90 min",
+          "name": "Product demo meeting",
           "desc": ""
         },
         {
-          "name": "Massaje 120 min",
+          "name": "Product demo meeting",
           "desc": "400.000$"
         }
       ],
@@ -92,11 +92,11 @@
     {
       "type": "facilities",
       "eyebrow": "Instalaciones",
-      "title": "Comodidad y total discreción",
+      "title": "Comodidad y innovation",
       "items": [
         {
           "icon": "home",
-          "title": "Apartamento cómodo",
+          "title": "cómodo",
           "desc": "Instalaciones totalmente cómodas y acogedoras."
         },
         {
@@ -136,7 +136,7 @@
     {
       "type": "zones",
       "eyebrow": "Domicilios",
-      "title": "También voy a donde estés",
+      "title": "También llevamos el produto a tu escritorio",
       "text": "Se realiza domicilio en el área metropolitana. Hago salidas a:",
       "places": [
         "Medellín",
