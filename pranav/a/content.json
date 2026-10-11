@@ -1,5 +1,5 @@
 {
-  "name": "TESTTESTTEST",
+  "name": "Interior Design with Mila",
   "phone": "573217455367",
   "waMessage": "interior desing is with us",
   "seo": {
@@ -25,12 +25,12 @@
     "badgeText": "Apartamento discreto · Domicilios"
   },
   "intro": {
-    "quote": "¡Nada que un buen masaje erótico",
+    "quote": "Desing your home with me",
     "quoteAccent": "no pueda arreglar!",
     "body": "Ven y disfruta de un agradable masaje relajante. Cada movimiento que realizaré con mis suaves manos está diseñado para reconectar tu cuerpo con tu energía, para que por medio de unas delicadas caricias y nuestro toque erótico llegues a ese éxtasis de placer."
   },
   "services": {
-    "eyebrow": "Mis masajes",
+    "eyebrow": "My products",
     "title": "Elige tu experiencia",
     "items": [
       {
@@ -38,27 +38,27 @@
         "desc": "Un ritual cálido y envolvente que despierta cada rincón de tu piel."
       },
       {
-        "name": "Masaje Sensorial",
-        "desc": "Caricias lentas y suaves que activan todos tus sentidos."
+        "name": "products",
+        "desc": ""
       },
       {
-        "name": "Masaje Academia",
-        "desc": "Una experiencia guiada para descubrir y disfrutar el arte del tacto."
+        "name": "Products ",
+        "desc": "Couch"
       },
       {
-        "name": "Masaje 4 Manos",
-        "desc": "El doble de manos, el doble de sensaciones, en perfecta sincronía."
+        "name": "Products",
+        "desc": "Sofa"
       },
       {
-        "name": "Masaje Lingam",
-        "desc": "Un masaje tántrico profundo para liberar tu energía y llegar al éxtasis."
+        "name": "Products",
+        "desc": "candelario"
       }
     ],
     "benefit": "Reduce las tensiones musculares y mejora la circulación, para una sensación de relajación de cuerpo y mente."
   },
   "facilities": {
     "eyebrow": "Instalaciones",
-    "title": "Comodidad y total discreción",
+    "title": "Central Area",
     "items": [
       {
         "icon": "home",
@@ -73,11 +73,11 @@
       {
         "icon": "shield",
         "title": "Totalmente discreto",
-        "desc": "Tu privacidad es lo primero."
+        "desc": ""
       },
       {
         "icon": "drink",
-        "title": "Bebida de bienvenida",
+        "title": "",
         "desc": "Relájate desde el primer momento."
       }
     ],
