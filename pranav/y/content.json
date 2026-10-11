@@ -7,9 +7,9 @@
     "description": "{nombre} — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta."
   },
   "nav": {
-    "services": "Masajes",
-    "facilities": "Instalaciones",
-    "zones": "Zonas",
+    "services": "",
+    "facilities": "Contenido",
+    "zones": "Artigos",
     "reserve": "Reservar"
   },
   "footer": "{nombre} · Masajes · Solo mayores de 18 años",
