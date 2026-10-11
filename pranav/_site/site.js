@@ -46,6 +46,20 @@
     return v;
   }
 
+  // Older sites store fixed blocks (hero, intro, ...); newer ones an ordered
+  // list of sections that can be duplicated, removed and reordered.
+  var LEGACY = ['hero', 'intro', 'services', 'facilities', 'zones', 'cta'];
+  function migrate(c) {
+    if (Array.isArray(c.sections)) return c;
+    var out = {}, sections = [];
+    Object.keys(c).forEach(function (k) { if (LEGACY.indexOf(k) < 0) out[k] = c[k]; });
+    LEGACY.forEach(function (k) {
+      if (c[k]) { var s = { type: k }; Object.keys(c[k]).forEach(function (f) { s[f] = c[k][f]; }); sections.push(s); }
+    });
+    out.sections = sections;
+    return out;
+  }
+
   function render(c, slug, opts) {
     opts = opts || {};
     c = fillTokens(c, c.name || '', phoneDisplay(c.phone));
@@ -54,83 +68,96 @@
     var wa = 'https://wa.me/' + phone + (c.waMessage ? '?text=' + encodeURIComponent(c.waMessage) : '');
     var waAttrs = 'href="' + esc(wa) + '" target="_blank" rel="noopener"';
 
-    var h = c.hero || {};
-    var heroPhoto = photoUrl(h.photo, slug);
-    var portrait = heroPhoto
-      ? '<img src="' + esc(heroPhoto) + '" alt="' + t('name') + '">'
-      : '<div class="ph-photo">' + PHOTO_ICON + 'Foto principal<br>próximamente</div>';
-    var badge = (h.badgeTitle || h.badgeText)
-      ? '<div class="badge"><b>' + t('hero.badgeTitle') + '</b>' + t('hero.badgeText') + '</div>' : '';
-
-    var services = ((c.services || {}).items || []).map(function (s, i) {
-      return '<article class="svc reveal"><div class="num">' + (i < 9 ? '0' : '') + (i + 1) + '</div><h3>' + esc(s.name) + '</h3><p>' + lines(s.desc) + '</p></article>';
-    }).join('');
-
-    var amen = ((c.facilities || {}).items || []).map(function (a) {
-      return '<div class="item reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' +
-        (ICONS[a.icon] || ICONS.star) + '</svg><div><h4>' + esc(a.title) + '</h4><p>' + lines(a.desc) + '</p></div></div>';
-    }).join('');
-
-    var gallery = ((c.facilities || {}).gallery || []).map(function (g, i) {
-      var url = photoUrl(g.photo, slug);
-      var cls = i === 0 ? 'room' : 'shot';
-      if (url) {
-        return '<figure class="' + cls + ' reveal"><img src="' + esc(url) + '" alt="' + esc(g.caption || '') + '" loading="lazy">' +
-          (g.caption ? '<figcaption>' + esc(g.caption) + '</figcaption>' : '') + '</figure>';
-      }
-      return '<div class="' + (i === 0 ? 'room ' : '') + 'ph reveal">' + PHOTO_ICON + esc(g.placeholder || g.caption || 'Foto') + '<br>próximamente</div>';
-    }).join('');
-
-    var places = ((c.zones || {}).places || []).filter(Boolean).map(function (p) {
-      return '<span class="chip">' + esc(p) + '</span>';
-    }).join('');
-
     var waIcon = '<svg><use href="#wa"/></svg>';
+    var sections = migrate(c).sections;
+    // The first section of each type gets the id the menu links to.
+    var ANCHORS = { services: 'masajes', facilities: 'instalaciones', zones: 'zonas' };
+    var used = {};
+    var ids = sections.map(function (s, i) {
+      var a = ANCHORS[s.type];
+      if (a && !used[a]) { used[a] = true; return a; }
+      return 's' + (i + 1);
+    });
+
+    var R = {
+      hero: function (h, id, i) {
+        var url = photoUrl(h.photo, slug);
+        var portrait = url
+          ? '<img src="' + esc(url) + '" alt="' + t('name') + '">'
+          : '<div class="ph-photo">' + PHOTO_ICON + 'Foto principal<br>próximamente</div>';
+        var badge = (h.badgeTitle || h.badgeText) ? '<div class="badge"><b>' + esc(h.badgeTitle) + '</b>' + esc(h.badgeText) + '</div>' : '';
+        var tag = i === 0 ? 'header' : 'section';
+        return '<' + tag + ' class="hero" id="' + id + '"><div class="wrap"><div class="reveal">' +
+          (h.eyebrow ? '<div class="eyebrow">' + esc(h.eyebrow) + '</div>' : '') +
+          '<h1 class="serif">' + esc(h.title) + ' <em class="gold">' + esc(h.titleAccent) + '</em></h1>' +
+          '<p class="lead">' + (h.greeting ? '<strong>' + esc(h.greeting) + '</strong><br>' : '') + lines(h.lead) + '</p>' +
+          '<div class="ctas">' + (h.ctaPrimary ? '<a class="btn btn-wa" ' + waAttrs + '>' + waIcon + esc(h.ctaPrimary) + '</a>' : '') +
+          (h.ctaSecondary ? '<a class="btn btn-ghost" href="#' + (used.masajes ? 'masajes' : ids[i + 1] || '') + '">' + esc(h.ctaSecondary) + '</a>' : '') + '</div>' +
+          '</div><div class="portrait reveal">' + portrait + badge + '</div></div></' + tag + '>';
+      },
+      intro: function (x, id) {
+        return '<section class="intro" id="' + id + '"><div class="wrap reveal">' +
+          '<p class="quote">' + esc(x.quote) + ' <span class="gold">' + esc(x.quoteAccent) + '</span></p>' +
+          '<div class="divider">✦</div>' + (x.body ? '<p class="body">' + lines(x.body) + '</p>' : '') +
+          '</div></section>';
+      },
+      services: function (x, id) {
+        var items = (x.items || []).map(function (s, i) {
+          return '<article class="svc reveal"><div class="num">' + (i < 9 ? '0' : '') + (i + 1) + '</div><h3>' + esc(s.name) + '</h3><p>' + lines(s.desc) + '</p></article>';
+        }).join('');
+        return '<section id="' + id + '"><div class="wrap">' + head(x) +
+          '<div class="grid">' + items + '</div>' +
+          (x.benefit ? '<p class="benefit reveal">' + lines(x.benefit) + '</p>' : '') +
+          '</div></section>';
+      },
+      facilities: function (x, id) {
+        var amen = (x.items || []).map(function (a) {
+          return '<div class="item reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' +
+            (ICONS[a.icon] || ICONS.star) + '</svg><div><h4>' + esc(a.title) + '</h4><p>' + lines(a.desc) + '</p></div></div>';
+        }).join('');
+        var gallery = (x.gallery || []).map(function (g, i) {
+          var url = photoUrl(g.photo, slug), cls = i === 0 ? 'room' : 'shot';
+          if (url) {
+            return '<figure class="' + cls + ' reveal"><img src="' + esc(url) + '" alt="' + esc(g.caption || '') + '" loading="lazy">' +
+              (g.caption ? '<figcaption>' + esc(g.caption) + '</figcaption>' : '') + '</figure>';
+          }
+          return '<div class="' + (i === 0 ? 'room ' : '') + 'ph reveal">' + PHOTO_ICON + esc(g.placeholder || g.caption || 'Foto') + '<br>próximamente</div>';
+        }).join('');
+        return '<section id="' + id + '" style="padding-top:20px"><div class="wrap">' + head(x) +
+          (amen ? '<div class="amen">' + amen + '</div>' : '') +
+          (gallery ? '<div class="gallery">' + gallery + '</div>' : '') +
+          '</div></section>';
+      },
+      zones: function (x, id) {
+        var places = (x.places || []).filter(Boolean).map(function (p) { return '<span class="chip">' + esc(p) + '</span>'; }).join('');
+        return '<section id="' + id + '" class="zones"><div class="wrap">' + head(x, x.text) +
+          '<div class="chips reveal">' + places + '</div></div></section>';
+      },
+      cta: function (x, id) {
+        return '<section class="cta" id="' + id + '"><div class="wrap reveal">' +
+          (x.eyebrow ? '<div class="eyebrow">' + esc(x.eyebrow) + '</div>' : '') +
+          '<h2 class="gold" style="margin-top:14px">' + esc(x.title) + '</h2>' +
+          (x.text ? '<p>' + lines(x.text) + '</p>' : '') +
+          (x.button ? '<a class="btn btn-wa" ' + waAttrs + '>' + waIcon + esc(x.button) + '</a>' : '') +
+          '</div></section>';
+      }
+    };
+    function head(x, text) {
+      return '<div class="head reveal">' + (x.eyebrow ? '<div class="eyebrow">' + esc(x.eyebrow) + '</div>' : '') +
+        '<h2>' + esc(x.title) + '</h2>' + (text ? '<p>' + lines(text) + '</p>' : '') + '</div>';
+    }
+
+    var navLinks = [['masajes', 'nav.services'], ['instalaciones', 'nav.facilities'], ['zonas', 'nav.zones']]
+      .filter(function (l) { return used[l[0]] && get(c, l[1]); })
+      .map(function (l) { return '<a href="#' + l[0] + '">' + t(l[1]) + '</a>'; }).join('');
+
     var html =
       '<nav id="nav"><div class="wrap">' +
         '<a href="#" class="logo gold">' + t('name') + '</a>' +
-        '<div class="nav-links"><a href="#masajes">' + t('nav.services') + '</a><a href="#instalaciones">' + t('nav.facilities') + '</a><a href="#zonas">' + t('nav.zones') + '</a></div>' +
+        '<div class="nav-links">' + navLinks + '</div>' +
         '<a class="btn btn-wa" style="padding:10px 18px;font-size:14px" ' + waAttrs + '>' + waIcon + t('nav.reserve') + '</a>' +
       '</div></nav>' +
-
-      '<header class="hero"><div class="wrap"><div class="reveal">' +
-        '<div class="eyebrow">' + t('hero.eyebrow') + '</div>' +
-        '<h1 class="serif">' + t('hero.title') + ' <em class="gold">' + t('hero.titleAccent') + '</em></h1>' +
-        '<p class="lead">' + (h.greeting ? '<strong>' + t('hero.greeting') + '</strong><br>' : '') + lines(h.lead) + '</p>' +
-        '<div class="ctas"><a class="btn btn-wa" ' + waAttrs + '>' + waIcon + t('hero.ctaPrimary') + '</a>' +
-        (h.ctaSecondary ? '<a class="btn btn-ghost" href="#masajes">' + t('hero.ctaSecondary') + '</a>' : '') + '</div>' +
-      '</div><div class="portrait reveal">' + portrait + badge + '</div></div></header>' +
-
-      '<section class="intro"><div class="wrap reveal">' +
-        '<p class="quote">' + t('intro.quote') + ' <span class="gold">' + t('intro.quoteAccent') + '</span></p>' +
-        '<div class="divider">✦</div><p class="body">' + lines(get(c, 'intro.body')) + '</p>' +
-      '</div></section>' +
-
-      '<section id="masajes"><div class="wrap">' +
-        '<div class="head reveal"><div class="eyebrow">' + t('services.eyebrow') + '</div><h2>' + t('services.title') + '</h2></div>' +
-        '<div class="grid">' + services + '</div>' +
-        (get(c, 'services.benefit') ? '<p class="benefit reveal">' + lines(get(c, 'services.benefit')) + '</p>' : '') +
-      '</div></section>' +
-
-      '<section id="instalaciones" style="padding-top:20px"><div class="wrap">' +
-        '<div class="head reveal"><div class="eyebrow">' + t('facilities.eyebrow') + '</div><h2>' + t('facilities.title') + '</h2></div>' +
-        '<div class="amen">' + amen + '</div>' +
-        (gallery ? '<div class="gallery">' + gallery + '</div>' : '') +
-      '</div></section>' +
-
-      '<section id="zonas" class="zones"><div class="wrap">' +
-        '<div class="head reveal"><div class="eyebrow">' + t('zones.eyebrow') + '</div><h2>' + t('zones.title') + '</h2>' +
-        (get(c, 'zones.text') ? '<p>' + lines(get(c, 'zones.text')) + '</p>' : '') + '</div>' +
-        '<div class="chips reveal">' + places + '</div>' +
-      '</div></section>' +
-
-      '<section class="cta"><div class="wrap reveal">' +
-        '<div class="eyebrow">' + t('cta.eyebrow') + '</div>' +
-        '<h2 class="gold" style="margin-top:14px">' + t('cta.title') + '</h2>' +
-        '<p>' + lines(get(c, 'cta.text')) + '</p>' +
-        '<a class="btn btn-wa" ' + waAttrs + '>' + waIcon + t('cta.button') + '</a>' +
-      '</div></section>' +
-
+      sections.map(function (s, i) { return R[s.type] ? R[s.type](s, ids[i], i) : ''; }).join('') +
       '<footer><div class="wrap">© ' + new Date().getFullYear() + ' ' + t('footer') + '</div></footer>' +
       '<a class="fab" ' + waAttrs + ' aria-label="WhatsApp">' + waIcon + '</a>';
 
@@ -157,6 +184,7 @@
   }
 
   window.renderSite = render;
+  window.siteMigrate = migrate;
 
   // Published pages carry their content inline.
   var inline = document.getElementById('site-content');

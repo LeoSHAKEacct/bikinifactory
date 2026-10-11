@@ -124,6 +124,13 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
 .hist-row div{flex:1;min-width:0}
 .hist-row small{display:block;color:var(--muted)}
 .card.wide{max-width:460px}
+.sec-hint{color:var(--muted);font-weight:400;font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;flex:1}
+.sum-tools{display:flex;gap:4px;flex:none}
+.sum-tools .icon-btn{width:26px;height:26px;font-size:13px}
+.icon-btn:disabled{opacity:.3;cursor:default}
+.sec-tools{display:flex;gap:6px;flex-wrap:wrap;padding-bottom:4px;border-bottom:1px dashed var(--line)}
+.add-sec{display:flex;gap:8px;margin:14px 0 4px;padding:14px;border:1px dashed var(--line2);border-radius:14px}
+.add-sec select{flex:1}
 .login{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:15;padding:16px}
 .login.off{display:none}
 </style>
@@ -194,57 +201,69 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
 </div>
 <div class="toast" id="toast"></div>
 
+<script src="/_site/site.js"></script>
 <script>
 var ICONS = [['home','Casa'],['parking','Parqueadero'],['shield','Discreción'],['drink','Bebida'],['heart','Corazón'],['star','Estrella'],['candle','Vela'],['car','Carro / domicilio']];
 
-// Form layout: [path, label, type, hint]
-var FORM = [
-  { title: 'General', open: true, fields: [
-    ['name', 'Nombre (logo y foto)'],
-    ['phone', 'WhatsApp con código de país', 'tel', 'Ej: 573217455367'],
-    ['waMessage', 'Mensaje que llega por WhatsApp'],
-    ['seo.title', 'Título en la pestaña y en Google'],
-    ['seo.description', 'Descripción para Google y al compartir el link', 'textarea'],
-    ['nav.services', 'Menú: masajes'], ['nav.facilities', 'Menú: instalaciones'], ['nav.zones', 'Menú: zonas'], ['nav.reserve', 'Botón del menú'],
-    ['footer', 'Pie de página']
-  ]},
-  { title: 'Portada', open: true, fields: [
-    ['hero.photo', 'Foto principal', 'image'],
-    ['hero.eyebrow', 'Texto pequeño arriba (dorado)'],
-    ['hero.title', 'Título'],
-    ['hero.titleAccent', 'Título, parte en color'],
-    ['hero.greeting', 'Saludo'],
-    ['hero.lead', 'Frase', 'textarea'],
-    ['hero.ctaPrimary', 'Botón de WhatsApp'],
-    ['hero.ctaSecondary', 'Segundo botón (vacío = ocultar)'],
-    ['hero.badgeTitle', 'Etiqueta sobre la foto: nombre'],
-    ['hero.badgeText', 'Etiqueta sobre la foto: texto']
-  ]},
-  { title: 'Frase destacada', fields: [
-    ['intro.quote', 'Frase'], ['intro.quoteAccent', 'Frase, parte en color'], ['intro.body', 'Texto', 'textarea']
-  ]},
-  { title: 'Masajes', fields: [
-    ['services.eyebrow', 'Texto pequeño (dorado)'], ['services.title', 'Título'],
-    { list: 'services.items', label: 'Masaje', add: '+ Agregar masaje', empty: { name: 'Nuevo masaje', desc: '' },
-      fields: [['name', 'Nombre'], ['desc', 'Descripción', 'textarea']] },
-    ['services.benefit', 'Frase de beneficios (vacío = ocultar)', 'textarea']
-  ]},
-  { title: 'Instalaciones', fields: [
-    ['facilities.eyebrow', 'Texto pequeño (dorado)'], ['facilities.title', 'Título'],
-    { list: 'facilities.items', label: 'Comodidad', add: '+ Agregar comodidad', empty: { icon: 'star', title: 'Nueva', desc: '' },
-      fields: [['icon', 'Ícono', 'icon'], ['title', 'Título'], ['desc', 'Descripción']] },
-    { list: 'facilities.gallery', label: 'Foto', fixed: true, sub: 'Galería (la primera es la grande)',
-      fields: [['photo', 'Foto', 'image'], ['caption', 'Texto sobre la foto'], ['placeholder', 'Texto si no hay foto']] }
-  ]},
-  { title: 'Domicilios', fields: [
-    ['zones.eyebrow', 'Texto pequeño (dorado)'], ['zones.title', 'Título'], ['zones.text', 'Texto', 'textarea'],
-    ['zones.places', 'Lugares (uno por línea)', 'lines']
-  ]},
-  { title: 'Reserva (final)', fields: [
-    ['cta.eyebrow', 'Texto pequeño (dorado)'], ['cta.title', 'Título'], ['cta.text', 'Texto', 'textarea'],
-    ['cta.button', 'Botón', 'text', '{telefono} se cambia por el número']
-  ]}
+// Form layout. Fields are [key, label, type, hint]; lists are { list, ... }.
+var GENERAL = [
+  ['name', 'Nombre (logo y foto)'],
+  ['phone', 'WhatsApp con código de país', 'tel', 'Ej: 573217455367'],
+  ['waMessage', 'Mensaje que llega por WhatsApp'],
+  ['seo.title', 'Título en la pestaña y en Google'],
+  ['seo.description', 'Descripción para Google y al compartir el link', 'textarea'],
+  ['nav.services', 'Menú: link a la 1ª sección de lista'], ['nav.facilities', 'Menú: link a la 1ª de instalaciones'], ['nav.zones', 'Menú: link a la 1ª de zonas'], ['nav.reserve', 'Botón del menú'],
+  ['footer', 'Pie de página']
 ];
+// Section types: each page is an ordered list of these, which can be duplicated or removed.
+var SECTION_TYPES = {
+  hero: { label: 'Portada', fields: [
+    ['photo', 'Foto principal', 'image'],
+    ['eyebrow', 'Texto pequeño arriba (dorado)'],
+    ['title', 'Título'],
+    ['titleAccent', 'Título, parte en color'],
+    ['greeting', 'Saludo'],
+    ['lead', 'Frase', 'textarea'],
+    ['ctaPrimary', 'Botón de WhatsApp (vacío = ocultar)'],
+    ['ctaSecondary', 'Segundo botón (vacío = ocultar)'],
+    ['badgeTitle', 'Etiqueta sobre la foto: nombre'],
+    ['badgeText', 'Etiqueta sobre la foto: texto']
+  ], blank: { photo: '', eyebrow: 'Texto pequeño', title: 'Nuevo título', titleAccent: 'en color', greeting: '', lead: 'Escribe aquí tu frase.', ctaPrimary: 'Escríbeme por WhatsApp', ctaSecondary: '', badgeTitle: '', badgeText: '' } },
+  intro: { label: 'Frase destacada', fields: [
+    ['quote', 'Frase'], ['quoteAccent', 'Frase, parte en color'], ['body', 'Texto', 'textarea']
+  ], blank: { quote: 'Una frase que inspire', quoteAccent: 'en color', body: '' } },
+  services: { label: 'Lista (masajes, servicios, productos)', fields: [
+    ['eyebrow', 'Texto pequeño (dorado)'], ['title', 'Título'],
+    { list: 'items', label: 'Elemento', add: '+ Agregar elemento', empty: { name: 'Nuevo', desc: '' },
+      fields: [['name', 'Nombre'], ['desc', 'Descripción', 'textarea']] },
+    ['benefit', 'Frase final (vacío = ocultar)', 'textarea']
+  ], blank: { eyebrow: 'Texto pequeño', title: 'Nueva lista', items: [{ name: 'Elemento 1', desc: '' }], benefit: '' } },
+  facilities: { label: 'Instalaciones y galería', fields: [
+    ['eyebrow', 'Texto pequeño (dorado)'], ['title', 'Título'],
+    { list: 'items', label: 'Comodidad', add: '+ Agregar comodidad', empty: { icon: 'star', title: 'Nueva', desc: '' },
+      fields: [['icon', 'Ícono', 'icon'], ['title', 'Título'], ['desc', 'Descripción']] },
+    { list: 'gallery', label: 'Foto', fixed: true, sub: 'Galería (la primera es la grande)',
+      fields: [['photo', 'Foto', 'image'], ['caption', 'Texto sobre la foto'], ['placeholder', 'Texto si no hay foto']] }
+  ], blank: { eyebrow: 'Texto pequeño', title: 'Nueva galería', items: [], gallery: [{ photo: '', caption: '', placeholder: 'Foto 1' }, { photo: '', caption: '', placeholder: 'Foto 2' }, { photo: '', caption: '', placeholder: 'Foto 3' }] } },
+  zones: { label: 'Zonas / lugares', fields: [
+    ['eyebrow', 'Texto pequeño (dorado)'], ['title', 'Título'], ['text', 'Texto', 'textarea'],
+    ['places', 'Lugares (uno por línea)', 'lines']
+  ], blank: { eyebrow: 'Texto pequeño', title: 'Dónde estamos', text: '', places: ['Lugar 1'] } },
+  cta: { label: 'Llamado final (botón WhatsApp)', fields: [
+    ['eyebrow', 'Texto pequeño (dorado)'], ['title', 'Título'], ['text', 'Texto', 'textarea'],
+    ['button', 'Botón (vacío = ocultar)', 'text', '{telefono} se cambia por el número']
+  ], blank: { eyebrow: 'Texto pequeño', title: '¡Escríbeme!', text: '', button: 'WhatsApp {telefono}' } }
+};
+var migrate = window.siteMigrate;
+// Calls fn on every "photo" field in content and stores what it returns.
+function mapPhotos(o, fn) {
+  if (Array.isArray(o)) o.forEach(function (x) { mapPhotos(x, fn); });
+  else if (o && typeof o === 'object') Object.keys(o).forEach(function (k) {
+    if (k === 'photo' && typeof o[k] === 'string') o[k] = fn(o[k]);
+    else mapPhotos(o[k], fn);
+  });
+  return o;
+}
 var RESERVED = ['admin', 'api', '_site', 'anamaria', 'mohammad', 'index', 'sites', 'public', 'static'];
 
 // published: what is live (content.json on main) · saved: last version stored in the cloud
@@ -322,8 +341,8 @@ async function start() {
 async function loadSite(slug) {
   if (state.drafts[slug]) return;
   var j = await api('GET', '/api/load?slug=' + encodeURIComponent(slug));
-  state.published[slug] = j.published;
-  state.saved[slug] = j.draft || j.published;
+  state.published[slug] = j.published && migrate(j.published);
+  state.saved[slug] = migrate(j.draft || j.published);
   state.drafts[slug] = clone(state.saved[slug]);
 }
 
@@ -379,15 +398,12 @@ function scheduleSave(slug) {
 // Moves data: URLs out of content into an upload map, naming them uniquely.
 function extractImages(content) {
   var images = {}, stamp = Date.now().toString(36), n = 0;
-  function take(obj, key, tag) {
-    var v = obj && obj[key];
-    if (typeof v === 'string' && v.indexOf('data:image') === 0) {
-      var name = tag + '-' + stamp + (n++ ? '-' + n : '') + '.jpg';
-      images[name] = v; obj[key] = name;
-    }
-  }
-  take(content.hero, 'photo', 'foto');
-  ((content.facilities || {}).gallery || []).forEach(function (g, i) { take(g, 'photo', 'galeria' + (i + 1)); });
+  mapPhotos(content, function (v) {
+    if (v.indexOf('data:image') !== 0) return v;
+    var name = 'foto-' + stamp + (n++ ? '-' + n : '') + '.jpg';
+    images[name] = v;
+    return name;
+  });
   return images;
 }
 // After upload, swap the data: URLs in the editor for their new file names.
@@ -395,8 +411,7 @@ function adoptUploads(slug, images) {
   var d = state.drafts[slug];
   Object.keys(images).forEach(function (name) {
     localImages[slug + '/' + name] = images[name];
-    if (d.hero && d.hero.photo === images[name]) d.hero.photo = name;
-    ((d.facilities || {}).gallery || []).forEach(function (g) { if (g.photo === images[name]) g.photo = name; });
+    mapPhotos(d, function (v) { return v === images[name] ? name : v; });
   });
 }
 function tooBig(images) { return JSON.stringify(images).length > 4 * 1024 * 1024; }
@@ -450,10 +465,12 @@ function fieldHtml(path, label, type, hint, value) {
   return '<label class="f">' + lab + '<input type="' + (type === 'tel' ? 'tel' : 'text') + '" data-path="' + esc(path) + '" value="' + esc(value) + '"></label>';
 }
 
+var forceOpen = null, keepOpen = false;
 function renderEditor() {
   var d = draft(); if (!d) return;
   var openState = {};
-  document.querySelectorAll('details.sec').forEach(function (el, i) { openState[i] = el.open; });
+  if (!keepOpen) document.querySelectorAll('details.sec').forEach(function (el) { openState[el.dataset.key] = el.open; });
+  keepOpen = false;
   var html = '<div class="site-actions">' +
     '<button class="btn small" id="dupSite">Duplicar este sitio</button>' +
     '<button class="btn small" id="history">Historial</button>' +
@@ -461,28 +478,52 @@ function renderEditor() {
   html += '<div class="note" style="background:rgba(236,95,122,.07);border-color:var(--line2);color:var(--rose2)">Tip: escribe <b>{nombre}</b> o <b>{telefono}</b> en cualquier texto y se reemplaza solo.</div>';
   html += '<div class="note">Editando <b>' + esc(siteLabel(state.slug)) + '</b> · link: <b>' + esc(location.host) + '/' + esc(state.slug) + '/</b><br>Todo se <b>guarda solo</b> en la nube unos segundos después de editar (también desde otro computador). Con <b>Publicar en Vercel</b> queda en vivo en ~1 minuto.</div>';
 
-  FORM.forEach(function (sec, si) {
-    var open = si in openState ? openState[si] : sec.open;
-    html += '<details class="sec"' + (open ? ' open' : '') + '><summary><span class="n">' + (si + 1) + '</span>' + esc(sec.title) + '</summary><div class="sec-body">';
-    sec.fields.forEach(function (f) {
-      if (Array.isArray(f)) { html += fieldHtml(f[0], f[1], f[2], f[3], get(d, f[0])); return; }
-      var items = get(d, f.list) || [];
+  var open = function (key, dflt) { return key in openState ? openState[key] : dflt; };
+  html += '<details class="sec" data-key="g"' + (open('g', true) ? ' open' : '') + '><summary><span class="n">⚙</span>General</summary><div class="sec-body">';
+  GENERAL.forEach(function (f) { html += fieldHtml(f[0], f[1], f[2], f[3], get(d, f[0])); });
+  html += '</div></details>';
+
+  var secs = d.sections || [];
+  secs.forEach(function (sec, si) {
+    var def = SECTION_TYPES[sec.type]; if (!def) return;
+    var base = 'sections.' + si + '.', key = 's' + si;
+    var hint = sec.title || sec.quote || '';
+    html += '<details class="sec" data-key="' + key + '"' + (open(key, si === 0 || forceOpen === si) ? ' open' : '') + '><summary><span class="n">' + (si + 1) + '</span>' + esc(def.label) +
+      '<span class="sec-hint">' + esc(hint) + '</span>' +
+      '<span class="sum-tools">' +
+        '<button type="button" class="icon-btn" title="Subir" data-sec-move="' + si + '|-1"' + (si === 0 ? ' disabled' : '') + '>↑</button>' +
+        '<button type="button" class="icon-btn" title="Bajar" data-sec-move="' + si + '|1"' + (si === secs.length - 1 ? ' disabled' : '') + '>↓</button>' +
+        '<button type="button" class="icon-btn" title="Duplicar sección" data-sec-dup="' + si + '">⧉</button>' +
+        '<button type="button" class="icon-btn" title="Eliminar sección" data-sec-del="' + si + '">✕</button>' +
+      '</span></summary><div class="sec-body">';
+    html += '<div class="sec-tools">' +
+      '<button type="button" class="btn small" data-sec-move="' + si + '|-1"' + (si === 0 ? ' disabled' : '') + '>↑ Subir</button>' +
+      '<button type="button" class="btn small" data-sec-move="' + si + '|1"' + (si === secs.length - 1 ? ' disabled' : '') + '>↓ Bajar</button>' +
+      '<button type="button" class="btn small" data-sec-dup="' + si + '">Duplicar</button>' +
+      '<button type="button" class="btn small danger" data-sec-del="' + si + '">Eliminar</button></div>';
+    def.fields.forEach(function (f) {
+      if (Array.isArray(f)) { html += fieldHtml(base + f[0], f[1], f[2], f[3], get(sec, f[0])); return; }
+      var lp = base + f.list, items = sec[f.list] || [];
       if (f.sub) html += '<div class="sub">' + esc(f.sub) + '</div>';
       items.forEach(function (it, i) {
         html += '<div class="list-item"><div class="list-head"><b>' + esc(f.label) + ' ' + (i + 1) + '</b>';
         if (!f.fixed) {
-          html += '<button type="button" class="icon-btn" title="Subir" data-move="' + f.list + '|' + i + '|-1">↑</button>' +
-            '<button type="button" class="icon-btn" title="Bajar" data-move="' + f.list + '|' + i + '|1">↓</button>' +
-            '<button type="button" class="icon-btn" title="Eliminar" data-del="' + f.list + '|' + i + '">✕</button>';
+          html += '<button type="button" class="icon-btn" title="Subir" data-move="' + lp + '|' + i + '|-1">↑</button>' +
+            '<button type="button" class="icon-btn" title="Bajar" data-move="' + lp + '|' + i + '|1">↓</button>' +
+            '<button type="button" class="icon-btn" title="Eliminar" data-del="' + lp + '|' + i + '">✕</button>';
         }
         html += '</div>';
-        f.fields.forEach(function (sf) { html += fieldHtml(f.list + '.' + i + '.' + sf[0], sf[1], sf[2], sf[3], it[sf[0]]); });
+        f.fields.forEach(function (sf) { html += fieldHtml(lp + '.' + i + '.' + sf[0], sf[1], sf[2], sf[3], it[sf[0]]); });
         html += '</div>';
       });
-      if (!f.fixed) html += '<button type="button" class="btn small" data-add="' + f.list + '">' + esc(f.add) + '</button>';
+      if (!f.fixed) html += '<button type="button" class="btn small" data-add="' + lp + '|' + sec.type + '|' + f.list + '">' + esc(f.add) + '</button>';
     });
     html += '</div></details>';
   });
+  html += '<div class="add-sec"><select id="newSecType">' + Object.keys(SECTION_TYPES).map(function (k) {
+    return '<option value="' + k + '">' + esc(SECTION_TYPES[k].label) + '</option>';
+  }).join('') + '</select><button type="button" class="btn small" id="addSec">+ Agregar sección</button></div>';
+  forceOpen = null;
   var ed = $('editor'), top = ed.scrollTop;
   ed.innerHTML = html;
   ed.scrollTop = top;
@@ -509,10 +550,33 @@ $('editor').addEventListener('input', function (e) {
 
 $('editor').addEventListener('click', function (e) {
   var t = e.target, d = draft(), p;
+  if (t.closest('.sum-tools')) e.preventDefault(); // don't fold the section
+  var secs = d.sections;
   if (t.dataset.add) {
-    if (!get(d, t.dataset.add)) set(d, t.dataset.add, []);
-    get(d, t.dataset.add).push(clone(findList(t.dataset.add).empty));
+    p = t.dataset.add.split('|');
+    if (!get(d, p[0])) set(d, p[0], []);
+    get(d, p[0]).push(clone(findList(p[1], p[2]).empty));
     changed(true);
+  } else if (t.dataset.secMove) {
+    p = t.dataset.secMove.split('|');
+    var a = +p[0], b2 = a + (+p[1]);
+    if (b2 < 0 || b2 >= secs.length) return;
+    var s1 = secs[a]; secs[a] = secs[b2]; secs[b2] = s1;
+    forceOpen = b2; keepOpen = true; changed(true);
+  } else if (t.dataset.secDup) {
+    var di = +t.dataset.secDup;
+    secs.splice(di + 1, 0, clone(secs[di]));
+    forceOpen = di + 1; keepOpen = true; changed(true);
+    toast('Sección duplicada. Edita la copia (número ' + (di + 2) + ').', 'ok');
+  } else if (t.dataset.secDel) {
+    var xi = +t.dataset.secDel;
+    if (!confirm('¿Eliminar la sección ' + (xi + 1) + ' (' + SECTION_TYPES[secs[xi].type].label + ')? Puedes recuperarla con Historial si ya estaba publicada.')) return;
+    secs.splice(xi, 1); keepOpen = true; changed(true);
+  } else if (t.id === 'addSec') {
+    var type = $('newSecType').value;
+    secs.push(Object.assign({ type: type }, clone(SECTION_TYPES[type].blank)));
+    forceOpen = secs.length - 1; keepOpen = true; changed(true);
+    setTimeout(function () { var el = document.querySelector('details[data-key="s' + (secs.length - 1) + '"]'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
   } else if (t.dataset.del) {
     p = t.dataset.del.split('|');
     if (!confirm('¿Eliminar este elemento?')) return;
@@ -534,10 +598,8 @@ $('editor').addEventListener('click', function (e) {
   }
 });
 
-function findList(path) {
-  var out;
-  FORM.forEach(function (s) { s.fields.forEach(function (f) { if (f.list === path) out = f; }); });
-  return out;
+function findList(type, key) {
+  return SECTION_TYPES[type].fields.filter(function (f) { return f.list === key; })[0];
 }
 
 // ---------- images ----------
@@ -576,8 +638,7 @@ try { if ($('frame').contentWindow.renderSite) frameReady = true; } catch (e) {}
 function pushPreview() {
   if (!frameReady || !draft()) return;
   var c = clone(draft());
-  if (c.hero) c.hero.photo = photoUrl(c.hero.photo, state.slug);
-  ((c.facilities || {}).gallery || []).forEach(function (g) { g.photo = photoUrl(g.photo, state.slug); });
+  mapPhotos(c, function (v) { return photoUrl(v, state.slug); });
   $('frame').contentWindow.postMessage({ type: 'preview', slug: state.slug, content: c }, location.origin);
 }
 function schedulePreview() { clearTimeout(previewTimer); previewTimer = setTimeout(pushPreview, 120); }
@@ -676,8 +737,8 @@ $('nsForm').onsubmit = async function (e) {
       if (/^(data:|https?:|\/)/.test(v)) return v;
       return '/' + src + '/' + v; // keep pointing at the original site's file
     };
-    c.hero.photo = photo(c.hero.photo);
-    ((c.facilities || {}).gallery || []).forEach(function (g) { g.photo = photo(g.photo); if (!g.photo) g.caption = ''; });
+    mapPhotos(c, photo);
+    if (!photos) (c.sections || []).forEach(function (s) { (s.gallery || []).forEach(function (g) { g.caption = ''; }); });
     var images = extractImages(c);
     await api('POST', '/api/save', { slug: slug, content: c, images: images, create: { label: label } });
     Object.keys(images).forEach(function (name) { localImages[slug + '/' + name] = images[name]; });
@@ -718,7 +779,7 @@ $('histList').addEventListener('click', async function (e) {
   var slug = state.slug;
   try {
     var j = await api('GET', '/api/history?slug=' + encodeURIComponent(slug) + '&sha=' + sha);
-    state.drafts[slug] = j.content;
+    state.drafts[slug] = migrate(j.content);
     $('histModal').classList.remove('on');
     changed(true);
     toast('Versión restaurada en el editor (y guardada). Pulsa <b>Publicar en Vercel</b> para ponerla en vivo.', 'ok', 8000);
