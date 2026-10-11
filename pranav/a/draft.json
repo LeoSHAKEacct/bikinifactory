@@ -13,7 +13,7 @@
     "reserve": "Reservar"
   },
   "hero": {
-    "photo": "foto-mv33kafu.jpg",
+    "photo": "",
     "eyebrow": "Masajes · Medellín",
     "title": "Relajación y placer",
     "titleAccent": "en un masaje",
@@ -34,7 +34,7 @@
     "title": "Design",
     "items": [
       {
-        "name": "Masaje Veloterapia",
+        "name": "",
         "desc": "Un ritual cálido y envolvente que despierta cada rincón de tu piel."
       },
       {
