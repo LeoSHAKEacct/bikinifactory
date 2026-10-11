@@ -29,16 +29,8 @@ a{color:inherit}
 .tab.on{background:var(--rose);border-color:var(--rose);color:#fff}
 .tab .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);display:none}
 .tab.dirty .dot{display:inline-block}
-.tab.add{border-style:dashed;color:var(--gold)}
-.tab.add:hover{border-color:var(--gold)}
 .spacer{flex:1}
 .status{color:var(--muted);font-size:13px;white-space:nowrap}
-.status.pending{color:var(--gold)}
-.status.pending::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gold);margin-right:8px;animation:blink 1s infinite}
-.status.live{color:var(--ok)}
-.status.live a{color:inherit}
-.status.slow{color:var(--err)}
-@keyframes blink{50%{opacity:.25}}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 16px;border-radius:10px;border:1px solid var(--line2);background:transparent;cursor:pointer;font-weight:500;white-space:nowrap;text-decoration:none}
 .btn:hover{background:rgba(255,255,255,.05)}
 .btn:disabled{opacity:.5;cursor:not-allowed}
@@ -115,6 +107,25 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
   .mtabs .btn.on{background:var(--panel2);color:var(--rose2)}
   .seg{display:none}
 }
+.tab.add{border-style:dashed;color:var(--gold)}
+.tab.add:hover{border-color:var(--gold)}
+.status.pending{color:var(--gold)}
+.status.pending::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gold);margin-right:8px;animation:blink 1s infinite}
+.status.live{color:var(--ok)}
+.status.live a{color:inherit}
+.status.slow,.status.err{color:var(--err)}
+@keyframes blink{50%{opacity:.25}}
+.save-state{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.save-state.saving{color:var(--gold)}
+.save-state.ok{color:var(--ok)}
+.save-state.err{color:var(--err)}
+.hist{display:flex;flex-direction:column;gap:6px;max-height:50vh;overflow:auto}
+.hist-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px}
+.hist-row div{flex:1;min-width:0}
+.hist-row small{display:block;color:var(--muted)}
+.card.wide{max-width:460px}
+.login{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:15;padding:16px}
+.login.off{display:none}
 </style>
 </head>
 <body>
@@ -123,10 +134,12 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
   <div class="brand">Sitios <small>Admin</small></div>
   <nav class="tabs" id="tabs"></nav>
   <div class="spacer"></div>
+  <span class="save-state" id="saveState"></span>
   <span class="status" id="status"></span>
+  <button class="btn" id="saveBtn">Guardar</button>
   <button class="btn primary" id="publish">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-    Publicar en Vercel
+    <span>Publicar en Vercel</span>
   </button>
 </header>
 <div class="mtabs"><button class="btn on" data-view="edit">Editar</button><button class="btn" data-view="preview">Vista previa</button></div>
@@ -143,41 +156,45 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
   </section>
 </div>
 
-<div class="modal" id="pwModal">
+<div class="login" id="login">
   <form class="card" id="pwForm">
-    <h3>Contraseña</h3>
-    <p>Escribe la contraseña del panel para publicar.</p>
+    <h3>Panel de sitios</h3>
+    <p>Escribe la contraseña para entrar.</p>
     <input type="text" id="pwInput" autocomplete="current-password" style="-webkit-text-security:disc" placeholder="Contraseña">
     <div class="err" id="pwErr"></div>
-    <div style="display:flex;gap:8px;justify-content:flex-end">
-      <button type="button" class="btn" id="pwCancel">Cancelar</button>
-      <button type="submit" class="btn primary">Entrar</button>
-    </div>
+    <div style="display:flex;justify-content:flex-end"><button type="submit" class="btn primary">Entrar</button></div>
   </form>
 </div>
+
 <div class="modal" id="nsModal">
   <form class="card" id="nsForm">
-    <h3>Nuevo sitio</h3>
+    <h3 id="nsTitle">Nuevo sitio</h3>
     <p>Se crea una copia que puedes editar. Queda en vivo cuando pulses <b>Publicar en Vercel</b>.</p>
     <label class="f"><span>Dirección</span>
       <div style="display:flex;align-items:center;gap:6px"><span id="nsHost" style="color:var(--muted);font-size:13px;white-space:nowrap"></span><input type="text" id="nsSlug" placeholder="d" autocomplete="off"></div>
     </label>
     <label class="f"><span>Nombre de la pestaña <em>· solo se ve en el panel</em></span><input type="text" id="nsLabel" placeholder="Sitio D" maxlength="40"></label>
-    <label class="f"><span>Copiar textos de</span><select id="nsSrc"></select></label>
+    <label class="f"><span>Copiar de</span><select id="nsSrc"></select></label>
     <label style="display:flex;gap:8px;align-items:center;color:var(--muted)"><input type="checkbox" id="nsPhotos"> Copiar también las fotos</label>
     <div class="err" id="nsErr"></div>
     <div style="display:flex;gap:8px;justify-content:flex-end">
       <button type="button" class="btn" id="nsCancel">Cancelar</button>
-      <button type="submit" class="btn primary">Crear sitio</button>
+      <button type="submit" class="btn primary" id="nsSubmit">Crear sitio</button>
     </div>
   </form>
+</div>
+
+<div class="modal" id="histModal">
+  <div class="card wide">
+    <h3>Historial</h3>
+    <p>Versiones publicadas de este sitio. <b>Restaurar</b> la carga en el editor; luego publícala si quieres que quede en vivo.</p>
+    <div class="hist" id="histList"></div>
+    <div style="display:flex;justify-content:flex-end"><button type="button" class="btn" id="histClose">Cerrar</button></div>
+  </div>
 </div>
 <div class="toast" id="toast"></div>
 
 <script>
-// Loaded from /sites.json at startup; new sites are added from the panel.
-var SITES = [{ slug: 'alana', label: 'Alana' }];
-var RESERVED = ['admin', 'api', '_site', 'anamaria', 'mohammad', 'index', 'sites', 'public', 'static'];
 var ICONS = [['home','Casa'],['parking','Parqueadero'],['shield','Discreción'],['drink','Bebida'],['heart','Corazón'],['star','Estrella'],['candle','Vela'],['car','Carro / domicilio']];
 
 // Form layout: [path, label, type, hint]
@@ -228,12 +245,18 @@ var FORM = [
     ['cta.button', 'Botón', 'text', '{telefono} se cambia por el número']
   ]}
 ];
+var RESERVED = ['admin', 'api', '_site', 'anamaria', 'mohammad', 'index', 'sites', 'public', 'static'];
 
-var state = { slug: 'alana', published: {}, drafts: {}, password: '', isNew: {} };
+// published: what is live (content.json on main) · saved: last version stored in the cloud
+// drafts: what is in the editor now. Edits autosave to the cloud a moment after typing stops.
+var state = { slug: null, sites: [], published: {}, saved: {}, drafts: {}, password: '' };
+var saving = {}, saveTimers = {}, saveErrors = {}, deploys = {}, localImages = {};
 try { state.password = sessionStorage.getItem('adminpw') || ''; } catch (e) {}
+try { Object.keys(localStorage).forEach(function (k) { if (/^(draft:|newsites$)/.test(k)) localStorage.removeItem(k); }); } catch (e) {}
 
 var $ = function (id) { return document.getElementById(id); };
 function clone(o) { return JSON.parse(JSON.stringify(o)); }
+function same(a, b) { return JSON.stringify(a) === JSON.stringify(b); }
 function get(o, path) { return path.split('.').reduce(function (a, k) { return a == null ? a : a[k]; }, o); }
 function set(o, path, v) {
   var ks = path.split('.'), last = ks.pop();
@@ -241,17 +264,18 @@ function set(o, path, v) {
   o[last] = v;
 }
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
-var localImages = {};
-function photoUrl(v, slug) {
-  if (!v) return '';
-  if (/^(data:|https?:|\/)/.test(v)) return localImages[v] || v;
-  return localImages['/' + slug + '/' + v] || '/' + slug + '/' + v;
-}
-function siteLabel(slug) { var s = SITES.filter(function (x) { return x.slug === slug; })[0]; return s ? s.label : slug; }
+function siteLabel(slug) { var s = state.sites.filter(function (x) { return x.slug === slug; })[0]; return s ? s.label : slug; }
 function draft() { return state.drafts[state.slug]; }
-function isDirty(slug) {
-  if (state.isNew[slug]) return true;
-  return state.drafts[slug] && state.published[slug] && JSON.stringify(state.drafts[slug]) !== JSON.stringify(state.published[slug]);
+function isUnsaved(slug) { return state.drafts[slug] && !same(state.drafts[slug], state.saved[slug]); }
+function isUnpublished(slug) { return state.drafts[slug] && !same(state.drafts[slug], state.published[slug]); }
+
+// Photo values: "foto.jpg" (this site), "/otro/foto.jpg" (another site), or a
+// data: URL not uploaded yet. Saved photos are shown through /api/image so
+// drafts and fresh uploads display before Vercel deploys them.
+function photoUrl(v, slug) {
+  if (!v || /^(data:|https?:)/.test(v)) return v || '';
+  var m = /^\/([^/]+)\/([^/]+)$/.exec(v), s = m ? m[1] : slug, name = m ? m[2] : v;
+  return localImages[s + '/' + name] || '/api/image?slug=' + encodeURIComponent(s) + '&name=' + encodeURIComponent(name);
 }
 
 var toastTimer;
@@ -262,82 +286,148 @@ function toast(html, kind, ms) {
   toastTimer = setTimeout(function () { t.className = 'toast'; }, ms || 4000);
 }
 
-// ---------- persistence of drafts in this browser ----------
-var warnedQuota = false;
-function saveDraft(slug) {
-  try {
-    if (isDirty(slug)) localStorage.setItem('draft:' + slug, JSON.stringify(state.drafts[slug]));
-    else localStorage.removeItem('draft:' + slug);
-  } catch (e) {
-    if (!warnedQuota) { warnedQuota = true; toast('Borrador muy grande para guardarlo en el navegador (por las fotos). Publica para no perder los cambios.', 'err', 7000); }
-  }
+async function api(method, path, body) {
+  var r = await fetch(path, {
+    method: method,
+    headers: { 'Content-Type': 'application/json', 'x-admin-password': state.password },
+    body: body ? JSON.stringify(body) : undefined,
+    cache: 'no-store'
+  });
+  var j = await r.json().catch(function () { return {}; });
+  if (r.status === 401) { logout(); throw new Error('Contraseña incorrecta.'); }
+  if (!r.ok) throw new Error(j.error || ('Error ' + r.status));
+  return j;
 }
-function loadDraft(slug) {
-  try { var s = localStorage.getItem('draft:' + slug); return s ? JSON.parse(s) : null; } catch (e) { return null; }
+
+// ---------- login ----------
+function logout() {
+  state.password = '';
+  try { sessionStorage.removeItem('adminpw'); } catch (e) {}
+  $('login').classList.remove('off');
+}
+$('pwForm').onsubmit = async function (e) {
+  e.preventDefault();
+  state.password = $('pwInput').value;
+  $('pwErr').textContent = '';
+  try { await start(); } catch (err) { $('pwErr').textContent = err.message; }
+};
+async function start() {
+  var j = await api('GET', '/api/load');
+  try { sessionStorage.setItem('adminpw', state.password); } catch (e) {}
+  $('login').classList.add('off');
+  state.sites = j.sites;
+  if (state.sites.length) await switchSite(state.slug || state.sites[0].slug);
 }
 
 async function loadSite(slug) {
-  if (state.published[slug] || state.isNew[slug]) return;
-  var r = await fetch('/' + slug + '/content.json?t=' + Date.now(), { cache: 'no-store' });
-  if (!r.ok) throw new Error('No se pudo cargar /' + slug + '/content.json');
-  state.published[slug] = await r.json();
-  state.drafts[slug] = loadDraft(slug) || clone(state.published[slug]);
+  if (state.drafts[slug]) return;
+  var j = await api('GET', '/api/load?slug=' + encodeURIComponent(slug));
+  state.published[slug] = j.published;
+  state.saved[slug] = j.draft || j.published;
+  state.drafts[slug] = clone(state.saved[slug]);
 }
 
-// ---------- tabs ----------
+// ---------- top bar ----------
 function renderTabs() {
-  $('tabs').innerHTML = SITES.map(function (s) {
-    return '<button class="tab' + (s.slug === state.slug ? ' on' : '') + (isDirty(s.slug) ? ' dirty' : '') + '" data-slug="' + s.slug + '"><span class="dot"></span>' + s.label + '</button>';
+  $('tabs').innerHTML = state.sites.map(function (s) {
+    return '<button class="tab' + (s.slug === state.slug ? ' on' : '') + (isUnpublished(s.slug) ? ' dirty' : '') + '" data-slug="' + esc(s.slug) + '" title="/' + esc(s.slug) + '/"><span class="dot"></span>' + esc(s.label) + '</button>';
   }).join('') + '<button class="tab add" id="addSite">+ Nuevo sitio</button>';
-  var dirty = isDirty(state.slug), dep = deploys[state.slug], st = $('status');
-  st.className = 'status';
-  if (state.isNew[state.slug]) st.textContent = 'Sitio nuevo, sin publicar';
-  else if (dirty) st.textContent = 'Cambios sin publicar';
-  else if (dep && dep.state === 'pending') { st.textContent = 'Publicando en Vercel…'; st.className = 'status pending'; }
-  else if (dep && dep.state === 'live') { st.innerHTML = '✓ En vivo · <a href="/' + state.slug + '/" target="_blank" rel="noopener">ver sitio</a>'; st.className = 'status live'; }
-  else if (dep && dep.state === 'slow') { st.textContent = 'Vercel está tardando, revisa en unos minutos'; st.className = 'status slow'; }
-  else st.textContent = 'Todo publicado';
-  $('publish').disabled = !dirty;
+  renderStatus();
 }
+function renderStatus() {
+  var slug = state.slug; if (!slug) return;
+  var ss = $('saveState'), st = $('status');
+  if (saving[slug]) { ss.textContent = 'Guardando…'; ss.className = 'save-state saving'; }
+  else if (saveErrors[slug]) { ss.textContent = 'No se pudo guardar'; ss.className = 'save-state err'; }
+  else if (isUnsaved(slug)) { ss.textContent = 'Cambios sin guardar'; ss.className = 'save-state'; }
+  else { ss.textContent = '✓ Guardado'; ss.className = 'save-state ok'; }
 
-// After publishing, poll the live site until it serves the new content.
-var deploys = {};
-function watchDeploy(slug, content) {
-  var want = JSON.stringify(content), started = Date.now();
-  var dep = deploys[slug] = { state: 'pending' };
-  renderTabs();
-  (function check() {
-    if (deploys[slug] !== dep) return;
-    fetch('/' + slug + '/content.json?t=' + Date.now(), { cache: 'no-store' })
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .catch(function () { return null; })
-      .then(function (live) {
-        if (deploys[slug] !== dep) return;
-        if (live && JSON.stringify(live) === want) {
-          dep.state = 'live'; renderTabs();
-          toast('✓ <b>' + esc(siteLabel(slug)) + '</b> ya está en vivo: <a href="/' + slug + '/" target="_blank" rel="noopener"><b>' + esc(location.host) + '/' + slug + '/</b></a>', 'ok', 9000);
-        } else if (Date.now() - started > 4 * 60 * 1000) {
-          dep.state = 'slow'; renderTabs();
-        } else {
-          setTimeout(check, 5000);
-        }
-      });
-  })();
+  var dep = deploys[slug];
+  st.className = 'status';
+  if (!state.published[slug]) st.textContent = '· Nunca publicado';
+  else if (isUnpublished(slug)) st.textContent = '· Sin publicar';
+  else if (dep && dep.state === 'pending') { st.textContent = 'Publicando en Vercel…'; st.className = 'status pending'; }
+  else if (dep && dep.state === 'slow') { st.textContent = 'Vercel está tardando, revisa en unos minutos'; st.className = 'status slow'; }
+  else { st.innerHTML = '✓ En vivo · <a href="/' + esc(slug) + '/" target="_blank" rel="noopener">ver sitio</a>'; st.className = 'status live'; }
+
+  $('saveBtn').disabled = !isUnsaved(slug) || saving[slug];
+  $('publish').disabled = !isUnpublished(slug);
 }
 $('tabs').addEventListener('click', function (e) {
   var b = e.target.closest('.tab'); if (!b) return;
-  if (b.id === 'addSite') { openNewSite(); return; }
+  if (b.id === 'addSite') { openNewSite(null); return; }
   switchSite(b.dataset.slug);
 });
 
 async function switchSite(slug) {
   state.slug = slug;
+  renderTabs();
   try { await loadSite(slug); } catch (e) { toast(esc(e.message), 'err'); return; }
+  if (state.slug !== slug) return;
   var path = '/' + slug + '/';
   $('url').textContent = location.host + path;
   $('live').href = path;
   renderTabs(); renderEditor(); pushPreview();
 }
+
+// ---------- autosave ----------
+function scheduleSave(slug) {
+  clearTimeout(saveTimers[slug]);
+  saveTimers[slug] = setTimeout(function () { saveNow(slug); }, 2500);
+}
+
+// Moves data: URLs out of content into an upload map, naming them uniquely.
+function extractImages(content) {
+  var images = {}, stamp = Date.now().toString(36), n = 0;
+  function take(obj, key, tag) {
+    var v = obj && obj[key];
+    if (typeof v === 'string' && v.indexOf('data:image') === 0) {
+      var name = tag + '-' + stamp + (n++ ? '-' + n : '') + '.jpg';
+      images[name] = v; obj[key] = name;
+    }
+  }
+  take(content.hero, 'photo', 'foto');
+  ((content.facilities || {}).gallery || []).forEach(function (g, i) { take(g, 'photo', 'galeria' + (i + 1)); });
+  return images;
+}
+// After upload, swap the data: URLs in the editor for their new file names.
+function adoptUploads(slug, images) {
+  var d = state.drafts[slug];
+  Object.keys(images).forEach(function (name) {
+    localImages[slug + '/' + name] = images[name];
+    if (d.hero && d.hero.photo === images[name]) d.hero.photo = name;
+    ((d.facilities || {}).gallery || []).forEach(function (g) { if (g.photo === images[name]) g.photo = name; });
+  });
+}
+function tooBig(images) { return JSON.stringify(images).length > 4 * 1024 * 1024; }
+
+async function saveNow(slug) {
+  clearTimeout(saveTimers[slug]);
+  if (saving[slug]) { saving[slug].again = true; return saving[slug].promise; }
+  if (!isUnsaved(slug)) return;
+  var content = clone(state.drafts[slug]), images = extractImages(content);
+  if (tooBig(images)) { saveErrors[slug] = true; renderStatus(); toast('Demasiadas fotos nuevas a la vez. Sube de a una o dos.', 'err', 6000); return; }
+  var job = saving[slug] = { again: false };
+  renderStatus();
+  job.promise = (async function () {
+    try {
+      await api('POST', '/api/save', { slug: slug, content: content, images: images });
+      adoptUploads(slug, images);
+      state.saved[slug] = content;
+      saveErrors[slug] = false;
+    } catch (e) {
+      saveErrors[slug] = true;
+      toast('No se pudo guardar: ' + esc(e.message), 'err', 7000);
+    } finally {
+      saving[slug] = null;
+      renderTabs();
+      if (slug === state.slug && Object.keys(images).length) renderEditor();
+      if (job.again || isUnsaved(slug)) scheduleSave(slug);
+    }
+  })();
+  return job.promise;
+}
+$('saveBtn').addEventListener('click', function () { saveNow(state.slug); });
 
 // ---------- editor ----------
 function fieldHtml(path, label, type, hint, value) {
@@ -361,14 +451,15 @@ function fieldHtml(path, label, type, hint, value) {
 }
 
 function renderEditor() {
-  var d = draft();
+  var d = draft(); if (!d) return;
   var openState = {};
   document.querySelectorAll('details.sec').forEach(function (el, i) { openState[i] = el.open; });
-  var html = '<div class="site-actions">';
-  if (state.slug !== 'alana') html += '<button class="btn small" id="copyAlana">Copiar textos de Alana</button>';
-  html += '<button class="btn small danger" id="discard"' + (isDirty(state.slug) ? '' : ' disabled') + '>Descartar cambios</button></div>';
+  var html = '<div class="site-actions">' +
+    '<button class="btn small" id="dupSite">Duplicar este sitio</button>' +
+    '<button class="btn small" id="history">Historial</button>' +
+    '<button class="btn small danger" id="discard"' + (state.published[state.slug] && isUnpublished(state.slug) ? '' : ' disabled') + '>Descartar cambios</button></div>';
   html += '<div class="note" style="background:rgba(236,95,122,.07);border-color:var(--line2);color:var(--rose2)">Tip: escribe <b>{nombre}</b> o <b>{telefono}</b> en cualquier texto y se reemplaza solo.</div>';
-  html += '<div class="note">Editando <b>' + esc(siteLabel(state.slug)) + '</b> · link: <b>' + esc(location.host) + '/' + state.slug + '/</b><br>Los cambios se ven al lado al instante. Con <b>Publicar en Vercel</b> quedan en vivo en ~1 minuto; arriba verás cuándo está listo.</div>';
+  html += '<div class="note">Editando <b>' + esc(siteLabel(state.slug)) + '</b> · link: <b>' + esc(location.host) + '/' + esc(state.slug) + '/</b><br>Todo se <b>guarda solo</b> en la nube unos segundos después de editar (también desde otro computador). Con <b>Publicar en Vercel</b> queda en vivo en ~1 minuto.</div>';
 
   FORM.forEach(function (sec, si) {
     var open = si in openState ? openState[si] : sec.open;
@@ -398,10 +489,12 @@ function renderEditor() {
 }
 
 function changed(rerender) {
-  saveDraft(state.slug);
+  var slug = state.slug;
+  saveErrors[slug] = false;
+  scheduleSave(slug);
   renderTabs();
   if (rerender) renderEditor();
-  else { var b = $('discard'); if (b) b.disabled = !isDirty(state.slug); }
+  else { var b = $('discard'); if (b) b.disabled = !(state.published[slug] && isUnpublished(slug)); }
   schedulePreview();
 }
 
@@ -417,8 +510,8 @@ $('editor').addEventListener('input', function (e) {
 $('editor').addEventListener('click', function (e) {
   var t = e.target, d = draft(), p;
   if (t.dataset.add) {
-    var f = findList(t.dataset.add);
-    (get(d, t.dataset.add) || set(d, t.dataset.add, []) || get(d, t.dataset.add)).push(clone(f.empty));
+    if (!get(d, t.dataset.add)) set(d, t.dataset.add, []);
+    get(d, t.dataset.add).push(clone(findList(t.dataset.add).empty));
     changed(true);
   } else if (t.dataset.del) {
     p = t.dataset.del.split('|');
@@ -432,10 +525,12 @@ $('editor').addEventListener('click', function (e) {
   } else if (t.dataset.clear) {
     set(d, t.dataset.clear, ''); changed(true);
   } else if (t.id === 'discard') {
-    if (!confirm('¿Descartar todos los cambios sin publicar de ' + siteLabel(state.slug) + '?')) return;
+    if (!confirm('¿Volver a la versión que está en vivo? Se pierden los cambios sin publicar de ' + siteLabel(state.slug) + '.')) return;
     state.drafts[state.slug] = clone(state.published[state.slug]); changed(true);
-  } else if (t.id === 'copyAlana') {
-    copyFromAlana();
+  } else if (t.id === 'dupSite') {
+    openNewSite(state.slug);
+  } else if (t.id === 'history') {
+    openHistory();
   }
 });
 
@@ -443,16 +538,6 @@ function findList(path) {
   var out;
   FORM.forEach(function (s) { s.fields.forEach(function (f) { if (f.list === path) out = f; }); });
   return out;
-}
-
-async function copyFromAlana() {
-  if (!confirm('¿Copiar todos los textos y el teléfono de Alana a ' + siteLabel(state.slug) + '? Las fotos de este sitio se mantienen.')) return;
-  await loadSite('alana');
-  var src = clone(state.drafts.alana), d = draft();
-  src.hero.photo = d.hero && d.hero.photo || '';
-  var gal = (d.facilities && d.facilities.gallery) || [];
-  (src.facilities.gallery || []).forEach(function (g, i) { g.photo = gal[i] ? gal[i].photo : ''; g.caption = gal[i] ? gal[i].caption : ''; });
-  state.drafts[state.slug] = src; changed(true);
 }
 
 // ---------- images ----------
@@ -487,7 +572,6 @@ addEventListener('message', function (e) {
   if (e.origin === location.origin && e.data && e.data.type === 'preview-ready') { frameReady = true; pushPreview(); }
 });
 $('frame').addEventListener('load', function () { frameReady = true; pushPreview(); });
-// The preview may already have loaded (from cache) before this script ran.
 try { if ($('frame').contentWindow.renderSite) frameReady = true; } catch (e) {}
 function pushPreview() {
   if (!frameReady || !draft()) return;
@@ -510,85 +594,61 @@ document.querySelector('.mtabs').addEventListener('click', function (e) {
   if (b.dataset.view === 'preview') pushPreview();
 });
 
-// ---------- password ----------
-function askPassword() {
-  return new Promise(function (resolve) {
-    $('pwErr').textContent = ''; $('pwInput').value = '';
-    $('pwModal').classList.add('on'); $('pwInput').focus();
-    $('pwCancel').onclick = function () { $('pwModal').classList.remove('on'); resolve(false); };
-    $('pwForm').onsubmit = async function (e) {
-      e.preventDefault();
-      var pw = $('pwInput').value;
-      try {
-        var r = await fetch('/api/login', { method: 'POST', headers: { 'x-admin-password': pw } });
-        var j = await r.json().catch(function () { return {}; });
-        if (!r.ok) { $('pwErr').textContent = j.error || ('Error ' + r.status); return; }
-        state.password = pw;
-        try { sessionStorage.setItem('adminpw', pw); } catch (err) {}
-        $('pwModal').classList.remove('on'); resolve(true);
-      } catch (err) { $('pwErr').textContent = 'Sin conexión con el servidor.'; }
-    };
-  });
-}
-
 // ---------- publish ----------
 $('publish').addEventListener('click', async function () {
-  if (!state.password && !(await askPassword())) return;
-  var slug = state.slug, content = clone(draft()), images = {}, stamp = Date.now().toString(36), n = 0;
-  function take(obj, key, tag) {
-    var v = obj[key];
-    if (typeof v === 'string' && v.indexOf('data:image') === 0) {
-      var name = tag + '-' + stamp + (n++ ? '-' + n : '') + '.jpg';
-      images[name] = v; obj[key] = name;
-    }
-  }
-  take(content.hero, 'photo', 'foto');
-  (content.facilities.gallery || []).forEach(function (g, i) { take(g, 'photo', 'galeria' + (i + 1)); });
-  var size = JSON.stringify(images).length;
-  if (size > 4 * 1024 * 1024) { toast('Demasiadas fotos nuevas a la vez. Publica de a una o dos fotos.', 'err', 6000); return; }
-
-  var btn = $('publish'); btn.disabled = true; btn.lastChild.textContent = ' Publicando…';
+  var slug = state.slug, btn = this, label = btn.querySelector('span');
+  clearTimeout(saveTimers[slug]);
+  if (saving[slug]) await saving[slug].promise;
+  var content = clone(state.drafts[slug]), images = extractImages(content);
+  if (tooBig(images)) { toast('Demasiadas fotos nuevas a la vez. Sube de a una o dos.', 'err', 6000); return; }
+  btn.disabled = true; label.textContent = 'Publicando…';
   try {
-    var r = await fetch('/api/publish', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-admin-password': state.password },
-      body: JSON.stringify({ slug: slug, content: content, images: images, create: state.isNew[slug] ? { label: siteLabel(slug) } : undefined })
-    });
-    var j = await r.json().catch(function () { return {}; });
-    if (r.status === 401) {
-      state.password = ''; try { sessionStorage.removeItem('adminpw'); } catch (e) {}
-      toast('Contraseña incorrecta. Intenta de nuevo.', 'err');
-      return;
-    }
-    if (!r.ok) throw new Error(j.error || ('Error ' + r.status));
-    // Show new photos from memory until Vercel finishes deploying them.
-    Object.keys(images).forEach(function (name) { localImages['/' + slug + '/' + name] = images[name]; });
+    await api('POST', '/api/publish', { slug: slug, content: content, images: images });
+    adoptUploads(slug, images);
     state.published[slug] = content;
-    state.drafts[slug] = clone(content);
-    delete state.isNew[slug]; saveNewSites();
-    saveDraft(slug);
-    renderTabs(); renderEditor(); pushPreview();
-    toast('¡Guardado! Vercel está publicando <b>' + esc(siteLabel(slug)) + '</b>, toma ~1 minuto. Te aviso aquí cuando esté en vivo.', 'ok', 7000);
+    state.saved[slug] = clone(content);
+    toast('¡Listo! Vercel está publicando <b>' + esc(siteLabel(slug)) + '</b>, toma ~1 minuto. Te aviso aquí cuando esté en vivo.', 'ok', 7000);
     watchDeploy(slug, content);
+    if (slug === state.slug) { renderEditor(); pushPreview(); }
   } catch (e) {
     toast('No se pudo publicar: ' + esc(e.message), 'err', 8000);
   } finally {
-    btn.lastChild.textContent = ' Publicar en Vercel';
+    label.textContent = 'Publicar en Vercel';
     renderTabs();
   }
 });
-addEventListener('beforeunload', function (e) {
-  if (SITES.some(function (s) { return isDirty(s.slug); })) { e.preventDefault(); e.returnValue = ''; }
-});
 
-// ---------- new sites ----------
-function saveNewSites() {
-  try { localStorage.setItem('newsites', JSON.stringify(state.isNew)); } catch (e) {}
+// After publishing, poll the live site until it serves the new content.
+function watchDeploy(slug, content) {
+  var want = JSON.stringify(content), started = Date.now();
+  var dep = deploys[slug] = { state: 'pending' };
+  renderStatus();
+  (function check() {
+    if (deploys[slug] !== dep) return;
+    fetch('/' + slug + '/content.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .catch(function () { return null; })
+      .then(function (live) {
+        if (deploys[slug] !== dep) return;
+        if (live && JSON.stringify(live) === want) {
+          dep.state = 'live'; renderStatus();
+          toast('✓ <b>' + esc(siteLabel(slug)) + '</b> ya está en vivo: <a href="/' + slug + '/" target="_blank" rel="noopener"><b>' + esc(location.host) + '/' + slug + '/</b></a>', 'ok', 9000);
+        } else if (Date.now() - started > 4 * 60 * 1000) {
+          dep.state = 'slow'; renderStatus();
+        } else {
+          setTimeout(check, 5000);
+        }
+      });
+  })();
 }
-function openNewSite() {
-  $('nsSlug').value = ''; $('nsLabel').value = ''; $('nsErr').textContent = ''; $('nsPhotos').checked = false;
-  $('nsSrc').innerHTML = SITES.filter(function (s) { return !state.isNew[s.slug]; }).map(function (s) {
-    return '<option value="' + esc(s.slug) + '"' + (s.slug === state.slug ? ' selected' : '') + '>' + esc(s.label) + ' (/' + esc(s.slug) + '/)</option>';
+
+// ---------- new site / duplicate ----------
+function openNewSite(src) {
+  $('nsSlug').value = ''; $('nsLabel').value = ''; $('nsErr').textContent = '';
+  $('nsPhotos').checked = Boolean(src);
+  $('nsTitle').textContent = src ? 'Duplicar ' + siteLabel(src) : 'Nuevo sitio';
+  $('nsSrc').innerHTML = state.sites.map(function (s) {
+    return '<option value="' + esc(s.slug) + '"' + (s.slug === (src || state.slug) ? ' selected' : '') + '>' + esc(s.label) + ' (/' + esc(s.slug) + '/)</option>';
   }).join('');
   $('nsHost').textContent = location.host + '/';
   $('nsModal').classList.add('on'); $('nsSlug').focus();
@@ -596,7 +656,7 @@ function openNewSite() {
 $('nsCancel').onclick = function () { $('nsModal').classList.remove('on'); };
 $('nsSlug').addEventListener('input', function () {
   $('nsErr').textContent = '';
-  this.value = this.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9-]/g, '-').replace(/^-+/, '').slice(0, 30);
+  this.value = this.value.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9-]/g, '-').replace(/^-+/, '').slice(0, 30);
 });
 $('nsForm').onsubmit = async function (e) {
   e.preventDefault();
@@ -604,42 +664,76 @@ $('nsForm').onsubmit = async function (e) {
   var err = function (m) { $('nsErr').textContent = m; };
   if (!slug) return err('Escribe la dirección, por ejemplo: d');
   if (RESERVED.indexOf(slug) >= 0) return err('Esa dirección está reservada, elige otra.');
-  if (SITES.some(function (s) { return s.slug === slug; })) return err('Ya existe un sitio en /' + slug + '/.');
+  if (state.sites.some(function (s) { return s.slug === slug; })) return err('Ya existe un sitio en /' + slug + '/.');
   if (!label) label = 'Sitio ' + slug.toUpperCase();
-  try { await loadSite(src); } catch (x) { return err(x.message); }
-  var c = clone(state.drafts[src]);
-  var photo = function (v) {
-    if (!$('nsPhotos').checked || !v) return '';
-    return /^(data:|https?:|\/)/.test(v) ? v : '/' + src + '/' + v;
-  };
-  c.hero.photo = photo(c.hero.photo);
-  ((c.facilities || {}).gallery || []).forEach(function (g) { g.photo = photo(g.photo); if (!g.photo) g.caption = ''; });
-  SITES.push({ slug: slug, label: label });
-  state.isNew[slug] = { label: label }; saveNewSites();
-  state.drafts[slug] = c;
-  saveDraft(slug);
-  $('nsModal').classList.remove('on');
-  await switchSite(slug);
-  toast('Sitio <b>' + esc(label) + '</b> creado como borrador. Edítalo y pulsa <b>Publicar en Vercel</b> para ponerlo en vivo.', 'ok', 8000);
+  var btn = $('nsSubmit'); btn.disabled = true;
+  try {
+    await loadSite(src);
+    if (saving[src]) await saving[src].promise;
+    var c = clone(state.drafts[src]), photos = $('nsPhotos').checked;
+    var photo = function (v) {
+      if (!photos || !v) return '';
+      if (/^(data:|https?:|\/)/.test(v)) return v;
+      return '/' + src + '/' + v; // keep pointing at the original site's file
+    };
+    c.hero.photo = photo(c.hero.photo);
+    ((c.facilities || {}).gallery || []).forEach(function (g) { g.photo = photo(g.photo); if (!g.photo) g.caption = ''; });
+    var images = extractImages(c);
+    await api('POST', '/api/save', { slug: slug, content: c, images: images, create: { label: label } });
+    Object.keys(images).forEach(function (name) { localImages[slug + '/' + name] = images[name]; });
+    state.sites.push({ slug: slug, label: label });
+    state.published[slug] = null;
+    state.saved[slug] = c;
+    state.drafts[slug] = clone(c);
+    $('nsModal').classList.remove('on');
+    await switchSite(slug);
+    toast('Sitio <b>' + esc(label) + '</b> creado y guardado. Edítalo y pulsa <b>Publicar en Vercel</b> para ponerlo en vivo.', 'ok', 8000);
+  } catch (x) {
+    err(x.message);
+  } finally {
+    btn.disabled = false;
+  }
 };
 
-(async function start() {
+// ---------- history ----------
+async function openHistory() {
+  var slug = state.slug;
+  $('histList').innerHTML = '<p style="color:var(--muted)">Cargando…</p>';
+  $('histModal').classList.add('on');
   try {
-    var r = await fetch('/sites.json?t=' + Date.now(), { cache: 'no-store' });
-    if (r.ok) SITES = await r.json();
-  } catch (e) {}
-  // Restore sites created here but not yet published (or still deploying).
+    var j = await api('GET', '/api/history?slug=' + encodeURIComponent(slug));
+    if (!j.versions.length) { $('histList').innerHTML = '<p style="color:var(--muted)">Este sitio todavía no tiene versiones publicadas.</p>'; return; }
+    $('histList').innerHTML = j.versions.map(function (v, i) {
+      var d = new Date(v.date);
+      return '<div class="hist-row"><div><b>' + esc(d.toLocaleDateString('es', { day: 'numeric', month: 'short' })) + ' · ' + esc(d.toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit' })) + '</b>' +
+        '<small>' + (i === 0 ? 'En vivo ahora' : esc(v.message)) + '</small></div>' +
+        '<button class="btn small" data-restore="' + esc(v.sha) + '">Restaurar</button></div>';
+    }).join('');
+  } catch (e) {
+    $('histList').innerHTML = '<p class="err">' + esc(e.message) + '</p>';
+  }
+}
+$('histList').addEventListener('click', async function (e) {
+  var sha = e.target.dataset.restore; if (!sha) return;
+  var slug = state.slug;
   try {
-    var pending = JSON.parse(localStorage.getItem('newsites') || '{}');
-    Object.keys(pending).forEach(function (slug) {
-      if (SITES.some(function (s) { return s.slug === slug; })) return;
-      var d = loadDraft(slug); if (!d) return;
-      SITES.push({ slug: slug, label: pending[slug].label });
-      state.isNew[slug] = pending[slug]; state.drafts[slug] = d;
-    });
-  } catch (e) {}
-  switchSite(SITES[0].slug);
-})();
+    var j = await api('GET', '/api/history?slug=' + encodeURIComponent(slug) + '&sha=' + sha);
+    state.drafts[slug] = j.content;
+    $('histModal').classList.remove('on');
+    changed(true);
+    toast('Versión restaurada en el editor (y guardada). Pulsa <b>Publicar en Vercel</b> para ponerla en vivo.', 'ok', 8000);
+  } catch (x) { toast(esc(x.message), 'err'); }
+});
+$('histClose').onclick = function () { $('histModal').classList.remove('on'); };
+
+addEventListener('beforeunload', function (e) {
+  if (state.sites.some(function (s) { return saving[s.slug] || isUnsaved(s.slug); })) {
+    state.sites.forEach(function (s) { if (isUnsaved(s.slug)) saveNow(s.slug); });
+    e.preventDefault(); e.returnValue = '';
+  }
+});
+
+if (state.password) start().catch(function () { logout(); }); else logout();
 </script>
 </body>
 </html>

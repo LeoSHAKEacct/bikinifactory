@@ -1,158 +1,47 @@
-// One-click publish: commits a site's content (and any new photos) to the
-// GitHub repo in a single commit. Vercel's Git integration then redeploys.
-//
-// Env vars (set in the Vercel project):
-//   ADMIN_PASSWORD  password for the admin panel
-//   GITHUB_TOKEN    fine-grained token with "Contents: read and write" on the repo
-//   GITHUB_REPO     optional, default "LeoSHAKEacct/bikinifactory"
-//   GITHUB_BRANCH   optional, default "main"
-//   SITE_DIR        optional, folder of this Vercel project in the repo, default "pranav"
-
-const { checkPassword } = require('./_auth');
+// POST /api/publish { slug, content, images }
+// Puts a site live: commits content.json, index.html and its photos to main
+// (Vercel redeploys), then clears the site's draft.
+const { guard } = require('./_auth');
 const { buildPage } = require('./_shell');
-
-// New site addresses: lowercase letters, numbers and dashes. Some names are
-// taken by other pages or the admin itself.
-const SLUG = /^[a-z0-9][a-z0-9-]{0,29}$/;
-const RESERVED = ['admin', 'api', '_site', 'anamaria', 'mohammad', 'index', 'sites', 'public', 'static'];
-const IMAGE_NAME = /^[a-z0-9][a-z0-9-]{0,60}\.(jpg|jpeg|png|webp)$/;
-const MAX_IMAGE_BYTES = 3 * 1024 * 1024;
-
-async function gh(path, opts = {}) {
-  const repo = process.env.GITHUB_REPO || 'LeoSHAKEacct/bikinifactory';
-  const r = await fetch(`https://api.github.com/repos/${repo}${path}`, {
-    ...opts,
-    headers: {
-      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-      Accept: 'application/vnd.github+json',
-      'X-GitHub-Api-Version': '2022-11-28',
-      'Content-Type': 'application/json',
-      'User-Agent': 'site-admin',
-    },
-  });
-  const body = await r.json().catch(() => ({}));
-  if (!r.ok) {
-    const err = new Error(`GitHub ${r.status}: ${body.message || 'error'}`);
-    err.status = r.status;
-    throw err;
-  }
-  return body;
-}
-
-async function commitFiles(files, message) {
-  const branch = process.env.GITHUB_BRANCH || 'main';
-  const blobs = await Promise.all(files.map(async f => {
-    const blob = await gh('/git/blobs', {
-      method: 'POST',
-      body: JSON.stringify({ content: f.content, encoding: f.encoding }),
-    });
-    return { path: f.path, mode: '100644', type: 'blob', sha: blob.sha };
-  }));
-  // Retry if someone else pushed between reading and updating the branch.
-  for (let attempt = 0; attempt < 3; attempt++) {
-    const ref = await gh(`/git/ref/heads/${branch}`);
-    const parent = await gh(`/git/commits/${ref.object.sha}`);
-    const tree = await gh('/git/trees', {
-      method: 'POST',
-      body: JSON.stringify({ base_tree: parent.tree.sha, tree: blobs }),
-    });
-    const commit = await gh('/git/commits', {
-      method: 'POST',
-      body: JSON.stringify({ message, tree: tree.sha, parents: [ref.object.sha] }),
-    });
-    try {
-      await gh(`/git/refs/heads/${branch}`, {
-        method: 'PATCH',
-        body: JSON.stringify({ sha: commit.sha, force: false }),
-      });
-      return commit.sha;
-    } catch (e) {
-      if (e.status !== 422 || attempt === 2) throw e;
-    }
-  }
-}
-
-async function readSites(dir, branch) {
-  const file = await gh(`/contents/${dir}/sites.json?ref=${branch}`);
-  return JSON.parse(Buffer.from(file.content, 'base64').toString('utf8'));
-}
-
-async function pathExists(path, branch) {
-  try {
-    await gh(`/contents/${path}?ref=${branch}`);
-    return true;
-  } catch (e) {
-    if (e.status === 404) return false;
-    throw e;
-  }
-}
+const G = require('./_github');
 
 module.exports = async (req, res) => {
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-  if (!checkPassword(req)) return res.status(401).json({ error: 'Contraseña incorrecta.' });
-  if (!process.env.GITHUB_TOKEN) {
-    return res.status(500).json({ error: 'Falta configurar GITHUB_TOKEN en Vercel.' });
-  }
-
-  const { slug, content, images, create } = req.body || {};
-  if (!content || typeof content !== 'object' || Array.isArray(content)) {
-    return res.status(400).json({ error: 'Contenido inválido.' });
-  }
-  const contentJson = JSON.stringify(content, null, 2) + '\n';
-  if (contentJson.length > 200000 || contentJson.includes('data:image')) {
-    return res.status(400).json({ error: 'Contenido demasiado grande (¿una foto sin subir?).' });
-  }
-
-  const dir = (process.env.SITE_DIR || 'pranav').replace(/^\/+|\/+$/g, '');
-  const branch = process.env.GITHUB_BRANCH || 'main';
-  const prefix = dir ? `${dir}/${slug}` : slug;
-  const files = [];
-
-  let sites;
+  if (!guard(req, res, 'POST')) return;
+  const { slug, content, images } = req.body || {};
   try {
-    sites = await readSites(dir, branch);
-  } catch (e) {
-    return res.status(502).json({ error: `No se pudo leer la lista de sitios: ${e.message}` });
-  }
-  const known = sites.some(s => s.slug === slug);
-  if (create) {
-    const label = String(create.label || '').trim().slice(0, 40);
-    if (typeof slug !== 'string' || !SLUG.test(slug) || RESERVED.includes(slug)) {
-      return res.status(400).json({ error: 'Dirección inválida. Usa letras minúsculas, números o guiones.' });
+    const json = G.checkContent(content);
+    const sites = await G.readSites();
+    if (!sites.some(s => s.slug === slug)) throw G.userError('Sitio desconocido.');
+    const imgs = G.imageEntries(slug, images);
+    const uploaded = new Set(imgs.map(e => e.path));
+
+    // Photos saved in drafts but never published must be copied to main.
+    const copies = [];
+    for (const ref of G.photoRefs(slug, content)) {
+      const path = G.sitePath(ref.slug, ref.name);
+      if (uploaded.has(path) || copies.some(c => c.path === path)) continue;
+      if (await G.fileSha(path, G.MAIN)) continue;
+      const sha = await G.fileSha(path, G.DRAFTS).catch(() => null);
+      if (!sha) throw G.userError(`No se encontró la foto ${ref.name}. Vuelve a subirla.`);
+      copies.push({ path, sha });
     }
-    if (!label) return res.status(400).json({ error: 'Falta el nombre del sitio.' });
-    if (known) return res.status(409).json({ error: `Ya existe un sitio en /${slug}/.` });
+
+    const sha = await G.commit(G.MAIN, `Admin: publish /${slug}`, async () => [
+      ...imgs,
+      ...copies,
+      { path: G.sitePath(slug, 'content.json'), content: json, encoding: 'utf-8' },
+      { path: G.sitePath(slug, 'index.html'), content: buildPage(slug, content), encoding: 'utf-8' },
+    ]);
+
+    // The draft now equals what is live; drop it (best effort).
     try {
-      if (await pathExists(prefix, branch)) {
-        return res.status(409).json({ error: `La dirección /${slug}/ ya está en uso por otra página.` });
-      }
-    } catch (e) {
-      return res.status(502).json({ error: e.message });
-    }
-    sites.push({ slug, label });
-    files.push({ path: `${dir}/sites.json`, content: JSON.stringify(sites, null, 2) + '\n', encoding: 'utf-8' });
-  } else if (!known) {
-    return res.status(400).json({ error: 'Sitio desconocido.' });
-  }
+      const draftPath = G.sitePath(slug, 'draft.json');
+      await G.commit(G.DRAFTS, `Admin: clear draft /${slug}`, async () =>
+        (await G.fileSha(draftPath, G.DRAFTS)) ? [{ path: draftPath, remove: true }] : []);
+    } catch (e) { /* the draft is identical anyway */ }
 
-  for (const [name, data] of Object.entries(images || {})) {
-    if (!IMAGE_NAME.test(name) || typeof data !== 'string') {
-      return res.status(400).json({ error: `Nombre de imagen inválido: ${name}` });
-    }
-    const b64 = data.replace(/^data:image\/[a-z]+;base64,/, '');
-    if (!/^[A-Za-z0-9+/=]+$/.test(b64) || b64.length * 0.75 > MAX_IMAGE_BYTES) {
-      return res.status(400).json({ error: `Imagen inválida o muy grande: ${name}` });
-    }
-    files.push({ path: `${prefix}/${name}`, content: b64, encoding: 'base64' });
-  }
-
-  files.push({ path: `${prefix}/content.json`, content: contentJson, encoding: 'utf-8' });
-  files.push({ path: `${prefix}/index.html`, content: buildPage(slug, content), encoding: 'utf-8' });
-
-  try {
-    const sha = await commitFiles(files, create ? `Admin: create /${slug}` : `Admin: publish /${slug}`);
     res.status(200).json({ ok: true, commit: sha, url: `/${slug}/` });
   } catch (e) {
-    res.status(502).json({ error: e.message });
+    G.sendError(res, e);
   }
 };
