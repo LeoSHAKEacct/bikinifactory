@@ -106,7 +106,8 @@
           "photo": "foto-mv478f6k.jpg",
           "caption": "",
           "placeholder": "Amenidades",
-          "fit": ""
+          "fit": "",
+          "pos": "bottom"
         }
       ]
     },
