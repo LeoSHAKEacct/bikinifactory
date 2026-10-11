@@ -18,7 +18,7 @@
     "title": "Relajación y placer",
     "titleAccent": "en un masaje",
     "greeting": "¡Hola, soy {nombre}!",
-    "lead": "Ven y le daré un roce con mis manos a tu cuerpo.",
+    "lead": "interior desing is with us",
     "ctaPrimary": "Escríbeme por WhatsApp",
     "ctaSecondary": "Ver masajes",
     "badgeTitle": "{nombre}",
@@ -116,5 +116,5 @@
     "text": "Escríbeme por WhatsApp y agenda tu momento de relajación y placer.",
     "button": "WhatsApp {telefono}"
   },
-  "footer": "{nombre} · Masajes · Solo mayores de 18 años"
+  "footer": "interior desing is with us"
 }
