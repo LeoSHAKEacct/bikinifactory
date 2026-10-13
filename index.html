@@ -158,22 +158,19 @@
         }
 
         .star:hover .star-name {
-            opacity: 1;
-            transform: scale(1.1);
-            color: #ffff00;
-            text-shadow: 0 0 20px rgba(255, 255, 0, 1);
-            background: rgba(0, 255, 136, 0.2);
+            opacity: 0;
+            pointer-events: none;
         }
 
         .star-link {
             position: absolute;
-            top: 110%;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
-            font-size: 2em;
+            font-size: 3em;
             cursor: pointer;
         }
 
@@ -186,10 +183,11 @@
             text-decoration: none;
             display: block;
             line-height: 1;
+            transition: transform 0.2s ease;
         }
 
         .star-link a:hover {
-            filter: brightness(1.2);
+            transform: scale(1.2);
         }
 
         .footer {
