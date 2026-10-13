@@ -114,7 +114,7 @@
     {
       "type": "zones",
       "eyebrow": "Agenda con antecipación",
-      "title": "También voy a donde estés",
+      "title": "La ubicación se envia al confirmar la cita",
       "text": "Se realiza domicilio en el área metropolitana. Hago salidas a:",
       "places": [
         "Medellín",
