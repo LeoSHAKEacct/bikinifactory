@@ -25,7 +25,7 @@
       "ctaPrimary": "Escríbeme por WhatsApp",
       "ctaSecondary": "Ver masajes",
       "badgeTitle": "{nombre}",
-      "badgeText": "Apartamento discreto · Domicilios",
+      "badgeText": "Apartamento discreto ",
       "photoFit": "contain",
       "photoPos": ""
     },
@@ -37,20 +37,20 @@
     },
     {
       "type": "services",
-      "eyebrow": "",
-      "title": "Elige tu experiencia",
+      "eyebrow": "Paquetes disponibles",
+      "title": "Elige tu experiencia ",
       "items": [
         {
-          "name": "Masaje Veloterapia",
-          "desc": "Un ritual cálido y envolvente que despierta cada rincón de tu piel."
+          "name": "Masaje con estimulación manual",
+          "desc": "$1,500"
         },
         {
-          "name": "Masaje Sensorial",
-          "desc": "Caricias lentas y suaves que activan todos tus sentidos."
+          "name": "Masaje con estimulación manual y chica desnuda",
+          "desc": "$2,000"
         },
         {
-          "name": "Masaje Academia",
-          "desc": "Una experiencia guiada para descubrir y disfrutar el arte del tacto."
+          "name": "Masaje con final feliz",
+          "desc": "$2,200"
         },
         {
           "name": "Masaje 4 Manos",
@@ -113,14 +113,11 @@
     },
     {
       "type": "zones",
-      "eyebrow": "Domicilios",
-      "title": "También voy a donde estés",
-      "text": "Se realiza domicilio en el área metropolitana. Hago salidas a:",
+      "eyebrow": "Agenda con antecipación",
+      "title": "La ubicación se envia al confirmar la cita",
+      "text": "",
       "places": [
-        "Medellín",
-        "Itagüí",
-        "La Estrella",
-        "Sabaneta"
+        "Yutacan"
       ]
     },
     {
