@@ -106,7 +106,7 @@
           "photo": "foto-mv63ik8u.jpg",
           "caption": "",
           "placeholder": "Amenidades",
-          "fit": "",
+          "fit": "contain",
           "pos": "bottom"
         }
       ]
