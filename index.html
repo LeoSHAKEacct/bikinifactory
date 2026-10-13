@@ -13,42 +13,13 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', sans-serif;
-            background: #000000;
+            background: #0a0e27;
             color: #fff;
             overflow: hidden;
             width: 100%;
             height: 100vh;
             display: flex;
             flex-direction: column;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            background-image:
-                radial-gradient(1px 1px at 20% 30%, white, rgba(255,255,255,0)),
-                radial-gradient(1px 1px at 60% 70%, white, rgba(255,255,255,0)),
-                radial-gradient(1.5px 1.5px at 50% 50%, white, rgba(255,255,255,0)),
-                radial-gradient(1px 1px at 80% 10%, white, rgba(255,255,255,0)),
-                radial-gradient(1px 1px at 10% 90%, white, rgba(255,255,255,0)),
-                radial-gradient(1px 1px at 40% 80%, white, rgba(255,255,255,0)),
-                radial-gradient(0.5px 0.5px at 90% 60%, white, rgba(255,255,255,0)),
-                radial-gradient(1px 1px at 30% 20%, white, rgba(255,255,255,0)),
-                radial-gradient(0.5px 0.5px at 70% 40%, white, rgba(255,255,255,0)),
-                radial-gradient(1px 1px at 15% 50%, white, rgba(255,255,255,0)),
-                radial-gradient(1.5px 1.5px at 85% 80%, white, rgba(255,255,255,0)),
-                radial-gradient(0.5px 0.5px at 25% 60%, white, rgba(255,255,255,0)),
-                radial-gradient(1px 1px at 75% 25%, white, rgba(255,255,255,0));
-            background-size: 100% 100%;
-            background-position: 0 0;
-            opacity: 0.6;
         }
 
         canvas {
@@ -72,18 +43,35 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            perspective: 1000px;
         }
 
         .globe-image {
             width: 100%;
             height: 100%;
-            animation: spinGlobe 60s linear infinite;
             object-fit: contain;
+            animation: flipGlobe 4s ease-in-out infinite;
         }
 
-        @keyframes spinGlobe {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
+        @keyframes flipGlobe {
+            0%, 100% { opacity: 1; }
+            49% { opacity: 1; }
+            50% { opacity: 0; }
+            51% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .globe-image.flip2 {
+            position: absolute;
+            animation: flipGlobe2 4s ease-in-out infinite;
+        }
+
+        @keyframes flipGlobe2 {
+            0%, 100% { opacity: 0; }
+            49% { opacity: 0; }
+            50% { opacity: 1; }
+            51% { opacity: 1; }
+            100% { opacity: 0; }
         }
 
         .container {
@@ -104,6 +92,8 @@
             transform: translateX(-50%);
             text-align: center;
             z-index: 10;
+            border: none;
+            background: none;
         }
 
         .profile-pic {
@@ -113,6 +103,7 @@
             border: none;
             object-fit: cover;
             margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         }
 
         .header h1 {
@@ -156,15 +147,11 @@
         }
 
         .star-name {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             font-size: 1.2em;
             font-weight: 600;
             color: #fff;
             text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
-            transition: opacity 0.3s ease;
+            transition: all 0.3s ease;
             opacity: 0.8;
             padding: 8px 12px;
             border-radius: 8px;
@@ -173,22 +160,19 @@
         }
 
         .star:hover .star-name {
-            opacity: 1;
-            transform: scale(1.1);
-            color: #ffff00;
-            text-shadow: 0 0 20px rgba(255, 255, 0, 1);
-            background: rgba(0, 255, 136, 0.2);
+            opacity: 0;
+            pointer-events: none;
         }
 
         .star-link {
             position: absolute;
-            top: 110%;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
-            font-size: 2em;
+            font-size: 3em;
             cursor: pointer;
         }
 
@@ -201,10 +185,11 @@
             text-decoration: none;
             display: block;
             line-height: 1;
+            transition: transform 0.2s ease;
         }
 
         .star-link a:hover {
-            filter: brightness(1.2);
+            transform: scale(1.2);
         }
 
         .footer {
@@ -294,7 +279,8 @@
     <canvas id="globeCanvas"></canvas>
 
     <div class="globe-container">
-        <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=400&h=400&fit=crop" alt="Disco Ball Earth" class="globe-image">
+        <img src="disco1.webp" alt="Disco Ball Earth 1" class="globe-image">
+        <img src="disco2.webp" alt="Disco Ball Earth 2" class="globe-image flip2">
     </div>
 
     <div class="container">
@@ -303,6 +289,7 @@
             <div style="position: relative; width: 80px; height: 80px; margin: 0 auto 15px;">
                 <img src="https://media.licdn.com/dms/image/v2/D4D03AQGKNaEp0dIRXA/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1697739451932?e=2147483647&v=beta&t=LpPz_mLqm-vVMVPM3YLTcL5xPgKbPNLVjqBKJ9xYNss" alt="Leonel Meneses" class="profile-pic" id="profileImg">
             </div>
+            <h1>LEONEL MENESES</h1>
             <p>Entrepreneur • Visionary • Humanitarian</p>
         </div>
 
