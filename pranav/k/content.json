@@ -9,14 +9,14 @@
   "nav": {
     "services": "",
     "facilities": "Masaje",
-    "zones": "Domicilios",
+    "zones": "Relajacion",
     "reserve": "Reservar"
   },
   "footer": "{nombre} · Masajes · Solo mayores de 18 años",
   "sections": [
     {
       "type": "hero",
-      "photo": "foto-mv62v7j1.jpg",
+      "photo": "foto-mv63egnu.jpg",
       "eyebrow": "De Mexico para ti",
       "title": "💕 Vienvenido a mi spa!",
       "titleAccent": "Atreteve a relajar y dispertar tu sentidos conmigo",
@@ -91,23 +91,23 @@
       ],
       "gallery": [
         {
-          "photo": "foto-mv62w3x7.jpg",
+          "photo": "foto-mv63hlis.jpg",
           "caption": "",
           "placeholder": "Sala de masajes",
           "fit": "contain"
         },
         {
-          "photo": "foto-mv62wkv7.jpg",
+          "photo": "foto-mv63fcpm.jpg",
           "caption": "",
           "placeholder": "Ambiente",
           "fit": "contain"
         },
         {
-          "photo": "foto-mv4h0o4b.jpg",
+          "photo": "foto-mv63ik8u.jpg",
           "caption": "",
           "placeholder": "Amenidades",
-          "fit": "",
-          "pos": "top"
+          "fit": "contain",
+          "pos": "bottom"
         }
       ]
     },
