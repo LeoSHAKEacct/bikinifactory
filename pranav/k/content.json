@@ -1,6 +1,6 @@
 {
-  "name": "Nubia Lucia",
-  "phone": "573217455367",
+  "name": "Spa Abril",
+  "phone": "+529994174943",
   "waMessage": "Hola {nombre}, quiero reservar un masaje",
   "seo": {
     "title": "{nombre} · Masajes",
@@ -16,7 +16,7 @@
   "sections": [
     {
       "type": "hero",
-      "photo": "foto-mv4gyddf.jpg",
+      "photo": "foto-mv62v7j1.jpg",
       "eyebrow": "from Colombia 🇨🇴 to you",
       "title": "💕 Vienvenido a mi spa!",
       "titleAccent": "Atreteve a relajar y dispertar tu sentidos conmigo",
@@ -91,13 +91,13 @@
       ],
       "gallery": [
         {
-          "photo": "foto-mv4gzjzq.jpg",
+          "photo": "foto-mv62w3x7.jpg",
           "caption": "",
           "placeholder": "Sala de masajes",
           "fit": "contain"
         },
         {
-          "photo": "foto-mv4h01ee.jpg",
+          "photo": "foto-mv62wkv7.jpg",
           "caption": "",
           "placeholder": "Ambiente",
           "fit": "contain"
