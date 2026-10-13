@@ -13,13 +13,42 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', sans-serif;
-            background: #0a0e27;
+            background: #000000;
             color: #fff;
             overflow: hidden;
             width: 100%;
             height: 100vh;
             display: flex;
             flex-direction: column;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background-image:
+                radial-gradient(1px 1px at 20% 30%, white, rgba(255,255,255,0)),
+                radial-gradient(1px 1px at 60% 70%, white, rgba(255,255,255,0)),
+                radial-gradient(1.5px 1.5px at 50% 50%, white, rgba(255,255,255,0)),
+                radial-gradient(1px 1px at 80% 10%, white, rgba(255,255,255,0)),
+                radial-gradient(1px 1px at 10% 90%, white, rgba(255,255,255,0)),
+                radial-gradient(1px 1px at 40% 80%, white, rgba(255,255,255,0)),
+                radial-gradient(0.5px 0.5px at 90% 60%, white, rgba(255,255,255,0)),
+                radial-gradient(1px 1px at 30% 20%, white, rgba(255,255,255,0)),
+                radial-gradient(0.5px 0.5px at 70% 40%, white, rgba(255,255,255,0)),
+                radial-gradient(1px 1px at 15% 50%, white, rgba(255,255,255,0)),
+                radial-gradient(1.5px 1.5px at 85% 80%, white, rgba(255,255,255,0)),
+                radial-gradient(0.5px 0.5px at 25% 60%, white, rgba(255,255,255,0)),
+                radial-gradient(1px 1px at 75% 25%, white, rgba(255,255,255,0));
+            background-size: 100% 100%;
+            background-position: 0 0;
+            opacity: 0.6;
         }
 
         canvas {
@@ -147,11 +176,15 @@
         }
 
         .star-name {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             font-size: 1.2em;
             font-weight: 600;
             color: #fff;
             text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
-            transition: all 0.3s ease;
+            transition: opacity 0.3s ease;
             opacity: 0.8;
             padding: 8px 12px;
             border-radius: 8px;
@@ -289,7 +322,6 @@
             <div style="position: relative; width: 80px; height: 80px; margin: 0 auto 15px;">
                 <img src="https://media.licdn.com/dms/image/v2/D4D03AQGKNaEp0dIRXA/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1697739451932?e=2147483647&v=beta&t=LpPz_mLqm-vVMVPM3YLTcL5xPgKbPNLVjqBKJ9xYNss" alt="Leonel Meneses" class="profile-pic" id="profileImg">
             </div>
-            <h1>LEONEL MENESES</h1>
             <p>Entrepreneur • Visionary • Humanitarian</p>
         </div>
 
