@@ -15,6 +15,21 @@
   "footer": "{nombre} · Masajes · Solo mayores de 18 años",
   "sections": [
     {
+      "type": "hero",
+      "photo": "foto-mv8bovfr.jpg",
+      "eyebrow": "De Mexico para ti",
+      "title": "💕 Vienvenido a mi spa!",
+      "titleAccent": "Atreteve a relajar y dispertar tu sentidos conmigo",
+      "greeting": "¡Hola, soy {nombre}!",
+      "lead": "Ven y le daré un rico masaje",
+      "ctaPrimary": "Escríbeme por WhatsApp",
+      "ctaSecondary": "Ver masajes",
+      "badgeTitle": "{nombre}",
+      "badgeText": "Apartamento discreto ",
+      "photoFit": "contain",
+      "photoPos": ""
+    },
+    {
       "type": "intro",
       "quote": "¡Nada que un buen contenido erótico",
       "quoteAccent": "no pueda arreglar!",
@@ -39,54 +54,6 @@
         }
       ],
       "benefit": "Reduce las tensiones musculares y mejora la circulación, para una sensación de relajación de cuerpo y mente."
-    },
-    {
-      "type": "facilities",
-      "eyebrow": "en Polanco",
-      "title": "Comodidad y total discreción",
-      "items": [
-        {
-          "icon": "home",
-          "title": "Apartamento cómodo",
-          "desc": "Instalaciones totalmente cómodas y acogedoras."
-        },
-        {
-          "icon": "parking",
-          "title": "Parqueadero",
-          "desc": "Llega tranquilo, tenemos dónde dejar tu vehículo."
-        },
-        {
-          "icon": "shield",
-          "title": "Totalmente discreto",
-          "desc": "Tu privacidad es lo primero."
-        },
-        {
-          "icon": "drink",
-          "title": "Bebida de bienvenida",
-          "desc": "Relájate desde el primer momento."
-        }
-      ],
-      "gallery": [
-        {
-          "photo": "foto-mv8bu8wj.jpg",
-          "caption": "",
-          "placeholder": "Sala de masajes",
-          "fit": "contain"
-        },
-        {
-          "photo": "foto-mv8busye.jpg",
-          "caption": "",
-          "placeholder": "Ambiente",
-          "fit": "contain"
-        },
-        {
-          "photo": "foto-mv8bv9tb.jpg",
-          "caption": "",
-          "placeholder": "Amenidades",
-          "fit": "contain",
-          "pos": "bottom"
-        }
-      ]
     },
     {
       "type": "facilities",
