@@ -184,7 +184,6 @@
             font-weight: 600;
             color: #fff;
             text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
-            transition: opacity 0.3s ease;
             opacity: 0.8;
             padding: 8px 12px;
             border-radius: 8px;
@@ -193,8 +192,7 @@
         }
 
         .star.hovered .star-name {
-            opacity: 0;
-            pointer-events: none;
+            display: none;
         }
 
         .star-link {
@@ -203,16 +201,16 @@
             left: 50%;
             transform: translate(-50%, -50%);
             opacity: 0;
-            pointer-events: none;
             transition: opacity 0.3s ease;
             font-size: 3em;
             cursor: pointer;
             z-index: 1;
+            display: none;
         }
 
         .star.hovered .star-link {
+            display: block;
             opacity: 1;
-            pointer-events: auto;
         }
 
         .star-link a {
@@ -353,11 +351,12 @@
 
         const companies = [
             { name: 'SHAKE', link: 'https://app.shakeapp.today/', angle: 0 },
-            { name: 'WHAAT', link: 'https://whaat.app/', angle: 60 },
-            { name: 'HOLLYAI', link: 'https://hollyai.app/', angle: 120 },
-            { name: 'SKIPFEE', link: 'https://skipfee.co/', angle: 180 },
-            { name: 'MAMACITA', link: 'https://mamacitacacao.com/', angle: 240 },
-            { name: 'COMBO', link: 'https://combo.shakeapp.today/', angle: 300 }
+            { name: 'WHAAT', link: 'https://whaat.app/', angle: 51 },
+            { name: 'HOLLYAI', link: 'https://hollyai.app/', angle: 103 },
+            { name: 'SKIPFEE', link: 'https://skipfee.co/', angle: 154 },
+            { name: 'MAMACITA', link: 'https://mamacitacacao.com/', angle: 206 },
+            { name: 'COMBO', link: 'https://combo.shakeapp.today/', angle: 257 },
+            { name: 'LEOME', link: 'https://leome.shakeapp.today/', angle: 309 }
         ];
 
         let hoveredStar = null;
