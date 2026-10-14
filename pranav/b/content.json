@@ -1,6 +1,6 @@
 {
-  "name": "Playstation games",
-  "phone": "23456754",
+  "name": "Gene Terapeuta",
+  "phone": "3148335609",
   "waMessage": "Hola {nombre}, quiero reservar un masaje",
   "seo": {
     "title": "{nombre} · Masajes",
@@ -16,7 +16,7 @@
   "sections": [
     {
       "type": "hero",
-      "photo": "",
+      "photo": "foto-mv8nii3a.jpg",
       "eyebrow": "Masajes · Medellín",
       "title": "Relajación y placer",
       "titleAccent": "en un masaje",
@@ -89,12 +89,12 @@
       ],
       "gallery": [
         {
-          "photo": "",
+          "photo": "foto-mv8nks1z.jpg",
           "caption": "",
           "placeholder": "Sala de masajes"
         },
         {
-          "photo": "",
+          "photo": "foto-mv8nl29p.jpg",
           "caption": "",
           "placeholder": "Ambiente"
         },
