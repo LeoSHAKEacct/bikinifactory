@@ -1,5 +1,5 @@
 {
-  "name": "Lunna",
+  "name": "Motos Andrea",
   "phone": "573217455367",
   "waMessage": "Hola {nombre}, quiero reservar un masaje",
   "seo": {
@@ -16,7 +16,7 @@
   "sections": [
     {
       "type": "hero",
-      "photo": "foto-mv46od9v.jpg",
+      "photo": "",
       "eyebrow": "Masajes · Medellín",
       "title": "MASOTERAPEUTA CERTIFICADA ALIVIO DE DOLOR LOCALIZADO Y REDUCCION DE ESTRES",
       "titleAccent": "",
@@ -89,13 +89,13 @@
       ],
       "gallery": [
         {
-          "photo": "foto-mv46ol0p.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Sala de masajes",
           "fit": "contain"
         },
         {
-          "photo": "foto-mv46p496.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Ambiente",
           "fit": "contain"
