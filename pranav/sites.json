@@ -62,5 +62,9 @@
   {
     "slug": "mm",
     "label": "Sitio MM"
+  },
+  {
+    "slug": "m2",
+    "label": "Sitio M2"
   }
 ]
