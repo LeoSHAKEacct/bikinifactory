@@ -70,5 +70,9 @@
   {
     "slug": "m3",
     "label": "Sitio M3"
+  },
+  {
+    "slug": "m4",
+    "label": "Sitio M4"
   }
 ]
