@@ -171,37 +171,33 @@
             font-weight: 600;
             color: #fff;
             text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
-            transition: opacity 0.3s ease;
-            opacity: 0.8;
             padding: 8px 12px;
             border-radius: 8px;
             background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(5px);
+            transition: opacity 0.3s ease;
         }
 
-        .star:hover .star-name {
-            opacity: 1;
-            transform: scale(1.1);
-            color: #ffff00;
-            text-shadow: 0 0 20px rgba(255, 255, 0, 1);
-            background: rgba(0, 255, 136, 0.2);
+        .star.hovered .star-name {
+            display: none;
         }
 
         .star-link {
             position: absolute;
-            top: 110%;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             opacity: 0;
-            pointer-events: none;
             transition: opacity 0.3s ease;
-            font-size: 2em;
+            font-size: 3em;
             cursor: pointer;
+            z-index: 1;
+            display: none;
         }
 
-        .star:hover .star-link {
+        .star.hovered .star-link {
+            display: block;
             opacity: 1;
-            pointer-events: auto;
         }
 
         .star-link a {
@@ -401,11 +397,18 @@
                 company.element.style.top = y + 'px';
                 company.element.style.transform = `translate(-50%, -50%)`;
 
-                // Apply scale to children for depth effect
+                // Apply opacity-based depth effect instead of scale to avoid positioning issues
                 const nameEl = company.element.querySelector('.star-name');
                 const linkEl = company.element.querySelector('.star-link');
-                if (nameEl) nameEl.style.transform = `translate(-50%, -50%) scale(${scale})`;
-                if (linkEl) linkEl.style.transform = `translate(-50%, -50%) scale(${scale})`;
+                const opacity = 0.4 + (scale - 0.8) * 0.75;
+                if (nameEl) {
+                    nameEl.style.transform = `translate(-50%, -50%)`;
+                    nameEl.style.opacity = opacity;
+                }
+                if (linkEl) {
+                    linkEl.style.transform = `translate(-50%, -50%)`;
+                    linkEl.style.opacity = hoveredStar === company ? 1 : 0;
+                }
             });
         }
 
