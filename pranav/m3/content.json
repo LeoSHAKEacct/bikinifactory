@@ -1,6 +1,6 @@
 {
-  "name": "Manuela Spa",
-  "phone": "+575574328782",
+  "name": "Spa ejemplo",
+  "phone": "+57557432000",
   "waMessage": "Hola {nombre}, quiero reservar un masaje",
   "seo": {
     "title": "{nombre} · Masajes",
@@ -8,17 +8,17 @@
   },
   "nav": {
     "services": "",
-    "facilities": "Masaje",
-    "zones": "Relajacion",
+    "facilities": "Spa",
+    "zones": "Sauna",
     "reserve": "Reservar"
   },
   "footer": "{nombre} · Masajes · Solo mayores de 18 años",
   "sections": [
     {
       "type": "hero",
-      "photo": "foto-mv8djpmv.jpg",
+      "photo": "foto-mv8mlcuz.jpg",
       "eyebrow": "Medellin, Colombia",
-      "title": "Vienvenido a Imperio Spa!",
+      "title": "Spa y harmonia",
       "titleAccent": "Atreteve a relajar y dispertar tu sentidos conmigo",
       "greeting": "¡Hola, soy {nombre}!",
       "lead": "Ven y le daré un rico masaje",
@@ -41,24 +41,24 @@
       "title": "Elige tu experiencia ",
       "items": [
         {
-          "name": "Masaje tantrico 6o min 💆‍♂️",
-          "desc": "$2900"
+          "name": "Masaje 6o min 💆‍♂️",
+          "desc": "$40"
         },
         {
-          "name": "Manejo extras ✨🌷",
-          "desc": "Los extras pueden ser topless, completamente desnuda y mucho más"
+          "name": "Manejo #2",
+          "desc": "$50"
         },
         {
-          "name": "No hay ningun tipo de sexo",
-          "desc": ""
+          "name": "Majase 4",
+          "desc": "897y"
         }
       ],
       "benefit": "Reduce las tensiones musculares y mejora la circulación, para una sensación de relajación de cuerpo y mente."
     },
     {
       "type": "facilities",
-      "eyebrow": "Gaby",
-      "title": "Colombiana, amorosa, ruvia",
+      "eyebrow": "sharon",
+      "title": "ajaknr3",
       "items": [
         {
           "icon": "home",
@@ -83,13 +83,13 @@
       ],
       "gallery": [
         {
-          "photo": "foto-mv8dkak0.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Sala de masajes",
           "fit": "contain"
         },
         {
-          "photo": "foto-mv8dkydm.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Ambiente",
           "fit": "contain"
