@@ -1,4 +1,15 @@
 {
   "buildCommand": "echo 'Static site'",
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "name": "lase-properties",
+  "routes": [
+    {
+      "src": "^/$",
+      "dest": "/lase-properties.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ]
 }
