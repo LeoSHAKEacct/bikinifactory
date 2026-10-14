@@ -16,7 +16,7 @@
   "sections": [
     {
       "type": "hero",
-      "photo": "foto-mv63egnu.jpg",
+      "photo": "",
       "eyebrow": "De Mexico para ti",
       "title": "💕 Vienvenido a mi spa!",
       "titleAccent": "Atreteve a relajar y dispertar tu sentidos conmigo",
@@ -83,19 +83,19 @@
       ],
       "gallery": [
         {
-          "photo": "foto-mv63hlis.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Sala de masajes",
           "fit": "contain"
         },
         {
-          "photo": "foto-mv63fcpm.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Ambiente",
           "fit": "contain"
         },
         {
-          "photo": "foto-mv63ik8u.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Amenidades",
           "fit": "contain",
