@@ -1,0 +1,123 @@
+{
+  "name": "Sasha Spa",
+  "phone": "+525654604360",
+  "waMessage": "Hola {nombre}, quiero reservar un masaje",
+  "seo": {
+    "title": "{nombre} · Masajes",
+    "description": "{nombre} — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta."
+  },
+  "nav": {
+    "services": "",
+    "facilities": "Masaje",
+    "zones": "Relajacion",
+    "reserve": "Reservar"
+  },
+  "footer": "{nombre} · Masajes · Solo mayores de 18 años",
+  "sections": [
+    {
+      "type": "hero",
+      "photo": "",
+      "eyebrow": "De Mexico para ti",
+      "title": "💕 Vienvenido a mi spa!",
+      "titleAccent": "Atreteve a relajar y dispertar tu sentidos conmigo",
+      "greeting": "¡Hola, soy {nombre}!",
+      "lead": "Ven y le daré un rico masaje",
+      "ctaPrimary": "Escríbeme por WhatsApp",
+      "ctaSecondary": "Ver masajes",
+      "badgeTitle": "{nombre}",
+      "badgeText": "Apartamento discreto ",
+      "photoFit": "contain",
+      "photoPos": ""
+    },
+    {
+      "type": "intro",
+      "quote": "¡Nada que un buen contenido erótico",
+      "quoteAccent": "no pueda arreglar!",
+      "body": "Ven y disfruta de un agradable contenido relajante. Cada video que realizaré está diseñado para reconectar tu cuerpo con tu imaginación y placer."
+    },
+    {
+      "type": "services",
+      "eyebrow": "Paquetes disponibles",
+      "title": "Elige tu experiencia ",
+      "items": [
+        {
+          "name": "Masaje tantrico 6o min 💆‍♂️",
+          "desc": "$2900"
+        },
+        {
+          "name": "Manejo extras ✨🌷",
+          "desc": "Los extras pueden ser topless, completamente desnuda y mucho más"
+        },
+        {
+          "name": "No hay ningun tipo de sexo",
+          "desc": ""
+        }
+      ],
+      "benefit": "Reduce las tensiones musculares y mejora la circulación, para una sensación de relajación de cuerpo y mente."
+    },
+    {
+      "type": "facilities",
+      "eyebrow": "en Polanco",
+      "title": "Comodidad y total discreción",
+      "items": [
+        {
+          "icon": "home",
+          "title": "Apartamento cómodo",
+          "desc": "Instalaciones totalmente cómodas y acogedoras."
+        },
+        {
+          "icon": "parking",
+          "title": "Parqueadero",
+          "desc": "Llega tranquilo, tenemos dónde dejar tu vehículo."
+        },
+        {
+          "icon": "shield",
+          "title": "Totalmente discreto",
+          "desc": "Tu privacidad es lo primero."
+        },
+        {
+          "icon": "drink",
+          "title": "Bebida de bienvenida",
+          "desc": "Relájate desde el primer momento."
+        }
+      ],
+      "gallery": [
+        {
+          "photo": "foto-mv70c6y3.jpg",
+          "caption": "",
+          "placeholder": "Sala de masajes",
+          "fit": "contain"
+        },
+        {
+          "photo": "foto-mv70le2w.jpg",
+          "caption": "",
+          "placeholder": "Ambiente",
+          "fit": "contain"
+        },
+        {
+          "photo": "foto-mv70m3bv.jpg",
+          "caption": "",
+          "placeholder": "Amenidades",
+          "fit": "contain",
+          "pos": "bottom"
+        }
+      ]
+    },
+    {
+      "type": "zones",
+      "eyebrow": "Agenda con antecipación",
+      "title": "La ubicación se envia al confirmar la cita",
+      "text": "",
+      "places": [
+        "Yutacan"
+      ]
+    },
+    {
+      "type": "cta",
+      "eyebrow": "Reserva tu cita",
+      "title": "¡Te espero!",
+      "text": "Escríbeme por WhatsApp y agenda tu momento de relajación y placer.",
+      "button": "WhatsApp {telefono}"
+    }
+  ]
+}
