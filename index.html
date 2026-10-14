@@ -391,24 +391,10 @@
 
                 const x = centerX + Math.cos(angle) * radius;
                 const y = centerY + Math.sin(angle) * radius;
-                const scale = 1 + Math.cos(angle) * 0.2;
 
                 company.element.style.left = x + 'px';
                 company.element.style.top = y + 'px';
                 company.element.style.transform = `translate(-50%, -50%)`;
-
-                // Apply opacity-based depth effect instead of scale to avoid positioning issues
-                const nameEl = company.element.querySelector('.star-name');
-                const linkEl = company.element.querySelector('.star-link');
-                const opacity = 0.4 + (scale - 0.8) * 0.75;
-                if (nameEl) {
-                    nameEl.style.transform = `translate(-50%, -50%)`;
-                    nameEl.style.opacity = opacity;
-                }
-                if (linkEl) {
-                    linkEl.style.transform = `translate(-50%, -50%)`;
-                    linkEl.style.opacity = hoveredStar === company ? 1 : 0;
-                }
             });
         }
 
