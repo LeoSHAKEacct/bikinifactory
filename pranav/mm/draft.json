@@ -104,6 +104,54 @@
       ]
     },
     {
+      "type": "facilities",
+      "eyebrow": "Laureles",
+      "title": "Comodidad y total discreción",
+      "items": [
+        {
+          "icon": "home",
+          "title": "Apartamento cómodo",
+          "desc": "Instalaciones totalmente cómodas y acogedoras."
+        },
+        {
+          "icon": "parking",
+          "title": "Parqueadero",
+          "desc": "Llega tranquilo, tenemos dónde dejar tu vehículo."
+        },
+        {
+          "icon": "shield",
+          "title": "Totalmente discreto",
+          "desc": "Tu privacidad es lo primero."
+        },
+        {
+          "icon": "drink",
+          "title": "Bebida de bienvenida",
+          "desc": "Relájate desde el primer momento."
+        }
+      ],
+      "gallery": [
+        {
+          "photo": "foto-mv8ctusi.jpg",
+          "caption": "",
+          "placeholder": "Sala de masajes",
+          "fit": "contain"
+        },
+        {
+          "photo": "/m/foto-mv8busye.jpg",
+          "caption": "",
+          "placeholder": "Ambiente",
+          "fit": "contain"
+        },
+        {
+          "photo": "/m/foto-mv8bv9tb.jpg",
+          "caption": "",
+          "placeholder": "Amenidades",
+          "fit": "contain",
+          "pos": "bottom"
+        }
+      ]
+    },
+    {
       "type": "zones",
       "eyebrow": "Agenda con antecipación",
       "title": "La ubicación se envia al confirmar la cita",
