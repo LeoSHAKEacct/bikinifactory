@@ -16,14 +16,14 @@
   "sections": [
     {
       "type": "hero",
-      "photo": "foto-mv8bovfr.jpg",
-      "eyebrow": "De Mexico para ti",
-      "title": "💕 Vienvenido a mi spa!",
-      "titleAccent": "Atreteve a relajar y dispertar tu sentidos conmigo",
+      "photo": "",
+      "eyebrow": "Colombia",
+      "title": "My nails spa",
+      "titleAccent": "Vien aregalar tu unas",
       "greeting": "¡Hola, soy {nombre}!",
-      "lead": "Ven y le daré un rico masaje",
+      "lead": "Nuestro cientre es top",
       "ctaPrimary": "Escríbeme por WhatsApp",
-      "ctaSecondary": "Ver masajes",
+      "ctaSecondary": "Ver servicios",
       "badgeTitle": "{nombre}",
       "badgeText": "Apartamento discreto ",
       "photoFit": "contain",
@@ -41,11 +41,11 @@
       "title": "Elige tu experiencia ",
       "items": [
         {
-          "name": "Masaje tantrico 6o min 💆‍♂️",
-          "desc": "$2900"
+          "name": "unas",
+          "desc": "$20"
         },
         {
-          "name": "Manejo extras ✨🌷",
+          "name": "Cejas",
           "desc": "Los extras pueden ser topless, completamente desnuda y mucho más"
         },
         {
@@ -57,7 +57,7 @@
     },
     {
       "type": "facilities",
-      "eyebrow": "en Polanco",
+      "eyebrow": "Laureles",
       "title": "Comodidad y total discreción",
       "items": [
         {
@@ -83,19 +83,19 @@
       ],
       "gallery": [
         {
-          "photo": "foto-mv8bu8wj.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Sala de masajes",
           "fit": "contain"
         },
         {
-          "photo": "foto-mv8busye.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Ambiente",
           "fit": "contain"
         },
         {
-          "photo": "foto-mv8bv9tb.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Amenidades",
           "fit": "contain",
