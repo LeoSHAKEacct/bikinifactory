@@ -395,10 +395,17 @@
 
                 const x = centerX + Math.cos(angle) * radius;
                 const y = centerY + Math.sin(angle) * radius;
+                const scale = 1 + Math.cos(angle) * 0.2;
 
                 company.element.style.left = x + 'px';
                 company.element.style.top = y + 'px';
-                company.element.style.transform = `translate(-50%, -50%) scale(${1 + Math.cos(angle) * 0.2})`;
+                company.element.style.transform = `translate(-50%, -50%)`;
+
+                // Apply scale to children for depth effect
+                const nameEl = company.element.querySelector('.star-name');
+                const linkEl = company.element.querySelector('.star-link');
+                if (nameEl) nameEl.style.transform = `translate(-50%, -50%) scale(${scale})`;
+                if (linkEl) linkEl.style.transform = `translate(-50%, -50%) scale(${scale})`;
             });
         }
 
