@@ -1,6 +1,6 @@
 {
-  "name": "Imperio Spa",
-  "phone": "+575574328782",
+  "name": "Sauna",
+  "phone": "+5755743200002",
   "waMessage": "Hola {nombre}, quiero reservar un masaje",
   "seo": {
     "title": "{nombre} · Masajes",
@@ -8,15 +8,15 @@
   },
   "nav": {
     "services": "",
-    "facilities": "Masaje",
-    "zones": "Relajacion",
+    "facilities": "Sauna",
+    "zones": "Spa",
     "reserve": "Reservar"
   },
   "footer": "{nombre} · Masajes · Solo mayores de 18 años",
   "sections": [
     {
       "type": "hero",
-      "photo": "foto-mv8cs4gw.jpg",
+      "photo": "",
       "eyebrow": "Medellin, Colombia",
       "title": "Vienvenido a Imperio Spa!",
       "titleAccent": "Atreteve a relajar y dispertar tu sentidos conmigo",
@@ -41,24 +41,24 @@
       "title": "Elige tu experiencia ",
       "items": [
         {
-          "name": "Masaje tantrico 6o min 💆‍♂️",
-          "desc": "$2900"
+          "name": "Sauna ",
+          "desc": "$20"
         },
         {
-          "name": "Manejo extras ✨🌷",
-          "desc": "Los extras pueden ser topless, completamente desnuda y mucho más"
+          "name": "Sauna + spa",
+          "desc": "$40"
         },
         {
-          "name": "No hay ningun tipo de sexo",
-          "desc": ""
+          "name": "Sauna + spa + massaje",
+          "desc": "$50"
         }
       ],
       "benefit": "Reduce las tensiones musculares y mejora la circulación, para una sensación de relajación de cuerpo y mente."
     },
     {
       "type": "facilities",
-      "eyebrow": "Gaby",
-      "title": "Colombiana, amorosa, ruvia",
+      "eyebrow": "Yap",
+      "title": "ok",
       "items": [
         {
           "icon": "home",
@@ -83,19 +83,19 @@
       ],
       "gallery": [
         {
-          "photo": "foto-mv8cvydn.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Sala de masajes",
           "fit": "contain"
         },
         {
-          "photo": "foto-mv8cxsgb.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Ambiente",
           "fit": "contain"
         },
         {
-          "photo": "foto-mv8czar0.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Amenidades",
           "fit": "contain",
