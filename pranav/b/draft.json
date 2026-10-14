@@ -1,6 +1,6 @@
 {
   "name": "Gene Terapeuta",
-  "phone": "23456754",
+  "phone": "314",
   "waMessage": "Hola {nombre}, quiero reservar un masaje",
   "seo": {
     "title": "{nombre} · Masajes",
