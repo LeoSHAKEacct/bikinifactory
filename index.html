@@ -178,21 +178,21 @@
             text-decoration: none;
             display: block;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: opacity 0.3s ease;
+            opacity: 1;
         }
 
-        .star-name:hover {
-            background: rgba(0, 255, 136, 0.2);
-            color: #ffff00;
-            text-shadow: 0 0 20px rgba(255, 255, 0, 1);
+        .star.hovered .star-name {
+            opacity: 0;
+            pointer-events: none;
         }
 
         .star-finger {
             position: absolute;
-            top: calc(50% + 35px);
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
-            font-size: 2em;
+            transform: translate(-50%, -50%);
+            font-size: 2.5em;
             cursor: pointer;
             opacity: 0;
             transition: opacity 0.3s ease;
