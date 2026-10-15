@@ -175,39 +175,37 @@
             border-radius: 8px;
             background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(5px);
-            transition: opacity 0.3s ease;
-        }
-
-        .star.hovered .star-name {
-            display: none;
-        }
-
-        .star-link {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            font-size: 3em;
-            cursor: pointer;
-            z-index: 1;
-            display: none;
-        }
-
-        .star.hovered .star-link {
-            display: block;
-            opacity: 1;
-        }
-
-        .star-link a {
             text-decoration: none;
             display: block;
-            line-height: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .star-link a:hover {
-            filter: brightness(1.2);
+        .star-name:hover {
+            background: rgba(0, 255, 136, 0.2);
+            color: #ffff00;
+            text-shadow: 0 0 20px rgba(255, 255, 0, 1);
+        }
+
+        .star-finger {
+            position: absolute;
+            top: calc(50% + 35px);
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2em;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .star.hovered .star-finger {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .star-finger:hover {
+            filter: brightness(1.3);
         }
 
         .footer {
@@ -354,20 +352,25 @@
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.innerHTML = `
-                    <div class="star-name">${company.name}</div>
-                    <div class="star-link">
-                        <a href="${company.link}" target="_blank">👉</a>
-                    </div>
+                    <a href="${company.link}" target="_blank" class="star-name">${company.name}</a>
+                    <div class="star-finger">👉</div>
                 `;
 
                 star.addEventListener('mouseenter', () => {
-                    hoveredStar = company;
-                    star.classList.add('hovered');
+                    if (hoveredStar !== company) {
+                        hoveredStar = company;
+                        // Remove hovered class from all stars
+                        document.querySelectorAll('.star').forEach(s => s.classList.remove('hovered'));
+                        // Add to current star
+                        star.classList.add('hovered');
+                    }
                 });
 
                 star.addEventListener('mouseleave', () => {
-                    hoveredStar = null;
-                    star.classList.remove('hovered');
+                    if (hoveredStar === company) {
+                        hoveredStar = null;
+                        star.classList.remove('hovered');
+                    }
                 });
 
                 starsContainer.appendChild(star);
