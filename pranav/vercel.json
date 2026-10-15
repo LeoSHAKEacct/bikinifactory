@@ -1,7 +1,5 @@
 {
-  "git": {
-    "deploymentEnabled": {
-      "admin-drafts": false
-    }
-  }
+  "buildCommand": "echo 'Static site'",
+  "outputDirectory": ".",
+  "name": "lase-properties"
 }
