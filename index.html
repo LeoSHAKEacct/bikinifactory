@@ -12,30 +12,30 @@
         }
 
         :root {
-            --primary-blue: #0099ff;
-            --dark-bg: #1a1a1a;
-            --light-bg: #f8f9fa;
-            --text-dark: #333;
-            --text-light: #666;
-            --border-color: #e0e0e0;
+            --primary-accent: #d4a373;
+            --dark-bg: #05070c;
+            --card-bg: #0f1117;
+            --text-light: #e8e8e8;
+            --text-muted: #a0a0a0;
+            --border-color: #1a1a1a;
             --success: #4CAF50;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            color: var(--text-dark);
-            background: white;
+            color: var(--text-light);
+            background: var(--dark-bg);
         }
 
         /* Header */
         header {
             background: var(--dark-bg);
-            color: white;
-            padding: 1rem 2rem;
+            color: var(--text-light);
+            padding: 1.5rem 2rem;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .header-content {
@@ -47,34 +47,37 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-blue);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-accent);
             text-decoration: none;
+            letter-spacing: 1px;
         }
 
         nav {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             align-items: center;
         }
 
         nav a {
-            color: white;
+            color: var(--text-light);
             text-decoration: none;
             transition: color 0.3s;
+            font-size: 0.95rem;
         }
 
         nav a:hover {
-            color: var(--primary-blue);
+            color: var(--primary-accent);
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--dark-bg) 0%, #0a3d5c 100%);
-            color: white;
-            padding: 4rem 2rem;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            padding: 6rem 2rem 4rem;
             text-align: center;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .hero-content {
@@ -83,90 +86,101 @@
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 2.8rem;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary-blue), #00d4ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-weight: 600;
+            letter-spacing: -1px;
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-bottom: 2rem;
-            color: #ccc;
+            color: var(--text-muted);
+            font-weight: 300;
         }
 
         /* Search Bar */
         .search-section {
-            background: var(--light-bg);
-            padding: 2rem;
-            margin: -2rem 2rem 2rem 2rem;
-            border-radius: 10px;
+            background: var(--dark-bg);
+            padding: 2.5rem;
+            margin: 2rem;
+            border-radius: 0;
             max-width: 1200px;
             margin-left: auto;
             margin-right: auto;
+            border: 1px solid var(--border-color);
         }
 
         .search-bar {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr auto;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
         }
 
         .search-input {
-            padding: 0.8rem;
+            padding: 0.9rem 1rem;
             border: 1px solid var(--border-color);
-            border-radius: 5px;
+            border-radius: 4px;
             font-size: 1rem;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
+            background: var(--card-bg);
+            color: var(--text-light);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
         }
 
         .search-input:focus {
             outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(0, 153, 255, 0.1);
+            border-color: var(--primary-accent);
+            background: var(--card-bg);
         }
 
         .search-btn {
-            background: var(--primary-blue);
-            color: white;
+            background: var(--primary-accent);
+            color: var(--dark-bg);
             border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 5px;
+            padding: 0.9rem 2rem;
+            border-radius: 4px;
             font-size: 1rem;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s;
+            font-weight: 600;
         }
 
         .search-btn:hover {
-            background: #0080cc;
+            background: #e5b085;
         }
 
         .filters {
             display: flex;
-            gap: 1rem;
+            gap: 0.8rem;
             flex-wrap: wrap;
         }
 
         .filter-btn {
-            padding: 0.6rem 1.2rem;
+            padding: 0.7rem 1.4rem;
             border: 1px solid var(--border-color);
-            background: white;
-            border-radius: 5px;
+            background: transparent;
+            color: var(--text-light);
+            border-radius: 4px;
             cursor: pointer;
             transition: all 0.3s;
+            font-size: 0.95rem;
         }
 
         .filter-btn.active {
-            background: var(--primary-blue);
-            color: white;
-            border-color: var(--primary-blue);
+            background: var(--primary-accent);
+            color: var(--dark-bg);
+            border-color: var(--primary-accent);
+            font-weight: 600;
         }
 
         .filter-btn:hover {
-            border-color: var(--primary-blue);
+            border-color: var(--primary-accent);
+            color: var(--primary-accent);
         }
 
         /* Main Container */
@@ -177,9 +191,11 @@
         }
 
         .section-title {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: var(--text-dark);
+            font-size: 2.2rem;
+            margin-bottom: 2.5rem;
+            color: var(--text-light);
+            font-weight: 600;
+            letter-spacing: -0.5px;
         }
 
         /* Properties Grid */
@@ -191,133 +207,138 @@
         }
 
         .property-card {
-            background: white;
-            border-radius: 10px;
+            background: var(--card-bg);
+            border-radius: 0;
             overflow: hidden;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
             cursor: pointer;
         }
 
         .property-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+            border-color: var(--primary-accent);
+            transform: translateY(-3px);
         }
 
         .property-image {
             width: 100%;
             height: 200px;
-            background: linear-gradient(135deg, #ddd, #eee);
+            background: linear-gradient(135deg, #1a1a1a, #0f0f0f);
             position: relative;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3rem;
-            color: #999;
+            color: #333;
         }
 
         .property-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--primary-blue);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            font-size: 0.85rem;
-            font-weight: bold;
+            top: 12px;
+            right: 12px;
+            background: var(--primary-accent);
+            color: var(--dark-bg);
+            padding: 0.4rem 0.9rem;
+            border-radius: 0;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
         .property-content {
-            padding: 1.5rem;
+            padding: 1.8rem;
         }
 
         .property-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-dark);
+            font-size: 1.2rem;
+            margin-bottom: 0.6rem;
+            color: var(--text-light);
+            font-weight: 600;
         }
 
         .property-location {
-            color: var(--text-light);
+            color: var(--text-muted);
             font-size: 0.9rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
         .property-price {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-blue);
-            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary-accent);
+            margin-bottom: 1.2rem;
         }
 
         .property-features {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 0.5rem;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 1.2rem;
             border-bottom: 1px solid var(--border-color);
         }
 
         .feature {
             text-align: center;
-            font-size: 0.85rem;
-            color: var(--text-light);
+            font-size: 0.8rem;
+            color: var(--text-muted);
         }
 
         .feature-icon {
             display: block;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             margin-bottom: 0.3rem;
         }
 
         .property-actions {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
+            gap: 0.7rem;
         }
 
         .btn {
-            padding: 0.7rem;
+            padding: 0.8rem;
             border: none;
-            border-radius: 5px;
+            border-radius: 0;
             cursor: pointer;
             font-size: 0.9rem;
             transition: all 0.3s;
             text-align: center;
             text-decoration: none;
+            font-weight: 500;
         }
 
         .btn-primary {
-            background: var(--primary-blue);
-            color: white;
+            background: var(--primary-accent);
+            color: var(--dark-bg);
         }
 
         .btn-primary:hover {
-            background: #0080cc;
+            background: #e5b085;
         }
 
         .btn-secondary {
-            background: var(--light-bg);
-            color: var(--primary-blue);
-            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--primary-accent);
+            border: 1px solid var(--primary-accent);
         }
 
         .btn-secondary:hover {
-            background: var(--border-color);
+            background: var(--primary-accent);
+            color: var(--dark-bg);
         }
 
         /* Stats Section */
         .stats {
-            background: linear-gradient(135deg, var(--dark-bg), #0a3d5c);
-            color: white;
-            padding: 3rem 2rem;
+            background: var(--card-bg);
+            color: var(--text-light);
+            padding: 4rem 2rem;
             margin: 3rem 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .stats-grid {
@@ -330,14 +351,16 @@
         }
 
         .stat-item h3 {
-            font-size: 2.5rem;
-            color: var(--primary-blue);
+            font-size: 2.8rem;
+            color: var(--primary-accent);
             margin-bottom: 0.5rem;
+            font-weight: 600;
         }
 
         .stat-item p {
-            color: #ccc;
-            font-size: 1rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 300;
         }
 
         /* Modal */
@@ -348,7 +371,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.8);
             z-index: 2000;
             align-items: center;
             justify-content: center;
@@ -359,13 +382,14 @@
         }
 
         .modal-content {
-            background: white;
-            border-radius: 10px;
+            background: var(--card-bg);
+            border-radius: 0;
             max-width: 600px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
+            border: 1px solid var(--border-color);
         }
 
         .modal-header {
@@ -377,7 +401,8 @@
         }
 
         .modal-header h2 {
-            color: var(--text-dark);
+            color: var(--text-light);
+            font-weight: 600;
         }
 
         .close-btn {
@@ -385,7 +410,12 @@
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
-            color: var(--text-light);
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: var(--primary-accent);
         }
 
         .modal-body {
@@ -399,8 +429,9 @@
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            color: var(--text-dark);
+            color: var(--text-light);
             font-weight: 500;
+            font-size: 0.95rem;
         }
 
         .form-group input,
@@ -408,9 +439,11 @@
             width: 100%;
             padding: 0.8rem;
             border: 1px solid var(--border-color);
-            border-radius: 5px;
+            border-radius: 0;
             font-size: 1rem;
             font-family: inherit;
+            background: var(--dark-bg);
+            color: var(--text-light);
         }
 
         .form-group textarea {
@@ -418,11 +451,15 @@
             min-height: 100px;
         }
 
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-muted);
+        }
+
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(0, 153, 255, 0.1);
+            border-color: var(--primary-accent);
         }
 
         .form-actions {
@@ -434,9 +471,10 @@
         /* Footer */
         footer {
             background: var(--dark-bg);
-            color: white;
-            padding: 3rem 2rem;
+            color: var(--text-light);
+            padding: 3.5rem 2rem 2rem;
             text-align: center;
+            border-top: 1px solid var(--border-color);
         }
 
         .footer-content {
@@ -450,26 +488,31 @@
         }
 
         .footer-section h3 {
-            color: var(--primary-blue);
+            color: var(--primary-accent);
             margin-bottom: 1rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         .footer-section a {
             display: block;
-            color: #ccc;
+            color: var(--text-muted);
             text-decoration: none;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
             transition: color 0.3s;
+            font-size: 0.9rem;
         }
 
         .footer-section a:hover {
-            color: var(--primary-blue);
+            color: var(--primary-accent);
         }
 
         .footer-bottom {
-            border-top: 1px solid #333;
+            border-top: 1px solid var(--border-color);
             padding-top: 2rem;
-            color: #ccc;
+            color: var(--text-muted);
+            font-size: 0.85rem;
         }
 
         /* Responsive */
@@ -492,23 +535,23 @@
 
             nav {
                 gap: 1rem;
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
         }
 
         .no-properties {
             text-align: center;
             padding: 2rem;
-            color: var(--text-light);
+            color: var(--text-muted);
         }
 
         .success-message {
-            background: #d4edda;
-            color: #155724;
+            background: transparent;
+            color: #a8d5a8;
             padding: 1rem;
-            border-radius: 5px;
+            border-radius: 0;
             margin-bottom: 1rem;
-            border: 1px solid #c3e6cb;
+            border: 1px solid #4CAF50;
             display: none;
         }
 
@@ -537,6 +580,17 @@
             <h1>Find Your Dream Property</h1>
             <p>Excellence in Real Estate Development - Dubai's Leading Property Developer</p>
         </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="container" style="padding: 3rem 2rem; border-bottom: 1px solid var(--border-color); max-width: 900px;">
+        <h2 style="font-size: 1.4rem; margin-bottom: 1.5rem; color: var(--text-light); font-weight: 600;">About LASE Properties</h2>
+        <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem; font-size: 1rem;">
+            LASE Properties is Dubai's leading real estate developer, specializing in premium residential and commercial properties. We transform dreams into reality with over 15 years of experience, 500+ properties, and 62,900 satisfied customers.
+        </p>
+        <p style="color: var(--text-muted); line-height: 1.7; font-size: 1rem;">
+            Our curated collection features luxury penthouses, modern apartments, spacious villas, and exclusive townhouses across Dubai's most sought-after locations.
+        </p>
     </section>
 
     <!-- Search Section -->
@@ -856,7 +910,7 @@
             const details = document.getElementById('propertyDetails');
             details.innerHTML = `
                 <div style="margin-bottom: 1.5rem;">
-                    <h3 style="color: #0099ff; margin-bottom: 1rem;">Property Details</h3>
+                    <h3 style="color: #d4a373; margin-bottom: 1rem; font-weight: 600;">Property Details</h3>
                     <p><strong>Property:</strong> ${prop.title}</p>
                     <p><strong>Location:</strong> ${prop.location}</p>
                     <p><strong>Type:</strong> ${prop.type}</p>
@@ -865,7 +919,7 @@
                     <p><strong>Bathrooms:</strong> ${prop.bathrooms}</p>
                     <p><strong>Size:</strong> ${prop.sqft.toLocaleString()} sqft</p>
                 </div>
-                <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #e0e0e0;">
+                <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #1a1a1a;">
             `;
             document.getElementById('propertyModal').classList.add('active');
             document.getElementById('inquiryForm').dataset.propertyId = propertyId;
