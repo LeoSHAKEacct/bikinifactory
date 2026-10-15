@@ -27,13 +27,19 @@ jobs:
         with:
           ref: claude/sleepy-cray-ifhpvr
 
+      - name: Create deploy directory
+        run: |
+          mkdir -p deploy
+          cp index.html deploy/
+          touch deploy/.nojekyll
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: 'deploy'
 
       - name: Deploy to GitHub Pages
         id: deployment
