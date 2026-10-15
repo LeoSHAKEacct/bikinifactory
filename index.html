@@ -345,6 +345,7 @@
         ];
 
         let hoveredStar = null;
+        let leaveTimeout = null;
 
         function createStars() {
             starsContainer.innerHTML = '';
@@ -357,20 +358,32 @@
                 `;
 
                 star.addEventListener('mouseenter', () => {
-                    if (hoveredStar !== company) {
-                        hoveredStar = company;
-                        // Remove hovered class from all stars
-                        document.querySelectorAll('.star').forEach(s => s.classList.remove('hovered'));
-                        // Add to current star
-                        star.classList.add('hovered');
+                    // Cancel any pending leave
+                    if (leaveTimeout) {
+                        clearTimeout(leaveTimeout);
+                        leaveTimeout = null;
                     }
+
+                    hoveredStar = company;
+                    // Remove hovered class from all other stars
+                    document.querySelectorAll('.star').forEach(s => {
+                        if (s !== star) {
+                            s.classList.remove('hovered');
+                        }
+                    });
+                    // Add to current star
+                    star.classList.add('hovered');
                 });
 
                 star.addEventListener('mouseleave', () => {
-                    if (hoveredStar === company) {
-                        hoveredStar = null;
-                        star.classList.remove('hovered');
-                    }
+                    // Debounce the leave event to handle rapid enter/leave due to animation
+                    leaveTimeout = setTimeout(() => {
+                        if (hoveredStar === company) {
+                            hoveredStar = null;
+                            star.classList.remove('hovered');
+                        }
+                        leaveTimeout = null;
+                    }, 100);
                 });
 
                 starsContainer.appendChild(star);
