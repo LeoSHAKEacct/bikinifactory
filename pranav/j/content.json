@@ -16,7 +16,7 @@
   "sections": [
     {
       "type": "hero",
-      "photo": "",
+      "photo": "foto-mvb6x109.jpg",
       "eyebrow": "from Colombia 🇨🇴 to you",
       "title": "💕 Vienvenido a mi spa!",
       "titleAccent": "Atreteve a relajar y dispertar tu sentidos conmigo",
@@ -91,19 +91,19 @@
       ],
       "gallery": [
         {
-          "photo": "foto-mv4go1x3.jpg",
+          "photo": "foto-mvb6xwo5.jpg",
           "caption": "",
           "placeholder": "Sala de masajes",
           "fit": "contain"
         },
         {
-          "photo": "",
+          "photo": "foto-mvb6vq11.jpg",
           "caption": "",
           "placeholder": "Ambiente",
           "fit": "contain"
         },
         {
-          "photo": "",
+          "photo": "foto-mvb6yen0.jpg",
           "caption": "",
           "placeholder": "Amenidades",
           "fit": "",
