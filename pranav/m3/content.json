@@ -33,7 +33,7 @@
       "type": "intro",
       "quote": "¡Nada que un buen masaje para mejorar la semana!",
       "quoteAccent": "no pueda arreglar!",
-      "body": "Ven y disfruta de un masaje en3fw"
+      "body": "Ven y disfruta de un masaje"
     },
     {
       "type": "services",
@@ -50,7 +50,7 @@
         },
         {
           "name": "Majase 4",
-          "desc": "897y"
+          "desc": "897"
         }
       ],
       "benefit": "Reduce las tensiones musculares y mejora la circulación, para una sensación de relajación de cuerpo y mente."
@@ -105,8 +105,8 @@
     },
     {
       "type": "facilities",
-      "eyebrow": "Camila",
-      "title": "Sensual, Colombiana, delgada etc",
+      "eyebrow": "Todas las condiciones",
+      "title": "yayay",
       "items": [
         {
           "icon": "home",
