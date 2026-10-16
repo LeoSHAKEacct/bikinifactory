@@ -16,9 +16,9 @@
   "sections": [
     {
       "type": "hero",
-      "photo": "foto-mvb749xi.jpg",
-      "eyebrow": "de ali para ali",
-      "title": "ok",
+      "photo": "foto-mvb937ni.jpg",
+      "eyebrow": "Tu mejor momento del dia",
+      "title": "",
       "titleAccent": "Atreteve a relajar y dispertar tu sentidos conmigo",
       "greeting": "¡Hola, soy {nombre}!",
       "lead": "Ven y le daré un rico spa day",
@@ -41,16 +41,16 @@
       "title": "Elige tu experiencia ",
       "items": [
         {
-          "name": "Masaje 6o min 💆‍♂️",
-          "desc": ""
+          "name": "Masaje 6o min ",
+          "desc": "$30"
         },
         {
-          "name": "",
-          "desc": ""
+          "name": "Masaje 9o min ",
+          "desc": "$60"
         },
         {
-          "name": "",
-          "desc": ""
+          "name": "Masaje 12o min ",
+          "desc": "$80"
         }
       ],
       "benefit": "Reduce las tensiones musculares y mejora la circulación, para una sensación de relajación de cuerpo y mente."
