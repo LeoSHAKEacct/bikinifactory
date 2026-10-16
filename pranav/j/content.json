@@ -1,6 +1,6 @@
 {
   "name": "Latin Spa",
-  "phone": "573217455367",
+  "phone": "573217455000",
   "waMessage": "Hola {nombre}, quiero reservar un masaje",
   "seo": {
     "title": "{nombre} · Masajes",
@@ -16,7 +16,7 @@
   "sections": [
     {
       "type": "hero",
-      "photo": "foto-mv4gl1bs.jpg",
+      "photo": "",
       "eyebrow": "from Colombia 🇨🇴 to you",
       "title": "💕 Vienvenido a mi spa!",
       "titleAccent": "Atreteve a relajar y dispertar tu sentidos conmigo",
@@ -97,13 +97,13 @@
           "fit": "contain"
         },
         {
-          "photo": "foto-mv4gphzg.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Ambiente",
           "fit": "contain"
         },
         {
-          "photo": "foto-mv4gozxt.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Amenidades",
           "fit": "",
