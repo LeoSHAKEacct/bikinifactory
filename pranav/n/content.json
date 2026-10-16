@@ -1,0 +1,156 @@
+{
+  "name": "No site here",
+  "phone": "+570384840000",
+  "waMessage": "Hola {nombre}, quiero reservar un masaje",
+  "seo": {
+    "title": "{nombre} · Masajes",
+    "description": "{nombre} — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta."
+  },
+  "nav": {
+    "services": "",
+    "facilities": "Masaje",
+    "zones": "Relajacion",
+    "reserve": "Reservar"
+  },
+  "footer": "{nombre} · Masajes · Solo mayores de 18 años",
+  "sections": [
+    {
+      "type": "intro",
+      "quote": "¡Nada que un buen contenido erótico",
+      "quoteAccent": "no pueda arreglar!",
+      "body": "Ven y disfruta de un agradable contenido relajante. Cada video que realizaré está diseñado para reconectar tu cuerpo con tu imaginación y placer."
+    },
+    {
+      "type": "services",
+      "eyebrow": "Paquetes disponibles",
+      "title": "Elige tu experiencia ",
+      "items": [
+        {
+          "name": "Masaje 6o min 💆‍♂️",
+          "desc": "$2900"
+        },
+        {
+          "name": "Masaje 90 min",
+          "desc": "muscolos y relajacion"
+        },
+        {
+          "name": "No hay ningun tipo de sexo",
+          "desc": ""
+        }
+      ],
+      "benefit": "Reduce las tensiones musculares y mejora la circulación, para una sensación de relajación de cuerpo y mente."
+    },
+    {
+      "type": "facilities",
+      "eyebrow": "en Polanco",
+      "title": "Comodidad y total discreción",
+      "items": [
+        {
+          "icon": "home",
+          "title": "Apartamento cómodo",
+          "desc": "Instalaciones totalmente cómodas y acogedoras."
+        },
+        {
+          "icon": "parking",
+          "title": "Parqueadero",
+          "desc": "Llega tranquilo, tenemos dónde dejar tu vehículo."
+        },
+        {
+          "icon": "shield",
+          "title": "Totalmente discreto",
+          "desc": "Tu privacidad es lo primero."
+        },
+        {
+          "icon": "drink",
+          "title": "Bebida de bienvenida",
+          "desc": "Relájate desde el primer momento."
+        }
+      ],
+      "gallery": [
+        {
+          "photo": "",
+          "caption": "",
+          "placeholder": "Sala de masajes",
+          "fit": "contain"
+        },
+        {
+          "photo": "",
+          "caption": "",
+          "placeholder": "Ambiente",
+          "fit": "contain"
+        },
+        {
+          "photo": "",
+          "caption": "",
+          "placeholder": "Amenidades",
+          "fit": "contain",
+          "pos": "bottom"
+        }
+      ]
+    },
+    {
+      "type": "facilities",
+      "eyebrow": "en Polanco",
+      "title": "Comodidad y total discreción",
+      "items": [
+        {
+          "icon": "home",
+          "title": "Apartamento cómodo",
+          "desc": "Instalaciones totalmente cómodas y acogedoras."
+        },
+        {
+          "icon": "parking",
+          "title": "Parqueadero",
+          "desc": "Llega tranquilo, tenemos dónde dejar tu vehículo."
+        },
+        {
+          "icon": "shield",
+          "title": "Spa de unas",
+          "desc": "Tu privacidad es lo primero."
+        },
+        {
+          "icon": "drink",
+          "title": "",
+          "desc": "spa"
+        }
+      ],
+      "gallery": [
+        {
+          "photo": "",
+          "caption": "",
+          "placeholder": "sala",
+          "fit": "contain"
+        },
+        {
+          "photo": "",
+          "caption": "",
+          "placeholder": "Ambiente",
+          "fit": "contain"
+        },
+        {
+          "photo": "",
+          "caption": "",
+          "placeholder": "Amenidades",
+          "fit": "contain",
+          "pos": "bottom"
+        }
+      ]
+    },
+    {
+      "type": "zones",
+      "eyebrow": "Agenda con antecipación",
+      "title": "La ubicación se envia al confirmar la cita",
+      "text": "",
+      "places": [
+        "Yutacan"
+      ]
+    },
+    {
+      "type": "cta",
+      "eyebrow": "Reserva tu cita",
+      "title": "¡Te espero!",
+      "text": "Escríbeme por WhatsApp y agenda tu momento de relajación y placer.",
+      "button": "WhatsApp {telefono}"
+    }
+  ]
+}
