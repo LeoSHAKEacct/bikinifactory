@@ -15,9 +15,8 @@
             font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', sans-serif;
             background: #000000;
             color: #fff;
-            overflow: hidden;
+            overflow-y: auto;
             width: 100%;
-            height: 100vh;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -90,7 +89,7 @@
             position: relative;
             z-index: 2;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -269,6 +268,113 @@
             height: 20px;
         }
 
+        .companies-section {
+            width: 100%;
+            min-height: 100vh;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(135deg, #000000 0%, #0a0a1a 100%);
+            position: relative;
+            z-index: 3;
+        }
+
+        .companies-section h2 {
+            font-size: 2.5em;
+            font-weight: 600;
+            margin-bottom: 60px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .company-card {
+            background: rgba(20, 20, 40, 0.8);
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .company-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .company-card:hover {
+            border-color: rgba(0, 255, 136, 0.8);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 48px rgba(0, 255, 136, 0.2);
+        }
+
+        .company-card:hover::before {
+            opacity: 1;
+        }
+
+        .company-card-name {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: #00ff88;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+            letter-spacing: 1px;
+        }
+
+        .company-card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(0, 255, 136, 0.2);
+            border: 2px solid rgba(0, 255, 136, 0.5);
+            border-radius: 8px;
+            color: #00ff88;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .company-card-link:hover {
+            background: rgba(0, 255, 136, 0.4);
+            border-color: rgba(0, 255, 136, 1);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
+        }
+
+        .company-card-arrow {
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
+
+        .company-card-link:hover .company-card-arrow {
+            transform: translateX(5px);
+        }
+
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 1.8em;
@@ -287,6 +393,28 @@
                 top: 10px;
                 right: 10px;
                 font-size: 0.9em;
+            }
+
+            .companies-section {
+                padding: 40px 20px;
+            }
+
+            .companies-section h2 {
+                font-size: 1.8em;
+                margin-bottom: 40px;
+            }
+
+            .companies-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .company-card {
+                padding: 20px;
+            }
+
+            .company-card-name {
+                font-size: 1.5em;
             }
         }
     </style>
@@ -323,6 +451,11 @@
         <div class="footer-email">
             <a href="mailto:leoneltelesmeneses@gmail.com">leoneltelesmeneses@gmail.com</a>
         </div>
+    </div>
+
+    <div class="companies-section" id="companiesSection">
+        <h2>My Companies</h2>
+        <div class="companies-grid" id="companiesGrid"></div>
     </div>
 
     <script>
@@ -428,6 +561,20 @@
 
         createStars();
         animate();
+
+        // Populate companies grid
+        const companiesGrid = document.getElementById('companiesGrid');
+        companies.forEach(company => {
+            const card = document.createElement('div');
+            card.className = 'company-card';
+            card.innerHTML = `
+                <div class="company-card-name">${company.name}</div>
+                <a href="${company.link}" target="_blank" class="company-card-link">
+                    Visit <span class="company-card-arrow">→</span>
+                </a>
+            `;
+            companiesGrid.appendChild(card);
+        });
     </script>
 </body>
 </html>
