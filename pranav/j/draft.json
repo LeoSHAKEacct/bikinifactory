@@ -3,12 +3,12 @@
   "phone": "573217455000",
   "waMessage": "Hola {nombre}, quiero reservar un masaje",
   "seo": {
-    "title": "{nombre} · Masajes",
+    "title": "{nombre} · Piscina",
     "description": "{nombre} — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta."
   },
   "nav": {
     "services": "",
-    "facilities": "Masaje",
+    "facilities": "Piscina",
     "zones": "Domicilios",
     "reserve": "Reservar"
   },
