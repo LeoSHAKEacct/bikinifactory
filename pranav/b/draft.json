@@ -7,7 +7,7 @@
     "description": "{nombre} — Sauna "
   },
   "nav": {
-    "services": "Masajes",
+    "services": "Sauna",
     "facilities": "Instalaciones",
     "zones": "Zonas",
     "reserve": "Reservar"
@@ -16,7 +16,7 @@
   "sections": [
     {
       "type": "hero",
-      "photo": "foto-mv8nii3a.jpg",
+      "photo": "",
       "eyebrow": "Masajes · Medellín",
       "title": "Relajación y placer",
       "titleAccent": "en un masaje",
