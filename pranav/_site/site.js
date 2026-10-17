@@ -30,6 +30,12 @@
   }
   // fit: "contain" shows the whole photo over a blurred copy; otherwise it fills
   // the frame. pos picks what stays visible when filling: top, center, bottom.
+  // YouTube link (watch, youtu.be, shorts, embed) -> video id, or ''.
+  function youtubeId(u) {
+    var m = /(?:youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/|live\/)|youtu\.be\/)([\w-]{11})/.exec(String(u || ''));
+    return m ? m[1] : '';
+  }
+
   function frame(url, alt, fit, pos, lazy) {
     var contain = fit === 'contain', u = esc(url), l = lazy ? ' loading="lazy"' : '';
     return '<div class="pframe' + (contain ? ' contain' : '') + (!contain && /^(top|center|bottom)$/.test(pos) ? ' ' + pos : '') + '">' +
@@ -116,7 +122,8 @@
         var items = (x.items || []).map(function (s, i) {
           var book = bookingOn && s.bookable !== 'no'
             ? '<button type="button" class="book-btn" data-s="' + si + '" data-i="' + i + '">' + esc(c.booking.button || 'Reservar') + '</button>' : '';
-          return '<article class="svc reveal"><div class="num">' + (i < 9 ? '0' : '') + (i + 1) + '</div><h3>' + esc(s.name) + '</h3><p>' + lines(s.desc) + '</p>' + book + '</article>';
+          var pic = s.photo ? '<div class="svc-pic">' + frame(photoUrl(s.photo, slug), s.name, s.fit, s.pos, true) + '</div>' : '';
+          return '<article class="svc reveal' + (pic ? ' has-pic' : '') + '">' + pic + '<div class="num">' + (i < 9 ? '0' : '') + (i + 1) + '</div><h3>' + esc(s.name) + '</h3><p>' + lines(s.desc) + '</p>' + book + '</article>';
         }).join('');
         return '<section id="' + id + '"><div class="wrap">' + head(x) +
           '<div class="grid">' + items + '</div>' +
@@ -130,7 +137,13 @@
         }).join('');
         var gallery = (x.gallery || []).map(function (g, i) {
           var url = photoUrl(g.photo, slug), cls = i === 0 ? 'room' : 'shot';
-          if (url) {
+          var yt = g.kind === 'video' && youtubeId(g.video);
+          if (yt) {
+            return '<figure class="' + cls + ' video reveal"><button type="button" class="yt" data-yt="' + yt + '" aria-label="Ver video">' +
+              '<img src="https://i.ytimg.com/vi/' + yt + '/hqdefault.jpg" alt="' + esc(g.caption || 'Video') + '" loading="lazy"><span class="play"></span></button>' +
+              (g.caption ? '<figcaption>' + esc(g.caption) + '</figcaption>' : '') + '</figure>';
+          }
+          if (url && g.kind !== 'video') {
             return '<figure class="' + cls + ' reveal">' + frame(url, g.caption, g.fit, g.pos, true) +
               (g.caption ? '<figcaption>' + esc(g.caption) + '</figcaption>' : '') + '</figure>';
           }
@@ -141,6 +154,7 @@
           (gallery ? '<div class="gallery">' + gallery + '</div>' : '') +
           '</div></section>';
       },
+      gallery: function (x, id) { return R.facilities(x, id); },
       zones: function (x, id) {
         var places = (x.places || []).filter(Boolean).map(function (p) { return '<span class="chip">' + esc(p) + '</span>'; }).join('');
         return '<section id="' + id + '" class="zones"><div class="wrap">' + head(x, x.text) +
@@ -303,12 +317,18 @@
     stepDays();
   }
   document.addEventListener('click', function (e) {
+    var y = e.target.closest && e.target.closest('.yt');
+    if (y) {
+      y.outerHTML = '<iframe class="yt-frame" src="https://www.youtube-nocookie.com/embed/' + y.dataset.yt + '?autoplay=1&rel=0" title="Video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+      return;
+    }
     var b = e.target.closest && e.target.closest('.book-btn');
     if (b && current) openBooking(+b.dataset.s, +b.dataset.i);
   });
 
   window.renderSite = render;
   window.siteMigrate = migrate;
+  window.siteYoutubeId = youtubeId;
 
   // Published pages carry their content inline.
   var inline = document.getElementById('site-content');
