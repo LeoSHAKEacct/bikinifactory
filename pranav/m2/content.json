@@ -41,15 +41,15 @@
       "title": "Elige tu experiencia ",
       "items": [
         {
-          "name": "Masaje y spa",
+          "name": "sauna",
           "desc": "$20"
         },
         {
-          "name": "Masaje 2",
-          "desc": "Los extras pueden ser topless, completamente desnuda y mucho más"
+          "name": "spa",
+          "desc": "okok "
         },
         {
-          "name": "Majase 4",
+          "name": "jacuzi",
           "desc": ""
         }
       ],
