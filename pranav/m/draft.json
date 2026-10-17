@@ -1,0 +1,123 @@
+{
+  "name": "Zara Spa",
+  "phone": "+525574328782",
+  "waMessage": "Hola {nombre}, quiero reservar un masaje",
+  "seo": {
+    "title": "{nombre} · Masajes",
+    "description": "{nombre} — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta."
+  },
+  "nav": {
+    "services": "",
+    "facilities": "Masaje",
+    "zones": "Relajacion",
+    "reserve": "Reservar"
+  },
+  "footer": "{nombre} · Masajes · Solo mayores de 18 años",
+  "sections": [
+    {
+      "type": "hero",
+      "photo": "",
+      "eyebrow": "Colombia",
+      "title": "My nails spa",
+      "titleAccent": "Vien aregalar tu unas",
+      "greeting": "¡Hola, soy {nombre}!",
+      "lead": "Nuestro cientre es top",
+      "ctaPrimary": "Escríbeme por WhatsApp",
+      "ctaSecondary": "Ver servicios",
+      "badgeTitle": "{nombre}",
+      "badgeText": "Apartamento discreto ",
+      "photoFit": "contain",
+      "photoPos": ""
+    },
+    {
+      "type": "intro",
+      "quote": "¡Nada que un buen dia",
+      "quoteAccent": "no pueda arreglar!",
+      "body": "Ven y disfruta de un agradable contenido relajante. Cada video que realizaré está diseñado para reconectar tu cuerpo con tu imaginación y placer."
+    },
+    {
+      "type": "services",
+      "eyebrow": "Paquetes disponibles",
+      "title": "Elige tu experiencia ",
+      "items": [
+        {
+          "name": "unas",
+          "desc": "$20"
+        },
+        {
+          "name": "Cejas",
+          "desc": "Los extras pueden ser topless, completamente desnuda y mucho más"
+        },
+        {
+          "name": "No hay ningun tipo de sexo",
+          "desc": ""
+        }
+      ],
+      "benefit": "Reduce las tensiones musculares y mejora la circulación, para una sensación de relajación de cuerpo y mente."
+    },
+    {
+      "type": "facilities",
+      "eyebrow": "Laureles",
+      "title": "Comodidad y total discreción",
+      "items": [
+        {
+          "icon": "home",
+          "title": "Apartamento cómodo",
+          "desc": "Instalaciones totalmente cómodas y acogedoras."
+        },
+        {
+          "icon": "parking",
+          "title": "Parqueadero",
+          "desc": "Llega tranquilo, tenemos dónde dejar tu vehículo."
+        },
+        {
+          "icon": "shield",
+          "title": "Totalmente discreto",
+          "desc": "Tu privacidad es lo primero."
+        },
+        {
+          "icon": "drink",
+          "title": "Bebida de bienvenida",
+          "desc": "Relájate desde el primer momento."
+        }
+      ],
+      "gallery": [
+        {
+          "photo": "",
+          "caption": "",
+          "placeholder": "Sala de masajes",
+          "fit": "contain"
+        },
+        {
+          "photo": "",
+          "caption": "",
+          "placeholder": "Ambiente",
+          "fit": "contain"
+        },
+        {
+          "photo": "",
+          "caption": "",
+          "placeholder": "Amenidades",
+          "fit": "contain",
+          "pos": "bottom"
+        }
+      ]
+    },
+    {
+      "type": "zones",
+      "eyebrow": "Agenda con antecipación",
+      "title": "La ubicación se envia al confirmar la cita",
+      "text": "",
+      "places": [
+        "Yutacan"
+      ]
+    },
+    {
+      "type": "cta",
+      "eyebrow": "Reserva tu cita",
+      "title": "¡Te espero!",
+      "text": "Escríbeme por WhatsApp y agenda tu momento de relajación y placer.",
+      "button": "WhatsApp {telefono}"
+    }
+  ]
+}
