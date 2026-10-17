@@ -1,13 +1,13 @@
 {
   "name": "Gene Terapeuta",
-  "phone": "3148335609",
+  "phone": "314833455",
   "waMessage": "Hola {nombre}, quiero reservar un masaje",
   "seo": {
     "title": "{nombre} · Masajes",
-    "description": "{nombre} — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta."
+    "description": "{nombre} — Sauna "
   },
   "nav": {
-    "services": "Masajes",
+    "services": "Sauna",
     "facilities": "Instalaciones",
     "zones": "Zonas",
     "reserve": "Reservar"
@@ -16,14 +16,14 @@
   "sections": [
     {
       "type": "hero",
-      "photo": "foto-mv8nii3a.jpg",
+      "photo": "",
       "eyebrow": "Masajes · Medellín",
       "title": "Relajación y placer",
       "titleAccent": "en un masaje",
       "greeting": "¡Hola, soy {nombre}!",
-      "lead": "Ven y le daré un roce con mis manos a tu cuerpo.",
+      "lead": "Sauna y spa",
       "ctaPrimary": "Escríbeme por WhatsApp",
-      "ctaSecondary": "Ver masajes",
+      "ctaSecondary": "Ver paquetes",
       "badgeTitle": "{nombre}",
       "badgeText": "Apartamento discreto · Domicilios"
     },
@@ -31,7 +31,7 @@
       "type": "intro",
       "quote": "¡Nada que un buen masaje erótico",
       "quoteAccent": "no pueda arreglar!",
-      "body": "Ven y disfruta de un agradable masaje relajante. Cada movimiento que realizaré con mis suaves manos está diseñado para reconectar tu cuerpo con tu energía, para que por medio de unas delicadas caricias y nuestro toque erótico llegues a ese éxtasis de placer."
+      "body": "Ven y disfruta de un dia para ti"
     },
     {
       "type": "services",
@@ -40,23 +40,19 @@
       "items": [
         {
           "name": "Masaje Veloterapia",
-          "desc": "Un ritual cálido y envolvente que despierta cada rincón de tu piel."
+          "desc": "Un ritual para te dejar nuevo"
         },
         {
-          "name": "Masaje Sensorial",
-          "desc": "Caricias lentas y suaves que activan todos tus sentidos."
+          "name": "option 1",
+          "desc": "Sauna to relax "
         },
         {
           "name": "Masaje Academia",
-          "desc": "Una experiencia guiada para descubrir y disfrutar el arte del tacto."
+          "desc": "Una experiencia unica"
         },
         {
           "name": "Masaje 4 Manos",
-          "desc": "El doble de manos, el doble de sensaciones, en perfecta sincronía."
-        },
-        {
-          "name": "Masaje Lingam",
-          "desc": "Un masaje tántrico profundo para liberar tu energía y llegar al éxtasis."
+          "desc": "the best day "
         }
       ],
       "benefit": "Reduce las tensiones musculares y mejora la circulación, para una sensación de relajación de cuerpo y mente."
