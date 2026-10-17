@@ -1,15 +1,15 @@
 {
-  "name": "Spa Abril",
+  "name": "Sauna Abril",
   "phone": "+529994174943",
   "waMessage": "Hola {nombre}, quiero reservar un masaje",
   "seo": {
-    "title": "{nombre} · Masajes",
+    "title": "{nombre} · Sauna",
     "description": "{nombre} — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta."
   },
   "nav": {
     "services": "",
-    "facilities": "Masaje",
-    "zones": "Relajacion",
+    "facilities": "Sauna",
+    "zones": "Spa",
     "reserve": "Reservar"
   },
   "footer": "{nombre} · Masajes · Solo mayores de 18 años",
@@ -17,7 +17,7 @@
     {
       "type": "hero",
       "photo": "",
-      "eyebrow": "De Mexico para ti",
+      "eyebrow": "Ali",
       "title": "💕 Vienvenido a mi spa!",
       "titleAccent": "Atreteve a relajar y dispertar tu sentidos conmigo",
       "greeting": "¡Hola, soy {nombre}!",
