@@ -126,14 +126,14 @@
         {
           "icon": "drink",
           "title": "Bebida de bienvenida",
-          "desc": "Relájate desde el primer momento."
+          "desc": "salud primero"
         }
       ],
       "gallery": [
         {
           "photo": "",
           "caption": "",
-          "placeholder": "Sala de masajes",
+          "placeholder": "Sala de salud",
           "fit": "contain"
         },
         {
