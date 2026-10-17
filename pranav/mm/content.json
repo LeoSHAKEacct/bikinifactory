@@ -4,7 +4,7 @@
   "waMessage": "Hola {nombre}, quiero reservar un masaje",
   "seo": {
     "title": "{nombre} · Masajes",
-    "description": "{nombre} — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta."
+    "description": "{nombre} — spa day"
   },
   "nav": {
     "services": "",
@@ -33,7 +33,7 @@
       "type": "intro",
       "quote": "¡Nada que un buen masaje",
       "quoteAccent": "no pueda arreglar!",
-      "body": "Ven y disfruta de un agradable masaje. "
+      "body": "Ven y disfruta de un agradable dia"
     },
     {
       "type": "services",
@@ -106,7 +106,7 @@
     {
       "type": "facilities",
       "eyebrow": "Camila",
-      "title": "Sensual, Colombiana, delgada etc",
+      "title": "sauna day",
       "items": [
         {
           "icon": "home",
