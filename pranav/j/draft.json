@@ -115,13 +115,8 @@
       "type": "zones",
       "eyebrow": "Domicilios",
       "title": "También voy a donde estés",
-      "text": "Se realiza domicilio en el área metropolitana. Hago salidas a:",
-      "places": [
-        "Medellín",
-        "Itagüí",
-        "La Estrella",
-        "Sabaneta"
-      ]
+      "text": "mas description",
+      "places": []
     },
     {
       "type": "cta",
