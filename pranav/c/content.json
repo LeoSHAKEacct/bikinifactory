@@ -31,7 +31,7 @@
       "type": "intro",
       "quote": "¡Nada que un buen masaje erótico",
       "quoteAccent": "no pueda arreglar!",
-      "body": "Ven y disfruta de un agradable masaje relajante. Cada movimiento que realizaré con mis suaves manos está diseñado para reconectar tu cuerpo con tu energía, para que por medio de unas delicadas caricias y nuestro toque erótico llegues a ese éxtasis de placer."
+      "body": "texto"
     },
     {
       "type": "services",
@@ -48,15 +48,15 @@
         },
         {
           "name": "Masaje Academia",
-          "desc": "Una experiencia guiada para descubrir y disfrutar el arte del tacto."
+          "desc": "Una experiencia"
         },
         {
           "name": "Masaje 4 Manos",
-          "desc": "El doble de manos, el doble de sensaciones, en perfecta sincronía."
+          "desc": "okok"
         },
         {
-          "name": "Masaje Lingam",
-          "desc": "Un masaje tántrico profundo para liberar tu energía y llegar al éxtasis."
+          "name": "sauna",
+          "desc": "sauna day"
         }
       ],
       "benefit": "Reduce las tensiones musculares y mejora la circulación, para una sensación de relajación de cuerpo y mente."
@@ -112,12 +112,7 @@
       "eyebrow": "Domicilios",
       "title": "También voy a donde estés",
       "text": "Se realiza domicilio en el área metropolitana. Hago salidas a:",
-      "places": [
-        "Medellín",
-        "Itagüí",
-        "La Estrella",
-        "Sabaneta"
-      ]
+      "places": []
     },
     {
       "type": "cta",
