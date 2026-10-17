@@ -10,7 +10,7 @@ const DRAFTS = 'admin-drafts';
 const DIR = (process.env.SITE_DIR || 'pranav').replace(/^\/+|\/+$/g, '');
 
 const SLUG = /^[a-z0-9][a-z0-9-]{0,29}$/;
-const RESERVED = ['admin', 'api', '_site', 'anamaria', 'mohammad', 'index', 'sites', 'public', 'static'];
+const RESERVED = ['admin', 'api', '_site', 'anamaria', 'mohammad', 'index', 'sites', 'public', 'static', 'feed', 'login', 'accounts'];
 const IMAGE_NAME = /^[a-z0-9][a-z0-9-]{0,60}\.(jpg|jpeg|png|webp)$/;
 const MAX_IMAGE_BYTES = 3 * 1024 * 1024;
 
@@ -55,6 +55,15 @@ async function readJson(path, ref) {
 async function fileSha(path, ref) {
   const meta = await orNull(gh(`/contents/${encodeURI(path)}?ref=${ref}`));
   return meta && !Array.isArray(meta) ? meta.sha : null;
+}
+
+// All files under a folder on a branch, as [{ path, sha }].
+async function listFiles(prefix, ref) {
+  const head = await orNull(gh(`/git/ref/heads/${ref}`));
+  if (!head) return [];
+  const commitObj = await gh(`/git/commits/${head.object.sha}`);
+  const tree = await gh(`/git/trees/${commitObj.tree.sha}?recursive=1`);
+  return (tree.tree || []).filter(t => t.type === 'blob' && t.path.startsWith(prefix)).map(t => ({ path: t.path, sha: t.sha }));
 }
 
 async function ensureDrafts() {
@@ -148,6 +157,6 @@ function sendError(res, e) {
 
 module.exports = {
   MAIN, DRAFTS, DIR, SLUG, RESERVED, IMAGE_NAME,
-  gh, orNull, sitePath, readRaw, readJson, fileSha, ensureDrafts, readSites, commit,
+  gh, orNull, sitePath, readRaw, readJson, fileSha, listFiles, ensureDrafts, readSites, commit,
   imageEntries, photoRefs, checkContent, userError, sendError,
 };

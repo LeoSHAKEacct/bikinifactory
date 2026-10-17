@@ -1,17 +1,22 @@
 // POST /api/publish { slug, content, images }
 // Puts a site live: commits content.json, index.html and its photos to main
 // (Vercel redeploys), then clears the site's draft.
-const { guard } = require('./_auth');
-const { buildPage } = require('./_shell');
-const G = require('./_github');
+const { guard, canEdit } = require('../_auth');
+const Feed = require('../_feed');
+const A = require('../_accounts');
+const { buildPage } = require('../_shell');
+const G = require('../_github');
 
 module.exports = async (req, res) => {
-  if (!guard(req, res, 'POST')) return;
+  const who = guard(req, res, 'POST');
+  if (!who) return;
   const { slug, content, images } = req.body || {};
   try {
     const json = G.checkContent(content);
-    const sites = await G.readSites();
-    if (!sites.some(s => s.slug === slug)) throw G.userError('Sitio desconocido.');
+    const site = (await G.readSites()).find(s => s.slug === slug);
+    if (!canEdit(who, site)) throw G.userError('Sitio desconocido.', 403);
+    let ownerName = '';
+    if (site.owner) ownerName = ((await A.read().catch(() => ({ users: [] }))).users.find(u => u.id === site.owner) || {}).name || '';
     const imgs = G.imageEntries(slug, images);
     const uploaded = new Set(imgs.map(e => e.path));
 
@@ -31,6 +36,7 @@ module.exports = async (req, res) => {
       ...copies,
       { path: G.sitePath(slug, 'content.json'), content: json, encoding: 'utf-8' },
       { path: G.sitePath(slug, 'index.html'), content: buildPage(slug, content), encoding: 'utf-8' },
+      await Feed.withSite(slug, Feed.entry(slug, content, ownerName)),
     ]);
 
     // The draft now equals what is live; drop it (best effort).
