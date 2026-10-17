@@ -1,7 +1,7 @@
 // POST /api/google-connect { slug }  -> { url }  Google sign-in page for this site's calendar.
-const { guard, canEdit } = require('./_auth');
-const G = require('./_github');
-const Google = require('./_google');
+const { guard, canEdit } = require('../_auth');
+const G = require('../_github');
+const Google = require('../_google');
 
 module.exports = async (req, res) => {
   const who = guard(req, res, 'POST');

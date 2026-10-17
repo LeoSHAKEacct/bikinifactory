@@ -1,9 +1,9 @@
 // GET /api/load            -> { sites }
 // GET /api/load?slug=x     -> { published, draft, calendar }  (straight from GitHub, no deploy lag)
-const { guard, canEdit } = require('./_auth');
-const A = require('./_accounts');
-const { MAIN, DRAFTS, sitePath, readJson, readSites, sendError } = require('./_github');
-const Google = require('./_google');
+const { guard, canEdit } = require('../_auth');
+const A = require('../_accounts');
+const { MAIN, DRAFTS, sitePath, readJson, readSites, sendError } = require('../_github');
+const Google = require('../_google');
 
 module.exports = async (req, res) => {
   const who = guard(req, res, 'GET');

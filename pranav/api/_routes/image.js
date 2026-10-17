@@ -1,7 +1,7 @@
 // GET /api/image?slug=x&name=foto.jpg
 // Serves a site photo from the drafts branch or main, so the admin can show
 // photos that are saved but not yet published (or not yet deployed).
-const G = require('./_github');
+const G = require('../_github');
 
 const TYPES = { jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp' };
 

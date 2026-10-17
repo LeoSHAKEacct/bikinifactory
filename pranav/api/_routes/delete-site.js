@@ -1,10 +1,10 @@
 // POST /api/delete-site { slug }
 // Removes a site everywhere: its live files and feed card (main) and its
 // drafts, photos, calendar link and list entry (drafts branch).
-const { guard, canEdit } = require('./_auth');
-const G = require('./_github');
-const Feed = require('./_feed');
-const Google = require('./_google');
+const { guard, canEdit } = require('../_auth');
+const G = require('../_github');
+const Feed = require('../_feed');
+const Google = require('../_google');
 
 module.exports = async (req, res) => {
   const who = guard(req, res, 'POST');

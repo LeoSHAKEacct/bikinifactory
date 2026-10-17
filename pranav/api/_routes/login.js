@@ -1,4 +1,4 @@
-const { guard } = require('./_auth');
+const { guard } = require('../_auth');
 
 module.exports = async (req, res) => {
   if (!guard(req, res, 'POST')) return;

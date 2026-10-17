@@ -1,8 +1,8 @@
 // POST /api/save { slug, content, images, create? }
 // Saves a draft (and any new photos) to the drafts branch. Not live until published.
 // With create: { label } it also registers a new site.
-const { guard, canEdit } = require('./_auth');
-const G = require('./_github');
+const { guard, canEdit } = require('../_auth');
+const G = require('../_github');
 
 module.exports = async (req, res) => {
   const who = guard(req, res, 'POST');

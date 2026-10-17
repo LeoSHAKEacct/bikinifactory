@@ -1,7 +1,7 @@
 // GET /api/history?slug=x          -> { versions: [{ sha, date, message }] }  published versions, newest first
 // GET /api/history?slug=x&sha=abc  -> { content }  that version
-const { guard, canEdit } = require('./_auth');
-const G = require('./_github');
+const { guard, canEdit } = require('../_auth');
+const G = require('../_github');
 
 module.exports = async (req, res) => {
   const who = guard(req, res, 'GET');

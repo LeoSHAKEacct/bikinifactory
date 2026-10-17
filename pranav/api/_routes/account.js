@@ -2,10 +2,10 @@
 // POST { action: 'signup', name, email, password, code } -> { token, user }
 // POST { action: 'login', email, password }              -> { token, user }
 // GET  (Authorization: Bearer)                            -> { user }
-const G = require('./_github');
-const C = require('./_crypto');
-const A = require('./_accounts');
-const { identify, sessionToken } = require('./_auth');
+const G = require('../_github');
+const C = require('../_crypto');
+const A = require('../_accounts');
+const { identify, sessionToken } = require('../_auth');
 
 const EMAIL = /^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/;
 

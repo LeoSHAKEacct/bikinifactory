@@ -1,11 +1,11 @@
 // POST /api/publish { slug, content, images }
 // Puts a site live: commits content.json, index.html and its photos to main
 // (Vercel redeploys), then clears the site's draft.
-const { guard, canEdit } = require('./_auth');
-const Feed = require('./_feed');
-const A = require('./_accounts');
-const { buildPage } = require('./_shell');
-const G = require('./_github');
+const { guard, canEdit } = require('../_auth');
+const Feed = require('../_feed');
+const A = require('../_accounts');
+const { buildPage } = require('../_shell');
+const G = require('../_github');
 
 module.exports = async (req, res) => {
   const who = guard(req, res, 'POST');

@@ -1,5 +1,5 @@
 // GET /api/google-callback?code&state  Google sends the user back here after consent.
-const Google = require('./_google');
+const Google = require('../_google');
 
 function page(res, ok, msg, slug) {
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));

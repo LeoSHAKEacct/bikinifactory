@@ -1,8 +1,8 @@
 // POST /api/book { slug, s, i, date, time, name, phone, note }
 // Creates the appointment in the site's Google Calendar if the slot is still free.
-const G = require('./_github');
-const Google = require('./_google');
-const B = require('./_booking');
+const G = require('../_github');
+const Google = require('../_google');
+const B = require('../_booking');
 
 const clean = (v, max) => String(v || '').replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, max);
 

@@ -1,10 +1,10 @@
 // Teacher only: class settings and students.
 // GET                                   -> { classCode, title, subtitle, students: [{ id, name, email, createdAt, sites }] }
 // POST { classCode?, title?, subtitle? } -> saves them (title/subtitle are shown on /feed/)
-const { guard } = require('./_auth');
-const G = require('./_github');
-const A = require('./_accounts');
-const Feed = require('./_feed');
+const { guard } = require('../_auth');
+const G = require('../_github');
+const A = require('../_accounts');
+const Feed = require('../_feed');
 
 module.exports = async (req, res) => {
   const who = guard(req, res, req.method === 'POST' ? 'POST' : 'GET');

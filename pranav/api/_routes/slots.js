@@ -1,8 +1,8 @@
 // GET /api/slots?slug=a&s=1&i=0&date=2026-10-14  -> { slots: ["09:00", ...] }
 // Free start times for one bookable item on one day (public, used by visitors).
-const G = require('./_github');
-const Google = require('./_google');
-const B = require('./_booking');
+const G = require('../_github');
+const Google = require('../_google');
+const B = require('../_booking');
 
 module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
