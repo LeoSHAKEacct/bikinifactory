@@ -1,13 +1,13 @@
 {
-  "name": "Ximena",
-  "phone": "573011169363",
+  "name": "Nails salon",
+  "phone": "57301100098",
   "waMessage": "Hola {nombre}, quiero reservar un masaje",
   "seo": {
-    "title": "{nombre} · Masajes",
+    "title": "{nombre} · nails",
     "description": "{nombre} — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta."
   },
   "nav": {
-    "services": "Masajes",
+    "services": "Nails",
     "facilities": "Instalaciones",
     "zones": "Zonas",
     "reserve": "Reservar"
@@ -16,14 +16,14 @@
   "sections": [
     {
       "type": "hero",
-      "photo": "foto-mv3883ei.jpg",
+      "photo": "",
       "eyebrow": "Masajes · Medellín",
       "title": "Relajación y placer",
       "titleAccent": "en un masaje",
       "greeting": "¡Hola, soy {nombre}!",
-      "lead": "Ven y le daré un roce con mis manos a tu cuerpo.",
+      "lead": "Ven hacer tu unas",
       "ctaPrimary": "Escríbeme por WhatsApp",
-      "ctaSecondary": "Ver masajes",
+      "ctaSecondary": "Ver nails products",
       "badgeTitle": "{nombre}",
       "badgeText": "Apartamento discreto · Domicilios"
     },
@@ -39,7 +39,7 @@
       "title": "Desing products",
       "items": [
         {
-          "name": "prouct 1",
+          "name": "product",
           "desc": "120.000$"
         },
         {
@@ -55,7 +55,7 @@
           "desc": "300.000$"
         },
         {
-          "name": "Massaje 120 min",
+          "name": "unas 3 product",
           "desc": "360.000$"
         }
       ],
@@ -117,19 +117,19 @@
       ],
       "gallery": [
         {
-          "photo": "foto-mv38bvnv.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Sala de masajes",
           "pos": "center"
         },
         {
-          "photo": "foto-mv38au44.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Ambiente",
           "pos": "top"
         },
         {
-          "photo": "foto-mv38bciw.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Amenidades",
           "pos": "bottom"
