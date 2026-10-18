@@ -811,6 +811,26 @@ fx(9.2, 2.3, -2.08, 13.4, 2.36, -1.92, M.bronze, { cast: false });
 fx(9.25, 2.29, -2.06, 13.35, 2.3, -1.94, M.glow, { cast: false, ink: false });
 fm(cyl(.16, .12, .3, 20), M.ceramic, 12.9, 1.12, -2.0, { plan: false });
 for (let k = 0; k < 6; k++) fm(crownGeo, M.leaf, 12.9 + R(-.12, .12), 1.38 + R(0, .1), -2 + R(-.12, .12), { s: [.14, .14, .14], plan: false, ink: false });
+// styling: art, sideboard, ceramics, books, lamps
+plane(U, 3.2, 2.1, M.art0, -14.94, Y0 + 2.1, .4, { ry: Math.PI / 2 });
+fx(-14.95, 0, -1.4, -14.5, .75, 2.2, M.walnut);
+fx(-0.6, 0, -7, 6.6, .78, -6.45, M.walnut);
+plane(U, 3.0, 1.9, M.art1, 3, Y0 + 2.2, -6.98, {});
+for (const [x, h, r, m] of [[0.2, .55, .14, M.ceramic], [.7, .38, .12, M.terracotta], [5.2, .7, .1, M.ceramic], [5.7, .45, .16, M.bronze]]) fm(cyl(r * .7, r, h, 24), m, x, .78 + h / 2, -6.72, { plan: false });
+fm(new THREE.SphereGeometry(.18, 24, 16), M.ceramic, 2.0, .96, -6.7, { plan: false });
+for (let k = 0; k < 5; k++) fm(rbox(.34, .045, .26, .01), bookMats[k % 7], -8.9 + R(-.05, .05), .385 + k * .047, .2, { ry: R(-.3, .3), plan: false });
+fm(cyl(.22, .14, .12, 32), M.ceramic, -7.9, .42, .9, { plan: false });
+for (const z of [-.1, .55]) fm(cyl(.06, .08, .3, 16), M.ceramic, 3 + (z > 0 ? .4 : -.6), .95, z, { plan: false });
+fm(cyl(.25, .18, .16, 28), M.travertine, 3, .88, .35, { plan: false });
+// floor lamp by the sofa corner
+fm(cyl(.18, .18, .02, 24), M.bronze, -13.4, .01, -2.9, { ink: false });
+fm(cyl(.014, .014, 1.6, 8), M.bronze, -13.4, .81, -2.9, { ink: false });
+fm(cyl(.26, .3, .36, 32, 1, true), M.shade, -13.4, 1.7, -2.9, { cast: false });
+// kitchen open shelf with ceramics
+fx(8.4, 1.55, -7, 13.2, 1.59, -6.72, M.bronze, { cast: false });
+for (let k = 0; k < 8; k++) { const x = 8.7 + k * .55 + R(-.1, .1), h = R(.14, .3); fm(cyl(R(.05, .09), R(.06, .1), h, 18), k % 3 ? M.ceramic : M.terracotta, x, 1.59 + h / 2, -6.86, { plan: false, ink: false }); }
+fm(rbox(.5, .04, .34, .01), M.walnut, 10.4, .99, -2.0, { plan: false });
+for (const x of [11.2, 11.45]) fm(new THREE.SphereGeometry(.07, 16, 12), M.terracotta, x, 1.04, -1.95, { plan: false, ink: false });
 // olive trees in planters by the glass
 function olive(x, z, base, plan) {
   const m = atm(base, plan);
