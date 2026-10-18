@@ -218,16 +218,12 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
 <div class="login" id="login">
   <div class="card login-card">
     <h3>Panel de sitios</h3>
-    <div class="ltabs" id="loginTabs"><button type="button" data-m="in" class="on">Entrar</button><button type="button" data-m="up">Crear cuenta</button><button type="button" data-m="admin">Profesor</button></div>
-    <form id="loginForm" data-m="in">
-      <label class="f lf-up"><span>Tu nombre</span><input type="text" id="lfName" autocomplete="name" maxlength="60"></label>
-      <label class="f lf-in lf-up"><span>Correo</span><input type="text" id="lfEmail" inputmode="email" autocomplete="email"></label>
-      <label class="f lf-in lf-up"><span>Contraseña</span><input type="text" id="lfPass" autocomplete="current-password" style="-webkit-text-security:disc"></label>
+    <form id="loginForm" data-m="admin">
       <label class="f lf-admin"><span>Contraseña del profesor</span><input type="text" id="pwInput" autocomplete="current-password" style="-webkit-text-security:disc"></label>
       <div class="err" id="pwErr"></div>
       <button type="submit" class="btn primary" id="lfSubmit">Entrar</button>
     </form>
-    <a href="/feed/" class="feed-link">Ver todos los sitios →</a>
+    <a href="/feed/" class="feed-link">¿Eres estudiante? Entra desde el feed →</a>
   </div>
 </div>
 
@@ -411,6 +407,7 @@ var state = { slug: null, sites: [], published: {}, saved: {}, drafts: {}, passw
 var saving = {}, saveTimers = {}, saveErrors = {}, deploys = {}, localImages = {};
 try { state.password = sessionStorage.getItem('adminpw') || ''; } catch (e) {}
 try { state.token = localStorage.getItem('stoken') || ''; } catch (e) {}
+if (!/^\/editor/.test(location.pathname)) state.token = ''; // /admin/ is teacher-only
 try { Object.keys(localStorage).forEach(function (k) { if (/^(draft:|newsites$)/.test(k)) localStorage.removeItem(k); }); } catch (e) {}
 
 var $ = function (id) { return document.getElementById(id); };
@@ -479,29 +476,12 @@ function logout() {
   $('login').classList.remove('off');
 }
 $('logoutBtn').onclick = function () { logout(); if (!EDITOR) location.reload(); };
-$('loginTabs').onclick = function (e) {
-  var b = e.target.closest('button'); if (!b) return;
-  [].forEach.call(this.children, function (x) { x.classList.toggle('on', x === b); });
-  $('loginForm').dataset.m = b.dataset.m;
-  $('lfSubmit').textContent = b.dataset.m === 'up' ? 'Crear cuenta' : 'Entrar';
-  $('pwErr').textContent = '';
-};
 $('loginForm').onsubmit = async function (e) {
   e.preventDefault();
-  var mode = this.dataset.m, btn = $('lfSubmit');
+  var btn = $('lfSubmit');
   $('pwErr').textContent = ''; btn.disabled = true;
   try {
-    if (mode === 'admin') {
-      state.password = $('pwInput').value; state.token = '';
-    } else {
-      var r = await fetch('/api/account', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
-        action: mode === 'up' ? 'signup' : 'login', name: $('lfName').value, email: $('lfEmail').value, password: $('lfPass').value
-      }) });
-      var j = await r.json().catch(function () { return {}; });
-      if (!r.ok) throw new Error(j.error || ('Error ' + r.status));
-      state.token = j.token; state.password = '';
-      try { localStorage.setItem('stoken', j.token); localStorage.setItem('sname', j.user.name); } catch (x) {}
-    }
+    state.password = $('pwInput').value; state.token = '';
     await start();
   } catch (err) { $('pwErr').textContent = err.message; }
   finally { btn.disabled = false; }
@@ -1224,7 +1204,9 @@ addEventListener('beforeunload', function (e) {
 });
 
 if (EDITOR) { $('feedLink').removeAttribute('target'); $('feedLink').textContent = '← Feed'; }
-if (state.password || state.token) start().catch(function () { logout(); }); else logout();
+if (state.password || state.token) start().catch(function () { logout(); });
+else if (EDITOR) location.href = '/feed/?entrar=1';
+else $('login').classList.remove('off'); // just show the teacher login; a student's session (for /editor/) stays
 </script>
 </body>
 </html>
