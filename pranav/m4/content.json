@@ -1,6 +1,6 @@
 {
-  "name": "Manuela Spa",
-  "phone": "+575574328782",
+  "name": "Rosa Spa",
+  "phone": "+5075574382",
   "waMessage": "Hola {nombre}, quiero reservar un masaje",
   "seo": {
     "title": "{nombre} · Masajes",
@@ -16,7 +16,7 @@
   "sections": [
     {
       "type": "hero",
-      "photo": "",
+      "photo": "foto-mvdf84ou.jpg",
       "eyebrow": "Medellin, Colombia",
       "title": "Vienvenido a mi mundo!",
       "titleAccent": "Atreteve a relajar y dispertar tu sentidos conmigo",
@@ -42,7 +42,8 @@
       "items": [
         {
           "name": "Masaje 6o min 💆‍♂️",
-          "desc": "$29"
+          "desc": "$29",
+          "photo": ""
         },
         {
           "name": "Majase 90 min",
@@ -83,13 +84,13 @@
       ],
       "gallery": [
         {
-          "photo": "",
+          "photo": "foto-mvdf9fbr.jpg",
           "caption": "",
           "placeholder": "Sala de masajes",
           "fit": "contain"
         },
         {
-          "photo": "",
+          "photo": "foto-mvdf9qtl.jpg",
           "caption": "",
           "placeholder": "Ambiente",
           "fit": "contain"
@@ -109,7 +110,7 @@
       "title": "La ubicación se envia al confirmar la cita",
       "text": "",
       "places": [
-        "Yutacan"
+        "Panama City"
       ]
     },
     {
