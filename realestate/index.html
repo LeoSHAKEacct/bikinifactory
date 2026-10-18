@@ -37,7 +37,7 @@ body { font-family: var(--body); font-size: 15px; line-height: 1.55; -webkit-fon
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
 
 header.top {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 5;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 8;
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
   padding-top: calc(18px + env(safe-area-inset-top, 0px)); padding-bottom: 18px;
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
@@ -137,7 +137,33 @@ form.viewing input:focus-visible { outline: 2px solid var(--red); outline-offset
 .loader .bar i { display: block; height: 100%; width: 40%; background: var(--ink); animation: load 1.2s ease-in-out infinite; }
 @keyframes load { from { transform: translateX(-100%); } to { transform: translateX(260%); } }
 .err { max-width: 46ch; text-align: center; text-transform: none; letter-spacing: 0; font-size: 13px; }
-@media (prefers-reduced-motion: reduce) { .cue i, .loader .bar i { animation: none; } .card, .hero { transition: none; } }
+
+.gallery { position: relative; z-index: 6; background: var(--ink); }
+.shot { position: sticky; top: 0; height: 100vh; height: 100svh; margin: 0; overflow: hidden; background: var(--ink); }
+.shot img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.06); transition: transform 1.6s cubic-bezier(.2,.7,.2,1); }
+.shot.in img { transform: scale(1); }
+.shot::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(12,14,18,.62), rgba(12,14,18,0) 42%); }
+.shot figcaption {
+  position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; display: grid; gap: 6px; color: #f4f2ee;
+  padding-bottom: calc(36px + env(safe-area-inset-bottom, 0px));
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+@media (min-width: 760px) { .shot figcaption { padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-bottom: calc(44px + env(safe-area-inset-bottom, 0px)); } }
+.shot .tag { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #f0b9a6; }
+.shot b { font-family: var(--display); font-stretch: 72%; font-weight: 600; text-transform: uppercase; font-size: clamp(36px, 6vw, 84px); line-height: .9; letter-spacing: -.01em; text-wrap: balance; }
+.shot .meta { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: rgba(244,242,238,.78); }
+.closing { position: relative; z-index: 2; min-height: 100vh; background: var(--paper); display: grid; place-items: center;
+  padding-block: 120px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.closing-in { width: min(520px, 100%); }
+.closing .no { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--red); }
+.closing h2 { font-family: var(--display); font-stretch: 68%; font-weight: 600; text-transform: uppercase; font-size: clamp(56px, 9vw, 120px); line-height: .85; margin: 12px 0 14px; }
+.closing p { margin: 0; color: var(--ink-soft); max-width: 46ch; }
+body.in-gallery .card, body.in-gallery .rail, body.in-gallery .sheet, body.in-gallery .hero { opacity: 0 !important; pointer-events: none !important; }
+body.in-gallery .brand { color: #f4f2ee; text-shadow: 0 1px 12px rgba(0,0,0,.35); }
+body.in-gallery .brand span { color: rgba(244,242,238,.8); }
+body.at-close .brand, body.at-close .brand span { color: var(--ink); text-shadow: none; }
+.rail, .sheet { transition: opacity .4s; }
+@media (prefers-reduced-motion: reduce) { .cue i, .loader .bar i { animation: none; } .card, .hero, .shot img { transition: none; } .shot img { transform: none; } }
 </style>
 </head>
 <body>
@@ -170,6 +196,49 @@ form.viewing input:focus-visible { outline: 2px solid var(--red); outline-offset
 
 <main class="track" id="track"></main>
 
+<section class="gallery" id="gallery" aria-label="Photographs of Lumen Residences">
+  <figure class="shot">
+    <img src="img/exterior.jpg" alt="Lumen Residences from the riverside plaza at golden hour" width="1600" height="900" loading="lazy" decoding="async">
+    <figcaption><span class="tag">01 · Exterior · Golden hour</span><b>Lumen Residences from the river</b><span class="meta">7 floors · 24 homes · oak brise-soleil · CGI</span></figcaption>
+  </figure>
+  <figure class="shot">
+    <img src="img/living.jpg" alt="Living room of Residence 3.A with afternoon sun on the oak floor" width="1600" height="900" loading="lazy" decoding="async">
+    <figcaption><span class="tag">02 · Residence 3.A · Living</span><b>Living room · 46 m²</b><span class="meta">3.00 m ceiling · European oak · west light · CGI</span></figcaption>
+  </figure>
+  <figure class="shot">
+    <img src="img/kitchen.jpg" alt="Kitchen with a marble island, smoked-oak joinery and brass pendants" width="1600" height="900" loading="lazy" decoding="async">
+    <figcaption><span class="tag">03 · Residence 3.A · Kitchen</span><b>Kitchen & dining · 28 m²</b><span class="meta">Calacatta island · smoked oak · table for six · CGI</span></figcaption>
+  </figure>
+  <figure class="shot">
+    <img src="img/bedroom.jpg" alt="Main bedroom with upholstered headboard and oak wardrobe wall" width="1600" height="900" loading="lazy" decoding="async">
+    <figcaption><span class="tag">04 · Residence 3.A · Suite</span><b>Main suite · 24 m²</b><span class="meta">Linen · oak wardrobe wall · own balcony · CGI</span></figcaption>
+  </figure>
+  <figure class="shot">
+    <img src="img/view.jpg" alt="Sunset over the Tagus from the bedroom balcony" width="1600" height="900" loading="lazy" decoding="async">
+    <figcaption><span class="tag">05 · The view</span><b>Sunset over the Tagus</b><span class="meta">Third floor · 11.4 m above the street · CGI</span></figcaption>
+  </figure>
+  <figure class="shot">
+    <img src="img/dusk.jpg" alt="Lumen Residences at dusk with every home lit" width="1600" height="900" loading="lazy" decoding="async">
+    <figcaption><span class="tag">06 · Exterior · Dusk</span><b>Home, lit</b><span class="meta">Blue hour from the plaza · CGI</span></figcaption>
+  </figure>
+
+  <section class="closing" id="closing" aria-labelledby="closeTitle">
+    <div class="closing-in">
+      <div class="no">Residence 3.A · Lumen Residences</div>
+      <h2 id="closeTitle">Make it yours</h2>
+      <p>Six of the 24 homes are still available. Viewings take place on site, Tuesday to Saturday.</p>
+      <div class="price">From €1 150 000</div>
+      <div class="spec"><span>Interior <b>142 m²</b></span><span>Balcony <b>35 m²</b></span><span>Parking <b>2</b></span><span>Storage <b>8 m²</b></span></div>
+      <form class="viewing" id="viewing">
+        <input id="vname" name="name" required placeholder="Your name" autocomplete="name">
+        <input id="vmail" name="email" type="email" required placeholder="Email address" autocomplete="email">
+        <div class="cta-row"><button class="btn" type="submit">Request a private viewing</button><button class="btn ghost" type="button" id="restart">Start again</button></div>
+        <div class="note" id="vnote">Concept page. This form is not connected to a sales inbox yet. Images are computer-generated.</div>
+      </form>
+    </div>
+  </section>
+</section>
+
 <script type="importmap">
 { "imports": {
   "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
@@ -182,6 +251,8 @@ import { Sky } from 'three/addons/objects/Sky.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 /* ───────────────────────── stages & copy ───────────────────────── */
 const STAGES = [
   { key: 'Sketch', sheet: 'A-101', scale: '1:200' },
@@ -193,7 +264,7 @@ const STAGES = [
   { key: 'Kitchen', sheet: 'I-102', scale: '1:25', no: '07 · Kitchen & dining', h: 'Kitchen · 28 m²', p: 'A Calacatta island with smoked-oak joinery, and a table for six set against the window.', spec: [['Island', '3.6 × 1.0 m'], ['Worktop', 'Calacatta'], ['Joinery', 'Smoked oak']] },
   { key: 'Bedroom', sheet: 'I-103', scale: '1:25', no: '08 · Main suite', h: 'Main suite · 24 m²', p: 'Through the oak door: linen, a fitted wardrobe wall and its own section of the balcony.', spec: [['Wardrobe', '3.6 m'], ['Bed wall', 'Upholstered'], ['Blackout', 'Motorised']] },
   { key: 'View', sheet: '—', scale: '—', no: '09 · The view', h: 'Sunset over the Tagus', p: 'This is the view from the bedroom balcony, about 11 metres above the street.', spec: [['Height', '11.4 m'], ['Sunset (Jun)', '21:05']] },
-  { key: 'Book', sheet: 'S-001', scale: '—', no: '10 · Residence 3.A', h: 'Make it yours', p: 'Six of the 24 homes are still available. Viewings take place on site, Tuesday to Saturday.', final: true },
+  { key: 'Finished', sheet: 'V-002', scale: '—', no: '10 · Residence 3.A', h: 'Now see it finished', p: 'Keep scrolling for the photographs of the building and of the home, inside and out.', spec: [['Images', '6'], ['Next', 'Photographs ↓']] },
 ];
 const N = STAGES.length;
 
@@ -212,14 +283,6 @@ STAGES.forEach((s, i) => {
   const c = document.createElement('article'); c.className = 'card';
   let html = `<div class="no">${s.no}<em>${String(i + 1).padStart(2, '0')} / ${String(N).padStart(2, '0')}</em></div><h2>${s.h}</h2><p>${s.p}</p>`;
   if (s.spec) html += `<div class="spec">${s.spec.map(([k, v]) => `<span>${k} <b>${v}</b></span>`).join('')}</div>`;
-  if (s.final) html += `<div class="price">From €1 150 000</div>
-    <div class="spec"><span>Interior <b>142 m²</b></span><span>Balcony <b>35 m²</b></span><span>Parking <b>2</b></span><span>Storage <b>8 m²</b></span></div>
-    <form class="viewing" id="viewing">
-      <input id="vname" name="name" required placeholder="Your name" autocomplete="name">
-      <input id="vmail" name="email" type="email" required placeholder="Email address" autocomplete="email">
-      <div class="cta-row"><button class="btn" type="submit">Request a private viewing</button><button class="btn ghost" type="button" id="restart">Start again</button></div>
-      <div class="note" id="vnote">Concept page. This form is not connected to a sales inbox yet.</div>
-    </form>`;
   c.innerHTML = html; cardsEl.appendChild(c); cards.push(c);
 });
 document.getElementById('viewing').addEventListener('submit', e => {
@@ -227,8 +290,7 @@ document.getElementById('viewing').addEventListener('submit', e => {
   document.getElementById('vnote').textContent = 'Saved on this page only. Connect the form to your CRM to receive real requests.';
 });
 document.getElementById('restart').addEventListener('click', () => goTo(0));
-document.getElementById('bookTop').addEventListener('click', () => goTo(N - 1));
-const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.getElementById('bookTop').addEventListener('click', () => document.getElementById('closing').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' }));
 function goTo(i) { window.scrollTo({ top: i * innerHeight, behavior: reduceMotion ? 'auto' : 'smooth' }); }
 
 try { await Promise.race([document.fonts.load('500 64px "IBM Plex Mono"'), new Promise(r => setTimeout(r, 2500))]); } catch (e) {}
@@ -418,8 +480,11 @@ const M = {
   stone: std({ color: 0xd9d3c8, roughness: .8 }),
   white: std({ color: 0xf4f4f2, roughness: .6 }),
 };
+Object.entries(M).forEach(([k, m]) => { m.name = k; });
 const bookMats = [0x7b3b2a, 0x2f4058, 0xc9b48f, 0x4f5f46, 0xe7e0d2, 0x1f1f1f, 0xa8603f].map(c => std({ color: c, roughness: .85 }));
+bookMats.forEach((m, i) => { m.name = 'book' + i; });
 const cityMats = [0xffffff, 0xe8e0d6, 0xd9dee3, 0xf1e6d6].map(c => std({ map: tex.city, color: c, roughness: .8 }));
+cityMats.forEach((m, i) => { m.name = 'city' + i; });
 
 /* ───────────────────────── geometry helpers ───────────────────────── */
 function uvBox(g, w, h, d, s) {
@@ -427,6 +492,7 @@ function uvBox(g, w, h, d, s) {
   for (let f = 0; f < 6; f++) for (let k = 0; k < 4; k++) { const i = f * 4 + k; uv.setXY(i, uv.getX(i) * dims[f][0] / s, uv.getY(i) * dims[f][1] / s); }
 }
 function box(parent, x0, y0, z0, x1, y1, z1, mat, o = {}) {
+  if (x1 < x0) [x0, x1] = [x1, x0]; if (y1 < y0) [y0, y1] = [y1, y0]; if (z1 < z0) [z0, z1] = [z1, z0];
   const w = x1 - x0, h = y1 - y0, d = z1 - z0;
   const g = new THREE.BoxGeometry(w, h, d); uvBox(g, w, h, d, o.uv || 2);
   const m = new THREE.Mesh(g, mat);
@@ -511,6 +577,7 @@ const trees = new THREE.Group(); scene.add(trees);
 const crownGeo = new THREE.IcosahedronGeometry(1, 2);
 const treeSpots = [[-30, 22], [-40, 6], [-36, -14], [-24, -30], [0, -34], [20, -30], [36, -12], [38, 10], [28, 22], [-46, 30.8], [-30, 31], [6, 31], [22, 31], [38, 31], [54, 31], [-60, 31], [8, 47.5], [26, 47.5], [44, 47.5], [-48, -28], [50, -26]];
 const leafMats = [0x4c6a33, 0x5a7838, 0x435f2e, 0x667f3e].map(c => std({ color: c, roughness: .85 }));
+leafMats.forEach((m, i) => { m.name = 'leaf' + i; });
 for (const [x, z] of treeSpots) {
   const s = R(.85, 1.2);
   mesh(trees, cyl(.12 * s, .2 * s, 3.2 * s, 10), M.bark, x, 1.6 * s, z, { ink: false });
@@ -654,10 +721,10 @@ fx(-9.1, 1.95, 6.05, -7.1, 2.0, 6.15, M.brass, { cast: false });
 fx(-9.05, 1.94, 6.07, -7.15, 1.95, 6.13, M.glow, { cast: false, ink: false });
 // lounge
 plane(U, 4.8, 3.3, M.rug, -1, Y0 + .006, 4.75, { rx: -Math.PI / 2, plan: true, ink: true });
-fm(rbox(3.0, .42, .95, .08), M.boucle, -1, .21, 2.875);
+fx(-2.3, 0, 2.42, .3, .42, 3.33, M.boucle);
 fm(rbox(3.0, .5, .24, .1), M.boucle, -1, .62, 2.5);
-fm(rbox(.24, .64, .95, .1), M.boucle, -2.38, .32, 2.875);
-fm(rbox(.24, .64, .95, .1), M.boucle, .38, .32, 2.875);
+fm(rbox(.24, .64, .95, .05), M.boucle, -2.38, .32, 2.875);
+fm(rbox(.24, .64, .95, .05), M.boucle, .38, .32, 2.875);
 for (const x of [-1.85, -1, -.15]) fm(rbox(.84, .17, .72, .07), M.boucle, x, .5, 3.0, { ink: false });
 fm(rbox(.5, .44, .14, .07), M.rust, -1.95, .74, 2.7, { rx: -.25, rz: .08, plan: false });
 fm(rbox(.46, .42, .14, .07), M.sage, -.05, .74, 2.7, { rx: -.25, rz: -.1, plan: false });
@@ -986,7 +1053,14 @@ let pTarget = 0, p = 0, last = performance.now(), start = 0, prevStage = -1;
 const hero = document.getElementById('hero'), vignette = document.getElementById('vignette'), sheet = document.getElementById('sheet');
 const sheetNo = document.getElementById('sheetNo'), sheetStage = document.getElementById('sheetStage'), sheetScale = document.getElementById('sheetScale');
 const railBtns = [...rail.querySelectorAll('button')];
-function readScroll() { pTarget = Math.min(N - 1, Math.max(0, scrollY / innerHeight)); }
+const gallery = document.getElementById('gallery'), closing = document.getElementById('closing');
+function readScroll() {
+  pTarget = Math.min(N - 1, Math.max(0, scrollY / innerHeight));
+  document.body.classList.toggle('in-gallery', gallery.getBoundingClientRect().top < innerHeight * .5);
+  document.body.classList.toggle('at-close', closing.getBoundingClientRect().top < 60);
+}
+const shotIO = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('in', e.isIntersecting)), { threshold: .35 });
+document.querySelectorAll('.shot').forEach(el => shotIO.observe(el));
 addEventListener('scroll', readScroll, { passive: true });
 
 function setUI(stage) {
@@ -1087,7 +1161,7 @@ requestAnimationFrame(t => {
   frame(t);
   loader.classList.add('done');
 });
-window.__lumen = { setP: v => { pTarget = p = v; dirty = true; } };
+window.__lumen = { setP: v => { pTarget = p = v; dirty = true; }, scene, groups: { B, I, U, trees, plaza, ground, city }, KEYS };
 </script>
 <script>
 // shown only if the 3D module cannot start (no WebGL, blocked CDN)
