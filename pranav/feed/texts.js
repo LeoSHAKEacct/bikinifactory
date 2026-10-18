@@ -10,7 +10,9 @@ window.FEED_TEXTS = [
     ['all', 'Filtro "todos"', 'Todos'],
     ['countOne', 'Contador: 1', 'sitio'],
     ['countMany', 'Contador: varios', 'sitios'],
-    ['noResults', 'Cuando la búsqueda no encuentra nada', 'No hay sitios que coincidan.']
+    ['noResults', 'Cuando la búsqueda no encuentra nada', 'No hay sitios que coincidan.'],
+    ['prevPage', 'Botón página anterior', 'Anterior'],
+    ['nextPage', 'Botón página siguiente', 'Siguiente']
   ] },
   { group: 'Tarjetas de los sitios', items: [
     ['viewSite', 'Botón para abrir un sitio', 'Ver sitio'],
