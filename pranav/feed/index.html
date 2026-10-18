@@ -17,6 +17,8 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:Jost,system-ui,sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;min-height:100vh}
 a{color:inherit;text-decoration:none}
+button{font:inherit}
+[hidden]{display:none!important}
 .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 header.top{position:sticky;top:0;z-index:10;background:rgba(18,7,9,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 header.top .wrap{display:flex;align-items:center;gap:14px;height:62px}
@@ -54,17 +56,53 @@ h1{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:clamp(40px,7
 .actions{display:flex;gap:8px;margin-top:auto;padding-top:10px}
 .actions .btn{flex:1;padding:9px 12px;font-size:13.5px}
 .empty{text-align:center;color:var(--muted);padding:60px 0}
+.hello{color:var(--gold);font-size:14px;white-space:nowrap}
+.mine{padding-top:28px}
+.mine-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.mine-head h2{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:32px}
+.mine-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px;padding-bottom:28px;border-bottom:1px solid var(--line)}
+.mine-item{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line2);border-radius:16px;background:var(--bg2)}
+.mine-item .thumb{width:56px;height:56px;border-radius:12px;flex:none;background:#1d0e12 center/cover;display:flex;align-items:center;justify-content:center;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:26px;color:var(--rose2)}
+.mine-item div{flex:1;min-width:0}
+.mine-item b{display:block;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mine-item small{display:block;color:var(--muted);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mine-item .btn{padding:8px 14px;font-size:13px}
+.mine-empty{color:var(--muted);padding:6px 0 18px}
+.modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:16px}
+.modal.on{display:flex}
+.auth{position:relative;width:100%;max-width:400px;background:var(--bg2);border:1px solid var(--line2);border-radius:22px;padding:28px 24px 24px;display:flex;flex-direction:column;gap:12px}
+.auth h3{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:30px}
+.auth .x{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.ltabs{display:flex;border:1px solid var(--line2);border-radius:12px;overflow:hidden}
+.ltabs button{flex:1;padding:10px;background:transparent;border:0;color:var(--muted);font:inherit;font-size:14px;cursor:pointer}
+.ltabs button.on{background:rgba(236,95,122,.14);color:var(--rose2);font-weight:500}
+.auth .f{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted)}
+.auth .f em{font-style:normal;color:var(--gold)}
+.auth[data-m="in"] .up{display:none}
+.auth input{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:10px;padding:11px 12px;color:var(--text);font:inherit;font-size:15px;outline:none}
+.auth input:focus{border-color:var(--rose)}
+.err{color:#ff8a8a;font-size:14px;min-height:1em}
+.btn.wide{width:100%;border-radius:12px;padding:12px}
+@media (max-width:560px){.mine-list{grid-template-columns:1fr}#btnLogin,#btnLogout,#btnMine{padding:9px 12px}.hello{display:none}}
 footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;color:var(--muted);font-size:13px}
-@media (max-width:560px){header.top .btn.ghost{display:none}.hero{padding-top:44px}}
+@media (max-width:560px){.hero{padding-top:44px}header.top .wrap{gap:8px}header.top .btn{padding:9px 12px;font-size:13px}}
 </style>
 </head>
 <body>
 <header class="top"><div class="wrap">
   <a class="brand" href="/feed/">Sitios</a>
   <div class="spacer"></div>
-  <a class="btn ghost" href="/admin/">Entrar</a>
-  <a class="btn primary" href="/admin/">Crear mi sitio</a>
+  <span id="hello" class="hello" hidden></span>
+  <button type="button" class="btn ghost" id="btnLogin">Entrar</button>
+  <button type="button" class="btn primary" id="btnSignup">Crear cuenta</button>
+  <a class="btn ghost" id="btnMine" href="#mis-sitios" hidden>Mis sitios</a>
+  <button type="button" class="btn ghost" id="btnLogout" hidden>Salir</button>
 </div></header>
+
+<section class="wrap mine" id="mis-sitios" hidden>
+  <div class="mine-head"><h2>Mis sitios</h2><a class="btn primary" href="/editor/#nuevo">+ Crear nuevo sitio</a></div>
+  <div class="mine-list" id="mineList"></div>
+</section>
 
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Directorio</div>
@@ -81,7 +119,21 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;color:v
   <p class="count" id="count"></p>
   <div class="grid" id="grid"></div>
 </main>
-<footer>Páginas creadas con el panel de sitios · <a href="/admin/" style="color:var(--gold)">Crear la mía</a></footer>
+<footer>Páginas creadas por los estudiantes · <a href="#" id="footSignup" style="color:var(--gold)">Crear la mía</a></footer>
+
+<div class="modal" id="authModal" role="dialog" aria-modal="true">
+  <form class="auth" id="authForm" data-m="in">
+    <button type="button" class="x" id="authClose" aria-label="Cerrar">✕</button>
+    <h3 id="authTitle">Entrar</h3>
+    <div class="ltabs"><button type="button" data-m="in" class="on">Entrar</button><button type="button" data-m="up">Crear cuenta</button></div>
+    <label class="f up"><span>Tu nombre</span><input type="text" id="aName" autocomplete="name" maxlength="60"></label>
+    <label class="f"><span>Correo</span><input type="email" id="aEmail" autocomplete="email"></label>
+    <label class="f"><span>Contraseña</span><input type="password" id="aPass" autocomplete="current-password"></label>
+    <label class="f up"><span>Código de clase <em>· te lo da el profesor</em></span><input type="text" id="aCode" autocomplete="off"></label>
+    <p class="err" id="aErr"></p>
+    <button type="submit" class="btn primary wide" id="aSubmit">Entrar</button>
+  </form>
+</div>
 
 <script>
 (function () {
@@ -128,15 +180,83 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;color:v
   }
 
   document.getElementById('q').addEventListener('input', function () { q = this.value; render(); });
+
+  // ---------- student accounts (same session as the editor at /editor/) ----------
+  var $ = function (id) { return document.getElementById(id); };
+  var store = {
+    get: function (k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } },
+    set: function (k, v) { try { if (v) localStorage.setItem(k, v); else localStorage.removeItem(k); } catch (e) {} }
+  };
+  function openAuth(mode) {
+    $('aErr').textContent = '';
+    setMode(mode);
+    $('authModal').classList.add('on');
+    (mode === 'up' ? $('aName') : $('aEmail')).focus();
+  }
+  function setMode(mode) {
+    $('authForm').dataset.m = mode;
+    [].forEach.call(document.querySelectorAll('.ltabs button'), function (b) { b.classList.toggle('on', b.dataset.m === mode); });
+    $('authTitle').textContent = mode === 'up' ? 'Crear cuenta' : 'Entrar';
+    $('aSubmit').textContent = mode === 'up' ? 'Crear cuenta' : 'Entrar';
+    $('aPass').autocomplete = mode === 'up' ? 'new-password' : 'current-password';
+  }
+  document.querySelector('.ltabs').onclick = function (e) { var b = e.target.closest('button'); if (b) { $('aErr').textContent = ''; setMode(b.dataset.m); } };
+  $('btnLogin').onclick = function () { openAuth('in'); };
+  $('btnSignup').onclick = function () { openAuth('up'); };
+  $('footSignup').onclick = function (e) { e.preventDefault(); if (store.get('stoken')) location.href = '/editor/#nuevo'; else openAuth('up'); };
+  $('authClose').onclick = function () { $('authModal').classList.remove('on'); };
+  $('authModal').onclick = function (e) { if (e.target === this) this.classList.remove('on'); };
+  $('btnLogout').onclick = function () { store.set('stoken', ''); store.set('sname', ''); showUser(); };
+  $('authForm').onsubmit = function (e) {
+    e.preventDefault();
+    var mode = this.dataset.m, btn = $('aSubmit');
+    btn.disabled = true; $('aErr').textContent = '';
+    fetch('/api/account', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+      action: mode === 'up' ? 'signup' : 'login', name: $('aName').value, email: $('aEmail').value, password: $('aPass').value, code: $('aCode').value
+    }) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (r) {
+        if (!r.ok) throw new Error(r.j.error || 'No se pudo entrar.');
+        store.set('stoken', r.j.token); store.set('sname', r.j.user.name);
+        $('authModal').classList.remove('on');
+        showUser(true);
+      })
+      .catch(function (err) { $('aErr').textContent = err.message; })
+      .then(function () { btn.disabled = false; });
+  };
+
+  function showUser(scroll) {
+    var token = store.get('stoken'), name = store.get('sname');
+    $('btnLogin').hidden = $('btnSignup').hidden = Boolean(token);
+    $('btnMine').hidden = $('btnLogout').hidden = $('hello').hidden = !token;
+    $('hello').textContent = name ? 'Hola, ' + name.split(' ')[0] : '';
+    $('mis-sitios').hidden = !token;
+    if (!token) return;
+    $('mineList').innerHTML = '<p class="mine-empty">Cargando tus sitios…</p>';
+    fetch('/api/load', { headers: { Authorization: 'Bearer ' + token }, cache: 'no-store' })
+      .then(function (r) { if (r.status === 401) { store.set('stoken', ''); showUser(); throw new Error('expired'); } return r.json(); })
+      .then(function (j) {
+        var sites = j.sites || [];
+        $('mineList').innerHTML = sites.length ? sites.map(function (s) {
+          var f = data.sites.filter(function (x) { return x.slug === s.slug; })[0];
+          var thumb = f && f.photo ? ' style="background-image:url(&quot;' + esc(f.photo) + '&quot;)">' : '>' + esc((s.label || '?').charAt(0));
+          return '<div class="mine-item"><span class="thumb"' + thumb + '</span><div><b>' + esc(s.label) + '</b><small>' + (f ? 'Publicado · /' + esc(s.slug) + '/' : 'Sin publicar') + '</small></div>' +
+            (f ? '<a class="btn" href="/' + esc(s.slug) + '/">Ver</a>' : '') + '<a class="btn primary" href="/editor/#' + esc(s.slug) + '">Editar</a></div>';
+        }).join('') : '<p class="mine-empty">Todavía no tienes sitios. Pulsa <b>+ Crear nuevo sitio</b> para empezar desde una plantilla.</p>';
+        if (scroll) $('mis-sitios').scrollIntoView({ behavior: 'smooth' });
+      })
+      .catch(function () {});
+  }
+  if (/[?&]entrar=1/.test(location.search)) openAuth('in');
   fetch('/feed.json?t=' + Math.floor(Date.now() / 60000), { cache: 'no-store' })
     .then(function (r) { return r.json(); })
     .then(function (j) {
       data = j; data.sites = data.sites || [];
       if (j.title) { document.getElementById('title').textContent = j.title; document.title = j.title; }
       document.getElementById('subtitle').textContent = j.subtitle || '';
-      renderCats(); render();
+      renderCats(); render(); showUser();
     })
-    .catch(function () { document.getElementById('grid').innerHTML = '<p class="empty">No se pudo cargar el directorio.</p>'; });
+    .catch(function () { document.getElementById('grid').innerHTML = '<p class="empty">No se pudo cargar el directorio.</p>'; showUser(); });
 })();
 </script>
 </body>

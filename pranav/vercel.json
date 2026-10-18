@@ -3,5 +3,15 @@
     "deploymentEnabled": {
       "admin-drafts": false
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/editor",
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/editor/",
+      "destination": "/admin/index.html"
+    }
+  ]
 }
