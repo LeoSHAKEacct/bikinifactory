@@ -43,7 +43,17 @@ h1{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:clamp(40px,7
 .cats button{padding:8px 15px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);font:inherit;font-size:13.5px;cursor:pointer}
 .cats button.on{border-color:var(--rose);color:var(--rose2);background:rgba(236,95,122,.12)}
 .count{color:var(--muted);font-size:14px;margin:30px 0 14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px;padding-bottom:80px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.grid{grid-template-columns:1fr}}
+.grid .empty{grid-column:1/-1}
+.pager{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;padding:34px 0 80px}
+.pager button{min-width:42px;height:42px;padding:0 14px;border-radius:999px;border:1px solid var(--line2);background:transparent;color:var(--text);cursor:pointer;font-size:14px}
+.pager button:hover:not(:disabled){border-color:var(--gold)}
+.pager button.on{background:var(--rose);border-color:var(--rose);color:#fff;font-weight:500}
+.pager button:disabled{opacity:.35;cursor:default}
+.pager .dots{color:var(--muted);padding:0 4px}
+@media (max-width:600px){.pager .lbl{display:none}.pager{gap:6px}}
 .card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--bg2);transition:transform .25s,border-color .25s,box-shadow .25s}
 .card:hover{transform:translateY(-4px);border-color:var(--line2);box-shadow:0 24px 50px -24px rgba(0,0,0,.8)}
 .pic{position:relative;aspect-ratio:4/3;background:linear-gradient(160deg,rgba(236,95,122,.18),rgba(195,22,63,.06) 60%,transparent),#1d0e12;display:flex;align-items:center;justify-content:center}
@@ -119,6 +129,7 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;color:v
 <main class="wrap">
   <p class="count" id="count"></p>
   <div class="grid" id="grid"></div>
+  <nav class="pager" id="pager" aria-label="Páginas"></nav>
 </main>
 <footer><span data-t="footer">Páginas creadas por los estudiantes</span> · <a href="#" id="footSignup" style="color:var(--gold)" data-t="footerLink">Crear la mía</a></footer>
 
@@ -137,7 +148,8 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;color:v
 
 <script>
 (function () {
-  var data = { sites: [] }, cat = '', q = '';
+  var data = { sites: [] }, cat = '', q = '', page = 1;
+  var PER_PAGE = 12;
   // Texts: teacher's value from feed.json, or the default from texts.js.
   var DEFAULTS = {}, texts = {};
   (window.FEED_TEXTS || []).forEach(function (g) { g.items.forEach(function (it) { DEFAULTS[it[0]] = it[2]; }); });
@@ -162,7 +174,11 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;color:v
       return norm([s.name, s.category, s.description, (s.places || []).join(' '), s.owner].join(' ')).indexOf(nq) >= 0;
     });
     document.getElementById('count').textContent = list.length + ' ' + (list.length === 1 ? T('countOne') : T('countMany'));
-    document.getElementById('grid').innerHTML = list.length ? list.map(function (s) {
+    var pages = Math.max(1, Math.ceil(list.length / PER_PAGE));
+    if (page > pages) page = pages;
+    var shown = list.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+    renderPager(pages);
+    document.getElementById('grid').innerHTML = shown.length ? shown.map(function (s) {
       var pic = s.photo ? '<img src="' + esc(s.photo) + '" alt="" loading="lazy">' : '<span class="initial">' + esc((s.name || '?').charAt(0)) + '</span>';
       var meta = [];
       if ((s.places || []).length) meta.push('📍 ' + esc(s.places.join(', ')));
@@ -176,6 +192,28 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;color:v
     }).join('') : '<p class="empty">' + esc(T('noResults')) + '</p>';
   }
 
+  // Page buttons: ‹ 1 2 3 … 8 › (current page highlighted).
+  function renderPager(pages) {
+    var el = document.getElementById('pager');
+    if (pages < 2) { el.innerHTML = ''; return; }
+    var nums = [];
+    for (var i = 1; i <= pages; i++) {
+      if (i === 1 || i === pages || Math.abs(i - page) <= 1) nums.push(i);
+      else if (nums[nums.length - 1] !== '…') nums.push('…');
+    }
+    el.innerHTML = '<button type="button" data-p="' + (page - 1) + '"' + (page === 1 ? ' disabled' : '') + ' aria-label="' + esc(T('prevPage')) + '">‹<span class="lbl"> ' + esc(T('prevPage')) + '</span></button>' +
+      nums.map(function (n) {
+        return n === '…' ? '<span class="dots">…</span>' : '<button type="button" data-p="' + n + '"' + (n === page ? ' class="on" aria-current="page"' : '') + '>' + n + '</button>';
+      }).join('') +
+      '<button type="button" data-p="' + (page + 1) + '"' + (page === pages ? ' disabled' : '') + ' aria-label="' + esc(T('nextPage')) + '"><span class="lbl">' + esc(T('nextPage')) + ' </span>›</button>';
+  }
+  document.getElementById('pager').onclick = function (e) {
+    var b = e.target.closest('button'); if (!b || b.disabled) return;
+    page = +b.dataset.p;
+    render();
+    document.getElementById('count').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   function renderCats() {
     var seen = {}, cats = [];
     data.sites.forEach(function (s) { var c = (s.category || '').trim(); if (c && !seen[norm(c)]) { seen[norm(c)] = 1; cats.push(c); } });
@@ -185,13 +223,13 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;color:v
     })).join('') : '';
     el.onclick = function (e) {
       var b = e.target.closest('button'); if (!b) return;
-      cat = b.dataset.c;
+      cat = b.dataset.c; page = 1;
       [].forEach.call(el.children, function (x) { x.classList.toggle('on', x === b); });
       render();
     };
   }
 
-  document.getElementById('q').addEventListener('input', function () { q = this.value; render(); });
+  document.getElementById('q').addEventListener('input', function () { q = this.value; page = 1; render(); });
 
   // ---------- student accounts (same session as the editor at /editor/) ----------
   var $ = function (id) { return document.getElementById(id); };
