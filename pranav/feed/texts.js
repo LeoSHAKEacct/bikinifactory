@@ -28,9 +28,7 @@ window.FEED_TEXTS = [
   { group: 'Ventana de entrar / crear cuenta', items: [
     ['authName', 'Campo nombre', 'Tu nombre'],
     ['authEmail', 'Campo correo', 'Correo'],
-    ['authPass', 'Campo contraseña', 'Contraseña'],
-    ['authCode', 'Campo código de clase', 'Código de clase'],
-    ['authCodeHint', 'Ayuda del código', 'te lo da el profesor']
+    ['authPass', 'Campo contraseña', 'Contraseña']
   ] },
   { group: 'Mis sitios (estudiante con sesión)', items: [
     ['mineTitle', 'Título', 'Mis sitios'],

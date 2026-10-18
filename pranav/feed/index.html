@@ -130,7 +130,6 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;color:v
     <label class="f up"><span data-t="authName">Tu nombre</span><input type="text" id="aName" autocomplete="name" maxlength="60"></label>
     <label class="f"><span data-t="authEmail">Correo</span><input type="email" id="aEmail" autocomplete="email"></label>
     <label class="f"><span data-t="authPass">Contraseña</span><input type="password" id="aPass" autocomplete="current-password"></label>
-    <label class="f up"><span><span data-t="authCode">Código de clase</span> <em>· <span data-t="authCodeHint">te lo da el profesor</span></em></span><input type="text" id="aCode" autocomplete="off"></label>
     <p class="err" id="aErr"></p>
     <button type="submit" class="btn primary wide" id="aSubmit">Entrar</button>
   </form>
@@ -225,7 +224,7 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;color:v
     var mode = this.dataset.m, btn = $('aSubmit');
     btn.disabled = true; $('aErr').textContent = '';
     fetch('/api/account', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
-      action: mode === 'up' ? 'signup' : 'login', name: $('aName').value, email: $('aEmail').value, password: $('aPass').value, code: $('aCode').value
+      action: mode === 'up' ? 'signup' : 'login', name: $('aName').value, email: $('aEmail').value, password: $('aPass').value
     }) })
       .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
       .then(function (r) {
