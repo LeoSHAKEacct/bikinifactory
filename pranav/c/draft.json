@@ -1,7 +1,7 @@
 {
   "name": "Hotel Gemini",
   "phone": "8767890",
-  "waMessage": "Hola {nombre}, quiero reservar un quarto",
+  "waMessage": "Hola {nombre}, quiero reservar un cuarto",
   "seo": {
     "title": "{nombre} · Hotel",
     "description": "{nombre} — Hotel no centro de la ciudade"
