@@ -1,29 +1,29 @@
 {
-  "name": "Spa Richard",
-  "phone": "573217455367",
-  "waMessage": "Hola {nombre}, quiero reservar un masaje",
+  "name": "Hotel Gemini",
+  "phone": "8767890",
+  "waMessage": "Hola {nombre}, quiero reservar un cuarto",
   "seo": {
-    "title": "{nombre} · Masajes",
-    "description": "{nombre} — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta."
+    "title": "{nombre} · Hotel",
+    "description": "{nombre} — Hotel no centro de la ciudade"
   },
   "nav": {
-    "services": "Masajes",
+    "services": "Cuartos",
     "facilities": "Instalaciones",
     "zones": "Zonas",
     "reserve": "Reservar"
   },
-  "footer": "{nombre} · Masajes · Solo mayores de 18 años",
+  "footer": "{nombre} · Cuartos · Solo mayores de 18 años",
   "sections": [
     {
       "type": "hero",
       "photo": "",
-      "eyebrow": "Masajes · Medellín",
+      "eyebrow": "Cuartos · Medellín",
       "title": "Relajación y placer",
       "titleAccent": "en un masaje",
       "greeting": "¡Hola, soy {nombre}!",
-      "lead": "Ven y le daré un roce con mis manos a tu cuerpo.",
+      "lead": "Venga visitarnos",
       "ctaPrimary": "Escríbeme por WhatsApp",
-      "ctaSecondary": "Ver masajes",
+      "ctaSecondary": "Ver cuartos",
       "badgeTitle": "{nombre}",
       "badgeText": "Apartamento discreto · Domicilios"
     },
@@ -35,7 +35,7 @@
     },
     {
       "type": "services",
-      "eyebrow": "Mis masajes",
+      "eyebrow": "Nuestros cuartos",
       "title": "Elige tu experiencia",
       "items": [
         {
@@ -109,9 +109,9 @@
     },
     {
       "type": "zones",
-      "eyebrow": "Domicilios",
-      "title": "También voy a donde estés",
-      "text": "Se realiza domicilio en el área metropolitana. Hago salidas a:",
+      "eyebrow": "Cuartos",
+      "title": "También tenemos piscina",
+      "text": "Y sauna",
       "places": []
     },
     {
