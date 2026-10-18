@@ -12,7 +12,7 @@
     "zones": "Zonas",
     "reserve": "Reservar"
   },
-  "footer": "{nombre} · Masajes · Solo mayores de 18 años",
+  "footer": "{nombre} · Cuartos · Solo mayores de 18 años",
   "sections": [
     {
       "type": "hero",
