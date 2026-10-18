@@ -69,6 +69,50 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:7
 .site-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(5,7,12,.7))}
 .site-card .live{position:absolute;left:14px;bottom:14px;z-index:2;display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(5,7,12,.7);backdrop-filter:blur(8px);border:1px solid var(--line);font-size:12px}
 @media(max-width:900px){.svc-top{grid-template-columns:1fr;gap:30px}.site-card{justify-self:start;transform:none}}
+/* listings */
+.tabs{display:inline-flex;gap:6px;padding:6px;border:1px solid var(--line);border-radius:999px;background:var(--panel);margin-bottom:34px}
+.tabs button{border:0;background:none;color:var(--muted);font:600 14px "Space Grotesk";letter-spacing:.04em;padding:11px 22px;border-radius:999px;cursor:pointer;transition:.3s}
+.tabs button.on{background:linear-gradient(100deg,var(--gold2),var(--gold));color:#021220;box-shadow:0 8px 30px -10px rgba(31,184,255,.7)}
+.listings{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.lst{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--panel);transition:transform .4s,border-color .3s;animation:fin .5s}
+.lst:hover{transform:translateY(-6px);border-color:rgba(31,184,255,.45)}
+.lst .ph{position:relative;aspect-ratio:4/3;background:#0d1220 center/cover}
+.lst .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(5,7,12,.7))}
+.lst .badge2{position:absolute;top:14px;left:14px;z-index:2;padding:6px 12px;border-radius:999px;font:600 11px "Space Grotesk";letter-spacing:.14em;text-transform:uppercase;background:rgba(5,7,12,.7);backdrop-filter:blur(8px);border:1px solid var(--line);color:var(--gold)}
+.lst .price{position:absolute;left:16px;bottom:12px;z-index:2;font:700 22px "Space Grotesk"}
+.lst .price small{font-size:13px;color:var(--muted);font-weight:500}
+.lst .body{padding:18px 20px 20px}
+.lst h3{font-size:19px;margin-bottom:4px}
+.lst .loc{font-size:13px;color:var(--muted)}
+.lst .specs{display:flex;gap:16px;margin:14px 0 16px;font-size:13px;color:#c9d0dc}
+.lst .specs span::before{content:"◆ ";color:var(--gold);font-size:9px}
+.lst .btn{width:100%;justify-content:center;padding:12px}
+.sell-panel{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center;border:1px solid rgba(31,184,255,.3);border-radius:24px;padding:40px;background:linear-gradient(160deg,rgba(31,184,255,.1),rgba(10,14,23,.6));animation:fin .5s}
+.sell-panel h3{font-size:30px;margin-bottom:12px}
+.sell-panel p{color:var(--muted)}
+.sell-panel ul{list-style:none;display:grid;gap:12px}
+.sell-panel li{display:flex;gap:10px;font-size:15px}
+.sell-panel li::before{content:"✓";color:var(--gold);font-weight:700}
+.note{font-size:12px;color:var(--muted);margin-top:22px}
+/* projects */
+.projects{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.proj{position:relative;display:block;min-height:420px;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:#0d1220}
+.proj .ph{position:absolute;inset:0;background:center/cover;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.proj:hover .ph{transform:scale(1.07)}
+.proj::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,12,.1),rgba(5,7,12,.92) 75%)}
+.proj .info{position:absolute;left:28px;right:28px;bottom:26px;z-index:2}
+.proj .info small{font:500 11px "Space Grotesk";letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.proj .info h3{font-size:34px;margin:6px 0}
+.proj .info p{color:#c9d0dc;font-size:14px}
+.proj .row2{display:flex;justify-content:space-between;align-items:center;margin-top:16px;gap:12px;flex-wrap:wrap}
+.proj .row2 b{font:700 20px "Space Grotesk"}
+.proj .go{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid rgba(31,184,255,.5);font:600 13px "Space Grotesk";transition:.3s}
+.proj:hover .go{background:var(--gold);color:#021220}
+.proj.soon{display:grid;place-items:center;text-align:center;border-style:dashed;background:var(--panel);min-height:420px}
+.proj.soon::after{display:none}
+.proj.soon h3{font-size:26px;margin:14px 0 8px}
+.proj.soon p{color:var(--muted);max-width:280px;margin:0 auto 18px}
+@media(max-width:900px){.listings,.projects{grid-template-columns:1fr}.sell-panel{grid-template-columns:1fr;padding:26px}}
 /* gallery */
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:260px;gap:16px}
 .tile{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#0d1220}
@@ -248,7 +292,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
   <div class="wrap">
     <a href="#top" class="logo">LASE<span>.</span>PROPERTIES</a>
     <div class="links">
-      <a href="#about">About</a><a href="#services">Services</a><a href="#markets">Markets</a><a href="#invest">Invest</a><a href="#contact">Contact</a>
+      <a href="#properties">Properties</a><a href="#projects">Projects</a><a href="#services">Services</a><a href="#markets">Markets</a><a href="#contact">Contact</a>
     </div>
     <a href="#contact" class="btn btn-gold nav-cta">Talk to Us</a>
   </div>
@@ -317,6 +361,40 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
       <div class="tile reveal"><div class="img" data-img="O8IjeygwJlc"></div><div class="lbl"><small>Development</small><b>Dubai South</b></div></div>
       <div class="tile wide reveal"><div class="img" data-img="2fqptw4fKWI"></div><div class="lbl"><small>Coastline</small><b>GCC Waterfront Opportunities</b></div></div>
     </div>
+  </div>
+</section>
+
+<section id="properties" class="bg-alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Properties</span>
+      <h2>Find your next <span class="gold">address.</span></h2>
+      <p>A selection of homes we can help you buy or rent across Dubai. Ask us for the full list.</p>
+    </div>
+    <div class="tabs reveal" id="tabs">
+      <button data-tab="buy" class="on">Buy</button><button data-tab="rent">Rent</button><button data-tab="sell">Sell</button>
+    </div>
+    <div class="listings" id="listings"></div>
+    <div class="sell-panel" id="sellPanel" hidden>
+      <div>
+        <h3>Sell or lease with <span class="gold">LASE.</span></h3>
+        <p>Get a free valuation and reach buyers and tenants in Dubai, the GCC and China through our team and channel partners.</p>
+        <a href="#contact" class="btn btn-gold" style="margin-top:22px" data-goal="Sell my property">Get a Free Valuation →</a>
+      </div>
+      <ul><li>Free market valuation</li><li>Professional photos &amp; video tours</li><li>Exposure to 62K+ followers and partner agencies</li><li>Viewings, negotiation and DLD transfer handled</li></ul>
+    </div>
+    <p class="note" id="lstNote">Sample listings for illustration. Contact us for current availability and prices.</p>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Featured Projects</span>
+      <h2>Projects we're <span class="gold">building.</span></h2>
+      <p>Step inside each development, from the first sketch to the finished home.</p>
+    </div>
+    <div class="projects" id="projectList"></div>
   </div>
 </section>
 
@@ -632,6 +710,45 @@ addEventListener("pointermove", e => { cur.style.left = e.clientX + "px"; cur.st
   const areas = ["Downtown Dubai", "Dubai South", "The World Islands", "Palm Jumeirah", "Business Bay", "Dubai Marina", "Dubai Creek Harbour", "Riyadh", "Kuwait City", "Manama", "Shanghai"];
   const html = areas.map(a => `<span>${a}</span><em>✦</em>`).join("");
   document.getElementById("mq").innerHTML = html + html;
+})();
+
+/* ===== Properties & projects: edit these lists to add more ===== */
+const U = (id, w = 900) => `https://unsplash.com/photos/${id}/download?w=${w}`;
+const LISTINGS = [
+  {tab:"buy",  title:"Modern Villa with Pool", loc:"Dubai Hills Estate", price:"AED 14,500,000", specs:["5 Beds","6 Baths","7,200 sqft"], img:U("Id7u0EkTjBE")},
+  {tab:"buy",  title:"Sky Penthouse, City Views", loc:"Downtown Dubai", price:"AED 22,000,000", specs:["4 Beds","5 Baths","4,100 sqft"], img:U("-PlfpOk6VKs")},
+  {tab:"buy",  title:"Family Townhouse", loc:"Dubai South", price:"AED 2,350,000", specs:["3 Beds","4 Baths","2,300 sqft"], img:U("sIsiRYz3VKk")},
+  {tab:"buy",  title:"Sea-View Apartment", loc:"Dubai Marina", price:"AED 2,900,000", specs:["2 Beds","3 Baths","1,350 sqft"], img:U("2fqptw4fKWI")},
+  {tab:"buy",  title:"Beachfront Villa Noor", loc:"Palm Jumeirah", price:"AED 48,500,000", specs:["6 Beds","22 m pool","1,240 m²"], img:"projects/villa-noor.jpg"},
+  {tab:"buy",  title:"Burj View Residence", loc:"Downtown Dubai", price:"AED 4,750,000", specs:["2 Beds","2 Baths","1,600 sqft"], img:U("j-nRfGUHswQ")},
+  {tab:"rent", title:"Furnished 1BR, City View", loc:"Business Bay", price:"AED 115,000", per:"/ year", specs:["1 Bed","1 Bath","850 sqft"], img:U("IlNHSsfTunM")},
+  {tab:"rent", title:"Bright 3BR Apartment", loc:"Dubai Creek Harbour", price:"AED 210,000", per:"/ year", specs:["3 Beds","3 Baths","1,900 sqft"], img:U("12WFO8yWrsw")},
+  {tab:"rent", title:"2BR Marina Apartment", loc:"Dubai Marina", price:"AED 160,000", per:"/ year", specs:["2 Beds","2 Baths","1,250 sqft"], img:U("9n7rZJLWY7o")},
+];
+const PROJECTS = [
+  {name:"Villa Noor", area:"Palm Jumeirah · Dubai", desc:"Six-bedroom beachfront villa with a 22-metre pool. 1,850 m² plot, 1,240 m² built.", price:"AED 48,500,000", img:"projects/villa-noor.jpg", url:"https://villa-noor-dubai-shake1.vercel.app/"},
+];
+(() => {
+  const box = document.getElementById("listings"), sell = document.getElementById("sellPanel"), note = document.getElementById("lstNote");
+  const card = l => `<article class="lst"><div class="ph" style="background-image:url('${l.img}')"><span class="badge2">${l.tab === "rent" ? "For Rent" : "For Sale"}</span><span class="price">${l.price} <small>${l.per || ""}</small></span></div>
+    <div class="body"><h3>${l.title}</h3><div class="loc">${l.loc}</div><div class="specs">${l.specs.map(x => `<span>${x}</span>`).join("")}</div>
+    <a href="#contact" class="btn btn-ghost" data-goal="${l.tab === "rent" ? "Rent / Lease" : "Buy a property"}" data-msg="I'm interested in: ${l.title}, ${l.loc} (${l.price}${l.per ? " " + l.per : ""})">Enquire →</a></div></article>`;
+  function show(tab) {
+    document.querySelectorAll("#tabs button").forEach(b => b.classList.toggle("on", b.dataset.tab === tab));
+    sell.hidden = tab !== "sell"; box.hidden = tab === "sell"; note.hidden = tab === "sell";
+    if (tab !== "sell") box.innerHTML = LISTINGS.filter(l => l.tab === tab).map(card).join("");
+  }
+  document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => show(b.dataset.tab));
+  show("buy");
+  document.getElementById("projectList").innerHTML = PROJECTS.map(p => `<a class="proj reveal" href="${p.url}" target="_blank" rel="noopener"><div class="ph" style="background-image:url('${p.img}')"></div>
+    <div class="info"><small>${p.area}</small><h3>${p.name}</h3><p>${p.desc}</p><div class="row2"><b>${p.price}</b><span class="go">Explore project ↗</span></div></div></a>`).join("")
+    + `<div class="proj soon reveal"><div><span class="eyebrow">Coming soon</span><h3>More projects launching</h3><p>New developments across Dubai are on the way. Register your interest to hear first.</p><a href="#contact" class="btn btn-gold" data-goal="Off-plan investment">Register Interest →</a></div></div>`;
+  /* any button with data-goal pre-fills the lead form */
+  document.addEventListener("click", e => {
+    const a = e.target.closest("[data-goal]"); if (!a) return;
+    const r = document.querySelector(`#lead [name=goal][value="${a.dataset.goal}"]`); if (r) r.checked = true;
+    if (a.dataset.msg) document.querySelector("#lead [name=msg]").value = a.dataset.msg;
+  });
 })();
 
 /* reveal + counters + timeline */
