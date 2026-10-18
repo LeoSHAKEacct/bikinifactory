@@ -1,5 +1,5 @@
 {
-  "title": "Sitios de la clase",
+  "title": "Tu pagina web",
   "subtitle": "Negocios creados por nuestros estudiantes",
   "sites": [
     {
@@ -267,5 +267,9 @@
       "owner": "",
       "updatedAt": "2026-10-10T19:48:00.220Z"
     }
-  ]
+  ],
+  "texts": {
+    "authCodeHint": "piede al admin",
+    "footer": "Paginas activas"
+  }
 }
