@@ -1,7 +1,7 @@
 {
   "name": "Hotel Gemini",
   "phone": "8767890",
-  "waMessage": "Hola {nombre}, quiero reservar un masaje",
+  "waMessage": "Hola {nombre}, quiero reservar un quarto",
   "seo": {
     "title": "{nombre} · Hotel",
     "description": "{nombre} — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta."
