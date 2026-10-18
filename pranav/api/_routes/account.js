@@ -1,5 +1,5 @@
 // Student accounts.
-// POST { action: 'signup', name, email, password, code } -> { token, user }
+// POST { action: 'signup', name, email, password }       -> { token, user }
 // POST { action: 'login', email, password }              -> { token, user }
 // GET  (Authorization: Bearer)                            -> { user }
 const G = require('../_github');
@@ -37,8 +37,6 @@ module.exports = async (req, res) => {
       if (!EMAIL.test(email)) throw G.userError('Escribe un correo válido.');
       if (password.length < 6) throw G.userError('La contraseña debe tener al menos 6 caracteres.');
       const user = await A.update(`Admin: new student account`, async acc => {
-        if (!acc.classCode) throw G.userError('El profesor todavía no activó las inscripciones (falta el código de clase).', 403);
-        if (!C.sameText(String(b.code || '').trim().toUpperCase(), acc.classCode)) throw G.userError('El código de clase no es correcto.', 403);
         if (acc.users.some(x => x.email === email)) throw G.userError('Ya existe una cuenta con ese correo. Entra con tu contraseña.', 409);
         const u = { id: A.newId(), name, email, hash: C.hashPassword(password), createdAt: new Date().toISOString() };
         acc.users.push(u);

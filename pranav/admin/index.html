@@ -172,7 +172,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
   <nav class="tabs" id="tabs"></nav>
   <div class="spacer"></div>
   <span class="who" id="who"></span>
-  <button class="btn small" id="classBtn" hidden>Clase</button>
+  <button class="btn small" id="classBtn" hidden>Estudiantes</button>
   <button class="btn small" id="feedBtn" hidden>Textos del feed</button>
   <a class="btn small" id="feedLink" href="/feed/" target="_blank" rel="noopener">Feed ↗</a>
   <button class="btn small" id="logoutBtn">Salir</button>
@@ -206,7 +206,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
       <label class="f lf-up"><span>Tu nombre</span><input type="text" id="lfName" autocomplete="name" maxlength="60"></label>
       <label class="f lf-in lf-up"><span>Correo</span><input type="text" id="lfEmail" inputmode="email" autocomplete="email"></label>
       <label class="f lf-in lf-up"><span>Contraseña</span><input type="text" id="lfPass" autocomplete="current-password" style="-webkit-text-security:disc"></label>
-      <label class="f lf-up"><span>Código de clase <em>· te lo da el profesor</em></span><input type="text" id="lfCode" autocomplete="off"></label>
       <label class="f lf-admin"><span>Contraseña del profesor</span><input type="text" id="pwInput" autocomplete="current-password" style="-webkit-text-security:disc"></label>
       <div class="err" id="pwErr"></div>
       <button type="submit" class="btn primary" id="lfSubmit">Entrar</button>
@@ -235,13 +234,11 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
 
 <div class="modal" id="classModal">
   <form class="card wide" id="classForm">
-    <h3>Clase</h3>
-    <label class="f"><span>Código de clase <em>· los estudiantes lo usan para crear su cuenta; vacío = inscripciones cerradas</em></span>
-      <div style="display:flex;gap:6px"><input type="text" id="clCode" autocomplete="off"><button type="button" class="btn small" id="clGen">Generar</button></div></label>
+    <h3>Estudiantes</h3>
     <div class="sub">Estudiantes</div>
     <div class="hist" id="clStudents"></div>
     <div class="err" id="clErr"></div>
-    <div style="display:flex;gap:8px;justify-content:flex-end"><button type="button" class="btn" id="clClose">Cerrar</button><button type="submit" class="btn primary">Guardar</button></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button type="button" class="btn" id="clClose">Cerrar</button></div>
   </form>
 </div>
 
@@ -466,7 +463,7 @@ $('loginForm').onsubmit = async function (e) {
       state.password = $('pwInput').value; state.token = '';
     } else {
       var r = await fetch('/api/account', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
-        action: mode === 'up' ? 'signup' : 'login', name: $('lfName').value, email: $('lfEmail').value, password: $('lfPass').value, code: $('lfCode').value
+        action: mode === 'up' ? 'signup' : 'login', name: $('lfName').value, email: $('lfEmail').value, password: $('lfPass').value
       }) });
       var j = await r.json().catch(function () { return {}; });
       if (!r.ok) throw new Error(j.error || ('Error ' + r.status));
@@ -1043,27 +1040,14 @@ $('classBtn').onclick = async function () {
   $('classModal').classList.add('on');
   try {
     var j = await api('GET', '/api/class');
-    $('clCode').value = j.classCode || '';
     $('clStudents').innerHTML = j.students.length ? j.students.map(function (u) {
       return '<div class="st-row"><div><b>' + esc(u.name) + '</b><small>' + esc(u.email) + '</small></div><small>' +
         (u.sites.length ? u.sites.map(function (x) { return '<a href="/' + esc(x) + '/" target="_blank" rel="noopener">/' + esc(x) + '/</a>'; }).join(' ') : 'sin sitios') + '</small></div>';
-    }).join('') : '<p style="color:var(--muted)">Todavía no hay estudiantes. Comparte el código de clase y el link <b>' + esc(location.host) + '/admin/</b></p>';
+    }).join('') : '<p style="color:var(--muted)">Todavía no hay estudiantes. Comparte el link <b>' + esc(location.host) + '/feed/</b>: ahí crean su cuenta.</p>';
   } catch (e) { $('clErr').textContent = e.message; }
 };
-$('clGen').onclick = function () {
-  var a = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789', c = '';
-  for (var i = 0; i < 6; i++) c += a[Math.floor(Math.random() * a.length)];
-  $('clCode').value = c;
-};
 $('clClose').onclick = function () { $('classModal').classList.remove('on'); };
-$('classForm').onsubmit = async function (e) {
-  e.preventDefault();
-  try {
-    await api('POST', '/api/class', { classCode: $('clCode').value });
-    $('classModal').classList.remove('on');
-    toast('Clase guardada.' + ($('clCode').value ? ' Código: <b>' + esc($('clCode').value.toUpperCase()) + '</b>' : ' Inscripciones cerradas.'), 'ok', 7000);
-  } catch (x) { $('clErr').textContent = x.message; }
-};
+$('classForm').onsubmit = function (e) { e.preventDefault(); };
 
 // ---------- feed texts (teacher) ----------
 var feedFrameReady = false;
