@@ -311,6 +311,10 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;color:v
     .then(function (r) { return r.json(); })
     .then(function (j) {
       data = j; data.sites = data.sites || []; texts = j.texts || {};
+      // Teacher's ranking first (1 = best), then the rest, newest first.
+      data.sites = data.sites.map(function (x, i) { return [x, i]; }).sort(function (a, b) {
+        return (a[0].rank || 1e9) - (b[0].rank || 1e9) || a[1] - b[1];
+      }).map(function (x) { return x[0]; });
       applyTexts(); renderCats(); render(); showUser();
     })
     .catch(function () { document.getElementById('grid').innerHTML = '<p class="empty">No se pudo cargar el directorio.</p>'; showUser(); });
