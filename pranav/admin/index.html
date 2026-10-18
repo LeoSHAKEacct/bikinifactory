@@ -141,6 +141,13 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
 .add-sec select{flex:1}
 .login{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:15;padding:16px}
 .login.off{display:none}
+.feed-card{max-width:1200px;width:100%;height:calc(100vh - 32px);display:flex;flex-direction:column;gap:12px}
+.feed-cols{flex:1;min-height:0;display:grid;grid-template-columns:400px 1fr;gap:16px}
+.feed-fields{overflow:auto;padding-right:6px;display:flex;flex-direction:column;gap:16px}
+.feed-fields .sub{margin-top:10px}
+.feed-preview{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#120709}
+.feed-preview iframe{width:100%;height:100%;border:0}
+@media (max-width:900px){.feed-cols{grid-template-columns:1fr}.feed-preview{display:none}}
 .login-card{max-width:400px}
 .ltabs{display:flex;border:1px solid var(--line2);border-radius:10px;overflow:hidden}
 .ltabs button{flex:1;padding:9px 6px;background:transparent;border:0;cursor:pointer;font-size:13.5px}
@@ -166,6 +173,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
   <div class="spacer"></div>
   <span class="who" id="who"></span>
   <button class="btn small" id="classBtn" hidden>Clase</button>
+  <button class="btn small" id="feedBtn" hidden>Textos del feed</button>
   <a class="btn small" id="feedLink" href="/feed/" target="_blank" rel="noopener">Feed ↗</a>
   <button class="btn small" id="logoutBtn">Salir</button>
   <span class="save-state" id="saveState"></span>
@@ -207,13 +215,29 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
   </div>
 </div>
 
+<div class="modal" id="feedModal">
+  <form class="card feed-card" id="feedForm">
+    <div class="feed-cols">
+      <div class="feed-fields">
+        <h3>Textos del feed</h3>
+        <p>Todo lo que se lee en <b>/feed/</b>. Deja un campo vacío para usar el texto original (en gris). Se ve al lado al instante; con <b>Guardar</b> queda en vivo en ~1 minuto.</p>
+        <div class="sub">Título principal</div>
+        <label class="f"><span>Título</span><input type="text" id="fdTitle" maxlength="80" placeholder="Sitios de la clase"></label>
+        <label class="f"><span>Subtítulo</span><input type="text" id="fdSub" maxlength="200" placeholder=""></label>
+        <div id="fdGroups"></div>
+      </div>
+      <div class="feed-preview"><iframe id="feedFrame" title="Vista previa del feed"></iframe></div>
+    </div>
+    <div class="err" id="fdErr"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button type="button" class="btn" id="fdClose">Cerrar</button><button type="submit" class="btn primary" id="fdSave">Guardar</button></div>
+  </form>
+</div>
+
 <div class="modal" id="classModal">
   <form class="card wide" id="classForm">
     <h3>Clase</h3>
     <label class="f"><span>Código de clase <em>· los estudiantes lo usan para crear su cuenta; vacío = inscripciones cerradas</em></span>
       <div style="display:flex;gap:6px"><input type="text" id="clCode" autocomplete="off"><button type="button" class="btn small" id="clGen">Generar</button></div></label>
-    <label class="f"><span>Título del feed <em>· /feed/</em></span><input type="text" id="clTitle" maxlength="80" placeholder="Sitios de la clase"></label>
-    <label class="f"><span>Subtítulo del feed</span><input type="text" id="clSub" maxlength="200"></label>
     <div class="sub">Estudiantes</div>
     <div class="hist" id="clStudents"></div>
     <div class="err" id="clErr"></div>
@@ -250,6 +274,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
 <div class="toast" id="toast"></div>
 
 <script src="/_site/site.js"></script>
+<script src="/feed/texts.js"></script>
 <script>
 var ICONS = [['home','Casa'],['parking','Parqueadero'],['shield','Discreción'],['drink','Bebida'],['heart','Corazón'],['star','Estrella'],['candle','Vela'],['car','Carro / domicilio']];
 
@@ -460,6 +485,7 @@ async function start() {
   state.who = j.who || { role: 'admin' };
   $('who').textContent = state.who.role === 'admin' ? 'Profesor' : state.who.name;
   $('classBtn').hidden = state.who.role !== 'admin';
+  $('feedBtn').hidden = state.who.role !== 'admin';
   // /editor/#nuevo opens "new site"; /editor/#<site> opens that site (links from the feed).
   var want = decodeURIComponent(location.hash.slice(1));
   if (want && state.sites.some(function (s) { return s.slug === want; })) state.slug = want;
@@ -1017,7 +1043,7 @@ $('classBtn').onclick = async function () {
   $('classModal').classList.add('on');
   try {
     var j = await api('GET', '/api/class');
-    $('clCode').value = j.classCode || ''; $('clTitle').value = j.title || ''; $('clSub').value = j.subtitle || '';
+    $('clCode').value = j.classCode || '';
     $('clStudents').innerHTML = j.students.length ? j.students.map(function (u) {
       return '<div class="st-row"><div><b>' + esc(u.name) + '</b><small>' + esc(u.email) + '</small></div><small>' +
         (u.sites.length ? u.sites.map(function (x) { return '<a href="/' + esc(x) + '/" target="_blank" rel="noopener">/' + esc(x) + '/</a>'; }).join(' ') : 'sin sitios') + '</small></div>';
@@ -1033,10 +1059,55 @@ $('clClose').onclick = function () { $('classModal').classList.remove('on'); };
 $('classForm').onsubmit = async function (e) {
   e.preventDefault();
   try {
-    await api('POST', '/api/class', { classCode: $('clCode').value, title: $('clTitle').value, subtitle: $('clSub').value });
+    await api('POST', '/api/class', { classCode: $('clCode').value });
     $('classModal').classList.remove('on');
     toast('Clase guardada.' + ($('clCode').value ? ' Código: <b>' + esc($('clCode').value.toUpperCase()) + '</b>' : ' Inscripciones cerradas.'), 'ok', 7000);
   } catch (x) { $('clErr').textContent = x.message; }
+};
+
+// ---------- feed texts (teacher) ----------
+var feedFrameReady = false;
+function feedValues() {
+  var texts = {};
+  [].forEach.call(document.querySelectorAll('#fdGroups input'), function (el) { if (el.value.trim()) texts[el.dataset.k] = el.value.trim(); });
+  return { texts: texts, title: $('fdTitle').value.trim(), subtitle: $('fdSub').value.trim() };
+}
+function pushFeedPreview() {
+  if (!feedFrameReady) return;
+  var v = feedValues();
+  $('feedFrame').contentWindow.postMessage({ type: 'feed-texts', texts: v.texts, title: v.title, subtitle: v.subtitle }, location.origin);
+}
+addEventListener('message', function (e) {
+  if (e.origin === location.origin && e.data && e.data.type === 'feed-ready') { feedFrameReady = true; pushFeedPreview(); }
+});
+$('feedBtn').onclick = async function () {
+  $('fdErr').textContent = '';
+  $('feedModal').classList.add('on');
+  $('fdGroups').innerHTML = '<p style="color:var(--muted)">Cargando…</p>';
+  try {
+    var j = await api('GET', '/api/class');
+    $('fdTitle').value = j.title || ''; $('fdSub').value = j.subtitle || '';
+    $('fdGroups').innerHTML = (window.FEED_TEXTS || []).map(function (g) {
+      return '<div class="sub">' + esc(g.group) + '</div>' + g.items.map(function (it) {
+        return '<label class="f"><span>' + esc(it[1]) + '</span><input type="text" maxlength="300" data-k="' + it[0] + '" placeholder="' + esc(it[2]) + '" value="' + esc((j.texts || {})[it[0]] || '') + '"></label>';
+      }).join('');
+    }).join('');
+    feedFrameReady = false;
+    $('feedFrame').src = '/feed/?preview=' + Date.now();
+  } catch (e) { $('fdErr').textContent = e.message; }
+};
+$('feedForm').addEventListener('input', pushFeedPreview);
+$('fdClose').onclick = function () { $('feedModal').classList.remove('on'); };
+$('feedForm').onsubmit = async function (e) {
+  e.preventDefault();
+  var v = feedValues(), btn = $('fdSave');
+  btn.disabled = true;
+  try {
+    await api('POST', '/api/class', v);
+    $('feedModal').classList.remove('on');
+    toast('Textos del feed guardados. Quedan en vivo en ~1 minuto.', 'ok', 6000);
+  } catch (x) { $('fdErr').textContent = x.message; }
+  finally { btn.disabled = false; }
 };
 
 // ---------- history ----------
