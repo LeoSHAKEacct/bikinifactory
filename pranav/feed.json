@@ -3,6 +3,22 @@
   "subtitle": "Negocios creados por nuestros estudiantes",
   "sites": [
     {
+      "slug": "d",
+      "name": "Juegos Filipe",
+      "category": "",
+      "description": "Juegos Filipe — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta.",
+      "photo": "",
+      "phone": "573217455367",
+      "places": [
+        "Medellín",
+        "Itagüí",
+        "La Estrella",
+        "Sabaneta"
+      ],
+      "owner": "",
+      "updatedAt": "2026-10-18T06:55:20.632Z"
+    },
+    {
       "slug": "c",
       "name": "Hotel Gemini",
       "category": "",
@@ -191,22 +207,6 @@
       "places": [],
       "owner": "",
       "updatedAt": "2026-10-17T22:24:30.286Z"
-    },
-    {
-      "slug": "d",
-      "name": "Motos Andrea",
-      "category": "",
-      "description": "Motos Andrea — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta.",
-      "photo": "",
-      "phone": "573217455367",
-      "places": [
-        "Medellín",
-        "Itagüí",
-        "La Estrella",
-        "Sabaneta"
-      ],
-      "owner": "",
-      "updatedAt": "2026-10-17T22:24:30.285Z"
     },
     {
       "slug": "b",

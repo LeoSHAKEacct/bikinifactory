@@ -1,5 +1,5 @@
 {
-  "name": "Motos Andrea",
+  "name": "Juegos Filipe",
   "phone": "573217455367",
   "waMessage": "Hola {nombre}, quiero reservar un masaje",
   "seo": {
@@ -7,7 +7,7 @@
     "description": "{nombre} — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta."
   },
   "nav": {
-    "services": "Masajes",
+    "services": "Juegos",
     "facilities": "Instalaciones",
     "zones": "Zonas",
     "reserve": "Reservar"
@@ -17,19 +17,19 @@
     {
       "type": "hero",
       "photo": "",
-      "eyebrow": "Masajes · Medellín",
-      "title": "MASOTERAPEUTA CERTIFICADA ALIVIO DE DOLOR LOCALIZADO Y REDUCCION DE ESTRES",
+      "eyebrow": "Juegos · Medellín",
+      "title": "Juegos y animationes",
       "titleAccent": "",
       "greeting": "¡Hola, soy {nombre}!",
-      "lead": "Ven y le daré un roce con mis manos a tu cuerpo.",
+      "lead": "Vien jogar",
       "ctaPrimary": "Escríbeme por WhatsApp",
-      "ctaSecondary": "Ver masajes",
+      "ctaSecondary": "Ver juegos",
       "badgeTitle": "{nombre}",
       "badgeText": "Apartamento discreto · Domicilios"
     },
     {
       "type": "intro",
-      "quote": "¡Nada que un buen masaje erótico",
+      "quote": "¡Nada que un buen juego de cartas",
       "quoteAccent": "no pueda arreglar!",
       "body": "Ven y disfruta de un agradable dia"
     },
