@@ -37,6 +37,8 @@ async function read(ref) {
 // File entry for a commit: the feed with this site added/updated (or removed when e is null).
 async function withSite(slug, e) {
   const feed = await read();
+  const old = feed.sites.find(s => s.slug === slug);
+  if (e && old && old.rank) e.rank = old.rank; // keep the teacher's ranking when a site is republished
   feed.sites = feed.sites.filter(s => s.slug !== slug);
   if (e) feed.sites.unshift(e);
   return { path: path(), content: JSON.stringify(feed, null, 2) + '\n', encoding: 'utf-8' };

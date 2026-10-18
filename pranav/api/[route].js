@@ -14,6 +14,7 @@ const ROUTES = {
   load: require('./_routes/load'),
   login: require('./_routes/login'),
   publish: require('./_routes/publish'),
+  ratings: require('./_routes/ratings'),
   save: require('./_routes/save'),
   slots: require('./_routes/slots'),
 };
