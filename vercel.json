@@ -1,5 +1,5 @@
 {
   "buildCommand": "echo 'Static site'",
-  "outputDirectory": ".",
+  "outputDirectory": "pranav",
   "name": "lase-properties"
 }
