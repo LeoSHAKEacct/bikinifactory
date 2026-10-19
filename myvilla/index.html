@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Villa</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="My Villa: a buyer portal prototype for Villa Noor. 3D construction progress, payments, updates, finishes and documents.">
+<meta name="theme-color" content="#13323a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: an app shell. Phone: one column with a bottom tab bar. Desktop: a left rail, the screen in the middle. */
+:root {
+  --bg: #eeebe5;          /* sand paper */
+  --panel: #fbfaf7;
+  --ink: #13323a;         /* gulf ink */
+  --ink-soft: #5d6b6d;
+  --line: rgba(19, 50, 58, .12);
+  --bronze: #a8692e;
+  --good: #2f7a55;
+  --warn: #b7791f;
+  --muted-fill: rgba(19, 50, 58, .06);
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #0f1a1d; --panel: #16242a; --ink: #eef0ec; --ink-soft: #9fb0b2; --line: rgba(238,240,236,.12); --bronze: #d39253; --good: #5fbf8e; --warn: #e2a84b; --muted-fill: rgba(238,240,236,.06); color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #0f1a1d; --panel: #16242a; --ink: #eef0ec; --ink-soft: #9fb0b2; --line: rgba(238,240,236,.12); --bronze: #d39253; --good: #5fbf8e; --warn: #e2a84b; --muted-fill: rgba(238,240,236,.06); color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+button { font: inherit; color: inherit; }
+.app { display: grid; grid-template-columns: 1fr; min-height: 100%; }
+@media (min-width: 900px) { .app { grid-template-columns: 240px 1fr; } }
+
+/* rail / tab bar */
+.nav { position: fixed; z-index: 20; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-around; gap: 4px;
+  padding-top: 6px; padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px)); padding-left: max(8px, env(safe-area-inset-left, 0px)); padding-right: max(8px, env(safe-area-inset-right, 0px));
+  background: var(--panel); border-top: 1px solid var(--line); }
+.nav .brand, .nav .role { display: none; }
+.nav button { border: 0; background: none; display: grid; justify-items: center; gap: 2px; padding: 6px 4px; border-radius: 10px; font-size: 10.5px; letter-spacing: .02em; color: var(--ink-soft); cursor: pointer; min-width: 0; flex: 1; }
+.nav button svg { width: 22px; height: 22px; }
+.nav button[aria-current="page"] { color: var(--ink); }
+.nav button[aria-current="page"] svg { color: var(--bronze); }
+.nav button:focus-visible, .btn:focus-visible, .chip:focus-visible, .opt:focus-visible { outline: 2px solid var(--bronze); outline-offset: 2px; }
+@media (min-width: 900px) {
+  .nav { position: sticky; top: 0; height: 100vh; flex-direction: column; justify-content: flex-start; gap: 4px; border-top: 0; border-right: 1px solid var(--line); padding: 24px 16px; }
+  .nav .brand { display: block; padding: 0 10px 22px; }
+  .nav .brand b { display: block; font-family: var(--display); font-stretch: 75%; font-size: 26px; letter-spacing: .01em; }
+  .nav .brand span { font-family: var(--mono); font-size: 11px; color: var(--ink-soft); letter-spacing: .06em; text-transform: uppercase; }
+  .nav button { flex: 0; display: flex; justify-items: start; align-items: center; gap: 12px; font-size: 14px; padding: 10px 12px; }
+  .nav button[aria-current="page"] { background: var(--muted-fill); }
+  .nav .role { display: block; margin-top: auto; }
+}
+.role-switch { display: flex; background: var(--muted-fill); border-radius: 999px; padding: 3px; }
+.role-switch button { flex: 1; border: 0; background: none; border-radius: 999px; padding: 7px 10px; font-size: 12.5px; cursor: pointer; color: var(--ink-soft); }
+.role-switch button[aria-pressed="true"] { background: var(--panel); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+
+/* screens */
+main { min-width: 0; padding-top: calc(16px + env(safe-area-inset-top, 0px)); padding-bottom: 110px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+@media (min-width: 900px) { main { padding: 32px 40px 60px; } }
+.wrap { max-width: 1080px; margin: 0 auto; display: grid; gap: 16px; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.top .who { min-width: 0; }
+.eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--bronze); }
+h1 { font-family: var(--display); font-stretch: 78%; font-weight: 600; font-size: clamp(28px, 5vw, 40px); line-height: 1.02; margin: 4px 0 0; letter-spacing: -.005em; text-wrap: balance; }
+h2 { font-family: var(--display); font-stretch: 85%; font-weight: 600; font-size: 19px; margin: 0; }
+.sub { color: var(--ink-soft); font-size: 13.5px; margin: 2px 0 0; }
+.mobile-role { display: block; }
+@media (min-width: 900px) { .mobile-role { display: none; } }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 18px; min-width: 0; }
+.grid2 { display: grid; gap: 16px; grid-template-columns: 1fr; align-items: start; }
+.card { align-content: start; }
+form { align-content: start; }
+@media (min-width: 900px) { .grid2 { grid-template-columns: 1.35fr 1fr; } }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.mono { font-family: var(--mono); font-size: 12px; letter-spacing: .02em; }
+.muted { color: var(--ink-soft); }
+.num { font-variant-numeric: tabular-nums; }
+.big { font-family: var(--display); font-stretch: 80%; font-weight: 600; font-size: 34px; line-height: 1; font-variant-numeric: tabular-nums; }
+.btn { border: 1px solid var(--ink); background: var(--ink); color: var(--bg); border-radius: 999px; padding: 10px 16px; font-size: 13.5px; font-weight: 500; cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn.small { padding: 6px 12px; font-size: 12.5px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 3px 10px; font-size: 12px; font-weight: 500; border: 1px solid var(--line); white-space: nowrap; }
+.chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.chip.done { color: var(--good); } .chip.due { color: var(--warn); } .chip.next { color: var(--ink-soft); } .chip.live { color: var(--bronze); }
+.bar { height: 8px; border-radius: 99px; background: var(--muted-fill); overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--bronze); border-radius: 99px; transition: width .8s cubic-bezier(.2,.8,.2,1); }
+.bar.good i { background: var(--good); }
+
+/* 3D */
+.stage3d { position: relative; border-radius: 14px; overflow: hidden; background: linear-gradient(180deg, #e9e3d7 0%, #f6f2ea 70%); aspect-ratio: 16 / 11; max-width: 100%; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .stage3d { background: linear-gradient(180deg, #1c2b31, #24343a); } }
+.stage3d canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; }
+.stage3d .tag { position: absolute; left: 12px; top: 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; font-family: var(--mono); font-size: 11px; }
+.stage3d .pct { position: absolute; right: 14px; bottom: 10px; font-family: var(--display); font-stretch: 75%; font-weight: 600; font-size: 44px; line-height: 1; color: var(--ink); text-shadow: 0 1px 0 rgba(255,255,255,.4); }
+.scrub { display: grid; gap: 6px; }
+.scrub input { width: 100%; accent-color: var(--bronze); }
+.scrub .ticks { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10.5px; color: var(--ink-soft); }
+
+/* lists */
+.list { display: grid; }
+.li { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 12px 0; border-top: 1px solid var(--line); }
+.li:first-child { border-top: 0; }
+.li .dot { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--muted-fill); font-family: var(--mono); font-size: 11px; }
+.li.done .dot { background: color-mix(in srgb, var(--good) 18%, transparent); color: var(--good); }
+.li.due .dot { background: color-mix(in srgb, var(--warn) 18%, transparent); color: var(--warn); }
+.li b { font-weight: 600; display: block; }
+.li .meta { font-size: 12.5px; color: var(--ink-soft); }
+.amt { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* updates */
+.feed { display: grid; gap: 16px; }
+.post { display: grid; gap: 10px; }
+.post img { width: 100%; border-radius: 12px; display: block; aspect-ratio: 16 / 9; object-fit: cover; max-width: 100%; background: var(--muted-fill); }
+.post .row .mono { color: var(--ink-soft); }
+
+/* finishes */
+.room { position: relative; border-radius: 14px; overflow: hidden; aspect-ratio: 16 / 10; max-width: 100%; background: #ddd; }
+.room canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.opts { display: grid; gap: 14px; }
+.opt-group { display: grid; gap: 8px; }
+.opt-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.opt { border: 1px solid var(--line); background: var(--panel); border-radius: 12px; padding: 8px 10px 8px 8px; display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; }
+.opt i { width: 26px; height: 26px; border-radius: 8px; display: block; border: 1px solid rgba(0,0,0,.1); }
+.opt[aria-pressed="true"] { border-color: var(--bronze); box-shadow: 0 0 0 1px var(--bronze) inset; }
+.opt small { color: var(--ink-soft); font-family: var(--mono); font-size: 11px; }
+
+/* site manager */
+.field { display: grid; gap: 6px; min-width: 0; }
+.field input, .field select, .field textarea { width: 100%; min-width: 0; }
+form .grid2 > * { min-width: 0; }
+.field label { font-size: 12.5px; color: var(--ink-soft); }
+.field input, .field select, .field textarea { font: inherit; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+.field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--bronze); outline-offset: 1px; }
+.check { width: 28px; height: 28px; border-radius: 8px; border: 1.5px solid var(--line); background: var(--panel); display: grid; place-items: center; cursor: pointer; }
+.check[aria-checked="true"] { background: var(--good); border-color: var(--good); color: #fff; }
+
+.toast { position: fixed; z-index: 40; left: 50%; bottom: calc(92px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%) translateY(20px); opacity: 0; background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 12px; font-size: 13.5px; transition: .3s; pointer-events: none; max-width: calc(100vw - 32px); }
+.toast.on { opacity: 1; transform: translateX(-50%); }
+@media (min-width: 900px) { .toast { bottom: 28px; } }
+.demo { font-family: var(--mono); font-size: 11px; color: var(--ink-soft); }
+[hidden] { display: none !important; }
+@media (prefers-reduced-motion: reduce) { .bar i, .toast { transition: none; } }
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="nav" aria-label="Sections" id="nav">
+    <div class="brand"><b>My Villa</b><span>Villa Noor · Plot K-14</span></div>
+    <button data-go="home" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</button>
+    <button data-go="build"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20h16M6 20V9l6-4 6 4v11M10 20v-5h4v5"/></svg>Progress</button>
+    <button data-go="pay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg>Payments</button>
+    <button data-go="updates"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-5-8 8"/></svg>Updates</button>
+    <button data-go="finish"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><circle cx="12" cy="15" r="3"/></svg>Finishes</button>
+    <button data-go="docs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg>Documents</button>
+    <button data-go="site" id="navSite" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21V10l8-6 8 6v11"/><path d="M9 21v-6h6v6M2 21h20"/><path d="M15 3l3 3"/></svg>Site</button>
+    <div class="role">
+      <div class="role-switch" role="group" aria-label="View as">
+        <button type="button" data-role="buyer" aria-pressed="true">Buyer</button>
+        <button type="button" data-role="site" aria-pressed="false">Site manager</button>
+      </div>
+      <p class="demo" style="margin:10px 4px 0">Prototype with sample data. <button type="button" class="btn ghost small" id="reset" style="margin-top:6px">Reset demo</button></p>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="wrap">
+      <div class="top">
+        <div class="who">
+          <div class="eyebrow" id="eyebrow">Villa Noor · Plot K-14 · Palm Jumeirah</div>
+          <h1 id="title">Good evening, Ahmed</h1>
+        </div>
+        <div class="mobile-role">
+          <div class="role-switch" role="group" aria-label="View as">
+            <button type="button" data-role="buyer" aria-pressed="true">Buyer</button>
+            <button type="button" data-role="site" aria-pressed="false">Site</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- HOME -->
+      <section data-screen="home" class="grid2">
+        <div class="card" style="display:grid;gap:14px">
+          <div class="stage3d" id="stageHome"><span class="tag" id="stageTag">Week 61 · Facade</span><span class="pct num" id="pctHome">45%</span></div>
+          <div class="row"><div><h2 id="stageName">Frame complete, facade under way</h2><p class="sub" id="stageSub">Handover estimated Q4 2027 · on schedule</p></div><button class="btn small" data-go="build">Open 3D</button></div>
+          <div class="bar"><i id="barHome" style="width:45%"></i></div>
+        </div>
+        <div style="display:grid;gap:16px;min-width:0">
+          <div class="card">
+            <div class="row"><span class="eyebrow">Next payment</span><span class="chip due" id="nextChip">Due now</span></div>
+            <div class="big" id="nextAmt" style="margin-top:10px">AED 7,275,000</div>
+            <p class="sub" id="nextWhy">15% · due when the frame is complete. The site team confirmed it on 14 Oct.</p>
+            <div class="row" style="margin-top:12px"><button class="btn small" data-go="pay">See payment plan</button><span class="mono muted num" id="paidLine">Paid 40% of AED 48.5M</span></div>
+          </div>
+          <div class="card">
+            <div class="row"><span class="eyebrow">Latest from site</span><span class="mono muted" id="latestDate">16 Oct</span></div>
+            <p style="margin:10px 0 0" id="latestText">Facade panels going up on the south elevation. Pool shell poured last week.</p>
+            <button class="btn ghost small" data-go="updates" style="margin-top:12px">All updates</button>
+          </div>
+          <div class="card">
+            <span class="eyebrow">Your finishes</span>
+            <p style="margin:8px 0 0" id="finishSummary">Calacatta marble · Walnut kitchen · Bronze fittings</p>
+            <p class="sub">Selections close at 70% progress.</p>
+            <button class="btn ghost small" data-go="finish" style="margin-top:12px">Change finishes</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- BUILD -->
+      <section data-screen="build" class="grid2" hidden>
+        <div class="card" style="display:grid;gap:14px">
+          <div class="stage3d" id="stageBuild"><span class="tag" id="buildTag">Week 61</span><span class="pct num" id="pctBuild">45%</span></div>
+          <div class="scrub">
+            <label for="scrub" class="mono muted">Scroll through the build history</label>
+            <input id="scrub" type="range" min="0" max="100" value="45" step="1">
+            <div class="ticks"><span>Ground-breaking</span><span>Today</span><span>Handover</span></div>
+          </div>
+          <p class="demo" style="margin:0">Drag the model to turn it. Past the current week, the model shows the plan, not the site.</p>
+        </div>
+        <div class="card">
+          <h2>Milestones</h2>
+          <div class="list" id="milestoneList" style="margin-top:8px"></div>
+        </div>
+      </section>
+
+      <!-- PAYMENTS -->
+      <section data-screen="pay" class="grid2" hidden>
+        <div class="card" style="display:grid;gap:14px">
+          <div class="row"><div><span class="eyebrow">Purchase price</span><div class="big num">AED 48,500,000</div></div></div>
+          <div class="bar good"><i id="barPaid" style="width:40%"></i></div>
+          <div class="row mono"><span id="paidTxt">Paid AED 19,400,000 (40%)</span><span class="muted" id="leftTxt">Left AED 29,100,000</span></div>
+          <p class="sub">Each instalment falls due when its milestone is confirmed by the site team and signed off by the developer. Payments go to the project escrow account (sample details).</p>
+        </div>
+        <div class="card">
+          <h2>Payment plan</h2>
+          <div class="list" id="payList" style="margin-top:8px"></div>
+        </div>
+      </section>
+
+      <!-- UPDATES -->
+      <section data-screen="updates" hidden>
+        <div class="feed" id="feed"></div>
+      </section>
+
+      <!-- FINISHES -->
+      <section data-screen="finish" class="grid2" hidden>
+        <div class="card" style="display:grid;gap:12px">
+          <div class="room" id="room"></div>
+          <div class="row"><span class="mono muted">Living room preview</span><span class="mono num" id="upgradeTotal">Upgrades: AED 0</span></div>
+        </div>
+        <div class="card opts" id="opts"></div>
+      </section>
+
+      <!-- DOCUMENTS -->
+      <section data-screen="docs" class="grid2" hidden>
+        <div class="card"><h2>Documents</h2><div class="list" id="docList" style="margin-top:8px"></div></div>
+        <div class="card" style="display:grid;gap:10px">
+          <h2>Handover</h2>
+          <p class="sub" style="margin:0">Booking opens at 95% progress. You will walk the villa with the site manager, note any defects with photos, and track each one until it is fixed.</p>
+          <div class="list" id="handoverList"></div>
+        </div>
+      </section>
+
+      <!-- SITE MANAGER -->
+      <section data-screen="site" class="grid2" hidden>
+        <div class="card" style="display:grid;gap:12px">
+          <h2>Today’s log</h2>
+          <form id="logForm" style="display:grid;gap:12px">
+            <div class="field"><label for="logText">What happened on site</label><textarea id="logText" rows="3" placeholder="e.g. Glazing frames fixed on the first floor, north side." required></textarea></div>
+            <div class="grid2" style="grid-template-columns:1fr 1fr">
+              <div class="field"><label for="logCrew">Crew on site</label><input id="logCrew" type="number" min="0" value="42"></div>
+              <div class="field"><label for="logWeather">Weather</label><select id="logWeather"><option>Clear, 31 °C</option><option>Hazy, 34 °C</option><option>Windy, 28 °C</option></select></div>
+            </div>
+            <div class="field"><label for="logPhoto">Photo</label><input id="logPhoto" type="file" accept="image/*"></div>
+            <button class="btn" type="submit">Post to all buyers in this building</button>
+          </form>
+        </div>
+        <div class="card">
+          <h2>Milestones</h2>
+          <p class="sub">Ticking a milestone moves every buyer’s 3D progress and makes the linked payment due.</p>
+          <div class="list" id="siteList" style="margin-top:8px"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/" } }</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+
+/* ───────── sample data ───────── */
+const PRICE = 48500000;
+const MILESTONES = [
+  { id: 'book', name: 'Reservation', pct: 0, date: '2026-02-10', pay: 10, payName: 'Booking deposit' },
+  { id: 'spa', name: 'Sale contract signed', pct: 2, date: '2026-03-02', pay: 10, payName: 'On contract' },
+  { id: 'found', name: 'Piling and foundations', pct: 15, date: '2026-05-28', pay: 20, payName: 'Foundations complete' },
+  { id: 'frame', name: 'Structural frame', pct: 40, date: '2026-10-14', pay: 15, payName: 'Frame complete' },
+  { id: 'facade', name: 'Facade and glazing', pct: 60, date: '2027-02-15', pay: 15, payName: 'Facade complete' },
+  { id: 'mep', name: 'Services and fit-out', pct: 85, date: '2027-07-30', pay: 10, payName: 'Fit-out complete' },
+  { id: 'land', name: 'Pool and landscaping', pct: 95, date: '2027-10-15', pay: 0, payName: '' },
+  { id: 'hand', name: 'Handover', pct: 100, date: '2027-12-10', pay: 20, payName: 'On handover' },
+];
+const DEFAULT = { progress: 45, done: ['book', 'spa', 'found', 'frame'], paid: ['book', 'spa', 'found'], posts: [
+  { date: '2026-10-16', text: 'Facade panels going up on the south elevation. Pool shell poured last week.', img: 'img/site-oct.jpg', by: 'Site team · 42 on site · Clear, 31 °C' },
+  { date: '2026-10-14', text: 'Structural frame complete. The roof slab over the master suite was cast today and the 15% instalment is now due.', img: 'snap:40', by: 'Site team · milestone confirmed' },
+  { date: '2026-08-02', text: 'First-floor slab poured, including the 3.6 m cantilever over the terrace.', img: 'snap:30', by: 'Site team · 38 on site' },
+  { date: '2026-05-28', text: 'Piling and foundations signed off by the structural engineer.', img: 'snap:15', by: 'Site team · milestone confirmed' },
+], finishes: { floor: 'calacatta', kitchen: 'walnut', metal: 'bronze' } };
+let state;
+try { state = JSON.parse(localStorage.getItem('myvilla') || 'null'); } catch (e) { state = null; }
+if (!state) state = structuredClone(DEFAULT);
+const save = () => { try { localStorage.setItem('myvilla', JSON.stringify(state)); } catch (e) {} };
+
+const fmtAED = n => 'AED ' + Math.round(n).toLocaleString('en-US');
+const fmtDate = iso => { const d = new Date(iso + 'T12:00:00'); return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); };
+const fmtShort = iso => { const d = new Date(iso + 'T12:00:00'); return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }); };
+const toast = msg => { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove('on'), 2800); };
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ───────── navigation & role ───────── */
+let role = 'buyer', screen = 'home';
+function go(s) {
+  screen = s;
+  document.querySelectorAll('[data-screen]').forEach(el => el.hidden = el.dataset.screen !== s);
+  document.querySelectorAll('#nav button[data-go]').forEach(b => b.setAttribute('aria-current', b.dataset.go === s ? 'page' : 'false'));
+  const titles = { home: role === 'site' ? 'Site · Villa Noor' : 'Good evening, Ahmed', build: 'Construction progress', pay: 'Payment plan', updates: 'Updates from site', finish: 'Choose your finishes', docs: 'Documents and handover', site: 'Site manager' };
+  document.getElementById('title').textContent = titles[s];
+  if (s === 'build') viewer('stageBuild');
+  if (s === 'home') viewer('stageHome');
+  if (s === 'finish') roomInit();
+  window.scrollTo({ top: 0, behavior: 'auto' });
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b) go(b.dataset.go); });
+function setRole(r) {
+  role = r;
+  document.querySelectorAll('[data-role]').forEach(b => b.setAttribute('aria-pressed', b.dataset.role === r ? 'true' : 'false'));
+  document.getElementById('navSite').hidden = r !== 'site';
+  document.querySelector('#nav button[data-go="finish"]').hidden = r === 'site';
+  document.querySelector('#nav button[data-go="docs"]').hidden = r === 'site';
+  document.getElementById('eyebrow').textContent = r === 'site' ? 'Site manager · Villa Noor, K-14' : 'Villa Noor · Plot K-14 · Palm Jumeirah';
+  go(r === 'site' ? 'site' : 'home');
+}
+document.querySelectorAll('[data-role]').forEach(b => b.addEventListener('click', () => setRole(b.dataset.role)));
+document.getElementById('reset').addEventListener('click', () => { state = structuredClone(DEFAULT); save(); render(); setRole('buyer'); toast('Demo reset'); });
+
+/* ───────── 3D construction model ───────── */
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(32, 1.4, .1, 600);
+camera.position.set(38, 26, 46);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(1, 3, 2); controls.enableDamping = true; controls.enablePan = false; controls.minDistance = 30; controls.maxDistance = 110; controls.maxPolarAngle = 1.35;
+controls.autoRotate = !reduce; controls.autoRotateSpeed = .5;
+scene.add(new THREE.HemisphereLight(0xfff6e8, 0xb8a98f, 1.6));
+const sun = new THREE.DirectionalLight(0xfff0d8, 2.4); sun.position.set(-30, 40, 30); sun.castShadow = true;
+Object.assign(sun.shadow.camera, { left: -40, right: 40, top: 40, bottom: -40 }); sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -.0005;
+scene.add(sun);
+const mat = (c, o = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: .85, ...o });
+const MT = { sand: mat(0xe6d6b8), slab: mat(0xd9d4cc), conc: mat(0xbdb6aa), white: mat(0xf4f1ea), glass: mat(0x7fa4b0, { roughness: .1, metalness: .2, transparent: true, opacity: .55 }), bronze: mat(0x7a5a38, { metalness: .6, roughness: .4 }), steel: mat(0xd0a442, { metalness: .4, roughness: .5 }), scaf: mat(0x8f8a80, { metalness: .5, roughness: .5 }), pool: mat(0x48c3cf, { roughness: .1 }), deck: mat(0xcdb898), leaf: mat(0x4d6d31), bark: mat(0x6b533c), timber: mat(0x9a6e45) };
+const ground = new THREE.Mesh(new THREE.CircleGeometry(60, 64), MT.sand); ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
+const parts = []; // {mesh, from, to} grow in between progress values
+const add = (geo, m, x, y, z, from, to, o = {}) => {
+  const mesh = new THREE.Mesh(geo, m); mesh.position.set(x, y, z); mesh.castShadow = mesh.receiveShadow = true;
+  if (o.ry) mesh.rotation.y = o.ry; mesh.userData.base = mesh.position.y; mesh.userData.h = o.h || 1;
+  scene.add(mesh); parts.push({ mesh, from, to, grow: o.grow || 'scale' }); return mesh;
+};
+const bx = (x0, y0, z0, x1, y1, z1, m, from, to, o) => add(new THREE.BoxGeometry(x1 - x0, y1 - y0, z1 - z0), m, (x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2, from, to, { h: y1 - y0, ...o });
+// foundations 2 → 15
+for (let x = -14; x <= 14; x += 4) for (let z = -6; z <= 6; z += 4) bx(x - .3, -.1, z - .3, x + .3, .3, z + .3, MT.conc, 3, 9);
+bx(-15.4, 0, -7.4, 15.4, .4, 7.2, MT.slab, 9, 15);
+// frame 15 → 40: columns, first floor slab with cantilever, columns above, roof slab
+for (let x = -14; x <= 14; x += 4) for (const z of [-6.5, 0, 6.5]) bx(x - .2, .4, z - .2, x + .2, 4.1, z + .2, MT.conc, 15 + (x + 14) / 28 * 6, 23 + (x + 14) / 28 * 6, { grow: 'up' });
+bx(-15.4, 4.05, -7.4, 17.4, 4.35, 10.6, MT.slab, 26, 31);
+for (let x = -9.6; x <= 17; x += 3.3) for (const z of [-6, 0, 7.6]) bx(x - .2, 4.35, z - .2, x + .2, 7.85, z + .2, MT.conc, 31 + (x + 10) / 27 * 4, 36 + (x + 10) / 27 * 4, { grow: 'up' });
+bx(-10.4, 7.85, -6.6, 17.4, 8.25, 10.6, MT.slab, 36, 40);
+// scaffolding and crane live 12 → 82
+const scaf = new THREE.Group(); scene.add(scaf);
+for (let x = -16; x <= 18; x += 2) for (const z of [-8.2, 11.2]) { const p = new THREE.Mesh(new THREE.BoxGeometry(.08, 9, .08), MT.scaf); p.position.set(x, 4.5, z); scaf.add(p); }
+for (let y = 1.5; y <= 9; y += 2) for (const z of [-8.2, 11.2]) { const p = new THREE.Mesh(new THREE.BoxGeometry(34, .06, .06), MT.scaf); p.position.set(1, y, z); scaf.add(p); }
+const crane = new THREE.Group(); crane.position.set(22, 0, -12); scene.add(crane);
+{ const mast = new THREE.Mesh(new THREE.BoxGeometry(1, 26, 1), MT.steel); mast.position.y = 13; crane.add(mast); const jib = new THREE.Mesh(new THREE.BoxGeometry(30, .8, .8), MT.steel); jib.position.set(-9, 26, 0); crane.add(jib); const cab = new THREE.Mesh(new THREE.BoxGeometry(2, 1.6, 1.6), MT.white); cab.position.set(0, 25, 0); crane.add(cab); const cable = new THREE.Mesh(new THREE.BoxGeometry(.04, 10, .04), MT.scaf); cable.position.set(-16, 21, 0); crane.add(cable); crane.traverse(o => o.castShadow = true); }
+// facade 40 → 60
+bx(-15.4, .4, -7.4, -15, 4.05, 7, MT.white, 40, 46, { grow: 'up' }); bx(15, .4, -7.4, 15.4, 4.05, 7, MT.white, 41, 47, { grow: 'up' }); bx(-15, .4, -7.4, 15, 4.05, -7, MT.white, 42, 48, { grow: 'up' });
+bx(-10.4, 4.35, -6.6, -10, 7.85, 10.6, MT.white, 46, 52, { grow: 'up' }); bx(17, 4.35, -6.6, 17.4, 7.85, 10.6, MT.white, 47, 53, { grow: 'up' }); bx(-10, 4.35, -6.6, 17, 7.85, -6.2, MT.white, 48, 54, { grow: 'up' });
+bx(-15, .4, 6.98, 15, 4.05, 7.02, MT.glass, 52, 58, { grow: 'up' }); bx(-10, 4.35, 7.98, 17, 7.85, 8.02, MT.glass, 54, 60, { grow: 'up' });
+for (let x = -15; x <= 15.01; x += 2.5) bx(x - .05, .4, 6.94, x + .05, 4.05, 7.06, MT.bronze, 52, 57, { grow: 'up' });
+for (let x = -9.8; x <= -4.6; x += .45) bx(x - .09, 4.35, 10, x + .09, 7.85, 10.25, MT.timber, 56, 60, { grow: 'up' });
+bx(-10, 4.35, 10.38, 17, 5.4, 10.42, MT.glass, 58, 60);
+// fit-out & landscape 60 → 100
+bx(-19, 0, 7.2, 21, .15, 23, MT.deck, 82, 90);
+bx(-14, .1, 11, 8, .2, 19, MT.pool, 86, 94);
+const trees = [];
+for (const [x, z] of [[-21, -4], [-22, 6], [-21, 17], [23, -3], [24, 8], [23.5, 19]]) {
+  const g = new THREE.Group(); g.position.set(x, 0, z); scene.add(g);
+  const t = new THREE.Mesh(new THREE.CylinderGeometry(.18, .26, 8, 8), MT.bark); t.position.y = 4; g.add(t);
+  for (let k = 0; k < 7; k++) { const f = new THREE.Mesh(new THREE.ConeGeometry(.5, 3.4, 4), MT.leaf); f.position.set(Math.cos(k) * 1.4, 8, Math.sin(k) * 1.4); f.rotation.z = Math.cos(k) * 1.1; f.rotation.x = Math.sin(k) * 1.1; g.add(f); }
+  g.traverse(o => o.castShadow = true); trees.push(g);
+}
+function setProgress(p) {
+  for (const { mesh, from, to, grow } of parts) {
+    const k = THREE.MathUtils.clamp((p - from) / Math.max(.001, to - from), 0, 1);
+    mesh.visible = k > 0;
+    if (grow === 'up') { mesh.scale.y = Math.max(.001, k); mesh.position.y = mesh.userData.base - mesh.userData.h * (1 - k) / 2; }
+    else mesh.scale.setScalar(Math.max(.001, k));
+  }
+  const live = p > 12 && p < 82;
+  scaf.visible = p > 10 && p < 80; crane.visible = live; crane.rotation.y = p * .05;
+  for (const t of trees) { const k = THREE.MathUtils.clamp((p - 90) / 8, 0, 1); t.visible = k > 0; t.scale.setScalar(Math.max(.001, k)); }
+}
+let host = null, shown = state.progress, target = state.progress;
+function viewer(id) {
+  host = document.getElementById(id); host.appendChild(renderer.domElement); resize();
+}
+function resize() { if (!host) return; const w = host.clientWidth, h = host.clientHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); }
+addEventListener('resize', resize);
+(function loop() { requestAnimationFrame(loop); if (!host || !host.offsetParent) return; shown += (target - shown) * (reduce ? 1 : .08); setProgress(shown); controls.update(); renderer.render(scene, camera); })();
+function snapshot(p) { // a picture of the model at one stage, for the updates feed
+  const prev = shown, pos = camera.position.clone(); const w = 960, h = 540;
+  const cv = renderer.domElement, oldW = cv.width, oldH = cv.height;
+  renderer.setSize(w, h, false); camera.aspect = w / h; camera.position.set(34, 18, 40); camera.lookAt(1, 3, 2); camera.updateProjectionMatrix();
+  setProgress(p); renderer.render(scene, camera); const url = cv.toDataURL('image/jpeg', .85);
+  camera.position.copy(pos); setProgress(prev); renderer.setSize(oldW / renderer.getPixelRatio(), oldH / renderer.getPixelRatio(), false); resize();
+  return url;
+}
+
+/* ───────── screens ───────── */
+const stageOf = p => p >= 100 ? 'Handed over' : p >= 95 ? 'Ready for handover' : p >= 85 ? 'Pool and landscaping' : p >= 60 ? 'Services and fit-out' : p >= 40 ? 'Frame complete, facade under way' : p >= 15 ? 'Structural frame' : 'Piling and foundations';
+const week = p => Math.round(p / 100 * 96 + 22);
+function render() {
+  const p = state.progress;
+  target = p;
+  document.getElementById('pctHome').textContent = p + '%';
+  document.getElementById('pctBuild').textContent = p + '%';
+  document.getElementById('barHome').style.width = p + '%';
+  document.getElementById('stageName').textContent = stageOf(p);
+  document.getElementById('stageTag').textContent = `Week ${week(p)} · ${stageOf(p).split(',')[0]}`;
+  document.getElementById('scrub').value = p;
+  document.getElementById('buildTag').textContent = `Week ${week(p)} · today`;
+  // milestones
+  const ms = MILESTONES.map(m => { const done = state.done.includes(m.id); const cur = !done && MILESTONES.find(x => !state.done.includes(x.id)) === m; return `<div class="li ${done ? 'done' : cur ? 'due' : ''}"><span class="dot">${done ? '✓' : m.pct + '%'}</span><div><b>${m.name}</b><span class="meta">${done ? 'Confirmed' : cur ? 'In progress · planned' : 'Planned'} ${fmtDate(m.date)}</span></div><span class="chip ${done ? 'done' : cur ? 'live' : 'next'}">${done ? 'Done' : cur ? 'Now' : 'Next'}</span></div>`; }).join('');
+  document.getElementById('milestoneList').innerHTML = ms;
+  // payments
+  const pays = MILESTONES.filter(m => m.pay);
+  const paidAmt = pays.filter(m => state.paid.includes(m.id)).reduce((a, m) => a + m.pay, 0);
+  const due = pays.find(m => state.done.includes(m.id) && !state.paid.includes(m.id));
+  document.getElementById('payList').innerHTML = pays.map(m => { const paid = state.paid.includes(m.id), isDue = !paid && state.done.includes(m.id); return `<div class="li ${paid ? 'done' : isDue ? 'due' : ''}"><span class="dot">${m.pay}%</span><div><b>${m.payName}</b><span class="meta">${paid ? 'Paid · receipt available' : isDue ? 'Milestone confirmed · pay within 30 days' : 'When: ' + m.name.toLowerCase()}</span></div><div class="amt"><div class="num">${fmtAED(PRICE * m.pay / 100)}</div>${isDue ? `<button class="btn small" data-pay="${m.id}" style="margin-top:6px">Mark as paid</button>` : `<span class="chip ${paid ? 'done' : 'next'}" style="margin-top:6px">${paid ? 'Paid' : 'Later'}</span>`}</div></div>`; }).join('');
+  document.getElementById('barPaid').style.width = paidAmt + '%';
+  document.getElementById('paidTxt').textContent = `Paid ${fmtAED(PRICE * paidAmt / 100)} (${paidAmt}%)`;
+  document.getElementById('leftTxt').textContent = `Left ${fmtAED(PRICE * (100 - paidAmt) / 100)}`;
+  document.getElementById('paidLine').textContent = `Paid ${paidAmt}% of AED 48.5M`;
+  const chip = document.getElementById('nextChip');
+  if (due) { document.getElementById('nextAmt').textContent = fmtAED(PRICE * due.pay / 100); document.getElementById('nextWhy').textContent = `${due.pay}% · ${due.payName.toLowerCase()}. The site team confirmed it.`; chip.textContent = 'Due now'; chip.className = 'chip due'; }
+  else { const nx = pays.find(m => !state.paid.includes(m.id)); if (nx) { document.getElementById('nextAmt').textContent = fmtAED(PRICE * nx.pay / 100); document.getElementById('nextWhy').textContent = `${nx.pay}% · when: ${nx.name.toLowerCase()} (planned ${fmtDate(nx.date)})`; chip.textContent = 'Not due yet'; chip.className = 'chip next'; } else { document.getElementById('nextAmt').textContent = 'All paid'; document.getElementById('nextWhy').textContent = 'Thank you. Your villa is fully paid.'; chip.textContent = 'Complete'; chip.className = 'chip done'; } }
+  // updates
+  const posts = state.posts;
+  document.getElementById('latestDate').textContent = fmtShort(posts[0].date);
+  document.getElementById('latestText').textContent = posts[0].text;
+  document.getElementById('feed').innerHTML = posts.map((u, i) => `<article class="card post"><div class="row"><b>${fmtDate(u.date)}</b><span class="mono">${u.by}</span></div>${u.img ? `<img alt="Site update, ${fmtDate(u.date)}" data-src="${u.img}" loading="lazy">` : ''}<p style="margin:0">${u.text.replace(/</g, '&lt;')}</p></article>`).join('');
+  document.querySelectorAll('#feed img').forEach(img => { const s = img.dataset.src; img.src = s.startsWith('snap:') ? snapshot(+s.slice(5)) : s; });
+  // site manager
+  document.getElementById('siteList').innerHTML = MILESTONES.filter(m => m.pct > 0).map(m => { const done = state.done.includes(m.id); return `<div class="li ${done ? 'done' : ''}"><button class="check" role="checkbox" aria-checked="${done}" aria-label="${m.name}" data-ms="${m.id}">${done ? '✓' : ''}</button><div><b>${m.name}</b><span class="meta">Moves progress to ${m.pct}%${m.pay ? ` · releases ${m.pay}% payment` : ''}</span></div><span class="mono muted">${fmtShort(m.date)}</span></div>`; }).join('');
+  // finishes summary
+  document.getElementById('finishSummary').textContent = `${FIN.floor.find(o => o.id === state.finishes.floor).name} floor · ${FIN.kitchen.find(o => o.id === state.finishes.kitchen).name} kitchen · ${FIN.metal.find(o => o.id === state.finishes.metal).name} fittings`;
+  renderOpts();
+  // documents
+  document.getElementById('docList').innerHTML = [
+    ['Sale and purchase agreement', 'Signed 2 Mar 2026', 'done'], ['Registration certificate (Oqood)', 'Issued 9 Mar 2026', 'done'], ['Floor plans, rev. C', 'Updated 18 Aug 2026', 'done'], ['Payment receipts', `${state.paid.length} receipts`, 'done'], ['Finish selection sheet', 'Closes at 70%', 'live'], ['Warranty and home manual', 'At handover', 'next'],
+  ].map(([n, m, s]) => `<div class="li"><span class="dot">PDF</span><div><b>${n}</b><span class="meta">${m}</span></div><span class="chip ${s}">${s === 'done' ? 'Ready' : s === 'live' ? 'Open' : 'Later'}</span></div>`).join('');
+  document.getElementById('handoverList').innerHTML = [['Book inspection walk-through', p >= 95 ? 'Pick a slot' : 'Opens at 95%'], ['Defects list', 'Raise items with photos'], ['Keys and access cards', 'On handover day']].map(([n, m]) => `<div class="li"><span class="dot">•</span><div><b>${n}</b><span class="meta">${m}</span></div><span class="chip next">${p >= 95 ? 'Open' : 'Later'}</span></div>`).join('');
+}
+document.addEventListener('click', e => {
+  const pay = e.target.closest('[data-pay]');
+  if (pay) { state.paid.push(pay.dataset.pay); save(); render(); toast('Payment recorded. Receipt added to Documents.'); }
+  const ms = e.target.closest('[data-ms]');
+  if (ms) {
+    const id = ms.dataset.ms, m = MILESTONES.find(x => x.id === id), on = !state.done.includes(id);
+    if (on) { MILESTONES.forEach(x => { if (x.pct <= m.pct && !state.done.includes(x.id)) state.done.push(x.id); }); state.progress = Math.max(state.progress, m.pct); state.posts.unshift({ date: new Date().toISOString().slice(0, 10), text: `${m.name} confirmed by the site team.${m.pay ? ` The ${m.pay}% instalment is now due.` : ''}`, img: 'snap:' + m.pct, by: 'Site team · milestone confirmed' }); toast(`${m.name} confirmed. Buyers’ 3D progress is now ${state.progress}%.`); }
+    else { state.done = state.done.filter(x => MILESTONES.find(y => y.id === x).pct < m.pct); state.paid = state.paid.filter(x => state.done.includes(x)); const last = MILESTONES.filter(x => state.done.includes(x.id)).at(-1); state.progress = last ? last.pct : 0; toast(`${m.name} unticked.`); }
+    save(); render();
+  }
+});
+document.getElementById('scrub').addEventListener('input', e => { const v = +e.target.value; target = v; document.getElementById('pctBuild').textContent = v + '%'; document.getElementById('buildTag').textContent = v > state.progress ? `Week ${week(v)} · planned` : `Week ${week(v)}${v === state.progress ? ' · today' : ''}`; });
+document.getElementById('logForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const f = document.getElementById('logPhoto').files[0];
+  const post = img => { state.posts.unshift({ date: new Date().toISOString().slice(0, 10), text: document.getElementById('logText').value, img, by: `Site team · ${document.getElementById('logCrew').value} on site · ${document.getElementById('logWeather').value}` }); save(); render(); e.target.reset(); toast('Posted to buyers’ Updates.'); };
+  if (f) { const r = new FileReader(); r.onload = () => post(r.result); r.readAsDataURL(f); } else post('snap:' + state.progress);
+});
+
+/* ───────── finishes: a small room re-lit with each choice ───────── */
+const FIN = {
+  floor: [{ id: 'calacatta', name: 'Calacatta marble', color: '#efece6', price: 0, rough: .15 }, { id: 'travertine', name: 'Travertine', color: '#d8c4a4', price: 185000, rough: .6 }, { id: 'oak', name: 'Wide oak', color: '#b88a5c', price: 240000, rough: .5 }],
+  kitchen: [{ id: 'walnut', name: 'Walnut', color: '#6e4f37', price: 0, rough: .5 }, { id: 'lacquer', name: 'White lacquer', color: '#f2efe9', price: 95000, rough: .2 }, { id: 'sage', name: 'Sage lacquer', color: '#8b977d', price: 120000, rough: .3 }],
+  metal: [{ id: 'bronze', name: 'Bronze', color: '#7a5a38', price: 0, rough: .35 }, { id: 'nickel', name: 'Brushed nickel', color: '#a9aba9', price: 38000, rough: .3 }, { id: 'black', name: 'Matte black', color: '#222222', price: 22000, rough: .6 }],
+};
+const LABEL = { floor: 'Floor', kitchen: 'Kitchen joinery', metal: 'Fittings' };
+function renderOpts() {
+  const total = Object.entries(state.finishes).reduce((a, [k, v]) => a + FIN[k].find(o => o.id === v).price, 0);
+  document.getElementById('upgradeTotal').textContent = 'Upgrades: ' + fmtAED(total);
+  document.getElementById('opts').innerHTML = Object.keys(FIN).map(k => `<div class="opt-group"><h2>${LABEL[k]}</h2><div class="opt-row">${FIN[k].map(o => `<button class="opt" type="button" data-fin="${k}:${o.id}" aria-pressed="${state.finishes[k] === o.id}"><i style="background:${o.color}"></i><span>${o.name}<br><small>${o.price ? '+ ' + fmtAED(o.price) : 'Included'}</small></span></button>`).join('')}</div></div>`).join('') + '<p class="demo" style="margin:0">Selections close at 70% progress. Prices are sample figures.</p>';
+  applyFinishes();
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-fin]'); if (!b) return; const [k, id] = b.dataset.fin.split(':'); state.finishes[k] = id; save(); renderOpts(); document.getElementById('finishSummary').textContent = `${FIN.floor.find(o => o.id === state.finishes.floor).name} floor · ${FIN.kitchen.find(o => o.id === state.finishes.kitchen).name} kitchen · ${FIN.metal.find(o => o.id === state.finishes.metal).name} fittings`; });
+let room = null;
+function roomInit() {
+  if (room) { room.resize(); return; }
+  const el = document.getElementById('room');
+  const r = new THREE.WebGLRenderer({ antialias: true }); r.setPixelRatio(Math.min(devicePixelRatio, 2)); r.toneMapping = THREE.ACESFilmicToneMapping; r.shadowMap.enabled = true; el.appendChild(r.domElement);
+  const sc = new THREE.Scene(); sc.background = new THREE.Color(0xcfe0e6);
+  const cam = new THREE.PerspectiveCamera(50, 1.6, .05, 100); cam.position.set(4.6, 1.6, 5.2); cam.lookAt(-1.5, .9, -1);
+  sc.add(new THREE.HemisphereLight(0xffffff, 0xcdbfa7, 1.4));
+  const s2 = new THREE.DirectionalLight(0xffe2bf, 3); s2.position.set(6, 5, 6); s2.castShadow = true; s2.shadow.mapSize.set(1024, 1024); Object.assign(s2.shadow.camera, { left: -8, right: 8, top: 8, bottom: -8 }); sc.add(s2);
+  const m = c => new THREE.MeshStandardMaterial({ color: c, roughness: .8 });
+  const floorM = m(0xffffff), wood = m(0xffffff), metal = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: .8, roughness: .35 }), wall = m(0xf2efe9), linen = m(0xe2dbcf), stone = new THREE.MeshStandardMaterial({ color: 0xf1efe9, roughness: .2 });
+  const b = (w, h, d, mt, x, y, z) => { const g = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mt); g.position.set(x, y, z); g.castShadow = g.receiveShadow = true; sc.add(g); return g; };
+  b(12, .1, 10, floorM, 0, -.05, 0); b(12, 3.2, .1, wall, 0, 1.6, -4); b(.1, 3.2, 10, wall, -5, 1.6, 0);
+  // kitchen run and island
+  b(5, .9, .65, wood, -1.8, .45, -3.6); b(5.1, .05, .7, stone, -1.8, .92, -3.6); b(5, 1.2, .35, wood, -1.8, 2.3, -3.75);
+  b(3, .9, 1, wood, -1.2, .45, -1.4); b(3.1, .06, 1.1, stone, -1.2, .93, -1.4);
+  for (const x of [-2.2, -1.2, -.2]) { b(.04, .7, .04, metal, x, .35, -.4); const s = new THREE.Mesh(new THREE.CylinderGeometry(.2, .2, .06, 24), linen); s.position.set(x, .74, -.4); s.castShadow = true; sc.add(s); const p = new THREE.Mesh(new THREE.SphereGeometry(.16, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2), metal); p.position.set(x, 2.1, -1.4); sc.add(p); b(.006, 1, .006, metal, x, 2.6, -1.4); }
+  // sofa
+  const sofa = new THREE.Mesh(new RoundedBoxGeometry(2.6, .45, .95, 3, .08), linen); sofa.position.set(2.4, .23, 1.6); sofa.castShadow = true; sc.add(sofa);
+  const back = new THREE.Mesh(new RoundedBoxGeometry(2.6, .5, .22, 3, .08), linen); back.position.set(2.4, .65, 2.0); sc.add(back);
+  b(.9, .3, .9, wood, 2.4, .15, .3);
+  room = { r, sc, cam, floorM, wood, metal, el, resize() { const w = el.clientWidth, h = el.clientHeight; r.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); r.render(sc, cam); } };
+  room.resize(); addEventListener('resize', room.resize);
+  applyFinishes();
+}
+function applyFinishes() {
+  if (!room) return;
+  const f = FIN.floor.find(o => o.id === state.finishes.floor), k = FIN.kitchen.find(o => o.id === state.finishes.kitchen), mt = FIN.metal.find(o => o.id === state.finishes.metal);
+  room.floorM.color.set(f.color); room.floorM.roughness = f.rough; room.wood.color.set(k.color); room.wood.roughness = k.rough; room.metal.color.set(mt.color); room.metal.roughness = mt.rough;
+  room.r.render(room.sc, room.cam);
+}
+
+render();
+viewer('stageHome');
+</script>
+</body>
+</html>
