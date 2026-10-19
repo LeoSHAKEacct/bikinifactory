@@ -119,7 +119,22 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:7
 .pager button.on{background:var(--gold);box-shadow:0 0 12px var(--gold);height:26px;border-radius:6px}
 .pager button:hover{background:rgba(31,184,255,.5)}
 @media(max-width:700px){.pager{right:8px;gap:9px}.pager button{width:7px;height:7px}.pager button.on{height:18px}}
-.logo-card .ecg{position:absolute;inset:0;width:100%;height:100%}
+.logo-card .ecg,.portrait .ecg{position:absolute;inset:0;width:100%;height:100%}
+.portrait .ecg{filter:contrast(1.1) saturate(1.2)}
+/* gold accents: thin lines only */
+:root{--gilt:#d4af6a}
+.eyebrow::before{background:linear-gradient(90deg,var(--gilt),var(--gold))}
+nav.scrolled{border-bottom:1px solid transparent;border-image:linear-gradient(90deg,transparent,rgba(212,175,106,.55),transparent) 1}
+.stats-grid{box-shadow:inset 0 1px 0 rgba(212,175,106,.55)}
+.portrait .corner{border-color:var(--gilt)}
+.card::after,.lst::after{content:"";position:absolute;left:24px;right:24px;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--gilt),transparent);opacity:.55;transition:opacity .3s}
+.card:hover::after{opacity:1}
+.lst{position:relative}.lst:hover::after{opacity:1}
+.marquee{border-color:rgba(212,175,106,.2)}
+.timeline .bar{background:linear-gradient(90deg,var(--gilt),var(--gold))}
+.step .node{box-shadow:0 0 0 3px rgba(212,175,106,.12)}
+.proj .info small{color:var(--gilt)}
+footer{border-top-color:rgba(212,175,106,.25)}
 /* gallery */
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:260px;gap:16px}
 .tile{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#0d1220}
@@ -335,6 +350,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
   <div class="wrap about">
     <div class="portrait reveal" id="tilt">
       <div class="photo logo-photo" style="background-image:url(lase-logo.jpg)"></div>
+      <canvas class="ecg" aria-hidden="true"></canvas>
       <div class="photo-glow"></div><div class="photo-lines"></div>
       <div class="scan"></div>
       <div class="corner c1"></div><div class="corner c2"></div>
@@ -415,7 +431,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
       </div>
       <div class="site-card logo-card reveal">
         <div class="img" style="background-image:url(lase-logo.jpg)"></div>
-        <canvas class="ecg" id="ecg" aria-hidden="true"></canvas>
+        <canvas class="ecg" aria-hidden="true"></canvas>
         <span class="live"><i class="dot"></i> Open for enquiries</span>
       </div>
     </div>
@@ -667,7 +683,7 @@ addEventListener("pointermove", e => { cur.style.left = e.clientX + "px"; cur.st
       const g = x.createLinearGradient(0, top, 0, base);
       g.addColorStop(0, tw.hero ? "#0d2233" : "#141b2a"); g.addColorStop(1, "#070a12");
       x.fillStyle = g; x.fillRect(tw.x, top, tw.w, h);
-      x.strokeStyle = tw.hero ? "rgba(31,184,255,.7)" : "rgba(79,216,255,.18)"; x.lineWidth = devicePixelRatio;
+      x.strokeStyle = tw.hero ? "rgba(212,175,106,.75)" : "rgba(79,216,255,.18)"; x.lineWidth = devicePixelRatio;
       x.strokeRect(tw.x + .5, top + .5, tw.w - 1, h);
       if (tw.spire && e > .98) {
         x.beginPath(); x.moveTo(tw.x + tw.w / 2, top - (tw.hero ? H * .12 : 30 * devicePixelRatio)); x.lineTo(tw.x + tw.w / 2, top); x.stroke();
@@ -683,7 +699,7 @@ addEventListener("pointermove", e => { cur.style.left = e.clientX + "px"; cur.st
     });
     // crane
     const cx = W * .28, ch = H * .42;
-    x.strokeStyle = "rgba(31,184,255,.55)"; x.lineWidth = 1.5 * devicePixelRatio;
+    x.strokeStyle = "rgba(212,175,106,.55)"; x.lineWidth = 1.5 * devicePixelRatio;
     x.beginPath(); x.moveTo(cx, base); x.lineTo(cx, base - ch); x.stroke();
     const ang = Math.sin(t * .3) * .25, arm = W * .09;
     x.beginPath(); x.moveTo(cx - arm * .35 * Math.cos(ang), base - ch); x.lineTo(cx + arm * Math.cos(ang), base - ch - arm * Math.sin(ang) * .2); x.stroke();
@@ -802,7 +818,7 @@ const PROJECTS = [
 
 /* ===== logo heartbeat: the ECG line sweeps like a live monitor when the card comes into view ===== */
 (() => {
-  const cv = document.getElementById("ecg"); if (!cv) return;
+  document.querySelectorAll("canvas.ecg").forEach(cv => {
   const T = "198,198;198,198;197,198;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;196,199;195,199;193,199;190,199;189,199;186,199;184,198;181,196;180,193;178,191;175,189;175,187;175,186;176,186;178,186;180,188;181,190;182,192;183,194;185,196;187,198;189,199;192,199;194,199;196,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,200;197,202;198,204;198,207;199,209;200,212;202,215;205,218;207,221;209,223;212,226;211,229;206,230;198,229;190,222;182,220;174,208;166,197;158,191;147,186;140,175;132,168;122,157;115,155;108,153;105,154;115,164;122,177;138,187;157,203;166,218;178,231;194,243;211,260;224,263;232,262;234,258;232,254;228,250;224,243;219,239;214,235;211,229;206,224;200,220;198,214;198,211;197,206;197,201;197,200;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;196,199;195,198;195,198;194,197;193,196;193,196;192,195;191,194;190,193;190,193;189,192;188,191;188,191;187,190;187,190;188,190;188,191;189,191;190,192;191,193;192,193;193,194;193,195;194,196;195,197;195,198;151,198;150,199;149,199;148,199;147,199;146,199;145,199;144,199;144,199;143,199;142,199;141,198;139,143;138,142;137,141;136,141;136,140;135,139;134,138;133,137;132,135;131,135;130,134;129,133;128,132;127,131;126,130;125,129;124,128;123,127;122,126;121,126;120,124;119,123;118,122;117,121;116,120;115,119;114,119;113,118;112,117;112,116;111,115;110,114;110,114;111,115;112,116;113,117;114,118;115,119;116,119;117,120;118,121;119,123;119,124;120,125;121,125;121,126;119,126;115,125;113,125;112,140;112,153;115,151;131,148;134,144;133,141;134,138;135,137;135,137;136,138;137,139;137,140;138,141;138,142;139,143;140,197;141,199;142,199;143,199;144,199;145,198;146,153;147,153;148,153;149,198;150,199;151,199;152,199;197,199;196,199;195,199;193,199;191,197;188,195;186,193;183,190;181,188;179,186;177,184;177,184;178,184;179,186;180,188;182,190;184,192;186,194;188,196;190,198;192,198;194,199;196,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,202;197,205;197,207;199,210;202,213;204,217;207,219;209,222;211,224;212,228;212,229;210,229;199,227;192,222;183,211;175,200;165,189;159,185;150,177;140,167;131,161;124,155;116,152;108,150;107,154;115,168;131,183;144,194;151,213;170,226;186,241;198,252;206,259;222,262;229,260;230,256;229,252;226,247;220,241;216,238;213,233;206,227;203,222;200,217;198,213;198,208;197,203;197,200;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;196,198;196,198;195,197;195,196;194,196;193,195;192,194;191,194;191,193;190,192;189,192;189,191;188,191;187,191;187,190;187,191;187,191;187,192;188,192;189,193;190,194;191,194;191,195;192,196;193,197;194,198;195,198;195,198;196,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199".split(";").map(v => v ? v.split(",").map(Number) : null);
   const IW = 536, IH = 454, BASE = 198, BAND = [92, 270], GAP = 34, PASS = 1500, PASSES = 3;
   const img = new Image(); img.src = "lase-logo.jpg";
@@ -867,6 +883,7 @@ const PROJECTS = [
     new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) play(); }), {threshold: .5}).observe(cv);
   };
   addEventListener("resize", () => { size(); x.setTransform(s, 0, 0, s, ox, oy); if (img.complete) x.drawImage(img, 0, 0, IW, IH); });
+  });
 })();
 
 /* reveal + counters + timeline */
