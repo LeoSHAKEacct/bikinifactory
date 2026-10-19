@@ -113,6 +113,12 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:7
 .proj.soon h3{font-size:26px;margin:14px 0 8px}
 .proj.soon p{color:var(--muted);max-width:280px;margin:0 auto 18px}
 @media(max-width:900px){.listings,.projects{grid-template-columns:1fr}.sell-panel{grid-template-columns:1fr;padding:26px}}
+/* page-by-page scrolling */
+.pager{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:55;display:flex;flex-direction:column;gap:12px}
+.pager button{width:10px;height:10px;padding:0;border-radius:50%;border:1px solid rgba(31,184,255,.6);background:transparent;cursor:pointer;transition:.3s}
+.pager button.on{background:var(--gold);box-shadow:0 0 12px var(--gold);height:26px;border-radius:6px}
+.pager button:hover{background:rgba(31,184,255,.5)}
+@media(max-width:700px){.pager{right:8px;gap:9px}.pager button{width:7px;height:7px}.pager button.on{height:18px}}
 /* gallery */
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:260px;gap:16px}
 .tile{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#0d1220}
@@ -749,6 +755,47 @@ const PROJECTS = [
     const r = document.querySelector(`#lead [name=goal][value="${a.dataset.goal}"]`); if (r) r.checked = true;
     if (a.dataset.msg) document.querySelector("#lead [name=msg]").value = a.dataset.msg;
   });
+})();
+
+/* ===== page-by-page scrolling: one scroll / swipe / key = next or previous section ===== */
+(() => {
+  if (reduce) return;
+  const stats = document.querySelector(".stats");
+  const pages = [...document.querySelectorAll("header.hero, section")];
+  const topOf = el => (el.id === "about" ? stats : el).getBoundingClientRect().top + scrollY - (el.id === "about" ? 30 : 0);
+  const bottomOf = el => el.getBoundingClientRect().bottom + scrollY;
+  const pager = document.createElement("div"); pager.className = "pager"; pager.setAttribute("role", "navigation"); pager.setAttribute("aria-label", "Sections");
+  pages.forEach((p, i) => { const b = document.createElement("button"); b.setAttribute("aria-label", "Go to section " + (i + 1)); b.onclick = () => go(Math.max(0, topOf(p))); pager.appendChild(b); });
+  document.body.appendChild(pager);
+  let busy = false;
+  function go(y) { busy = true; scrollTo({top: Math.max(0, y), behavior: "smooth"}); setTimeout(() => busy = false, 850); }
+  const current = () => { let c = 0; pages.forEach((p, i) => { if (topOf(p) <= scrollY + 8) c = i; }); return c; };
+  function step(dir) {
+    if (busy) return;
+    const i = current(), p = pages[i], vh = innerHeight, y = scrollY;
+    if (dir > 0) {
+      const bottom = i === pages.length - 1 ? document.documentElement.scrollHeight : bottomOf(p);
+      if (bottom > y + vh * 1.3) go(Math.min(y + vh * .85, bottom - vh));          // tall section: keep reading it
+      else if (pages[i + 1]) go(topOf(pages[i + 1]));                               // next page
+      else go(document.documentElement.scrollHeight);                               // footer
+    } else {
+      if (y > topOf(p) + vh * .3) go(Math.max(topOf(p), y - vh * .85));                    // back up inside this page
+      else if (pages[i - 1]) { const q = pages[i - 1]; go(Math.max(topOf(q), bottomOf(q) - vh)); } // previous page
+    }
+  }
+  const skip = t => t.closest && t.closest("input,select,textarea,.calc,.form");
+  addEventListener("wheel", e => { if (e.ctrlKey || skip(e.target) || Math.abs(e.deltaY) < 4) return; e.preventDefault(); step(Math.sign(e.deltaY)); }, {passive: false});
+  addEventListener("keydown", e => {
+    if (skip(e.target)) return;
+    if (["ArrowDown", "PageDown", " "].includes(e.key)) { e.preventDefault(); step(1); }
+    if (["ArrowUp", "PageUp"].includes(e.key)) { e.preventDefault(); step(-1); }
+  });
+  let ty = null;
+  addEventListener("touchstart", e => { ty = skip(e.target) ? null : e.touches[0].clientY; }, {passive: true});
+  addEventListener("touchmove", e => { if (ty !== null) e.preventDefault(); }, {passive: false});
+  addEventListener("touchend", e => { if (ty === null) return; const d = ty - e.changedTouches[0].clientY; ty = null; if (Math.abs(d) > 40) step(Math.sign(d)); });
+  const mark = () => { const c = current(); [...pager.children].forEach((b, i) => b.classList.toggle("on", i === c)); };
+  addEventListener("scroll", mark, {passive: true}); mark();
 })();
 
 /* reveal + counters + timeline */
