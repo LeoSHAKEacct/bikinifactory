@@ -119,6 +119,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:7
 .pager button.on{background:var(--gold);box-shadow:0 0 12px var(--gold);height:26px;border-radius:6px}
 .pager button:hover{background:rgba(31,184,255,.5)}
 @media(max-width:700px){.pager{right:8px;gap:9px}.pager button{width:7px;height:7px}.pager button.on{height:18px}}
+.logo-card .ecg{position:absolute;inset:0;width:100%;height:100%}
 /* gallery */
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:260px;gap:16px}
 .tile{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#0d1220}
@@ -414,6 +415,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
       </div>
       <div class="site-card logo-card reveal">
         <div class="img" style="background-image:url(lase-logo.jpg)"></div>
+        <canvas class="ecg" id="ecg" aria-hidden="true"></canvas>
         <span class="live"><i class="dot"></i> Open for enquiries</span>
       </div>
     </div>
@@ -796,6 +798,75 @@ const PROJECTS = [
   addEventListener("touchend", e => { if (ty === null) return; const d = ty - e.changedTouches[0].clientY; ty = null; if (Math.abs(d) > 40) step(Math.sign(d)); });
   const mark = () => { const c = current(); [...pager.children].forEach((b, i) => b.classList.toggle("on", i === c)); };
   addEventListener("scroll", mark, {passive: true}); mark();
+})();
+
+/* ===== logo heartbeat: the ECG line sweeps like a live monitor when the card comes into view ===== */
+(() => {
+  const cv = document.getElementById("ecg"); if (!cv) return;
+  const T = "198,198;198,198;197,198;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;196,199;195,199;193,199;190,199;189,199;186,199;184,198;181,196;180,193;178,191;175,189;175,187;175,186;176,186;178,186;180,188;181,190;182,192;183,194;185,196;187,198;189,199;192,199;194,199;196,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,200;197,202;198,204;198,207;199,209;200,212;202,215;205,218;207,221;209,223;212,226;211,229;206,230;198,229;190,222;182,220;174,208;166,197;158,191;147,186;140,175;132,168;122,157;115,155;108,153;105,154;115,164;122,177;138,187;157,203;166,218;178,231;194,243;211,260;224,263;232,262;234,258;232,254;228,250;224,243;219,239;214,235;211,229;206,224;200,220;198,214;198,211;197,206;197,201;197,200;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;196,199;195,198;195,198;194,197;193,196;193,196;192,195;191,194;190,193;190,193;189,192;188,191;188,191;187,190;187,190;188,190;188,191;189,191;190,192;191,193;192,193;193,194;193,195;194,196;195,197;195,198;151,198;150,199;149,199;148,199;147,199;146,199;145,199;144,199;144,199;143,199;142,199;141,198;139,143;138,142;137,141;136,141;136,140;135,139;134,138;133,137;132,135;131,135;130,134;129,133;128,132;127,131;126,130;125,129;124,128;123,127;122,126;121,126;120,124;119,123;118,122;117,121;116,120;115,119;114,119;113,118;112,117;112,116;111,115;110,114;110,114;111,115;112,116;113,117;114,118;115,119;116,119;117,120;118,121;119,123;119,124;120,125;121,125;121,126;119,126;115,125;113,125;112,140;112,153;115,151;131,148;134,144;133,141;134,138;135,137;135,137;136,138;137,139;137,140;138,141;138,142;139,143;140,197;141,199;142,199;143,199;144,199;145,198;146,153;147,153;148,153;149,198;150,199;151,199;152,199;197,199;196,199;195,199;193,199;191,197;188,195;186,193;183,190;181,188;179,186;177,184;177,184;178,184;179,186;180,188;182,190;184,192;186,194;188,196;190,198;192,198;194,199;196,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,202;197,205;197,207;199,210;202,213;204,217;207,219;209,222;211,224;212,228;212,229;210,229;199,227;192,222;183,211;175,200;165,189;159,185;150,177;140,167;131,161;124,155;116,152;108,150;107,154;115,168;131,183;144,194;151,213;170,226;186,241;198,252;206,259;222,262;229,260;230,256;229,252;226,247;220,241;216,238;213,233;206,227;203,222;200,217;198,213;198,208;197,203;197,200;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;196,198;196,198;195,197;195,196;194,196;193,195;192,194;191,194;191,193;190,192;189,192;189,191;188,191;187,191;187,190;187,191;187,191;187,192;188,192;189,193;190,194;191,194;191,195;192,196;193,197;194,198;195,198;195,198;196,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199".split(";").map(v => v ? v.split(",").map(Number) : null);
+  const IW = 536, IH = 454, BASE = 198, BAND = [92, 270], GAP = 34, PASS = 1500, PASSES = 3;
+  const img = new Image(); img.src = "lase-logo.jpg";
+  const x = cv.getContext("2d");
+  let s = 1, ox = 0, oy = 0, raf = 0;
+  function size() {
+    const r = cv.getBoundingClientRect(), d = devicePixelRatio || 1;
+    cv.width = r.width * d; cv.height = r.height * d;
+    s = Math.max(cv.width / IW, cv.height / IH); ox = (cv.width - IW * s) / 2; oy = (cv.height - IH * s) / 2;
+  }
+  const yAt = i => { const c = T[i]; if (!c) return BASE; return Math.abs(c[0] - BASE) > Math.abs(c[1] - BASE) ? c[0] : c[1]; };
+  function frame(t0) {
+    return now => {
+      const t = now - t0, pass = Math.floor(t / PASS), head = Math.min(T.length, (t % PASS) / PASS * (T.length + GAP));
+      x.setTransform(s, 0, 0, s, ox, oy);
+      x.drawImage(img, 0, 0, IW, IH);
+      if (pass >= PASSES) { cancelAnimationFrame(raf); return; }
+      // erase: everything ahead of the head on the first pass, a moving gap after that (using the logo's own texture)
+      const from = Math.max(0, head), to = Math.min(IW, pass === 0 ? IW : head + GAP);
+      if (to > from) x.drawImage(plate, from, BAND[0], to - from, BAND[1] - BAND[0], from, BAND[0], to - from, BAND[1] - BAND[0]);
+      // fresh trace glows brighter behind the head
+      x.save(); x.lineCap = "round"; x.lineJoin = "round"; x.shadowColor = "#3fd0ff"; x.shadowBlur = 12;
+      for (let i = Math.max(1, Math.floor(head) - 90); i < Math.floor(head); i++) {
+        const c = T[i], p = T[i - 1]; if (!c || !p) continue;
+        x.strokeStyle = `rgba(150,235,255,${(1 - (head - i) / 90) * .9})`; x.lineWidth = 3.2;
+        x.beginPath(); x.moveTo(i - 1, (p[0] + p[1]) / 2); x.lineTo(i, c[0]); x.lineTo(i, c[1]); x.stroke();
+      }
+      // the monitor dot
+      if (head < T.length) {
+        const hx = head, hy = yAt(Math.min(T.length - 1, Math.floor(head)));
+        const r = x.createRadialGradient(hx, hy, 0, hx, hy, 16);
+        r.addColorStop(0, "rgba(255,255,255,1)"); r.addColorStop(.25, "rgba(120,225,255,.9)"); r.addColorStop(1, "rgba(31,184,255,0)");
+        x.fillStyle = r; x.beginPath(); x.arc(hx, hy, 16, 0, 7); x.fill();
+      }
+      x.restore();
+      raf = requestAnimationFrame(frame(t0));
+    };
+  }
+  function play() { cancelAnimationFrame(raf); size(); if (reduce) { frame(-1e9)(0); return; } raf = requestAnimationFrame(now => frame(now)(now)); }
+  const plate = document.createElement("canvas"); plate.width = IW; plate.height = IH;
+  img.onload = () => {
+    // clean background for the line band: per column, blend the logo's colours just above and below the line, plus grain
+    const pc = plate.getContext("2d", {willReadFrequently: true}); pc.drawImage(img, 0, 0);
+    let src; try { src = pc.getImageData(0, 0, IW, IH).data; } catch (e) { pc.fillStyle = "rgb(45,47,46)"; pc.fillRect(0, BAND[0], IW, BAND[1] - BAND[0]); src = null; }
+    const H = BAND[1] - BAND[0], out = pc.createImageData(IW, H);
+    if (src) {
+    const avg = (cx, cy) => { let r = 0, g = 0, b = 0, n = 0;
+      for (let dx = -3; dx <= 3; dx++) for (let dy = -2; dy <= 2; dy++) { const xx = Math.min(IW - 1, Math.max(0, cx + dx)), k = ((cy + dy) * IW + xx) * 4; r += src[k]; g += src[k + 1]; b += src[k + 2]; n++; }
+      return [r / n, g / n, b / n]; };
+    for (let cx = 0; cx < IW; cx++) {
+      const a0 = avg(cx, BAND[0] - 3), a1 = a0;   // below the band sits the glowing LASE text, so sample above only
+      for (let y = 0; y < H; y++) { const t = y / (H - 1), n = (Math.random() - .5) * 7, k = (y * IW + cx) * 4;
+        // feather the band edges back into the real image (but never let the cyan line show through)
+        const sk = ((y + BAND[0]) * IW + cx) * 4, cyan = src[sk + 2] - src[sk] > 60;
+        const w = cyan ? 0 : Math.max(0, Math.min(1, (y - (H - 30)) / 30, 1), Math.min(1, (8 - y) / 8));
+        for (let ch = 0; ch < 3; ch++) out.data[k + ch] = (a0[ch] + (a1[ch] - a0[ch]) * t + n) * (1 - w) + src[sk + ch] * w;
+        out.data[k + 3] = 255; }
+    }
+    pc.putImageData(out, 0, BAND[0]);
+    }
+    size(); x.setTransform(s, 0, 0, s, ox, oy); x.drawImage(img, 0, 0, IW, IH);
+    new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) play(); }), {threshold: .5}).observe(cv);
+  };
+  addEventListener("resize", () => { size(); x.setTransform(s, 0, 0, s, ox, oy); if (img.complete) x.drawImage(img, 0, 0, IW, IH); });
 })();
 
 /* reveal + counters + timeline */
