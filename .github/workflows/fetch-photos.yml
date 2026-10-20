@@ -1,0 +1,31 @@
+name: Fetch property photos
+on:
+  push:
+    branches: [claude/eloquent-curie-0n2ugs]
+    paths: ['farnsworth/photos.txt', '.github/workflows/fetch-photos.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download openly licensed photos from Wikimedia Commons
+        run: |
+          mkdir -p farnsworth/photos
+          UA="PropertyPageBuild/1.0 (GitHub Actions; static site)"
+          while read -r f n; do
+            [ -z "$f" ] && continue
+            [ -f "farnsworth/photos/$n.jpg" ] && continue
+            if curl -sSfL -A "$UA" --retry 2 -m 90 -o "farnsworth/photos/$n.jpg" "https://commons.wikimedia.org/wiki/Special:FilePath/$f?width=2000"; then echo "ok $n"; else echo "miss $n"; rm -f "farnsworth/photos/$n.jpg"; fi
+            sleep 1
+          done < farnsworth/photos.txt
+          ls -la farnsworth/photos
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add farnsworth/photos
+          git diff --cached --quiet || git commit -m "Add Farnsworth photographs from Wikimedia Commons"
+          git push
