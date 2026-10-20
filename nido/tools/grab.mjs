@@ -10,7 +10,9 @@ const page = await ctx.newPage();
 const seen = new Set(), queue = [START], imgs = new Map(), pages = [];
 while (queue.length && pages.length < 20) {
   const url = queue.shift().split('#')[0]; if (seen.has(url)) continue; seen.add(url);
-  try { await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 }); } catch (e) { console.log('fail', url, e.message); continue; }
+  try { await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 90000 }); } catch (e) { console.log('fail', url, e.message); continue; }
+  try { await page.waitForLoadState('load', { timeout: 30000 }); } catch {}
+  await page.waitForTimeout(4000);
   for (let y = 0; y < 30; y++) { await page.mouse.wheel(0, 900); await page.waitForTimeout(250); }
   await page.waitForTimeout(1500);
   const data = await page.evaluate(() => {

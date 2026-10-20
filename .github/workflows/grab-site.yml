@@ -13,6 +13,9 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
       - run: npm i --no-save playwright@1.47.2 && npx playwright install --with-deps chromium
+      - run: |
+          for u in https://www.elnidodesantafe.com/ https://elnidodesantafe.com/ http://elnidodesantafe.com/; do echo "== $u"; curl -sS -m 30 -o /dev/null -w '%{http_code} %{redirect_url} %{time_total}s\n' "$u" || true; done
+          getent hosts elnidodesantafe.com www.elnidodesantafe.com || true
       - run: node nido/tools/grab.mjs
       - name: Commit
         run: |
