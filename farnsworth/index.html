@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Farnsworth House</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="A real-photo property page template, shown with the Farnsworth House by Mies van der Rohe, Plano, Illinois.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one long scroll of full-bleed photographs. Pinned chapters, a cross-fading interior sequence, a then/now slider, a strip gallery with a lightbox. */
+:root {
+  --paper: #f3f1ec;       /* travertine white */
+  --ink: #161616;         /* steel black */
+  --ink-soft: #6a6863;
+  --line: rgba(22, 22, 22, .14);
+  --accent: #8c6a43;      /* primavera wood */
+  --night: #111111;
+  --on-night: #f3f1ec;
+  --on-night-soft: rgba(243, 241, 236, .66);
+  --display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --body: "Geist", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Geist Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-weight: 400; font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+.gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+@media (min-width: 800px) { .gutter { padding-left: max(48px, env(safe-area-inset-left, 0px)); padding-right: max(48px, env(safe-area-inset-right, 0px)); } }
+.mono { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+.ph { position: relative; overflow: hidden; background: linear-gradient(135deg, #2b2b2b, #8c7a62); }
+.ph img { width: 100%; height: 100%; object-fit: cover; }
+.ph.noimg img { display: none; }
+.ph.noimg::after { content: "Photo unavailable · see credits"; position: absolute; left: 16px; bottom: 14px; font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,.75); }
+
+/* header */
+.top { position: fixed; z-index: 30; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-top: calc(18px + env(safe-area-inset-top, 0px)); padding-bottom: 18px; color: #fff; mix-blend-mode: difference; pointer-events: none; }
+.top b { font-family: var(--display); font-weight: 400; font-size: 24px; font-style: italic; }
+.top .mono { opacity: .9; }
+
+/* hero */
+.hero { position: relative; height: 100vh; height: 100svh; min-height: 520px; color: #fff; overflow: hidden; }
+.hero .ph { position: absolute; inset: 0; }
+.hero .ph img { transform: scale(1.12); animation: drift 22s ease-out forwards; }
+@keyframes drift { to { transform: scale(1.0); } }
+.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,0) 55%); pointer-events: none; }
+.hero-copy { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; padding-bottom: calc(48px + env(safe-area-inset-bottom, 0px)); }
+.hero h1 { font-family: var(--display); font-weight: 400; font-size: clamp(64px, 14vw, 220px); line-height: .86; margin: 12px 0 0; letter-spacing: -.02em; }
+.hero h1 .ln { display: block; overflow: hidden; }
+.hero h1 .ln span { display: inline-block; transform: translateY(105%); animation: rise 1.4s cubic-bezier(.2,.8,.2,1) forwards; }
+.hero h1 .ln:nth-child(2) span { animation-delay: .18s; font-style: italic; }
+@keyframes rise { to { transform: none; } }
+.hero .meta { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 22px; opacity: 0; animation: fade 1s .9s forwards; }
+@keyframes fade { to { opacity: 1; } }
+.cue { position: absolute; z-index: 2; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(48px + env(safe-area-inset-bottom, 0px)); display: grid; justify-items: center; gap: 10px; }
+.cue i { width: 1px; height: 56px; background: rgba(255,255,255,.6); transform-origin: top; animation: cue 2s ease-in-out infinite; }
+@keyframes cue { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+@media (min-width: 800px) { .cue { right: max(48px, env(safe-area-inset-right, 0px)); } }
+
+/* statement, revealed word by word on scroll */
+.statement { padding-block: 22vh; max-width: 1200px; margin: 0 auto; }
+.statement p { font-family: var(--display); font-size: clamp(34px, 5.6vw, 76px); line-height: 1.08; margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+.statement .w { opacity: .14; transition: opacity .2s linear; }
+.statement .w.on { opacity: 1; }
+.statement .src { margin-top: 28px; color: var(--ink-soft); }
+
+/* pinned split */
+.split { position: relative; display: grid; grid-template-columns: 1fr; }
+@media (min-width: 900px) { .split { grid-template-columns: 1.25fr 1fr; } }
+.split .pin { position: sticky; top: 0; height: 100vh; height: 100svh; }
+.split .pin .ph { position: absolute; inset: 0; }
+.split .pin img { transform: scale(var(--z, 1.2)); transition: transform .1s linear; }
+.split .txt { display: grid; gap: 30vh; padding-block: 30vh; }
+.split .txt article { max-width: 40ch; }
+.split h2, .chapter h2 { font-family: var(--display); font-weight: 400; font-size: clamp(40px, 5vw, 72px); line-height: 1; margin: 12px 0 16px; letter-spacing: -.01em; }
+.split h2 em, .chapter h2 em { color: var(--accent); }
+.split p { color: var(--ink-soft); margin: 0; }
+@media (max-width: 899px) { .split .pin { height: 70vh; position: relative; } .split .txt { gap: 12vh; padding-block: 10vh; } }
+
+/* interior sequence */
+.seq { position: relative; height: 420vh; background: var(--night); color: var(--on-night); }
+.seq .stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.seq .frame { position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease; }
+.seq .frame.on { opacity: 1; }
+.seq .frame img { transform: scale(1.06); transition: transform 6s ease-out; }
+.seq .frame.on img { transform: scale(1); }
+.seq .frame::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.6), rgba(0,0,0,0) 50%); }
+.seq .cap { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; padding-bottom: calc(44px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 6px; }
+.seq .cap b { font-family: var(--display); font-weight: 400; font-size: clamp(36px, 5.4vw, 80px); line-height: 1; }
+.seq .cap span { color: var(--on-night-soft); max-width: 52ch; }
+.seq .count { position: absolute; z-index: 2; top: calc(84px + env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); font-variant-numeric: tabular-nums; }
+@media (min-width: 800px) { .seq .count { right: max(48px, env(safe-area-inset-right, 0px)); } }
+.seq .ticks { position: absolute; z-index: 2; left: max(16px, env(safe-area-inset-left, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(22px + env(safe-area-inset-bottom, 0px)); display: grid; grid-auto-flow: column; gap: 6px; }
+@media (min-width: 800px) { .seq .ticks { left: max(48px, env(safe-area-inset-left, 0px)); right: max(48px, env(safe-area-inset-right, 0px)); } }
+.seq .ticks i { height: 2px; background: rgba(243,241,236,.25); }
+.seq .ticks i.on { background: var(--on-night); }
+
+/* facts */
+.facts { padding-block: 18vh; max-width: 1200px; margin: 0 auto; }
+.facts h2 { font-family: var(--display); font-weight: 400; font-size: clamp(40px, 5vw, 72px); line-height: 1; margin: 12px 0 48px; }
+.fgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 0; border-top: 1px solid var(--line); }
+.fgrid div { padding: 26px 18px 26px 0; border-bottom: 1px solid var(--line); }
+.fgrid b { display: block; font-family: var(--display); font-weight: 400; font-size: clamp(48px, 6vw, 88px); line-height: 1; font-variant-numeric: tabular-nums; }
+.fgrid span { display: block; margin-top: 10px; color: var(--ink-soft); font-size: 14px; max-width: 24ch; }
+.sources { margin-top: 22px; color: var(--ink-soft); font-size: 13px; }
+
+/* then and now */
+.compare-wrap { padding-block: 6vh 18vh; max-width: 1400px; margin: 0 auto; }
+.compare-wrap h2 { font-family: var(--display); font-weight: 400; font-size: clamp(40px, 5vw, 72px); line-height: 1; margin: 12px 0 10px; }
+.compare-wrap > p { color: var(--ink-soft); margin: 0 0 28px; max-width: 56ch; }
+.compare { position: relative; aspect-ratio: 16 / 9; max-width: 100%; overflow: hidden; border-radius: 3px; touch-action: pan-y; user-select: none; cursor: ew-resize; background: #222; }
+.compare .ph { position: absolute; inset: 0; }
+.compare .then { clip-path: inset(0 calc(100% - var(--x, 50%)) 0 0); }
+.compare .then img { filter: grayscale(1) contrast(1.05); }
+.compare .handle { position: absolute; top: 0; bottom: 0; left: var(--x, 50%); width: 2px; background: #fff; transform: translateX(-1px); }
+.compare .handle::after { content: "⟷"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 44px; height: 44px; border-radius: 50%; background: #fff; color: #111; display: grid; place-items: center; font-size: 18px; }
+.compare .lab { position: absolute; z-index: 2; top: 14px; padding: 4px 10px; background: rgba(0,0,0,.55); color: #fff; border-radius: 99px; }
+.compare .lab.l { left: 14px; } .compare .lab.r { right: 14px; }
+.compare input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
+
+/* strip + lightbox */
+.strip-sec { background: var(--night); color: var(--on-night); }
+.strip-head { padding-block: 16vh 6vh; max-width: 1200px; margin: 0 auto; }
+.strip-head h2 { font-family: var(--display); font-weight: 400; font-size: clamp(40px, 5vw, 72px); line-height: 1; margin: 12px 0 0; }
+.hs { position: relative; }
+.hs .stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: flex; align-items: center; }
+.track { display: flex; gap: 2.5vw; padding-left: max(16px, 6vw); padding-right: 6vw; will-change: transform; }
+.tile { flex: 0 0 auto; width: min(52vw, 820px); margin: 0; cursor: zoom-in; background: none; border: 0; padding: 0; color: inherit; text-align: left; }
+@media (max-width: 800px) { .tile { width: 82vw; } }
+.tile .ph { aspect-ratio: 3 / 2; max-width: 100%; clip-path: inset(10% 0 10% 0); transition: clip-path 1.1s cubic-bezier(.2,.8,.2,1); }
+.tile.in .ph { clip-path: inset(0); }
+.tile .ph img { width: 118%; max-width: none; margin-left: -9%; will-change: transform; }
+.tile figcaption, .tile .tc { display: flex; justify-content: space-between; gap: 12px; margin-top: 14px; font-size: 14px; color: var(--on-night-soft); }
+.tile b { font-family: var(--display); font-weight: 400; font-size: 26px; color: var(--on-night); }
+.tile:focus-visible { outline: 2px solid var(--on-night); outline-offset: 6px; }
+.lb { position: fixed; z-index: 60; inset: 0; background: rgba(8,8,8,.96); display: grid; grid-template-rows: 1fr auto; padding: calc(20px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); color: var(--on-night); }
+.lb img { width: 100%; height: 100%; object-fit: contain; min-height: 0; }
+.lb .bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-top: 12px; }
+.lb button { background: none; border: 1px solid rgba(243,241,236,.3); color: var(--on-night); border-radius: 99px; padding: 8px 14px; font: inherit; font-size: 13px; cursor: pointer; }
+.lb button:focus-visible { outline: 2px solid var(--on-night); outline-offset: 2px; }
+.lb .ctr { display: flex; gap: 8px; }
+
+/* close */
+.close { padding-block: 18vh 10vh; max-width: 1200px; margin: 0 auto; display: grid; gap: 24px; }
+.close h2 { font-family: var(--display); font-weight: 400; font-size: clamp(48px, 7vw, 110px); line-height: .95; margin: 0; }
+.close p { margin: 0; max-width: 58ch; color: var(--ink-soft); }
+.btn { display: inline-block; background: var(--ink); color: var(--paper); border-radius: 99px; padding: 12px 20px; text-decoration: none; font-size: 14px; }
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.credits { border-top: 1px solid var(--line); padding-top: 22px; font-size: 13px; color: var(--ink-soft); display: grid; gap: 4px; }
+.credits a { color: var(--ink-soft); }
+@media (prefers-reduced-motion: reduce) {
+  .hero .ph img, .hero h1 .ln span, .hero .meta, .cue i { animation: none; transform: none; opacity: 1; }
+  .tile .ph { clip-path: none; transition: none; }
+  .seq .frame, .seq .frame img { transition: none; }
+  .statement .w { opacity: 1; }
+}
+</style>
+</head>
+<body>
+<header class="top gutter"><b>Farnsworth House</b><span class="mono">Plano, Illinois · 1951</span></header>
+
+<section class="hero" aria-label="Farnsworth House">
+  <div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Farnsworth_House_by_Mies_Van_Der_Rohe_-_exterior-8.jpg?width=2400" alt="Farnsworth House, a glass pavilion raised above a meadow" fetchpriority="high" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('noimg')"></div>
+  <div class="hero-copy gutter">
+    <div class="mono">Ludwig Mies van der Rohe · 14520 River Road</div>
+    <h1><span class="ln"><span>Farnsworth</span></span><span class="ln"><span>House</span></span></h1>
+    <div class="meta mono"><span>1,586 sq ft</span><span>Steel and glass</span><span>Fox River</span><span>Real photographs</span></div>
+  </div>
+  <div class="cue mono" aria-hidden="true"><i></i>Scroll</div>
+</section>
+
+<section class="statement gutter" aria-label="About the house">
+  <p id="statement">A single room of glass, lifted five feet above a meadow and a hundred feet from the Fox River, so that the floods pass underneath and the seasons fill every wall.</p>
+  <div class="src mono">Facts: <a href="https://en.wikipedia.org/wiki/Farnsworth_House" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://savingplaces.org/stories/the-past-present-future-of-farnsworth-house" target="_blank" rel="noopener">National Trust for Historic Preservation</a></div>
+</section>
+
+<section class="split" aria-label="Exterior">
+  <div class="pin"><div class="ph"><img id="splitImg" src="https://commons.wikimedia.org/wiki/Special:FilePath/Farnsworth_House_2006.jpg?width=2000" alt="Farnsworth House among the trees" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('noimg')"></div></div>
+  <div class="txt gutter">
+    <article><div class="mono">01 · The approach</div><h2>Floating <em>above</em> the meadow</h2><p>Eight white steel columns hold the floor and roof clear of the ground. A travertine terrace steps up to the porch, and the house seems to hover over the grass.</p></article>
+    <article><div class="mono">02 · The structure</div><h2>Nothing <em>but</em> the frame</h2><p>The columns are welded to the outside of the slabs, so no structure interrupts the glass. Every elevation is a window onto the trees.</p></article>
+    <article><div class="mono">03 · The river</div><h2>Built for <em>the flood</em></h2><p>The Fox River runs about 100 feet to the south. The raised floor was Mies’s answer to its seasonal floods.</p></article>
+  </div>
+</section>
+
+<section class="seq" id="seq" aria-label="Inside the house">
+  <div class="stick">
+    <figure class="frame on" data-cap="One open room|The plan is a single space around a primavera-wood core that hides the kitchen, bathrooms and fireplace."><div class="ph" style="position:absolute;inset:0"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Farnsworth_House_by_Mies_Van_Der_Rohe_-_interior.jpg?width=2000" alt="Interior of the Farnsworth House" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('noimg')"></div></figure>
+    <figure class="frame" data-cap="Glass on every side|Floor-to-ceiling glass makes the meadow and the trees the walls of the room."><div class="ph" style="position:absolute;inset:0"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Farnsworth_House_Interior.jpg?width=2000" alt="Interior with glass walls and trees outside" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('noimg')"></div></figure>
+    <figure class="frame" data-cap="The hearth|The fireplace is set into the wood core, facing the living area and the river view."><div class="ph" style="position:absolute;inset:0"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Farnsworth_House_by_Mies_Van_Der_Rohe_-_interior_fireplace.jpg?width=2000" alt="Fireplace in the wood core" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('noimg')"></div></figure>
+    <figure class="frame" data-cap="The galley|A slim kitchen runs along one side of the core, looking straight out through the glass."><div class="ph" style="position:absolute;inset:0"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Farnsworth_House_by_Mies_Van_Der_Rohe_-_interior_kitchen.jpg?width=2000" alt="Kitchen along the wood core" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('noimg')" style="object-position:center 40%"></div></figure>
+    <figure class="frame" data-cap="Living by the trees|Furniture sits loose in the room, so the space reads as one open volume."><div class="ph" style="position:absolute;inset:0"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Farnsworth_House_by_Mies_Van_Der_Rohe_-_interior-2.jpg?width=2000" alt="Living area of the Farnsworth House" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('noimg')"></div></figure>
+    <div class="count mono num" id="seqCount">01 / 05</div>
+    <div class="cap gutter"><div class="mono" style="color:var(--on-night-soft)">Inside</div><b id="seqTitle">One open room</b><span id="seqText">The plan is a single space around a primavera-wood core that hides the kitchen, bathrooms and fireplace.</span></div>
+    <div class="ticks" id="seqTicks"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+  </div>
+</section>
+
+<section class="facts gutter" aria-labelledby="factsTitle">
+  <div class="mono">By the numbers</div>
+  <h2 id="factsTitle">A house in five figures</h2>
+  <div class="fgrid">
+    <div><b data-to="1951">1951</b><span>completed for Dr Edith Farnsworth</span></div>
+    <div><b data-to="1586" data-sep>1,586</b><span>square feet, one room</span></div>
+    <div><b data-to="5">5</b><span>feet above the ground on steel columns</span></div>
+    <div><b data-to="100">100</b><span>feet from the Fox River</span></div>
+    <div><b data-to="7.5" data-dec="1" data-pre="$" data-suf="M">$7.5M</b><span>paid by the National Trust at auction in 2003</span></div>
+  </div>
+  <p class="sources">Sources: <a href="https://en.wikipedia.org/wiki/Farnsworth_House" target="_blank" rel="noopener">Wikipedia</a>, <a href="https://savingplaces.org/stories/the-past-present-future-of-farnsworth-house" target="_blank" rel="noopener">National Trust for Historic Preservation</a>, <a href="https://www.nps.gov/articles/000/the-farnsworth-house.htm" target="_blank" rel="noopener">National Park Service</a>. Figures are as published by those sources.</p>
+</section>
+
+<section class="compare-wrap gutter" aria-labelledby="cmpTitle">
+  <div class="mono">Then and now</div>
+  <h2 id="cmpTitle">1971 and today</h2>
+  <p>Drag across the picture. Left: the Historic American Buildings Survey photograph of 1971 by Jack E. Boucher. Right: the house in colour, decades later.</p>
+  <div class="compare" id="cmp">
+    <div class="ph now"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/FarnsworthHouse-Mies-5.jpg?width=2000" alt="Farnsworth House in colour" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('noimg')"></div>
+    <div class="ph then"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Mies_van_der_Rohe_photo_Farnsworth_House_Plano_USA_1.jpg?width=2000" alt="Farnsworth House in 1971, black and white" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('noimg')"></div>
+    <span class="lab l mono">1971</span><span class="lab r mono">Today</span>
+    <div class="handle" aria-hidden="true"></div>
+    <input type="range" min="0" max="100" value="50" id="cmpRange" aria-label="Compare 1971 with today">
+  </div>
+</section>
+
+<section class="strip-sec" aria-labelledby="stripTitle">
+  <div class="strip-head gutter"><div class="mono">Gallery · select a photograph to enlarge</div><h2 id="stripTitle">Every angle</h2></div>
+  <div class="hs" id="hs"><div class="stick"><div class="track" id="track"></div></div></div>
+</section>
+
+<section class="close gutter" aria-labelledby="closeTitle">
+  <div class="mono">About this page</div>
+  <h2 id="closeTitle">Your listing, told like this</h2>
+  <p>This is a template for real-photo property pages, shown with the Farnsworth House because its photographs are openly licensed. The house is a museum run by the National Trust for Historic Preservation and is not for sale. For a listing, the photos would come from the agent’s photo pack.</p>
+  <div><a class="btn" href="https://en.wikipedia.org/wiki/Farnsworth_House" target="_blank" rel="noopener">Read about the house</a></div>
+  <div class="credits" id="credits"><b style="color:var(--ink)">Photographs</b></div>
+</section>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Photograph">
+  <img id="lbImg" alt="">
+  <div class="bar"><span id="lbCap"></span><div class="ctr"><button type="button" id="lbPrev">Previous</button><button type="button" id="lbNext">Next</button><button type="button" id="lbClose">Close</button></div></div>
+</div>
+
+<script>
+const FP = 'https://commons.wikimedia.org/wiki/Special:FilePath/';
+const PAGE = 'https://commons.wikimedia.org/wiki/File:';
+const PHOTOS = [
+  ['Farnsworth_House_by_Mies_Van_Der_Rohe_-_exterior-8.jpg', 'The pavilion', 'Exterior', 'Victor Grigas, CC BY-SA'],
+  ['Farnsworth_House_2006.jpg', 'Among the trees', 'Exterior, 2006', 'Wikimedia Commons'],
+  ['FarnsworthHouse-Mies-5.jpg', 'The terrace', 'Exterior', 'Wikimedia Commons'],
+  ['FarnsworthHouse-Mies-6.jpg', 'The porch', 'Exterior', 'Wikimedia Commons'],
+  ['Farnsworth_House_by_Mies_Van_Der_Rohe_-_interior.jpg', 'One open room', 'Interior', 'Victor Grigas, CC BY-SA'],
+  ['Farnsworth_House_Interior.jpg', 'Glass on every side', 'Interior', 'Lessismore2020, CC BY-SA 4.0'],
+  ['Farnsworth_House_by_Mies_Van_Der_Rohe_-_interior_fireplace.jpg', 'The hearth', 'Interior', 'Victor Grigas, CC BY-SA'],
+  ['Farnsworth_House_by_Mies_Van_Der_Rohe_-_interior_kitchen.jpg', 'The galley', 'Interior', 'Victor Grigas, CC BY-SA'],
+  ['Farnsworth_House_by_Mies_Van_Der_Rohe_-_interior-2.jpg', 'Living by the trees', 'Interior', 'Victor Grigas, CC BY-SA'],
+  ['Mies_van_der_Rohe_photo_Farnsworth_House_Plano_USA_1.jpg', 'Survey, 1971', 'HABS archive', 'Jack E. Boucher, HABS, public domain'],
+  ['Mies_van_der_Rohe_photo_Farnsworth_House_Plano_USA_2.jpg', 'Survey, 1971', 'HABS archive', 'Jack E. Boucher, HABS, public domain'],
+  ['Mies_van_der_Rohe_photo_Farnsworth_House_Plano_USA_3.jpg', 'Survey, 1971', 'HABS archive', 'Jack E. Boucher, HABS, public domain'],
+];
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// gallery strip
+const track = document.getElementById('track');
+track.innerHTML = PHOTOS.map(([f, t, k, c], i) => `<button class="tile" type="button" data-i="${i}" aria-label="Enlarge: ${t}"><div class="ph"><img src="${FP}${f}?width=1400" alt="${t}, Farnsworth House" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('noimg')"></div><span class="tc"><b>${t}</b><span>${k}</span></span></button>`).join('');
+document.getElementById('credits').insertAdjacentHTML('beforeend', PHOTOS.map(([f, t, k, c]) => `<span>${t} (${k}): <a href="${PAGE}${f}" target="_blank" rel="noopener">${c}</a></span>`).join(''));
+
+// statement words light up as you scroll past
+const st = document.getElementById('statement');
+st.innerHTML = st.textContent.split(' ').map(w => `<span class="w">${w}</span>`).join(' ');
+const words = [...st.querySelectorAll('.w')];
+
+// facts count up
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return; io.unobserve(e.target); const el = e.target;
+  if (el.classList.contains('tile')) { el.classList.add('in'); return; }
+  if (reduce) return;
+  const to = +el.dataset.to, dec = +(el.dataset.dec || 0), from = to > 1800 && to < 2100 ? 1900 : 0, t0 = performance.now();
+  const fmt = v => (el.dataset.pre || '') + (el.dataset.sep !== undefined ? Math.round(v).toLocaleString('en-US') : v.toFixed(dec)) + (el.dataset.suf || '');
+  const tick = now => { const k = Math.min(1, (now - t0) / 1600); el.textContent = fmt(from + (to - from) * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(tick); };
+  requestAnimationFrame(tick);
+}), { threshold: .4 });
+document.querySelectorAll('[data-to], .tile').forEach(el => io.observe(el));
+
+// then / now slider
+const cmp = document.getElementById('cmp'), cr = document.getElementById('cmpRange');
+cr.addEventListener('input', () => cmp.style.setProperty('--x', cr.value + '%'));
+
+// interior sequence
+const seq = document.getElementById('seq'), frames = [...seq.querySelectorAll('.frame')], ticks = [...document.querySelectorAll('#seqTicks i')];
+let cur = 0;
+function showFrame(i) {
+  if (i === cur) return; cur = i;
+  frames.forEach((f, k) => f.classList.toggle('on', k === i)); ticks.forEach((t, k) => t.classList.toggle('on', k <= i));
+  const [a, b] = frames[i].dataset.cap.split('|');
+  document.getElementById('seqTitle').textContent = a; document.getElementById('seqText').textContent = b;
+  document.getElementById('seqCount').textContent = `${String(i + 1).padStart(2, '0')} / ${String(frames.length).padStart(2, '0')}`;
+}
+
+// horizontal strip
+const hs = document.getElementById('hs'), imgs = [...track.querySelectorAll('img')];
+let travel = 0;
+const size = () => { travel = Math.max(0, track.scrollWidth - innerWidth); hs.style.height = `calc(100vh + ${travel}px)`; };
+
+const splitImg = document.getElementById('splitImg'), split = splitImg.closest('.split');
+function onScroll() {
+  const vh = innerHeight;
+  // statement
+  const r0 = st.getBoundingClientRect(); const k0 = Math.min(1, Math.max(0, (vh * .85 - r0.top) / (r0.height + vh * .4)));
+  const n = Math.round(k0 * words.length); words.forEach((w, i) => w.classList.toggle('on', reduce || i < n));
+  // split image zoom
+  const r1 = split.getBoundingClientRect(); const k1 = Math.min(1, Math.max(0, -r1.top / Math.max(1, r1.height - vh)));
+  splitImg.style.setProperty('--z', (1.2 - .2 * k1).toFixed(3));
+  // interior frames
+  const r2 = seq.getBoundingClientRect(); const k2 = Math.min(.999, Math.max(0, -r2.top / Math.max(1, r2.height - vh)));
+  showFrame(Math.floor(k2 * frames.length));
+  // strip
+  const r3 = hs.getBoundingClientRect(); const k3 = Math.min(1, Math.max(0, -r3.top / Math.max(1, travel)));
+  track.style.transform = `translate3d(${-k3 * travel}px,0,0)`;
+  if (!reduce) imgs.forEach(im => { const b = im.parentElement.getBoundingClientRect(); const c = (b.left + b.width / 2 - innerWidth / 2) / innerWidth; im.style.transform = `translate3d(${-c * 7}%,0,0)`; });
+}
+addEventListener('scroll', onScroll, { passive: true });
+addEventListener('resize', () => { size(); onScroll(); });
+addEventListener('load', () => { size(); onScroll(); });
+size(); onScroll();
+
+// lightbox
+const lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lbCap = document.getElementById('lbCap');
+let li = 0, lastFocus = null;
+function openLB(i) { li = (i + PHOTOS.length) % PHOTOS.length; const [f, t, k, c] = PHOTOS[li]; lbImg.src = `${FP}${f}?width=2400`; lbImg.alt = `${t}, Farnsworth House`; lbCap.textContent = `${t} · ${k} · Photo: ${c}`; if (lb.hidden) { lastFocus = document.activeElement; lb.hidden = false; document.getElementById('lbClose').focus(); } }
+function closeLB() { lb.hidden = true; lbImg.removeAttribute('src'); if (lastFocus) lastFocus.focus(); }
+track.addEventListener('click', e => { const t = e.target.closest('.tile'); if (t) openLB(+t.dataset.i); });
+document.getElementById('lbPrev').addEventListener('click', () => openLB(li - 1));
+document.getElementById('lbNext').addEventListener('click', () => openLB(li + 1));
+document.getElementById('lbClose').addEventListener('click', closeLB);
+addEventListener('keydown', e => { if (lb.hidden) return; if (e.key === 'Escape') closeLB(); if (e.key === 'ArrowRight') openLB(li + 1); if (e.key === 'ArrowLeft') openLB(li - 1); });
+</script>
+</body>
+</html>
