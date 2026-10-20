@@ -161,11 +161,30 @@ form.viewing input:focus-visible { outline: 2px solid var(--red); outline-offset
 .closing .no { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--red); }
 .closing h2 { font-family: var(--display); font-stretch: 68%; font-weight: 600; text-transform: uppercase; font-size: clamp(56px, 9vw, 120px); line-height: .85; margin: 12px 0 14px; }
 .closing p { margin: 0; color: var(--ink-soft); max-width: 46ch; }
-body.in-gallery .card, body.in-gallery .rail, body.in-gallery .sheet, body.in-gallery .hero { opacity: 0 !important; pointer-events: none !important; }
+body.in-gallery .callouts, body.in-gallery .card, body.in-gallery .rail, body.in-gallery .sheet, body.in-gallery .hero { opacity: 0 !important; pointer-events: none !important; }
 body.in-gallery .brand { color: #f4f2ee; text-shadow: 0 1px 12px rgba(0,0,0,.35); }
 body.in-gallery .brand span { color: rgba(244,242,238,.8); }
 body.at-close .brand, body.at-close .brand span { color: var(--ink); text-shadow: none; }
 .rail, .sheet { transition: opacity .4s; }
+.callouts { position: fixed; inset: 0; z-index: 4; pointer-events: none; transition: opacity .4s; }
+.co { position: absolute; left: 0; top: 0; opacity: 0; will-change: transform, opacity; }
+.co .dot { position: absolute; left: -7px; top: -7px; width: 14px; height: 14px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 3px rgba(255,255,255,.9); }
+.co .dot::after { content: ""; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid var(--red); animation: coPulse 1.8s ease-out infinite; }
+@keyframes coPulse { from { transform: scale(1); opacity: .9; } to { transform: scale(3.2); opacity: 0; } }
+.co .lead { position: absolute; left: 0; bottom: 0; width: 46px; height: 1px; background: rgba(255,255,255,.95); box-shadow: 0 0 0 .5px rgba(0,0,0,.25); transform-origin: 0 0; transform: rotate(-40deg) scaleX(var(--k, 0)); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+.co .box { position: absolute; left: 34px; bottom: 30px; width: max-content; max-width: min(250px, 62vw); padding: 10px 13px 11px; background: rgba(255,255,255,.94); color: var(--ink); border-radius: 4px; box-shadow: 0 10px 30px rgba(10,14,20,.18); transform: translateY(8px); transition: transform .5s cubic-bezier(.2,.8,.2,1); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.co.flip .lead { transform: rotate(-140deg) scaleX(var(--k, 0)); }
+.co.flip .box { left: auto; right: 34px; }
+.co.lb .lead { left: 0; top: 0; bottom: auto; transform: rotate(140deg) scaleX(var(--k, 0)); }
+.co.lb .box { left: auto; right: 34px; bottom: auto; top: 30px; }
+.co.lb.mr .lead { transform: rotate(40deg) scaleX(var(--k, 0)); }
+.co.lb.mr .box { left: 34px; right: auto; }
+.co.on .box { transform: none; }
+.co .box small { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--red); }
+.co .box b { display: block; font-family: var(--display); font-weight: 400; font-size: 21px; line-height: 1.1; margin-top: 3px; }
+.co .box span { display: block; font-size: 13px; line-height: 1.45; color: var(--ink-soft); margin-top: 4px; }
+@media (max-width: 700px) { .co .box { max-width: 42vw; } .co .box span { display: none; } .co .box b { font-size: 16px; } }
+@media (prefers-reduced-motion: reduce) { .co .dot::after { animation: none; } .co .lead, .co .box { transition: none; } }
 h1 em { font-style: italic; }
 .hero h1, .card h2, .shot b, .closing h2, .brand b, .price { font-stretch: normal; font-weight: 400; text-transform: none; letter-spacing: -.01em; }
 .brand b { font-style: italic; font-size: 24px; }
@@ -206,6 +225,7 @@ h1 em { font-style: italic; }
 </head>
 <body>
 <canvas id="gl" aria-label="Interpretive three-dimensional model of the Farnsworth House"></canvas>
+<div class="callouts" id="callouts" aria-live="polite"></div>
 <div class="fx vignette" id="vignette"></div>
 <div class="fx grain"></div>
 
@@ -1133,6 +1153,53 @@ function resize() {
 let dirty = true, shadowsDone = false;
 addEventListener('resize', resize);
 
+
+/* ───────────────────────── detail callouts ───────────────────────── */
+// each one fades in while the camera travels into its stage and holds there
+const DETAILS = [
+  { s: 1, at: [3.35, 3.4, 4.4], tag: 'Structure', t: 'Columns outside the slabs', d: 'The eight steel columns are welded to the edges of the floor and roof, so nothing interrupts the glass.' },
+  { s: 1.25, lb: 1, at: [9, 1.3, 4.3], tag: 'Level', t: 'Floor 5 ft 3 in up', d: 'Set above the meadow to clear the floods of the Fox River.' },
+  { s: 2, at: [-9, .85, 12.2], tag: 'Terrace', t: 'A floating terrace', d: 'A second travertine platform, half way between the grass and the house.' },
+  { s: 2.25, lb: 1, at: [-9, 3.4, -3], tag: 'Porch', t: 'The open porch', d: 'A third of the roof shelters an outdoor room before the glass begins.' },
+  { s: 3, lb: 1, at: [6, 3.2, 4.25], tag: 'Glazing', t: 'Floor-to-ceiling plate glass', d: 'Every wall is glass, so the seasons become the decoration.' },
+  { s: 3.25, at: [-3.35, 4.2, 4.4], tag: 'Craft', t: 'Welds ground smooth', d: 'Mies had the welds filled and sanded, and every steel surface painted white.' },
+  { s: 4, at: [-12.8, .6, 13.4], tag: 'Steps', t: 'Steps that hover', d: 'Each travertine tread is cantilevered, with no visible support underneath.' },
+  { s: 4.25, lb: 1, at: [-8.5, Y0 + .02, 2], tag: 'Floors', t: 'Travertine throughout', d: 'The same Italian stone runs from the terrace, across the porch and inside.' },
+  { s: 5, at: [2.5, Y0 + .9, .95], tag: 'Hearth', t: 'Fireplace in the core', d: 'The only fixed element facing the living area.' },
+  { s: 5.25, lb: 1, at: [2.1, Y0 + .8, 2.9], tag: 'Furniture', t: 'Barcelona chair', d: 'Designed by Mies with Lilly Reich in 1929.' },
+  { s: 6, at: [5, Y0 + 2.1, -2.4], tag: 'Material', t: 'Primavera wood core', d: 'One block holds the kitchen, two bathrooms, the fireplace and the services.' },
+  { s: 6.25, lb: 1, at: [2.6, Y0 + .95, -2.7], tag: 'Kitchen', t: 'A galley facing the woods', d: 'You cook with the north meadow behind you and the trees in every window.' },
+  { s: 7, lb: 1, at: [9.4, Y0 + 1.3, 1.9], tag: 'Joinery', t: 'Teak wardrobe', d: 'A free-standing piece of furniture is the only thing screening the bed.' },
+  { s: 7.25, at: [10.6, Y0 + 2.2, 4], tag: 'Textiles', t: 'Natural silk curtains', d: 'Drawn on ceiling tracks, they are the only way to close the room.' },
+  { s: 8, at: [15, 6, 9], tag: 'Site', t: 'Sited by a black maple', d: 'Mies placed the house beside a great maple near the riverbank.' },
+  { s: 8.25, lb: 1, at: [0, 1.2, 4.35], tag: 'River', t: 'Built for the flood', d: 'The biggest floods have still reached inside, and the house has been restored after them.' },
+];
+const coWrap = document.getElementById('callouts');
+DETAILS.forEach(d => {
+  d.el = document.createElement('div'); d.el.className = d.lb ? 'co lb' : 'co';
+  d.el.innerHTML = `<i class="dot"></i><i class="lead"></i><div class="box"><small>${d.tag}</small><b>${d.t}</b><span>${d.d}</span></div>`;
+  coWrap.appendChild(d.el); d.v = new THREE.Vector3();
+});
+function updateCallouts(p) {
+  camera.updateMatrixWorld();
+  const W = innerWidth, Hh = innerHeight;
+  for (const d of DETAILS) {
+    // in on the way to the stage, out half way to the next
+    const a = ramp(p, d.s - .5, d.s - .25) * (1 - ramp(p, d.s + .35, d.s + .6));
+    d.v.set(...d.at).project(camera);
+    const x = (d.v.x + 1) / 2 * W, y = (1 - d.v.y) / 2 * Hh;
+    const ok = d.v.z < 1 && x > 20 && x < W - (W > 900 ? 110 : 20) && y > 70 && y < Hh - 20;
+    const o = ok ? a : 0;
+    d.el.style.opacity = o.toFixed(3);
+    d.el.classList.toggle('on', o > .5);
+    const toLeft = W < 700 ? x > W / 2 : (d.lb || x > W * .62);
+    d.el.classList.toggle('flip', !d.lb && toLeft);
+    d.el.classList.toggle('mr', !!d.lb && !toLeft);
+    d.el.style.setProperty('--k', o > .5 ? 1 : 0);
+    if (o > 0) d.el.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px)`;
+  }
+}
+
 let pTarget = 0, p = 0, last = performance.now(), start = 0, prevStage = -1;
 const hero = document.getElementById('hero'), vignette = document.getElementById('vignette'), sheet = document.getElementById('sheet');
 const sheetNo = document.getElementById('sheetNo'), sheetStage = document.getElementById('sheetStage'), sheetScale = document.getElementById('sheetScale');
@@ -1200,6 +1267,7 @@ function frame(now) {
   rail.classList.toggle('dark', reveal > .5);
 
   cameraAt(p);
+  updateCallouts(p);
 
   /* pass 1: drawing + white model into the offscreen target */
   if (reveal < 1) {
