@@ -1,0 +1,23 @@
+name: Grab reference site
+on:
+  push:
+    branches: [claude/eloquent-curie-0n2ugs]
+    paths: ['nido/tools/grab.mjs', '.github/workflows/grab-site.yml']
+permissions:
+  contents: write
+jobs:
+  grab:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm i --no-save playwright@1.47.2 && npx playwright install --with-deps chromium
+      - run: node nido/tools/grab.mjs
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add nido/src
+          git diff --cached --quiet || git commit -m "Add reference material for El Nido de Santa Fe"
+          git pull --rebase origin claude/eloquent-curie-0n2ugs && git push
