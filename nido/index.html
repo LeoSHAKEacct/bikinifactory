@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El Nido de Santa Fe</title>
+<meta name="description" content="El Nido de Santa Fe: hotel eco-chic de alta categoría en construcción, a 15 minutos de Santa Fe de Antioquia y a una hora de Medellín.">
+<meta name="theme-color" content="#2f3d2f">
+<link rel="icon" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap">
+<style>
+/* El Nido: one long scroll. The emblem draws itself, opens into the aerial render, then docks in the header and keeps turning as you scroll. */
+:root {
+  --forest: #2f3d2f;     /* logo green */
+  --forest-2: #253125;
+  --khaki: #8a8060;      /* logo gold */
+  --khaki-soft: #b9ae8a;
+  --cream: #f3efe4;
+  --sand: #e7dfcc;
+  --ink: #232a23;
+  --ink-soft: #5d6459;
+  --wood: #8b5a35;       /* the nest lattice */
+  --line: rgba(35, 42, 35, .14);
+  --on-dark: #f3efe4;
+  --on-dark-soft: rgba(243, 239, 228, .7);
+  --serif: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --sans: "Jost", "Futura", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--cream); color: var(--ink); font-family: var(--sans); font-weight: 300; font-size: 17px; line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+.g { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+@media (min-width: 820px) { .g { padding-left: max(48px, env(safe-area-inset-left, 0px)); padding-right: max(48px, env(safe-area-inset-right, 0px)); } }
+.eyebrow { font-family: var(--sans); font-weight: 400; font-size: 12px; letter-spacing: .32em; text-transform: uppercase; color: var(--khaki); }
+.h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(40px, 6.2vw, 92px); line-height: 1; letter-spacing: -.01em; margin: 14px 0 0; text-wrap: balance; }
+.h2 em { color: var(--khaki); }
+
+/* loader */
+.loader { position: fixed; inset: 0; z-index: 50; background: var(--forest); display: grid; place-items: center; transition: opacity .8s ease, visibility .8s; }
+.loader.done { opacity: 0; visibility: hidden; }
+
+/* fixed emblem */
+.emblem { position: fixed; z-index: 40; left: 0; top: 0; width: 200px; height: 200px; margin: -100px 0 0 -100px; pointer-events: none; will-change: transform; }
+.emblem svg { width: 100%; height: 100%; overflow: visible; display: block; }
+.loader .bowl { fill: none; stroke: #f3efe4; stroke-width: 4.8; }
+.loader .sun { fill: none; stroke: var(--khaki-soft); stroke-width: 4.2; }
+.draw path { stroke-dasharray: var(--len); stroke-dashoffset: var(--len); animation: draw 1.6s cubic-bezier(.6,.1,.2,1) forwards; }
+.draw path:nth-child(2) { animation-delay: .15s; } .draw path:nth-child(3) { animation-delay: .3s; } .draw path:nth-child(4) { animation-delay: .45s; } .draw path:nth-child(5) { animation-delay: .6s; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+/* header */
+.top { position: fixed; z-index: 30; top: 0; left: 0; right: 0; height: calc(76px + env(safe-area-inset-top, 0px)); padding-top: env(safe-area-inset-top, 0px); display: flex; align-items: center; justify-content: space-between; gap: 16px; color: var(--on-dark); transition: color .4s, background .4s, box-shadow .4s; }
+.top.solid { background: rgba(243, 239, 228, .9); color: var(--ink); box-shadow: 0 1px 0 var(--line); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+.top .mark { display: flex; align-items: center; gap: 12px; text-decoration: none; padding-left: 52px; }
+.top .mark b { font-family: var(--sans); font-weight: 400; font-size: 17px; letter-spacing: .34em; }
+.top .mark span { display: none; font-size: 11px; letter-spacing: .3em; opacity: .7; }
+@media (min-width: 640px) { .top .mark span { display: inline; } }
+.top nav { display: flex; align-items: center; gap: 22px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; }
+.top nav a.l { display: none; text-decoration: none; opacity: .85; }
+.top nav a.l:hover { opacity: 1; }
+@media (min-width: 980px) { .top nav a.l { display: inline; } }
+.lang { background: none; border: 1px solid currentColor; color: inherit; font: inherit; font-size: 12px; letter-spacing: .14em; border-radius: 99px; padding: 6px 11px; cursor: pointer; opacity: .85; }
+.btn { display: inline-flex; align-items: center; gap: 10px; background: var(--khaki); color: #fff; text-decoration: none; border-radius: 99px; padding: 11px 18px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; font-weight: 400; border: 0; cursor: pointer; }
+.btn:hover { background: #776e50; }
+.btn svg { width: 16px; height: 16px; }
+.lang:focus-visible, .btn:focus-visible, a:focus-visible, button:focus-visible { outline: 2px solid var(--khaki); outline-offset: 3px; }
+@media (max-width: 520px) { .top .btn span { display: none; } .top .btn { padding: 10px 12px; } }
+
+/* hero: the emblem opens into the aerial */
+.hero { position: relative; height: 260vh; background: var(--forest); }
+.hero .stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.aerial { position: absolute; inset: 0; clip-path: circle(0px at 50% 50%); }
+.aerial img { position: absolute; left: 0; top: 0; width: 2400px; height: 1350px; max-width: none; transform-origin: 0 0; will-change: transform; }
+.aerial::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(20,26,20,0) 40%, rgba(20,26,20,.55)); opacity: var(--shade, 0); }
+.hero-t { position: absolute; left: 0; right: 0; text-align: center; color: var(--on-dark); pointer-events: none; }
+.hero-t.a { bottom: calc(9vh + env(safe-area-inset-bottom, 0px)); }
+.hero-t h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(44px, 7.4vw, 108px); line-height: .95; margin: 14px 0 0; letter-spacing: -.01em; }
+.hero-t h1 em { color: var(--khaki-soft); }
+.hero-t p { margin: 16px auto 0; max-width: 40ch; color: var(--on-dark-soft); font-size: 16px; }
+.hero-t.b { top: 50%; transform: translateY(-50%); opacity: 0; }
+.hero-t.b h2 { font-family: var(--serif); font-weight: 400; font-style: italic; font-size: clamp(42px, 7vw, 104px); line-height: 1; margin: 0; text-shadow: 0 2px 30px rgba(0,0,0,.35); }
+.hero-t.b p { color: rgba(255,255,255,.9); text-shadow: 0 1px 14px rgba(0,0,0,.5); }
+.cue { position: absolute; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); width: 1px; height: 44px; background: rgba(243,239,228,.5); overflow: hidden; }
+.cue::after { content: ""; position: absolute; left: 0; top: -44px; width: 1px; height: 44px; background: var(--on-dark); animation: cue 2s ease-in-out infinite; }
+@keyframes cue { to { top: 44px; } }
+
+/* intro */
+.intro { padding-block: 20vh 14vh; max-width: 1180px; margin: 0 auto; display: grid; gap: 56px; }
+@media (min-width: 900px) { .intro { grid-template-columns: 1fr 1fr; align-items: center; gap: 72px; } }
+.intro .say { font-family: var(--serif); font-size: clamp(28px, 3.4vw, 46px); line-height: 1.18; margin: 18px 0 0; }
+.intro .say .w { opacity: .16; transition: opacity .25s linear; }
+.intro .say .w.on { opacity: 1; }
+.intro .more { margin-top: 24px; color: var(--ink-soft); max-width: 52ch; }
+.frame { position: relative; overflow: hidden; border-radius: 999px 999px 6px 6px; aspect-ratio: 4 / 5; background: var(--sand); }
+.frame img { position: absolute; inset: -8% 0 auto; width: 100%; height: 116%; object-fit: cover; will-change: transform; }
+.frame .tag { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); background: rgba(243,239,228,.92); color: var(--ink); font-size: 11px; letter-spacing: .26em; text-transform: uppercase; padding: 7px 14px; border-radius: 99px; white-space: nowrap; }
+
+/* stats */
+.stats { background: var(--forest); color: var(--on-dark); }
+.stats .wrap { max-width: 1180px; margin: 0 auto; padding-block: 12vh; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 24px; }
+@media (min-width: 900px) { .stats .wrap { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.stats b { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(56px, 7vw, 104px); line-height: 1; font-variant-numeric: tabular-nums; }
+.stats b small { font-size: .42em; margin-left: 6px; color: var(--khaki-soft); }
+.stats .lab { display: block; margin-top: 10px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--on-dark-soft); max-width: 22ch; }
+
+/* horizontal experiences */
+.xp { position: relative; background: var(--cream); }
+.xp .stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: flex; flex-direction: column; justify-content: center; }
+.xp-head { padding-top: calc(84px + env(safe-area-inset-top, 0px)); display: flex; justify-content: space-between; align-items: end; gap: 24px; }
+.xp-head .h2 { font-size: clamp(36px, 5vw, 72px); }
+.xp-count { font-size: 13px; letter-spacing: .2em; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.xtrack { display: flex; gap: 3vw; padding: 4vh max(16px, 6vw) 0; will-change: transform; }
+.card { flex: 0 0 auto; width: min(66vw, 860px); margin: 0; }
+@media (max-width: 820px) { .card { width: 84vw; } }
+.card .pic { position: relative; overflow: hidden; aspect-ratio: 16 / 10; max-height: 56vh; width: 100%; border-radius: 4px; background: var(--sand); clip-path: inset(0 0 0 100% round 4px); transition: clip-path 1.2s cubic-bezier(.7,0,.2,1); }
+.card.in .pic { clip-path: inset(0 0 0 0 round 4px); }
+.card .pic img { width: 116%; height: 100%; max-width: none; object-fit: cover; margin-left: -8%; will-change: transform; }
+.card figcaption { display: grid; grid-template-columns: auto 1fr; gap: 4px 18px; margin-top: 18px; align-items: baseline; }
+.card figcaption i { font-style: normal; font-family: var(--serif); font-size: 40px; line-height: 1; color: var(--khaki); grid-row: span 2; }
+.card figcaption b { font-family: var(--serif); font-weight: 500; font-size: clamp(26px, 2.6vw, 36px); line-height: 1.05; }
+.card figcaption span { color: var(--ink-soft); font-size: 15px; max-width: 54ch; }
+
+/* location */
+.where { background: var(--sand); }
+.where .wrap { max-width: 1180px; margin: 0 auto; padding-block: 16vh; display: grid; gap: 40px; }
+@media (min-width: 900px) { .where .wrap { grid-template-columns: .9fr 1.1fr; align-items: center; gap: 64px; } }
+.where p { color: var(--ink-soft); max-width: 46ch; }
+.route { width: 100%; height: auto; overflow: visible; }
+.route .road { fill: none; stroke: var(--forest); stroke-width: 3; stroke-linecap: round; }
+.route .ghost { fill: none; stroke: rgba(47,61,47,.14); stroke-width: 3; stroke-dasharray: 2 8; stroke-linecap: round; }
+.route .river { fill: none; stroke: #8fb0b0; stroke-width: 6; stroke-linecap: round; opacity: .55; }
+.route .ridge { fill: none; stroke: rgba(47,61,47,.18); stroke-width: 1.4; }
+.route text { font-family: var(--sans); font-size: 15px; letter-spacing: .14em; text-transform: uppercase; fill: var(--ink); }
+.route text.s { font-size: 12px; fill: var(--ink-soft); letter-spacing: .1em; }
+.route .pin { fill: var(--forest); }
+.route .pin.n { fill: var(--khaki); }
+.route .halo { fill: none; stroke: var(--khaki); stroke-width: 1.5; transform-box: fill-box; transform-origin: center; animation: halo 2.4s ease-out infinite; }
+@keyframes halo { from { transform: scale(.6); opacity: 1; } to { transform: scale(2.4); opacity: 0; } }
+.route .lbl { opacity: 0; transition: opacity .6s; }
+.route .lbl.on { opacity: 1; }
+.legs { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 26px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+.legs b { font-family: var(--serif); font-size: 30px; font-weight: 500; letter-spacing: 0; text-transform: none; display: block; color: var(--forest); }
+
+/* quote with a big turning emblem */
+.quote { position: relative; overflow: hidden; background: var(--forest-2); color: var(--on-dark); text-align: center; padding-block: 24vh; }
+.quote .big { position: absolute; left: 50%; top: 50%; width: min(120vmin, 1100px); height: min(120vmin, 1100px); margin: calc(min(120vmin, 1100px) / -2) 0 0 calc(min(120vmin, 1100px) / -2); opacity: .09; pointer-events: none; }
+.quote .big { --emb: #f3efe4; --embw: 1.4; --embsw: 1.4; }
+.quote blockquote { position: relative; margin: 0 auto; max-width: 18ch; font-family: var(--serif); font-size: clamp(40px, 6.4vw, 96px); line-height: 1.04; }
+.quote blockquote span { display: inline-block; opacity: 0; transform: translateY(28px); transition: opacity .9s, transform .9s cubic-bezier(.2,.8,.2,1); }
+.quote.in blockquote span { opacity: 1; transform: none; }
+.quote blockquote em { color: var(--khaki-soft); }
+.quote p { position: relative; margin: 28px auto 0; color: var(--on-dark-soft); max-width: 44ch; }
+
+/* gallery */
+.gal { max-width: 1280px; margin: 0 auto; padding-block: 16vh; }
+.gal-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; }
+.grid { margin-top: 44px; display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 900px) { .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 15vw; } .grid .t1 { grid-column: span 2; grid-row: span 2; } .grid .t2 { grid-column: span 2; } }
+.tile { position: relative; overflow: hidden; border-radius: 4px; background: var(--sand); border: 0; padding: 0; cursor: zoom-in; min-height: 40vw; opacity: 0; transform: translateY(30px); transition: opacity .9s, transform .9s cubic-bezier(.2,.8,.2,1); }
+@media (min-width: 900px) { .tile { min-height: 0; } }
+.tile.in { opacity: 1; transform: none; }
+.tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(.2,.8,.2,1); }
+.tile:hover img { transform: scale(1.05); }
+.tile span { position: absolute; left: 12px; bottom: 10px; color: #fff; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; text-shadow: 0 1px 10px rgba(0,0,0,.6); }
+.lb { position: fixed; inset: 0; z-index: 60; background: rgba(18,22,18,.96); display: grid; grid-template-rows: 1fr auto; padding: calc(18px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); color: var(--on-dark); }
+.lb[hidden] { display: none; }
+.lb img { width: 100%; height: 100%; object-fit: contain; min-height: 0; }
+.lb .bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-top: 12px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; }
+.lb .bar div { display: flex; gap: 8px; }
+.lb button { background: none; border: 1px solid rgba(243,239,228,.35); color: var(--on-dark); border-radius: 99px; padding: 8px 14px; font: inherit; font-size: 12px; cursor: pointer; }
+
+/* contact */
+.contact { background: var(--forest); color: var(--on-dark); }
+.contact .wrap { max-width: 1180px; margin: 0 auto; padding-block: 16vh 8vh; display: grid; gap: 48px; }
+@media (min-width: 900px) { .contact .wrap { grid-template-columns: 1.2fr 1fr; align-items: end; } }
+.contact .h2 { color: var(--on-dark); }
+.contact p { color: var(--on-dark-soft); max-width: 46ch; }
+.ways { display: grid; gap: 12px; }
+.way { display: flex; align-items: center; gap: 16px; text-decoration: none; padding: 18px 20px; border: 1px solid rgba(243,239,228,.22); border-radius: 6px; transition: background .3s, border-color .3s; }
+.way:hover { background: rgba(243,239,228,.06); border-color: rgba(243,239,228,.45); }
+.way svg { width: 22px; height: 22px; flex: none; color: var(--khaki-soft); }
+.way small { display: block; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--on-dark-soft); }
+.way b { font-weight: 400; font-size: 18px; word-break: break-word; }
+.foot { max-width: 1180px; margin: 0 auto; padding-block: 28px calc(28px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid rgba(243,239,228,.16); display: flex; flex-wrap: wrap; gap: 10px 28px; justify-content: space-between; font-size: 12px; color: var(--on-dark-soft); }
+.fmark { display: inline-flex; align-items: center; gap: 12px; letter-spacing: .34em; color: var(--on-dark); font-size: 14px; }
+.fmark small { font-size: 10px; letter-spacing: .3em; color: var(--on-dark-soft); }
+.fmark svg { width: 34px; height: 31px; --embw: 6; --embsw: 5; }
+
+.rv { opacity: 0; transform: translateY(26px); transition: opacity 1s, transform 1s cubic-bezier(.2,.8,.2,1); }
+.rv.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .draw path { animation: none; stroke-dashoffset: 0; }
+  .rv, .tile, .quote blockquote span { opacity: 1; transform: none; transition: none; }
+  .card .pic { clip-path: none; transition: none; }
+  .cue::after, .route .halo { animation: none; }
+  .intro .say .w { opacity: 1; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- the El Nido emblem, redrawn from the logo: a bowl of two half circles, three rays, and a sun arc -->
+    <g id="emb">
+      <path style="fill:none;stroke:var(--emb,#f3efe4);stroke-width:var(--embw,4.8)" d="M-100 0 A100 100 0 0 0 100 0 Z"/>
+      <path style="fill:none;stroke:var(--emb,#f3efe4);stroke-width:var(--embw,4.8)" d="M-63.8 0 A63.8 63.8 0 0 0 63.8 0"/>
+      <path style="fill:none;stroke:var(--emb,#f3efe4);stroke-width:var(--embw,4.8)" d="M0 0 L-70.7 70.7 M0 0 L0 100 M0 0 L70.7 70.7"/>
+      <path style="fill:none;stroke:var(--embs,#b9ae8a);stroke-width:var(--embsw,4.2)" d="M-60.5 -16.6 A62 62 0 1 1 60.5 -16.6"/>
+    </g>
+  </defs>
+</svg>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <svg class="draw" viewBox="-110 -80 220 190" width="170" height="147">
+    <path class="bowl" d="M-100 0 A100 100 0 0 0 100 0 Z" style="--len:520"/>
+    <path class="bowl" d="M-63.8 0 A63.8 63.8 0 0 0 63.8 0" style="--len:205"/>
+    <path class="bowl" d="M0 0 L-70.7 70.7 M0 0 L0 100 M0 0 L70.7 70.7" style="--len:300"/>
+    <path class="sun" d="M-60.5 -16.6 A62 62 0 1 1 60.5 -16.6" style="--len:280"/>
+  </svg>
+</div>
+
+<div class="emblem" id="emblem" aria-hidden="true"><svg viewBox="-100 -100 200 200"><use href="#emb"/></svg></div>
+
+<header class="top g" id="top">
+  <a class="mark" href="#inicio" aria-label="El Nido de Santa Fe, inicio"><b>NIDO</b><span>HOTEL · SANTA FE DE ANTIOQUIA</span></a>
+  <nav aria-label="Secciones">
+    <a class="l" href="#proyecto" data-i="nav1">Proyecto</a>
+    <a class="l" href="#experiencias" data-i="nav2">Experiencias</a>
+    <a class="l" href="#ubicacion" data-i="nav3">Ubicación</a>
+    <a class="l" href="#galeria" data-i="nav4">Galería</a>
+    <button class="lang" id="lang" type="button" aria-label="Switch to English">EN</button>
+    <a class="btn" href="https://wa.me/573054341872" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.5-.3Z"/></svg><span data-i="cta">Escríbenos</span></a>
+  </nav>
+</header>
+
+<main id="inicio">
+  <section class="hero" id="hero" aria-label="El Nido de Santa Fe">
+    <div class="stick">
+      <div class="aerial" id="aerial"><img id="aerialImg" src="img/aerial.jpg" alt="Vista aérea del hotel en forma de nido, con la piscina en el centro" fetchpriority="high"></div>
+      <div class="hero-t a g" id="heroA">
+        <div class="eyebrow" data-i="h_eye">Santa Fe de Antioquia · Colombia</div>
+        <h1 data-i="h1">El Nido de <em>Santa Fe</em></h1>
+        <p data-i="h_p">Hotel de alta categoría con una estética eco-chic, en el occidente antioqueño.</p>
+      </div>
+      <div class="hero-t b g" id="heroB">
+        <h2 data-i="h2">Un hotel en forma de nido</h2>
+        <p data-i="h2p">44 habitaciones alrededor de una piscina, entre la naturaleza.</p>
+      </div>
+      <div class="cue" id="cue" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section class="intro g" id="proyecto" aria-labelledby="introT">
+    <div>
+      <div class="eyebrow" id="introT" data-i="i_eye">¿De qué se trata el proyecto?</div>
+      <p class="say" id="say" data-i="i_say">El Nido de Santa Fe es un hotel de alta categoría en etapa de construcción, con un concepto arquitectónico inspirado en una estética eco-chic: el equilibrio perfecto entre naturaleza y desarrollo urbanístico.</p>
+      <p class="more rv" data-i="i_more">Su diseño exterior se inspira en la naturaleza, en forma de nido. Estará ambientado con un estilo que combina naturaleza, ascendencia y arte, lo que hará que sea un sitio mágico.</p>
+    </div>
+    <div class="frame rv"><img id="introImg" src="img/nest.jpg" alt="El edificio circular del hotel, revestido con una celosía de madera, rodeado de palmas" loading="lazy"><span class="tag" data-i="i_tag">Diseño en forma de nido</span></div>
+  </section>
+
+  <section class="stats g" aria-label="El proyecto en cifras">
+    <div class="wrap">
+      <div><b><span data-to="44">44</span></b><span class="lab" data-i="s1">habitaciones</span></div>
+      <div><b><span data-to="1">1</span><small>h</small></b><span class="lab" data-i="s2">desde Medellín</span></div>
+      <div><b><span data-to="15">15</span><small>min</small></b><span class="lab" data-i="s3">de Santa Fe de Antioquia</span></div>
+      <div><b><span data-to="3">3</span></b><span class="lab" data-i="s4">piscina, restaurante-bar y terraza</span></div>
+    </div>
+  </section>
+
+  <section class="xp" id="experiencias" aria-labelledby="xpT">
+    <div class="stick">
+      <div class="xp-head g"><div><div class="eyebrow" data-i="x_eye">Experiencias</div><h2 class="h2" id="xpT" data-i="x_h">Vivir <em>el nido</em></h2></div><div class="xp-count" id="xpCount">01 / 05</div></div>
+      <div class="xtrack" id="xtrack">
+        <figure class="card"><div class="pic"><img src="img/pool.jpg" alt="Piscina de formas orgánicas en el patio central, con sombrillas y palmas" loading="lazy"></div><figcaption><i>01</i><b data-i="c1">La piscina central</b><span data-i="c1p">El corazón del nido: agua, sombrillas y palmas en el patio interior.</span></figcaption></figure>
+        <figure class="card"><div class="pic"><img src="img/terrace.jpg" alt="Terraza privada con jacuzzi y tumbonas entre la vegetación" loading="lazy"></div><figcaption><i>02</i><b data-i="c2">Jacuzzi privado</b><span data-i="c2p">Algunas habitaciones contarán con terraza y jacuzzi propio.</span></figcaption></figure>
+        <figure class="card"><div class="pic"><img src="img/lobby.jpg" alt="Recepción en madera con lámparas colgantes y vista al jardín" loading="lazy"></div><figcaption><i>03</i><b data-i="c3">Restaurante-bar y terraza</b><span data-i="c3p">Espacios abiertos en madera y piedra, siempre mirando al jardín.</span></figcaption></figure>
+        <figure class="card"><div class="pic"><img src="img/room.jpg" alt="Habitación con cama, balcón y luz de la mañana entre palmas" loading="lazy"></div><figcaption><i>04</i><b data-i="c4">Las habitaciones</b><span data-i="c4p">Luz natural, materiales cálidos y balcón hacia las palmas.</span></figcaption></figure>
+        <figure class="card"><div class="pic"><img src="img/nest.jpg" alt="El nido completo visto desde el aire" loading="lazy"></div><figcaption><i>05</i><b data-i="c5">Naturaleza, ascendencia y arte</b><span data-i="c5p">Un lugar diseñado para encontrar el equilibrio con su entorno.</span></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="where g" id="ubicacion" aria-labelledby="whereT">
+    <div class="wrap">
+      <div class="rv">
+        <div class="eyebrow" data-i="w_eye">Ubicación</div>
+        <h2 class="h2" id="whereT" data-i="w_h">En el occidente <em>antioqueño</em></h2>
+        <p data-i="w_p">A tan solo una hora de Medellín y a quince minutos de Santa Fe de Antioquia, la ciudad colonial a orillas del río Cauca.</p>
+        <div class="legs"><div><b>≈ 1 h</b><span data-i="w_l1">Medellín</span></div><div><b>15 min</b><span data-i="w_l2">Santa Fe de Antioquia</span></div></div>
+      </div>
+      <svg class="route" id="route" viewBox="0 0 760 460" role="img" aria-label="Esquema del recorrido desde Medellín hasta El Nido">
+        <path class="ridge" d="M40 330 C160 250 220 300 330 210 S520 150 720 230"/>
+        <path class="ridge" d="M60 380 C200 320 260 360 380 280 S560 230 730 300"/>
+        <path class="river" d="M110 20 C150 120 90 210 140 300 S190 420 160 450"/>
+        <path class="ghost" d="M680 360 C600 330 560 260 470 250 C400 242 360 200 300 190 C250 182 220 160 190 150"/>
+        <path class="road" id="road" d="M680 360 C600 330 560 260 470 250 C400 242 360 200 300 190 C250 182 220 160 190 150"/>
+        <g class="lbl" data-at="0"><circle class="pin" cx="680" cy="360" r="8"/><text x="696" y="395" text-anchor="end">Medellín</text></g>
+        <g class="lbl" data-at=".42"><circle class="pin" cx="470" cy="250" r="5"/><text class="s" x="470" y="282" text-anchor="middle" data-i="w_t">Túnel de Occidente</text></g>
+        <g class="lbl" data-at=".86"><circle class="pin" cx="232" cy="166" r="6"/><text class="s" x="246" y="214" data-i="w_n">El Nido · 15 min</text></g>
+        <g class="lbl" data-at="1"><circle class="halo" cx="190" cy="150" r="14"/><circle class="pin n" cx="190" cy="150" r="9"/><text x="190" y="118" text-anchor="middle">Santa Fe de Antioquia</text></g>
+        <text class="s" x="132" y="440" data-i="w_r">Río Cauca</text>
+        <text class="s" x="740" y="40" text-anchor="end" data-i="w_s">Esquema, no a escala</text>
+      </svg>
+    </div>
+  </section>
+
+  <section class="quote g" id="quote" aria-label="Concepto">
+    <svg class="big" id="bigEmb" viewBox="-100 -100 200 200" aria-hidden="true"><use href="#emb"/></svg>
+    <blockquote id="qt" data-i="q">Naturaleza, <em>ascendencia</em> y arte</blockquote>
+    <p class="rv" data-i="qp">Un estilo que hará del Nido un sitio mágico: diseñado para vivir la naturaleza sin renunciar al confort.</p>
+  </section>
+
+  <section class="gal g" id="galeria" aria-labelledby="galT">
+    <div class="gal-head"><div><div class="eyebrow" data-i="g_eye">Galería</div><h2 class="h2" id="galT" data-i="g_h">Así será <em>el Nido</em></h2></div><p style="color:var(--ink-soft);max-width:34ch;margin:0" data-i="g_p">Imágenes de referencia del proyecto. Toca una imagen para ampliarla.</p></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="contact" id="contacto" aria-labelledby="cT">
+    <div class="wrap g">
+      <div class="rv"><div class="eyebrow" style="color:var(--khaki-soft)" data-i="k_eye">Contacto</div><h2 class="h2" id="cT" data-i="k_h">Conoce el <em>proyecto</em></h2><p data-i="k_p">Escríbenos para recibir información sobre el hotel y sus avances.</p></div>
+      <div class="ways rv">
+        <a class="way" href="https://wa.me/573054341872" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg><div><small>WhatsApp</small><b>+57 305 434 1872</b></div></a>
+        <a class="way" href="mailto:elnidodesantafe@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><div><small>Email</small><b>elnidodesantafe@gmail.com</b></div></a>
+        <a class="way" href="https://www.instagram.com/elnidodesantafehotel/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg><div><small>Instagram</small><b>@elnidodesantafehotel</b></div></a>
+      </div>
+    </div>
+    <div class="foot g">
+      <span class="fmark"><svg viewBox="-104 -84 208 190" aria-hidden="true"><use href="#emb"/></svg>NIDO <small>HOTEL</small></span>
+      <span>EL NIDO DE SANTA FE S.A.S · Cra. 41 #18D-65, El Poblado, Medellín, Antioquia</span>
+      <span data-i="f">Propuesta de diseño web. Logo e imágenes: El Nido de Santa Fe.</span>
+    </div>
+  </section>
+</main>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Imagen">
+  <img id="lbImg" alt="">
+  <div class="bar"><span id="lbCap"></span><div><button type="button" id="lbPrev" data-i="prev">Anterior</button><button type="button" id="lbNext" data-i="next">Siguiente</button><button type="button" id="lbClose" data-i="close">Cerrar</button></div></div>
+</div>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const ramp = (x, a, b) => clamp((x - a) / (b - a));
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const lerp = (a, b, t) => a + (b - a) * t;
+
+/* English copy, swapped in by the toggle */
+const EN = {
+  nav1: 'Project', nav2: 'Experiences', nav3: 'Location', nav4: 'Gallery', cta: 'Message us',
+  h_eye: 'Santa Fe de Antioquia · Colombia', h1: 'El Nido de <em>Santa Fe</em>', h_p: 'A high-end hotel with an eco-chic aesthetic, in western Antioquia.',
+  h2: 'A hotel shaped like a nest', h2p: '44 rooms around a pool, surrounded by nature.',
+  i_eye: 'What is the project?', i_say: 'El Nido de Santa Fe is a high-end hotel under construction, with an architectural concept inspired by an eco-chic aesthetic: the perfect balance between nature and urban development.',
+  i_more: 'Its exterior design is inspired by nature, in the shape of a nest. Its style will combine nature, heritage and art, making it a magical place.', i_tag: 'A nest-shaped design',
+  s1: 'rooms', s2: 'from Medellín', s3: 'from Santa Fe de Antioquia', s4: 'pool, restaurant-bar and terrace',
+  x_eye: 'Experiences', x_h: 'Living <em>the nest</em>',
+  c1: 'The central pool', c1p: 'The heart of the nest: water, parasols and palms in the inner courtyard.',
+  c2: 'Private jacuzzi', c2p: 'Some rooms will have their own terrace and jacuzzi.',
+  c3: 'Restaurant-bar and terrace', c3p: 'Open spaces in wood and stone, always facing the garden.',
+  c4: 'The rooms', c4p: 'Natural light, warm materials and a balcony onto the palms.',
+  c5: 'Nature, heritage and art', c5p: 'A place designed to find balance with its surroundings.',
+  w_eye: 'Location', w_h: 'In western <em>Antioquia</em>', w_p: 'Just one hour from Medellín and fifteen minutes from Santa Fe de Antioquia, the colonial town on the Cauca River.',
+  w_l1: 'Medellín', w_l2: 'Santa Fe de Antioquia', w_t: 'Western Tunnel', w_n: 'El Nido · 15 min', w_r: 'Cauca River', w_s: 'Diagram, not to scale',
+  q: 'Nature, <em>heritage</em> and art', qp: 'A style that will make El Nido a magical place: designed to live in nature without giving up comfort.',
+  g_eye: 'Gallery', g_h: 'This is <em>El Nido</em>', g_p: 'Reference images of the project. Tap an image to enlarge it.',
+  k_eye: 'Contact', k_h: 'Discover the <em>project</em>', k_p: 'Message us for information about the hotel and its progress.',
+  f: 'Website design proposal. Logo and images: El Nido de Santa Fe.', prev: 'Previous', next: 'Next', close: 'Close',
+};
+const ES = {}; document.querySelectorAll('[data-i]').forEach(el => { ES[el.dataset.i] = el.innerHTML; });
+let lang = 'es';
+try { if (localStorage.getItem('nido-lang') === 'en') lang = 'en'; } catch {}
+const langBtn = document.getElementById('lang');
+function setLang(l) {
+  lang = l; document.documentElement.lang = l;
+  document.querySelectorAll('[data-i]').forEach(el => { const v = (l === 'en' ? EN : ES)[el.dataset.i]; if (v != null) el.innerHTML = v; });
+  langBtn.textContent = l === 'en' ? 'ES' : 'EN'; langBtn.setAttribute('aria-label', l === 'en' ? 'Cambiar a español' : 'Switch to English');
+  splitWords(); buildGrid();
+  try { localStorage.setItem('nido-lang', l); } catch {}
+}
+langBtn.addEventListener('click', () => setLang(lang === 'es' ? 'en' : 'es'));
+
+/* words of the intro light up as you scroll */
+const say = document.getElementById('say'); let words = [];
+function splitWords() { say.innerHTML = say.textContent.split(' ').map(w => `<span class="w">${w}</span>`).join(' '); words = [...say.querySelectorAll('.w')]; }
+
+/* gallery */
+const PICS = [['aerial', 'El nido desde el aire', 'The nest from above', 't1'], ['nest', 'Fachada de celosía en madera', 'Wooden lattice façade', 't2'], ['pool', 'La piscina', 'The pool', ''], ['terrace', 'Jacuzzi privado', 'Private jacuzzi', ''], ['lobby', 'Recepción y bar', 'Reception and bar', 't2'], ['room', 'Habitación', 'Room', 't2']];
+const grid = document.getElementById('grid');
+function buildGrid() {
+  grid.innerHTML = PICS.map(([f, es, en, c], i) => `<button class="tile ${c} in" type="button" data-n="${i}" aria-label="${lang === 'en' ? 'Enlarge' : 'Ampliar'}: ${lang === 'en' ? en : es}"><img src="img/${f}.jpg" alt="${lang === 'en' ? en : es}" loading="lazy"><span>${lang === 'en' ? en : es}</span></button>`).join('');
+  if (!gridShown) grid.querySelectorAll('.tile').forEach(t => t.classList.remove('in'));
+}
+let gridShown = false;
+const lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lbCap = document.getElementById('lbCap');
+let li = 0, lastFocus = null;
+function openLB(i) { li = (i + PICS.length) % PICS.length; const p = PICS[li]; lbImg.src = `img/${p[0]}.jpg`; lbImg.alt = lang === 'en' ? p[2] : p[1]; lbCap.textContent = lbImg.alt; if (lb.hidden) { lastFocus = document.activeElement; lb.hidden = false; document.getElementById('lbClose').focus(); } }
+function closeLB() { lb.hidden = true; if (lastFocus) lastFocus.focus(); }
+grid.addEventListener('click', e => { const t = e.target.closest('.tile'); if (t) openLB(+t.dataset.n); });
+document.getElementById('lbPrev').onclick = () => openLB(li - 1);
+document.getElementById('lbNext').onclick = () => openLB(li + 1);
+document.getElementById('lbClose').onclick = closeLB;
+addEventListener('keydown', e => { if (lb.hidden) return; if (e.key === 'Escape') closeLB(); if (e.key === 'ArrowRight') openLB(li + 1); if (e.key === 'ArrowLeft') openLB(li - 1); });
+
+setLang(lang);
+
+/* reveal-on-view, counters */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return; io.unobserve(e.target); const el = e.target;
+  if (el.id === 'grid') { gridShown = true; [...el.children].forEach((t, k) => setTimeout(() => t.classList.add('in'), reduce ? 0 : k * 110)); return; }
+  el.classList.add('in');
+  if (el.dataset.to && !reduce) { const to = +el.dataset.to, t0 = performance.now(); const tick = n => { const k = Math.min(1, (n - t0) / 1600); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(tick); }; requestAnimationFrame(tick); }
+}), { threshold: .25 });
+document.querySelectorAll('.rv, [data-to], .card, #quote, #grid').forEach(el => io.observe(el));
+
+/* the scroll-driven parts */
+const emb = document.getElementById('emblem'), top_ = document.getElementById('top');
+const hero = document.getElementById('hero'), aerial = document.getElementById('aerial'), aImg = document.getElementById('aerialImg');
+const heroA = document.getElementById('heroA'), heroB = document.getElementById('heroB'), cue = document.getElementById('cue');
+const introImg = document.getElementById('introImg'), xp = document.getElementById('experiencias'), xtrack = document.getElementById('xtrack'), xpCount = document.getElementById('xpCount');
+const route = document.getElementById('route'), road = document.getElementById('road'), roadLen = road.getTotalLength(), lbls = [...route.querySelectorAll('.lbl')];
+const bigEmb = document.getElementById('bigEmb'), quote = document.getElementById('quote');
+road.style.strokeDasharray = roadLen; road.style.strokeDashoffset = roadLen;
+// the hotel ring in aerial.jpg: centre and outer radius, in image pixels
+const IW = 2400, IH = 1350, RCX = .495 * IW, RCY = .44 * IH, RR = .3125 * IW;
+let travel = 0;
+function size() { travel = Math.max(0, xtrack.scrollWidth - innerWidth); xp.style.height = `calc(100vh + ${travel}px)`; }
+let sy = scrollY, cur = scrollY;
+function frame() {
+  requestAnimationFrame(frame);
+  sy = scrollY; cur = reduce ? sy : cur + (sy - cur) * .14; if (Math.abs(sy - cur) < .3) cur = sy;
+  const W = innerWidth, H = innerHeight, vh = H;
+
+  /* hero: emblem turns, the aerial opens out of it, then the emblem docks in the header */
+  const hp = clamp(cur / (hero.offsetHeight - vh));
+  const R0 = Math.min(W, H) * .24;                 // emblem outer radius in the hero
+  const cx = W / 2, cy = H * .44;
+  const open = ease(ramp(hp, .08, .36));           // circle opens inside the bowl
+  const grow = ease(ramp(hp, .36, .78));           // ...then the photo grows to fill the screen
+  const dock = ease(ramp(hp, .62, .9));
+  // image scale: the ring matches the emblem, then the photo zooms into the courtyard until its inscribed circle covers the screen
+  const dEdge = Math.min(RCX, IW - RCX, RCY, IH - RCY);           // ring centre to the nearest image edge
+  const sMatch = R0 / RR, sCover = Math.hypot(W, H) / 2 / dEdge * 1.02;
+  const s = lerp(sMatch, sCover, grow), icx = cx, icy = lerp(cy, H / 2, grow);
+  aImg.style.transform = `translate(${(icx - RCX * s).toFixed(1)}px,${(icy - RCY * s).toFixed(1)}px) scale(${s.toFixed(5)})`;
+  const rClip = Math.min(lerp(R0 * open, Math.hypot(W, H) / 2 * 1.02, grow), dEdge * s);
+  aerial.style.clipPath = grow >= 1 ? 'none' : `circle(${rClip.toFixed(1)}px at ${icx.toFixed(1)}px ${icy.toFixed(1)}px)`;
+  aerial.style.setProperty('--shade', (ramp(hp, .55, .8) * .9).toFixed(3));
+  heroA.style.opacity = (1 - ramp(hp, .02, .14)).toFixed(3); heroA.style.transform = `translateY(${(-30 * ramp(hp, 0, .14)).toFixed(1)}px)`;
+  heroB.style.opacity = (ramp(hp, .66, .78) * (1 - ramp(hp, .92, 1))).toFixed(3);
+  cue.style.opacity = 1 - ramp(hp, 0, .06);
+  // emblem: big over the hero, small in the header; it always turns with the scroll
+  const dockX = (W > 820 ? 48 : 16) + 20, dockY = 38 + (parseFloat(getComputedStyle(top_).paddingTop) || 0);
+  const ex = lerp(cx, dockX, dock), ey = lerp(cy, dockY, dock);
+  const er = lerp(R0, 17, dock);
+  const rot = cur * .12 + (reduce ? 0 : 0);
+  emb.style.transform = `translate(${ex.toFixed(1)}px,${ey.toFixed(1)}px) rotate(${rot.toFixed(2)}deg) scale(${(er / 100).toFixed(4)})`;
+  const solid = cur > hero.offsetHeight - vh * .9;
+  top_.classList.toggle('solid', solid);
+  emb.style.setProperty('--emb', solid ? '#2f3d2f' : '#f3efe4');
+  emb.style.opacity = (1 - .65 * open * (1 - dock)).toFixed(3); // fade a little while the photo opens behind it
+
+  /* intro: words, parallax */
+  const r1 = say.getBoundingClientRect(); const k1 = clamp((vh * .82 - r1.top) / (r1.height + vh * .35)); const n = Math.round(k1 * words.length);
+  words.forEach((w, i) => w.classList.toggle('on', reduce || i < n));
+  const f = introImg.parentElement.getBoundingClientRect(); introImg.style.transform = `translateY(${(((f.top + f.height / 2) - vh / 2) / vh * -40).toFixed(1)}px)`;
+
+  /* experiences: vertical scroll drives the strip sideways */
+  const r2 = xp.getBoundingClientRect(); const k2 = clamp(-r2.top / Math.max(1, travel));
+  xtrack.style.transform = `translate3d(${(-k2 * travel).toFixed(1)}px,0,0)`;
+  const cards = xtrack.children; let best = 0, bd = 1e9;
+  for (let i = 0; i < cards.length; i++) { const b = cards[i].getBoundingClientRect(); const d = Math.abs(b.left + b.width / 2 - W / 2); if (d < bd) { bd = d; best = i; } if (!reduce) { const im = cards[i].querySelector('img'); im.style.transform = `translateX(${(-(b.left + b.width / 2 - W / 2) / W * 7).toFixed(2)}%)`; } }
+  xpCount.textContent = `${String(best + 1).padStart(2, '0')} / ${String(cards.length).padStart(2, '0')}`;
+
+  /* route draws itself */
+  const r3 = route.getBoundingClientRect(); const k3 = reduce ? 1 : ease(clamp((vh * .85 - r3.top) / (vh * .7)));
+  road.style.strokeDashoffset = (roadLen * (1 - k3)).toFixed(1);
+  lbls.forEach(l => l.classList.toggle('on', k3 >= +l.dataset.at - .001));
+
+  /* quote: the big emblem turns the other way */
+  const r4 = quote.getBoundingClientRect(); bigEmb.style.transform = `rotate(${(-(r4.top / vh) * 40).toFixed(2)}deg)`;
+}
+addEventListener('resize', size); addEventListener('load', size); size();
+requestAnimationFrame(frame);
+
+/* loader */
+const loader = document.getElementById('loader');
+const done = () => loader.classList.add('done');
+if (reduce) done(); else { addEventListener('load', () => setTimeout(done, 1400)); setTimeout(done, 4200); }
+</script>
+</body>
+</html>
