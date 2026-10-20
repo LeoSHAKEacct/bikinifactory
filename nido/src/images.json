@@ -1,1 +1,93 @@
-[]
+[
+ {
+  "name": "i000.png",
+  "url": "https://static.wixstatic.com/media/296966_b15b3f87aef1416eb380ffe308866ed0~mv2.png/v1/crop/x_75,y_163,w_929,h_540/fill/w_160,h_93,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/P1%20(1)%20(2).png",
+  "alt": "Logo",
+  "logo": true,
+  "w": 160,
+  "h": 93,
+  "bytes": 6310,
+  "pages": [
+   "https://www.elnidodesantafe.com/"
+  ]
+ },
+ {
+  "name": "i001.png",
+  "url": "https://static.wixstatic.com/media/296966_4a3bd2f350234e5b9d29e260afaed087~mv2.png/v1/fill/w_920,h_540,al_c,lg_1,q_90,enc_avif,quality_auto/296966_4a3bd2f350234e5b9d29e260afaed087~mv2.png",
+  "alt": "2.png",
+  "logo": false,
+  "w": 920,
+  "h": 540,
+  "bytes": 1517256,
+  "pages": [
+   "https://www.elnidodesantafe.com/"
+  ]
+ },
+ {
+  "name": "i002.png",
+  "url": "https://static.wixstatic.com/media/296966_df381d10be914d3baca55044fb7ff191~mv2.png/v1/fill/w_325,h_325,q_90,enc_avif,quality_auto/296966_df381d10be914d3baca55044fb7ff191~mv2.png",
+  "alt": "",
+  "logo": false,
+  "w": 325,
+  "h": 325,
+  "bytes": 313986,
+  "pages": [
+   "https://www.elnidodesantafe.com/"
+  ]
+ },
+ {
+  "name": "i003.png",
+  "url": "https://static.wixstatic.com/media/296966_b120d1f5d3fc4f628855e8800e1cd027~mv2.png/v1/fill/w_325,h_325,q_90,enc_avif,quality_auto/296966_b120d1f5d3fc4f628855e8800e1cd027~mv2.png",
+  "alt": "",
+  "logo": false,
+  "w": 325,
+  "h": 325,
+  "bytes": 322803,
+  "pages": [
+   "https://www.elnidodesantafe.com/"
+  ]
+ },
+ {
+  "name": "i004.png",
+  "url": "https://static.wixstatic.com/media/296966_4545f2320fcd43e189364fd0c5b68ff3~mv2.png/v1/fill/w_670,h_450,q_90,enc_avif,quality_auto/296966_4545f2320fcd43e189364fd0c5b68ff3~mv2.png",
+  "alt": "",
+  "logo": false,
+  "w": 670,
+  "h": 450,
+  "bytes": 920073,
+  "pages": [
+   "https://www.elnidodesantafe.com/"
+  ]
+ },
+ {
+  "name": "i005.png",
+  "url": "https://static.wixstatic.com/media/296966_2213ba4205664c91a5be426d0687d9ca~mv2.png/v1/fill/w_325,h_325,q_90,enc_avif,quality_auto/296966_2213ba4205664c91a5be426d0687d9ca~mv2.png",
+  "alt": "",
+  "logo": false,
+  "w": 325,
+  "h": 325,
+  "bytes": 301009,
+  "pages": [
+   "https://www.elnidodesantafe.com/"
+  ]
+ },
+ {
+  "name": "i006.png",
+  "url": "https://static.wixstatic.com/media/296966_20ebc429bec74a41a8107f22b4cbca71~mv2.png/v1/fill/w_325,h_325,q_90,enc_avif,quality_auto/296966_20ebc429bec74a41a8107f22b4cbca71~mv2.png",
+  "alt": "",
+  "logo": false,
+  "w": 325,
+  "h": 325,
+  "bytes": 269053,
+  "pages": [
+   "https://www.elnidodesantafe.com/"
+  ]
+ },
+ {
+  "name": "i007.png",
+  "url": "https://static.wixstatic.com/media/296966_b5876ad4ce18426eb239ad9a151e97a6~mv2.png/v1/fill/w_800,h_450,al_c/296966_b5876ad4ce18426eb239ad9a151e97a6~mv2.png",
+  "alt": "meta",
+  "logo": false,
+  "bytes": 17743
+ }
+]
