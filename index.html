@@ -539,6 +539,11 @@
         <div class="companies-grid" id="companiesGrid"></div>
     </div>
 
+    <div class="companies-section" id="realEstateSection" style="background: linear-gradient(135deg, #0a0a1a 0%, #000000 100%);">
+        <h2>Real Estate Web Projects</h2>
+        <div class="companies-grid" id="realEstateGrid"></div>
+    </div>
+
     <script>
         const canvas = document.getElementById('globeCanvas');
         const ctx = canvas.getContext('2d');
@@ -643,25 +648,11 @@
         createStars();
         animate();
 
-        // Company preview images (using preview service)
-        const companyPreviews = {
-            'SHAKE': 'https://api.microlink.io/?url=https://app.shakeapp.today/&screenshot=true&meta=false&embed=screenshot.url',
-            'WHAAT': 'https://api.microlink.io/?url=https://whaat.app/&screenshot=true&meta=false&embed=screenshot.url',
-            'HOLLYAI': 'https://api.microlink.io/?url=https://hollyai.app/&screenshot=true&meta=false&embed=screenshot.url',
-            'SKIPFEE': 'https://api.microlink.io/?url=https://skipfee.co/&screenshot=true&meta=false&embed=screenshot.url',
-            'MAMACITA': 'https://api.microlink.io/?url=https://mamacitacacao.com/&screenshot=true&meta=false&embed=screenshot.url',
-            'COMBO': 'https://api.microlink.io/?url=https://combo.shakeapp.today/&screenshot=true&meta=false&embed=screenshot.url'
-        };
-
         // Populate companies grid
         const companiesGrid = document.getElementById('companiesGrid');
         companies.forEach(company => {
             const card = document.createElement('div');
             card.className = 'company-card';
-
-            const previewImg = document.createElement('img');
-            previewImg.src = `https://images.unsplash.com/photo-1460925895917-adbf77c4b772?w=600&h=300&fit=crop`;
-            previewImg.alt = `${company.name} preview`;
 
             card.innerHTML = `
                 <div class="company-card-preview">
@@ -680,6 +671,43 @@
             });
 
             companiesGrid.appendChild(card);
+        });
+
+        // Real Estate Projects
+        const realEstateProjects = [
+            { name: 'Lumen Residences', location: 'Lisbon, Portugal', link: 'https://lumen-residences-shake1.vercel.app' },
+            { name: 'Villa Noor', location: 'Dubai, UAE', link: 'https://villa-noor-dubai-shake1.vercel.app' },
+            { name: 'Le Belvédère', location: 'Monaco', link: 'https://le-belvedere-monaco-shake1.vercel.app' },
+            { name: 'The Origami House', location: 'Weston, Connecticut', link: 'https://origami-house-weston-shake1.vercel.app' },
+            { name: 'Farnsworth House', location: 'Plano, Illinois', link: 'https://farnsworth-house-real-shake1.vercel.app' },
+            { name: 'El Nido de Santa Fe', location: 'Santa Fe de Antioquia, Colombia', link: 'https://el-nido-santa-fe-shake1.vercel.app' }
+        ];
+
+        // Populate real estate grid
+        const realEstateGrid = document.getElementById('realEstateGrid');
+        realEstateProjects.forEach((project, index) => {
+            const card = document.createElement('div');
+            card.className = 'company-card';
+            card.style.animationDelay = (0.1 + index * 0.1) + 's';
+
+            card.innerHTML = `
+                <div class="company-card-preview">
+                    <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&h=300&fit=crop" alt="${project.name}" />
+                </div>
+                <div class="company-card-content">
+                    <div class="company-card-name">${project.name}</div>
+                    <div style="font-size: 0.9em; color: rgba(0, 255, 136, 0.7); margin-bottom: 5px;">${project.location}</div>
+                    <a href="${project.link}" target="_blank" class="company-card-link">
+                        View Project <span class="company-card-arrow">→</span>
+                    </a>
+                </div>
+            `;
+
+            card.addEventListener('click', () => {
+                window.open(project.link, '_blank');
+            });
+
+            realEstateGrid.appendChild(card);
         });
     </script>
 </body>
