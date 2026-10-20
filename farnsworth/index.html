@@ -166,7 +166,17 @@ body.in-gallery .brand { color: #f4f2ee; text-shadow: 0 1px 12px rgba(0,0,0,.35)
 body.in-gallery .brand span { color: rgba(244,242,238,.8); }
 body.at-close .brand, body.at-close .brand span { color: var(--ink); text-shadow: none; }
 .rail, .sheet { transition: opacity .4s; }
-.callouts { position: fixed; inset: 0; z-index: 4; pointer-events: none; transition: opacity .4s; }
+.photos { position: fixed; inset: 0; z-index: 1; overflow: hidden; visibility: hidden; background: #111; }
+.pf { position: absolute; inset: 0; opacity: 0; visibility: hidden; transform-origin: 50% 50%; will-change: transform, opacity; }
+.pi { position: absolute; }
+.pi img { width: 100%; height: 100%; display: block; }
+.pc { left: 0; top: 0; transition: opacity .5s; }
+.pc.on { opacity: 1; }
+.pc.off { display: none; }
+.pcred { position: absolute; z-index: 2; right: max(16px, env(safe-area-inset-right, 0px)); top: calc(64px + env(safe-area-inset-top, 0px)); font-family: var(--mono); font-size: 10px; letter-spacing: .06em; color: rgba(255,255,255,.85); text-shadow: 0 1px 6px rgba(0,0,0,.6); text-decoration: none; pointer-events: auto; }
+body.in-gallery .photos { visibility: hidden !important; }
+@media (max-width: 700px) { .pcred { top: calc(84px + env(safe-area-inset-top, 0px)); } }
+.callouts { position: fixed; inset: 0; z-index: 4; pointer-events: none; }
 .co { position: absolute; left: 0; top: 0; opacity: 0; will-change: transform, opacity; }
 .co .dot { position: absolute; left: -7px; top: -7px; width: 14px; height: 14px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 3px rgba(255,255,255,.9); }
 .co .dot::after { content: ""; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid var(--red); animation: coPulse 1.8s ease-out infinite; }
@@ -226,6 +236,38 @@ h1 em { font-style: italic; }
 <body>
 <canvas id="gl" aria-label="Interpretive three-dimensional model of the Farnsworth House"></canvas>
 <div class="callouts" id="callouts" aria-live="polite"></div>
+<div class="photos" id="photos" aria-hidden="true">
+  <div class="pf" data-s="3"><div class="pi" data-w="2200" data-h="1463" data-fx="0.6" data-fy="0.5"><img src="photos/mies4.jpg" alt="" decoding="async" fetchpriority="high">
+    <div class="co pc" data-x="60" data-y="66"><i class="dot"></i><i class="lead"></i><div class="box"><small>Structure</small><b>Columns outside the slabs</b><span>Welded to the edges of the floor and roof, so nothing interrupts the glass.</span></div></div>
+    <div class="co pc" data-x="44" data-y="47"><i class="dot"></i><i class="lead"></i><div class="box"><small>Textiles</small><b>Natural silk curtains</b><span>The only way to close the room.</span></div></div>
+    <div class="co pc" data-x="86" data-y="57"><i class="dot"></i><i class="lead"></i><div class="box"><small>Level</small><b>Floor 5 ft 3 in up</b><span>Lifted above the meadow to clear the Fox River floods.</span></div></div>
+  </div><a class="pcred" href="https://commons.wikimedia.org/wiki/File:FarnsworthHouse-Mies-4.jpg" target="_blank" rel="noopener">Photo: Wikimedia Commons</a></div>
+  <div class="pf" data-s="4"><div class="pi" data-w="2200" data-h="1467" data-fx="0.45" data-fy="0.5"><img src="photos/ext9.jpg" alt="" decoding="async">
+    <div class="co pc" data-x="35" data-y="63"><i class="dot"></i><i class="lead"></i><div class="box"><small>Terrace</small><b>A floating terrace</b><span>A travertine platform half way between the grass and the house.</span></div></div>
+    <div class="co pc" data-x="55" data-y="55"><i class="dot"></i><i class="lead"></i><div class="box"><small>Steps</small><b>Steps up to the porch</b><span>Each tread is a slab of travertine that seems to hover.</span></div></div>
+    <div class="co pc" data-x="28" data-y="45"><i class="dot"></i><i class="lead"></i><div class="box"><small>Porch</small><b>The open porch</b><span>A third of the roof shelters an outdoor room before the glass.</span></div></div>
+  </div><a class="pcred" href="https://commons.wikimedia.org/wiki/File:Farnsworth_House_by_Mies_Van_Der_Rohe_-_exterior-9.jpg" target="_blank" rel="noopener">Photo: Victor Grigas · CC BY-SA</a></div>
+  <div class="pf" data-s="5"><div class="pi" data-w="2200" data-h="1467" data-fx="0.45" data-fy="0.5"><img src="photos/int0.jpg" alt="" decoding="async">
+    <div class="co pc" data-x="44" data-y="72"><i class="dot"></i><i class="lead"></i><div class="box"><small>Furniture</small><b>Barcelona chair</b><span>Designed by Mies with Lilly Reich in 1929.</span></div></div>
+    <div class="co pc" data-x="60" data-y="52"><i class="dot"></i><i class="lead"></i><div class="box"><small>View</small><b>The Fox River</b><span>About 100 feet away, through the south glass.</span></div></div>
+    <div class="co pc" data-x="8" data-y="45"><i class="dot"></i><i class="lead"></i><div class="box"><small>Textiles</small><b>Silk curtains</b><span>Drawn on ceiling tracks all round the room.</span></div></div>
+  </div><a class="pcred" href="https://commons.wikimedia.org/wiki/File:Farnsworth_House_by_Mies_Van_Der_Rohe_-_interior.jpg" target="_blank" rel="noopener">Photo: Victor Grigas · CC BY-SA</a></div>
+  <div class="pf" data-s="6"><div class="pi" data-w="1400" data-h="2100" data-fx="0.5" data-fy="0.5"><img src="photos/mies3.jpg" alt="" decoding="async">
+    <div class="co pc" data-x="80" data-y="32"><i class="dot"></i><i class="lead"></i><div class="box"><small>Material</small><b>Primavera wood core</b><span>One block holds the kitchen, two bathrooms and the fireplace.</span></div></div>
+    <div class="co pc" data-x="72" data-y="66"><i class="dot"></i><i class="lead"></i><div class="box"><small>Kitchen</small><b>The galley</b><span>A single counter along the core, facing the glass.</span></div></div>
+    <div class="co pc" data-x="10" data-y="45"><i class="dot"></i><i class="lead"></i><div class="box"><small>Glazing</small><b>Glass to the floor</b><span>Even the kitchen looks straight into the trees.</span></div></div>
+  </div><a class="pcred" href="https://commons.wikimedia.org/wiki/File:FarnsworthHouse-Mies-3.jpg" target="_blank" rel="noopener">Photo: Wikimedia Commons</a></div>
+  <div class="pf" data-s="7"><div class="pi" data-w="2200" data-h="1650" data-fx="0.4" data-fy="0.5"><img src="photos/mies6.jpg" alt="" decoding="async">
+    <div class="co pc" data-x="15" data-y="55"><i class="dot"></i><i class="lead"></i><div class="box"><small>Core</small><b>Bathrooms inside the core</b><span>Doors in the wood block open to the two bathrooms.</span></div></div>
+    <div class="co pc" data-x="52" data-y="51"><i class="dot"></i><i class="lead"></i><div class="box"><small>Joinery</small><b>Teak wardrobe</b><span>The free-standing piece that screens the bed.</span></div></div>
+    <div class="co pc" data-x="47" data-y="69"><i class="dot"></i><i class="lead"></i><div class="box"><small>Furniture</small><b>Barcelona daybed</b><span>Furniture sits loose in the single room.</span></div></div>
+  </div><a class="pcred" href="https://commons.wikimedia.org/wiki/File:FarnsworthHouse-Mies-6.jpg" target="_blank" rel="noopener">Photo: Wikimedia Commons</a></div>
+  <div class="pf" data-s="8"><div class="pi" data-w="2200" data-h="1467" data-fx="0.66" data-fy="0.5"><img src="photos/ext2006.jpg" alt="" decoding="async">
+    <div class="co pc" data-x="70" data-y="64"><i class="dot"></i><i class="lead"></i><div class="box"><small>Site</small><b>The black maple</b><span>Mies placed the house beside this great tree near the river.</span></div></div>
+    <div class="co pc" data-x="88" data-y="73"><i class="dot"></i><i class="lead"></i><div class="box"><small>River</small><b>Raised for the flood</b><span>Floods pass beneath the floor; the biggest have still reached inside.</span></div></div>
+  </div><a class="pcred" href="https://commons.wikimedia.org/wiki/File:Farnsworth_House_2006.jpg" target="_blank" rel="noopener">Photo: Wikimedia Commons · 2006</a></div>
+</div>
+
 <div class="fx vignette" id="vignette"></div>
 <div class="fx grain"></div>
 
@@ -256,28 +298,28 @@ h1 em { font-style: italic; }
 
 <section class="gallery" id="gallery" aria-label="Photographs of the Farnsworth House">
   <figure class="shot">
-    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Farnsworth_House_by_Mies_Van_Der_Rohe_-_exterior-8.jpg?width=1920" alt="The Farnsworth House among the trees" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">
-    <figcaption><span class="tag">01 · Photograph · Exterior</span><b>The glass pavilion</b><span class="meta">Photo: <a href="https://commons.wikimedia.org/wiki/File:Farnsworth_House_by_Mies_Van_Der_Rohe_-_exterior-8.jpg" target="_blank" rel="noopener">Victor Grigas · CC BY-SA</a></span></figcaption>
+    <img src="photos/ext4.jpg" alt="Under the floor, a white steel column" loading="lazy" decoding="async">
+    <figcaption><span class="tag">01 · Photograph · Structure</span><b>Where steel meets slab</b><span class="meta">Photo: <a href="https://commons.wikimedia.org/wiki/File:Farnsworth_House_by_Mies_Van_Der_Rohe_-_exterior-4.jpg" target="_blank" rel="noopener">Victor Grigas · CC BY-SA</a></span></figcaption>
   </figure>
   <figure class="shot">
-    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Farnsworth_House_2006.jpg?width=1920" alt="The Farnsworth House from the meadow" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">
-    <figcaption><span class="tag">02 · Photograph · The meadow</span><b>Floating above the grass</b><span class="meta">Photo: <a href="https://commons.wikimedia.org/wiki/File:Farnsworth_House_2006.jpg" target="_blank" rel="noopener">Wikimedia Commons · 2006</a></span></figcaption>
+    <img src="photos/fire.jpg" alt="The fireplace set into the wood core" loading="lazy" decoding="async">
+    <figcaption><span class="tag">02 · Photograph · The hearth</span><b>The hearth</b><span class="meta">Photo: <a href="https://commons.wikimedia.org/wiki/File:Farnsworth_House_by_Mies_Van_Der_Rohe_-_interior_fireplace.jpg" target="_blank" rel="noopener">Victor Grigas · CC BY-SA</a></span></figcaption>
   </figure>
   <figure class="shot">
-    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Farnsworth_House_by_Mies_Van_Der_Rohe_-_interior.jpg?width=1920" alt="Inside the single open room" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">
-    <figcaption><span class="tag">03 · Photograph · Inside</span><b>One open room</b><span class="meta">Photo: <a href="https://commons.wikimedia.org/wiki/File:Farnsworth_House_by_Mies_Van_Der_Rohe_-_interior.jpg" target="_blank" rel="noopener">Victor Grigas · CC BY-SA</a></span></figcaption>
+    <img src="photos/intLM.jpg" alt="Living area with glass walls and trees" loading="lazy" decoding="async">
+    <figcaption><span class="tag">03 · Photograph · Inside</span><b>Glass on every side</b><span class="meta">Photo: <a href="https://commons.wikimedia.org/wiki/File:Farnsworth_House_Interior.jpg" target="_blank" rel="noopener">Lessismore2020 · CC BY-SA 4.0</a></span></figcaption>
   </figure>
   <figure class="shot">
-    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Farnsworth_House_Interior.jpg?width=1920" alt="Glass walls looking out to the trees" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">
-    <figcaption><span class="tag">04 · Photograph · The glass</span><b>Glass on every side</b><span class="meta">Photo: <a href="https://commons.wikimedia.org/wiki/File:Farnsworth_House_Interior.jpg" target="_blank" rel="noopener">Lessismore2020 · CC BY-SA 4.0</a></span></figcaption>
+    <img src="photos/ext2.jpg" alt="Autumn trees reflected in the glass" loading="lazy" decoding="async">
+    <figcaption><span class="tag">04 · Photograph · Autumn</span><b>The seasons on the glass</b><span class="meta">Photo: <a href="https://commons.wikimedia.org/wiki/File:Farnsworth_House_by_Mies_Van_Der_Rohe_-_exterior-2.jpg" target="_blank" rel="noopener">Victor Grigas · CC BY-SA</a></span></figcaption>
   </figure>
   <figure class="shot">
-    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Farnsworth_House_by_Mies_Van_Der_Rohe_-_interior_fireplace.jpg?width=1920" alt="The fireplace in the wood core" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">
-    <figcaption><span class="tag">05 · Photograph · The hearth</span><b>The hearth</b><span class="meta">Photo: <a href="https://commons.wikimedia.org/wiki/File:Farnsworth_House_by_Mies_Van_Der_Rohe_-_interior_fireplace.jpg" target="_blank" rel="noopener">Victor Grigas · CC BY-SA</a></span></figcaption>
+    <img src="photos/mies2.jpg" alt="The house seen across the summer meadow" loading="lazy" decoding="async">
+    <figcaption><span class="tag">05 · Photograph · Summer</span><b>Across the meadow</b><span class="meta">Photo: <a href="https://commons.wikimedia.org/wiki/File:FarnsworthHouse-Mies-2.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
   </figure>
   <figure class="shot">
-    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/FarnsworthHouse-Mies-6.jpg?width=1920" alt="The porch and terrace" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">
-    <figcaption><span class="tag">06 · Photograph · The porch</span><b>The porch and terrace</b><span class="meta">Photo: <a href="https://commons.wikimedia.org/wiki/File:FarnsworthHouse-Mies-6.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></span></figcaption>
+    <img src="photos/ext10.jpg" alt="The house in autumn leaves" loading="lazy" decoding="async">
+    <figcaption><span class="tag">06 · Photograph · Fall</span><b>Among the leaves</b><span class="meta">Photo: <a href="https://commons.wikimedia.org/wiki/File:Farnsworth_House_by_Mies_Van_Der_Rohe_-_exterior-10.jpg" target="_blank" rel="noopener">Victor Grigas · CC BY-SA</a></span></figcaption>
   </figure>
 
   <section class="place" id="place" aria-labelledby="placeTitle">
@@ -301,13 +343,13 @@ h1 em { font-style: italic; }
       <div class="compare-wrap">
         <div class="pno-head">Then and now · drag across the picture</div>
         <div class="compare" id="cmp">
-          <img class="now" src="https://commons.wikimedia.org/wiki/Special:FilePath/FarnsworthHouse-Mies-5.jpg?width=1800" alt="The Farnsworth House in colour" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">
-          <img class="then" src="https://commons.wikimedia.org/wiki/Special:FilePath/Mies_van_der_Rohe_photo_Farnsworth_House_Plano_USA_1.jpg?width=1800" alt="The Farnsworth House in 1971, black and white" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">
+          <img class="now" src="photos/ext6.jpg" alt="The Farnsworth House in colour, seen from the meadow" loading="lazy">
+          <img class="then" src="photos/habs8.jpg" alt="The Farnsworth House in 1971, black and white, from a similar spot" loading="lazy">
           <span class="lab l">1971</span><span class="lab r">Today</span>
           <div class="handle" aria-hidden="true"></div>
           <input type="range" min="0" max="100" value="50" id="cmpRange" aria-label="Compare 1971 with today">
         </div>
-        <p class="credits">Left: Jack E. Boucher for the Historic American Buildings Survey, 1971, <a href="https://commons.wikimedia.org/wiki/File:Mies_van_der_Rohe_photo_Farnsworth_House_Plano_USA_1.jpg" target="_blank" rel="noopener">public domain</a>. Right: <a href="https://commons.wikimedia.org/wiki/File:FarnsworthHouse-Mies-5.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>. The two photographs are not taken from the same spot.</p>
+        <p class="credits">Left: Jack E. Boucher for the Historic American Buildings Survey, 1971, <a href="https://commons.wikimedia.org/wiki/File:Mies_van_der_Rohe_photo_Farnsworth_House_Plano_USA_8.jpg" target="_blank" rel="noopener">public domain</a>. Right: Victor Grigas, <a href="https://commons.wikimedia.org/wiki/File:Farnsworth_House_by_Mies_Van_Der_Rohe_-_exterior-6.jpg" target="_blank" rel="noopener">CC BY-SA</a>. Taken from a similar spot on the meadow, decades apart.</p>
       </div>
       <p class="credits">Facts: <a href="https://en.wikipedia.org/wiki/Farnsworth_House" target="_blank" rel="noopener">Wikipedia</a>, <a href="https://savingplaces.org/stories/the-past-present-future-of-farnsworth-house" target="_blank" rel="noopener">National Trust for Historic Preservation</a>, <a href="https://www.nps.gov/articles/000/the-farnsworth-house.htm" target="_blank" rel="noopener">National Park Service</a>. All photographs are real and openly licensed; select a caption to see the licence. The 3D model above is an interpretation and is not an exact survey of the house.</p>
     </div>
@@ -349,13 +391,13 @@ const STAGES = [
   { key: 'Sketch', sheet: 'A-101', scale: '1:200' },
   { key: 'Drawing', sheet: 'A-201', scale: '1:200', no: '02 · Line drawing', h: 'Two slabs and eight columns', p: 'A floor and a roof, held clear of the ground by white steel columns welded to their edges. The red plan is the single room.', spec: [['Built', '1951'], ['Interior', '1,586 sq ft'], ['Architect', 'Mies van der Rohe']] },
   { key: 'Model', sheet: 'M-001', scale: '1:200', no: '03 · Massing model', h: 'Almost nothing', p: 'In white model form the idea is plain: a porch, a glass room and a lower terrace, stepping up from the meadow.', spec: [['Columns', '8'], ['Raised', '5 ft']] },
-  { key: 'Reality', sheet: 'V-001', scale: '—', no: '04 · Visualisation', h: 'A glass room in a meadow', p: 'Travertine floors, white steel and floor-to-ceiling glass, a hundred feet from the Fox River.', spec: [['River', '100 ft'], ['Floors', 'Travertine']] },
-  { key: 'Arrival', sheet: 'A-102', scale: '1:100', no: '05 · The approach', h: 'Two flights of steps', p: 'Wide travertine steps rise from the grass to the floating terrace, then again to the open porch.', spec: [['Terrace', '55 × 22 ft'], ['Steps', 'Travertine']] },
-  { key: 'Living', sheet: 'I-101', scale: '1:50', no: '06 · Living', h: 'Around the hearth', p: 'The fireplace is set into the wood core. Barcelona chairs face the glass and the trees beyond.', spec: [['Core', 'Primavera wood'], ['Ceiling', '9 ft 6 in']] },
-  { key: 'Kitchen', sheet: 'I-102', scale: '1:50', no: '07 · Kitchen', h: 'The galley', p: 'A long kitchen counter runs along the north side of the core, looking out to the woods.', spec: [['Counter', 'Along the core'], ['Faces', 'North woods']] },
-  { key: 'Sleeping', sheet: 'I-103', scale: '1:50', no: '08 · Sleeping', h: 'Behind the wardrobe', p: 'A free-standing teak wardrobe screens the bed. There are no inner walls, only curtains of natural silk.', spec: [['Wardrobe', 'Teak'], ['Curtains', 'Silk']] },
-  { key: 'River', sheet: 'S-001', scale: '1:500', no: '09 · The river', h: 'Built for the flood', p: 'The Fox River runs just south of the house. The raised floor lets seasonal floods pass underneath.', spec: [['River', 'Fox'], ['Setting', 'Plano, Illinois']] },
-  { key: 'Photographs', sheet: 'P-001', scale: '—', no: '10 · Farnsworth House', h: 'Now see the real house', p: 'Keep scrolling for real photographs of the house, the facts, and 1971 compared with today.', spec: [['Photos', 'Real'], ['Licence', 'Open']] },
+  { key: 'Photo', sheet: 'P-001', scale: '—', no: '04 · Real photograph', h: 'A glass room in a meadow', p: 'From here on, every view is a real photograph of the house. Look for the markers.', spec: [['River', '100 ft'], ['Floors', 'Travertine']] },
+  { key: 'Approach', sheet: 'P-002', scale: '—', no: '05 · The approach', h: 'Two flights of steps', p: 'From the grass to the floating terrace, then up again to the open porch.', spec: [['Terrace', '55 × 22 ft'], ['Season', 'Autumn']] },
+  { key: 'Living', sheet: 'P-003', scale: '—', no: '06 · Living', h: 'The river in the window', p: 'Barcelona chairs face the south glass, with the Fox River through the trees.', spec: [['Ceiling', '9 ft 6 in'], ['Walls', 'Glass']] },
+  { key: 'Kitchen', sheet: 'P-004', scale: '—', no: '07 · Kitchen', h: 'The galley', p: 'One long counter on the side of the wood core, with the woods a step away.', spec: [['Core', 'Primavera wood'], ['Faces', 'North woods']] },
+  { key: 'Sleeping', sheet: 'P-005', scale: '—', no: '08 · Sleeping', h: 'Behind the wardrobe', p: 'No inner walls: a teak wardrobe screens the bed, and the core hides the bathrooms.', spec: [['Wardrobe', 'Teak'], ['Rooms', 'One']] },
+  { key: 'River', sheet: 'P-006', scale: '—', no: '09 · Winter', h: 'Built for the flood', p: 'In the snow beside the black maple, the house floats above the floodplain of the Fox.', spec: [['River', 'Fox'], ['Setting', 'Plano, Illinois']] },
+  { key: 'Overview', sheet: 'V-002', scale: '—', no: '10 · Farnsworth House', h: 'More photographs ahead', p: 'One last look at the whole site in 3D, then more real photographs, the facts, and 1971 next to today.', spec: [['Photos', 'Real'], ['Licence', 'Open']] },
 ];
 const N = STAGES.length;
 
@@ -1161,18 +1203,6 @@ const DETAILS = [
   { s: 1.25, lb: 1, at: [9, 1.3, 4.3], tag: 'Level', t: 'Floor 5 ft 3 in up', d: 'Set above the meadow to clear the floods of the Fox River.' },
   { s: 2, at: [-9, .85, 12.2], tag: 'Terrace', t: 'A floating terrace', d: 'A second travertine platform, half way between the grass and the house.' },
   { s: 2.25, lb: 1, at: [-9, 3.4, -3], tag: 'Porch', t: 'The open porch', d: 'A third of the roof shelters an outdoor room before the glass begins.' },
-  { s: 3, lb: 1, at: [6, 3.2, 4.25], tag: 'Glazing', t: 'Floor-to-ceiling plate glass', d: 'Every wall is glass, so the seasons become the decoration.' },
-  { s: 3.25, at: [-3.35, 4.2, 4.4], tag: 'Craft', t: 'Welds ground smooth', d: 'Mies had the welds filled and sanded, and every steel surface painted white.' },
-  { s: 4, at: [-12.8, .6, 13.4], tag: 'Steps', t: 'Steps that hover', d: 'Each travertine tread is cantilevered, with no visible support underneath.' },
-  { s: 4.25, lb: 1, at: [-8.5, Y0 + .02, 2], tag: 'Floors', t: 'Travertine throughout', d: 'The same Italian stone runs from the terrace, across the porch and inside.' },
-  { s: 5, at: [2.5, Y0 + .9, .95], tag: 'Hearth', t: 'Fireplace in the core', d: 'The only fixed element facing the living area.' },
-  { s: 5.25, lb: 1, at: [2.1, Y0 + .8, 2.9], tag: 'Furniture', t: 'Barcelona chair', d: 'Designed by Mies with Lilly Reich in 1929.' },
-  { s: 6, at: [5, Y0 + 2.1, -2.4], tag: 'Material', t: 'Primavera wood core', d: 'One block holds the kitchen, two bathrooms, the fireplace and the services.' },
-  { s: 6.25, lb: 1, at: [2.6, Y0 + .95, -2.7], tag: 'Kitchen', t: 'A galley facing the woods', d: 'You cook with the north meadow behind you and the trees in every window.' },
-  { s: 7, lb: 1, at: [9.4, Y0 + 1.3, 1.9], tag: 'Joinery', t: 'Teak wardrobe', d: 'A free-standing piece of furniture is the only thing screening the bed.' },
-  { s: 7.25, at: [10.6, Y0 + 2.2, 4], tag: 'Textiles', t: 'Natural silk curtains', d: 'Drawn on ceiling tracks, they are the only way to close the room.' },
-  { s: 8, at: [15, 6, 9], tag: 'Site', t: 'Sited by a black maple', d: 'Mies placed the house beside a great maple near the riverbank.' },
-  { s: 8.25, lb: 1, at: [0, 1.2, 4.35], tag: 'River', t: 'Built for the flood', d: 'The biggest floods have still reached inside, and the house has been restored after them.' },
 ];
 const coWrap = document.getElementById('callouts');
 DETAILS.forEach(d => {
@@ -1198,6 +1228,44 @@ function updateCallouts(p) {
     d.el.style.setProperty('--k', o > .5 ? 1 : 0);
     if (o > 0) d.el.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px)`;
   }
+}
+
+
+/* ───────────────────────── real photographs ───────────────────────── */
+const photosEl = document.getElementById('photos');
+const PF = [...photosEl.querySelectorAll('.pf')].map(el => ({ el, s: +el.dataset.s, pi: el.querySelector('.pi'), cs: [...el.querySelectorAll('.pc')] }));
+function layoutPhotos() {
+  const W = innerWidth, Hh = innerHeight;
+  for (const f of PF) {
+    const d = f.pi.dataset, w = +d.w, h = +d.h, k = Math.max(W / w, Hh / h), pw = w * k, ph = h * k, l = (W - pw) * d.fx, t = (Hh - ph) * d.fy;
+    Object.assign(f.pi.style, { width: pw + 'px', height: ph + 'px', left: l + 'px', top: t + 'px' });
+    for (const c of f.cs) {
+      const x = +c.dataset.x, y = +c.dataset.y, sx = l + x / 100 * pw, sy = t + y / 100 * ph;
+      c.style.left = x + '%'; c.style.top = y + '%';
+      c.classList.toggle('off', !(sx > 16 && sx < W - (W > 900 ? 120 : 16) && sy > 80 && sy < Hh - (W < 700 ? 230 : 40)));
+      const toLeft = W < 700 ? sx > W / 2 : sx > W * .58, below = sy < Hh * .32;
+      c.classList.toggle('flip', toLeft && !below); c.classList.toggle('lb', below); c.classList.toggle('mr', below && !toLeft);
+      c.style.setProperty('--k', 1);
+    }
+  }
+}
+layoutPhotos(); addEventListener('resize', layoutPhotos);
+// returns true while a photograph fills the screen, so the 3D pass can be skipped
+function updatePhotos(p) {
+  const rv = reduceMotion ? (p > 2.5 ? 1 : 0) : ease(ramp(p, 2.2, 2.85)), out = ramp(p, 8.45, 8.9);
+  photosEl.style.visibility = rv > 0 && out < 1 ? 'visible' : 'hidden';
+  photosEl.style.clipPath = rv < 1 ? `circle(${(rv * 72).toFixed(2)}% at 50% 55%)` : 'none';
+  photosEl.style.opacity = (1 - out).toFixed(3);
+  coWrap.style.opacity = (1 - ramp(p, 2.25, 2.5)).toFixed(3);
+  for (const f of PF) {
+    const a = f.s === 3 ? 1 : ramp(p, f.s - .6, f.s - .25);
+    const covered = f.s < 8 && p > f.s + .8;
+    f.el.style.opacity = a.toFixed(3);
+    f.el.style.visibility = a > 0 && !covered ? 'visible' : 'hidden';
+    if (!reduceMotion) f.el.style.transform = `scale(${(1.1 - .1 * ramp(p, f.s - .6, f.s + .8)).toFixed(4)})`;
+    f.cs.forEach((c, k) => c.classList.toggle('on', p >= f.s - .3 + k * .1 && p <= f.s + .5));
+  }
+  return rv >= 1 && out === 0;
 }
 
 let pTarget = 0, p = 0, last = performance.now(), start = 0, prevStage = -1;
@@ -1268,6 +1336,7 @@ function frame(now) {
 
   cameraAt(p);
   updateCallouts(p);
+  if (updatePhotos(p)) return;
 
   /* pass 1: drawing + white model into the offscreen target */
   if (reveal < 1) {
