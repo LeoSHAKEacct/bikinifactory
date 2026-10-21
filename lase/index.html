@@ -1,0 +1,984 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LASE Properties — Dubai Real Estate & Development</title>
+<meta name="description" content="LASE Properties LLC: real estate brokerage and development in Dubai. Buy, sell, rent and invest in off-plan projects, serving clients locally and globally.">
+<meta name="theme-color" content="#05070c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#05070c; --bg2:#0a0e17; --panel:rgba(255,255,255,.035); --line:rgba(255,255,255,.09);
+  --text:#eef1f7; --muted:#8b93a7; --gold:#1fb8ff; --gold2:#9be7ff; --cyan:#4fd8ff;
+  --radius:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.display{font-family:"Space Grotesk",sans-serif;letter-spacing:-.02em;line-height:1.05}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+.gold{background:linear-gradient(100deg,var(--gold2),var(--gold) 45%,#0a78c2);-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{font:500 12px/1 "Space Grotesk";letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.eyebrow::before{content:"";display:inline-block;width:28px;height:1px;background:var(--gold);vertical-align:middle;margin-right:12px}
+
+/* nav */
+nav{position:fixed;inset:0 0 auto;z-index:50;transition:.4s}
+nav.scrolled{background:rgba(5,7,12,.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{font:700 18px "Space Grotesk";letter-spacing:.14em}
+.logo span{color:var(--gold)}
+.links{display:flex;gap:32px;font-size:14px;color:var(--muted)}
+.links a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:999px;font:600 14px "Space Grotesk";letter-spacing:.04em;cursor:pointer;border:0;transition:.3s}
+.btn-gold{background:linear-gradient(100deg,var(--gold2),var(--gold));color:#021220;box-shadow:0 10px 40px -10px rgba(31,184,255,.6)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 16px 50px -10px rgba(31,184,255,.8)}
+.btn-ghost{border:1px solid var(--line);color:var(--text);background:var(--panel)}
+.btn-ghost:hover{border-color:var(--gold)}
+.nav-cta{padding:10px 18px}
+@media(max-width:860px){.links{display:none}}
+
+/* hero */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+#sky{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:screen;opacity:.55}
+.hero-bg{position:absolute;inset:0;overflow:hidden;background:#05070c}
+.hero-bg .slide{position:absolute;inset:-4%;background-size:cover;background-position:center;opacity:0;transform:scale(1.12);transition:opacity 2s ease,transform 9s linear;filter:saturate(1.1) contrast(1.05)}
+.hero-bg .slide.on{opacity:1;transform:scale(1)}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,12,.92) 0%,rgba(5,7,12,.6) 45%,rgba(5,7,12,.25) 100%),linear-gradient(180deg,rgba(5,7,12,.3),transparent 30%)}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(31,184,255,.12),transparent 55%),linear-gradient(180deg,transparent 60%,var(--bg));pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.4fr .8fr;gap:50px;align-items:center}
+.hero-card{position:relative;justify-self:end;width:min(340px,100%);aspect-ratio:3/4;border-radius:26px;overflow:hidden;border:1px solid rgba(31,184,255,.4);box-shadow:0 40px 90px -30px rgba(0,0,0,.9),0 0 60px -20px rgba(31,184,255,.35);transform:perspective(900px) rotateY(-8deg);animation:float 7s ease-in-out infinite}
+@keyframes float{50%{transform:perspective(900px) rotateY(-8deg) translateY(-14px)}}
+.hero-card .cap{position:absolute;left:14px;right:14px;bottom:14px;padding:12px 14px;border-radius:14px;background:rgba(5,7,12,.65);backdrop-filter:blur(10px);border:1px solid var(--line);font-size:12px;color:var(--muted)}
+.hero-card .cap b{display:block;color:var(--text);font:600 15px "Space Grotesk"}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-card{justify-self:start;width:220px;margin-top:10px;transform:none;animation:none}}
+/* stylized portrait */
+.photo{position:absolute;inset:0;background-size:cover;background-position:center;filter:saturate(.75) contrast(1.12) brightness(.97)}
+.photo-tint{position:absolute;inset:0;background:linear-gradient(160deg,rgba(155,231,255,.55),rgba(31,184,255,.25) 40%,rgba(10,20,40,.7));mix-blend-mode:soft-light}
+.photo-glow{position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(5,7,12,.85)),radial-gradient(circle at 30% 20%,rgba(79,216,255,.18),transparent 50%)}
+.photo-lines{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px);pointer-events:none}
+.svc-top{display:grid;grid-template-columns:1.3fr .7fr;gap:50px;align-items:center;margin-bottom:60px}
+.svc-top .sec-head{margin-bottom:0}
+.sec-head p.onsite{color:#d4d9e3;border-left:2px solid var(--gold);padding-left:14px}
+.site-card{position:relative;justify-self:end;width:min(300px,100%);aspect-ratio:393/560;border-radius:24px;overflow:hidden;border:1px solid rgba(31,184,255,.35);box-shadow:0 40px 80px -30px rgba(0,0,0,.9),0 0 50px -20px rgba(31,184,255,.3);transform:rotate(2deg);transition:transform .5s}
+.site-card:hover{transform:rotate(0) scale(1.02)}
+.site-card .img{position:absolute;inset:0;background-size:cover;background-position:center 30%;filter:saturate(.9) contrast(1.05)}
+.site-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(5,7,12,.7))}
+.site-card .live{position:absolute;left:14px;bottom:14px;z-index:2;display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(5,7,12,.7);backdrop-filter:blur(8px);border:1px solid var(--line);font-size:12px}
+@media(max-width:900px){.svc-top{grid-template-columns:1fr;gap:30px}.site-card{justify-self:start;transform:none}}
+/* listings */
+.tabs{display:inline-flex;gap:6px;padding:6px;border:1px solid var(--line);border-radius:999px;background:var(--panel);margin-bottom:34px}
+.tabs button{border:0;background:none;color:var(--muted);font:600 14px "Space Grotesk";letter-spacing:.04em;padding:11px 22px;border-radius:999px;cursor:pointer;transition:.3s}
+.tabs button.on{background:linear-gradient(100deg,var(--gold2),var(--gold));color:#021220;box-shadow:0 8px 30px -10px rgba(31,184,255,.7)}
+.listings{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.lst{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--panel);transition:transform .4s,border-color .3s;animation:fin .5s}
+.lst:hover{transform:translateY(-6px);border-color:rgba(31,184,255,.45)}
+.lst .ph{position:relative;aspect-ratio:4/3;background:#0d1220 center/cover}
+.lst .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(5,7,12,.7))}
+.lst .badge2{position:absolute;top:14px;left:14px;z-index:2;padding:6px 12px;border-radius:999px;font:600 11px "Space Grotesk";letter-spacing:.14em;text-transform:uppercase;background:rgba(5,7,12,.7);backdrop-filter:blur(8px);border:1px solid var(--line);color:var(--gold)}
+.lst .price{position:absolute;left:16px;bottom:12px;z-index:2;font:700 22px "Space Grotesk"}
+.lst .price small{font-size:13px;color:var(--muted);font-weight:500}
+.lst .body{padding:18px 20px 20px}
+.lst h3{font-size:19px;margin-bottom:4px}
+.lst .loc{font-size:13px;color:var(--muted)}
+.lst .specs{display:flex;gap:16px;margin:14px 0 16px;font-size:13px;color:#c9d0dc}
+.lst .specs span::before{content:"◆ ";color:var(--gold);font-size:9px}
+.lst .btn{width:100%;justify-content:center;padding:12px}
+.sell-panel{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center;border:1px solid rgba(31,184,255,.3);border-radius:24px;padding:40px;background:linear-gradient(160deg,rgba(31,184,255,.1),rgba(10,14,23,.6));animation:fin .5s}
+.sell-panel h3{font-size:30px;margin-bottom:12px}
+.sell-panel p{color:var(--muted)}
+.sell-panel ul{list-style:none;display:grid;gap:12px}
+.sell-panel li{display:flex;gap:10px;font-size:15px}
+.sell-panel li::before{content:"✓";color:var(--gold);font-weight:700}
+.note{font-size:12px;color:var(--muted);margin-top:22px}
+/* projects */
+.projects{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.proj{position:relative;display:block;min-height:420px;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:#0d1220}
+.proj .ph{position:absolute;inset:0;background:center/cover;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.proj:hover .ph{transform:scale(1.07)}
+.proj::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,12,.1),rgba(5,7,12,.92) 75%)}
+.proj .info{position:absolute;left:28px;right:28px;bottom:26px;z-index:2}
+.proj .info small{font:500 11px "Space Grotesk";letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.proj .info h3{font-size:34px;margin:6px 0}
+.proj .info p{color:#c9d0dc;font-size:14px}
+.proj .row2{display:flex;justify-content:space-between;align-items:center;margin-top:16px;gap:12px;flex-wrap:wrap}
+.proj .row2 b{font:700 20px "Space Grotesk"}
+.proj .go{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid rgba(31,184,255,.5);font:600 13px "Space Grotesk";transition:.3s}
+.proj.soon{display:grid;place-items:center;text-align:center;border-style:dashed;background:var(--panel);min-height:420px}
+.proj.soon::after{display:none}
+.proj.soon h3{font-size:26px;margin:14px 0 8px}
+.proj.soon p{color:var(--muted);max-width:280px;margin:0 auto 18px}
+@media(max-width:900px){.listings,.projects{grid-template-columns:1fr}.sell-panel{grid-template-columns:1fr;padding:26px}}
+/* page-by-page scrolling */
+.pager{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:55;display:flex;flex-direction:column;gap:12px}
+.pager button{width:10px;height:10px;padding:0;border-radius:50%;border:1px solid rgba(31,184,255,.6);background:transparent;cursor:pointer;transition:.3s}
+.pager button.on{background:var(--gold);box-shadow:0 0 12px var(--gold);height:26px;border-radius:6px}
+.pager button:hover{background:rgba(31,184,255,.5)}
+@media(max-width:700px){.pager{right:8px;gap:9px}.pager button{width:7px;height:7px}.pager button.on{height:18px}}
+.logo-card .ecg,.portrait .ecg{position:absolute;inset:0;width:100%;height:100%}
+.portrait .ecg{filter:contrast(1.1) saturate(1.2)}
+/* gold accents: thin lines only */
+:root{--gilt:#d4af6a}
+.eyebrow::before{background:linear-gradient(90deg,var(--gilt),var(--gold))}
+nav.scrolled{border-bottom:1px solid transparent;border-image:linear-gradient(90deg,transparent,rgba(212,175,106,.55),transparent) 1}
+.stats-grid{box-shadow:inset 0 1px 0 rgba(212,175,106,.55)}
+.portrait .corner{border-color:var(--gilt)}
+.card::after,.lst::after{content:"";position:absolute;left:24px;right:24px;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--gilt),transparent);opacity:.55;transition:opacity .3s}
+.card:hover::after{opacity:1}
+.lst{position:relative}.lst:hover::after{opacity:1}
+.marquee{border-color:rgba(212,175,106,.2)}
+.timeline .bar{background:linear-gradient(90deg,var(--gilt),var(--gold))}
+.step .node{box-shadow:0 0 0 3px rgba(212,175,106,.12)}
+.proj .info small{color:var(--gilt)}
+footer{border-top-color:rgba(212,175,106,.25)}
+[hidden]{display:none!important}
+.btn-gilt{background:linear-gradient(100deg,#f6e3b0,#d4af6a 55%,#b88c3e);color:#1a1205;box-shadow:0 10px 40px -10px rgba(212,175,106,.7);border:1px solid rgba(255,236,190,.6)}
+.btn-gilt:hover{transform:translateY(-2px);box-shadow:0 16px 50px -10px rgba(212,175,106,.9)}
+.sell-panel{border-color:rgba(212,175,106,.45)!important;box-shadow:inset 0 1px 0 rgba(246,227,176,.35)}
+.proj .go{background:linear-gradient(100deg,#f6e3b0,#d4af6a 55%,#b88c3e);color:#1a1205;border-color:rgba(255,236,190,.7);box-shadow:0 10px 36px -10px rgba(212,175,106,.7)}
+.proj:hover .go{transform:translateY(-2px);box-shadow:0 16px 46px -10px rgba(212,175,106,.95)}
+.result{border-color:rgba(212,175,106,.4)!important;box-shadow:inset 0 1px 0 rgba(246,227,176,.3)}
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:260px;gap:16px}
+.tile{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#0d1220}
+.tile.big{grid-column:span 2;grid-row:span 2}
+.tile.wide{grid-column:span 2}
+.tile .img{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.tile:hover .img{transform:scale(1.08)}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(5,7,12,.9))}
+.tile .lbl{position:absolute;left:20px;bottom:18px;z-index:2}
+.tile .lbl small{display:block;font:500 11px "Space Grotesk";letter-spacing:.24em;color:var(--gold);text-transform:uppercase}
+.tile .lbl b{font:600 22px "Space Grotesk"}
+@media(max-width:900px){.gallery{grid-template-columns:1fr 1fr;grid-auto-rows:180px}.tile.big{grid-column:span 2}}
+.photo-band{position:relative;overflow:hidden}
+.photo-band .bandimg{position:absolute;inset:-20% 0;background-size:cover;background-position:center;opacity:.22;will-change:transform}
+.photo-band::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,var(--bg),transparent 25%,transparent 75%,var(--bg))}
+.photo-band>.wrap{position:relative;z-index:2}
+.grid-floor{position:absolute;left:-50%;right:-50%;bottom:-10%;height:55%;background-image:linear-gradient(rgba(79,216,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(79,216,255,.12) 1px,transparent 1px);background-size:60px 60px;transform:perspective(600px) rotateX(62deg);transform-origin:bottom;mask-image:linear-gradient(to top,#000,transparent 80%);animation:floor 6s linear infinite;pointer-events:none}
+@keyframes floor{to{background-position:0 60px}}
+.hero-inner{position:relative;z-index:2;padding-top:90px}
+.hero h1{font-size:clamp(46px,9vw,124px);font-weight:700;margin:22px 0 18px}
+.hero p.lead{font-size:clamp(17px,2vw,21px);color:#c3c9d6;max-width:620px}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px}
+.typed{color:var(--cyan);font-family:"Space Grotesk";border-right:2px solid var(--cyan);padding-right:4px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{border-color:transparent}}
+.badge{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--panel);font-size:13px;color:#c3c9d6;backdrop-filter:blur(8px)}
+.dot{width:8px;height:8px;border-radius:50%;background:#35e08a;box-shadow:0 0 12px #35e08a;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:2;font-size:11px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:10px}
+.scroll-hint i{width:1px;height:40px;background:linear-gradient(var(--gold),transparent);animation:drop 2s infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* stats */
+.stats{position:relative;z-index:3;margin-top:-70px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:var(--radius);background:rgba(10,14,23,.75);backdrop-filter:blur(16px);overflow:hidden}
+.stat{padding:30px 26px;border-right:1px solid var(--line)}
+.stat:last-child{border:0}
+.stat b{display:block;font:700 clamp(30px,4vw,46px) "Space Grotesk"}
+.stat span{font-size:13px;color:var(--muted);letter-spacing:.04em}
+@media(max-width:760px){.stats-grid{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+section{padding:120px 0;position:relative}
+.sec-head{max-width:720px;margin-bottom:60px}
+.sec-head h2{font-size:clamp(34px,5vw,60px);margin-top:18px}
+.sec-head p{color:var(--muted);margin-top:18px;font-size:17px}
+
+/* about */
+.about{display:grid;grid-template-columns:1fr 1.1fr;gap:70px;align-items:center}
+.portrait{position:relative;aspect-ratio:620/525;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(160deg,#1a1f2c,#07090f)}
+.portrait .mono{position:absolute;inset:0;display:grid;place-items:center;font:700 min(34vw,190px) "Space Grotesk";color:transparent;-webkit-text-stroke:1px rgba(31,184,255,.45)}
+.portrait .scan{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 20px var(--cyan);animation:scan 4s ease-in-out infinite}
+@keyframes scan{0%,100%{top:8%}50%{top:92%}}
+.portrait .tag{position:absolute;left:18px;bottom:18px;right:18px;padding:16px 18px;border-radius:14px;background:rgba(5,7,12,.7);backdrop-filter:blur(10px);border:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.portrait .corner{position:absolute;width:26px;height:26px;border:2px solid var(--gold)}
+.c1{top:14px;left:14px;border-right:0!important;border-bottom:0!important}.c2{top:14px;right:14px;border-left:0!important;border-bottom:0!important}
+.about blockquote{font:500 clamp(22px,2.6vw,30px)/1.3 "Space Grotesk";margin:26px 0;padding-left:22px;border-left:2px solid var(--gold)}
+.about p{color:#b9c0cf;margin-bottom:16px}
+.checks{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
+.checks li{display:flex;gap:10px;font-size:14px;color:#d4d9e3}
+.checks li::before{content:"◆";color:var(--gold);font-size:10px;margin-top:5px}
+@media(max-width:900px){.about{grid-template-columns:1fr;gap:40px}.checks{grid-template-columns:1fr}}
+
+/* services */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{position:relative;padding:34px 30px;border-radius:var(--radius);border:1px solid var(--line);background:var(--panel);overflow:hidden;transition:transform .2s,border-color .3s;transform-style:preserve-3d}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%),rgba(31,184,255,.14),transparent 45%);opacity:0;transition:.3s}
+.card:hover{border-color:rgba(31,184,255,.4)}
+.card:hover::before{opacity:1}
+.card .num{font:500 12px "Space Grotesk";color:var(--muted);letter-spacing:.2em}
+.card svg{width:40px;height:40px;stroke:var(--gold);fill:none;stroke-width:1.4;margin:26px 0 20px}
+.card h3{font-size:24px;margin-bottom:12px}
+.card p{color:var(--muted);font-size:15px}
+@media(max-width:900px){.cards{grid-template-columns:1fr}}
+
+/* process timeline */
+.bg-alt{background:linear-gradient(180deg,var(--bg),var(--bg2) 20%,var(--bg2) 80%,var(--bg))}
+.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative}
+.timeline::before{content:"";position:absolute;top:22px;left:0;right:0;height:1px;background:var(--line)}
+.timeline .bar{position:absolute;top:22px;left:0;height:1px;width:0;background:linear-gradient(90deg,var(--gold),var(--cyan));box-shadow:0 0 12px var(--cyan);transition:width 2.2s cubic-bezier(.2,.8,.2,1)}
+.timeline.in .bar{width:100%}
+.step{padding-right:20px;position:relative}
+.step .node{width:44px;height:44px;border-radius:50%;border:1px solid var(--gold);background:var(--bg2);display:grid;place-items:center;font:600 13px "Space Grotesk";color:var(--gold);position:relative;z-index:2}
+.step h4{font:600 18px "Space Grotesk";margin:22px 0 8px}
+.step p{font-size:14px;color:var(--muted)}
+@media(max-width:900px){.timeline{grid-template-columns:1fr;gap:34px}.timeline::before,.timeline .bar{display:none}}
+
+/* areas marquee */
+.marquee{overflow:hidden;border-block:1px solid var(--line);padding:26px 0;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.marquee .track{display:flex;gap:56px;width:max-content;animation:mq 40s linear infinite}
+.marquee span{font:600 clamp(26px,4vw,44px) "Space Grotesk";color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.25);white-space:nowrap;transition:.3s}
+.marquee span:hover{color:var(--gold);-webkit-text-stroke-color:var(--gold)}
+.marquee em{color:var(--gold);font-style:normal;font-size:24px;align-self:center}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ROI calculator */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:30px;border:1px solid var(--line);border-radius:24px;padding:40px;background:var(--panel)}
+.calc label{display:block;font-size:13px;color:var(--muted);margin:22px 0 10px;display:flex;justify-content:space-between}
+.calc label b{color:var(--text);font:600 15px "Space Grotesk"}
+input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--gold) var(--p,50%),rgba(255,255,255,.12) var(--p,50%));outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--gold2);box-shadow:0 0 0 6px rgba(31,184,255,.2);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border:0;border-radius:50%;background:var(--gold2);cursor:pointer}
+.result{border-radius:18px;padding:30px;background:linear-gradient(160deg,rgba(31,184,255,.12),rgba(79,216,255,.05));border:1px solid rgba(31,184,255,.25);display:flex;flex-direction:column;justify-content:center}
+.result .big{font:700 clamp(36px,5vw,56px) "Space Grotesk"}
+.result .row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--muted)}
+.result .row b{color:var(--text);font-family:"Space Grotesk"}
+.disclaimer{font-size:11px;color:var(--muted);margin-top:16px}
+@media(max-width:860px){.calc{grid-template-columns:1fr;padding:24px}}
+
+/* form */
+.contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:start}
+.contact-info a.line{display:flex;gap:14px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);font-size:15px;transition:.3s}
+.contact-info a.line:hover{color:var(--gold);padding-left:8px}
+.contact-info small{display:block;color:var(--muted);font-size:12px}
+.icon{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);display:grid;place-items:center;flex:none}
+.icon svg{width:18px;height:18px;stroke:var(--gold);fill:none;stroke-width:1.6}
+.form{border:1px solid var(--line);border-radius:24px;padding:36px;background:rgba(10,14,23,.8);position:relative;overflow:hidden}
+.progress{height:3px;background:rgba(255,255,255,.08);border-radius:3px;margin-bottom:30px;overflow:hidden}
+.progress i{display:block;height:100%;width:25%;background:linear-gradient(90deg,var(--gold),var(--cyan));transition:width .5s}
+.stepnum{font:500 12px "Space Grotesk";color:var(--muted);letter-spacing:.2em;margin-bottom:10px}
+.fstep{display:none;animation:fin .5s}
+.fstep.active{display:block}
+@keyframes fin{from{opacity:0;transform:translateX(24px)}}
+.fstep h3{font-size:26px;margin-bottom:24px}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0}
+.chip span{display:block;padding:16px 18px;border-radius:14px;border:1px solid var(--line);background:var(--panel);cursor:pointer;font-size:14px;transition:.25s}
+.chip span small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.chip input:checked+span{border-color:var(--gold);background:rgba(31,184,255,.1);box-shadow:inset 0 0 0 1px var(--gold)}
+.chip input:focus-visible+span{outline:2px solid var(--cyan)}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:8px}
+.field input,.field select,.field textarea{width:100%;padding:15px 16px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text);font:inherit;font-size:15px;transition:.25s}
+.field select option{background:#0a0e17}
+.field input:focus,.field select:focus,.field textarea:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 4px rgba(31,184,255,.12)}
+.field.err input,.field.err select{border-color:#ff6b6b}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-nav{display:flex;justify-content:space-between;align-items:center;margin-top:28px;gap:12px}
+.errmsg{color:#ff8a8a;font-size:13px;min-height:18px;margin-top:10px}
+.done{text-align:center;padding:30px 0}
+.done .ring{width:84px;height:84px;margin:0 auto 24px;border-radius:50%;border:2px solid var(--gold);display:grid;place-items:center;font-size:34px;color:var(--gold);box-shadow:0 0 40px rgba(31,184,255,.35)}
+.done p{color:var(--muted);margin:10px 0 24px}
+@media(max-width:900px){.contact{grid-template-columns:1fr}.form{padding:24px}.chips,.two{grid-template-columns:1fr}}
+
+footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+
+.wa-float{position:fixed;right:20px;bottom:20px;z-index:60;width:58px;height:58px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 10px 30px rgba(37,211,102,.45);transition:.3s}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float svg{width:30px;height:30px;fill:#fff}
+
+.reveal{opacity:0;transform:translateY(40px);transition:1s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+#cursor{position:fixed;width:400px;height:400px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(79,216,255,.06),transparent 60%);transform:translate(-50%,-50%);z-index:1;left:-500px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+.acro{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:26px}
+.acro div{border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--panel);text-align:center;transition:.3s}
+.acro div:hover{border-color:var(--gold);box-shadow:0 0 30px -10px var(--gold)}
+.acro b{display:block;font:700 34px "Space Grotesk";color:var(--gold);text-shadow:0 0 18px rgba(31,184,255,.6)}
+.acro span{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.logo-photo{filter:contrast(1.1) saturate(1.2)!important;background-size:cover}
+.logo-card .img{background-position:center!important;filter:none!important}
+.logo-card{aspect-ratio:1/1!important}
+.mkts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.mkts div{position:relative;padding:22px 22px 22px 46px;border:1px solid var(--line);border-radius:16px;background:var(--panel);transition:.3s}
+.mkts div::before{content:"";position:absolute;left:20px;top:28px;width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 14px var(--gold);animation:pulse 2s infinite}
+.mkts div:hover{border-color:rgba(31,184,255,.5);transform:translateY(-3px)}
+.mkts b{display:block;font:600 19px "Space Grotesk"}
+.mkts span{font-size:13px;color:var(--muted)}
+@media(max-width:600px){.acro{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+
+<nav id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo">LASE<span>.</span>PROPERTIES</a>
+    <div class="links">
+      <a href="#properties">Properties</a><a href="#projects">Projects</a><a href="#services">Services</a><a href="#markets">Markets</a><a href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="btn btn-gold nav-cta">Talk to Us</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-bg" id="heroBg"></div>
+  <canvas id="sky"></canvas>
+  <div class="grid-floor"></div>
+  <div class="wrap hero-inner">
+    <div>
+    <span class="badge"><i class="dot"></i> Dubai, UAE 🇦🇪 · Serving clients locally &amp; globally</span>
+    <h1>We convert dreams<br><span class="gold">into reality.</span></h1>
+    <p class="lead">LASE Properties: real estate brokerage and development in Dubai, with investors across the GCC and beyond. We help you <span class="typed" id="typed">buy</span> in Dubai.</p>
+    <div class="ctas">
+      <a href="#contact" class="btn btn-gold">Start Your Journey →</a>
+      <a href="https://www.instagram.com/laseproperties/" target="_blank" rel="noopener" class="btn btn-ghost">Follow on Instagram</a>
+    </div>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll<i></i></div>
+</header>
+
+<div class="wrap stats">
+  <div class="stats-grid reveal">
+    <div class="stat"><b><span class="gold" data-count="10" data-suffix="+">0</span></b><span>Years in Dubai real estate</span></div>
+    <div class="stat"><b><span data-count="62900" data-suffix="+">0</span></b><span>Community on Instagram</span></div>
+    <div class="stat"><b><span data-count="50" data-suffix="+">0</span></b><span>Team members</span></div>
+    <div class="stat"><b><span data-count="7">0</span></b><span>Markets: UAE · GCC · China</span></div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap about">
+    <div class="portrait reveal" id="tilt">
+      <div class="photo logo-photo" style="background-image:url(lase-logo.jpg)"></div>
+      <canvas class="ecg" aria-hidden="true"></canvas>
+      <div class="photo-glow"></div><div class="photo-lines"></div>
+      <div class="scan"></div>
+      <div class="corner c1"></div><div class="corner c2"></div>
+      <div class="tag"><span><b>LASE Properties LLC</b><br><small style="color:var(--muted)">Real Estate · Dubai</small></span><span class="gold" style="font:600 13px 'Space Grotesk'">VERIFIED ✦</span></div>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">About LASE</span>
+      <blockquote>“An <span class="gold">unstoppable team</span> with a strategy of success.”</blockquote>
+      <p>For more than a decade, LASE Properties has set the standard for design-forward, carefully planned communities in Dubai: residential towers, mixed-use complexes and master-planned neighbourhoods.</p>
+      <p>Comfort and culture come first. We look past materials to the shared spaces that bring people together, and we keep growing with Dubai as its skyline reaches new heights.</p>
+      <div class="acro">
+        <div><b>L</b><span>Luck</span></div><div><b>A</b><span>Ability</span></div><div><b>S</b><span>Success</span></div><div><b>E</b><span>Energy</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee"><div class="track" id="mq"></div></div>
+
+<section id="dubai">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Where We Work</span>
+      <h2>Dubai and <span class="gold">beyond.</span></h2>
+      <p>From Downtown towers and island waterfronts to Dubai South and new GCC waterfront developments.</p>
+    </div>
+    <div class="gallery">
+      <div class="tile big reveal"><div class="img" data-img="lRCWtOEPwiY"></div><div class="lbl"><small>Downtown</small><b>Burj Khalifa District</b></div></div>
+      <div class="tile reveal"><div class="img" data-img="dYLzGcPqrtE"></div><div class="lbl"><small>Islands</small><b>Palm &amp; The World</b></div></div>
+      <div class="tile reveal"><div class="img" data-img="O8IjeygwJlc"></div><div class="lbl"><small>Development</small><b>Dubai South</b></div></div>
+      <div class="tile wide reveal"><div class="img" data-img="2fqptw4fKWI"></div><div class="lbl"><small>Coastline</small><b>GCC Waterfront Opportunities</b></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="properties" class="bg-alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Properties</span>
+      <h2>Find your next <span class="gold">address.</span></h2>
+      <p>A selection of homes we can help you buy or rent across Dubai. Ask us for the full list.</p>
+    </div>
+    <div class="tabs reveal" id="tabs">
+      <button data-tab="buy" class="on">Buy</button><button data-tab="rent">Rent</button><button data-tab="sell">Sell</button>
+    </div>
+    <div class="listings" id="listings"></div>
+    <div class="sell-panel" id="sellPanel" hidden>
+      <div>
+        <h3>Sell or lease with <span class="gold">LASE.</span></h3>
+        <p>Get a free valuation and reach buyers and tenants in Dubai, the GCC and China through our team and channel partners.</p>
+        <a href="#contact" class="btn btn-gilt" style="margin-top:22px" data-goal="Sell my property">Get a Free Valuation →</a>
+      </div>
+      <ul><li>Free market valuation</li><li>Professional photos &amp; video tours</li><li>Exposure to 62K+ followers and partner agencies</li><li>Viewings, negotiation and DLD transfer handled</li></ul>
+    </div>
+    <p class="note" id="lstNote">Sample listings for illustration. Contact us for current availability and prices.</p>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Featured Projects</span>
+      <h2>Projects we're <span class="gold">building.</span></h2>
+      <p>Step inside each development, from the first sketch to the finished home.</p>
+    </div>
+    <div class="projects" id="projectList"></div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="svc-top">
+      <div class="sec-head reveal">
+        <span class="eyebrow">What We Do</span>
+        <h2>Building <span class="gold">legacies.</span></h2>
+        <p>Brokerage, development and investor services under one roof, for buyers, sellers, partners and global investors.</p>
+        <p class="onsite">Serving clients locally and globally, making Dubai real estate dreams a reality.</p>
+      </div>
+      <div class="site-card logo-card reveal">
+        <div class="img" style="background-image:url(lase-logo.jpg)"></div>
+        <canvas class="ecg" aria-hidden="true"></canvas>
+        <span class="live"><i class="dot"></i> Open for enquiries</span>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card reveal"><span class="num">01</span>
+        <svg viewBox="0 0 40 40"><path d="M6 18L20 6l14 12v16H6z"/><path d="M16 34V24h8v10"/></svg>
+        <h3>Brokerage</h3><p>Buy, sell and rent across Dubai: apartments, villas, penthouses and commercial space, negotiated to the best terms.</p></div>
+      <div class="card reveal"><span class="num">02</span>
+        <svg viewBox="0 0 40 40"><path d="M4 36h32M8 36V14l8-6v28M16 36V4l10 6v26M26 36V18h8v18"/></svg>
+        <h3>Development</h3><p>Residential towers, mixed-use complexes and master-planned communities, designed to elevate everyday living.</p></div>
+      <div class="card reveal"><span class="num">03</span>
+        <svg viewBox="0 0 40 40"><path d="M20 4l16 8-16 8-16-8zM4 20l16 8 16-8M4 28l16 8 16-8"/></svg>
+        <h3>Off-Plan Launches</h3><p>Early access to new launches with flexible payment plans, from Dubai South to the islands.</p></div>
+      <div class="card reveal"><span class="num">04</span>
+        <svg viewBox="0 0 40 40"><circle cx="13" cy="14" r="5"/><circle cx="27" cy="14" r="5"/><path d="M4 34c0-6 4-10 9-10s9 4 9 10M18 34c0-6 4-10 9-10s9 4 9 10"/></svg>
+        <h3>Channel Partners</h3><p>A partner programme for agencies and brokers worldwide to sell Dubai inventory with LASE.</p></div>
+      <div class="card reveal"><span class="num">05</span>
+        <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="15"/><path d="M5 20h30M20 5a22 22 0 010 30M20 5a22 22 0 000 30"/></svg>
+        <h3>Global Investors</h3><p>Guidance for international buyers on residency-by-investment routes in the UAE and GCC, from KSA to Kuwait and Bahrain.</p></div>
+      <div class="card reveal"><span class="num">06</span>
+        <svg viewBox="0 0 40 40"><path d="M6 30l10-10 6 6 12-14"/><path d="M26 12h8v8"/></svg>
+        <h3>Market Insights</h3><p>Data-backed advice on yields, capital growth and timing, so every move in your portfolio is deliberate.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="process" class="bg-alt photo-band">
+  <div class="bandimg" data-img="UxYEwaanctE"></div>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">How We Work</span>
+      <h2>From dream to <span class="gold">keys.</span></h2>
+    </div>
+    <div class="timeline" id="timeline">
+      <div class="bar"></div>
+      <div class="step"><div class="node">01</div><h4>Discovery</h4><p>Your goals, budget and timeline in one conversation.</p></div>
+      <div class="step"><div class="node">02</div><h4>Strategy</h4><p>A curated shortlist or investment plan, with the numbers.</p></div>
+      <div class="step"><div class="node">03</div><h4>Access</h4><p>Viewings, site visits and early access to new launches.</p></div>
+      <div class="step"><div class="node">04</div><h4>Close</h4><p>Negotiation, paperwork and DLD transfer handled for you.</p></div>
+      <div class="step"><div class="node">05</div><h4>After-Sales</h4><p>Handover, leasing and resale support for the long run.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="markets">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Our Markets</span>
+      <h2>One team, <span class="gold">seven markets.</span></h2>
+      <p>Headquartered in Dubai, with clients and opportunities across the region.</p>
+    </div>
+    <div class="mkts reveal">
+      <div><b>Dubai</b><span>Headquarters · Brokerage &amp; development</span></div>
+      <div><b>Dubai South</b><span>New communities near Al Maktoum Airport</span></div>
+      <div><b>The World Islands</b><span>Waterfront and island living</span></div>
+      <div><b>Saudi Arabia</b><span>Investor relations · KSA</span></div>
+      <div><b>Kuwait</b><span>Residency programmes for foreign investors</span></div>
+      <div><b>Bahrain</b><span>GCC waterfront development opportunities</span></div>
+      <div><b>China</b><span>International buyer desk</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="invest" class="bg-alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Investor Tool</span>
+      <h2>Run your <span class="gold">numbers.</span></h2>
+      <p>A quick estimate of rental yield and capital growth on a Dubai property.</p>
+    </div>
+    <div class="calc reveal">
+      <div>
+        <label>Property price <b id="vPrice"></b></label>
+        <input type="range" id="price" min="500000" max="20000000" step="50000" value="2500000">
+        <label>Expected annual rent <b id="vRent"></b></label>
+        <input type="range" id="rent" min="30000" max="1500000" step="5000" value="170000">
+        <label>Annual appreciation <b id="vApp"></b></label>
+        <input type="range" id="app" min="0" max="15" step="0.5" value="6">
+        <label>Holding period <b id="vYears"></b></label>
+        <input type="range" id="years" min="1" max="15" step="1" value="5">
+      </div>
+      <div class="result">
+        <span class="eyebrow">Projected total return</span>
+        <div class="big gold" id="rTotal">—</div>
+        <div class="row"><span>Gross rental yield</span><b id="rYield">—</b></div>
+        <div class="row"><span>Rental income</span><b id="rIncome">—</b></div>
+        <div class="row"><span>Estimated value at exit</span><b id="rExit">—</b></div>
+        <a href="#contact" class="btn btn-gilt" style="margin-top:24px;justify-content:center" id="calcCta">Discuss this investment →</a>
+        <p class="disclaimer">Illustrative only, not financial advice. Excludes fees, service charges and financing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="bg-alt photo-band">
+  <div class="bandimg" data-img="9n7rZJLWY7o"></div>
+  <div class="wrap contact">
+    <div class="reveal contact-info">
+      <span class="eyebrow">Let's Talk</span>
+      <h2 style="font-size:clamp(34px,5vw,56px);margin:18px 0">Tell us about your <span class="gold">dream.</span></h2>
+      <p style="color:var(--muted);margin-bottom:30px">Four quick steps. Your request goes straight to the LASE team.</p>
+      <a class="line" href="https://ig.me/m/laseproperties" target="_blank" rel="noopener"><span class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg></span><span><small>Instagram</small>@laseproperties</span></a>
+      <a class="line" href="https://www.laseproperties.com" target="_blank" rel="noopener"><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg></span><span><small>Website</small>laseproperties.com</span></a>
+      <a class="line" href="https://www.linkedin.com/search/results/companies/?keywords=LASE%20Properties%20LLC" target="_blank" rel="noopener"><span class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 014 0v4M12 10v7"/></svg></span><span><small>LinkedIn</small>LASE Properties LLC</span></a>
+      <a class="line" href="#top"><span class="icon"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0112 2.5a7 7 0 017 7C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><span><small>Office</small>Dubai, United Arab Emirates</span></a>
+    </div>
+
+    <form class="form reveal" id="lead" novalidate>
+      <div class="progress"><i id="bar"></i></div>
+
+      <div class="fstep active" data-step="1">
+        <div class="stepnum">STEP 1 / 4</div>
+        <h3>How can we help you?</h3>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="goal" value="Buy a property"><span>🏙️ Buy<small>Home or investment</small></span></label>
+          <label class="chip"><input type="radio" name="goal" value="Sell my property"><span>📈 Sell<small>List with LASE</small></span></label>
+          <label class="chip"><input type="radio" name="goal" value="Rent / Lease"><span>🔑 Rent<small>Tenant or landlord</small></span></label>
+          <label class="chip"><input type="radio" name="goal" value="Off-plan investment"><span>🏗️ Off-Plan<small>New launches</small></span></label>
+          <label class="chip"><input type="radio" name="goal" value="Channel partnership"><span>🤝 Partner<small>Channel partners</small></span></label>
+          <label class="chip"><input type="radio" name="goal" value="Residency / relocation"><span>🌍 Relocate<small>Residency &amp; investors</small></span></label>
+        </div>
+      </div>
+
+      <div class="fstep" data-step="2">
+        <div class="stepnum">STEP 2 / 4</div>
+        <h3>Your property details</h3>
+        <div class="field"><label>Property type</label>
+          <select name="type"><option>Apartment</option><option>Villa / Townhouse</option><option>Penthouse</option><option>Land / Plot</option><option>Commercial</option><option>Not sure yet</option></select></div>
+        <div class="field"><label>Budget (AED)</label>
+          <select name="budget"><option>Under 1M</option><option>1M – 3M</option><option>3M – 7M</option><option>7M – 15M</option><option>15M+</option><option>Prefer to discuss</option></select></div>
+        <div class="field"><label>Timeline</label>
+          <select name="timeline"><option>Immediately</option><option>Within 3 months</option><option>3–6 months</option><option>Just exploring</option></select></div>
+      </div>
+
+      <div class="fstep" data-step="3">
+        <div class="stepnum">STEP 3 / 4</div>
+        <h3>How do we reach you?</h3>
+        <div class="field"><label>Full name *</label><input name="name" autocomplete="name" required></div>
+        <div class="two">
+          <div class="field"><label>Email *</label><input name="email" type="email" autocomplete="email" required></div>
+          <div class="field"><label>WhatsApp (with country code) *</label><input name="phone" type="tel" autocomplete="tel" placeholder="+971 …" required></div>
+        </div>
+        <div class="field"><label>City / Country *</label><input name="city" autocomplete="country-name" required></div>
+      </div>
+
+      <div class="fstep" data-step="4">
+        <div class="stepnum">STEP 4 / 4</div>
+        <h3>Anything else we should know?</h3>
+        <div class="field"><label>Message (optional)</label><textarea name="msg" rows="5" placeholder="Preferred areas, bedrooms, questions…"></textarea></div>
+      </div>
+
+      <div class="fstep" data-step="5">
+        <div class="done">
+          <div class="ring">✓</div>
+          <h3>Request ready.</h3>
+          <p id="doneMsg">Your request is copied. Paste it in our Instagram chat and the team will reply.</p>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+            <a class="btn btn-gold" id="sendLink" target="_blank" rel="noopener">Open Instagram Chat</a>
+            <button type="button" class="btn btn-ghost" id="copyBtn">Copy Request</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="errmsg" id="err"></div>
+      <div class="form-nav" id="fnav">
+        <button type="button" class="btn btn-ghost" id="back" style="visibility:hidden">← Back</button>
+        <button type="button" class="btn btn-gold" id="next">Continue →</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr"></span> LASE Properties LLC · Dubai, UAE</span>
+    <span>Luck · Ability · Success · Energy</span>
+  </div>
+</footer>
+
+<a class="wa-float" id="waFloat" href="#contact" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 3a13 13 0 00-11.2 19.6L3 29l6.6-1.7A13 13 0 1016 3zm0 23.7a10.7 10.7 0 01-5.5-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.7 10.7 0 1116 26.7zm5.9-8c-.3-.2-1.9-1-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.8 8.8 0 01-4.4-3.8c-.3-.6.3-.5.9-1.7a.6.6 0 000-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 00-.9.4 3.6 3.6 0 00-1.1 2.7 6.3 6.3 0 001.3 3.3 14.3 14.3 0 005.5 4.9c2 .9 2.8.9 3.8.8a3.3 3.3 0 002.2-1.5 2.7 2.7 0 00.2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg>
+</a>
+
+<script>
+const WA = "", EMAIL = "", IG = "laseproperties"; /* add WhatsApp (digits only) / email to send there directly */
+if (WA) { const w = document.getElementById("waFloat"); w.href = `https://wa.me/${WA}`; w.target = "_blank"; w.rel = "noopener"; }
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+/* nav */
+/* real Dubai photos (Unsplash) — load then fade in; gradient stays if a photo fails */
+const img = (id, w) => `https://unsplash.com/photos/${id}/download?w=${w}`;
+function setBg(el, id, w) {
+  const i = new Image();
+  i.onload = () => { el.style.backgroundImage = `url("${i.src}")`; el.classList.add("loaded"); };
+  i.src = img(id, w);
+}
+document.querySelectorAll("[data-img]").forEach(el => setBg(el, el.dataset.img, el.classList.contains("bandimg") ? 1920 : 1200));
+(() => {
+  const bg = document.getElementById("heroBg"), ids = ["j-nRfGUHswQ", "lRCWtOEPwiY", "9n7rZJLWY7o", "2fqptw4fKWI"];
+  const slides = ids.map(id => { const s = document.createElement("div"); s.className = "slide"; bg.appendChild(s); setBg(s, id, 1920); return s; });
+  let k = 0;
+  const next = () => {
+    const ready = slides.filter(s => s.classList.contains("loaded"));
+    if (!ready.length) return;
+    slides.forEach(s => s.classList.remove("on"));
+    ready[k++ % ready.length].classList.add("on");
+  };
+  const first = setInterval(() => { if (slides.some(s => s.classList.contains("loaded"))) { clearInterval(first); next(); if (!reduce) setInterval(next, 7000); } }, 200);
+})();
+addEventListener("scroll", () => {
+  document.querySelectorAll(".bandimg").forEach(b => { const r = b.parentElement.getBoundingClientRect(); b.style.transform = `translateY(${r.top * -0.15}px)`; });
+}, {passive:true});
+
+const nav = document.getElementById("nav");
+addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 30), {passive:true});
+
+/* cursor glow */
+const cur = document.getElementById("cursor");
+addEventListener("pointermove", e => { cur.style.left = e.clientX + "px"; cur.style.top = e.clientY + "px"; });
+
+/* animated skyline */
+(() => {
+  const c = document.getElementById("sky"), x = c.getContext("2d");
+  let W, H, towers = [], stars = [], t = 0;
+  function build() {
+    W = c.width = c.offsetWidth * devicePixelRatio; H = c.height = c.offsetHeight * devicePixelRatio;
+    towers = []; let px = 0;
+    while (px < W) {
+      const w = (18 + Math.random() * 46) * devicePixelRatio;
+      const h = H * (0.12 + Math.random() * 0.34) * (Math.random() < .06 ? 1.7 : 1);
+      towers.push({x: px, w, h, spire: Math.random() < .25, lit: Array.from({length: 40}, () => Math.random()), rise: 0});
+      px += w + 3 * devicePixelRatio;
+    }
+    // hero landmark tower
+    const mid = towers[Math.floor(towers.length * .72)];
+    if (mid) { mid.h = H * .78; mid.spire = true; mid.w = Math.max(mid.w, 30 * devicePixelRatio); mid.hero = true; }
+    stars = Array.from({length: 120}, () => ({x: Math.random() * W, y: Math.random() * H * .55, r: Math.random() * 1.3 * devicePixelRatio, p: Math.random() * 6}));
+  }
+  function draw() {
+    t += .016;
+    x.clearRect(0, 0, W, H);
+    for (const s of stars) { x.globalAlpha = .3 + .5 * Math.abs(Math.sin(t + s.p)); x.fillStyle = "#cfe6ff"; x.fillRect(s.x, s.y, s.r, s.r); }
+    x.globalAlpha = 1;
+    const base = H * .86;
+    towers.forEach((tw, i) => {
+      tw.rise = Math.min(1, tw.rise + (reduce ? 1 : .012 + (i % 7) * .001));
+      const e = 1 - Math.pow(1 - tw.rise, 3), h = tw.h * e, top = base - h;
+      const g = x.createLinearGradient(0, top, 0, base);
+      g.addColorStop(0, tw.hero ? "#0d2233" : "#141b2a"); g.addColorStop(1, "#070a12");
+      x.fillStyle = g; x.fillRect(tw.x, top, tw.w, h);
+      x.strokeStyle = tw.hero ? "rgba(212,175,106,.75)" : "rgba(79,216,255,.18)"; x.lineWidth = devicePixelRatio;
+      x.strokeRect(tw.x + .5, top + .5, tw.w - 1, h);
+      if (tw.spire && e > .98) {
+        x.beginPath(); x.moveTo(tw.x + tw.w / 2, top - (tw.hero ? H * .12 : 30 * devicePixelRatio)); x.lineTo(tw.x + tw.w / 2, top); x.stroke();
+        const blink = .5 + .5 * Math.sin(t * 3 + i);
+        x.fillStyle = `rgba(255,80,80,${blink})`; x.beginPath(); x.arc(tw.x + tw.w / 2, top - (tw.hero ? H * .12 : 30 * devicePixelRatio), 2 * devicePixelRatio, 0, 7); x.fill();
+      }
+      // windows
+      const cs = 7 * devicePixelRatio, rows = Math.floor(h / cs), cols = Math.max(1, Math.floor(tw.w / cs) - 1);
+      for (let r = 1; r < rows; r++) for (let k = 0; k < cols; k++) {
+        const v = tw.lit[(r * 7 + k * 3) % 40];
+        if (v > .72) { x.fillStyle = tw.hero ? `rgba(155,231,255,${.4 + .4 * Math.sin(t + v * 9)})` : `rgba(31,184,255,${.25 + .25 * Math.sin(t * .6 + v * 20)})`; x.fillRect(tw.x + cs * .6 + k * cs, top + r * cs, 2 * devicePixelRatio, 3 * devicePixelRatio); }
+      }
+    });
+    // crane
+    const cx = W * .28, ch = H * .42;
+    x.strokeStyle = "rgba(212,175,106,.55)"; x.lineWidth = 1.5 * devicePixelRatio;
+    x.beginPath(); x.moveTo(cx, base); x.lineTo(cx, base - ch); x.stroke();
+    const ang = Math.sin(t * .3) * .25, arm = W * .09;
+    x.beginPath(); x.moveTo(cx - arm * .35 * Math.cos(ang), base - ch); x.lineTo(cx + arm * Math.cos(ang), base - ch - arm * Math.sin(ang) * .2); x.stroke();
+    const hx = cx + arm * .8 * Math.cos(ang), hy = base - ch + (ch * .3) * (.5 + .5 * Math.sin(t * .5));
+    x.beginPath(); x.moveTo(hx, base - ch); x.lineTo(hx, hy); x.stroke();
+    x.fillStyle = "rgba(31,184,255,.8)"; x.fillRect(hx - 6 * devicePixelRatio, hy, 12 * devicePixelRatio, 5 * devicePixelRatio);
+    // reflection
+    x.save(); x.globalAlpha = .12; x.translate(0, base * 2); x.scale(1, -1);
+    x.drawImage(c, 0, 0, W, base, 0, 0, W, base); x.restore();
+    if (!reduce) requestAnimationFrame(draw);
+  }
+  build(); draw();
+  let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { build(); if (reduce) draw(); }, 200); });
+})();
+
+/* typed words */
+(() => {
+  const el = document.getElementById("typed"), words = ["buy", "sell", "rent", "invest off-plan", "relocate", "partner"];
+  let w = 0, i = words[0].length, del = true, hold = 10;
+  if (reduce) return;
+  setInterval(() => {
+    if (hold > 0) { hold--; return; }
+    const word = words[w];
+    i += del ? -1 : 1; el.textContent = word.slice(0, i);
+    if (!del && i === word.length) { del = true; hold = 10; }
+    else if (del && i === 0) { del = false; w = (w + 1) % words.length; }
+  }, 110);
+})();
+
+/* marquee */
+(() => {
+  const areas = ["Downtown Dubai", "Dubai South", "The World Islands", "Palm Jumeirah", "Business Bay", "Dubai Marina", "Dubai Creek Harbour", "Riyadh", "Kuwait City", "Manama", "Shanghai"];
+  const html = areas.map(a => `<span>${a}</span><em>✦</em>`).join("");
+  document.getElementById("mq").innerHTML = html + html;
+})();
+
+/* ===== Properties & projects: edit these lists to add more ===== */
+const U = (id, w = 900) => `https://unsplash.com/photos/${id}/download?w=${w}`;
+const LISTINGS = [
+  {tab:"buy",  title:"Modern Villa with Pool", loc:"Dubai Hills Estate", price:"AED 14,500,000", specs:["5 Beds","6 Baths","7,200 sqft"], img:U("Id7u0EkTjBE")},
+  {tab:"buy",  title:"Sky Penthouse, City Views", loc:"Downtown Dubai", price:"AED 22,000,000", specs:["4 Beds","5 Baths","4,100 sqft"], img:U("-PlfpOk6VKs")},
+  {tab:"buy",  title:"Family Townhouse", loc:"Dubai South", price:"AED 2,350,000", specs:["3 Beds","4 Baths","2,300 sqft"], img:U("sIsiRYz3VKk")},
+  {tab:"buy",  title:"Sea-View Apartment", loc:"Dubai Marina", price:"AED 2,900,000", specs:["2 Beds","3 Baths","1,350 sqft"], img:U("2fqptw4fKWI")},
+  {tab:"buy",  title:"Beachfront Villa Noor", loc:"Palm Jumeirah", price:"AED 48,500,000", specs:["6 Beds","22 m pool","1,240 m²"], img:"projects/villa-noor.jpg"},
+  {tab:"buy",  title:"Burj View Residence", loc:"Downtown Dubai", price:"AED 4,750,000", specs:["2 Beds","2 Baths","1,600 sqft"], img:U("j-nRfGUHswQ")},
+  {tab:"rent", title:"Furnished 1BR, City View", loc:"Business Bay", price:"AED 115,000", per:"/ year", specs:["1 Bed","1 Bath","850 sqft"], img:U("IlNHSsfTunM")},
+  {tab:"rent", title:"Bright 3BR Apartment", loc:"Dubai Creek Harbour", price:"AED 210,000", per:"/ year", specs:["3 Beds","3 Baths","1,900 sqft"], img:U("12WFO8yWrsw")},
+  {tab:"rent", title:"2BR Marina Apartment", loc:"Dubai Marina", price:"AED 160,000", per:"/ year", specs:["2 Beds","2 Baths","1,250 sqft"], img:U("9n7rZJLWY7o")},
+];
+const PROJECTS = [
+  {name:"Villa Noor", area:"Palm Jumeirah · Dubai", desc:"Six-bedroom beachfront villa with a 22-metre pool. 1,850 m² plot, 1,240 m² built.", price:"AED 48,500,000", img:"projects/villa-noor.jpg", url:"https://villa-noor-dubai-shake1.vercel.app/"},
+];
+(() => {
+  const box = document.getElementById("listings"), sell = document.getElementById("sellPanel"), note = document.getElementById("lstNote");
+  const card = l => `<article class="lst"><div class="ph" style="background-image:url('${l.img}')"><span class="badge2">${l.tab === "rent" ? "For Rent" : "For Sale"}</span><span class="price">${l.price} <small>${l.per || ""}</small></span></div>
+    <div class="body"><h3>${l.title}</h3><div class="loc">${l.loc}</div><div class="specs">${l.specs.map(x => `<span>${x}</span>`).join("")}</div>
+    <a href="#contact" class="btn btn-ghost" data-goal="${l.tab === "rent" ? "Rent / Lease" : "Buy a property"}" data-msg="I'm interested in: ${l.title}, ${l.loc} (${l.price}${l.per ? " " + l.per : ""})">Enquire →</a></div></article>`;
+  function show(tab) {
+    document.querySelectorAll("#tabs button").forEach(b => b.classList.toggle("on", b.dataset.tab === tab));
+    sell.hidden = tab !== "sell"; box.hidden = tab === "sell"; note.hidden = tab === "sell";
+    if (tab !== "sell") box.innerHTML = LISTINGS.filter(l => l.tab === tab).map(card).join("");
+  }
+  document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => show(b.dataset.tab));
+  show("buy");
+  document.getElementById("projectList").innerHTML = PROJECTS.map(p => `<a class="proj reveal" href="${p.url}" target="_blank" rel="noopener"><div class="ph" style="background-image:url('${p.img}')"></div>
+    <div class="info"><small>${p.area}</small><h3>${p.name}</h3><p>${p.desc}</p><div class="row2"><b>${p.price}</b><span class="go">Explore project ↗</span></div></div></a>`).join("")
+    + `<div class="proj soon reveal"><div><span class="eyebrow">Coming soon</span><h3>More projects launching</h3><p>New developments across Dubai are on the way. Register your interest to hear first.</p><a href="#contact" class="btn btn-gold" data-goal="Off-plan investment">Register Interest →</a></div></div>`;
+  /* any button with data-goal pre-fills the lead form */
+  document.addEventListener("click", e => {
+    const a = e.target.closest("[data-goal]"); if (!a) return;
+    const r = document.querySelector(`#lead [name=goal][value="${a.dataset.goal}"]`); if (r) r.checked = true;
+    if (a.dataset.msg) document.querySelector("#lead [name=msg]").value = a.dataset.msg;
+  });
+})();
+
+/* ===== page-by-page scrolling: one scroll / swipe / key = next or previous section ===== */
+(() => {
+  if (reduce) return;
+  const stats = document.querySelector(".stats");
+  const pages = [...document.querySelectorAll("header.hero, section")];
+  const topOf = el => (el.id === "about" ? stats : el).getBoundingClientRect().top + scrollY - (el.id === "about" ? 30 : 0);
+  const bottomOf = el => el.getBoundingClientRect().bottom + scrollY;
+  const pager = document.createElement("div"); pager.className = "pager"; pager.setAttribute("role", "navigation"); pager.setAttribute("aria-label", "Sections");
+  pages.forEach((p, i) => { const b = document.createElement("button"); b.setAttribute("aria-label", "Go to section " + (i + 1)); b.onclick = () => go(Math.max(0, topOf(p))); pager.appendChild(b); });
+  document.body.appendChild(pager);
+  let busy = false;
+  function go(y) { busy = true; scrollTo({top: Math.max(0, y), behavior: "smooth"}); setTimeout(() => busy = false, 850); }
+  const current = () => { let c = 0; pages.forEach((p, i) => { if (topOf(p) <= scrollY + 8) c = i; }); return c; };
+  function step(dir) {
+    if (busy) return;
+    const i = current(), p = pages[i], vh = innerHeight, y = scrollY;
+    if (dir > 0) {
+      const bottom = i === pages.length - 1 ? document.documentElement.scrollHeight : bottomOf(p);
+      if (bottom > y + vh * 1.3) go(Math.min(y + vh * .85, bottom - vh));          // tall section: keep reading it
+      else if (pages[i + 1]) go(topOf(pages[i + 1]));                               // next page
+      else go(document.documentElement.scrollHeight);                               // footer
+    } else {
+      if (y > topOf(p) + vh * .3) go(Math.max(topOf(p), y - vh * .85));                    // back up inside this page
+      else if (pages[i - 1]) { const q = pages[i - 1]; go(Math.max(topOf(q), bottomOf(q) - vh)); } // previous page
+    }
+  }
+  const skip = t => t.closest && t.closest("input,select,textarea,.calc,.form");
+  addEventListener("wheel", e => { if (e.ctrlKey || skip(e.target) || Math.abs(e.deltaY) < 4) return; e.preventDefault(); step(Math.sign(e.deltaY)); }, {passive: false});
+  addEventListener("keydown", e => {
+    if (skip(e.target)) return;
+    if (["ArrowDown", "PageDown", " "].includes(e.key)) { e.preventDefault(); step(1); }
+    if (["ArrowUp", "PageUp"].includes(e.key)) { e.preventDefault(); step(-1); }
+  });
+  let ty = null;
+  addEventListener("touchstart", e => { ty = skip(e.target) ? null : e.touches[0].clientY; }, {passive: true});
+  addEventListener("touchmove", e => { if (ty !== null) e.preventDefault(); }, {passive: false});
+  addEventListener("touchend", e => { if (ty === null) return; const d = ty - e.changedTouches[0].clientY; ty = null; if (Math.abs(d) > 40) step(Math.sign(d)); });
+  const mark = () => { const c = current(); [...pager.children].forEach((b, i) => b.classList.toggle("on", i === c)); };
+  addEventListener("scroll", mark, {passive: true}); mark();
+})();
+
+/* ===== logo heartbeat: the ECG line sweeps like a live monitor when the card comes into view ===== */
+(() => {
+  document.querySelectorAll("canvas.ecg").forEach(cv => {
+  const T = "198,198;198,198;197,198;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;196,199;195,199;193,199;190,199;189,199;186,199;184,198;181,196;180,193;178,191;175,189;175,187;175,186;176,186;178,186;180,188;181,190;182,192;183,194;185,196;187,198;189,199;192,199;194,199;196,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,200;197,202;198,204;198,207;199,209;200,212;202,215;205,218;207,221;209,223;212,226;211,229;206,230;198,229;190,222;182,220;174,208;166,197;158,191;147,186;140,175;132,168;122,157;115,155;108,153;105,154;115,164;122,177;138,187;157,203;166,218;178,231;194,243;211,260;224,263;232,262;234,258;232,254;228,250;224,243;219,239;214,235;211,229;206,224;200,220;198,214;198,211;197,206;197,201;197,200;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;196,199;195,198;195,198;194,197;193,196;193,196;192,195;191,194;190,193;190,193;189,192;188,191;188,191;187,190;187,190;188,190;188,191;189,191;190,192;191,193;192,193;193,194;193,195;194,196;195,197;195,198;151,198;150,199;149,199;148,199;147,199;146,199;145,199;144,199;144,199;143,199;142,199;141,198;139,143;138,142;137,141;136,141;136,140;135,139;134,138;133,137;132,135;131,135;130,134;129,133;128,132;127,131;126,130;125,129;124,128;123,127;122,126;121,126;120,124;119,123;118,122;117,121;116,120;115,119;114,119;113,118;112,117;112,116;111,115;110,114;110,114;111,115;112,116;113,117;114,118;115,119;116,119;117,120;118,121;119,123;119,124;120,125;121,125;121,126;119,126;115,125;113,125;112,140;112,153;115,151;131,148;134,144;133,141;134,138;135,137;135,137;136,138;137,139;137,140;138,141;138,142;139,143;140,197;141,199;142,199;143,199;144,199;145,198;146,153;147,153;148,153;149,198;150,199;151,199;152,199;197,199;196,199;195,199;193,199;191,197;188,195;186,193;183,190;181,188;179,186;177,184;177,184;178,184;179,186;180,188;182,190;184,192;186,194;188,196;190,198;192,198;194,199;196,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,202;197,205;197,207;199,210;202,213;204,217;207,219;209,222;211,224;212,228;212,229;210,229;199,227;192,222;183,211;175,200;165,189;159,185;150,177;140,167;131,161;124,155;116,152;108,150;107,154;115,168;131,183;144,194;151,213;170,226;186,241;198,252;206,259;222,262;229,260;230,256;229,252;226,247;220,241;216,238;213,233;206,227;203,222;200,217;198,213;198,208;197,203;197,200;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;196,198;196,198;195,197;195,196;194,196;193,195;192,194;191,194;191,193;190,192;189,192;189,191;188,191;187,191;187,190;187,191;187,191;187,192;188,192;189,193;190,194;191,194;191,195;192,196;193,197;194,198;195,198;195,198;196,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;197,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199;198,199".split(";").map(v => v ? v.split(",").map(Number) : null);
+  const IW = 536, IH = 454, BASE = 198, BAND = [92, 270], GAP = 34, PASS = 1500, PASSES = 3;
+  const img = new Image(); img.src = "lase-logo.jpg";
+  const x = cv.getContext("2d");
+  let s = 1, ox = 0, oy = 0, raf = 0;
+  function size() {
+    const r = cv.getBoundingClientRect(), d = devicePixelRatio || 1;
+    cv.width = r.width * d; cv.height = r.height * d;
+    s = Math.max(cv.width / IW, cv.height / IH); ox = (cv.width - IW * s) / 2; oy = (cv.height - IH * s) / 2;
+  }
+  const yAt = i => { const c = T[i]; if (!c) return BASE; return Math.abs(c[0] - BASE) > Math.abs(c[1] - BASE) ? c[0] : c[1]; };
+  function frame(t0) {
+    return now => {
+      const t = now - t0, pass = Math.floor(t / PASS), head = Math.min(T.length, (t % PASS) / PASS * (T.length + GAP));
+      x.setTransform(s, 0, 0, s, ox, oy);
+      x.drawImage(img, 0, 0, IW, IH);
+      if (pass >= PASSES) { cancelAnimationFrame(raf); return; }
+      // erase: everything ahead of the head on the first pass, a moving gap after that (using the logo's own texture)
+      const from = Math.max(0, head), to = Math.min(IW, pass === 0 ? IW : head + GAP);
+      if (to > from) x.drawImage(plate, from, BAND[0], to - from, BAND[1] - BAND[0], from, BAND[0], to - from, BAND[1] - BAND[0]);
+      // fresh trace glows brighter behind the head
+      x.save(); x.lineCap = "round"; x.lineJoin = "round"; x.shadowColor = "#3fd0ff"; x.shadowBlur = 12;
+      for (let i = Math.max(1, Math.floor(head) - 90); i < Math.floor(head); i++) {
+        const c = T[i], p = T[i - 1]; if (!c || !p) continue;
+        x.strokeStyle = `rgba(150,235,255,${(1 - (head - i) / 90) * .9})`; x.lineWidth = 3.2;
+        x.beginPath(); x.moveTo(i - 1, (p[0] + p[1]) / 2); x.lineTo(i, c[0]); x.lineTo(i, c[1]); x.stroke();
+      }
+      // the monitor dot
+      if (head < T.length) {
+        const hx = head, hy = yAt(Math.min(T.length - 1, Math.floor(head)));
+        const r = x.createRadialGradient(hx, hy, 0, hx, hy, 16);
+        r.addColorStop(0, "rgba(255,255,255,1)"); r.addColorStop(.25, "rgba(120,225,255,.9)"); r.addColorStop(1, "rgba(31,184,255,0)");
+        x.fillStyle = r; x.beginPath(); x.arc(hx, hy, 16, 0, 7); x.fill();
+      }
+      x.restore();
+      raf = requestAnimationFrame(frame(t0));
+    };
+  }
+  function play() { cancelAnimationFrame(raf); size(); if (reduce) { frame(-1e9)(0); return; } raf = requestAnimationFrame(now => frame(now)(now)); }
+  const plate = document.createElement("canvas"); plate.width = IW; plate.height = IH;
+  img.onload = () => {
+    // clean background for the line band: per column, blend the logo's colours just above and below the line, plus grain
+    const pc = plate.getContext("2d", {willReadFrequently: true}); pc.drawImage(img, 0, 0);
+    let src; try { src = pc.getImageData(0, 0, IW, IH).data; } catch (e) { pc.fillStyle = "rgb(45,47,46)"; pc.fillRect(0, BAND[0], IW, BAND[1] - BAND[0]); src = null; }
+    const H = BAND[1] - BAND[0], out = pc.createImageData(IW, H);
+    if (src) {
+    const avg = (cx, cy) => { let r = 0, g = 0, b = 0, n = 0;
+      for (let dx = -3; dx <= 3; dx++) for (let dy = -2; dy <= 2; dy++) { const xx = Math.min(IW - 1, Math.max(0, cx + dx)), k = ((cy + dy) * IW + xx) * 4; r += src[k]; g += src[k + 1]; b += src[k + 2]; n++; }
+      return [r / n, g / n, b / n]; };
+    for (let cx = 0; cx < IW; cx++) {
+      const a0 = avg(cx, BAND[0] - 3), a1 = a0;   // below the band sits the glowing LASE text, so sample above only
+      for (let y = 0; y < H; y++) { const t = y / (H - 1), n = (Math.random() - .5) * 7, k = (y * IW + cx) * 4;
+        // feather the band edges back into the real image (but never let the cyan line show through)
+        const sk = ((y + BAND[0]) * IW + cx) * 4, cyan = src[sk + 2] - src[sk] > 60;
+        const w = cyan ? 0 : Math.max(0, Math.min(1, (y - (H - 30)) / 30, 1), Math.min(1, (8 - y) / 8));
+        for (let ch = 0; ch < 3; ch++) out.data[k + ch] = (a0[ch] + (a1[ch] - a0[ch]) * t + n) * (1 - w) + src[sk + ch] * w;
+        out.data[k + 3] = 255; }
+    }
+    pc.putImageData(out, 0, BAND[0]);
+    }
+    size(); x.setTransform(s, 0, 0, s, ox, oy); x.drawImage(img, 0, 0, IW, IH);
+    new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) play(); }), {threshold: .5}).observe(cv);
+  };
+  addEventListener("resize", () => { size(); x.setTransform(s, 0, 0, s, ox, oy); if (img.complete) x.drawImage(img, 0, 0, IW, IH); });
+  });
+})();
+
+/* reveal + counters + timeline */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  e.target.classList.add("in"); io.unobserve(e.target);
+  e.target.querySelectorAll("[data-count]").forEach(count);
+}), {threshold: .15});
+document.querySelectorAll(".reveal,#timeline").forEach(el => io.observe(el));
+function count(el) {
+  const end = +el.dataset.count, pre = el.dataset.prefix || "", suf = el.dataset.suffix || "", d = 1800, s = performance.now();
+  (function f(n) { const p = Math.min(1, (n - s) / d), v = Math.round(end * (1 - Math.pow(1 - p, 4)));
+    el.textContent = pre + v.toLocaleString("en") + suf; if (p < 1) requestAnimationFrame(f); })(s);
+}
+
+/* card spotlight + tilt */
+document.querySelectorAll(".card").forEach(c => c.addEventListener("pointermove", e => {
+  const r = c.getBoundingClientRect(); c.style.setProperty("--mx", e.clientX - r.left + "px"); c.style.setProperty("--my", e.clientY - r.top + "px");
+}));
+const tilt = document.getElementById("tilt");
+tilt.addEventListener("pointermove", e => { const r = tilt.getBoundingClientRect(), px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
+  tilt.style.transform = `perspective(900px) rotateY(${px * 10}deg) rotateX(${-py * 10}deg)`; });
+tilt.addEventListener("pointerleave", () => tilt.style.transform = "");
+
+/* calculator */
+(() => {
+  const $ = id => document.getElementById(id), aed = n => "AED " + Math.round(n).toLocaleString("en");
+  const inputs = ["price", "rent", "app", "years"].map($);
+  function calc() {
+    inputs.forEach(i => i.style.setProperty("--p", ((i.value - i.min) / (i.max - i.min)) * 100 + "%"));
+    const P = +$("price").value, R = +$("rent").value, A = +$("app").value / 100, Y = +$("years").value;
+    $("vPrice").textContent = aed(P); $("vRent").textContent = aed(R); $("vApp").textContent = A * 100 + "%"; $("vYears").textContent = Y + (Y > 1 ? " years" : " year");
+    const exit = P * Math.pow(1 + A, Y), income = R * Y, total = exit - P + income;
+    $("rYield").textContent = (R / P * 100).toFixed(1) + "%"; $("rIncome").textContent = aed(income); $("rExit").textContent = aed(exit);
+    $("rTotal").textContent = aed(total) + " · " + (total / P * 100).toFixed(0) + "%";
+  }
+  inputs.forEach(i => i.addEventListener("input", calc)); calc();
+  $("calcCta").addEventListener("click", () => {
+    const m = document.querySelector("#lead [name=msg]");
+    m.value = `Investor calculator: price ${$("vPrice").textContent}, rent ${$("vRent").textContent}/yr, ${$("vYears").textContent} hold.`;
+    const r = document.querySelector('#lead [value="Off-plan investment"]'); if (r && !document.querySelector("#lead [name=goal]:checked")) r.checked = true;
+  });
+})();
+
+/* multi-step lead form */
+(() => {
+  const f = document.getElementById("lead"), steps = [...f.querySelectorAll(".fstep")];
+  const back = document.getElementById("back"), next = document.getElementById("next"), err = document.getElementById("err"), bar = document.getElementById("bar");
+  let cur = 1;
+  function show(n) {
+    steps.forEach(s => s.classList.toggle("active", +s.dataset.step === n));
+    cur = n; bar.style.width = Math.min(100, n * 25) + "%"; err.textContent = "";
+    back.style.visibility = n > 1 && n < 5 ? "visible" : "hidden";
+    next.textContent = n === 4 ? "Send Request ✦" : "Continue →";
+    document.getElementById("fnav").style.display = n === 5 ? "none" : "flex";
+  }
+  function valid(n) {
+    f.querySelectorAll(".field.err").forEach(x => x.classList.remove("err"));
+    if (n === 1 && !f.querySelector("[name=goal]:checked")) return "Pick one option to continue.";
+    if (n === 3) {
+      const bad = [];
+      const chk = (name, ok) => { if (!ok) { bad.push(name); f.querySelector(`[name=${name}]`).closest(".field").classList.add("err"); } };
+      const v = k => f[k].value.trim();
+      chk("name", v("name").length > 1);
+      chk("email", /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v("email")));
+      chk("phone", v("phone").replace(/\D/g, "").length >= 8);
+      chk("city", v("city").length > 1);
+      if (bad.length) return "Please check the highlighted fields.";
+    }
+    return "";
+  }
+  f.querySelectorAll("[name=goal]").forEach(r => r.addEventListener("change", () => setTimeout(() => show(2), 250)));
+  back.onclick = () => show(cur - 1);
+  next.onclick = () => {
+    const e = valid(cur); if (e) { err.textContent = e; return; }
+    if (cur < 4) return show(cur + 1);
+    const d = Object.fromEntries(new FormData(f));
+    const text = `Hi LASE Properties, I found you through your website.\n\n• Interested in: ${d.goal}\n• Property type: ${d.type}\n• Budget: AED ${d.budget}\n• Timeline: ${d.timeline}\n\nName: ${d.name}\nEmail: ${d.email}\nWhatsApp: ${d.phone}\nLocation: ${d.city}` + (d.msg ? `\n\nNotes: ${d.msg}` : "");
+    const copy = () => navigator.clipboard && navigator.clipboard.writeText(text).catch(() => {});
+    const link = document.getElementById("sendLink"), msg = document.getElementById("doneMsg");
+    if (WA) { link.href = `https://wa.me/${WA}?text=${encodeURIComponent(text)}`; link.textContent = "Send on WhatsApp"; msg.textContent = "WhatsApp should open with your details. If it didn't, use the button below."; }
+    else if (EMAIL) { link.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Website enquiry — " + d.goal)}&body=${encodeURIComponent(text)}`; link.textContent = "Send by Email"; msg.textContent = "Your email app should open with your details."; }
+    else { link.href = `https://ig.me/m/${IG}`; copy(); }
+    document.getElementById("copyBtn").onclick = e => { copy(); e.target.textContent = "Copied ✓"; };
+    show(5); window.open(link.href, "_blank", "noopener");
+  };
+  f.addEventListener("keydown", e => { if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") { e.preventDefault(); next.click(); } });
+  show(1);
+})();
+</script>
+</body>
+</html>
