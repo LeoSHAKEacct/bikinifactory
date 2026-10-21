@@ -232,7 +232,6 @@ body.intro #sky{opacity:.35}
 .brand-belt{display:grid;gap:14px;padding:26px 0;border-block:1px solid rgba(212,175,106,.3);background:linear-gradient(90deg,rgba(212,175,106,.05),rgba(31,184,255,.04),rgba(212,175,106,.05));overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .brand-track{display:flex;gap:18px;width:max-content;animation:belt 55s linear infinite}
 .brand-track.rev{animation-direction:reverse;animation-duration:65s}
-.brand-belt:hover .brand-track{animation-play-state:paused}
 @keyframes belt{to{transform:translateX(-50%)}}
 .brand{display:grid;place-items:center;min-width:220px;height:92px;padding:0 26px;border-radius:16px;border:1px solid var(--line);background:rgba(10,14,23,.7);text-align:center;transition:.3s}
 .brand:hover{border-color:rgba(212,175,106,.6);box-shadow:0 0 30px -12px rgba(212,175,106,.7)}
@@ -456,52 +455,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
   </div>
 </div>
 
-<section id="about">
-  <div class="wrap about">
-    <div class="portrait reveal" id="tilt">
-      <div class="photo logo-photo" style="background-image:url(lase-logo.jpg)"></div>
-      <canvas class="ecg" aria-hidden="true"></canvas>
-      <div class="photo-glow"></div><div class="photo-lines"></div>
-      <div class="scan"></div>
-      <div class="corner c1"></div><div class="corner c2"></div>
-      <div class="tag"><span><b>LASE Properties LLC</b><br><small style="color:var(--muted)">Real Estate · Dubai</small></span><span class="gold" style="font:600 13px 'Space Grotesk'">VERIFIED ✦</span></div>
-    </div>
-    <div class="reveal">
-      <span class="eyebrow">About LASE</span>
-      <blockquote>“An <span class="gold">unstoppable team</span> with a strategy of success.”</blockquote>
-      <p>For more than a decade, LASE Properties has set the standard for design-forward, carefully planned communities in Dubai: residential towers, mixed-use complexes and master-planned neighbourhoods.</p>
-      <p>Comfort and culture come first. We look past materials to the shared spaces that bring people together, and we keep growing with Dubai as its skyline reaches new heights.</p>
-      <div class="acro">
-        <div><b>L</b><span>Luck</span></div><div><b>A</b><span>Ability</span></div><div><b>S</b><span>Success</span></div><div><b>E</b><span>Energy</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="leadership" class="bg-alt">
-  <div class="wrap ceo">
-    <div class="reveal">
-      <span class="eyebrow">Leadership</span>
-      <h2 class="ceo-name">Azeem Akhtar</h2>
-      <p class="ceo-role"><span class="gilt-text">Chief Executive Officer</span> · LASE Properties</p>
-      <p>Azeem Akhtar is the visionary leader behind LASE Properties. With an unwavering commitment to excellence, he steers the company towards innovation and growth in Dubai's competitive real estate market.</p>
-      <p>His strategic foresight and deep understanding of market dynamics set new benchmarks for the industry, and his passion for delivering real value to every client is the driving force behind LASE's rise.</p>
-      <p>Most recently, Azeem assisted the joint-venture deal behind <b>Empire Lake View</b> by Empire Developments.</p>
-      <div class="ctas" style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
-        <a href="https://wa.me/971555902523" target="_blank" rel="noopener" class="btn btn-gilt">Talk to Azeem →</a>
-        <a href="https://www.instagram.com/azeemakhtardxb/" target="_blank" rel="noopener" class="btn btn-ghost">@azeemakhtardxb</a>
-      </div>
-    </div>
-    <div class="ceo-card reveal">
-      <div class="ph" style="background-image:url(ceo-azeem-akhtar.jpg)"></div>
-      <div class="corner c1"></div><div class="corner c2"></div>
-      <div class="tag"><span><b>Azeem Akhtar</b><br><small>CEO · LASE Properties</small></span><span class="gilt-text" style="font:600 13px 'Space Grotesk'">DUBAI ✦</span></div>
-    </div>
-  </div>
-</section>
-
-<div class="marquee"><div class="track" id="mq"></div></div>
-
 <section id="dubai">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -517,6 +470,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
     </div>
   </div>
 </section>
+
+<div class="marquee"><div class="track" id="mq"></div></div>
 
 <section id="properties" class="bg-alt">
   <div class="wrap">
@@ -642,6 +597,28 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
   </div>
 </section>
 
+<section id="leadership" class="bg-alt">
+  <div class="wrap ceo">
+    <div class="reveal">
+      <span class="eyebrow">Leadership</span>
+      <h2 class="ceo-name">Azeem Akhtar</h2>
+      <p class="ceo-role"><span class="gilt-text">Chief Executive Officer</span> · LASE Properties</p>
+      <p>Azeem Akhtar is the visionary leader behind LASE Properties. With an unwavering commitment to excellence, he steers the company towards innovation and growth in Dubai's competitive real estate market.</p>
+      <p>His strategic foresight and deep understanding of market dynamics set new benchmarks for the industry, and his passion for delivering real value to every client is the driving force behind LASE's rise.</p>
+      <p>Most recently, Azeem assisted the joint-venture deal behind <b>Empire Lake View</b> by Empire Developments.</p>
+      <div class="ctas" style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
+        <a href="https://wa.me/971555902523" target="_blank" rel="noopener" class="btn btn-gilt">Talk to Azeem →</a>
+        <a href="https://www.instagram.com/azeemakhtardxb/" target="_blank" rel="noopener" class="btn btn-ghost">@azeemakhtardxb</a>
+      </div>
+    </div>
+    <div class="ceo-card reveal">
+      <div class="ph" style="background-image:url(ceo-azeem-akhtar.jpg)"></div>
+      <div class="corner c1"></div><div class="corner c2"></div>
+      <div class="tag"><span><b>Azeem Akhtar</b><br><small>CEO · LASE Properties</small></span><span class="gilt-text" style="font:600 13px 'Space Grotesk'">DUBAI ✦</span></div>
+    </div>
+  </div>
+</section>
+
 <section id="services">
   <div class="wrap">
     <div class="svc-top">
@@ -702,6 +679,28 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
       <div class="step"><div class="node">03</div><h4>Access</h4><p>Viewings, site visits and early access to new launches.</p></div>
       <div class="step"><div class="node">04</div><h4>Close</h4><p>Negotiation, paperwork and DLD transfer handled for you.</p></div>
       <div class="step"><div class="node">05</div><h4>After-Sales</h4><p>Handover, leasing and resale support for the long run.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about">
+    <div class="portrait reveal" id="tilt">
+      <div class="photo logo-photo" style="background-image:url(lase-logo.jpg)"></div>
+      <canvas class="ecg" aria-hidden="true"></canvas>
+      <div class="photo-glow"></div><div class="photo-lines"></div>
+      <div class="scan"></div>
+      <div class="corner c1"></div><div class="corner c2"></div>
+      <div class="tag"><span><b>LASE Properties LLC</b><br><small style="color:var(--muted)">Real Estate · Dubai</small></span><span class="gold" style="font:600 13px 'Space Grotesk'">VERIFIED ✦</span></div>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">About LASE</span>
+      <blockquote>“An <span class="gold">unstoppable team</span> with a strategy of success.”</blockquote>
+      <p>For more than a decade, LASE Properties has set the standard for design-forward, carefully planned communities in Dubai: residential towers, mixed-use complexes and master-planned neighbourhoods.</p>
+      <p>Comfort and culture come first. We look past materials to the shared spaces that bring people together, and we keep growing with Dubai as its skyline reaches new heights.</p>
+      <div class="acro">
+        <div><b>L</b><span>Luck</span></div><div><b>A</b><span>Ability</span></div><div><b>S</b><span>Success</span></div><div><b>E</b><span>Energy</span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -1013,7 +1012,7 @@ const PROJECTS = [
   if (reduce) return;
   const stats = document.querySelector(".stats");
   const pages = [...document.querySelectorAll("header.hero, section")];
-  const topOf = el => (el.id === "about" ? stats : el).getBoundingClientRect().top + scrollY - (el.id === "about" ? 30 : 0);
+  const topOf = el => (el === pages[1] ? stats : el).getBoundingClientRect().top + scrollY - (el === pages[1] ? 30 : 0);   // the section after the hero starts at the stats bar
   const bottomOf = el => el.getBoundingClientRect().bottom + scrollY;
   const pager = document.createElement("div"); pager.className = "pager"; pager.setAttribute("role", "navigation"); pager.setAttribute("aria-label", "Sections");
   pages.forEach((p, i) => { const b = document.createElement("button"); b.setAttribute("aria-label", "Go to section " + (i + 1)); b.onclick = () => go(Math.max(0, topOf(p))); pager.appendChild(b); });
