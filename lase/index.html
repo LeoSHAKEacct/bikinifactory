@@ -284,6 +284,10 @@ body.nophoto #sky,body.nophoto .grid-floor{opacity:0!important}
 body.nophoto .hero-bg{background:radial-gradient(ellipse at 60% 40%,#0d2236,#05070c 70%)}
 /* native snap: each screen lands on a section; tall sections scroll freely inside */
 body.intro{overflow:hidden}
+/* stop at every section: native snap, handled by the browser (fast, trackpad-safe) */
+html{scroll-snap-type:y mandatory}
+header.hero,section{scroll-snap-align:start;scroll-snap-stop:always}
+footer{scroll-snap-align:end}
 /* gallery */
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:260px;gap:16px}
 .tile{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#0d1220}
@@ -1062,21 +1066,7 @@ const PROJECTS = [
   addEventListener("scroll", mark, {passive: true}); mark();
   if (reduce) { B.classList.remove("intro"); return; }
 
-  // gentle settle: when scrolling stops near the start of a section, glide it neatly into place
-  let endT, touching = false, settling = false;
-  addEventListener("touchstart", () => touching = true, {passive: true});
-  addEventListener("touchend", () => { touching = false; queue(); }, {passive: true});
-  function queue() { clearTimeout(endT); endT = setTimeout(settle, 160); }
-  let lastY = scrollY, dir = 0;
-  function settle() {
-    if (touching || settling || B.classList.contains("intro") || !dir) return;
-    // only ever continue in the direction you were scrolling (never pull you back): if a section edge is just ahead, glide to it
-    let target = null;
-    pages.forEach(p => { const d = p.getBoundingClientRect().top; if (dir > 0 ? d > 2 : d < -2) { if (target === null || Math.abs(d) < Math.abs(target)) target = d; } });
-    if (target !== null && Math.abs(target) < innerHeight * .35) { settling = true; scrollBy({top: target, behavior: "smooth"}); setTimeout(() => settling = false, 600); }
-  }
-  addEventListener("scroll", () => { const y = scrollY; if (y !== lastY) dir = Math.sign(y - lastY); lastY = y; if (!settling) queue(); }, {passive: true});
-  addEventListener("wheel", () => { settling = false; }, {passive: true});
+  // stopping on each section is done by the browser itself: CSS scroll-snap (html{scroll-snap-type:y mandatory})
 
   // title reveal: at the very top, the first scroll down shows the titles, scrolling up hides them again.
   // Only these two moves are taken over; all other scrolling is the browser's own (fast, trackpad-friendly).
