@@ -18,7 +18,7 @@
   --radius:18px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:auto}
 body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 h1,h2,h3,.display{font-family:"Space Grotesk",sans-serif;letter-spacing:-.02em;line-height:1.05}
 a{color:inherit;text-decoration:none}
@@ -258,8 +258,8 @@ body.intro #sky{opacity:.35}
 .hero h1{font-size:clamp(42px,7.4vw,100px)!important;margin:0 0 16px!important}
 section{min-height:100vh;display:flex;flex-direction:column;justify-content:center}
 section>.wrap{width:100%}
-html{scrollbar-width:none}
-html::-webkit-scrollbar,body::-webkit-scrollbar{display:none}
+html,body{scrollbar-width:none;-ms-overflow-style:none}
+html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{width:0!important;height:0!important;display:none}
 @media(max-width:600px){
   .hero{padding:84px 0 24px}
   .hero h1{font-size:44px!important;margin-bottom:12px!important}
@@ -282,6 +282,8 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{display:none}
 /* never show the drawn skyline on its own: it stays hidden until the first real photo is on screen */
 body.nophoto #sky,body.nophoto .grid-floor{opacity:0!important}
 body.nophoto .hero-bg{background:radial-gradient(ellipse at 60% 40%,#0d2236,#05070c 70%)}
+/* native snap: each screen lands on a section; tall sections scroll freely inside */
+body.intro{overflow:hidden}
 /* gallery */
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:260px;gap:16px}
 .tile{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#0d1220}
@@ -1049,72 +1051,61 @@ const PROJECTS = [
   });
 })();
 
-/* ===== page-by-page scrolling: one scroll / swipe / key = next or previous section ===== */
+/* ===== sections: native browser scrolling with snap-to-section (CSS), plus the title reveal on the first screen ===== */
 (() => {
-  if (reduce) return;
-  const stats = document.querySelector(".stats");
   const pages = [...document.querySelectorAll("header.hero, section")];
-  const topOf = el => el.getBoundingClientRect().top + scrollY;
-  const bottomOf = el => el.getBoundingClientRect().bottom + scrollY;
-  const pager = document.createElement("div"); pager.className = "pager"; pager.setAttribute("role", "navigation"); pager.setAttribute("aria-label", "Sections");
-  pages.forEach((p, i) => { const b = document.createElement("button"); b.setAttribute("aria-label", "Go to section " + (i + 1)); b.onclick = () => go(Math.max(0, topOf(p))); pager.appendChild(b); });
-  document.body.appendChild(pager);
-  let busy = false;
-  function go(y) {   // quick custom glide (~0.45s) instead of the browser's slower smooth scroll
-    busy = true; y = Math.max(0, Math.min(y, document.documentElement.scrollHeight - innerHeight));
-    const y0 = scrollY, d = y - y0, t0 = performance.now(), T = 450;
-    const f = now => { const p = Math.min(1, (now - t0) / T), e = 1 - Math.pow(1 - p, 3);
-      scrollTo({top: y0 + d * e, behavior: "instant"}); if (p < 1) requestAnimationFrame(f); else setTimeout(() => busy = false, 60); };
-    requestAnimationFrame(f);
-  }
-  const current = () => { let c = 0; pages.forEach((p, i) => { if (topOf(p) <= scrollY + 8) c = i; }); return c; };
   const B = document.body;
-  function intro(on) { B.classList.toggle("intro", on); busy = true; setTimeout(() => busy = false, 600); if (!on) setTimeout(() => document.querySelectorAll(".stats [data-count]").forEach(count), 450); }
-  if (scrollY > 10 || location.hash) B.classList.remove("intro");
-  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener("click", () => B.classList.remove("intro")));
-  function step(dir) {
-    if (busy) return;
-    if (scrollY < 10 && dir > 0 && B.classList.contains("intro")) return intro(false);   // first scroll: bring in the titles
-    if (scrollY < 10 && dir < 0 && !B.classList.contains("intro")) return intro(true);   // scroll up on the title page: step back to photos only
-    const i = current(), p = pages[i], vh = innerHeight, y = scrollY;
-    if (dir > 0) {
-      const bottom = i === pages.length - 1 ? document.documentElement.scrollHeight : bottomOf(p);
-      if (bottom > y + vh * 1.3) go(Math.min(y + vh * .85, bottom - vh));          // tall section: keep reading it
-      else if (pages[i + 1]) go(topOf(pages[i + 1]));                               // next page
-      else go(document.documentElement.scrollHeight);                               // footer
-    } else {
-      if (y > topOf(p) + vh * .3) go(Math.max(topOf(p), y - vh * .85));                    // back up inside this page
-      else if (pages[i - 1]) { const q = pages[i - 1]; go(Math.max(topOf(q), bottomOf(q) - vh)); } // previous page
-    }
+  const pager = document.createElement("div"); pager.className = "pager"; pager.setAttribute("role", "navigation"); pager.setAttribute("aria-label", "Sections");
+  pages.forEach((p, i) => { const b = document.createElement("button"); b.setAttribute("aria-label", "Go to section " + (i + 1)); b.onclick = () => { B.classList.remove("intro"); p.scrollIntoView({behavior: "smooth"}); }; pager.appendChild(b); });
+  document.body.appendChild(pager);
+  const mark = () => { let c = 0; pages.forEach((p, i) => { if (p.getBoundingClientRect().top <= innerHeight * .4) c = i; }); [...pager.children].forEach((b, i) => b.classList.toggle("on", i === c)); };
+  addEventListener("scroll", mark, {passive: true}); mark();
+  if (reduce) { B.classList.remove("intro"); return; }
+
+  // gentle settle: when scrolling stops near the start of a section, glide it neatly into place
+  let endT, touching = false, settling = false;
+  addEventListener("touchstart", () => touching = true, {passive: true});
+  addEventListener("touchend", () => { touching = false; queue(); }, {passive: true});
+  function queue() { clearTimeout(endT); endT = setTimeout(settle, 160); }
+  let lastY = scrollY, dir = 0;
+  function settle() {
+    if (touching || settling || B.classList.contains("intro") || !dir) return;
+    // only ever continue in the direction you were scrolling (never pull you back): if a section edge is just ahead, glide to it
+    let target = null;
+    pages.forEach(p => { const d = p.getBoundingClientRect().top; if (dir > 0 ? d > 2 : d < -2) { if (target === null || Math.abs(d) < Math.abs(target)) target = d; } });
+    if (target !== null && Math.abs(target) < innerHeight * .35) { settling = true; scrollBy({top: target, behavior: "smooth"}); setTimeout(() => settling = false, 600); }
   }
+  addEventListener("scroll", () => { const y = scrollY; if (y !== lastY) dir = Math.sign(y - lastY); lastY = y; if (!settling) queue(); }, {passive: true});
+  addEventListener("wheel", () => { settling = false; }, {passive: true});
+
+  // title reveal: at the very top, the first scroll down shows the titles, scrolling up hides them again.
+  // Only these two moves are taken over; all other scrolling is the browser's own (fast, trackpad-friendly).
+  let lock = 0;
+  const atTop = () => scrollY < 5;
+  function intro(on) { B.classList.toggle("intro", on); lock = performance.now() + 650; if (!on) setTimeout(() => document.querySelectorAll(".stats [data-count]").forEach(count), 450); }
+  if (scrollY > 10 || location.hash) B.classList.remove("intro");
+  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener("click", e => { const t = a.getAttribute("href").length > 1 && document.querySelector(a.getAttribute("href")); B.classList.remove("intro"); if (t) { e.preventDefault(); t.scrollIntoView({behavior: "smooth"}); } }));
   const skip = t => t.closest && t.closest("input,select,textarea,.calc,.form");
-  // one swipe = one step: a swipe is a burst of wheel events with gaps under 260ms (trackpad momentum included);
-  // add up its movement and step once it passes a small threshold, then ignore the rest of the burst
-  let lastWheel = 0, armed = true, acc = 0;
   addEventListener("wheel", e => {
     if (e.ctrlKey || skip(e.target)) return;
-    e.preventDefault();
-    const now = performance.now();
-    if (now - lastWheel > 260) { armed = true; acc = 0; }
-    lastWheel = now;
-    if (!armed) return;
-    acc += e.deltaY;
-    if (Math.abs(acc) < 12) return;
-    if (busy) return;           // still moving: keep this swipe armed, it fires as soon as the move ends
-    armed = false;
-    step(Math.sign(acc));
+    const intr = B.classList.contains("intro");
+    if (intr || performance.now() < lock) { e.preventDefault(); if (intr && e.deltaY > 2 && performance.now() >= lock) intro(false); return; }
+    if (atTop() && e.deltaY < -2) { e.preventDefault(); intro(true); }
   }, {passive: false});
   addEventListener("keydown", e => {
     if (skip(e.target)) return;
-    if (["ArrowDown", "PageDown", " "].includes(e.key)) { e.preventDefault(); step(1); }
-    if (["ArrowUp", "PageUp"].includes(e.key)) { e.preventDefault(); step(-1); }
+    const down = ["ArrowDown", "PageDown", " "].includes(e.key), up = ["ArrowUp", "PageUp"].includes(e.key);
+    if (B.classList.contains("intro") && down) { e.preventDefault(); intro(false); }
+    else if (atTop() && up && !B.classList.contains("intro")) { e.preventDefault(); intro(true); }
   });
   let ty = null;
   addEventListener("touchstart", e => { ty = skip(e.target) ? null : e.touches[0].clientY; }, {passive: true});
-  addEventListener("touchmove", e => { if (ty !== null) e.preventDefault(); }, {passive: false});
-  addEventListener("touchend", e => { if (ty === null) return; const d = ty - e.changedTouches[0].clientY; ty = null; if (Math.abs(d) > 40) step(Math.sign(d)); });
-  const mark = () => { const c = current(); [...pager.children].forEach((b, i) => b.classList.toggle("on", i === c)); };
-  addEventListener("scroll", mark, {passive: true}); mark();
+  addEventListener("touchmove", e => { if (ty !== null && (B.classList.contains("intro") || performance.now() < lock)) e.preventDefault(); }, {passive: false});
+  addEventListener("touchend", e => {
+    if (ty === null) return; const d = ty - e.changedTouches[0].clientY; ty = null;
+    if (B.classList.contains("intro") && d > 30) intro(false);
+    else if (atTop() && d < -40 && !B.classList.contains("intro")) intro(true);
+  });
 })();
 
 /* ===== logo heartbeat: the ECG line sweeps like a live monitor when the card comes into view ===== */
