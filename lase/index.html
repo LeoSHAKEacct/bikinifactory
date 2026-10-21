@@ -213,6 +213,18 @@ body.intro #sky{opacity:.35}
 @media(max-width:900px){.plot-card{justify-self:start}}
 .tile .lbl p{font-size:13px;color:#c9d0dc;margin-top:4px;max-width:420px}
 .tile .lbl small{color:var(--gilt)}
+.pcard.feature{grid-column:1/-1;display:grid;grid-template-columns:minmax(220px,340px) 1fr;align-items:stretch;border-color:rgba(212,175,106,.45);background:linear-gradient(120deg,rgba(212,175,106,.08),rgba(10,14,23,.6) 45%)}
+.pcard.feature .fimg{position:relative;overflow:hidden;max-height:560px;background:#0a1020}
+.pcard.feature .fimg img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.pcard.feature .body{padding:40px;display:flex;flex-direction:column;justify-content:center}
+.pcard.feature h3{font-size:clamp(32px,4vw,52px);margin:8px 0 4px}
+.pcard.feature .ftag{font:500 18px "Space Grotesk";color:var(--text);letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+.pcard.feature p{font-size:15px;max-width:620px}
+.fbadge{align-self:flex-start;margin-bottom:14px;padding:7px 14px;border-radius:999px;border:1px solid rgba(212,175,106,.6);color:#f3dca4;font:600 11px "Space Grotesk";letter-spacing:.18em;text-transform:uppercase;background:rgba(212,175,106,.08)}
+.fline{font:600 14px "Space Grotesk";letter-spacing:.14em;text-transform:uppercase;color:var(--gilt)!important;margin-bottom:22px}
+.fline span{color:#c9d0dc}
+.pcard.feature .btn{width:auto;align-self:flex-start;padding:14px 26px}
+@media(max-width:800px){.pcard.feature{grid-template-columns:1fr}.pcard.feature .fimg{max-height:420px}.pcard.feature .body{padding:24px}}
 /* gallery */
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:260px;gap:16px}
 .tile{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#0d1220}
@@ -454,6 +466,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
       <p class="ceo-role"><span class="gilt-text">Chief Executive Officer</span> · LASE Properties</p>
       <p>Azeem Akhtar is the visionary leader behind LASE Properties. With an unwavering commitment to excellence, he steers the company towards innovation and growth in Dubai's competitive real estate market.</p>
       <p>His strategic foresight and deep understanding of market dynamics set new benchmarks for the industry, and his passion for delivering real value to every client is the driving force behind LASE's rise.</p>
+      <p>Most recently, Azeem assisted the joint-venture deal behind <b>Empire Lake View</b> by Empire Developments.</p>
       <div class="ctas" style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
         <a href="https://wa.me/971555902523" target="_blank" rel="noopener" class="btn btn-gilt">Talk to Azeem →</a>
         <a href="https://www.instagram.com/azeemakhtardxb/" target="_blank" rel="noopener" class="btn btn-ghost">@azeemakhtardxb</a>
@@ -524,9 +537,22 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
     <div class="sec-head reveal">
       <span class="eyebrow">Track Record</span>
       <h2>Launches we've <span class="gilt-text">brought to market.</span></h2>
-      <p>A few of the projects LASE has represented, from Dubai off-plan launches to GCC development opportunities.</p>
+      <p>Joint ventures, Dubai off-plan launches and GCC development opportunities LASE has brought to market.</p>
     </div>
     <div class="past">
+      <article class="pcard feature reveal">
+        <div class="fimg"><img src="past/empire-lake-view.jpg" alt="Empire Lake View tower by Empire Developments" loading="lazy"></div>
+        <div class="body">
+          <span class="fbadge">✦ Joint Venture · Latest launch</span>
+          <small>By Empire Developments</small>
+          <h3>Empire Lake View</h3>
+          <p class="ftag">A new standard of luxury living.</p>
+          <p>LASE's CEO, Azeem Akhtar, assisted the joint-venture deal behind this landmark lakeside tower by Empire Developments, a milestone in delivering exceptional value and world-class living.</p>
+          <div class="chips2"><span>Joint venture partnership</span><span>Premium development</span><span>Shared success</span></div>
+          <p class="fline">Empire Lake View <span>· Where vision meets value</span></p>
+          <a href="#contact" class="btn btn-gilt" data-goal="Channel partnership" data-msg="I'd like to discuss a joint venture / project like Empire Lake View.">Discuss a Joint Venture →</a>
+        </div>
+      </article>
       <article class="pcard reveal">
         <img src="past/samana-barari-views.jpg" alt="Samana Barari Views II by Samana Developers, Majan, Dubai" loading="lazy">
         <div class="body"><small>Majan · Dubai</small><h3>Samana Barari Views II</h3><p>By Samana Developers. Exceptional amenities and one of the longest payment plans in the market.</p>
