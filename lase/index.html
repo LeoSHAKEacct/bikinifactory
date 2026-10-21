@@ -1028,7 +1028,6 @@ const PROJECTS = [
   function step(dir) {
     if (busy) return;
     if (scrollY < 10 && dir > 0 && B.classList.contains("intro")) return intro(false);   // first scroll: bring in the titles
-    if (scrollY < 10 && dir < 0 && !B.classList.contains("intro")) return intro(true);   // back to the background-only view
     const i = current(), p = pages[i], vh = innerHeight, y = scrollY;
     if (dir > 0) {
       const bottom = i === pages.length - 1 ? document.documentElement.scrollHeight : bottomOf(p);
@@ -1041,7 +1040,14 @@ const PROJECTS = [
     }
   }
   const skip = t => t.closest && t.closest("input,select,textarea,.calc,.form");
-  addEventListener("wheel", e => { if (e.ctrlKey || skip(e.target) || Math.abs(e.deltaY) < 4) return; e.preventDefault(); step(Math.sign(e.deltaY)); }, {passive: false});
+  let lastWheel = 0;
+  addEventListener("wheel", e => {
+    if (e.ctrlKey || skip(e.target)) return;
+    e.preventDefault();
+    const now = performance.now(), gap = now - lastWheel; lastWheel = now;
+    if (gap < 260 || Math.abs(e.deltaY) < 4) return;   // same swipe still coming in (trackpad momentum): one swipe = one step
+    step(Math.sign(e.deltaY));
+  }, {passive: false});
   addEventListener("keydown", e => {
     if (skip(e.target)) return;
     if (["ArrowDown", "PageDown", " "].includes(e.key)) { e.preventDefault(); step(1); }
