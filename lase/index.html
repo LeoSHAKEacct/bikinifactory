@@ -913,14 +913,18 @@ function setBg(el, id, w) {
 document.querySelectorAll("[data-img]").forEach(el => setBg(el, el.dataset.img, el.classList.contains("bandimg") ? 1920 : 1200));
 (() => {
   const bg = document.getElementById("heroBg"), ids = ["j-nRfGUHswQ", "2fqptw4fKWI", "lRCWtOEPwiY"];   // Burj skyline always first, then coastline, then Downtown at night
-  const slides = ids.map((id, n) => { const s = document.createElement("div"); s.className = "slide"; bg.appendChild(s); setBg(s, id, n ? 1920 : 1400); return s; });   // first photo a bit lighter so it lands sooner
+  const slides = ids.map((id, n) => { const s = document.createElement("div"); s.className = "slide"; bg.appendChild(s);
+    const own = new Image();   // self-hosted copy loads reliably on phones; Unsplash is only the backup
+    own.onload = () => { s.style.backgroundImage = `url("${own.src}")`; s.classList.add("loaded"); };
+    own.onerror = () => setBg(s, id, n ? 1920 : 1400);
+    own.src = `hero/${n + 1}.jpg`;
+    return s; });   // first photo a bit lighter so it lands sooner
   let k = 0;
   const next = () => {
     for (let n = 0; n < slides.length; n++) { const s = slides[k++ % slides.length]; if (s.classList.contains("loaded")) { slides.forEach(x => x.classList.remove("on")); s.classList.add("on"); setTimeout(() => document.body.classList.remove("nophoto"), 900); return; } }
   };
   // start on the Burj photo; if it's slow (phones), don't wait more than 2.5s: show whichever photo is ready
   const t0 = performance.now();
-  setTimeout(() => document.body.classList.remove("nophoto"), 8000);
   const first = setInterval(() => {
     const ok = slides[0].classList.contains("loaded") || (performance.now() - t0 > 2500 && slides.some(x => x.classList.contains("loaded")));
     if (ok) { clearInterval(first); if (!slides[0].classList.contains("loaded")) k = slides.findIndex(x => x.classList.contains("loaded")); next(); if (!reduce) setInterval(next, 7000); }
