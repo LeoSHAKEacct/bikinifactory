@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="8" viewBox="0 0 22 8" style="overflow: visible;">
+<line class="bar bar-top" x1="0" y1="0.5" x2="22" y2="0.5"></line>
+<line class="bar bar-bottom" x1="0" y1="7.5" x2="22" y2="7.5"></line>
+</svg>
