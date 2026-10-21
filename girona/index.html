@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Girona Constructora</title>
+<meta name="description" content="Girona Constructora, Medellín: construcción, reformas y venta de proyectos. Girona Garden, apartamentos en Laureles.">
+<meta name="theme-color" content="#173f58">
+<link rel="icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+<style>
+/* Girona demo: the logo's roof drops onto the I, the logo opens into the Girona Garden tower, then a full-screen walk through the apartment. */
+:root {
+  --navy: #173f58;      /* logo blue */
+  --navy-2: #102f43;
+  --gold: #c6a37b;      /* the roof */
+  --green: #43572e;     /* Girona Garden */
+  --paper: #efeeea;
+  --ink: #1d2a33;
+  --ink-soft: #5e6a72;
+  --line: rgba(29,42,51,.14);
+  --font: "Poppins", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); font-weight: 300; font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+.w { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+@media (min-width: 820px) { .w { padding-left: max(48px, env(safe-area-inset-left, 0px)); padding-right: max(48px, env(safe-area-inset-right, 0px)); } }
+.kick { font-size: 12px; font-weight: 500; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); }
+.h2 { font-weight: 300; font-size: clamp(36px, 5.4vw, 76px); line-height: 1.02; letter-spacing: -.02em; margin: 14px 0 0; text-wrap: balance; }
+.h2 b { font-weight: 700; }
+.btn { display: inline-flex; align-items: center; gap: 10px; background: var(--gold); color: #fff; text-decoration: none; border-radius: 99px; padding: 12px 20px; font-size: 13px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; }
+.btn:hover { background: #b38d62; }
+.btn svg { width: 16px; height: 16px; }
+a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+/* header */
+.top { position: fixed; z-index: 30; top: 0; left: 0; right: 0; height: calc(72px + env(safe-area-inset-top, 0px)); padding-top: env(safe-area-inset-top, 0px); display: flex; align-items: center; justify-content: flex-end; gap: 22px; color: #fff; transition: background .4s, color .4s, box-shadow .4s; }
+.top.solid { background: rgba(239,238,234,.92); color: var(--ink); box-shadow: 0 1px 0 var(--line); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+.top nav { display: none; gap: 26px; font-size: 13px; letter-spacing: .08em; }
+.top nav a { text-decoration: none; opacity: .85; }
+@media (min-width: 900px) { .top nav { display: flex; } }
+@media (max-width: 520px) { .top .btn span { display: none; } .top .btn { padding: 10px 12px; } }
+
+/* the logo: big in the hero, small in the header */
+.brand { position: fixed; z-index: 31; left: 0; top: 0; width: 300px; color: #fff; pointer-events: none; transform-origin: 0 0; will-change: transform; }
+.brand .logo { width: 100%; height: auto; display: block; overflow: visible; }
+.brand .roof { transform-box: fill-box; transform-origin: 50% 100%; animation: roof 1.3s cubic-bezier(.3,1.4,.5,1) .5s both; }
+.brand .logo { animation: ltr 1.2s ease both; }
+.brand .roof { animation-delay: .7s; }
+@keyframes roof { from { transform: translateY(-260%) rotate(-25deg); opacity: 0; } 60% { opacity: 1; } to { transform: none; opacity: 1; } }
+@keyframes ltr { from { opacity: 0; } to { opacity: 1; } }
+.brand.dark { color: var(--navy); }
+
+/* hero */
+.hero { position: relative; height: 240vh; background: var(--navy); }
+.hero .stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.win { position: absolute; inset: 0; clip-path: inset(50% 50% 50% 50%); }
+.win img { width: 100%; height: 100%; object-fit: cover; transform: scale(var(--z, 1.25)); will-change: transform; }
+.win::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,30,44,.75), rgba(10,30,44,0) 55%); }
+.hero-a { position: absolute; left: 0; right: 0; bottom: calc(12vh + env(safe-area-inset-bottom, 0px)); text-align: center; color: rgba(255,255,255,.75); font-size: 13px; letter-spacing: .32em; text-transform: uppercase; }
+.hero-b { position: absolute; left: 0; right: 0; bottom: calc(10vh + env(safe-area-inset-bottom, 0px)); color: #fff; opacity: 0; }
+.hero-b h1 { margin: 12px 0 0; font-weight: 300; font-size: clamp(42px, 7vw, 108px); line-height: .98; letter-spacing: -.02em; }
+.hero-b h1 b { font-weight: 700; }
+.hero-b p { margin: 16px 0 0; max-width: 42ch; color: rgba(255,255,255,.85); font-size: 17px; }
+.garden { width: 190px; margin-bottom: 18px; filter: brightness(0) invert(1); opacity: .95; }
+
+/* intro */
+.intro { max-width: 1240px; margin: 0 auto; padding-block: 18vh 14vh; display: grid; gap: 48px; align-items: center; }
+@media (min-width: 900px) { .intro { grid-template-columns: 1fr 1.1fr; gap: 72px; } }
+.intro p { color: var(--ink-soft); max-width: 50ch; font-size: 17px; }
+.shot { position: relative; overflow: hidden; border-radius: 4px; aspect-ratio: 4 / 3; }
+.shot img { position: absolute; inset: -6% 0; width: 100%; height: 112%; object-fit: cover; will-change: transform; }
+.shot::before, .shot::after { content: ""; position: absolute; z-index: 1; width: 22%; aspect-ratio: 1; border: 1px solid rgba(255,255,255,.7); border-radius: 50%; }
+.shot::before { left: -11%; bottom: -11%; } .shot::after { right: -11%; top: -11%; }
+.stats { margin-top: 36px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; border-top: 1px solid var(--line); padding-top: 22px; }
+.stats b { display: block; font-weight: 600; font-size: clamp(30px, 3.4vw, 46px); line-height: 1; color: var(--navy); }
+.stats span { display: block; margin-top: 8px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+
+/* full-screen walk through Girona Garden */
+.walk { position: relative; background: var(--navy-2); }
+.walk .stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.sl { position: absolute; inset: 0; clip-path: inset(100% 0 0 0); }
+.sl:first-child { clip-path: none; }
+.sl img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(var(--z, 1)); will-change: transform; }
+.sl::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,24,34,.82), rgba(10,24,34,.2) 50%, rgba(10,24,34,0) 72%); }
+.st { position: absolute; z-index: 1; left: 0; right: 0; bottom: calc(11vh + env(safe-area-inset-bottom, 0px)); color: #fff; opacity: var(--t, 0); transform: translateY(calc((1 - var(--t, 0)) * 40px)); }
+.st h3 { margin: 12px 0 0; font-weight: 300; font-size: clamp(42px, 6.6vw, 104px); line-height: .98; letter-spacing: -.02em; max-width: 13ch; }
+.st h3 b { font-weight: 700; }
+.st p { margin: 16px 0 0; max-width: 44ch; font-size: 17px; color: rgba(255,255,255,.88); }
+.st .tag { display: inline-block; margin-top: 18px; border: 1px solid rgba(255,255,255,.5); border-radius: 99px; padding: 6px 14px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.bars { position: absolute; z-index: 2; left: max(16px, env(safe-area-inset-left, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(26px + env(safe-area-inset-bottom, 0px)); display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+@media (min-width: 820px) { .bars { left: max(48px, env(safe-area-inset-left, 0px)); right: max(48px, env(safe-area-inset-right, 0px)); } }
+.bars i { height: 2px; background: rgba(255,255,255,.25); overflow: hidden; }
+.bars i b { display: block; height: 100%; background: var(--gold); transform-origin: 0 50%; transform: scaleX(var(--k, 0)); }
+
+/* projects */
+.projects { max-width: 1240px; margin: 0 auto; padding-block: 16vh 12vh; }
+.phead { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; }
+.phead p { margin: 0; max-width: 40ch; color: var(--ink-soft); }
+.pgrid { margin-top: 48px; display: grid; gap: 32px 24px; grid-template-columns: 1fr; }
+@media (min-width: 700px) { .pgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .pgrid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.pi { overflow: hidden; border-radius: 4px; aspect-ratio: 4 / 5; }
+.pi img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(.2,.8,.2,1); }
+.pj:hover .pi img { transform: scale(1.06); }
+.pm { display: flex; justify-content: space-between; gap: 8px; margin-top: 14px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+.pj h3 { margin: 6px 0 0; font-weight: 600; font-size: 22px; letter-spacing: -.01em; color: var(--navy); }
+.pj p { margin: 6px 0 0; color: var(--ink-soft); font-size: 14px; }
+.pgrid .rv:nth-child(2) { transition-delay: .1s; } .pgrid .rv:nth-child(3) { transition-delay: .2s; } .pgrid .rv:nth-child(4) { transition-delay: .3s; }
+
+/* services */
+.svc { background: var(--navy); color: #fff; }
+.svc .in2 { max-width: 1240px; margin: 0 auto; padding-block: 14vh; }
+.svc .h2 { color: #fff; }
+.sgrid { margin-top: 48px; display: grid; gap: 1px; background: rgba(255,255,255,.14); grid-template-columns: 1fr; }
+@media (min-width: 900px) { .sgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.sgrid article { background: var(--navy); padding: 28px 26px 32px 0; }
+@media (min-width: 900px) { .sgrid article { padding: 28px 32px 34px; } .sgrid article:first-child { padding-left: 0; } }
+.sgrid i { font-style: normal; color: var(--gold); font-weight: 600; font-size: 14px; letter-spacing: .2em; }
+.sgrid h3 { margin: 18px 0 10px; font-weight: 600; font-size: 26px; }
+.sgrid p { margin: 0; color: rgba(255,255,255,.72); font-size: 15px; }
+
+/* invest */
+.invest { position: relative; min-height: 86vh; display: grid; align-items: end; color: #fff; overflow: hidden; }
+.invest img { position: absolute; inset: -8% 0; width: 100%; height: 116%; object-fit: cover; will-change: transform; }
+.invest::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to right, rgba(10,30,44,.85), rgba(10,30,44,.25) 70%); }
+.invest .in2 { position: relative; z-index: 1; max-width: 1240px; width: 100%; margin: 0 auto; padding-block: 14vh; }
+.invest p { max-width: 46ch; color: rgba(255,255,255,.86); font-size: 17px; }
+.invest ol { list-style: none; padding: 0; margin: 28px 0 32px; display: grid; gap: 10px; max-width: 560px; }
+.invest li { display: flex; gap: 14px; align-items: baseline; font-size: 15px; }
+.invest li b { color: var(--gold); font-weight: 600; }
+
+/* contact */
+.contact { max-width: 1240px; margin: 0 auto; padding-block: 16vh 8vh; display: grid; gap: 40px; }
+@media (min-width: 900px) { .contact { grid-template-columns: 1.1fr 1fr; align-items: end; } }
+.ways { display: grid; gap: 12px; }
+.way { display: flex; align-items: center; gap: 16px; text-decoration: none; padding: 18px 20px; border: 1px solid var(--line); border-radius: 6px; background: #f7f6f2; transition: border-color .3s; }
+.way:hover { border-color: var(--gold); }
+.way svg { width: 22px; height: 22px; flex: none; color: var(--gold); }
+.way small { display: block; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+.way b { font-weight: 500; font-size: 17px; color: var(--navy); }
+.foot { background: var(--navy-2); color: rgba(255,255,255,.7); font-size: 12px; }
+.foot .in2 { max-width: 1240px; margin: 0 auto; padding-block: 28px calc(28px + env(safe-area-inset-bottom, 0px)); display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: space-between; align-items: center; }
+.foot img { width: 120px; }
+
+.rv { opacity: 0; transform: translateY(26px); transition: opacity 1s, transform 1s cubic-bezier(.2,.8,.2,1); }
+.rv.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .brand .roof, .brand .logo { animation: none; } .rv { opacity: 1; transform: none; transition: none; } }
+</style>
+</head>
+<body>
+<div class="brand" id="brand"><svg class="logo" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Group_24" data-name="Group 24"  viewBox="0 0 278 88.364"><defs><clipPath id="clip-path"><rect id="Rectangle_31" data-name="Rectangle 31" width="278" height="88.363" fill="none"></rect></clipPath></defs><g class="roof"><path id="Path_26" data-name="Path 26" d="M36.54,0l-5.6,11.2h8.231l2.972-5.6,2.972,5.6h8.231L47.741,0Z" transform="translate(15.741)" fill="#c6a37b"></path></g><rect id="Rectangle_30" data-name="Rectangle 30" width="8.238" height="41.192" transform="translate(53.763 20.26)" fill="currentColor"></rect><g id="Group_23" data-name="Group 23" transform="translate(0 0.001)"><g id="Group_22" data-name="Group 22" clip-path="url(#clip-path)"><path id="Path_27" data-name="Path 27" d="M114.445,13.427H97.969c-7.42,0-12.327,4.905-12.327,12.327V42.23c0,7.422,4.907,12.39,12.327,12.39h16.476c7.422,0,12.39-4.968,12.39-12.39V25.754c0-7.422-4.968-12.327-12.39-12.327M118.6,43.111a3.912,3.912,0,0,1-4.151,4.087H97.969a3.861,3.861,0,0,1-4.087-4.087V24.936a3.862,3.862,0,0,1,4.087-4.089h16.476a3.912,3.912,0,0,1,4.151,4.089Z" transform="translate(43.575 6.831)" fill="currentColor"></path><path id="Path_28" data-name="Path 28" d="M154.229,41.853,128.7,13.427h-7.42V54.619h8.24V26.193l25.6,28.426h7.358V13.427h-8.24Z" transform="translate(61.705 6.831)" fill="currentColor"></path><path id="Path_29" data-name="Path 29" d="M185.775,13.427H165.147v7.42h20.628a3.93,3.93,0,0,1,4.087,4.214v5.22H165.147V20.847h-8.238V54.619h8.238V37.7h24.716V54.619h8.3v-28.8a12.388,12.388,0,0,0-12.389-12.389" transform="translate(79.836 6.831)" fill="currentColor"></path><path id="Path_30" data-name="Path 30" d="M91.5,25.754c0-7.42-4.968-12.327-12.389-12.327H57.665v7.422H79.111a3.91,3.91,0,0,1,4.149,4.087v1.258a3.91,3.91,0,0,1-4.149,4.087H57.665V20.849h-8.24V54.62h8.24V37.7H71.689l10.5,16.917H91.5L80.681,37.64C87.16,37.011,91.5,32.358,91.5,25.754" transform="translate(25.148 6.831)" fill="currentColor"></path><path id="Path_31" data-name="Path 31" d="M28.8,13.427H12.327A12.327,12.327,0,0,0,0,25.754V47.191H8.226v7.428H28.8A12.389,12.389,0,0,0,41.192,42.23V30.722H20.754v7.42h12.2v4.905A4.15,4.15,0,0,1,28.8,47.2H8.238V24.936a4.088,4.088,0,0,1,4.087-4.089H28.866a4.088,4.088,0,0,1,4.087,4.089V26.57h8.238v-.754A12.388,12.388,0,0,0,28.8,13.427" transform="translate(0 6.831)" fill="currentColor"></path><path id="Path_32" data-name="Path 32" d="M38.539,60.039h3.752a.89.89,0,0,0,.945-.931v-.386h1.877v.186a2.669,2.669,0,0,1-2.821,2.821H38.539a2.657,2.657,0,0,1-2.806-2.821V55.157a2.646,2.646,0,0,1,2.806-2.808h3.752a2.658,2.658,0,0,1,2.821,2.808v.186H43.236V54.97a.891.891,0,0,0-.945-.931H38.539a.88.88,0,0,0-.931.931v4.139a.879.879,0,0,0,.931.931" transform="translate(18.181 26.635)" fill="currentColor"></path><path id="Path_33" data-name="Path 33" d="M45.372,58.908V55.155a2.645,2.645,0,0,1,2.806-2.806h3.752a2.657,2.657,0,0,1,2.82,2.806v3.752a2.668,2.668,0,0,1-2.82,2.821H48.178a2.657,2.657,0,0,1-2.806-2.821m7.5.2V54.97a.89.89,0,0,0-.945-.931H48.178a.878.878,0,0,0-.931.931v4.139a.879.879,0,0,0,.931.931h3.752a.891.891,0,0,0,.945-.931" transform="translate(23.085 26.635)" fill="currentColor"></path><path id="Path_34" data-name="Path 34" d="M56.886,61.729H55.011v-9.38H56.7l5.815,6.473V52.349h1.875v9.38H62.715l-5.829-6.473Z" transform="translate(27.99 26.634)" fill="currentColor"></path><path id="Path_35" data-name="Path 35" d="M64.836,55.084a2.577,2.577,0,0,1,2.734-2.735h3.853a2.649,2.649,0,0,1,2.793,2.806H72.339v-.187a.882.882,0,0,0-.945-.929H67.642a.879.879,0,0,0-.931.929v.288a.89.89,0,0,0,.946.929h4.009a2.772,2.772,0,0,1,0,5.543h-4.21a2.658,2.658,0,0,1-2.808-2.821h1.877v.2a.879.879,0,0,0,.931.931H71.58a.884.884,0,0,0,.946-.931v-.287a.9.9,0,0,0-.946-.946H67.57a2.593,2.593,0,0,1-2.734-2.791" transform="translate(32.894 26.635)" fill="currentColor"></path><path id="Path_36" data-name="Path 36" d="M83.93,52.349v1.69H80.177v7.69H78.287v-7.69H74.535v-1.69Z" transform="translate(37.923 26.635)" fill="currentColor"></path><path id="Path_37" data-name="Path 37" d="M90.943,52.349a2.657,2.657,0,0,1,2.82,2.808A2.6,2.6,0,0,1,91.3,57.862l2.462,3.867H91.645l-2.391-3.852H86.059v3.852H84.184v-9.38Zm.945,2.907V54.97a.891.891,0,0,0-.945-.931H86.059v2.149h4.884a.891.891,0,0,0,.945-.931" transform="translate(42.833 26.635)" fill="currentColor"></path><path id="Path_38" data-name="Path 38" d="M101.458,59.08V52.349h1.875v6.559a2.657,2.657,0,0,1-2.806,2.821H96.775a2.668,2.668,0,0,1-2.82-2.821V52.349H95.83V59.08a.905.905,0,0,0,.945.96h3.752a.9.9,0,0,0,.931-.96" transform="translate(47.805 26.635)" fill="currentColor"></path><path id="Path_39" data-name="Path 39" d="M106.4,60.039h3.752a.89.89,0,0,0,.945-.931v-.386h1.875v.186a2.668,2.668,0,0,1-2.82,2.821H106.4a2.657,2.657,0,0,1-2.806-2.821V55.157a2.646,2.646,0,0,1,2.806-2.808h3.752a2.657,2.657,0,0,1,2.82,2.808v.186H111.1V54.97a.891.891,0,0,0-.945-.931H106.4a.88.88,0,0,0-.931.931v4.139a.879.879,0,0,0,.931.931" transform="translate(52.709 26.635)" fill="currentColor"></path><path id="Path_40" data-name="Path 40" d="M122.628,52.349v1.69h-3.752v7.69h-1.891v-7.69h-3.752v-1.69Z" transform="translate(57.613 26.635)" fill="currentColor"></path><path id="Path_41" data-name="Path 41" d="M122.882,58.908V55.155a2.644,2.644,0,0,1,2.806-2.806h3.752a2.657,2.657,0,0,1,2.82,2.806v3.752a2.668,2.668,0,0,1-2.82,2.821h-3.752a2.656,2.656,0,0,1-2.806-2.821m7.5.2V54.97a.889.889,0,0,0-.943-.931h-3.752a.879.879,0,0,0-.932.931v4.139a.88.88,0,0,0,.932.931h3.752a.889.889,0,0,0,.943-.931" transform="translate(62.523 26.635)" fill="currentColor"></path><path id="Path_42" data-name="Path 42" d="M139.279,52.349a2.657,2.657,0,0,1,2.82,2.808,2.6,2.6,0,0,1-2.462,2.705l2.462,3.867h-2.118l-2.391-3.852H134.4v3.852H132.52v-9.38Zm.945,2.907V54.97a.891.891,0,0,0-.945-.931H134.4v2.149h4.884a.891.891,0,0,0,.945-.931" transform="translate(67.427 26.635)" fill="currentColor"></path><path id="Path_43" data-name="Path 43" d="M151.688,55.155v6.572H149.8V57.876h-5.628v3.852h-1.875V55.155a2.657,2.657,0,0,1,2.82-2.806h3.752a2.658,2.658,0,0,1,2.823,2.806M149.8,56.186V55a.9.9,0,0,0-.931-.96h-3.752a.906.906,0,0,0-.945.96v1.189Z" transform="translate(72.399 26.635)" fill="currentColor"></path></g></g></svg> </div>
+<header class="top w" id="top">
+  <nav aria-label="Secciones"><a href="#garden">Girona Garden</a><a href="#proyectos">Proyectos</a><a href="#servicios">Servicios</a><a href="#invierte">Invierte desde el exterior</a></nav>
+  <a class="btn" href="https://wa.me/573007382606?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Girona%20Garden." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg><span>Hablemos</span></a>
+</header>
+
+<main>
+  <section class="hero" id="hero" aria-label="Girona Constructora">
+    <div class="stick">
+      <div class="win" id="win"><img src="img/tower.jpg" alt="Fachada de Girona Garden, edificio de apartamentos en Laureles, Medellín" fetchpriority="high"></div>
+      <div class="hero-a" id="heroA">Construcción · Reformas · Venta de proyectos</div>
+      <div class="hero-b w" id="heroB">
+        <img class="garden" src="img/logo-garden.svg" alt="Girona Garden">
+        <h1>Donde florece <b>tu nuevo hogar</b></h1>
+        <p>Apartamentos en Laureles, Medellín, con acabados de lujo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="intro w" aria-labelledby="iT">
+    <div class="rv">
+      <div class="kick">Girona Constructora · Medellín</div>
+      <h2 class="h2" id="iT">Construimos espacios que <b>transforman vidas</b></h2>
+      <p>Desarrollamos proyectos que reflejan nuestra trayectoria, compromiso y pasión por construir espacios con propósito: diseño consciente, calidad y valor duradero.</p>
+      <div class="stats"><div><b>+10</b><span>años construyendo</span></div><div><b>10</b><span>proyectos</span></div><div><b>2</b><span>barrios: Laureles y Belén</span></div></div>
+    </div>
+    <div class="shot rv"><img id="introImg" src="img/living.jpg" alt="Sala y balcón de un apartamento de Girona Garden" loading="lazy"></div>
+  </section>
+
+  <section class="walk" id="garden" aria-label="Recorrido por Girona Garden">
+    <div class="stick">
+      <div class="sl"><img src="img/social.jpg" alt="" decoding="async"><div class="st w"><div class="kick">Girona Garden · 01 / 06</div><h3>Zonas <b>sociales</b></h3><p>Balcones abiertos a la ciudad, con jardineras y luz de tarde.</p><span class="tag">Balcón · Vista a Medellín</span></div></div>
+      <div class="sl"><img src="img/meet.jpg" alt="" decoding="async"><div class="st w"><div class="kick">Girona Garden · 02 / 06</div><h3>Lugares para <b>encontrarnos</b></h3><p>Salas pensadas para reunirse: luz cálida, chimenea y acabados de lujo.</p><span class="tag">Sala · Chimenea</span></div></div>
+      <div class="sl"><img src="img/rest.jpg" alt="" decoding="async"><div class="st w"><div class="kick">Girona Garden · 03 / 06</div><h3>Lugares para <b>detenernos</b></h3><p>Habitaciones serenas, con iluminación indirecta y espacios para descansar.</p><span class="tag">Habitación principal</span></div></div>
+      <div class="sl"><img src="img/kitchen.jpg" alt="" decoding="async"><div class="st w"><div class="kick">Girona Garden · 04 / 06</div><h3>Una cocina para <b>compartir</b></h3><p>Cocina abierta con barra, electrodomésticos integrados y almacenamiento a medida.</p><span class="tag">Cocina abierta</span></div></div>
+      <div class="sl"><img src="img/terrace.jpg" alt="" decoding="async"><div class="st w"><div class="kick">Girona Garden · 05 / 06</div><h3>La terraza del <b>edificio</b></h3><p>Zona común con jacuzzi, juegos para niños y espacios para estar al aire libre.</p><span class="tag">Jacuzzi · Zona infantil</span></div></div>
+      <div class="sl"><img src="img/gym.jpg" alt="" decoding="async"><div class="st w"><div class="kick">Girona Garden · 06 / 06</div><h3>Bienestar en <b>casa</b></h3><p>Gimnasio dentro del proyecto, para entrenar sin salir del edificio.</p><span class="tag">Gimnasio</span></div></div>
+      <div class="bars" id="bars" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+    </div>
+  </section>
+
+  <section class="projects w" id="proyectos" aria-labelledby="pT">
+    <div class="phead rv"><div><div class="kick">Nuestros proyectos</div><h2 class="h2" id="pT">Para vivir, <b>invertir y crecer</b></h2></div><p>Más de una década construyendo espacios que combinan diseño, calidad y rentabilidad.</p></div>
+    <div class="pgrid">
+      <article class="pj rv"><div class="pi"><img src="img/oasis.jpg" alt="Fachada de Oasis de Girona" loading="lazy"></div><div class="pm"><span>Belén La Palma, Medellín</span><span>Apartamentos</span></div><h3>Oasis de Girona</h3><p>Amplios balcones, diseño contemporáneo y espacios para vivir con más amplitud.</p></article>
+      <article class="pj rv"><div class="pi"><img src="img/living2.jpg" alt="Fachada de Girona Living 2" loading="lazy"></div><div class="pm"><span>Laureles, Medellín</span><span>Suites para rentas cortas</span></div><h3>Girona Living 2</h3><p>Suites para rentas cortas libres: invierte con flexibilidad y gestiona a tu manera.</p></article>
+      <article class="pj rv"><div class="pi"><img src="img/living1.jpg" alt="Fachada de Girona Living" loading="lazy"></div><div class="pm"><span>Laureles, Medellín</span><span>Suites para rentas cortas</span></div><h3>Girona Living</h3><p>Con operador especializado, para que tu inversión trabaje por ti.</p></article>
+      <article class="pj rv"><div class="pi"><img src="img/palmar.jpg" alt="Fachada de Palmar de Girona" loading="lazy"></div><div class="pm"><span>Belén La Palma, Medellín</span><span>Apartamentos</span></div><h3>Palmar de Girona</h3><p>Acabados de lujo y espacios diseñados para más comodidad y exclusividad.</p></article>
+    </div>
+  </section>
+
+  <section class="svc" id="servicios" aria-labelledby="sT">
+    <div class="in2 w">
+      <div class="rv"><div class="kick">Nuestros servicios</div><h2 class="h2" id="sT">Construimos, renovamos <b>y vendemos</b></h2></div>
+      <div class="sgrid">
+        <article class="rv"><i>01</i><h3>Construcción</h3><p>Vivienda, comercio y oficinas con altos estándares de calidad, desde la planeación hasta la entrega.</p></article>
+        <article class="rv"><i>02</i><h3>Reformas</h3><p>Renovación de viviendas, oficinas y locales, adaptada a cada estilo y presupuesto.</p></article>
+        <article class="rv"><i>03</i><h3>Venta de proyectos</h3><p>Asesoría clara y acompañamiento constante durante toda la compra.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="invest" id="invierte" aria-labelledby="vT">
+    <img id="invImg" src="img/invest.jpg" alt="Edificio de Girona en Medellín con las montañas al fondo" loading="lazy">
+    <div class="in2 w rv">
+      <div class="kick">Invierte desde el exterior</div>
+      <h2 class="h2" id="vT">Invierte en Colombia <b>desde cualquier lugar</b></h2>
+      <p>Te acompañamos en todo el proceso, con asesoría personalizada y medios de pago seguros.</p>
+      <ol><li><b>1</b>Elige tu proyecto ideal</li><li><b>2</b>Realiza tu inversión desde donde estés</li><li><b>3</b>Recibe tu propiedad</li></ol>
+      <a class="btn" href="https://wa.me/573007382606?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Girona%20Garden." target="_blank" rel="noopener">Quiero invertir</a>
+    </div>
+  </section>
+
+  <section class="contact w" id="contacto" aria-labelledby="cT">
+    <div class="rv"><div class="kick">Contacto</div><h2 class="h2" id="cT">Visita nuestra <b>sala de negocios</b></h2><p style="color:var(--ink-soft);max-width:44ch">Calle 36 #79-15, Laureles, Medellín. Lunes a viernes 8:30 a.m. – 5:30 p.m. · Sábados 8:00 a.m. – 12 m.</p></div>
+    <div class="ways rv">
+      <a class="way" href="https://wa.me/573007382606?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Girona%20Garden." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg><div><small>WhatsApp · Asesor</small><b>+57 300 738 2606</b></div></a>
+      <a class="way" href="https://wa.me/573002267646" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg><div><small>WhatsApp · Asesor</small><b>+57 300 226 7646</b></div></a>
+      <a class="way" href="https://maps.google.com/?q=Calle+36+%2379-15+Laureles+Medell%C3%ADn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg><div><small>Sala de negocios</small><b>Calle 36 #79-15, Laureles</b></div></a>
+    </div>
+  </section>
+</main>
+<footer class="foot"><div class="in2 w"><img src="img/logo-gold.svg" alt="Girona Constructora"><span>Construcción · Reformas · Venta de proyectos · Medellín</span><span>Demo de diseño web. Imágenes y logo: Girona Constructora.</span></div></footer>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const ramp = (x, a, b) => clamp((x - a) / (b - a));
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const lerp = (a, b, t) => a + (b - a) * t;
+
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .2 });
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+const brand = document.getElementById('brand'), top_ = document.getElementById('top');
+const hero = document.getElementById('hero'), win = document.getElementById('win'), heroA = document.getElementById('heroA'), heroB = document.getElementById('heroB');
+const walk = document.getElementById('garden'), slides = [...walk.querySelectorAll('.sl')], bars = [...walk.querySelectorAll('.bars b')];
+const introImg = document.getElementById('introImg'), invImg = document.getElementById('invImg');
+const N = slides.length;
+walk.style.height = `${(N + .6) * 100}vh`;
+let cur = scrollY;
+function frame() {
+  requestAnimationFrame(frame);
+  cur = reduce ? scrollY : cur + (scrollY - cur) * .14; if (Math.abs(scrollY - cur) < .3) cur = scrollY;
+  const W = innerWidth, H = innerHeight;
+
+  /* hero: the logo sits in the middle, a window opens behind it onto the tower, then the logo docks in the header */
+  const hp = clamp(cur / (hero.offsetHeight - H));
+  const open = ease(ramp(hp, .06, .62)), dock = ease(ramp(hp, .4, .75));
+  const bw = Math.min(W * .62, 560), dw = W > 820 ? 150 : 120;
+  const lw = lerp(bw, dw, dock), lh = lw * 88.364 / 278;
+  const x0 = (W - bw) / 2, y0 = H * .42 - bw * 88.364 / 278 / 2;
+  const x1 = W > 820 ? 48 : 16, y1 = 36 + (parseFloat(getComputedStyle(top_).paddingTop) || 0) - (dw * 88.364 / 278) / 2;
+  brand.style.transform = `translate(${lerp(x0, x1, dock).toFixed(1)}px,${lerp(y0, y1, dock).toFixed(1)}px) scale(${(lw / 300).toFixed(4)})`;
+  // the window opens from a thin slit through the logo to the full screen
+  const ix = lerp(50, 0, open), iy = lerp(50, 0, ease(ramp(hp, .02, .5)));
+  win.style.clipPath = open >= 1 ? 'none' : `inset(${iy.toFixed(2)}% ${ix.toFixed(2)}% ${iy.toFixed(2)}% ${ix.toFixed(2)}%)`;
+  win.style.setProperty('--z', (1.25 - .25 * ramp(hp, 0, 1)).toFixed(4));
+  heroA.style.opacity = (1 - ramp(hp, .02, .12)).toFixed(3);
+  heroB.style.opacity = ramp(hp, .62, .78).toFixed(3); heroB.style.transform = `translateY(${(30 * (1 - ramp(hp, .62, .78))).toFixed(1)}px)`;
+  const solid = cur > hero.offsetHeight - H * .9 && !(walkVisible(H));
+  top_.classList.toggle('solid', solid);
+  brand.classList.toggle('dark', solid);
+
+  /* walk: each screen of scroll wipes the next picture up */
+  const r = walk.getBoundingClientRect(), y = clamp(-r.top / H, 0, N - .4);
+  slides.forEach((sl, i) => {
+    const pin = i === 0 ? 1 : ease(ramp(y, i - .75, i - .1));
+    sl.style.clipPath = pin >= 1 ? 'none' : `inset(${((1 - pin) * 100).toFixed(2)}% 0 0 0)`;
+    sl.style.setProperty('--z', (1.08 - .08 * ramp(y, i - .75, i + .6)).toFixed(4));
+    const t = (i === 0 ? ramp(y + .5, 0, .35) : ramp(y, i - .3, i - .02)) * (i < N - 1 ? 1 - ramp(y, i + .25, i + .45) : 1);
+    sl.querySelector('.st').style.setProperty('--t', t.toFixed(3));
+    bars[i].style.setProperty('--k', ramp(y, i - .5, i + .5).toFixed(3));
+  });
+
+  /* parallax */
+  const a = introImg.parentElement.getBoundingClientRect(); introImg.style.transform = `translateY(${(((a.top + a.height / 2) - H / 2) / H * -30).toFixed(1)}px)`;
+  const b = invImg.parentElement.getBoundingClientRect(); invImg.style.transform = `translateY(${(((b.top + b.height / 2) - H / 2) / H * -50).toFixed(1)}px)`;
+}
+function walkVisible(H) { const r = walk.getBoundingClientRect(); return r.top < 60 && r.bottom > 60; }
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
