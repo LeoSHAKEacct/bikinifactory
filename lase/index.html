@@ -248,6 +248,16 @@ body.intro #sky{opacity:.35}
 .to-top svg{width:20px;height:20px;stroke:#1a1205;stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .to-top.show{opacity:1;transform:none;pointer-events:auto}
 .to-top:hover{transform:translateY(-3px)}
+/* one page = one screen */
+.hero{flex-direction:column;justify-content:center;padding:96px 0 36px}
+.hero>.wrap{width:100%}
+.hero-inner{padding-top:0}
+.hero .stats{margin-top:34px!important;position:relative;z-index:3}
+.hero h1{font-size:clamp(42px,7.4vw,100px)!important;margin:0 0 16px!important}
+section{min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+section>.wrap{width:100%}
+html{scrollbar-width:none}
+html::-webkit-scrollbar,body::-webkit-scrollbar{display:none}
 /* gallery */
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:260px;gap:16px}
 .tile{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#0d1220}
@@ -438,7 +448,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
   <div class="grid-floor"></div>
   <div class="wrap hero-inner">
     <div>
-    <span class="badge"><i class="dot"></i> Dubai, UAE 🇦🇪 · Serving clients locally &amp; globally</span>
     <h1>We convert dreams<br><span class="gilt-text">into reality.</span></h1>
     <p class="lead">LASE Properties: real estate brokerage and development in Dubai, with investors across the GCC and beyond. We help you <span class="typed" id="typed">buy</span> in Dubai.</p>
     <div class="ctas">
@@ -447,17 +456,16 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
     </div>
     </div>
   </div>
-  <div class="scroll-hint">Scroll<i></i></div>
+  <div class="wrap stats">
+    <div class="stats-grid reveal">
+      <div class="stat"><b><span class="gold" data-count="10" data-suffix="+">0</span></b><span>Years in Dubai real estate</span></div>
+      <div class="stat"><b><span data-count="62900" data-suffix="+">0</span></b><span>Community on Instagram</span></div>
+      <div class="stat"><b><span data-count="50" data-suffix="+">0</span></b><span>Team members</span></div>
+      <div class="stat"><b><span data-count="7">0</span></b><span>Markets: UAE · GCC · China</span></div>
+    </div>
+  </div>
 </header>
 
-<div class="wrap stats">
-  <div class="stats-grid reveal">
-    <div class="stat"><b><span class="gold" data-count="10" data-suffix="+">0</span></b><span>Years in Dubai real estate</span></div>
-    <div class="stat"><b><span data-count="62900" data-suffix="+">0</span></b><span>Community on Instagram</span></div>
-    <div class="stat"><b><span data-count="50" data-suffix="+">0</span></b><span>Team members</span></div>
-    <div class="stat"><b><span data-count="7">0</span></b><span>Markets: UAE · GCC · China</span></div>
-  </div>
-</div>
 
 <section id="dubai">
   <div class="wrap">
@@ -868,16 +876,13 @@ function setBg(el, id, w) {
 }
 document.querySelectorAll("[data-img]").forEach(el => setBg(el, el.dataset.img, el.classList.contains("bandimg") ? 1920 : 1200));
 (() => {
-  const bg = document.getElementById("heroBg"), ids = ["j-nRfGUHswQ", "lRCWtOEPwiY", "9n7rZJLWY7o", "2fqptw4fKWI"];
+  const bg = document.getElementById("heroBg"), ids = ["j-nRfGUHswQ", "2fqptw4fKWI", "lRCWtOEPwiY"];   // Burj skyline always first, then coastline, then Downtown at night
   const slides = ids.map(id => { const s = document.createElement("div"); s.className = "slide"; bg.appendChild(s); setBg(s, id, 1920); return s; });
   let k = 0;
   const next = () => {
-    const ready = slides.filter(s => s.classList.contains("loaded"));
-    if (!ready.length) return;
-    slides.forEach(s => s.classList.remove("on"));
-    ready[k++ % ready.length].classList.add("on");
+    for (let n = 0; n < slides.length; n++) { const s = slides[k++ % slides.length]; if (s.classList.contains("loaded")) { slides.forEach(x => x.classList.remove("on")); s.classList.add("on"); return; } }
   };
-  const first = setInterval(() => { if (slides.some(s => s.classList.contains("loaded"))) { clearInterval(first); next(); if (!reduce) setInterval(next, 7000); } }, 200);
+  const first = setInterval(() => { if (slides[0].classList.contains("loaded")) { clearInterval(first); next(); if (!reduce) setInterval(next, 7000); } }, 200);
 })();
 addEventListener("scroll", () => {
   document.querySelectorAll(".bandimg").forEach(b => { const r = b.parentElement.getBoundingClientRect(); b.style.transform = `translateY(${r.top * -0.15}px)`; });
@@ -1017,16 +1022,22 @@ const PROJECTS = [
   if (reduce) return;
   const stats = document.querySelector(".stats");
   const pages = [...document.querySelectorAll("header.hero, section")];
-  const topOf = el => (el === pages[1] ? stats : el).getBoundingClientRect().top + scrollY - (el === pages[1] ? 30 : 0);   // the section after the hero starts at the stats bar
+  const topOf = el => el.getBoundingClientRect().top + scrollY;
   const bottomOf = el => el.getBoundingClientRect().bottom + scrollY;
   const pager = document.createElement("div"); pager.className = "pager"; pager.setAttribute("role", "navigation"); pager.setAttribute("aria-label", "Sections");
   pages.forEach((p, i) => { const b = document.createElement("button"); b.setAttribute("aria-label", "Go to section " + (i + 1)); b.onclick = () => go(Math.max(0, topOf(p))); pager.appendChild(b); });
   document.body.appendChild(pager);
   let busy = false;
-  function go(y) { busy = true; scrollTo({top: Math.max(0, y), behavior: "smooth"}); setTimeout(() => busy = false, 850); }
+  function go(y) {   // quick custom glide (~0.45s) instead of the browser's slower smooth scroll
+    busy = true; y = Math.max(0, Math.min(y, document.documentElement.scrollHeight - innerHeight));
+    const y0 = scrollY, d = y - y0, t0 = performance.now(), T = 450;
+    const f = now => { const p = Math.min(1, (now - t0) / T), e = 1 - Math.pow(1 - p, 3);
+      scrollTo({top: y0 + d * e, behavior: "instant"}); if (p < 1) requestAnimationFrame(f); else setTimeout(() => busy = false, 60); };
+    requestAnimationFrame(f);
+  }
   const current = () => { let c = 0; pages.forEach((p, i) => { if (topOf(p) <= scrollY + 8) c = i; }); return c; };
   const B = document.body;
-  function intro(on) { B.classList.toggle("intro", on); busy = true; setTimeout(() => busy = false, 1300); if (!on) setTimeout(() => document.querySelectorAll(".stats [data-count]").forEach(count), 450); }
+  function intro(on) { B.classList.toggle("intro", on); busy = true; setTimeout(() => busy = false, 600); if (!on) setTimeout(() => document.querySelectorAll(".stats [data-count]").forEach(count), 450); }
   if (scrollY > 10 || location.hash) B.classList.remove("intro");
   document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener("click", () => B.classList.remove("intro")));
   function step(dir) {
@@ -1056,8 +1067,8 @@ const PROJECTS = [
     if (!armed) return;
     acc += e.deltaY;
     if (Math.abs(acc) < 12) return;
+    if (busy) return;           // still moving: keep this swipe armed, it fires as soon as the move ends
     armed = false;
-    if (busy) return;
     step(Math.sign(acc));
   }, {passive: false});
   addEventListener("keydown", e => {
