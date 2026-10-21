@@ -142,6 +142,57 @@ footer{border-top-color:rgba(212,175,106,.25)}
 .proj:hover .go{transform:translateY(-2px);box-shadow:0 16px 46px -10px rgba(212,175,106,.95)}
 .result{border-color:rgba(212,175,106,.4)!important;box-shadow:inset 0 1px 0 rgba(246,227,176,.3)}
 .gilt-text{background:linear-gradient(100deg,#f6e3b0,#d4af6a 45%,#a8823e);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* fly into the city on the first scroll */
+.hero-bg,#sky{transition:transform 1.5s cubic-bezier(.6,0,.2,1),opacity 1.5s}
+.grid-floor{transition:opacity 1s}
+.hero-inner{transition:opacity .8s,transform 1.2s cubic-bezier(.6,0,.2,1)}
+.hero.dived .hero-bg{transform:scale(1.9);transform-origin:68% 60%}
+.hero.dived #sky{transform:scale(2.7);transform-origin:70% 72%}
+.hero.dived .grid-floor{opacity:0}
+.hero.dived .hero-inner{opacity:0;transform:translateY(-90px) scale(.95);pointer-events:none}
+.dive-cap{position:absolute;inset:0;z-index:3;display:grid;place-items:center;text-align:center;padding:0 20px;opacity:0;transform:scale(.88);transition:opacity .9s .5s,transform 1.4s .35s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.dive-cap h2{font-size:clamp(44px,8vw,110px);margin:16px 0 14px}
+.dive-cap p{color:#c9d0dc;font-size:16px;letter-spacing:.04em}
+.hero.dived .dive-cap{opacity:1;transform:none}
+/* leadership */
+.ceo{display:grid;grid-template-columns:1.1fr .9fr;gap:70px;align-items:center}
+.ceo-name{font-size:clamp(40px,6vw,72px);margin:16px 0 6px}
+.ceo-role{font:600 16px "Space Grotesk";letter-spacing:.06em;margin-bottom:22px;color:var(--muted)}
+.ceo p{color:#b9c0cf;margin-bottom:14px}
+.ceo-card{position:relative;aspect-ratio:1/1;border-radius:24px;overflow:hidden;border:1px solid rgba(212,175,106,.45);box-shadow:0 40px 90px -30px rgba(0,0,0,.9),0 0 60px -25px rgba(212,175,106,.45)}
+.ceo-card .ph{position:absolute;inset:0;background:center 20%/cover;filter:saturate(.9) contrast(1.05)}
+.ceo-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,12,0) 55%,rgba(5,7,12,.85)),linear-gradient(160deg,rgba(31,184,255,.12),transparent 50%)}
+.ceo-card .corner{position:absolute;width:26px;height:26px;border:2px solid var(--gilt);z-index:2}
+.ceo-card .tag{position:absolute;left:18px;right:18px;bottom:18px;z-index:2;padding:14px 16px;border-radius:14px;background:rgba(5,7,12,.7);backdrop-filter:blur(10px);border:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.ceo-card .tag small{color:var(--muted)}
+@media(max-width:900px){.ceo{grid-template-columns:1fr;gap:36px}}
+/* track record */
+.past{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:start}
+.pcard{position:relative;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--panel);transition:transform .4s,border-color .3s}
+.pcard::before{content:"";position:absolute;left:24px;right:24px;top:0;height:1px;z-index:2;background:linear-gradient(90deg,transparent,var(--gilt),transparent)}
+.pcard:hover{transform:translateY(-6px);border-color:rgba(212,175,106,.45)}
+.pcard img{display:block;width:100%;height:auto}
+.pcard .body{padding:20px 22px 22px}
+.pcard small{font:500 11px "Space Grotesk";letter-spacing:.2em;text-transform:uppercase;color:var(--gilt)}
+.pcard h3{font-size:22px;margin:6px 0 8px}
+.pcard p{color:var(--muted);font-size:14px}
+.chips2{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 16px}
+.chips2 span{padding:6px 12px;border-radius:999px;border:1px solid rgba(31,184,255,.35);font-size:12px;color:#cfe9ff;background:rgba(31,184,255,.06)}
+.pcard .btn{width:100%;justify-content:center;padding:12px}
+@media(max-width:900px){.past{grid-template-columns:1fr}}
+/* land */
+.land{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+.land h2{font-size:clamp(32px,4.4vw,54px);margin:18px 0}
+.land p{color:#c3c9d6;margin-bottom:16px;max-width:560px}
+.land .land-q{font-size:18px;color:var(--text);border-left:2px solid var(--gilt);padding-left:16px;margin:24px 0 28px}
+.land-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.land-grid div{position:relative;padding:24px 20px;border-radius:18px;border:1px solid var(--line);background:rgba(10,14,23,.72);backdrop-filter:blur(10px);transition:.3s}
+.land-grid div::before{content:"";position:absolute;left:20px;right:20px;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--gilt),transparent)}
+.land-grid div:hover{border-color:rgba(212,175,106,.5);transform:translateY(-4px)}
+.land-grid svg{width:30px;height:30px;stroke:var(--gilt);fill:none;stroke-width:1.5;margin-bottom:14px}
+.land-grid b{display:block;font:600 17px "Space Grotesk";margin-bottom:6px}
+.land-grid span{font-size:13px;color:var(--muted)}
+@media(max-width:900px){.land{grid-template-columns:1fr;gap:34px}}
 /* gallery */
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:260px;gap:16px}
 .tile{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#0d1220}
@@ -320,7 +371,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
   <div class="wrap">
     <a href="#top" class="logo">LASE<span>.</span>PROPERTIES</a>
     <div class="links">
-      <a href="#properties">Properties</a><a href="#projects">Projects</a><a href="#services">Services</a><a href="#markets">Markets</a><a href="#contact">Contact</a>
+      <a href="#properties">Properties</a><a href="#projects">Projects</a><a href="#track">Track Record</a><a href="#leadership">Leadership</a><a href="#contact">Contact</a>
     </div>
     <a href="#contact" class="btn btn-gold nav-cta">Talk to Us</a>
   </div>
@@ -341,6 +392,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
     </div>
     </div>
   </div>
+  <div class="dive-cap" aria-hidden="true"><div><span class="eyebrow">Welcome to</span><h2><span class="gilt-text">Dubai's skyline.</span></h2><p>Where LASE builds legacies. Scroll to continue.</p></div></div>
   <div class="scroll-hint">Scroll<i></i></div>
 </header>
 
@@ -371,6 +423,27 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
       <div class="acro">
         <div><b>L</b><span>Luck</span></div><div><b>A</b><span>Ability</span></div><div><b>S</b><span>Success</span></div><div><b>E</b><span>Energy</span></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="leadership" class="bg-alt">
+  <div class="wrap ceo">
+    <div class="reveal">
+      <span class="eyebrow">Leadership</span>
+      <h2 class="ceo-name">Azeem Akhtar</h2>
+      <p class="ceo-role"><span class="gilt-text">Chief Executive Officer</span> · LASE Properties</p>
+      <p>Azeem Akhtar is the visionary leader behind LASE Properties. With an unwavering commitment to excellence, he steers the company towards innovation and growth in Dubai's competitive real estate market.</p>
+      <p>His strategic foresight and deep understanding of market dynamics set new benchmarks for the industry, and his passion for delivering real value to every client is the driving force behind LASE's rise.</p>
+      <div class="ctas" style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
+        <a href="https://wa.me/971555902523" target="_blank" rel="noopener" class="btn btn-gilt">Talk to Azeem →</a>
+        <a href="https://www.instagram.com/azeemakhtardxb/" target="_blank" rel="noopener" class="btn btn-ghost">@azeemakhtardxb</a>
+      </div>
+    </div>
+    <div class="ceo-card reveal">
+      <div class="ph" style="background-image:url(ceo-azeem-akhtar.jpg)"></div>
+      <div class="corner c1"></div><div class="corner c2"></div>
+      <div class="tag"><span><b>Azeem Akhtar</b><br><small>CEO · LASE Properties</small></span><span class="gilt-text" style="font:600 13px 'Space Grotesk'">DUBAI ✦</span></div>
     </div>
   </div>
 </section>
@@ -424,6 +497,55 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
       <p>Step inside each development, from the first sketch to the finished home.</p>
     </div>
     <div class="projects" id="projectList"></div>
+  </div>
+</section>
+
+<section id="track" class="bg-alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Track Record</span>
+      <h2>Launches we've <span class="gilt-text">brought to market.</span></h2>
+      <p>A few of the projects LASE has represented, from Dubai off-plan launches to GCC development opportunities.</p>
+    </div>
+    <div class="past">
+      <article class="pcard reveal">
+        <img src="past/samana-barari-views.jpg" alt="Samana Barari Views II by Samana Developers, Majan, Dubai" loading="lazy">
+        <div class="body"><small>Majan · Dubai</small><h3>Samana Barari Views II</h3><p>By Samana Developers. Exceptional amenities and one of the longest payment plans in the market.</p>
+          <div class="chips2"><span>642 units</span><span>8-year plan</span><span>From AED 670K</span></div>
+          <a href="#contact" class="btn btn-ghost" data-goal="Off-plan investment" data-msg="I'm interested in projects like Samana Barari Views II (Majan).">Ask about similar →</a></div>
+      </article>
+      <article class="pcard reveal">
+        <img src="past/sobha-one-golf-ridges.jpg" alt="Sobha One Villas, Golf Ridges edition" loading="lazy">
+        <div class="body"><small>Golf Ridges · Sobha One</small><h3>Sobha One Villas</h3><p>Only 49 villas overlooking the golf course, with internal lifts and two parking spaces each.</p>
+          <div class="chips2"><span>4–5 beds</span><span>Mid-2027</span><span>From AED 6.7M</span></div>
+          <a href="#contact" class="btn btn-ghost" data-goal="Off-plan investment" data-msg="I'm interested in villas like Sobha One Golf Ridges.">Ask about similar →</a></div>
+      </article>
+      <article class="pcard reveal">
+        <img src="past/gcc-waterfront.jpg" alt="GCC waterfront development opportunity, Manama waterfront, Bahrain" loading="lazy">
+        <div class="body"><small>Manama Waterfront · Bahrain</small><h3>GCC Waterfront Opportunity</h3><p>Prime waterfront plots for joint-venture partners across the UAE, Bahrain, Qatar, KSA and Oman.</p>
+          <div class="chips2"><span>JV plots</span><span>Asset swap</span><span>Flexible payment</span></div>
+          <a href="#contact" class="btn btn-ghost" data-goal="Channel partnership" data-msg="I'd like to discuss GCC waterfront development / JV opportunities.">Discuss a partnership →</a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="land" class="photo-band">
+  <div class="bandimg" data-img="dYLzGcPqrtE"></div>
+  <div class="wrap land">
+    <div class="reveal">
+      <span class="eyebrow">Buying Land</span>
+      <h2>The world's greatest fortunes have always been built on <span class="gilt-text">land.</span></h2>
+      <p>Dubai keeps attracting global capital, world-class infrastructure and visionary investors. Buildings can be constructed anywhere, but land is finite.</p>
+      <p class="land-q">The question is not whether Dubai will keep growing.<br><b>It's whether you'll own a piece of its future.</b></p>
+      <a href="#contact" class="btn btn-gilt" data-goal="Buy a property" data-msg="I'm interested in buying land / plots in Dubai.">Explore Land Opportunities →</a>
+    </div>
+    <div class="land-grid reveal">
+      <div><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0112 2.5a7 7 0 017 7C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><b>Limited Supply</b><span>Prime plots don't come back on the market.</span></div>
+      <div><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg><b>Long-Term Appreciation</b><span>Land value grows with the city around it.</span></div>
+      <div><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M10 21v-6h4v6"/></svg><b>Future Development Potential</b><span>Build, joint-venture or hold and sell.</span></div>
+      <div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg><b>Global Demand</b><span>Investors from every continent want in.</span></div>
+    </div>
   </div>
 </section>
 
@@ -539,7 +661,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
     <div class="reveal contact-info">
       <span class="eyebrow">Let's Talk</span>
       <h2 style="font-size:clamp(34px,5vw,56px);margin:18px 0">Tell us about your <span class="gold">dream.</span></h2>
-      <p style="color:var(--muted);margin-bottom:30px">Four quick steps. Your request goes straight to the LASE team.</p>
+      <p style="color:var(--muted);margin-bottom:30px">Four quick steps. Your request lands straight in our WhatsApp so we can reply fast.</p>
+      <a class="line" href="https://wa.me/971555902523" target="_blank" rel="noopener"><span class="icon"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"/></svg></span><span><small>WhatsApp / Call</small>+971 55 590 2523</span></a>
+      <a class="line" href="mailto:gm@laseproperties.com"><span class="icon"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 6l8 7 8-7"/></svg></span><span><small>Email</small>gm@laseproperties.com</span></a>
       <a class="line" href="https://ig.me/m/laseproperties" target="_blank" rel="noopener"><span class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg></span><span><small>Instagram</small>@laseproperties</span></a>
       <a class="line" href="https://www.laseproperties.com" target="_blank" rel="noopener"><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg></span><span><small>Website</small>laseproperties.com</span></a>
       <a class="line" href="https://www.linkedin.com/search/results/companies/?keywords=LASE%20Properties%20LLC" target="_blank" rel="noopener"><span class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 014 0v4M12 10v7"/></svg></span><span><small>LinkedIn</small>LASE Properties LLC</span></a>
@@ -594,9 +718,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
         <div class="done">
           <div class="ring">✓</div>
           <h3>Request ready.</h3>
-          <p id="doneMsg">Your request is copied. Paste it in our Instagram chat and the team will reply.</p>
+          <p id="doneMsg">WhatsApp should open with your details.</p>
           <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-            <a class="btn btn-gold" id="sendLink" target="_blank" rel="noopener">Open Instagram Chat</a>
+            <a class="btn btn-gold" id="sendLink" target="_blank" rel="noopener">Send on WhatsApp</a>
             <button type="button" class="btn btn-ghost" id="copyBtn">Copy Request</button>
           </div>
         </div>
@@ -623,7 +747,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
 </a>
 
 <script>
-const WA = "", EMAIL = "", IG = "laseproperties"; /* add WhatsApp (digits only) / email to send there directly */
+const WA = "971555902523", EMAIL = "gm@laseproperties.com", IG = "laseproperties"; /* add WhatsApp (digits only) / email to send there directly */
 if (WA) { const w = document.getElementById("waFloat"); w.href = `https://wa.me/${WA}`; w.target = "_blank"; w.rel = "noopener"; }
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 document.getElementById("yr").textContent = new Date().getFullYear();
@@ -795,8 +919,12 @@ const PROJECTS = [
   let busy = false;
   function go(y) { busy = true; scrollTo({top: Math.max(0, y), behavior: "smooth"}); setTimeout(() => busy = false, 850); }
   const current = () => { let c = 0; pages.forEach((p, i) => { if (topOf(p) <= scrollY + 8) c = i; }); return c; };
+  const hero = document.querySelector(".hero");
+  function dive(on) { hero.classList.toggle("dived", on); busy = true; setTimeout(() => busy = false, 1300); }
   function step(dir) {
     if (busy) return;
+    if (scrollY < 10 && dir > 0 && !hero.classList.contains("dived")) return dive(true);   // first scroll: fly into the city
+    if (scrollY < 10 && dir < 0 && hero.classList.contains("dived")) return dive(false);  // back out to the title
     const i = current(), p = pages[i], vh = innerHeight, y = scrollY;
     if (dir > 0) {
       const bottom = i === pages.length - 1 ? document.documentElement.scrollHeight : bottomOf(p);
