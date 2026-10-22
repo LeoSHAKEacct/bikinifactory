@@ -226,3 +226,10 @@ footer{border-top:1px solid var(--line);padding:28px 0 96px;text-align:center;co
 .svc.has-pic{padding-top:0}
 .svc-pic{margin:0 -24px 18px;height:190px;border-radius:20px 20px 0 0;overflow:hidden}
 .svc-pic .pframe{width:100%;height:100%}
+
+/* decorative flowers placed from the admin */
+[data-sec]{position:relative}
+.decor{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2}
+.decor-f{position:absolute;width:calc(var(--fs) * 1px);aspect-ratio:1;transform:translate(-50%,-50%) rotate(var(--fr));filter:drop-shadow(0 6px 14px rgba(0,0,0,.35))}
+.decor-f svg{display:block;width:100%;height:100%}
+@media (max-width:700px){.decor-f{width:calc(var(--fs) * .7px)}}

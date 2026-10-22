@@ -11,7 +11,39 @@
     candle: '<path d="M12 3c1.5 2 1.5 3.5 0 5-1.5-1.5-1.5-3 0-5z"/><rect x="9" y="10" width="6" height="11" rx="1"/>',
     car: '<path d="M5 16V11l2-5h10l2 5v5"/><rect x="3" y="11" width="18" height="6" rx="2"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/>'
   };
-  var PHOTO_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-8 8"/></svg>';
+  // Decorative flowers the admin drags onto a page: petal gradient, inner petals, centre.
+  var FLOWERS = {
+    rose: { label: 'Flor rosa', petal: ['#ffd1dc', '#ec5f7a'], inner: ['#fff0f3', '#f58ba0'], center: '#d9a86c' },
+    gold: { label: 'Flor dorada', petal: ['#fff1c9', '#c8913f'], inner: ['#fffaf0', '#e2b664'], center: '#9a6a2a' },
+    turquoise: { label: 'Flor turquesa', petal: ['#d4fbf5', '#17a89a'], inner: ['#f0fffc', '#5fd3c6'], center: '#e2b664' }
+  };
+  function flowerSvg(kind) {
+    var f = FLOWERS[kind] || FLOWERS.rose, id = 'fl-' + (FLOWERS[kind] ? kind : 'rose'), petals = '', inner = '';
+    for (var k = 0; k < 5; k++) {
+      petals += '<ellipse cx="50" cy="26" rx="15" ry="25" transform="rotate(' + k * 72 + ' 50 50)"/>';
+      inner += '<ellipse cx="50" cy="35" rx="8" ry="15" transform="rotate(' + (k * 72 + 36) + ' 50 50)"/>';
+    }
+    return '<svg viewBox="0 0 100 100" aria-hidden="true"><defs>' +
+      '<radialGradient id="' + id + '-p" cx="50%" cy="50%" r="55%"><stop offset="0" stop-color="' + f.petal[0] + '"/><stop offset="1" stop-color="' + f.petal[1] + '"/></radialGradient>' +
+      '<radialGradient id="' + id + '-i" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="' + f.inner[0] + '"/><stop offset="1" stop-color="' + f.inner[1] + '"/></radialGradient></defs>' +
+      '<g fill="url(#' + id + '-p)" stroke="' + f.petal[1] + '" stroke-opacity=".35" stroke-width=".8">' + petals + '</g>' +
+      '<g fill="url(#' + id + '-i)" opacity=".9">' + inner + '</g>' +
+      '<circle cx="50" cy="50" r="9" fill="' + f.center + '"/><circle cx="47" cy="47" r="2.6" fill="#fff" opacity=".55"/></svg>';
+  }
+  // Each section keeps its flowers: { k: kind, x, y: % of the section, s: size px, r: degrees }.
+  function decorate(el, list, si) {
+    if (!el || !list || !list.length) return;
+    var layer = document.createElement('div');
+    layer.className = 'decor';
+    layer.innerHTML = list.map(function (d, i) {
+      var x = Math.min(100, Math.max(0, +d.x || 0)), y = Math.min(100, Math.max(0, +d.y || 0));
+      var s = Math.min(320, Math.max(16, +d.s || 70)), r = +d.r || 0;
+      return '<div class="decor-f" data-s="' + si + '" data-i="' + i + '" style="left:' + x + '%;top:' + y + '%;--fs:' + s + ';--fr:' + r + 'deg">' + flowerSvg(d.k) + '</div>';
+    }).join('');
+    el.appendChild(layer);
+  }
+
+  var PHOTO_ICON ='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-8 8"/></svg>';
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -190,6 +222,12 @@
 
     var app = document.getElementById('app');
     app.innerHTML = html;
+    sections.forEach(function (s, i) {
+      var el = document.getElementById(ids[i]);
+      if (!el) return;
+      el.setAttribute('data-sec', i);
+      decorate(el, s.decor, i);
+    });
     if (!opts.preview && c.seo && c.seo.title) document.title = c.seo.title;
 
     var nav = document.getElementById('nav');
@@ -329,6 +367,8 @@
   window.renderSite = render;
   window.siteMigrate = migrate;
   window.siteYoutubeId = youtubeId;
+  window.siteFlowers = FLOWERS;
+  window.siteFlowerSvg = flowerSvg;
 
   // Published pages carry their content inline.
   var inline = document.getElementById('site-content');
