@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sitios de la clase</title>
+<meta name="description" content="Todos los negocios y páginas creados por los estudiantes.">
+<meta name="theme-color" content="#120709">
+<script src="/feed/texts.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#120709; --bg2:#1b0c10; --panel:rgba(255,220,226,.045); --line:rgba(244,160,176,.16); --line2:rgba(244,160,176,.3);
+  --text:#fbecef; --muted:#c9a3ac; --rose:#ec5f7a; --rose2:#ffc4cf; --gold:#d9a86c; --wa:#25d366;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:Jost,system-ui,sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+[hidden]{display:none!important}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+header.top{position:sticky;top:0;z-index:10;background:rgba(18,7,9,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:14px;height:62px}
+.brand{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:24px;color:var(--rose2)}
+.spacer{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 18px;border-radius:999px;border:1px solid var(--line2);font-weight:500;font-size:14px;cursor:pointer;background:transparent;color:inherit;white-space:nowrap;transition:background .2s,border-color .2s}
+.btn:hover{border-color:var(--gold);background:var(--panel)}
+.btn.primary{background:var(--rose);border-color:var(--rose);color:#fff}
+.btn.primary:hover{background:#f2738b}
+.btn.wa{background:var(--wa);border-color:var(--wa);color:#05210f}
+.btn svg{width:16px;height:16px}
+.hero{padding:70px 0 34px;text-align:center;background:radial-gradient(ellipse 60% 80% at 50% 0%,rgba(236,95,122,.18),transparent 70%)}
+.eyebrow{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
+h1{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:clamp(40px,7vw,72px);line-height:1.05;margin:14px 0 12px}
+.sub{color:var(--muted);font-size:18px;max-width:36em;margin:0 auto}
+.tools{display:flex;flex-direction:column;gap:14px;align-items:center;margin:34px auto 0;max-width:720px}
+.search{width:100%;display:flex;align-items:center;gap:10px;padding:0 18px;border:1px solid var(--line2);border-radius:999px;background:var(--panel)}
+.search svg{width:18px;height:18px;color:var(--muted);flex:none}
+.search input{flex:1;background:transparent;border:0;outline:none;color:var(--text);font:inherit;font-size:16px;padding:14px 0}
+.cats{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.cats button{padding:8px 15px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);font:inherit;font-size:13.5px;cursor:pointer}
+.cats button.on{border-color:var(--rose);color:var(--rose2);background:rgba(236,95,122,.12)}
+.count{color:var(--muted);font-size:14px;margin:30px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.grid{grid-template-columns:1fr}}
+.grid .empty{grid-column:1/-1}
+.pager{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;padding:34px 0 80px}
+.pager button{min-width:42px;height:42px;padding:0 14px;border-radius:999px;border:1px solid var(--line2);background:transparent;color:var(--text);cursor:pointer;font-size:14px}
+.pager button:hover:not(:disabled){border-color:var(--gold)}
+.pager button.on{background:var(--rose);border-color:var(--rose);color:#fff;font-weight:500}
+.pager button:disabled{opacity:.35;cursor:default}
+.pager .dots{color:var(--muted);padding:0 4px}
+@media (max-width:600px){.pager .lbl{display:none}.pager{gap:6px}}
+.card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--bg2);transition:transform .25s,border-color .25s,box-shadow .25s}
+.card:hover{transform:translateY(-4px);border-color:var(--line2);box-shadow:0 24px 50px -24px rgba(0,0,0,.8)}
+.pic{position:relative;aspect-ratio:4/3;background:linear-gradient(160deg,rgba(236,95,122,.18),rgba(195,22,63,.06) 60%,transparent),#1d0e12;display:flex;align-items:center;justify-content:center}
+.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pic .initial{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:64px;color:var(--rose2);opacity:.6}
+.pic .cat{position:absolute;left:12px;top:12px;padding:5px 12px;border-radius:999px;background:rgba(18,7,9,.78);backdrop-filter:blur(6px);font-size:12px;letter-spacing:.06em;color:var(--rose2);border:1px solid var(--line)}
+.body{display:flex;flex-direction:column;gap:8px;padding:18px 18px 16px;flex:1}
+.body h2{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:27px;line-height:1.1}
+.desc{color:var(--muted);font-size:14.5px;line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.meta{font-size:13px;color:var(--gold);display:flex;flex-wrap:wrap;gap:4px 12px}
+.actions{display:flex;gap:8px;margin-top:auto;padding-top:10px}
+.actions .btn{flex:1;padding:9px 12px;font-size:13.5px}
+.empty{text-align:center;color:var(--muted);padding:60px 0}
+.hello{color:var(--gold);font-size:14px;white-space:nowrap}
+.mine{padding-top:28px}
+.mine-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.mine-head h2{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:32px}
+.mine-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px;padding-bottom:28px;border-bottom:1px solid var(--line)}
+.mine-item{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line2);border-radius:16px;background:var(--bg2)}
+.mine-item .thumb{width:56px;height:56px;border-radius:12px;flex:none;background:#1d0e12 center/cover;display:flex;align-items:center;justify-content:center;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:26px;color:var(--rose2)}
+.mine-item div{flex:1;min-width:0}
+.mine-item b{display:block;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mine-item small{display:block;color:var(--muted);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mine-item .btn{padding:8px 14px;font-size:13px}
+.mine-empty{color:var(--muted);padding:6px 0 18px}
+.modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:16px}
+.modal.on{display:flex}
+.auth{position:relative;width:100%;max-width:400px;background:var(--bg2);border:1px solid var(--line2);border-radius:22px;padding:28px 24px 24px;display:flex;flex-direction:column;gap:12px}
+.auth h3{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:30px}
+.auth .x{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.ltabs{display:flex;border:1px solid var(--line2);border-radius:12px;overflow:hidden}
+.ltabs button{flex:1;padding:10px;background:transparent;border:0;color:var(--muted);font:inherit;font-size:14px;cursor:pointer}
+.ltabs button.on{background:rgba(236,95,122,.14);color:var(--rose2);font-weight:500}
+.auth .f{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted)}
+.auth .f em{font-style:normal;color:var(--gold)}
+.auth[data-m="in"] .up{display:none}
+.auth input{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:10px;padding:11px 12px;color:var(--text);font:inherit;font-size:15px;outline:none}
+.auth input:focus{border-color:var(--rose)}
+.err{color:#ff8a8a;font-size:14px;min-height:1em}
+.btn.wide{width:100%;border-radius:12px;padding:12px}
+@media (max-width:560px){.mine-list{grid-template-columns:1fr}#btnLogin,#btnLogout,#btnMine{padding:9px 12px}.hello{display:none}}
+footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;color:var(--muted);font-size:13px}
+@media (max-width:560px){.hero{padding-top:44px}header.top .wrap{gap:8px}header.top .btn{padding:9px 12px;font-size:13px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="/feed/" data-t="brand">Sitios</a>
+  <div class="spacer"></div>
+  <span id="hello" class="hello" hidden></span>
+  <button type="button" class="btn ghost" id="btnLogin" data-t="login">Entrar</button>
+  <button type="button" class="btn primary" id="btnSignup" data-t="signup">Crear cuenta</button>
+  <a class="btn ghost" id="btnMine" href="#mis-sitios" hidden data-t="mine">Mis sitios</a>
+  <button type="button" class="btn ghost" id="btnLogout" hidden data-t="logout">Salir</button>
+</div></header>
+
+<section class="wrap mine" id="mis-sitios" hidden>
+  <div class="mine-head"><h2 data-t="mineTitle">Mis sitios</h2><a class="btn primary" href="/editor/#nuevo" data-t="newSite">+ Crear nuevo sitio</a></div>
+  <div class="mine-list" id="mineList"></div>
+</section>
+
+<section class="hero"><div class="wrap">
+  <div class="eyebrow" data-t="eyebrow">Directorio</div>
+  <h1 id="title">Sitios de la clase</h1>
+  <p class="sub" id="subtitle"></p>
+  <div class="tools">
+    <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" data-tp="search" placeholder="Buscar por nombre, tipo de negocio o ciudad…" aria-label="Buscar"></label>
+    <div class="cats" id="cats"></div>
+  </div>
+</div></section>
+
+<main class="wrap">
+  <p class="count" id="count"></p>
+  <div class="grid" id="grid"></div>
+  <nav class="pager" id="pager" aria-label="Páginas"></nav>
+</main>
+<footer><span data-t="footer">Páginas creadas por los estudiantes</span> · <a href="#" id="footSignup" style="color:var(--gold)" data-t="footerLink">Crear la mía</a></footer>
+
+<div class="modal" id="authModal" role="dialog" aria-modal="true">
+  <form class="auth" id="authForm" data-m="in">
+    <button type="button" class="x" id="authClose" aria-label="Cerrar">✕</button>
+    <h3 id="authTitle">Entrar</h3>
+    <div class="ltabs"><button type="button" data-m="in" class="on" data-t="login">Entrar</button><button type="button" data-m="up" data-t="signup">Crear cuenta</button></div>
+    <label class="f up"><span data-t="authName">Tu nombre</span><input type="text" id="aName" autocomplete="name" maxlength="60"></label>
+    <label class="f"><span data-t="authEmail">Correo</span><input type="email" id="aEmail" autocomplete="email"></label>
+    <label class="f"><span data-t="authPass">Contraseña</span><input type="password" id="aPass" autocomplete="current-password"></label>
+    <p class="err" id="aErr"></p>
+    <button type="submit" class="btn primary wide" id="aSubmit">Entrar</button>
+  </form>
+</div>
+
+<script>
+(function () {
+  var data = { sites: [] }, cat = '', q = '', page = 1;
+  var PER_PAGE = 12;
+  // Texts: teacher's value from feed.json, or the default from texts.js.
+  var DEFAULTS = {}, texts = {};
+  (window.FEED_TEXTS || []).forEach(function (g) { g.items.forEach(function (it) { DEFAULTS[it[0]] = it[2]; }); });
+  function T(k) { return texts[k] || DEFAULTS[k] || ''; }
+  function applyTexts() {
+    [].forEach.call(document.querySelectorAll('[data-t]'), function (el) { el.textContent = T(el.dataset.t); });
+    [].forEach.call(document.querySelectorAll('[data-tp]'), function (el) { el.placeholder = T(el.dataset.tp); });
+    document.title = texts.pageTitle || data.title || T('pageTitle'); // tab follows the feed title unless set
+    document.querySelector('meta[name=description]').content = T('metaDescription');
+    document.getElementById('title').textContent = data.title || 'Sitios de la clase';
+    document.getElementById('subtitle').textContent = data.subtitle || '';
+  }
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var norm = function (s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); };
+  var WA = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.05 2C6.53 2 2.05 6.47 2.05 12c0 1.77.46 3.5 1.34 5.02L2 22l5.12-1.34A9.95 9.95 0 0 0 12.05 22c5.52 0 10-4.48 10-10s-4.48-10-10-10zm5.47 14.13c-.23.65-1.36 1.25-1.87 1.29-.5.05-.98.23-3.3-.69-2.79-1.1-4.55-3.95-4.69-4.13-.13-.18-1.12-1.49-1.12-2.85 0-1.35.71-2.02.96-2.29.25-.28.55-.35.73-.35l.53.01c.17 0 .4-.06.62.48.23.55.78 1.9.85 2.04.07.14.11.3.02.48-.09.18-.14.3-.27.46-.14.16-.29.36-.41.48-.14.14-.28.29-.12.56.16.28.71 1.17 1.52 1.9 1.05.93 1.93 1.22 2.2 1.36.28.14.44.12.6-.07.16-.18.69-.81.88-1.09.18-.28.37-.23.62-.14.25.09 1.6.76 1.87.9.28.14.46.2.53.32.07.12.07.67-.16 1.32z"/></svg>';
+
+  function render() {
+    var nq = norm(q);
+    var list = data.sites.filter(function (s) {
+      if (cat && norm(s.category) !== norm(cat)) return false;
+      if (!nq) return true;
+      return norm([s.name, s.category, s.description, (s.places || []).join(' '), s.owner].join(' ')).indexOf(nq) >= 0;
+    });
+    document.getElementById('count').textContent = list.length + ' ' + (list.length === 1 ? T('countOne') : T('countMany'));
+    var pages = Math.max(1, Math.ceil(list.length / PER_PAGE));
+    if (page > pages) page = pages;
+    var shown = list.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+    renderPager(pages);
+    document.getElementById('grid').innerHTML = shown.length ? shown.map(function (s) {
+      var pic = s.photo ? '<img src="' + esc(s.photo) + '" alt="" loading="lazy">' : '<span class="initial">' + esc((s.name || '?').charAt(0)) + '</span>';
+      var meta = [];
+      if ((s.places || []).length) meta.push('📍 ' + esc(s.places.join(', ')));
+      if (s.owner) meta.push(esc(T('by')) + ' ' + esc(s.owner));
+      return '<article class="card"><a class="pic" href="/' + esc(s.slug) + '/">' + pic + (s.category ? '<span class="cat">' + esc(s.category) + '</span>' : '') + '</a>' +
+        '<div class="body"><h2>' + esc(s.name || s.slug) + '</h2>' + (s.description ? '<p class="desc">' + esc(s.description) + '</p>' : '') +
+        (meta.length ? '<div class="meta">' + meta.map(function (m) { return '<span>' + m + '</span>'; }).join('') + '</div>' : '') +
+        '<div class="actions"><a class="btn primary" href="/' + esc(s.slug) + '/">' + esc(T('viewSite')) + '</a>' +
+        (s.phone ? '<a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/' + esc(s.phone) + '?text=' + encodeURIComponent(T('waMessage').replace(/\{nombre\}/g, s.name || '')) + '">' + WA + esc(T('whatsapp')) + '</a>' : '') +
+        '</div></div></article>';
+    }).join('') : '<p class="empty">' + esc(T('noResults')) + '</p>';
+  }
+
+  // Page buttons: ‹ 1 2 3 … 8 › (current page highlighted).
+  function renderPager(pages) {
+    var el = document.getElementById('pager');
+    if (pages < 2) { el.innerHTML = ''; return; }
+    var nums = [];
+    for (var i = 1; i <= pages; i++) {
+      if (i === 1 || i === pages || Math.abs(i - page) <= 1) nums.push(i);
+      else if (nums[nums.length - 1] !== '…') nums.push('…');
+    }
+    el.innerHTML = '<button type="button" data-p="' + (page - 1) + '"' + (page === 1 ? ' disabled' : '') + ' aria-label="' + esc(T('prevPage')) + '">‹<span class="lbl"> ' + esc(T('prevPage')) + '</span></button>' +
+      nums.map(function (n) {
+        return n === '…' ? '<span class="dots">…</span>' : '<button type="button" data-p="' + n + '"' + (n === page ? ' class="on" aria-current="page"' : '') + '>' + n + '</button>';
+      }).join('') +
+      '<button type="button" data-p="' + (page + 1) + '"' + (page === pages ? ' disabled' : '') + ' aria-label="' + esc(T('nextPage')) + '"><span class="lbl">' + esc(T('nextPage')) + ' </span>›</button>';
+  }
+  document.getElementById('pager').onclick = function (e) {
+    var b = e.target.closest('button'); if (!b || b.disabled) return;
+    page = +b.dataset.p;
+    render();
+    document.getElementById('count').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  function renderCats() {
+    var seen = {}, cats = [];
+    data.sites.forEach(function (s) { var c = (s.category || '').trim(); if (c && !seen[norm(c)]) { seen[norm(c)] = 1; cats.push(c); } });
+    var el = document.getElementById('cats');
+    el.innerHTML = cats.length ? ['<button type="button" data-c="" class="on">' + esc(T('all')) + '</button>'].concat(cats.sort().map(function (c) {
+      return '<button type="button" data-c="' + esc(c) + '">' + esc(c) + '</button>';
+    })).join('') : '';
+    el.onclick = function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      cat = b.dataset.c; page = 1;
+      [].forEach.call(el.children, function (x) { x.classList.toggle('on', x === b); });
+      render();
+    };
+  }
+
+  document.getElementById('q').addEventListener('input', function () { q = this.value; page = 1; render(); });
+
+  // ---------- student accounts (same session as the editor at /editor/) ----------
+  var $ = function (id) { return document.getElementById(id); };
+  var store = {
+    get: function (k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } },
+    set: function (k, v) { try { if (v) localStorage.setItem(k, v); else localStorage.removeItem(k); } catch (e) {} }
+  };
+  function openAuth(mode) {
+    $('aErr').textContent = '';
+    setMode(mode);
+    $('authModal').classList.add('on');
+    (mode === 'up' ? $('aName') : $('aEmail')).focus();
+  }
+  function setMode(mode) {
+    $('authForm').dataset.m = mode;
+    [].forEach.call(document.querySelectorAll('.ltabs button'), function (b) { b.classList.toggle('on', b.dataset.m === mode); });
+    $('authTitle').textContent = mode === 'up' ? T('signup') : T('login');
+    $('aSubmit').textContent = mode === 'up' ? T('signup') : T('login');
+    $('aPass').autocomplete = mode === 'up' ? 'new-password' : 'current-password';
+  }
+  document.querySelector('.ltabs').onclick = function (e) { var b = e.target.closest('button'); if (b) { $('aErr').textContent = ''; setMode(b.dataset.m); } };
+  $('btnLogin').onclick = function () { openAuth('in'); };
+  $('btnSignup').onclick = function () { openAuth('up'); };
+  $('footSignup').onclick = function (e) { e.preventDefault(); if (store.get('stoken')) location.href = '/editor/#nuevo'; else openAuth('up'); };
+  $('authClose').onclick = function () { $('authModal').classList.remove('on'); };
+  $('authModal').onclick = function (e) { if (e.target === this) this.classList.remove('on'); };
+  $('btnLogout').onclick = function () { store.set('stoken', ''); store.set('sname', ''); showUser(); };
+  $('authForm').onsubmit = function (e) {
+    e.preventDefault();
+    var mode = this.dataset.m, btn = $('aSubmit');
+    btn.disabled = true; $('aErr').textContent = '';
+    fetch('/api/account', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+      action: mode === 'up' ? 'signup' : 'login', name: $('aName').value, email: $('aEmail').value, password: $('aPass').value
+    }) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (r) {
+        if (!r.ok) throw new Error(r.j.error || 'No se pudo entrar.');
+        store.set('stoken', r.j.token); store.set('sname', r.j.user.name);
+        $('authModal').classList.remove('on');
+        showUser(true);
+      })
+      .catch(function (err) { $('aErr').textContent = err.message; })
+      .then(function () { btn.disabled = false; });
+  };
+
+  function showUser(scroll) {
+    var token = store.get('stoken'), name = store.get('sname');
+    $('btnLogin').hidden = $('btnSignup').hidden = Boolean(token);
+    $('btnMine').hidden = $('btnLogout').hidden = $('hello').hidden = !token;
+    $('hello').textContent = name ? T('hello') + ' ' + name.split(' ')[0] : '';
+    $('mis-sitios').hidden = !token;
+    if (!token) return;
+    $('mineList').innerHTML = '<p class="mine-empty">Cargando tus sitios…</p>';
+    fetch('/api/load', { headers: { Authorization: 'Bearer ' + token }, cache: 'no-store' })
+      .then(function (r) { if (r.status === 401) { store.set('stoken', ''); showUser(); throw new Error('expired'); } return r.json(); })
+      .then(function (j) {
+        var sites = j.sites || [];
+        $('mineList').innerHTML = sites.length ? sites.map(function (s) {
+          var f = data.sites.filter(function (x) { return x.slug === s.slug; })[0];
+          var thumb = f && f.photo ? ' style="background-image:url(&quot;' + esc(f.photo) + '&quot;)">' : '>' + esc((s.label || '?').charAt(0));
+          return '<div class="mine-item"><span class="thumb"' + thumb + '</span><div><b>' + esc(s.label) + '</b><small>' + (f ? esc(T('published')) + ' · /' + esc(s.slug) + '/' : esc(T('unpublished'))) + '</small></div>' +
+            (f ? '<a class="btn" href="/' + esc(s.slug) + '/">' + esc(T('view')) + '</a>' : '') + '<a class="btn primary" href="/editor/#' + esc(s.slug) + '">' + esc(T('edit')) + '</a></div>';
+        }).join('') : '<p class="mine-empty">' + esc(T('mineEmpty')) + '</p>';
+        if (scroll) $('mis-sitios').scrollIntoView({ behavior: 'smooth' });
+      })
+      .catch(function () {});
+  }
+  if (/[?&]entrar=1/.test(location.search)) openAuth('in');
+
+  // The admin's "Textos del feed" window previews changes live in an iframe.
+  addEventListener('message', function (e) {
+    if (e.origin !== location.origin || !e.data || e.data.type !== 'feed-texts') return;
+    texts = e.data.texts || {}; data.title = e.data.title; data.subtitle = e.data.subtitle;
+    applyTexts(); renderCats(); render();
+    if (e.data.mine) { $('mis-sitios').hidden = false; $('mineList').innerHTML = '<p class="mine-empty">' + esc(T('mineEmpty')) + '</p>'; }
+  });
+  if (parent !== window) parent.postMessage({ type: 'feed-ready' }, location.origin);
+  fetch('/feed.json?t=' + Math.floor(Date.now() / 60000), { cache: 'no-store' })
+    .then(function (r) { return r.json(); })
+    .then(function (j) {
+      data = j; data.sites = data.sites || []; texts = j.texts || {};
+      // Teacher's ranking first (1 = best), then the rest, newest first.
+      data.sites = data.sites.map(function (x, i) { return [x, i]; }).sort(function (a, b) {
+        return (a[0].rank || 1e9) - (b[0].rank || 1e9) || a[1] - b[1];
+      }).map(function (x) { return x[0]; });
+      applyTexts(); renderCats(); render(); showUser();
+    })
+    .catch(function () { document.getElementById('grid').innerHTML = '<p class="empty">No se pudo cargar el directorio.</p>'; showUser(); });
+})();
+</script>
+</body>
+</html>

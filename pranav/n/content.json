@@ -1,0 +1,156 @@
+{
+  "name": "No site here",
+  "phone": "+570384840000",
+  "waMessage": "Hola {nombre}, quiero reservar un cejas",
+  "seo": {
+    "title": "{nombre} · unas",
+    "description": "{nombre} — unas y cejas"
+  },
+  "nav": {
+    "services": "",
+    "facilities": "Masaje",
+    "zones": "cejas",
+    "reserve": "Reservar"
+  },
+  "footer": "{nombre} · Masajes · Solo mayores de 18 años",
+  "sections": [
+    {
+      "type": "intro",
+      "quote": "¡Nada que un buen dia",
+      "quoteAccent": "no pueda arreglar!",
+      "body": "Ven y disfruta de un buen dia"
+    },
+    {
+      "type": "services",
+      "eyebrow": "Paquetes disponibles",
+      "title": "Elige tu experiencia ",
+      "items": [
+        {
+          "name": "Masaje 6o min 💆‍♂️",
+          "desc": "$2900"
+        },
+        {
+          "name": "unas",
+          "desc": "unas"
+        },
+        {
+          "name": "ok",
+          "desc": ""
+        }
+      ],
+      "benefit": "unas y cejas"
+    },
+    {
+      "type": "facilities",
+      "eyebrow": "en Polanco",
+      "title": "Comodidad y total discreción",
+      "items": [
+        {
+          "icon": "home",
+          "title": "Apartamento cómodo",
+          "desc": "Instalaciones totalmente cómodas y acogedoras."
+        },
+        {
+          "icon": "parking",
+          "title": "Parqueadero",
+          "desc": "Llega tranquilo, tenemos dónde dejar tu vehículo."
+        },
+        {
+          "icon": "shield",
+          "title": "Totalmente discreto",
+          "desc": "Tu privacidad es lo primero."
+        },
+        {
+          "icon": "drink",
+          "title": "Bebida de bienvenida",
+          "desc": "Relájate desde el primer momento."
+        }
+      ],
+      "gallery": [
+        {
+          "photo": "",
+          "caption": "",
+          "placeholder": "Sala de unas",
+          "fit": "contain"
+        },
+        {
+          "photo": "",
+          "caption": "",
+          "placeholder": "Ambiente",
+          "fit": "contain"
+        },
+        {
+          "photo": "",
+          "caption": "",
+          "placeholder": "Amenidades",
+          "fit": "contain",
+          "pos": "bottom"
+        }
+      ]
+    },
+    {
+      "type": "facilities",
+      "eyebrow": "en Polanco",
+      "title": "Comodidad y total discreción",
+      "items": [
+        {
+          "icon": "home",
+          "title": "Apartamento cómodo",
+          "desc": "Instalaciones totalmente cómodas y acogedoras."
+        },
+        {
+          "icon": "parking",
+          "title": "Parqueadero",
+          "desc": "Llega tranquilo, tenemos dónde dejar tu vehículo."
+        },
+        {
+          "icon": "shield",
+          "title": "Spa de unas",
+          "desc": "Tu privacidad es lo primero."
+        },
+        {
+          "icon": "drink",
+          "title": "",
+          "desc": "spa"
+        }
+      ],
+      "gallery": [
+        {
+          "photo": "",
+          "caption": "",
+          "placeholder": "sala",
+          "fit": "contain"
+        },
+        {
+          "photo": "",
+          "caption": "",
+          "placeholder": "Ambiente",
+          "fit": "contain"
+        },
+        {
+          "photo": "",
+          "caption": "",
+          "placeholder": "Amenidades",
+          "fit": "contain",
+          "pos": "bottom"
+        }
+      ]
+    },
+    {
+      "type": "zones",
+      "eyebrow": "Agenda con antecipación",
+      "title": "La ubicación se envia al confirmar la cita",
+      "text": "",
+      "places": [
+        "Yutacan"
+      ]
+    },
+    {
+      "type": "cta",
+      "eyebrow": "Reserva tu cita",
+      "title": "¡Te espero!",
+      "text": "Escríbeme por WhatsApp y agenda tu momento de relajación y placer.",
+      "button": "WhatsApp {telefono}"
+    }
+  ]
+}

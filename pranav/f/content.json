@@ -1,5 +1,5 @@
 {
-  "name": "Kata Massaje",
+  "name": "Cups to sell",
   "phone": "573217455367",
   "waMessage": "Hola {nombre}, quiero reservar un masaje",
   "seo": {
@@ -16,12 +16,12 @@
   "sections": [
     {
       "type": "hero",
-      "photo": "foto-mv47yivz.jpg",
+      "photo": "",
       "eyebrow": "Masajes · Medellín",
       "title": "Relajación y placer",
       "titleAccent": "en un masaje",
       "greeting": "¡Hola, soy {nombre}!",
-      "lead": "Ven y le daré un roce con mis manos a tu cuerpo.",
+      "lead": "Cups and jars",
       "ctaPrimary": "Escríbeme por WhatsApp",
       "ctaSecondary": "Ver masajes",
       "badgeTitle": "{nombre}",
@@ -91,19 +91,19 @@
       ],
       "gallery": [
         {
-          "photo": "foto-mv49e5sz.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Sala de masajes",
           "fit": "contain"
         },
         {
-          "photo": "foto-mv49eqoj.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Ambiente",
           "fit": "contain"
         },
         {
-          "photo": "foto-mv49ka9m.jpg",
+          "photo": "",
           "caption": "",
           "placeholder": "Amenidades",
           "fit": "",

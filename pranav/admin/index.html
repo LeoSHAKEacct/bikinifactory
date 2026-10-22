@@ -18,6 +18,7 @@ html,body{height:100%}
 body{background:var(--bg);color:var(--text);font-family:Jost,system-ui,sans-serif;font-size:14px;-webkit-font-smoothing:antialiased}
 button,input,textarea,select{font:inherit;color:inherit}
 a{color:inherit}
+[hidden]{display:none!important}
 
 /* top bar */
 .top{display:flex;align-items:center;gap:16px;padding:12px 20px;border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:5;flex-wrap:wrap}
@@ -140,6 +141,44 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
 .add-sec select{flex:1}
 .login{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:15;padding:16px}
 .login.off{display:none}
+.rate-card{max-width:820px;width:100%;max-height:calc(100vh - 32px);display:flex;flex-direction:column;gap:12px}
+.rate-head,.rate-row{display:grid;grid-template-columns:1fr 270px 64px;gap:12px;align-items:center}
+.rate-head{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);padding:0 12px}
+.rate-head #rateCats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.rate-list{overflow:auto;display:flex;flex-direction:column;gap:6px;min-height:120px}
+.rate-row{padding:9px 12px;border:1px solid var(--line);border-radius:12px}
+.rate-row .who{display:flex;gap:10px;align-items:center;min-width:0}
+.rate-row .who .num{font-family:"Cormorant Garamond",serif;font-style:italic;color:var(--gold);font-size:18px;width:24px;flex:none}
+.rate-row .who div{min-width:0}
+.rate-row .who b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.rate-row .who small{color:var(--muted);font-size:12px}
+.rate-row .scores{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rate-row select{padding:7px 6px;text-align:center}
+.rate-row .tot{text-align:center;font-weight:600;font-size:18px;color:var(--rose2)}
+.rate-row .tot small{display:block;font-size:11px;color:var(--muted);font-weight:400}
+@media (max-width:700px){.rate-head{display:none}.rate-row{grid-template-columns:1fr 54px}.rate-row .scores{grid-column:1/-1;grid-row:2}}
+.feed-card{max-width:1200px;width:100%;height:calc(100vh - 32px);display:flex;flex-direction:column;gap:12px}
+.feed-cols{flex:1;min-height:0;display:grid;grid-template-columns:400px 1fr;gap:16px}
+.feed-fields{overflow:auto;padding-right:6px;display:flex;flex-direction:column;gap:16px}
+.feed-fields .sub{margin-top:10px}
+.feed-preview{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#120709}
+.feed-preview iframe{width:100%;height:100%;border:0}
+@media (max-width:900px){.feed-cols{grid-template-columns:1fr}.feed-preview{display:none}}
+.login-card{max-width:400px}
+.ltabs{display:flex;border:1px solid var(--line2);border-radius:10px;overflow:hidden}
+.ltabs button{flex:1;padding:9px 6px;background:transparent;border:0;cursor:pointer;font-size:13.5px}
+.ltabs button.on{background:var(--panel2);color:var(--rose2);font-weight:600}
+#loginForm{display:flex;flex-direction:column;gap:12px}
+#loginForm .f{display:none}
+#loginForm[data-m="in"] .lf-in,#loginForm[data-m="up"] .lf-up,#loginForm[data-m="admin"] .lf-admin{display:flex}
+.feed-link{color:var(--gold);font-size:13px;text-align:center;text-decoration:none}
+.who{font-size:13px;color:var(--gold);white-space:nowrap}
+.empty{text-align:center;padding:60px 20px;border:1px dashed var(--line2);border-radius:16px;margin-top:10px}
+.empty h3{font-family:"Cormorant Garamond",serif;font-size:28px;font-weight:500;margin-bottom:8px}
+.empty p{color:var(--muted);margin-bottom:18px;line-height:1.5}
+.st-row{display:flex;gap:10px;align-items:center;padding:9px 12px;border:1px solid var(--line);border-radius:10px}
+.st-row div{flex:1;min-width:0}
+.st-row small{display:block;color:var(--muted);overflow-wrap:anywhere}
 </style>
 </head>
 <body>
@@ -148,6 +187,12 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
   <div class="brand">Sitios <small>Admin</small></div>
   <nav class="tabs" id="tabs"></nav>
   <div class="spacer"></div>
+  <span class="who" id="who"></span>
+  <button class="btn small" id="classBtn" hidden>Estudiantes</button>
+  <button class="btn small" id="feedBtn" hidden>Textos del feed</button>
+  <button class="btn small" id="rateBtn" hidden>Calificar</button>
+  <a class="btn small" id="feedLink" href="/feed/" target="_blank" rel="noopener">Feed ↗</a>
+  <button class="btn small" id="logoutBtn">Salir</button>
   <span class="save-state" id="saveState"></span>
   <span class="status" id="status"></span>
   <button class="btn" id="saveBtn">Guardar</button>
@@ -171,12 +216,57 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
 </div>
 
 <div class="login" id="login">
-  <form class="card" id="pwForm">
+  <div class="card login-card">
     <h3>Panel de sitios</h3>
-    <p>Escribe la contraseña para entrar.</p>
-    <input type="text" id="pwInput" autocomplete="current-password" style="-webkit-text-security:disc" placeholder="Contraseña">
-    <div class="err" id="pwErr"></div>
-    <div style="display:flex;justify-content:flex-end"><button type="submit" class="btn primary">Entrar</button></div>
+    <form id="loginForm" data-m="admin">
+      <label class="f lf-admin"><span>Contraseña del profesor</span><input type="text" id="pwInput" autocomplete="current-password" style="-webkit-text-security:disc"></label>
+      <div class="err" id="pwErr"></div>
+      <button type="submit" class="btn primary" id="lfSubmit">Entrar</button>
+    </form>
+    <a href="/feed/" class="feed-link">¿Eres estudiante? Entra desde el feed →</a>
+  </div>
+</div>
+
+<div class="modal" id="feedModal">
+  <form class="card feed-card" id="feedForm">
+    <div class="feed-cols">
+      <div class="feed-fields">
+        <h3>Textos del feed</h3>
+        <p>Todo lo que se lee en <b>/feed/</b>. Deja un campo vacío para usar el texto original (en gris). Se ve al lado al instante; con <b>Guardar</b> queda en vivo en ~1 minuto.</p>
+        <div class="sub">Título principal</div>
+        <label class="f"><span>Título</span><input type="text" id="fdTitle" maxlength="80" placeholder="Sitios de la clase"></label>
+        <label class="f"><span>Subtítulo</span><input type="text" id="fdSub" maxlength="200" placeholder=""></label>
+        <div id="fdGroups"></div>
+      </div>
+      <div class="feed-preview"><iframe id="feedFrame" title="Vista previa del feed"></iframe></div>
+    </div>
+    <div class="err" id="fdErr"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button type="button" class="btn" id="fdClose">Cerrar</button><button type="submit" class="btn primary" id="fdSave">Guardar</button></div>
+  </form>
+</div>
+
+<div class="modal" id="rateModal">
+  <div class="card rate-card">
+    <h3>Calificar sitios</h3>
+    <p>Pon de 1 a 10 en cada categoría. Las notas se guardan solas y son privadas: nadie más las ve. Con <b>Aplicar orden al feed</b> los sitios con más puntos aparecen primero (los sin nota van al final).</p>
+    <div class="rate-head"><span>Sitio</span><span id="rateCats"></span><span>Total</span></div>
+    <div class="rate-list" id="rateList"></div>
+    <div class="err" id="rateErr"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;align-items:center;flex-wrap:wrap">
+      <span class="save-state" id="rateState"></span>
+      <button type="button" class="btn" id="rateClose">Cerrar</button>
+      <button type="button" class="btn primary" id="rateApply">Aplicar orden al feed</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="classModal">
+  <form class="card wide" id="classForm">
+    <h3>Estudiantes</h3>
+    <div class="sub">Estudiantes</div>
+    <div class="hist" id="clStudents"></div>
+    <div class="err" id="clErr"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button type="button" class="btn" id="clClose">Cerrar</button></div>
   </form>
 </div>
 
@@ -188,7 +278,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
       <div style="display:flex;align-items:center;gap:6px"><span id="nsHost" style="color:var(--muted);font-size:13px;white-space:nowrap"></span><input type="text" id="nsSlug" placeholder="d" autocomplete="off"></div>
     </label>
     <label class="f"><span>Nombre de la pestaña <em>· solo se ve en el panel</em></span><input type="text" id="nsLabel" placeholder="Sitio D" maxlength="40"></label>
-    <label class="f"><span>Copiar de</span><select id="nsSrc"></select></label>
+    <label class="f"><span>Empezar desde</span><select id="nsSrc"></select></label>
     <label style="display:flex;gap:8px;align-items:center;color:var(--muted)"><input type="checkbox" id="nsPhotos"> Copiar también las fotos</label>
     <div class="err" id="nsErr"></div>
     <div style="display:flex;gap:8px;justify-content:flex-end">
@@ -209,12 +299,14 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
 <div class="toast" id="toast"></div>
 
 <script src="/_site/site.js"></script>
+<script src="/feed/texts.js"></script>
 <script>
 var ICONS = [['home','Casa'],['parking','Parqueadero'],['shield','Discreción'],['drink','Bebida'],['heart','Corazón'],['star','Estrella'],['candle','Vela'],['car','Carro / domicilio']];
 
 // Form layout. Fields are [key, label, type, hint]; lists are { list, ... }.
 var GENERAL = [
   ['name', 'Nombre (logo y foto)'],
+  ['category', 'Tipo de negocio (aparece en el feed)', 'text', 'Ej: Masajes, Diseño de interiores, Ropa'],
   ['phone', 'WhatsApp con código de país', 'tel', 'Ej: 573217455367'],
   ['waMessage', 'Mensaje que llega por WhatsApp'],
   ['seo.title', 'Título en la pestaña y en Google'],
@@ -222,6 +314,13 @@ var GENERAL = [
   ['nav.services', 'Menú: link a la 1ª sección de lista'], ['nav.facilities', 'Menú: link a la 1ª de instalaciones'], ['nav.zones', 'Menú: link a la 1ª de zonas'], ['nav.reserve', 'Botón del menú'],
   ['footer', 'Pie de página']
 ];
+// Gallery: any number of photos or YouTube videos. Field 6th entry = show only for that kind.
+var GALLERY_LIST = { list: 'gallery', label: 'Elemento', add: '+ Agregar foto o video', sub: 'Galería (el primero se ve grande)',
+  empty: { kind: '', photo: '', video: '', caption: '', placeholder: 'Foto' },
+  fields: [['kind', 'Tipo', 'select', '', 'KIND'], ['photo', 'Foto', 'image', '', null, '!video'], ['video', 'Link de YouTube', 'text', 'pega el link del video', null, 'video'],
+    ['fit', 'Ajuste de la foto', 'select', '', 'FIT', '!video'], ['pos', 'Enfoque (si llena el marco)', 'select', '', 'POS', '!video'],
+    ['caption', 'Texto sobre la foto o video'], ['placeholder', 'Texto si no hay foto', 'text', '', null, '!video']] };
+function showField(cond, item) { return !cond || (cond[0] === '!' ? item.kind !== cond.slice(1) : item.kind === cond); }
 // Section types: each page is an ordered list of these, which can be duplicated or removed.
 var SECTION_TYPES = {
   hero: { label: 'Portada', fields: [
@@ -244,16 +343,18 @@ var SECTION_TYPES = {
   services: { label: 'Lista (masajes, servicios, productos)', fields: [
     ['eyebrow', 'Texto pequeño (dorado)'], ['title', 'Título'],
     { list: 'items', label: 'Elemento', add: '+ Agregar elemento', empty: { name: 'Nuevo', desc: '' },
-      fields: [['name', 'Nombre'], ['desc', 'Descripción', 'textarea'], ['bookable', 'Reservas', 'select', 'si la agenda está activa', 'BOOKABLE'], ['duration', 'Duración de la cita', 'select', '', 'DURATION']] },
+      fields: [['photo', 'Foto (opcional)', 'image'], ['fit', 'Ajuste de la foto', 'select', '', 'FIT'], ['pos', 'Enfoque', 'select', '', 'POS'], ['name', 'Nombre'], ['desc', 'Descripción', 'textarea'], ['bookable', 'Reservas', 'select', 'si la agenda está activa', 'BOOKABLE'], ['duration', 'Duración de la cita', 'select', '', 'DURATION']] },
     ['benefit', 'Frase final (vacío = ocultar)', 'textarea']
   ], blank: { eyebrow: 'Texto pequeño', title: 'Nueva lista', items: [{ name: 'Elemento 1', desc: '' }], benefit: '' } },
   facilities: { label: 'Instalaciones y galería', fields: [
     ['eyebrow', 'Texto pequeño (dorado)'], ['title', 'Título'],
     { list: 'items', label: 'Comodidad', add: '+ Agregar comodidad', empty: { icon: 'star', title: 'Nueva', desc: '' },
       fields: [['icon', 'Ícono', 'icon'], ['title', 'Título'], ['desc', 'Descripción']] },
-    { list: 'gallery', label: 'Foto', fixed: true, sub: 'Galería (la primera es la grande)',
-      fields: [['photo', 'Foto', 'image'], ['fit', 'Ajuste de la foto', 'select', '', 'FIT'], ['pos', 'Enfoque (si llena el marco)', 'select', '', 'POS'], ['caption', 'Texto sobre la foto'], ['placeholder', 'Texto si no hay foto']] }
+    GALLERY_LIST
   ], blank: { eyebrow: 'Texto pequeño', title: 'Nueva galería', items: [], gallery: [{ photo: '', caption: '', placeholder: 'Foto 1' }, { photo: '', caption: '', placeholder: 'Foto 2' }, { photo: '', caption: '', placeholder: 'Foto 3' }] } },
+  gallery: { label: 'Galería de fotos y videos', fields: [
+    ['eyebrow', 'Texto pequeño (dorado)'], ['title', 'Título'], GALLERY_LIST
+  ], blank: { eyebrow: 'Galería', title: 'Nuestro trabajo', gallery: [{ kind: '', photo: '', video: '', caption: '', placeholder: 'Foto 1' }, { kind: '', photo: '', video: '', caption: '', placeholder: 'Foto 2' }, { kind: 'video', photo: '', video: '', caption: '', placeholder: 'Video' }] } },
   zones: { label: 'Zonas / lugares', fields: [
     ['eyebrow', 'Texto pequeño (dorado)'], ['title', 'Título'], ['text', 'Texto', 'textarea'],
     ['places', 'Lugares (uno por línea)', 'lines']
@@ -285,6 +386,7 @@ var OPTIONS = {
   STEP: [['30', '30 min'], ['15', '15 min'], ['60', '1 hora']],
   NOTICE: [['2', '2 horas'], ['0', 'Sin mínimo'], ['1', '1 hora'], ['4', '4 horas'], ['12', '12 horas'], ['24', '1 día'], ['48', '2 días']],
   MAXDAYS: [['30', '30 días'], ['7', '7 días'], ['14', '14 días'], ['60', '60 días']],
+  KIND: [['', 'Foto'], ['video', 'Video de YouTube']],
   FIT: [['', 'Llenar el marco (puede recortar los bordes)'], ['contain', 'Foto completa (sin recortar)']],
   POS: [['', 'Automático'], ['top', 'Arriba (caras, techos)'], ['center', 'Centro'], ['bottom', 'Abajo (pisos, muebles)']]
 };
@@ -301,12 +403,21 @@ var RESERVED = ['admin', 'api', '_site', 'anamaria', 'mohammad', 'index', 'sites
 
 // published: what is live (content.json on main) · saved: last version stored in the cloud
 // drafts: what is in the editor now. Edits autosave to the cloud a moment after typing stops.
-var state = { slug: null, sites: [], published: {}, saved: {}, drafts: {}, password: '', calendar: {} };
+var state = { slug: null, sites: [], published: {}, saved: {}, drafts: {}, password: '', token: '', who: null, calendar: {} };
 var saving = {}, saveTimers = {}, saveErrors = {}, deploys = {}, localImages = {};
 try { state.password = sessionStorage.getItem('adminpw') || ''; } catch (e) {}
+try { state.token = localStorage.getItem('stoken') || ''; } catch (e) {}
+if (!/^\/editor/.test(location.pathname)) state.token = ''; // /admin/ is teacher-only
 try { Object.keys(localStorage).forEach(function (k) { if (/^(draft:|newsites$)/.test(k)) localStorage.removeItem(k); }); } catch (e) {}
 
 var $ = function (id) { return document.getElementById(id); };
+// /editor/ is the students' door (login happens on /feed/); /admin/ is the teacher's.
+var EDITOR = /^\/editor/.test(location.pathname);
+if (EDITOR) {
+  document.title = 'Mi sitio';
+  document.querySelector('.brand').innerHTML = 'Mi sitio <small>Editor</small>';
+  state.password = '';
+}
 function clone(o) { return JSON.parse(JSON.stringify(o)); }
 function same(a, b) { return JSON.stringify(a) === JSON.stringify(b); }
 function get(o, path) { return path.split('.').reduce(function (a, k) { return a == null ? a : a[k]; }, o); }
@@ -338,37 +449,71 @@ function toast(html, kind, ms) {
   toastTimer = setTimeout(function () { t.className = 'toast'; }, ms || 4000);
 }
 
+function authHeaders() {
+  var h = { 'Content-Type': 'application/json' };
+  if (state.password) h['x-admin-password'] = state.password;
+  else if (state.token) h.Authorization = 'Bearer ' + state.token;
+  return h;
+}
 async function api(method, path, body) {
   var r = await fetch(path, {
     method: method,
-    headers: { 'Content-Type': 'application/json', 'x-admin-password': state.password },
+    headers: authHeaders(),
     body: body ? JSON.stringify(body) : undefined,
     cache: 'no-store'
   });
   var j = await r.json().catch(function () { return {}; });
-  if (r.status === 401) { logout(); throw new Error('Contraseña incorrecta.'); }
+  if (r.status === 401) { logout(); throw new Error(j.error || 'Entra de nuevo.'); }
   if (!r.ok) throw new Error(j.error || ('Error ' + r.status));
   return j;
 }
 
 // ---------- login ----------
 function logout() {
-  state.password = '';
-  try { sessionStorage.removeItem('adminpw'); } catch (e) {}
+  state.password = ''; state.token = '';
+  try { sessionStorage.removeItem('adminpw'); localStorage.removeItem('stoken'); localStorage.removeItem('sname'); } catch (e) {}
+  if (EDITOR) { location.href = '/feed/?entrar=1'; return; }
   $('login').classList.remove('off');
 }
-$('pwForm').onsubmit = async function (e) {
+$('logoutBtn').onclick = function () { logout(); if (!EDITOR) location.reload(); };
+$('loginForm').onsubmit = async function (e) {
   e.preventDefault();
-  state.password = $('pwInput').value;
-  $('pwErr').textContent = '';
-  try { await start(); } catch (err) { $('pwErr').textContent = err.message; }
+  var btn = $('lfSubmit');
+  $('pwErr').textContent = ''; btn.disabled = true;
+  try {
+    state.password = $('pwInput').value; state.token = '';
+    await start();
+  } catch (err) { $('pwErr').textContent = err.message; }
+  finally { btn.disabled = false; }
 };
 async function start() {
   var j = await api('GET', '/api/load');
-  try { sessionStorage.setItem('adminpw', state.password); } catch (e) {}
+  if (state.password) { try { sessionStorage.setItem('adminpw', state.password); } catch (e) {} }
   $('login').classList.add('off');
   state.sites = j.sites;
-  if (state.sites.length) await switchSite(state.slug || state.sites[0].slug);
+  state.who = j.who || { role: 'admin' };
+  $('who').textContent = state.who.role === 'admin' ? 'Profesor' : state.who.name;
+  $('classBtn').hidden = state.who.role !== 'admin';
+  $('feedBtn').hidden = state.who.role !== 'admin';
+  $('rateBtn').hidden = state.who.role !== 'admin';
+  // /editor/#nuevo opens "new site"; /editor/#<site> opens that site (links from the feed).
+  var want = decodeURIComponent(location.hash.slice(1));
+  if (want && state.sites.some(function (s) { return s.slug === want; })) state.slug = want;
+  if (state.sites.length) await switchSite(state.slug && state.sites.some(function (s) { return s.slug === state.slug; }) ? state.slug : state.sites[0].slug);
+  else renderEmpty();
+  if (want === 'nuevo') openNewSite(null);
+  if (want) history.replaceState(null, '', location.pathname);
+}
+function renderEmpty() {
+  state.slug = null;
+  renderTabs();
+  $('saveState').textContent = ''; $('status').textContent = '';
+  $('saveBtn').disabled = true; $('publish').disabled = true;
+  $('url').textContent = ''; $('live').removeAttribute('href');
+  $('editor').innerHTML = '<div class="empty"><h3>' + (state.who.role === 'admin' ? 'No hay sitios' : '¡Hola, ' + esc(state.who.name) + '!') + '</h3>' +
+    '<p>Crea tu página: empieza desde una plantilla, cambia los textos, sube tus fotos y publícala.</p>' +
+    '<button type="button" class="btn primary" id="firstSite">Crear mi primer sitio</button></div>';
+  try { $('frame').contentWindow.document.getElementById('app').innerHTML = ''; } catch (e) {}
 }
 
 async function loadSite(slug) {
@@ -383,7 +528,7 @@ async function loadSite(slug) {
 // ---------- top bar ----------
 function renderTabs() {
   $('tabs').innerHTML = state.sites.map(function (s) {
-    return '<button class="tab' + (s.slug === state.slug ? ' on' : '') + (isUnpublished(s.slug) ? ' dirty' : '') + '" data-slug="' + esc(s.slug) + '" title="/' + esc(s.slug) + '/"><span class="dot"></span>' + esc(s.label) + '</button>';
+    return '<button class="tab' + (s.slug === state.slug ? ' on' : '') + (isUnpublished(s.slug) ? ' dirty' : '') + '" data-slug="' + esc(s.slug) + '" title="/' + esc(s.slug) + '/"><span class="dot"></span>' + esc(s.label) + (s.ownerName ? ' <small style="opacity:.6">· ' + esc(s.ownerName) + '</small>' : '') + '</button>';
   }).join('') + '<button class="tab add" id="addSite">+ Nuevo sitio</button>';
   renderStatus();
 }
@@ -522,6 +667,7 @@ function renderEditor() {
   var html = '<div class="site-actions">' +
     '<button class="btn small" id="dupSite">Duplicar este sitio</button>' +
     '<button class="btn small" id="history">Historial</button>' +
+    '<button class="btn small danger" id="delSite">Eliminar sitio</button>' +
     '<button class="btn small danger" id="discard"' + (state.published[state.slug] && isUnpublished(state.slug) ? '' : ' disabled') + '>Descartar cambios</button></div>';
   html += '<div class="note" style="background:rgba(236,95,122,.07);border-color:var(--line2);color:var(--rose2)">Tip: escribe <b>{nombre}</b> o <b>{telefono}</b> en cualquier texto y se reemplaza solo.</div>';
   html += '<div class="note">Editando <b>' + esc(siteLabel(state.slug)) + '</b> · link: <b>' + esc(location.host) + '/' + esc(state.slug) + '/</b><br>Todo se <b>guarda solo</b> en la nube unos segundos después de editar (también desde otro computador). Con <b>Publicar en Vercel</b> queda en vivo en ~1 minuto.</div>';
@@ -577,7 +723,7 @@ function renderEditor() {
             '<button type="button" class="icon-btn" title="Eliminar" data-del="' + lp + '|' + i + '">✕</button>';
         }
         html += '</div>';
-        f.fields.forEach(function (sf) { html += fieldHtml(lp + '.' + i + '.' + sf[0], sf[1], sf[2], sf[3], it[sf[0]], sf[4]); });
+        f.fields.forEach(function (sf) { if (showField(sf[5], it)) html += fieldHtml(lp + '.' + i + '.' + sf[0], sf[1], sf[2], sf[3], it[sf[0]], sf[4]); });
         html += '</div>';
       });
       if (!f.fixed) html += '<button type="button" class="btn small" data-add="' + lp + '|' + sec.type + '|' + f.list + '">' + esc(f.add) + '</button>';
@@ -617,13 +763,13 @@ $('editor').addEventListener('input', function (e) {
   if (el.dataset.lines) v = v.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
   if (path === 'phone') v = v.replace(/[^\d+ ]/g, '');
   set(draft(), path, v);
-  changed(false);
+  changed(/\.kind$/.test(path)); // switching photo/video shows other fields
 });
 
 $('editor').addEventListener('click', function (e) {
   var t = e.target, d = draft(), p;
   if (t.closest('.sum-tools')) e.preventDefault(); // don't fold the section
-  var secs = d.sections;
+  var secs = d && d.sections; // no site open yet for a new student
   if (t.dataset.add) {
     p = t.dataset.add.split('|');
     if (!get(d, p[0])) set(d, p[0], []);
@@ -670,6 +816,10 @@ $('editor').addEventListener('click', function (e) {
     api('POST', '/api/google-disconnect', { slug: state.slug })
       .then(function () { state.calendar[state.slug].email = null; renderEditor(); toast('Google Calendar desconectado.', 'ok'); })
       .catch(function (x) { toast(esc(x.message), 'err'); });
+  } else if (t.id === 'firstSite') {
+    openNewSite(null);
+  } else if (t.id === 'delSite') {
+    deleteSite(state.slug);
   } else if (t.id === 'dupSite') {
     openNewSite(state.slug);
   } else if (t.id === 'history') {
@@ -783,16 +933,51 @@ function watchDeploy(slug, content) {
 }
 
 // ---------- new site / duplicate ----------
-function openNewSite(src) {
+var feedCache = null;
+async function loadFeed() {
+  if (feedCache) return feedCache;
+  try { feedCache = await (await fetch('/feed.json?t=' + Date.now(), { cache: 'no-store' })).json(); } catch (e) { feedCache = { sites: [] }; }
+  return feedCache;
+}
+async function openNewSite(src) {
   $('nsSlug').value = ''; $('nsLabel').value = ''; $('nsErr').textContent = '';
   $('nsPhotos').checked = Boolean(src);
   $('nsTitle').textContent = src ? 'Duplicar ' + siteLabel(src) : 'Nuevo sitio';
-  $('nsSrc').innerHTML = state.sites.map(function (s) {
-    return '<option value="' + esc(s.slug) + '"' + (s.slug === (src || state.slug) ? ' selected' : '') + '>' + esc(s.label) + ' (/' + esc(s.slug) + '/)</option>';
-  }).join('');
   $('nsHost').textContent = location.host + '/';
+  var feed = await loadFeed();
+  var mine = state.sites.map(function (s) { return '<option value="own:' + esc(s.slug) + '"' + (s.slug === src ? ' selected' : '') + '>' + esc(s.label) + ' (/' + esc(s.slug) + '/)</option>'; }).join('');
+  var others = (feed.sites || []).filter(function (f) { return !state.sites.some(function (s) { return s.slug === f.slug; }); })
+    .map(function (f) { return '<option value="feed:' + esc(f.slug) + '">' + esc(f.name || f.slug) + (f.category ? ' · ' + esc(f.category) : '') + ' (/' + esc(f.slug) + '/)</option>'; }).join('');
+  $('nsSrc').innerHTML = (mine ? '<optgroup label="' + (state.who.role === 'admin' ? 'Sitios' : 'Mis sitios') + '">' + mine + '</optgroup>' : '') +
+    (others ? '<optgroup label="Plantillas (sitios publicados)">' + others + '</optgroup>' : '');
   $('nsModal').classList.add('on'); $('nsSlug').focus();
 }
+async function sourceContent(value) {
+  var kind = value.split(':')[0], slug = value.slice(kind.length + 1);
+  if (kind === 'own') {
+    await loadSite(slug);
+    if (saving[slug]) await saving[slug].promise;
+    return { slug: slug, content: clone(state.drafts[slug]) };
+  }
+  var r = await fetch('/' + slug + '/content.json?t=' + Date.now(), { cache: 'no-store' });
+  if (!r.ok) throw new Error('No se pudo cargar la plantilla.');
+  return { slug: slug, content: migrate(await r.json()) };
+}
+
+async function deleteSite(slug) {
+  var typed = prompt('Esto borra /' + slug + '/ por completo: página en vivo, borradores, fotos y su agenda. No se puede deshacer.\n\nPara confirmar, escribe la dirección: ' + slug);
+  if (typed === null) return;
+  if (typed.trim() !== slug) { toast('La dirección no coincide. No se eliminó nada.', 'err'); return; }
+  try {
+    await api('POST', '/api/delete-site', { slug: slug });
+    state.sites = state.sites.filter(function (s) { return s.slug !== slug; });
+    ['published', 'saved', 'drafts', 'calendar'].forEach(function (k) { delete state[k][slug]; });
+    feedCache = null;
+    toast('Sitio /' + esc(slug) + '/ eliminado.', 'ok');
+    if (state.sites.length) await switchSite(state.sites[0].slug); else renderEmpty();
+  } catch (e) { toast('No se pudo eliminar: ' + esc(e.message), 'err', 8000); }
+}
+
 $('nsCancel').onclick = function () { $('nsModal').classList.remove('on'); };
 $('nsSlug').addEventListener('input', function () {
   $('nsErr').textContent = '';
@@ -800,17 +985,17 @@ $('nsSlug').addEventListener('input', function () {
 });
 $('nsForm').onsubmit = async function (e) {
   e.preventDefault();
-  var slug = $('nsSlug').value.replace(/-+$/, ''), label = $('nsLabel').value.trim(), src = $('nsSrc').value;
+  var slug = $('nsSlug').value.replace(/-+$/, ''), label = $('nsLabel').value.trim(), srcValue = $('nsSrc').value;
   var err = function (m) { $('nsErr').textContent = m; };
   if (!slug) return err('Escribe la dirección, por ejemplo: d');
   if (RESERVED.indexOf(slug) >= 0) return err('Esa dirección está reservada, elige otra.');
   if (state.sites.some(function (s) { return s.slug === slug; })) return err('Ya existe un sitio en /' + slug + '/.');
+  if (!srcValue) return err('Elige desde qué sitio empezar.');
   if (!label) label = 'Sitio ' + slug.toUpperCase();
   var btn = $('nsSubmit'); btn.disabled = true;
   try {
-    await loadSite(src);
-    if (saving[src]) await saving[src].promise;
-    var c = clone(state.drafts[src]), photos = $('nsPhotos').checked;
+    var source = await sourceContent(srcValue), src = source.slug;
+    var c = source.content, photos = $('nsPhotos').checked;
     var photo = function (v) {
       if (!photos || !v) return '';
       if (/^(data:|https?:|\/)/.test(v)) return v;
@@ -819,7 +1004,8 @@ $('nsForm').onsubmit = async function (e) {
     mapPhotos(c, photo);
     if (!photos) (c.sections || []).forEach(function (s) { (s.gallery || []).forEach(function (g) { g.caption = ''; }); });
     var images = extractImages(c);
-    await api('POST', '/api/save', { slug: slug, content: c, images: images, create: { label: label } });
+    var saved = await api('POST', '/api/save', { slug: slug, content: c, images: images, create: { label: label } });
+    if (saved.content) c = migrate(saved.content); // photos copied into the new site
     Object.keys(images).forEach(function (name) { localImages[slug + '/' + name] = images[name]; });
     state.sites.push({ slug: slug, label: label });
     state.published[slug] = null;
@@ -861,6 +1047,124 @@ addEventListener('message', function (e) {
   toast(e.data.ok ? '✓ Google Calendar conectado.' : 'No se pudo conectar Google Calendar.', e.data.ok ? 'ok' : 'err');
 });
 
+// ---------- class (teacher) ----------
+$('classBtn').onclick = async function () {
+  $('clErr').textContent = ''; $('clStudents').innerHTML = '<p style="color:var(--muted)">Cargando…</p>';
+  $('classModal').classList.add('on');
+  try {
+    var j = await api('GET', '/api/class');
+    $('clStudents').innerHTML = j.students.length ? j.students.map(function (u) {
+      return '<div class="st-row"><div><b>' + esc(u.name) + '</b><small>' + esc(u.email) + '</small></div><small>' +
+        (u.sites.length ? u.sites.map(function (x) { return '<a href="/' + esc(x) + '/" target="_blank" rel="noopener">/' + esc(x) + '/</a>'; }).join(' ') : 'sin sitios') + '</small></div>';
+    }).join('') : '<p style="color:var(--muted)">Todavía no hay estudiantes. Comparte el link <b>' + esc(location.host) + '/feed/</b>: ahí crean su cuenta.</p>';
+  } catch (e) { $('clErr').textContent = e.message; }
+};
+$('clClose').onclick = function () { $('classModal').classList.remove('on'); };
+$('classForm').onsubmit = function (e) { e.preventDefault(); };
+
+// ---------- grading (teacher) ----------
+var rating = { cats: [], data: {}, sites: [], timers: {} };
+function rateTotal(r) { return rating.cats.reduce(function (n, c) { return n + (+(r || {})[c[0]] || 0); }, 0); }
+function renderRatings() {
+  var list = rating.sites.slice().sort(function (a, b) { return rateTotal(rating.data[b.slug]) - rateTotal(rating.data[a.slug]); });
+  var opts = function (v) {
+    var h = '<option value="">—</option>';
+    for (var i = 1; i <= 10; i++) h += '<option value="' + i + '"' + (+v === i ? ' selected' : '') + '>' + i + '</option>';
+    return h;
+  };
+  $('rateList').innerHTML = list.length ? list.map(function (s, i) {
+    var r = rating.data[s.slug] || {}, t = rateTotal(r);
+    return '<div class="rate-row" data-slug="' + esc(s.slug) + '"><div class="who"><span class="num">' + (t ? i + 1 : '·') + '</span><div><b>' + esc(s.name || s.slug) + '</b>' +
+      '<small>' + (s.owner ? esc(s.owner) + ' · ' : '') + '<a href="/' + esc(s.slug) + '/" target="_blank" rel="noopener">/' + esc(s.slug) + '/</a></small></div></div>' +
+      '<div class="scores">' + rating.cats.map(function (c) {
+        return '<select data-cat="' + c[0] + '" aria-label="' + esc(c[1]) + '">' + opts(r[c[0]]) + '</select>';
+      }).join('') + '</div><div class="tot">' + (t || '—') + '<small>de ' + rating.cats.length * 10 + '</small></div></div>';
+  }).join('') : '<p style="color:var(--muted)">Todavía no hay sitios publicados.</p>';
+}
+$('rateBtn').onclick = async function () {
+  $('rateErr').textContent = ''; $('rateState').textContent = '';
+  $('rateList').innerHTML = '<p style="color:var(--muted)">Cargando…</p>';
+  $('rateModal').classList.add('on');
+  try {
+    var j = await api('GET', '/api/ratings'), feed = await (await fetch('/feed.json?t=' + Date.now(), { cache: 'no-store' })).json();
+    rating.cats = j.categories; rating.data = j.ratings || {}; rating.sites = feed.sites || [];
+    $('rateCats').innerHTML = rating.cats.map(function (c) { return '<span>' + esc(c[1]) + '</span>'; }).join('');
+    renderRatings();
+  } catch (e) { $('rateErr').textContent = e.message; }
+};
+$('rateList').addEventListener('change', function (e) {
+  var sel = e.target.closest('select'); if (!sel) return;
+  var row = sel.closest('.rate-row'), slug = row.dataset.slug, scores = {};
+  [].forEach.call(row.querySelectorAll('select'), function (x) { scores[x.dataset.cat] = x.value; });
+  rating.data[slug] = Object.assign({}, scores);
+  var tot = rateTotal(rating.data[slug]);
+  row.querySelector('.tot').innerHTML = (tot || '—') + '<small>de ' + rating.cats.length * 10 + '</small>';
+  $('rateState').textContent = 'Guardando…'; $('rateState').className = 'save-state saving';
+  clearTimeout(rating.timers[slug]);
+  rating.timers[slug] = setTimeout(async function () {
+    try {
+      await api('POST', '/api/ratings', { slug: slug, scores: scores });
+      $('rateState').textContent = '✓ Notas guardadas'; $('rateState').className = 'save-state ok';
+    } catch (x) { $('rateState').textContent = 'No se pudo guardar'; $('rateState').className = 'save-state err'; $('rateErr').textContent = x.message; }
+  }, 600);
+});
+$('rateClose').onclick = function () { $('rateModal').classList.remove('on'); };
+$('rateApply').onclick = async function () {
+  var btn = this; btn.disabled = true; $('rateErr').textContent = '';
+  try {
+    await new Promise(function (r) { setTimeout(r, 700); }); // let pending saves finish
+    var j = await api('POST', '/api/ratings', { apply: true });
+    renderRatings();
+    toast('Orden del feed actualizado: ' + j.ranked + ' sitios con nota van primero. En vivo en ~1 minuto.', 'ok', 7000);
+  } catch (x) { $('rateErr').textContent = x.message; }
+  finally { btn.disabled = false; }
+};
+
+// ---------- feed texts (teacher) ----------
+var feedFrameReady = false;
+function feedValues() {
+  var texts = {};
+  [].forEach.call(document.querySelectorAll('#fdGroups input'), function (el) { if (el.value.trim()) texts[el.dataset.k] = el.value.trim(); });
+  return { texts: texts, title: $('fdTitle').value.trim(), subtitle: $('fdSub').value.trim() };
+}
+function pushFeedPreview() {
+  if (!feedFrameReady) return;
+  var v = feedValues();
+  $('feedFrame').contentWindow.postMessage({ type: 'feed-texts', texts: v.texts, title: v.title, subtitle: v.subtitle }, location.origin);
+}
+addEventListener('message', function (e) {
+  if (e.origin === location.origin && e.data && e.data.type === 'feed-ready') { feedFrameReady = true; pushFeedPreview(); }
+});
+$('feedBtn').onclick = async function () {
+  $('fdErr').textContent = '';
+  $('feedModal').classList.add('on');
+  $('fdGroups').innerHTML = '<p style="color:var(--muted)">Cargando…</p>';
+  try {
+    var j = await api('GET', '/api/class');
+    $('fdTitle').value = j.title || ''; $('fdSub').value = j.subtitle || '';
+    $('fdGroups').innerHTML = (window.FEED_TEXTS || []).map(function (g) {
+      return '<div class="sub">' + esc(g.group) + '</div>' + g.items.map(function (it) {
+        return '<label class="f"><span>' + esc(it[1]) + '</span><input type="text" maxlength="300" data-k="' + it[0] + '" placeholder="' + esc(it[2]) + '" value="' + esc((j.texts || {})[it[0]] || '') + '"></label>';
+      }).join('');
+    }).join('');
+    feedFrameReady = false;
+    $('feedFrame').src = '/feed/?preview=' + Date.now();
+  } catch (e) { $('fdErr').textContent = e.message; }
+};
+$('feedForm').addEventListener('input', pushFeedPreview);
+$('fdClose').onclick = function () { $('feedModal').classList.remove('on'); };
+$('feedForm').onsubmit = async function (e) {
+  e.preventDefault();
+  var v = feedValues(), btn = $('fdSave');
+  btn.disabled = true;
+  try {
+    await api('POST', '/api/class', v);
+    $('feedModal').classList.remove('on');
+    toast('Textos del feed guardados. Quedan en vivo en ~1 minuto.', 'ok', 6000);
+  } catch (x) { $('fdErr').textContent = x.message; }
+  finally { btn.disabled = false; }
+};
+
 // ---------- history ----------
 async function openHistory() {
   var slug = state.slug;
@@ -899,7 +1203,10 @@ addEventListener('beforeunload', function (e) {
   }
 });
 
-if (state.password) start().catch(function () { logout(); }); else logout();
+if (EDITOR) { $('feedLink').removeAttribute('target'); $('feedLink').textContent = '← Feed'; }
+if (state.password || state.token) start().catch(function () { logout(); });
+else if (EDITOR) location.href = '/feed/?entrar=1';
+else $('login').classList.remove('off'); // just show the teacher login; a student's session (for /editor/) stays
 </script>
 </body>
 </html>
