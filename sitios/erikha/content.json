@@ -76,12 +76,7 @@
           "desc": "Instalaciones totalmente cómodas y acogedoras."
         },
         {
-          "icon": "parking",
-          "title": "Parqueadero",
-          "desc": "Llega tranquilo, tenemos dónde dejar tu vehículo."
-        },
-        {
-          "icon": "shield",
+          "icon": "heart",
           "title": "Totalmente discreto",
           "desc": "Tu privacidad es lo primero."
         },
