@@ -4,8 +4,9 @@ This repo holds several separate websites. Each folder is deployed by its own Ve
 
 | Folder     | Vercel project                         | Live URL                           |
 |------------|----------------------------------------|------------------------------------|
-| `pranav/`  | `pranav`                               | https://pranav-sepia.vercel.app    |
+| `pranav/`  | `pranav`                               | https://pranav-sepia.vercel.app (Pranav's own page only) |
 | `lase/`    | `lase-properties` (was `bikinifactory-5h36`) | LASE Properties site         |
+| `sitios/`  | `sitios` (to be created)               | Admin, student feed and student sites (`/admin`, `/editor`, `/feed`, `/<slug>`) |
 
 - **Never force-push `main`** and never rewrite its history (no `git push --force`, no `reset` + push).
   Other sessions' sites live on `main`; a force-push deletes them from production.

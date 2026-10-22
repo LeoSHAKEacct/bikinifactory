@@ -1,13 +1,13 @@
 // Shared GitHub helpers for the admin API.
 //
-// Published sites live on MAIN (pranav/<slug>/content.json, index.html, photos).
+// Published sites live on MAIN (sitios/<slug>/content.json, index.html, photos).
 // Drafts and the site list live on the DRAFTS branch, which Vercel does not
 // deploy (see vercel.json "git.deploymentEnabled"), so autosave costs no deploys.
 
 const REPO = process.env.GITHUB_REPO || 'LeoSHAKEacct/bikinifactory';
 const MAIN = process.env.GITHUB_BRANCH || 'main';
 const DRAFTS = 'admin-drafts';
-const DIR = (process.env.SITE_DIR || 'pranav').replace(/^\/+|\/+$/g, '');
+const DIR = (process.env.SITE_DIR || 'sitios').replace(/^\/+|\/+$/g, '');
 
 const SLUG = /^[a-z0-9][a-z0-9-]{0,29}$/;
 const RESERVED = ['admin', 'api', '_site', 'anamaria', 'mohammad', 'index', 'sites', 'public', 'static', 'feed', 'login', 'accounts'];
