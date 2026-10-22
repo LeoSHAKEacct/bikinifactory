@@ -25,7 +25,8 @@
       "ctaPrimary": "Escríbeme por WhatsApp",
       "ctaSecondary": "Ver masajes",
       "badgeTitle": "{nombre}",
-      "badgeText": "Apartamento discreto · Domicilios"
+      "badgeText": "Apartamento discreto · Domicilios",
+      "photoFit": "contain"
     },
     {
       "type": "intro",
