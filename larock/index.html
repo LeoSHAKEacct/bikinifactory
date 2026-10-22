@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>La Rock Medellín · Hotel & Rooftop</title>
+<meta name="description" content="Habitaciones talladas en piedra y un rooftop con la ciudad encendida. La Rock, Medellín.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Dirt&family=Rubik:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#121110;--st:#211f1c;--st2:#2c2925;--sand:#e8dcc7;--mut:#a39a8c;--red:#ff3b30;--lamp:#f6d38b;
+--pebble:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='30' viewBox='0 0 34 30'%3E%3Cpath d='M6 9C9 3 18 1 25 4s9 9 7 15-9 10-17 9S1 21 3 15c.6-2 1.6-4 3-6z' fill='%23857c70' stroke='%23121110' stroke-width='2'/%3E%3Cpath d='M9 10c3-3 8-4 12-3' fill='none' stroke='%23c9bfae' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") 4 4,auto}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--sand);font:400 16px/1.55 Rubik,system-ui,sans-serif;overflow-x:hidden;cursor:var(--pebble)}
+a,button{cursor:var(--pebble)}
+img,video{display:block;max-width:100%}
+.dirt{font-family:'Rubik Dirt',Rubik,sans-serif;font-weight:400;letter-spacing:.01em}
+h2{font-weight:800;letter-spacing:-.035em;line-height:.95;font-size:clamp(42px,7vw,100px)}
+.red{color:var(--red)}.lampc{color:var(--lamp)}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+.stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.tex{position:absolute;inset:0;pointer-events:none;opacity:.5;mix-blend-mode:overlay}
+
+/* header */
+#top{position:fixed;inset:0 0 auto;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:16px clamp(16px,4vw,44px);transition:background .4s}
+#top.solid{background:rgba(18,17,16,.8);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+#top .lg{font-size:26px;line-height:.85;text-decoration:none;text-align:center;color:var(--sand)}
+#top .lg small{display:block;font-family:Rubik;font-weight:700;font-size:8.5px;letter-spacing:.32em;margin-top:3px}
+#top nav{display:flex;gap:24px;align-items:center;font-size:14px;font-weight:500}
+#top nav a{text-decoration:none;color:var(--sand);opacity:.8}
+#top nav .cta{opacity:1;background:var(--red);color:#fff;padding:9px 16px;border-radius:99px}
+@media(max-width:760px){#top nav a:not(.cta){display:none}}
+
+/* opening */
+#open{height:330vh;position:relative}
+#open .stick{background:radial-gradient(120% 90% at 50% 40%,#2b2824 0,#161513 60%,#0d0c0b 100%)}
+#open .giant{position:absolute;left:50%;top:50%;transform:translate(-50%,-56%);white-space:nowrap;font-size:clamp(120px,27vw,420px);line-height:.8;color:#2a2622;text-shadow:0 2px 0 #34302b,0 -2px 0 #0b0a09;user-select:none}
+#cave{position:absolute;left:50%;top:50%;overflow:hidden;background:#000}
+#cave video,#cave img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#cave::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7),transparent 55%);opacity:var(--shade,0);pointer-events:none}
+.fl{position:absolute;left:0;top:0;will-change:transform;filter:drop-shadow(0 24px 22px rgba(0,0,0,.55));pointer-events:none}
+#openCopy{position:absolute;left:0;right:0;bottom:clamp(22px,6vh,56px);text-align:center;font-size:13px;letter-spacing:.3em;font-weight:500;text-transform:uppercase}
+#welcome{position:absolute;left:clamp(16px,6vw,96px);right:clamp(16px,6vw,96px);bottom:clamp(60px,12vh,120px);opacity:0}
+#welcome h1{font-weight:800;letter-spacing:-.04em;line-height:.92;font-size:clamp(46px,8vw,124px)}
+#welcome p{margin-top:16px;max-width:520px;font-size:clamp(15px,1.5vw,19px);opacity:.92}
+
+/* cave rooms */
+#cueva{position:relative;padding:clamp(100px,16vh,170px) clamp(16px,6vw,96px);display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,5vw,80px);align-items:center;overflow:hidden}
+#cueva .big{position:relative;border-radius:34% 22% 26% 18%/18% 24% 20% 28%;overflow:hidden;aspect-ratio:4/5}
+#cueva .big img{width:100%;height:118%;object-fit:cover;margin-top:-9%}
+#cueva p{color:#cfc3ae;max-width:440px;margin-top:22px;font-size:17px}
+#cueva .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:34px}
+#cueva .duo figure{border-radius:20px;overflow:hidden;aspect-ratio:3/4;position:relative}
+#cueva .duo img{width:100%;height:120%;object-fit:cover;margin-top:-10%}
+#cueva figcaption{position:absolute;left:12px;bottom:10px;font-size:12px;font-weight:500;background:rgba(18,17,16,.7);padding:5px 10px;border-radius:99px}
+#sticker{position:absolute;right:clamp(10px,4vw,60px);top:clamp(40px,8vh,90px);width:clamp(110px,12vw,160px);pointer-events:none}
+@media(max-width:760px){#cueva{grid-template-columns:1fr}}
+
+/* cave lounge reveal */
+#lounge{height:220vh;position:relative}
+#lounge img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#lounge .cap{position:absolute;left:clamp(16px,6vw,96px);bottom:clamp(40px,10vh,100px);max-width:620px}
+#lounge .cap p{margin-top:14px;font-size:17px;color:#e6dccb}
+
+/* menu */
+#menu{position:relative}
+#menu .bgv{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;margin-bottom:-100vh;margin-bottom:-100svh}
+#menu .bgv video{width:100%;height:100%;object-fit:cover}
+#menu .bgv::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,11,10,.92) 0,rgba(12,11,10,.78) 55%,rgba(12,11,10,.55) 100%)}
+#menu .wrap{position:relative;padding:clamp(110px,16vh,160px) clamp(16px,6vw,96px) 140px;max-width:1200px}
+#menu .tabs{position:sticky;top:76px;z-index:5;display:flex;gap:8px;flex-wrap:wrap;margin:30px 0 20px}
+#menu .tabs button{font:500 14px Rubik;color:var(--sand);background:rgba(18,17,16,.7);border:1px solid #4a443d;padding:9px 16px;border-radius:99px;backdrop-filter:blur(6px)}
+#menu .tabs button[aria-selected=true]{background:var(--red);border-color:var(--red);color:#fff}
+.course{padding:60px 0 20px}
+.course h3{font-size:clamp(34px,4.4vw,60px);line-height:1;color:var(--lamp)}
+.course .sub{color:var(--mut);font-size:14px;margin-top:6px}
+.items{list-style:none;margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:6px 48px}
+.items li{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding:16px 0;border-bottom:1px dashed #4a443d;opacity:0;transform:translateY(16px);transition:opacity .7s,transform .7s}
+.course.in .items li{opacity:1;transform:none}
+.items b{font-weight:700;font-size:19px;letter-spacing:-.01em}
+.items i{font-style:normal;font-weight:500;color:var(--lamp)}
+.items span{grid-column:1/-1;color:#bdb2a1;font-size:14.5px}
+.items li:hover b{color:var(--red)}
+#menu .fine{color:var(--mut);font-size:12px;margin-top:40px}
+@media(max-width:760px){.items{grid-template-columns:1fr}#menu .tabs{top:68px;flex-wrap:nowrap;overflow-x:auto;margin-right:-16px;padding-right:16px;scrollbar-width:none}#menu .tabs button{flex:0 0 auto}}
+
+/* day to night */
+#dn{height:260vh;position:relative}
+#dn img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#dn #night{clip-path:inset(0 0 0 100%)}
+#dn .edge{position:absolute;top:0;bottom:0;width:2px;background:var(--lamp);box-shadow:0 0 22px 6px rgba(246,211,139,.5)}
+#dn .lbl{position:absolute;top:96px;left:0;right:0;display:flex;justify-content:space-between;padding:0 clamp(16px,6vw,96px);font-weight:700;letter-spacing:.2em;font-size:12px;text-transform:uppercase}
+#dn .lbl span{background:rgba(18,17,16,.7);padding:7px 12px;border-radius:99px}
+#dn .say{position:absolute;left:clamp(16px,6vw,96px);bottom:clamp(40px,10vh,100px);width:min(640px,calc(100% - 120px))}
+#dn .say div{position:absolute;bottom:0;left:0;right:0}
+#dn h2{text-shadow:0 4px 30px rgba(0,0,0,.6)}
+#dn .orb{position:absolute;right:clamp(16px,6vw,96px);bottom:clamp(40px,10vh,100px);width:64px;height:64px;border-radius:50%}
+
+/* visit */
+#visita{padding:clamp(100px,16vh,170px) clamp(16px,6vw,96px);display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative}
+#visita .hd{grid-column:1/-1;margin-bottom:24px}
+#visita .card{position:relative;border-radius:24px;overflow:hidden;min-height:440px;display:flex;align-items:flex-end;padding:28px;text-decoration:none;color:#fff}
+#visita .card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.55);transition:transform .8s}
+#visita .card:hover img{transform:scale(1.04)}
+#visita .card div{position:relative}
+#visita .card h3{font-size:clamp(30px,3.4vw,46px);line-height:1}
+#visita .card p{margin-top:8px;color:#e8dcc7}
+#visita .card .go{display:inline-block;margin-top:16px;background:var(--red);padding:10px 18px;border-radius:99px;font-weight:500;font-size:14px}
+@media(max-width:760px){#visita{grid-template-columns:1fr}#visita .card{min-height:340px}}
+footer{padding:40px clamp(16px,6vw,96px) 130px;border-top:1px solid #2a2622;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--mut);font-size:13px}
+
+/* Rocky, the rolling rock */
+#rocky{position:fixed;left:0;bottom:10px;z-index:30;width:84px;height:84px;transition:opacity .4s}
+#rocky button{all:unset;display:block;width:100%;height:100%;cursor:var(--pebble)}
+#rocky svg{overflow:visible}
+#bubble{position:absolute;left:42px;bottom:96px;white-space:nowrap;background:var(--sand);color:#1b1917;font-weight:700;font-size:14px;padding:8px 13px;border-radius:14px;opacity:0;transform:translate(-50%,8px);transition:opacity .25s,transform .25s;pointer-events:none}
+#bubble::after{content:"";position:absolute;left:50%;bottom:-6px;margin-left:-6px;border:6px solid transparent;border-bottom:0;border-top-color:var(--sand)}
+#bubble.on{opacity:1;transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){.rv,.items li{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3" seed="4"/><feColorMatrix values="0 0 0 0 .5 0 0 0 0 .47 0 0 0 0 .43 0 0 0 .9 0"/><feComposite in2="SourceGraphic" operator="in"/></filter>
+<radialGradient id="rg1" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#a59a89"/><stop offset=".55" stop-color="#6c6458"/><stop offset="1" stop-color="#2f2b26"/></radialGradient>
+<radialGradient id="rg2" cx="40%" cy="25%" r="85%"><stop offset="0" stop-color="#8d8577"/><stop offset=".6" stop-color="#4f4940"/><stop offset="1" stop-color="#23201c"/></radialGradient>
+<symbol id="rk1" viewBox="0 0 200 160"><path d="M20 70C30 30 80 6 130 14s70 46 60 86-60 62-110 54S8 112 20 70z" fill="url(#rg1)"/><path d="M20 70C30 30 80 6 130 14s70 46 60 86-60 62-110 54S8 112 20 70z" filter="url(#grain)"/><path d="M58 46c20-16 52-20 76-10" fill="none" stroke="#cfc5b3" stroke-width="5" stroke-linecap="round" opacity=".6"/></symbol>
+<symbol id="rk2" viewBox="0 0 200 180"><path d="M30 120L18 70 60 22l70-10 52 44 6 70-44 46-86 4z" fill="url(#rg2)"/><path d="M30 120L18 70 60 22l70-10 52 44 6 70-44 46-86 4z" filter="url(#grain)"/><path d="M60 22l20 50 50 10 52-26M80 72l-50 48M130 82l14 80" fill="none" stroke="#1c1916" stroke-width="3" opacity=".55"/></symbol>
+<symbol id="rk3" viewBox="0 0 200 120"><path d="M10 80c6-34 40-62 92-64s88 24 90 56-30 46-96 46S6 112 10 80z" fill="url(#rg1)"/><path d="M10 80c6-34 40-62 92-64s88 24 90 56-30 46-96 46S6 112 10 80z" filter="url(#grain)"/></symbol>
+</defs></svg>
+
+<header id="top">
+  <a class="lg dirt" href="#open">LA ROCK<small>MEDELLÍN</small></a>
+  <nav><a href="#cueva">La cueva</a><a href="#menu">Rooftop</a><a href="#dn">Día y noche</a><a class="cta" href="#visita">Reservar</a></nav>
+</header>
+
+<!-- opening: the video sits inside a cave mouth that cracks open to full screen while rocks and pieces of the hotel rise around it -->
+<section id="open">
+  <div class="stick">
+    <div class="giant dirt" aria-hidden="true">LA ROCK</div>
+    <div id="cave"><img src="media/opening.jpg" alt=""><video id="v1" src="media/opening.mp4" poster="media/opening.jpg" muted playsinline loop autoplay preload="auto" aria-label="Recorrido por La Rock: del letrero en piedra al rooftop de noche"></video></div>
+    <svg class="fl" data-k="r1" viewBox="0 0 200 160" aria-hidden="true"><use href="#rk1"/></svg>
+    <img class="fl" data-k="sink" src="img/sink.png" alt="Lavamanos tallado en piedra">
+    <svg class="fl" data-k="r2" viewBox="0 0 200 180" aria-hidden="true"><use href="#rk2"/></svg>
+    <img class="fl" data-k="hat" src="img/hat.png" alt="Sombrero aguadeño">
+    <img class="fl" data-k="plant" src="img/plant.png" alt="Monstera">
+    <svg class="fl" data-k="r3" viewBox="0 0 200 120" aria-hidden="true"><use href="#rk3"/></svg>
+    <svg class="fl" data-k="r4" viewBox="0 0 200 180" aria-hidden="true"><use href="#rk2"/></svg>
+    <p id="openCopy">Hotel · Rooftop · Medellín &nbsp;↓</p>
+    <div id="welcome"><h1>Duerme en la roca.<br><span class="lampc">Brinda en las alturas.</span></h1><p>Habitaciones talladas en piedra y un rooftop con la ciudad encendida a tus pies.</p></div>
+  </div>
+</section>
+
+<!-- the rooms -->
+<section id="cueva">
+  <svg id="sticker" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="circ" d="M100 100m-74 0a74 74 0 1 1 148 0a74 74 0 1 1-148 0"/></defs><circle cx="100" cy="100" r="98" fill="#ff3b30"/><text font-family="Rubik" font-weight="700" font-size="17" letter-spacing="3.5" fill="#fff"><textPath href="#circ">LA ROCK · MEDELLÍN · HOTEL · ROOFTOP ·</textPath></text><use href="#rk1" x="62" y="70" width="76" height="60"/></svg>
+  <div class="big rv"><img data-par="-14" src="img/bed.jpg" alt="Cama flotante frente a un muro de roca iluminado"></div>
+  <div>
+    <p class="rv dirt" style="font-size:15px;color:var(--red);margin:0">LA CUEVA</p>
+    <h2 class="rv" style="margin-top:12px">Habitaciones<br>talladas en<br><span class="lampc">piedra.</span></h2>
+    <p class="rv d1">Muros de roca iluminados desde abajo, camas que flotan sobre la piedra y lavamanos esculpidos en una sola roca. Por fuera, El Poblado. Por dentro, una cueva.</p>
+    <div class="duo">
+      <figure class="rv d1"><img data-par="-10" src="img/bath.jpg" alt="Baño con lavamanos de piedra y espejo iluminado"><figcaption>Baño de piedra</figcaption></figure>
+      <figure class="rv d2"><img data-par="-18" src="img/cave.jpg" alt="Sala con techo de roca verde y cocina"><figcaption>Sala cueva</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- the green ceiling opens up -->
+<section id="lounge">
+  <div class="stick">
+    <img id="loungeImg" src="img/cave.jpg" alt="Espacio común bajo un techo de roca verde">
+    <div class="cap" id="loungeCap"><h2>Bajo un cielo<br>de <span class="lampc">roca.</span></h2><p>Cocina, mesas de madera maciza y un techo esculpido que cambia con la luz.</p></div>
+  </div>
+</section>
+
+<!-- rooftop menu over the looping video -->
+<section id="menu">
+  <div class="bgv"><video id="v2" src="media/rooftop.mp4" poster="media/rooftop.jpg" muted playsinline loop autoplay preload="metadata" aria-hidden="true"></video></div>
+  <div class="wrap">
+    <p class="rv dirt" style="font-size:15px;color:var(--red)">ROOFTOP</p>
+    <h2 class="rv" style="margin-top:12px">La carta<br><span class="lampc">de arriba.</span></h2>
+    <div class="tabs" role="tablist">
+      <button data-go="c1" aria-selected="true">Cócteles</button><button data-go="c2">Para compartir</button><button data-go="c3">Fuertes</button><button data-go="c4">Dulce</button>
+    </div>
+
+    <div class="course" id="c1"><h3 class="dirt">Cócteles de la roca</h3><p class="sub">Firmas de la casa</p>
+      <ul class="items">
+        <li><b>Piedra Volcánica</b><i>42</i><span>Mezcal, maracuyá ahumada, ají y sal de lava.</span></li>
+        <li><b>Granito Sour</b><i>38</i><span>Pisco, limón mandarino, clara y amargo de cacao.</span></li>
+        <li><b>Basalto Negro</b><i>40</i><span>Ron añejo, café de Jardín, panela tostada.</span></li>
+        <li><b>Cuarzo Rosa</b><i>36</i><span>Ginebra, lulo, frutos rojos y tónica.</span></li>
+        <li><b>Estalactita</b><i>39</i><span>Vodka, pepino, menta y hielo tallado a mano.</span></li>
+        <li><b>Neón Rojo</b><i>37</i><span>Aperitivo amargo, naranja, espumoso.</span></li>
+      </ul></div>
+
+    <div class="course" id="c2"><h3 class="dirt">Para compartir</h3><p class="sub">Para la mesa del rooftop</p>
+      <ul class="items">
+        <li><b>Tostones de la cueva</b><i>28</i><span>Patacón crocante, hogao y queso costeño.</span></li>
+        <li><b>Ceviche de piedra</b><i>44</i><span>Pesca del día, leche de tigre de lulo, chulpe.</span></li>
+        <li><b>Empanadas de lava</b><i>26</i><span>Res desmechada, ají de la casa.</span></li>
+        <li><b>Chicharrón en roca</b><i>34</i><span>Servido sobre piedra caliente, limón y arepa.</span></li>
+      </ul></div>
+
+    <div class="course" id="c3"><h3 class="dirt">Fuertes</h3><p class="sub">A la piedra</p>
+      <ul class="items">
+        <li><b>Punta a la roca</b><i>78</i><span>Punta de anca sellada en piedra volcánica, chimichurri.</span></li>
+        <li><b>Pesca al carbón</b><i>72</i><span>Pescado entero, mantequilla de hierbas y limón asado.</span></li>
+        <li><b>Risotto del bosque</b><i>58</i><span>Hongos, parmesano y aceite de trufa.</span></li>
+        <li><b>Hamburguesa Rock</b><i>48</i><span>Doble carne, cheddar ahumado, cebolla negra.</span></li>
+      </ul></div>
+
+    <div class="course" id="c4"><h3 class="dirt">Dulce</h3><p class="sub">Para cerrar arriba</p>
+      <ul class="items">
+        <li><b>Roca de chocolate</b><i>26</i><span>Chocolate 70%, cacao crocante y sal.</span></li>
+        <li><b>Brasa de maracuyá</b><i>24</i><span>Merengue flameado, maracuyá y coco.</span></li>
+      </ul></div>
+    <p class="fine">Carta ilustrativa para esta demo. Precios en miles de pesos colombianos.</p>
+  </div>
+</section>
+
+<!-- day to night on the terrace -->
+<section id="dn">
+  <div class="stick">
+    <img src="img/cabana.jpg" alt="Cabaña con cortinas de lino en la terraza al atardecer">
+    <img id="night" src="img/rooftop.jpg" alt="Rooftop de noche con sofás blancos y luces de neón">
+    <i class="edge" id="dnEdge"></i>
+    <div class="lbl"><span>☀ Día</span><span>Noche ☾</span></div>
+    <div class="say">
+      <div id="dnA"><h2>De día,<br><span class="lampc">cabañas al sol.</span></h2></div>
+      <div id="dnB" style="opacity:0"><h2>De noche,<br><span class="red">la ciudad encendida.</span></h2></div>
+    </div>
+    <i class="orb" id="orb"></i>
+  </div>
+</section>
+
+<!-- visit -->
+<section id="visita">
+  <div class="hd"><h2 class="rv">Sube a<br><span class="lampc">La Rock.</span></h2></div>
+  <a class="card rv" href="https://www.google.com/maps/search/?api=1&query=La+Rock+Medell%C3%ADn" target="_blank" rel="noopener"><img src="img/bed.jpg" alt=""><div><h3 class="dirt">Quédate</h3><p>Habitaciones de piedra en Medellín.</p><span class="go">Reservar habitación</span></div></a>
+  <a class="card rv d1" href="https://www.google.com/maps/search/?api=1&query=La+Rock+Medell%C3%ADn" target="_blank" rel="noopener"><img src="img/rooftop.jpg" alt=""><div><h3 class="dirt">Sube al rooftop</h3><p>Cócteles de autor con la ciudad de fondo.</p><span class="go">Reservar mesa</span></div></a>
+</section>
+
+<footer><span class="dirt" style="font-size:20px;color:var(--sand)">LA ROCK · MEDELLÍN</span><span>Demo de diseño web. Fotos y video: La Rock.</span></footer>
+
+<!-- Rocky -->
+<div id="rocky" style="opacity:0">
+  <span id="bubble">¡Rock!</span>
+  <button aria-label="Saludar a Rocky">
+    <svg viewBox="0 0 84 84" width="84" height="84">
+      <ellipse id="shadow" cx="42" cy="80" rx="30" ry="4" fill="#000" opacity=".45"/>
+      <g id="body"><g transform="translate(8 10) scale(.34)"><use href="#rk1" width="200" height="160"/></g></g>
+      <g id="face"><ellipse cx="34" cy="42" rx="6" ry="7" fill="#fff"/><ellipse cx="51" cy="42" rx="6" ry="7" fill="#fff"/><circle id="e1" cx="35" cy="43" r="3.2" fill="#111"/><circle id="e2" cx="52" cy="43" r="3.2" fill="#111"/><path id="mouth" d="M36 56q6 5 12 0" fill="none" stroke="#111" stroke-width="2.6" stroke-linecap="round"/></g>
+    </svg>
+  </button>
+</div>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const ramp = (x, a, b) => clamp((x - a) / (b - a));
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const lerp = (a, b, t) => a + (b - a) * t;
+const $ = s => document.querySelector(s);
+
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+document.querySelectorAll('.rv, .course').forEach(el => io.observe(el));
+document.querySelectorAll('.items').forEach(ul => [...ul.children].forEach((li, k) => li.style.transitionDelay = `${k * 90}ms`));
+
+const vio = new IntersectionObserver(es => es.forEach(e => { const v = e.target; if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); }), { threshold: .01 });
+['v1', 'v2'].forEach(id => vio.observe(document.getElementById(id)));
+
+/* the cave mouth: points around the frame, each pulled inward by its own amount; the pull goes to zero as it opens */
+const N = 28, PULL = Array.from({ length: N }, (_, i) => 4 + 9 * Math.abs(Math.sin(i * 2.7 + 1.3)) + 4 * Math.abs(Math.sin(i * 5.1)));
+function edgePt(t) { // walk the rectangle's edge, t in 0..1
+  const s = t * 4, k = s % 1;
+  return s < 1 ? [k * 100, 0] : s < 2 ? [100, k * 100] : s < 3 ? [100 - k * 100, 100] : [0, 100 - k * 100];
+}
+function mouth(g) {
+  const pts = [];
+  for (let i = 0; i < N; i++) {
+    const [x, y] = edgePt(i / N), dx = 50 - x, dy = 50 - y, d = Math.hypot(dx, dy) || 1, p = PULL[i] * (1 - g);
+    pts.push(`${(x + dx / d * p).toFixed(2)}% ${(y + dy / d * p).toFixed(2)}%`);
+  }
+  return `polygon(${pts.join(',')})`;
+}
+
+const open = $('#open'), cave = $('#cave'), openCopy = $('#openCopy'), welcome = $('#welcome');
+const fls = [...open.querySelectorAll('.fl')];
+// x, y as fractions of the viewport, width, rotation, how fast it leaves
+const SPOT = { r1: [.15, .26, 190, -12, 1.2], sink: [.2, .7, 300, -6, 1.5], r2: [.84, .2, 150, 14, .9], hat: [.8, .58, 150, 10, 1.1], plant: [.68, .84, 150, -8, 1.6], r3: [.38, .9, 130, 4, 1.8], r4: [.9, .84, 90, -20, 1.3] };
+const SPOT_M = { r1: [.14, .14, 110, -12, 1.2], sink: [.24, .84, 180, -6, 1.5], r2: [.86, .12, 90, 14, .9], hat: [.86, .56, 100, 10, 1.1], plant: [.8, .86, 100, -8, 1.6], r3: [.12, .5, 90, 4, 1.8], r4: [.52, .94, 60, -20, 1.3] };
+const t0 = performance.now();
+
+/* menu tabs */
+const tabs = [...document.querySelectorAll('.tabs button')];
+tabs.forEach(b => b.addEventListener('click', () => document.getElementById(b.dataset.go).scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })));
+const courses = tabs.map(b => document.getElementById(b.dataset.go));
+
+/* Rocky rolls along the bottom with the scroll and talks when tapped */
+const rocky = $('#rocky'), body = $('#body'), face = $('#face'), bubble = $('#bubble'), eyes = [$('#e1'), $('#e2')];
+const SAYS = ['¡Rock!', 'Soy duro… pero tierno', '¿Subimos al rooftop?', 'Pide un Granito Sour', 'Aquí todo es de piedra… menos la atención', '¡Rock and roll!'];
+let sayI = 0, bubbleT = 0, roll = 0, last = scrollY, dir = 1;
+rocky.querySelector('button').addEventListener('click', () => {
+  bubble.textContent = SAYS[sayI++ % SAYS.length]; bubble.classList.add('on');
+  clearTimeout(bubbleT); bubbleT = setTimeout(() => bubble.classList.remove('on'), 1700);
+});
+let mx = innerWidth / 2, my = innerHeight / 2;
+addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+
+const lounge = $('#lounge'), loungeImg = $('#loungeImg'), loungeCap = $('#loungeCap');
+const dn = $('#dn'), night = $('#night'), dnEdge = $('#dnEdge'), dnA = $('#dnA'), dnB = $('#dnB'), orb = $('#orb');
+const top_ = $('#top'), pars = [...document.querySelectorAll('[data-par]')], sticker = $('#sticker');
+let cur = scrollY;
+
+function frame(now) {
+  requestAnimationFrame(frame);
+  cur = reduce ? scrollY : cur + (scrollY - cur) * .14; if (Math.abs(scrollY - cur) < .3) cur = scrollY;
+  const W = innerWidth, H = innerHeight, small = W < 760;
+
+  // opening
+  const p = clamp(cur / (open.offsetHeight - H));
+  const intro = reduce ? 1 : clamp((now - t0) / 1400);
+  const g = ease(ramp(p, .12, .62));
+  const cw0 = small ? Math.min(W * .66, 300) : Math.min(W * .28, 400), ch0 = Math.min(cw0 * 1.5, H * .7);
+  const cw = lerp(cw0, W, g), ch = lerp(ch0, H, g);
+  Object.assign(cave.style, { width: cw + 'px', height: ch + 'px', marginLeft: -cw / 2 + 'px', marginTop: (-ch / 2 + (1 - ease(intro)) * 60) + 'px' });
+  cave.style.clipPath = g >= 1 ? 'none' : mouth(g);
+  cave.style.opacity = ease(intro).toFixed(3);
+  cave.style.setProperty('--shade', ramp(p, .55, .75).toFixed(3));
+  const sp = small ? SPOT_M : SPOT;
+  fls.forEach((f, i) => {
+    const [fx, fy, w0, rot, speed] = sp[f.dataset.k];
+    const rise = reduce ? 1 : ease(clamp((now - t0 - 450 - i * 130) / 1100));
+    const away = ease(ramp(p, .06, .55)) * speed;
+    const w = w0 * (W > 1600 ? 1.2 : 1), h = w * (f.tagName === 'IMG' ? (f.naturalHeight / f.naturalWidth || .6) : f.viewBox.baseVal.height / f.viewBox.baseVal.width);
+    const bob = reduce ? 0 : Math.sin(now / 900 + i) * 6;
+    const x = fx * W - w / 2 + (fx - .5) * W * away * .8, y = fy * H - h / 2 + (1 - rise) * H * .6 - away * H * 1.1 + bob;
+    f.style.width = w + 'px';
+    f.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) rotate(${(rot * (1 - rise * .4) + away * rot * 2.4).toFixed(2)}deg)`;
+    f.style.opacity = (rise * (1 - ramp(p, .35, .6))).toFixed(3);
+  });
+  openCopy.style.opacity = (intro * (1 - ramp(p, .04, .14))).toFixed(3);
+  welcome.style.opacity = ramp(p, .68, .82).toFixed(3); welcome.style.transform = `translateY(${(30 * (1 - ramp(p, .68, .82))).toFixed(1)}px)`;
+  top_.classList.toggle('solid', p > .62);
+
+  // parallax + sticker
+  pars.forEach(el => { const b = el.parentElement.getBoundingClientRect(); el.style.transform = `translateY(${(((b.top + b.height / 2) - H / 2) / H * +el.dataset.par * 3).toFixed(1)}px)`; });
+  sticker.style.transform = `rotate(${(cur * .12).toFixed(1)}deg)`;
+
+  // lounge: the photo opens from a crack in the middle
+  const lp = clamp(-lounge.getBoundingClientRect().top / (lounge.offsetHeight - H)), lo = ease(ramp(lp, 0, .55));
+  loungeImg.style.clipPath = lo >= 1 ? 'none' : `polygon(${50 - 50 * lo}% 0,${50 + 50 * lo}% 0,${52 + 48 * lo}% 30%,${49 + 51 * lo}% 60%,${51 + 49 * lo}% 100%,${48 - 48 * lo}% 100%,${50 - 50 * lo}% 70%,${48 - 48 * lo}% 35%)`;
+  loungeImg.style.transform = `scale(${(1.15 - .15 * lo).toFixed(4)})`;
+  const lc = ramp(lp, .5, .7); loungeCap.style.opacity = lc.toFixed(3); loungeCap.style.transform = `translateY(${(30 * (1 - lc)).toFixed(1)}px)`;
+
+  // menu tab
+  let act = 0; courses.forEach((c, i) => { if (c.getBoundingClientRect().top < H * .5) act = i; });
+  tabs.forEach((b, i) => b.setAttribute('aria-selected', i === act ? 'true' : 'false'));
+
+  // day to night
+  const dp = clamp(-dn.getBoundingClientRect().top / (dn.offsetHeight - H)), nk = ease(ramp(dp, .15, .8));
+  night.style.clipPath = `inset(0 0 0 ${(100 - nk * 100).toFixed(2)}%)`;
+  dnEdge.style.left = `calc(${(100 - nk * 100).toFixed(2)}% - 1px)`; dnEdge.style.opacity = nk > 0 && nk < 1 ? 1 : 0;
+  dnA.style.opacity = (1 - ramp(nk, .35, .55)).toFixed(3); dnB.style.opacity = ramp(nk, .45, .65).toFixed(3);
+  orb.style.background = nk < .5 ? '#f6d38b' : 'transparent';
+  orb.style.boxShadow = nk < .5 ? `0 0 ${30 + 30 * (1 - nk)}px rgba(246,211,139,.7)` : 'inset 14px -6px 0 0 #e8dcc7';
+  orb.style.transform = `translateY(${(Math.sin(nk * Math.PI) * -40).toFixed(1)}px)`;
+
+  // Rocky
+  const total = Math.max(1, document.documentElement.scrollHeight - H), rp = clamp(cur / total);
+  const dy = scrollY - last; last = scrollY;
+  if (Math.abs(dy) > .5) dir = dy > 0 ? 1 : -1;
+  const rw = 84, rx = 8 + rp * (W - rw - 16);
+  roll = (rx - 8) / 30 * 57.3; // degrees for a 30px radius rolling without slipping
+  rocky.style.transform = `translateX(${rx.toFixed(1)}px)`;
+  body.setAttribute('transform', `rotate(${roll.toFixed(1)} 42 42)`);
+  const bounce = reduce ? 0 : Math.abs(Math.sin(roll / 57.3 * 2)) * -3;
+  face.setAttribute('transform', `translate(${(dir * 4).toFixed(1)} ${bounce.toFixed(1)})`);
+  const r = rocky.getBoundingClientRect(), ex = clamp((mx - (r.left + 42)) / 300, -1, 1), ey = clamp((my - (r.top + 42)) / 300, -1, 1);
+  eyes.forEach(e => e.setAttribute('transform', `translate(${(ex * 2.2).toFixed(2)} ${(ey * 2.2).toFixed(2)})`));
+  rocky.style.opacity = p > .02 ? 1 : 0;
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
