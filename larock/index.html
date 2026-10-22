@@ -37,10 +37,12 @@ h2{font-weight:800;letter-spacing:-.035em;line-height:.95;font-size:clamp(42px,7
 /* opening */
 #open{height:330vh;position:relative}
 #open .stick{background:radial-gradient(120% 90% at 50% 40%,#2b2824 0,#161513 60%,#0d0c0b 100%)}
-#open .giant{position:absolute;left:50%;top:50%;transform:translate(-50%,-56%);white-space:nowrap;font-size:clamp(120px,27vw,420px);line-height:.8;color:#2a2622;text-shadow:0 2px 0 #34302b,0 -2px 0 #0b0a09;user-select:none}
-#cave{position:absolute;left:50%;top:50%;overflow:hidden;background:#000}
+#open .giant{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);white-space:nowrap;font-size:clamp(96px,24vw,380px);line-height:.8;color:var(--sand);text-shadow:0 6px 0 #6e6558,0 18px 40px rgba(0,0,0,.65);user-select:none;text-align:center}
+#open .giant small{display:block;font-family:Rubik;font-weight:700;font-size:.075em;letter-spacing:.6em;margin-top:.5em;text-shadow:0 2px 12px rgba(0,0,0,.7)}
+#cave{position:absolute;inset:0;z-index:0;overflow:hidden;background:#000}
 #cave video,#cave img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-#cave::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7),transparent 55%);opacity:var(--shade,0);pointer-events:none}
+#cave::before{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(90% 70% at 50% 50%,rgba(10,9,8,.35),rgba(10,9,8,.8));opacity:var(--dim,1);pointer-events:none}
+#cave::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(0,0,0,.9),rgba(0,0,0,.55) 45%,rgba(0,0,0,.15) 75%);opacity:var(--shade,0);pointer-events:none}
 .fl{position:absolute;left:0;top:0;will-change:transform;filter:drop-shadow(0 24px 22px rgba(0,0,0,.55));pointer-events:none}
 #openCopy{position:absolute;left:0;right:0;bottom:clamp(22px,6vh,56px);text-align:center;font-size:13px;letter-spacing:.3em;font-weight:500;text-transform:uppercase}
 #welcome{position:absolute;left:clamp(16px,6vw,96px);right:clamp(16px,6vw,96px);bottom:clamp(60px,12vh,120px);opacity:0}
@@ -138,20 +140,17 @@ footer{padding:40px clamp(16px,6vw,96px) 130px;border-top:1px solid #2a2622;disp
   <nav><a href="#cueva">La cueva</a><a href="#menu">Rooftop</a><a href="#dn">Día y noche</a><a class="cta" href="#visita">Reservar</a></nav>
 </header>
 
-<!-- opening: the video sits inside a cave mouth that cracks open to full screen while rocks and pieces of the hotel rise around it -->
+<!-- opening: the video fills the screen, LA ROCK sits on top of it, and pieces of the place rise around it -->
 <section id="open">
   <div class="stick">
-    <div class="giant dirt" aria-hidden="true">LA ROCK</div>
     <div id="cave"><img src="media/opening.jpg" alt=""><video id="v1" src="media/opening.mp4" poster="media/opening.jpg" muted playsinline loop autoplay preload="auto" aria-label="Recorrido por La Rock: del letrero en piedra al rooftop de noche"></video></div>
-    <svg class="fl" data-k="r1" viewBox="0 0 200 160" aria-hidden="true"><use href="#rk1"/></svg>
-    <img class="fl" data-k="sink" src="img/sink.png" alt="Lavamanos tallado en piedra">
-    <svg class="fl" data-k="r2" viewBox="0 0 200 180" aria-hidden="true"><use href="#rk2"/></svg>
+    <h1 class="giant dirt" id="giant">LA ROCK<small>MEDELLÍN</small></h1>
+    <img class="fl" data-k="guitar" src="img/guitar.png" alt="Guitarra eléctrica">
+    <img class="fl" data-k="cocktail" src="img/cocktail.png" alt="Cóctel de la casa en copa">
     <img class="fl" data-k="hat" src="img/hat.png" alt="Sombrero aguadeño">
     <img class="fl" data-k="plant" src="img/plant.png" alt="Monstera">
-    <svg class="fl" data-k="r3" viewBox="0 0 200 120" aria-hidden="true"><use href="#rk3"/></svg>
-    <svg class="fl" data-k="r4" viewBox="0 0 200 180" aria-hidden="true"><use href="#rk2"/></svg>
     <p id="openCopy">Hotel · Rooftop · Medellín &nbsp;↓</p>
-    <div id="welcome"><h1>Duerme en la roca.<br><span class="lampc">Brinda en las alturas.</span></h1><p>Habitaciones talladas en piedra y un rooftop con la ciudad encendida a tus pies.</p></div>
+    <div id="welcome"><h2 style="font-size:clamp(46px,8vw,124px);letter-spacing:-.04em;line-height:.92">Duerme en la roca.<br><span class="lampc">Brinda en las alturas.</span></h2><p>Habitaciones talladas en piedra y un rooftop con la ciudad encendida a tus pies.</p></div>
   </div>
 </section>
 
@@ -274,26 +273,11 @@ document.querySelectorAll('.items').forEach(ul => [...ul.children].forEach((li, 
 const vio = new IntersectionObserver(es => es.forEach(e => { const v = e.target; if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); }), { threshold: .01 });
 ['v1', 'v2'].forEach(id => vio.observe(document.getElementById(id)));
 
-/* the cave mouth: points around the frame, each pulled inward by its own amount; the pull goes to zero as it opens */
-const N = 28, PULL = Array.from({ length: N }, (_, i) => 4 + 9 * Math.abs(Math.sin(i * 2.7 + 1.3)) + 4 * Math.abs(Math.sin(i * 5.1)));
-function edgePt(t) { // walk the rectangle's edge, t in 0..1
-  const s = t * 4, k = s % 1;
-  return s < 1 ? [k * 100, 0] : s < 2 ? [100, k * 100] : s < 3 ? [100 - k * 100, 100] : [0, 100 - k * 100];
-}
-function mouth(g) {
-  const pts = [];
-  for (let i = 0; i < N; i++) {
-    const [x, y] = edgePt(i / N), dx = 50 - x, dy = 50 - y, d = Math.hypot(dx, dy) || 1, p = PULL[i] * (1 - g);
-    pts.push(`${(x + dx / d * p).toFixed(2)}% ${(y + dy / d * p).toFixed(2)}%`);
-  }
-  return `polygon(${pts.join(',')})`;
-}
-
-const open = $('#open'), cave = $('#cave'), openCopy = $('#openCopy'), welcome = $('#welcome');
+const open = $('#open'), cave = $('#cave'), giant = $('#giant'), openCopy = $('#openCopy'), welcome = $('#welcome');
 const fls = [...open.querySelectorAll('.fl')];
 // x, y as fractions of the viewport, width, rotation, how fast it leaves
-const SPOT = { r1: [.15, .26, 190, -12, 1.2], sink: [.2, .7, 300, -6, 1.5], r2: [.84, .2, 150, 14, .9], hat: [.8, .58, 150, 10, 1.1], plant: [.68, .84, 150, -8, 1.6], r3: [.38, .9, 130, 4, 1.8], r4: [.9, .84, 90, -20, 1.3] };
-const SPOT_M = { r1: [.14, .14, 110, -12, 1.2], sink: [.24, .84, 180, -6, 1.5], r2: [.86, .12, 90, 14, .9], hat: [.86, .56, 100, 10, 1.1], plant: [.8, .86, 100, -8, 1.6], r3: [.12, .5, 90, 4, 1.8], r4: [.52, .94, 60, -20, 1.3] };
+const SPOT = { guitar: [.84, .3, 270, 16, 1.0], cocktail: [.17, .64, 220, -8, 1.4], hat: [.79, .78, 150, 10, 1.2], plant: [.15, .22, 140, -8, 1.6] };
+const SPOT_M = { guitar: [.8, .17, 150, 16, 1.0], cocktail: [.2, .78, 130, -8, 1.4], hat: [.84, .8, 100, 10, 1.2], plant: [.16, .18, 100, -8, 1.6] };
 const t0 = performance.now();
 
 /* menu tabs */
@@ -325,13 +309,13 @@ function frame(now) {
   // opening
   const p = clamp(cur / (open.offsetHeight - H));
   const intro = reduce ? 1 : clamp((now - t0) / 1400);
-  const g = ease(ramp(p, .12, .62));
-  const cw0 = small ? Math.min(W * .66, 300) : Math.min(W * .28, 400), ch0 = Math.min(cw0 * 1.5, H * .7);
-  const cw = lerp(cw0, W, g), ch = lerp(ch0, H, g);
-  Object.assign(cave.style, { width: cw + 'px', height: ch + 'px', marginLeft: -cw / 2 + 'px', marginTop: (-ch / 2 + (1 - ease(intro)) * 60) + 'px' });
-  cave.style.clipPath = g >= 1 ? 'none' : mouth(g);
+    // the video already fills the screen: the title grows past the camera and the shade lifts
   cave.style.opacity = ease(intro).toFixed(3);
+  cave.style.setProperty('--dim', (1 - .6 * ease(ramp(p, .08, .5))).toFixed(3));
   cave.style.setProperty('--shade', ramp(p, .55, .75).toFixed(3));
+  const gt = ease(ramp(p, .06, .45));
+  giant.style.transform = `translate(-50%,calc(-50% + ${((1 - ease(intro)) * 40).toFixed(1)}px)) scale(${(1 + gt * .9).toFixed(4)})`;
+  giant.style.opacity = (ease(intro) * (1 - gt)).toFixed(3);
   const sp = small ? SPOT_M : SPOT;
   fls.forEach((f, i) => {
     const [fx, fy, w0, rot, speed] = sp[f.dataset.k];
