@@ -307,8 +307,10 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;color:v
     if (e.data.mine) { $('mis-sitios').hidden = false; $('mineList').innerHTML = '<p class="mine-empty">' + esc(T('mineEmpty')) + '</p>'; }
   });
   if (parent !== window) parent.postMessage({ type: 'feed-ready' }, location.origin);
-  fetch('/feed.json?t=' + Math.floor(Date.now() / 60000), { cache: 'no-store' })
-    .then(function (r) { return r.json(); })
+  // Live list from GitHub (updates seconds after the admin acts); the deployed copy is the fallback.
+  function getJson(u) { return fetch(u, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw r; return r.json(); }); }
+  getJson('/api/feed')
+    .catch(function () { return getJson('/feed.json?t=' + Date.now()); })
     .then(function (j) {
       data = j; data.sites = data.sites || []; texts = j.texts || {};
       // Teacher's ranking first (1 = best), then the rest, newest first.

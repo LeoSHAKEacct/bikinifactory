@@ -455,6 +455,12 @@ function authHeaders() {
   else if (state.token) h.Authorization = 'Bearer ' + state.token;
   return h;
 }
+// feed.json as it is on main now (the deployed copy lags until Vercel redeploys).
+async function feedJson() {
+  var r = await fetch('/api/feed?t=' + Date.now(), { cache: 'no-store' });
+  if (!r.ok) r = await fetch('/feed.json?t=' + Date.now(), { cache: 'no-store' });
+  return r.json();
+}
 async function api(method, path, body) {
   var r = await fetch(path, {
     method: method,
@@ -936,7 +942,7 @@ function watchDeploy(slug, content) {
 var feedCache = null;
 async function loadFeed() {
   if (feedCache) return feedCache;
-  try { feedCache = await (await fetch('/feed.json?t=' + Date.now(), { cache: 'no-store' })).json(); } catch (e) { feedCache = { sites: [] }; }
+  try { feedCache = await feedJson(); } catch (e) { feedCache = { sites: [] }; }
   return feedCache;
 }
 async function openNewSite(src) {
@@ -1086,7 +1092,7 @@ $('rateBtn').onclick = async function () {
   $('rateList').innerHTML = '<p style="color:var(--muted)">Cargando…</p>';
   $('rateModal').classList.add('on');
   try {
-    var j = await api('GET', '/api/ratings'), feed = await (await fetch('/feed.json?t=' + Date.now(), { cache: 'no-store' })).json();
+    var j = await api('GET', '/api/ratings'), feed = await feedJson();
     rating.cats = j.categories; rating.data = j.ratings || {}; rating.sites = feed.sites || [];
     $('rateCats').innerHTML = rating.cats.map(function (c) { return '<span>' + esc(c[1]) + '</span>'; }).join('');
     renderRatings();

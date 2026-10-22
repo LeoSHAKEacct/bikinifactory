@@ -6,6 +6,7 @@ const ROUTES = {
   book: require('./_routes/book'),
   class: require('./_routes/class'),
   'delete-site': require('./_routes/delete-site'),
+  feed: require('./_routes/feed'),
   'google-callback': require('./_routes/google-callback'),
   'google-connect': require('./_routes/google-connect'),
   'google-disconnect': require('./_routes/google-disconnect'),
