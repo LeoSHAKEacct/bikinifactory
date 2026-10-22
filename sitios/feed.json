@@ -3,6 +3,22 @@
   "subtitle": "Negocios creados por nuestros estudiantes",
   "sites": [
     {
+      "slug": "erikha",
+      "name": "Erikha Vélez",
+      "category": "",
+      "description": "Erikha Vélez — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta.",
+      "photo": "/erikha/foto-mvjops20.jpg",
+      "phone": "3218831638",
+      "places": [
+        "Medellín",
+        "Itagüí",
+        "La Estrella",
+        "Sabaneta"
+      ],
+      "owner": "",
+      "updatedAt": "2026-10-22T15:31:02.100Z"
+    },
+    {
       "slug": "m4",
       "name": "Rosa Spa",
       "category": "",
