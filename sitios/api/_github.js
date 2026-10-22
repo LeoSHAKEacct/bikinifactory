@@ -85,11 +85,21 @@ async function readSites() {
 //   { path, sha }                reuse an existing blob
 //   { path, remove: true }       delete the file
 // It is called again if the branch moved, so it can re-read state.
+// Every Vercel project on this repo would build each drafts commit (each autosave),
+// using up the daily deploy limit. Drafts commits carry a config that turns that off
+// for each project folder; once per warm instance is enough, git keeps it after that.
+const NO_DEPLOY = JSON.stringify({ git: { deploymentEnabled: false } }, null, 2) + '\n';
+const NO_DEPLOY_PATHS = ['vercel.json', `${DIR}/vercel.json`, 'pranav/vercel.json', 'lase/vercel.json'];
+let draftsMarked = false;
+
 async function commit(branch, message, build) {
   for (let attempt = 0; attempt < 4; attempt++) {
     const ref = await gh(`/git/ref/heads/${branch}`);
     const parent = await gh(`/git/commits/${ref.object.sha}`);
     const entries = await build();
+    if (branch === DRAFTS && !draftsMarked && entries.length) {
+      NO_DEPLOY_PATHS.forEach(path => entries.push({ path, content: NO_DEPLOY, encoding: 'utf-8' }));
+    }
     const tree = await Promise.all(entries.map(async e => {
       if (e.remove) return { path: e.path, mode: '100644', type: 'blob', sha: null };
       if (e.sha) return { path: e.path, mode: '100644', type: 'blob', sha: e.sha };
@@ -101,6 +111,7 @@ async function commit(branch, message, build) {
     const c = await gh('/git/commits', { method: 'POST', body: JSON.stringify({ message, tree: newTree.sha, parents: [ref.object.sha] }) });
     try {
       await gh(`/git/refs/heads/${branch}`, { method: 'PATCH', body: JSON.stringify({ sha: c.sha, force: false }) });
+      if (branch === DRAFTS) draftsMarked = true;
       return c.sha;
     } catch (e) {
       if (e.status !== 422 || attempt === 3) throw e;

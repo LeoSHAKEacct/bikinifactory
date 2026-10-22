@@ -1,7 +1,9 @@
 {
   "git": {
     "deploymentEnabled": {
-      "admin-drafts": false
+      "admin-drafts": false,
+      "claude/*": false
     }
-  }
+  },
+  "ignoreCommand": "git diff --quiet ${VERCEL_GIT_PREVIOUS_SHA:-HEAD^} HEAD -- ."
 }
