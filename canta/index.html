@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Canta Corazón Medellín · Saloon Sentimental</title>
+<meta name="description" content="Canta Corazón, el saloon sentimental, en Medellín: música, cultura mexicana, aguardiente y una fiesta cada noche. Porque todos tenemos algo que cantar y algo que sanar.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Pinyon+Script&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--tc:#c25b32;--peach:#ffac8d;--cream:#fbeee4;--green:#1f3a2e;--night:#160f0d;--ink:#2a1712;--mut:#8a6a5e;--disp:'Abril Fatface',Georgia,serif;--hand:'Pinyon Script',cursive;
+--mic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M15 15L4 28' stroke='%232a1712' stroke-width='4.5' stroke-linecap='round'/%3E%3Cpath d='M15 15L4 28' stroke='%23c25b32' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='21' cy='9' r='7' fill='%23d9d4cf' stroke='%232a1712' stroke-width='2'/%3E%3Cpath d='M16 6l8 8M19 4l6 6M15 9l6 6' stroke='%232a1712' stroke-width='1' opacity='.5'/%3E%3C/svg%3E") 4 28,auto}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--cream);color:var(--ink);font:400 17px/1.55 'Work Sans',system-ui,sans-serif;overflow-x:hidden;cursor:var(--mic)}
+a,button{cursor:var(--mic)}
+img,video{display:block;max-width:100%}
+.hand{font-family:var(--hand);font-weight:400}
+h2{font-family:var(--disp);font-weight:400;letter-spacing:-.01em;line-height:.98;font-size:clamp(42px,6.6vw,96px)}
+.tc{color:var(--tc)}.pc{color:var(--peach)}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+.stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.star{position:absolute;pointer-events:none}
+
+/* header */
+#top{position:fixed;inset:0 0 auto;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:16px clamp(16px,4vw,44px);transition:background .4s}
+#top.solid{background:rgba(22,15,13,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+#top .lg img{height:clamp(22px,2.4vw,30px);width:auto}
+#top .lg .c{display:none}
+#top.solid .lg .t{display:none}#top.solid .lg .c{display:block}
+#top nav{display:flex;gap:24px;align-items:center;font-weight:600;font-size:14px;letter-spacing:.04em}
+#top nav a{text-decoration:none;color:var(--ink)}
+#top.solid nav a{color:var(--cream)}
+#top nav .cta{background:var(--tc);color:#fff!important;padding:10px 18px;border-radius:99px}
+@media(max-width:760px){#top nav a:not(.cta){display:none}#open .tag{bottom:auto;top:13vh}}
+
+/* opening */
+#open{height:330vh;position:relative}
+#open .stick{background:var(--peach)}
+#open .giant{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:min(92vw,1300px);opacity:.95}
+#open .tag{position:absolute;z-index:4;left:0;right:0;bottom:calc(clamp(20px,5vh,46px) + 30px);text-align:center;font-family:var(--hand);font-size:clamp(30px,3.4vw,52px);color:var(--ink)}
+#door{position:absolute;left:50%;top:50%;z-index:2;overflow:hidden;background:var(--green);box-shadow:0 0 0 10px var(--green),0 30px 60px -20px rgba(42,23,18,.55)}
+#door video,#door img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#door::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(22,15,13,.88),rgba(22,15,13,.3) 50%,transparent 75%);opacity:var(--shade,0)}
+.fl{position:absolute;z-index:3;left:0;top:0;pointer-events:none;will-change:transform;filter:drop-shadow(0 20px 22px rgba(42,23,18,.4))}
+.fl.glow{filter:none;mix-blend-mode:screen}
+#openCopy{position:absolute;left:0;right:0;bottom:clamp(20px,5vh,46px);z-index:4;text-align:center;font-weight:700;letter-spacing:.26em;font-size:12px;text-transform:uppercase}
+#welcome{position:absolute;z-index:4;left:clamp(16px,6vw,96px);right:clamp(16px,6vw,96px);bottom:clamp(60px,12vh,120px);color:var(--cream);opacity:0}
+#welcome h1{font-family:var(--disp);font-weight:400;line-height:.95;font-size:clamp(48px,8.4vw,128px)}
+#welcome p{margin-top:16px;max-width:560px;font-size:clamp(16px,1.5vw,20px)}
+
+/* manifesto */
+#mani{position:relative;background:var(--night);color:var(--cream);padding:clamp(110px,16vh,170px) clamp(16px,6vw,96px);overflow:hidden}
+#mani .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,80px);align-items:center}
+#mani .q{font-family:var(--disp);font-size:clamp(34px,4.6vw,68px);line-height:1.04}
+#mani p{margin-top:24px;color:#d9c3b8;max-width:500px;font-size:18px}
+#mani .pics{position:relative;height:min(76vh,700px)}
+#mani .pics figure{position:absolute;overflow:hidden;box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
+#mani .pics img{width:100%;height:118%;object-fit:cover;margin-top:-9%}
+#mani .a{left:0;top:4%;width:58%;aspect-ratio:3/4;border-radius:200px 200px 10px 10px}
+#mani .b{right:0;bottom:0;width:50%;aspect-ratio:1/1;border-radius:10px}
+#mani .c{right:8%;top:0;width:30%;aspect-ratio:3/4;border-radius:10px;transform:rotate(5deg)}
+#sticker{position:absolute;right:clamp(10px,4vw,60px);bottom:clamp(30px,6vh,70px);width:clamp(110px,11vw,150px);z-index:2;pointer-events:none}
+@media(max-width:760px){#mani .grid{grid-template-columns:1fr}#mani .pics{height:120vw}}
+
+/* the night: a film strip of feelings */
+#noche{position:relative;height:380vh;background:var(--night);color:var(--cream)}
+#noche .stick{display:flex;flex-direction:column;justify-content:center}
+#noche .hd{padding:0 clamp(16px,6vw,96px);margin-bottom:30px;display:flex;justify-content:space-between;align-items:end;gap:20px}
+#noche .hd p{max-width:380px;color:#d9c3b8}
+#noche .track{display:flex;gap:26px;align-items:center;padding-left:clamp(16px,6vw,96px);will-change:transform}
+#noche figure{flex:0 0 auto;position:relative;background:var(--cream);padding:12px 12px 56px;box-shadow:0 30px 50px -25px rgba(0,0,0,.9)}
+#noche figure img{width:min(26vw,330px);aspect-ratio:4/5;object-fit:cover;filter:saturate(1.05)}
+#noche figcaption{position:absolute;left:0;right:0;bottom:10px;text-align:center;font-family:var(--hand);font-size:32px;color:var(--ink);line-height:1}
+@media(max-width:760px){#noche figure img{width:62vw}#noche .hd p{display:none}}
+
+/* menu */
+#menu{position:relative;background:var(--night);color:var(--cream)}
+#menu .bgv{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;margin-bottom:-100vh;margin-bottom:-100svh}
+#menu .bgv video{width:100%;height:100%;object-fit:cover}
+#menu .bgv::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(22,15,13,.94) 0,rgba(22,15,13,.84) 55%,rgba(22,15,13,.55) 100%)}
+#menu .wrap{position:relative;padding:clamp(110px,15vh,150px) clamp(16px,6vw,96px) 130px;max-width:1180px}
+#menu .tabs{position:sticky;top:80px;z-index:5;display:flex;gap:8px;margin:28px 0 10px;overflow-x:auto;scrollbar-width:none}
+#menu .tabs button{flex:0 0 auto;font:700 14px 'Work Sans';color:var(--cream);background:rgba(22,15,13,.75);border:1.5px solid rgba(251,238,228,.3);padding:9px 16px;border-radius:99px;backdrop-filter:blur(6px)}
+#menu .tabs button[aria-selected=true]{background:var(--peach);border-color:var(--peach);color:var(--ink)}
+.course{padding-top:56px}
+.course h3{font-family:var(--disp);font-weight:400;font-size:clamp(36px,4.2vw,58px);line-height:1;color:var(--peach)}
+.course .sub{font-family:var(--hand);font-size:28px;color:#e7cfc3;margin-top:2px}
+.items{list-style:none;margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:4px 48px}
+.items li{display:grid;grid-template-columns:1fr auto;gap:2px 16px;padding:16px 0;border-bottom:1px solid rgba(251,238,228,.18);opacity:0;transform:translateY(14px);transition:opacity .7s,transform .7s}
+.course.in .items li{opacity:1;transform:none}
+.items b{font-weight:700;font-size:19px}
+.items i{font-style:normal;font-weight:800;color:var(--peach)}
+.items span{grid-column:1/-1;color:#cdb6ab;font-size:15px}
+#menu .fine{color:#a08578;font-size:13px;margin-top:40px}
+@media(max-width:760px){.items{grid-template-columns:1fr}#menu .tabs{top:72px}}
+
+/* map */
+#mapa{position:relative;background:var(--peach);padding:clamp(100px,15vh,160px) clamp(16px,6vw,96px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,80px);align-items:center;overflow:hidden}
+#mapa .map{position:relative;max-width:560px;justify-self:center;width:100%}
+#mapa .map img{width:100%;height:auto;mix-blend-mode:multiply}
+#mapa .pin{position:absolute;left:35%;top:33.8%}
+#mapa .pin i{position:absolute;left:-30px;top:-30px;width:60px;height:60px;border-radius:50%;border:2.5px solid var(--ink);animation:ring 2.4s infinite}
+#mapa .pin i:nth-child(2){animation-delay:1.2s}
+#mapa .pin b{position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:var(--ink)}
+#mapa .pin span{position:absolute;left:18px;top:-14px;font-family:var(--disp);font-size:26px;white-space:nowrap}
+@keyframes ring{from{transform:scale(.3);opacity:1}to{transform:scale(2.2);opacity:0}}
+#mapa ul{list-style:none;margin-top:28px}
+#mapa li{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-top:1.5px solid rgba(42,23,18,.25);font-weight:600}
+#mapa li span{color:#6b3a2a;font-weight:500}
+#mapa li.me{font-family:var(--disp);font-weight:400;font-size:26px}
+@media(max-width:760px){#mapa{grid-template-columns:1fr}}
+
+/* book */
+#reserva{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;background:var(--night);color:var(--cream)}
+#reserva>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.42);transform:scale(var(--z,1.1))}
+#reserva .in2{position:relative;padding:120px clamp(16px,6vw,96px);max-width:1000px}
+.btn{display:inline-block;margin-top:30px;background:var(--peach);color:var(--ink);text-decoration:none;font-weight:800;padding:16px 26px;border-radius:99px}
+.btn.o{background:transparent;color:var(--cream);border:1.5px solid rgba(251,238,228,.5);margin-left:8px}
+footer{background:var(--night);color:#a08578;padding:34px clamp(16px,6vw,96px) 150px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:14px;border-top:1px solid #2c1f1a}
+footer img{height:22px;width:auto}
+
+/* the singing heart */
+.walker{position:fixed;left:0;bottom:6px;z-index:35;width:92px;transition:opacity .4s}
+.walker button{all:unset;display:block;cursor:var(--mic)}
+.walker svg{display:block;overflow:visible}
+.bubble{position:absolute;left:50%;bottom:120px;white-space:nowrap;background:var(--cream);color:var(--ink);font-weight:700;font-size:14px;padding:8px 13px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.25);opacity:0;transform:translate(-50%,8px);transition:opacity .25s,transform .25s;pointer-events:none}
+.bubble::after{content:"";position:absolute;left:50%;bottom:-6px;margin-left:-6px;border:6px solid transparent;border-bottom:0;border-top-color:var(--cream)}
+.bubble.on{opacity:1;transform:translate(-50%,0)}
+.note{position:fixed;z-index:34;pointer-events:none;font-size:22px;color:var(--tc);text-shadow:0 0 2px var(--cream)}
+@media(prefers-reduced-motion:reduce){.rv,.items li{opacity:1;transform:none;transition:none}#mapa .pin i{animation:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<path id="st" d="M50 0l9 33 33-10-24 26 30 17-34 3 4 34-18-29-18 29 4-34-34-3 30-17L8 23l33 10z"/>
+</defs></svg>
+
+<header id="top">
+  <a class="lg" href="#open" aria-label="Canta Corazón, inicio"><img class="t" src="img/logo.png" alt="Canta Corazón"><img class="c" src="img/logo-cream.png" alt=""></a>
+  <nav><a href="#mani">El saloon</a><a href="#noche">La noche</a><a href="#menu">Carta</a><a href="#mapa">Medellín</a><a class="cta" href="#reserva">Reservar</a></nav>
+</header>
+
+<!-- opening: the facade video sits in one of its own arches; the arch opens to full screen while the night rises around it -->
+<section id="open">
+  <div class="stick">
+    <img class="giant" src="img/logo.png" alt="Canta Corazón, saloon sentimental">
+    <p class="tag" aria-hidden="true">una cantadita y se le remedia la vida</p>
+    <div id="door"><img src="media/facade.jpg" alt=""><video id="v1" src="media/facade.mp4" poster="media/facade.jpg" muted playsinline loop autoplay preload="auto" aria-label="Fachada de Canta Corazón en Medellín al atardecer"></video></div>
+    <img class="fl" data-k="luchador" src="img/luchador.png" alt="El luchador de la casa con sombrero vaquero">
+    <img class="fl" data-k="bottle" src="img/bottle.png" alt="Aguardiente Antioqueño">
+    <img class="fl glow" data-k="spark" src="img/sparkler.png" alt="">
+    <svg class="fl" data-k="s1" viewBox="0 0 100 100" aria-hidden="true"><use href="#st" fill="#c25b32"/></svg>
+    <svg class="fl" data-k="s2" viewBox="0 0 100 100" aria-hidden="true"><use href="#st" fill="#1f3a2e"/></svg>
+    <svg class="fl" data-k="s3" viewBox="0 0 100 100" aria-hidden="true"><use href="#st" fill="#fbeee4"/></svg>
+    <p id="openCopy">Saloon sentimental · Medellín &nbsp;↓</p>
+    <div id="welcome"><h1>Algo que cantar.<br><span class="pc">Algo que sanar.</span></h1><p>El saloon sentimental llegó a Medellín: música, cultura mexicana y una fiesta cada noche.</p></div>
+  </div>
+</section>
+
+<!-- manifesto -->
+<section id="mani">
+  <svg id="sticker" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="circ" d="M100 100m-72 0a72 72 0 1 1 144 0a72 72 0 1 1-144 0"/></defs><circle cx="100" cy="100" r="98" fill="#ffac8d"/><text font-family="Work Sans" font-weight="800" font-size="16.5" letter-spacing="3" fill="#2a1712"><textPath href="#circ">SALOON SENTIMENTAL · MEDELLÍN ·</textPath></text><use href="#st" x="66" y="66" width="68" height="68" fill="#c25b32"/></svg>
+  <div class="grid">
+    <div>
+      <p class="rv hand pc" style="font-size:36px">el saloon</p>
+      <p class="q rv">Porque todos tenemos algo que cantar <span class="pc">y algo que sanar.</span></p>
+      <p class="rv d1">No es solo un lugar para tomar algo: cada noche se convierte en una fiesta con la identidad y las tradiciones de México. Un saloon sentimental hecho por y para las mujeres.</p>
+    </div>
+    <div class="pics">
+      <figure class="a rv"><img data-par="-14" src="img/stage.jpg" alt="Una cantante sobre la barra frente al letrero de Canta Corazón"></figure>
+      <figure class="c rv d2"><img data-par="-8" src="img/sing.jpg" alt="Una invitada con sombrero cantando con los ojos cerrados"></figure>
+      <figure class="b rv d1"><img data-par="-20" src="img/hats.jpg" alt="Cinco amigas con sombreros vaqueros de Canta Corazón"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- the night slides past like a film strip; each photo is one of the feelings -->
+<section id="noche">
+  <div class="stick">
+    <div class="hd"><h2 class="rv">Cada noche,<br><span class="pc">una fiesta.</span></h2><p class="rv d1">Le damos voz a lo que sentimos pero no siempre sabemos decir.</p></div>
+    <div class="track" id="track">
+      <figure><img src="img/p-couple.jpg" alt="Una pareja brindando y riendo" loading="lazy"><figcaption>el amor</figcaption></figure>
+      <figure><img src="img/carry.jpg" alt="El luchador de la casa cargando a una invitada" loading="lazy"><figcaption>la locura</figcaption></figure>
+      <figure><img src="img/p-dance.jpg" alt="Una mujer bailando con sombrero" loading="lazy"><figcaption>el desamor</figcaption></figure>
+      <figure><img src="img/bottle-party.jpg" alt="El luchador con una botella de aguardiente y una bengala" loading="lazy"><figcaption>el orgullo</figcaption></figure>
+      <figure><img src="img/p-mic.jpg" alt="Una invitada cantando con micrófono" loading="lazy"><figcaption>la nostalgia</figcaption></figure>
+      <figure><img src="img/p-laugh.jpg" alt="Amigos riendo con sombreros" loading="lazy"><figcaption>la memoria</figcaption></figure>
+      <figure><img src="img/p-stage.jpg" alt="Una mujer con sombrero de charro frente al público" loading="lazy"><figcaption>¡y a cantar!</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- the menu over the dining room -->
+<section id="menu">
+  <div class="bgv"><video id="v2" src="media/salon.mp4" poster="media/salon.jpg" muted playsinline loop autoplay preload="metadata" aria-hidden="true"></video></div>
+  <div class="wrap">
+    <p class="rv hand pc" style="font-size:36px">la carta</p>
+    <h2 class="rv">Para comer,<br><span class="pc">brindar y cantar.</span></h2>
+    <div class="tabs" role="tablist">
+      <button data-go="c1" aria-selected="true">Tacos</button><button data-go="c2">Antojitos</button><button data-go="c3">Para la mesa</button><button data-go="c4">Tequila y mezcal</button><button data-go="c5">Aguardiente</button>
+    </div>
+    <div class="course" id="c1"><h3>Tacos</h3><p class="sub">de la casa</p>
+      <ul class="items">
+        <li><b>Al pastor</b><i>32</i><span>Cerdo adobado, piña asada, cebolla y cilantro.</span></li>
+        <li><b>Birria con consomé</b><i>38</i><span>Res deshebrada, queso fundido y consomé para mojar.</span></li>
+        <li><b>Cochinita pibil</b><i>34</i><span>Cerdo en achiote, cebolla morada encurtida y habanero.</span></li>
+        <li><b>Gobernador</b><i>39</i><span>Camarón, queso, chile poblano en tortilla dorada.</span></li>
+      </ul></div>
+    <div class="course" id="c2"><h3>Antojitos</h3><p class="sub">para picar</p>
+      <ul class="items">
+        <li><b>Guacamole del saloon</b><i>28</i><span>Aguacate machacado al momento, totopos y chapulines opcionales.</span></li>
+        <li><b>Quesadillas de flor</b><i>26</i><span>Flor de calabaza, quesillo y salsa verde.</span></li>
+        <li><b>Elote preparado</b><i>18</i><span>Mayonesa, queso cotija, chile y limón.</span></li>
+        <li><b>Nachos de la abuela</b><i>30</i><span>Frijol, queso, jalapeño, crema y pico de gallo.</span></li>
+      </ul></div>
+    <div class="course" id="c3"><h3>Para la mesa</h3><p class="sub">para compartir cantando</p>
+      <ul class="items">
+        <li><b>Parrillada Canta Corazón</b><i>120</i><span>Arrachera, chorizo, pollo, nopales, tortillas y salsas.</span></li>
+        <li><b>Molcajete volcán</b><i>95</i><span>Carnes y queso en salsa roja hirviendo en molcajete.</span></li>
+      </ul></div>
+    <div class="course" id="c4"><h3>Tequila y mezcal</h3><p class="sub">derecho, con sal y limón</p>
+      <ul class="items">
+        <li><b>Margarita clásica</b><i>34</i><span>Tequila blanco, limón y triple sec, con sal.</span></li>
+        <li><b>Paloma</b><i>32</i><span>Tequila, toronja, limón y soda.</span></li>
+        <li><b>Mezcal con naranja</b><i>30</i><span>Con sal de gusano y naranja.</span></li>
+        <li><b>Michelada</b><i>22</i><span>Cerveza, limón, salsas y chamoy.</span></li>
+      </ul></div>
+    <div class="course" id="c5"><h3>Aguardiente</h3><p class="sub">porque estamos en Medellín</p>
+      <ul class="items">
+        <li><b>Media de Antioqueño</b><i>90</i><span>Con bengala, para la mesa que más canta.</span></li>
+        <li><b>Botella de Antioqueño</b><i>160</i><span>Con bengala y el luchador de la casa.</span></li>
+      </ul></div>
+    <p class="fine">Carta ilustrativa para esta demo. Precios en miles de pesos colombianos.</p>
+  </div>
+</section>
+
+<!-- Medellín on the map -->
+<section id="mapa">
+  <div class="map rv"><img src="img/colombia.webp" alt="Mapa de Colombia con Antioquia resaltado"><div class="pin"><i></i><i></i><b></b><span>Medellín</span></div></div>
+  <div>
+    <p class="rv hand" style="font-size:36px;color:#6b3a2a">de México al mundo</p>
+    <h2 class="rv">Ahora,<br><span style="color:#fff">en Medellín.</span></h2>
+    <ul class="rv d1">
+      <li>México<span>donde empezó todo</span></li>
+      <li>Estados Unidos<span>Miami · Brickell y Wynwood</span></li>
+      <li>España<span>Madrid</span></li>
+      <li class="me">Colombia<span style="font-family:'Work Sans';font-size:17px">Medellín, Antioquia</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="reserva">
+  <img id="resImg" src="img/facade-sky.jpg" alt="">
+  <div class="in2">
+    <p class="rv hand pc" style="font-size:40px">esta noche</p>
+    <h2 class="rv">¿Y tú qué<br><span class="pc">vienes a cantar?</span></h2>
+    <p class="rv d1" style="margin-top:20px;max-width:520px;font-size:19px;color:#e7cfc3">Reserva tu mesa, trae a tus amigas y deja el corazón en la pista.</p>
+    <div class="rv d2"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=Canta%20Coraz%C3%B3n%20Medell%C3%ADn" target="_blank" rel="noopener">Reservar en Medellín</a><a class="btn o" href="https://cantacorazon.com/" target="_blank" rel="noopener">cantacorazon.com</a></div>
+  </div>
+</section>
+<footer><img src="img/logo-cream.png" alt="Canta Corazón"><span>Demo de diseño web. Fotos y videos: Canta Corazón.</span></footer>
+
+<!-- the singing heart -->
+<div class="walker" id="walker" style="opacity:0">
+  <span class="bubble" id="bubble">¡Ay, ay, ay!</span>
+  <button aria-label="Hacer cantar al corazón">
+    <svg viewBox="0 0 92 124" width="92" height="124">
+      <g stroke="#2a1712" stroke-width="3.4" stroke-linecap="round" fill="none"><path id="l1" d="M36 98v16" style="transform-origin:36px 98px"/><path id="l2" d="M56 98v16" style="transform-origin:56px 98px"/></g>
+      <path d="M26 116h14M50 116h14" stroke="#2a1712" stroke-width="6" stroke-linecap="round"/>
+      <g id="hb">
+        <path d="M46 102C22 86 8 72 8 54c0-12 9-21 20-21 8 0 14 4 18 10 4-6 10-10 18-10 11 0 20 9 20 21 0 18-14 32-38 48z" fill="#c25b32" stroke="#2a1712" stroke-width="3"/>
+        <path d="M24 46c4-4 10-5 14-2" fill="none" stroke="#ffac8d" stroke-width="3" stroke-linecap="round"/>
+        <!-- luchador mask -->
+        <path d="M24 56c6-6 16-6 22 0 6-6 16-6 22 0-2 8-10 11-22 11S26 64 24 56z" fill="#e8e6ea" stroke="#2a1712" stroke-width="2"/>
+        <ellipse cx="35" cy="59" rx="4.5" ry="3.4" fill="#2a1712"/><ellipse cx="57" cy="59" rx="4.5" ry="3.4" fill="#2a1712"/>
+        <path id="mouth" d="M40 74q6 7 12 0z" fill="#2a1712"/>
+        <!-- cowboy hat -->
+        <g id="hat"><path d="M10 36c10 6 62 6 72 0-4 8-16 10-36 10S14 44 10 36z" fill="#fbeee4" stroke="#2a1712" stroke-width="2.4"/><path d="M28 38c0-14 6-22 18-22s18 8 18 22c-10 3-26 3-36 0z" fill="#fbeee4" stroke="#2a1712" stroke-width="2.4"/><path d="M29 33c10 2 24 2 34 0" stroke="#2a1712" stroke-width="3"/></g>
+        <!-- mic -->
+        <g id="mic"><path d="M76 82l-10 14" stroke="#2a1712" stroke-width="4" stroke-linecap="round"/><circle cx="78" cy="78" r="6" fill="#d9d4cf" stroke="#2a1712" stroke-width="2"/></g>
+      </g>
+    </svg>
+  </button>
+</div>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const ramp = (x, a, b) => clamp((x - a) / (b - a));
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const lerp = (a, b, t) => a + (b - a) * t;
+const $ = s => document.querySelector(s);
+
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+document.querySelectorAll('.rv, .course').forEach(el => io.observe(el));
+document.querySelectorAll('.items').forEach(ul => [...ul.children].forEach((li, k) => li.style.transitionDelay = `${k * 90}ms`));
+const vio = new IntersectionObserver(es => es.forEach(e => { const v = e.target; if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); }), { threshold: .01 });
+['v1', 'v2'].forEach(id => vio.observe(document.getElementById(id)));
+
+/* opening */
+const open = $('#open'), door = $('#door'), openCopy = $('#openCopy'), welcome = $('#welcome'), giant = $('#open .giant'), tag = $('#open .tag');
+const fls = [...open.querySelectorAll('.fl')];
+// x, y as fractions of the viewport, width, rotation, how fast it leaves
+const SPOT = { luchador: [.17, .66, 300, -8, 1.3], bottle: [.82, .64, 200, 14, 1.5], spark: [.86, .24, 150, 6, .9], s1: [.12, .2, 70, 0, 1.1], s2: [.66, .9, 56, 0, 1.7], s3: [.92, .9, 44, 0, 1.4] };
+const SPOT_M = { luchador: [.24, .84, 190, -8, 1.3], bottle: [.84, .8, 120, 14, 1.5], spark: [.84, .2, 90, 6, .9], s1: [.12, .16, 46, 0, 1.1], s2: [.56, .96, 40, 0, 1.7], s3: [.92, .5, 30, 0, 1.4] };
+const t0 = performance.now();
+
+/* menu tabs */
+const tabs = [...document.querySelectorAll('.tabs button')];
+tabs.forEach(b => b.addEventListener('click', () => document.getElementById(b.dataset.go).scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })));
+const courses = tabs.map(b => document.getElementById(b.dataset.go));
+
+/* the heart hops along the bottom, sings when tapped and leaves musical notes behind */
+const walker = $('#walker'), hb = $('#hb'), legs = [$('#l1'), $('#l2')], mouth = $('#mouth'), hat = $('#hat'), bubble = $('#bubble');
+const SAYS = ['¡Ay, ay, ay!', 'Canta y no llores', '¿Otro aguardientico?', 'Una cantadita y se le remedia la vida', '¡Salud, corazón!', 'Esta es pa’ ti, Medellín'];
+let dir = 1, step = 0, last = scrollY, sayI = 0, bubbleT = 0, sing = 0;
+walker.querySelector('button').addEventListener('click', () => {
+  bubble.textContent = SAYS[sayI++ % SAYS.length]; bubble.classList.add('on'); sing = performance.now();
+  clearTimeout(bubbleT); bubbleT = setTimeout(() => bubble.classList.remove('on'), 1900);
+  if (!reduce) for (let k = 0; k < 4; k++) setTimeout(note, k * 160);
+});
+function note() {
+  const r = walker.getBoundingClientRect(), n = document.createElement('span');
+  n.className = 'note'; n.textContent = ['♪', '♫', '♩', '♬'][Math.floor(Math.random() * 4)];
+  document.body.appendChild(n);
+  const x0 = r.left + 60, y0 = r.top + 30, dx = (Math.random() - .3) * 80, t = performance.now();
+  (function f(now) { const k = (now - t) / 1300; if (k >= 1) return n.remove();
+    n.style.transform = `translate(${x0 + dx * k + Math.sin(k * 9) * 8}px,${y0 - 120 * k}px)`; n.style.opacity = 1 - k; requestAnimationFrame(f); })(t);
+}
+
+const noche = $('#noche'), track = $('#track'), figs = [...track.children];
+const top_ = $('#top'), pars = [...document.querySelectorAll('[data-par]')], sticker = $('#sticker');
+const reserva = $('#reserva'), resImg = $('#resImg');
+let cur = scrollY;
+
+function frame(now) {
+  requestAnimationFrame(frame);
+  cur = reduce ? scrollY : cur + (scrollY - cur) * .14; if (Math.abs(scrollY - cur) < .3) cur = scrollY;
+  const W = innerWidth, H = innerHeight, small = W < 760;
+
+  // opening: the arch
+  const p = clamp(cur / (open.offsetHeight - H));
+  const intro = reduce ? 1 : clamp((now - t0) / 1400);
+  const g = ease(ramp(p, .12, .62));
+  const dw0 = small ? Math.min(W * .56, 270) : Math.min(W * .22, 330), dh0 = Math.min(dw0 * 1.6, H * .64);
+  const dw = lerp(dw0, W, g), dh = lerp(dh0, H, g), r = lerp(dw0 / 2, 0, g);
+  Object.assign(door.style, { width: dw + 'px', height: dh + 'px', marginLeft: -dw / 2 + 'px', marginTop: (-dh / 2 + lerp(H * .04, 0, g) + (1 - ease(intro)) * 60) + 'px', borderRadius: `${r}px ${r}px 0 0` });
+  door.style.boxShadow = `0 0 0 ${lerp(10, 0, g).toFixed(1)}px #1f3a2e, 0 30px 60px -20px rgba(42,23,18,.55)`;
+  door.style.setProperty('--shade', ramp(p, .55, .75).toFixed(3));
+  giant.style.transform = `translate(-50%,calc(-50% + ${(-p * 120).toFixed(1)}px)) scale(${(1 + p * .3).toFixed(4)})`;
+  giant.style.opacity = (.95 * intro * (1 - ramp(p, .2, .45))).toFixed(3);
+  tag.style.opacity = (intro * (1 - ramp(p, .04, .2))).toFixed(3);
+  const sp = small ? SPOT_M : SPOT;
+  fls.forEach((f, i) => {
+    const [fx, fy, w0, rot, speed] = sp[f.dataset.k];
+    const rise = reduce ? 1 : ease(clamp((now - t0 - 450 - i * 130) / 1100));
+    const away = ease(ramp(p, .06, .55)) * speed;
+    const w = w0 * (W > 1600 ? 1.2 : 1), h = w * (f.tagName === 'IMG' ? (f.naturalHeight / f.naturalWidth || 1) : 1);
+    const spin = f.tagName === 'svg' && !reduce ? now / 40 * (i % 2 ? 1 : -1) : 0;
+    const bob = reduce ? 0 : Math.sin(now / 900 + i) * 6;
+    const x = fx * W - w / 2 + (fx - .5) * W * away * .8, y = fy * H - h / 2 + (1 - rise) * H * .6 - away * H * 1.1 + bob;
+    f.style.width = w + 'px';
+    f.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) rotate(${(rot * (1 - rise * .4) + away * rot * 2 + spin * .2).toFixed(2)}deg)`;
+    f.style.opacity = (rise * (1 - ramp(p, .35, .6))).toFixed(3);
+  });
+  openCopy.style.opacity = (intro * (1 - ramp(p, .04, .14))).toFixed(3);
+  welcome.style.opacity = ramp(p, .68, .82).toFixed(3); welcome.style.transform = `translateY(${(30 * (1 - ramp(p, .68, .82))).toFixed(1)}px)`;
+  const mr = $('#mapa').getBoundingClientRect();
+  top_.classList.toggle('solid', p > .6 && !(mr.top < 40 && mr.bottom > 40));
+
+  // parallax and sticker
+  pars.forEach(el => { const b = el.parentElement.getBoundingClientRect(); el.style.transform = `translateY(${(((b.top + b.height / 2) - H / 2) / H * +el.dataset.par * 3).toFixed(1)}px)`; });
+  sticker.style.transform = `rotate(${(cur * .1).toFixed(1)}deg)`;
+
+  // the film strip slides sideways and each polaroid sways
+  const np = clamp(-noche.getBoundingClientRect().top / (noche.offsetHeight - H)), span = track.scrollWidth - W + (small ? 16 : 96);
+  track.style.transform = `translateX(${(-ease(np) * Math.max(0, span)).toFixed(1)}px)`;
+  figs.forEach((fg, i) => { const r = fg.getBoundingClientRect(), d = (r.left + r.width / 2 - W / 2) / W; fg.style.rotate = `${((i % 2 ? 1 : -1) * 3 + d * 6).toFixed(2)}deg`; fg.style.translate = `0 ${(Math.abs(d) * 30).toFixed(1)}px`; });
+
+  // menu tab
+  let act = 0; courses.forEach((c, i) => { if (c.getBoundingClientRect().top < H * .5) act = i; });
+  tabs.forEach((b, i) => b.setAttribute('aria-selected', i === act ? 'true' : 'false'));
+
+  // closing photo
+  const rr = reserva.getBoundingClientRect(); resImg.style.setProperty('--z', (1.12 - .12 * clamp(1 - rr.top / H)).toFixed(4));
+
+  // the heart
+  const total = Math.max(1, document.documentElement.scrollHeight - H), gp = clamp(cur / total);
+  const dy = scrollY - last; last = scrollY;
+  if (Math.abs(dy) > .5) { dir = dy > 0 ? 1 : -1; step += Math.abs(dy) * .06; }
+  const ww = 92, wx = 8 + gp * (W - ww - 16);
+  walker.style.transform = `translateX(${wx.toFixed(1)}px)`;
+  walker.querySelector('svg').style.transform = `scaleX(${dir})`;
+  const sw = reduce ? 0 : Math.sin(step) * 22;
+  legs[0].style.transform = `rotate(${sw.toFixed(2)}deg)`; legs[1].style.transform = `rotate(${(-sw).toFixed(2)}deg)`;
+  const beat = reduce ? 1 : 1 + Math.max(0, Math.sin(now / 160)) * .04;
+  hb.style.transformOrigin = '46px 100px';
+  hb.style.transform = `translateY(${(reduce ? 0 : -Math.abs(Math.sin(step)) * 4).toFixed(2)}px) scale(${beat.toFixed(3)})`;
+  const singing = now - sing < 1500;
+  mouth.setAttribute('d', singing && Math.sin(now / 70) > 0 ? 'M38 72q8 14 16 0z' : 'M40 74q6 7 12 0z');
+  hat.style.transform = singing ? `rotate(${(Math.sin(now / 90) * 6).toFixed(2)}deg)` : '';
+  hat.style.transformOrigin = '46px 40px';
+  walker.style.opacity = p > .02 ? 1 : 0;
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
