@@ -95,7 +95,8 @@
         {
           "photo": "foto-mvjp5wgu.jpg",
           "caption": "",
-          "placeholder": "Sala de masajes"
+          "placeholder": "Sala de masajes",
+          "fit": "contain"
         },
         {
           "photo": "",
