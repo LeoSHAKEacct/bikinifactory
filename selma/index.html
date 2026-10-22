@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Selma · Restaurante</title>
+<meta name="description" content="Selma, restaurante en Medellín y Bogotá. Fuego, mesa larga y una cabra que nos cuida la casa.">
+<meta name="theme-color" content="#f4cf14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yellowtail&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+/* Selma: walk in through the door, the dishes rise around it, the menu sits on the long table, and the goat follows you around. */
+:root {
+  --yellow: #f4cf14;    /* Selma */
+  --yellow-2: #e9c200;
+  --ink: #1d1a14;
+  --ink-soft: #5d574a;
+  --cream: #f6f1e4;
+  --stone: #d9d1bf;
+  --night: #15130f;
+  --on-night: #f6f1e4;
+  --on-night-soft: rgba(246,241,228,.72);
+  --line: rgba(29,26,20,.16);
+  --serif: "Fraunces", Georgia, serif;
+  --sans: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+  --script: "Yellowtail", "Brush Script MT", cursive;
+  /* the mouse is a goat */
+  --goat-cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='34' viewBox='0 0 34 34'%3E%3Cpath d='M9 9C6 6 4 3 5 1c2 2 5 4 7 7M25 9c3-3 5-6 4-8-2 2-5 4-7 7' fill='none' stroke='%231d1a14' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M4 12c2-2 4-2 6-1M30 12c-2-2-4-2-6-1' fill='none' stroke='%231d1a14' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M10 10c2-3 12-3 14 0 2 4 1 10-2 15-2 3-8 3-10 0-3-5-4-11-2-15Z' fill='%23fff' stroke='%231d1a14' stroke-width='1.6'/%3E%3Ccircle cx='13.5' cy='15' r='1.4' fill='%231d1a14'/%3E%3Ccircle cx='20.5' cy='15' r='1.4' fill='%231d1a14'/%3E%3Cpath d='M15 23h4' stroke='%231d1a14' stroke-width='1.4' stroke-linecap='round'/%3E%3Cpath d='M15 27l2 6 2-6' fill='%23fff' stroke='%231d1a14' stroke-width='1.2'/%3E%3Cpath d='M11 22l6 4 6-4-1 3-5 3-5-3Z' fill='%23f4cf14' stroke='%231d1a14' stroke-width='1'/%3E%3C/svg%3E") 17 6, auto;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--cream); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; cursor: var(--goat-cursor); }
+a, button { cursor: var(--goat-cursor); }
+img, video { display: block; max-width: 100%; }
+a { color: inherit; }
+.w { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+@media (min-width: 820px) { .w { padding-left: max(48px, env(safe-area-inset-left, 0px)); padding-right: max(48px, env(safe-area-inset-right, 0px)); } }
+.kick { font-size: 12px; font-weight: 700; letter-spacing: .26em; text-transform: uppercase; }
+.h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(40px, 6vw, 88px); line-height: 1; letter-spacing: -.02em; margin: 14px 0 0; text-wrap: balance; }
+.h2 em { font-style: italic; }
+.btn { display: inline-flex; align-items: center; gap: 10px; background: var(--ink); color: var(--yellow); text-decoration: none; border-radius: 99px; padding: 12px 20px; font-weight: 700; font-size: 14px; letter-spacing: .04em; border: 0; }
+.btn:hover { transform: translateY(-1px); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+/* header */
+.top { position: fixed; z-index: 40; top: 0; left: 0; right: 0; padding-top: calc(14px + env(safe-area-inset-top, 0px)); padding-bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 14px; pointer-events: none; }
+.top > * { pointer-events: auto; }
+.logo { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--yellow); color: var(--ink); font-family: var(--script); font-size: 27px; text-decoration: none; box-shadow: 0 6px 20px rgba(0,0,0,.15); transform: rotate(-8deg); }
+.top nav { display: flex; align-items: center; gap: 6px; background: rgba(246,241,228,.88); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-radius: 99px; padding: 6px; box-shadow: 0 6px 20px rgba(0,0,0,.1); }
+.top nav a { text-decoration: none; font-weight: 500; font-size: 14px; padding: 8px 14px; border-radius: 99px; }
+.top nav a:hover { background: var(--yellow); }
+.top nav .btn { padding: 8px 16px; }
+@media (max-width: 560px) { .top nav a.opt { display: none; } }
+
+/* opening: the door */
+.open { position: relative; height: 330vh; background: var(--yellow); }
+.open .stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.big { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -54%); font-family: var(--script); font-size: clamp(160px, 34vw, 520px); line-height: 1; color: var(--yellow-2); white-space: nowrap; pointer-events: none; user-select: none; }
+.door { position: absolute; left: 50%; top: 50%; overflow: hidden; background: #2b2a24; box-shadow: 0 30px 80px rgba(60,45,0,.35); will-change: width, height, border-radius; }
+.door video { width: 100%; height: 100%; object-fit: cover; }
+.door::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,13,10,.75), rgba(15,13,10,0) 45%); opacity: var(--shade, 0); }
+.dish { position: absolute; z-index: 3; left: 0; top: 0; pointer-events: none; filter: drop-shadow(0 18px 24px rgba(60,40,0,.32)); will-change: transform; }
+.dish img { width: 100%; height: auto; }
+.open-copy { position: absolute; z-index: 4; left: 0; right: 0; bottom: calc(6vh + env(safe-area-inset-bottom, 0px)); text-align: center; pointer-events: none; }
+.open-copy .kick { color: var(--ink); }
+.open-copy p { margin: 8px 0 0; font-family: var(--serif); font-size: clamp(22px, 2.6vw, 32px); }
+.welcome { position: absolute; z-index: 4; left: 0; right: 0; bottom: calc(10vh + env(safe-area-inset-bottom, 0px)); color: var(--on-night); opacity: 0; pointer-events: none; }
+.welcome h1 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(48px, 8vw, 124px); line-height: .95; letter-spacing: -.02em; max-width: 12ch; }
+.welcome h1 em { font-family: var(--script); font-style: normal; color: var(--yellow); font-size: 1.15em; }
+.welcome p { margin: 14px 0 0; max-width: 40ch; color: var(--on-night-soft); font-size: 18px; }
+
+/* the table */
+.mesa { max-width: 1240px; margin: 0 auto; padding-block: 18vh 14vh; display: grid; gap: 48px; align-items: center; }
+@media (min-width: 900px) { .mesa { grid-template-columns: 1.05fr 1fr; gap: 72px; } }
+.mesa p { color: var(--ink-soft); max-width: 46ch; font-size: 18px; }
+.mesa .kick { color: var(--ink-soft); }
+.pair { position: relative; height: min(70vh, 640px); }
+.pair figure { position: absolute; margin: 0; overflow: hidden; border-radius: 18px; box-shadow: 0 24px 60px rgba(0,0,0,.18); will-change: transform; }
+.pair figure img { width: 100%; height: 100%; object-fit: cover; }
+.pair .a { left: 0; top: 0; width: 62%; height: 78%; transform: rotate(-3deg); }
+.pair .b { right: 0; bottom: 0; width: 52%; height: 64%; transform: rotate(4deg); }
+.sticker { position: absolute; z-index: 2; right: 4%; top: 2%; width: 120px; height: 120px; border-radius: 50%; background: var(--yellow); display: grid; place-items: center; text-align: center; font-weight: 700; font-size: 13px; line-height: 1.2; letter-spacing: .04em; text-transform: uppercase; transform: rotate(12deg); animation: spin 18s linear infinite; }
+@keyframes spin { to { transform: rotate(372deg); } }
+
+/* menu over the long table */
+.menu { position: relative; background: var(--night); color: var(--on-night); }
+.menu-bg { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.menu-bg video { width: 100%; height: 100%; object-fit: cover; }
+.menu-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(16,13,8,.72), rgba(16,13,8,.62)); }
+.menu-in { position: relative; z-index: 1; margin-top: -100vh; margin-top: -100svh; max-width: 1180px; margin-left: auto; margin-right: auto; padding-block: 22vh 20vh; }
+.menu-head { text-align: center; }
+.menu-head .kick { color: var(--yellow); }
+.menu-head .h2 { color: var(--on-night); }
+.menu-head .h2 em { font-family: var(--script); font-style: normal; color: var(--yellow); }
+.menu-head p { margin: 16px auto 0; max-width: 46ch; color: var(--on-night-soft); }
+.tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 40px 0 0; }
+.tabs button { font: inherit; font-size: 14px; font-weight: 500; color: var(--on-night); background: rgba(246,241,228,.08); border: 1px solid rgba(246,241,228,.25); border-radius: 99px; padding: 9px 16px; }
+.tabs button[aria-selected="true"] { background: var(--yellow); color: var(--ink); border-color: var(--yellow); }
+.course { margin-top: 56px; }
+.course h3 { display: flex; align-items: baseline; gap: 14px; margin: 0 0 18px; font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 3.4vw, 44px); }
+.course h3 span { font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; color: var(--yellow); }
+.items { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 56px; }
+@media (min-width: 860px) { .items { grid-template-columns: 1fr 1fr; } }
+.items li { position: relative; padding: 18px 0; border-bottom: 1px solid rgba(246,241,228,.16); opacity: 0; transform: translateY(24px); transition: opacity .7s, transform .7s cubic-bezier(.2,.8,.2,1); }
+.course.in .items li { opacity: 1; transform: none; }
+.items .row { display: flex; align-items: baseline; gap: 10px; }
+.items b { font-family: var(--serif); font-weight: 600; font-size: 21px; }
+.items .dots { flex: 1; border-bottom: 1px dotted rgba(246,241,228,.35); transform: translateY(-5px); }
+.items .p { font-variant-numeric: tabular-nums; color: var(--yellow); font-weight: 500; }
+.items small { display: block; margin-top: 4px; color: var(--on-night-soft); font-size: 15px; }
+.items .tag { display: inline-block; margin-left: 8px; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; background: var(--yellow); color: var(--ink); border-radius: 99px; padding: 2px 8px; vertical-align: middle; }
+.peek { position: fixed; z-index: 30; left: 0; top: 0; width: 240px; pointer-events: none; opacity: 0; transform: translate(-50%, -50%) scale(.6) rotate(-8deg); transition: opacity .25s, transform .35s cubic-bezier(.2,1.4,.4,1); filter: drop-shadow(0 20px 30px rgba(0,0,0,.45)); }
+.peek.on { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-4deg); }
+.peek img { width: 100%; height: auto; }
+.menu-note { margin-top: 56px; text-align: center; color: var(--on-night-soft); font-size: 14px; }
+
+/* the goat */
+.cabra { background: var(--yellow); overflow: hidden; }
+.cabra .wrap { max-width: 1240px; margin: 0 auto; padding-block: 16vh; display: grid; gap: 48px; align-items: center; }
+@media (min-width: 900px) { .cabra .wrap { grid-template-columns: 1fr 1fr; } }
+.cabra .shot { position: relative; border-radius: 999px 999px 24px 24px; overflow: hidden; aspect-ratio: 3 / 4; max-height: 78vh; box-shadow: 0 30px 80px rgba(60,45,0,.3); }
+.cabra .shot img { width: 100%; height: 115%; object-fit: cover; will-change: transform; }
+.cabra p { max-width: 42ch; font-size: 18px; }
+.cabra .h2 em { font-family: var(--script); font-style: normal; font-size: 1.2em; }
+
+/* places */
+.casas { max-width: 1240px; margin: 0 auto; padding-block: 16vh 12vh; }
+.cgrid { margin-top: 44px; display: grid; gap: 20px; }
+@media (min-width: 860px) { .cgrid { grid-template-columns: 1fr 1fr; } }
+.casa { position: relative; overflow: hidden; border-radius: 22px; min-height: 420px; color: var(--on-night); display: flex; align-items: flex-end; padding: 28px; text-decoration: none; }
+.casa img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(.2,.8,.2,1); }
+.casa:hover img { transform: scale(1.05); }
+.casa::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,13,10,.8), rgba(15,13,10,0) 60%); }
+.casa div { position: relative; z-index: 1; }
+.casa b { display: block; font-family: var(--serif); font-weight: 400; font-size: 40px; line-height: 1; }
+.casa span { color: var(--on-night-soft); }
+
+.foot { background: var(--night); color: var(--on-night-soft); }
+.foot .wrap { max-width: 1240px; margin: 0 auto; padding-block: 14vh calc(40px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 28px; }
+.foot .bigs { font-family: var(--script); color: var(--yellow); font-size: clamp(90px, 18vw, 240px); line-height: .9; }
+.foot .row { display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: space-between; align-items: center; font-size: 14px; }
+.foot .btn { background: var(--yellow); color: var(--ink); }
+
+/* the goat that walks along the bottom of the page */
+.walker { position: fixed; z-index: 35; left: 0; bottom: calc(6px + env(safe-area-inset-bottom, 0px)); width: 92px; height: 74px; will-change: transform; }
+.walker button { all: unset; display: block; width: 100%; height: 100%; }
+.walker svg { width: 100%; height: 100%; overflow: visible; }
+.walker .leg { transform-box: fill-box; transform-origin: 50% 0; }
+.walker .head { transform-box: fill-box; transform-origin: 80% 90%; }
+.bubble { position: absolute; left: 50%; bottom: 100%; transform: translate(-50%, -6px) scale(.6); opacity: 0; background: #fff; color: var(--ink); font-weight: 700; font-size: 14px; border-radius: 14px; padding: 6px 12px; white-space: nowrap; box-shadow: 0 6px 18px rgba(0,0,0,.2); transition: opacity .2s, transform .3s cubic-bezier(.2,1.6,.4,1); pointer-events: none; }
+.bubble.on { opacity: 1; transform: translate(-50%, -10px) scale(1); }
+
+.rv { opacity: 0; transform: translateY(26px); transition: opacity 1s, transform 1s cubic-bezier(.2,.8,.2,1); }
+.rv.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .rv, .items li { opacity: 1; transform: none; transition: none; } .sticker { animation: none; } }
+@media (hover: none) { body, a, button { cursor: auto; } }
+</style>
+</head>
+<body>
+<header class="top w">
+  <a class="logo" href="#inicio" aria-label="Selma, inicio">Selma</a>
+  <nav aria-label="Secciones"><a class="opt" href="#mesa">La casa</a><a href="#menu">Menú</a><a class="opt" href="#casas">Dónde</a><a class="btn" href="https://www.instagram.com/selma_rest/" target="_blank" rel="noopener">Reservar</a></nav>
+</header>
+
+<main id="inicio">
+  <section class="open" id="open" aria-label="Llegando a Selma">
+    <div class="stick">
+      <div class="big" aria-hidden="true">Selma</div>
+      <div class="door" id="door"><video id="v1" src="media/opening.mp4" poster="media/opening.jpg" muted playsinline loop autoplay preload="auto" aria-label="Llegando a Selma: la entrada entre jardines y el salón"></video></div>
+      <div class="dish" data-d="tuna" style="--w:250"><img src="img/tuna.png" alt="Sándwich de atún con perlas"></div>
+      <div class="dish" data-d="coupe" style="--w:190"><img src="img/coupe.png" alt="Cóctel en copa con borde de sal"></div>
+      <div class="dish" data-d="fries" style="--w:230"><img src="img/fries.png" alt="Papas fritas con hierbas"></div>
+      <div class="dish" data-d="eggplant" style="--w:180"><img src="img/eggplant.png" alt="Berenjena asada en hojaldre"></div>
+      <div class="dish" data-d="wine" style="--w:90"><img src="img/wine.png" alt="Copa de vino tinto"></div>
+      <div class="dish" data-d="salad" style="--w:200"><img src="img/salad.png" alt="Carpaccio con hierbas"></div>
+      <div class="open-copy w" id="openCopy"><div class="kick">Medellín · Bogotá</div><p>Pasa, la mesa está servida.</p></div>
+      <div class="welcome w" id="welcome"><h1>Nos vemos en <em>la mesa</em></h1><p>Fuego, producto colombiano y una mesa larga para quedarse.</p></div>
+    </div>
+  </section>
+
+  <section class="mesa w" id="mesa" aria-labelledby="mT">
+    <div class="rv">
+      <div class="kick">La casa</div>
+      <h2 class="h2" id="mT">Una cocina abierta y <em>una mesa larga</em></h2>
+      <p>En Selma se cocina a la vista: brasas, cazuelas de cobre y platos para compartir. La barra prepara cócteles con fruta del día, y la mesa larga junta a quien llegue.</p>
+    </div>
+    <div class="pair rv">
+      <figure class="a" data-par="-18"><img src="img/kitchen.jpg" alt="Cocineros trabajando en la cocina abierta de Selma" loading="lazy"></figure>
+      <figure class="b" data-par="22"><img src="img/bar.jpg" alt="Cóctel en copa frente a la barra, con velas y flores blancas" loading="lazy"></figure>
+      <div class="sticker" aria-hidden="true">Cocina<br>a la<br>vista</div>
+    </div>
+  </section>
+
+  <section class="menu" id="menu" aria-labelledby="menuT">
+    <div class="menu-bg" aria-hidden="true"><video id="v2" src="media/table.mp4" poster="media/table.jpg" muted playsinline loop autoplay preload="metadata"></video></div>
+    <div class="menu-in w">
+      <div class="menu-head rv"><div class="kick">El menú</div><h2 class="h2" id="menuT">Para <em>compartir</em></h2><p>Una carta corta que cambia con el mercado. Pasa el mouse por un plato para verlo.</p>
+        <div class="tabs" role="tablist" aria-label="Secciones del menú"><button role="tab" aria-selected="true" data-go="c1">Para picar</button><button role="tab" aria-selected="false" data-go="c2">Del fuego</button><button role="tab" aria-selected="false" data-go="c3">Acompañantes</button><button role="tab" aria-selected="false" data-go="c4">Postres</button><button role="tab" aria-selected="false" data-go="c5">Barra</button></div>
+      </div>
+      <div class="course" id="c1"><h3>Para picar <span>01</span></h3><ul class="items">
+        <li data-peek="tuna"><div class="row"><b>Sándwich de atún</b><span class="dots"></span><span class="p">46</span></div><small>Atún sellado, pan brioche dorado, ensalada de repollo y perlas de soya.<span class="tag">De la casa</span></small></li>
+        <li data-peek="salad"><div class="row"><b>Carpaccio de res</b><span class="dots"></span><span class="p">38</span></div><small>Tomate de árbol, cebolla encurtida, albahaca y aceite de ají.</small></li>
+        <li data-peek="eggplant"><div class="row"><b>Berenjena en hojaldre</b><span class="dots"></span><span class="p">34</span></div><small>Berenjena asada, yogur de cabra y hierbas frescas.</small></li>
+        <li><div class="row"><b>Croquetas de plátano</b><span class="dots"></span><span class="p">28</span></div><small>Plátano maduro, queso costeño y suero.</small></li>
+      </ul></div>
+      <div class="course" id="c2"><h3>Del fuego <span>02</span></h3><ul class="items">
+        <li><div class="row"><b>Pollo a la brasa</b><span class="dots"></span><span class="p">72</span></div><small>Medio pollo, espárragos, cebolla asada y salsa de la casa.</small></li>
+        <li><div class="row"><b>Punta de anca</b><span class="dots"></span><span class="p">89</span></div><small>Madurada, al carbón, con chimichurri y papas chips.<span class="tag">Para 2</span></small></li>
+        <li><div class="row"><b>Pesca del día</b><span class="dots"></span><span class="p">78</span></div><small>A la leña, con mantequilla de limón mandarino.</small></li>
+        <li><div class="row"><b>Cordero de la cabra</b><span class="dots"></span><span class="p">94</span></div><small>Paleta cocida lento, arepa de maíz pelao y hogao.</small></li>
+      </ul></div>
+      <div class="course" id="c3"><h3>Acompañantes <span>03</span></h3><ul class="items">
+        <li data-peek="fries"><div class="row"><b>Papas fritas</b><span class="dots"></span><span class="p">18</span></div><small>Con hierbas y sal de mar.</small></li>
+        <li><div class="row"><b>Ensalada de la huerta</b><span class="dots"></span><span class="p">22</span></div><small>Hojas, pepino, rábano y vinagreta de panela.</small></li>
+      </ul></div>
+      <div class="course" id="c4"><h3>Postres <span>04</span></h3><ul class="items">
+        <li><div class="row"><b>Flan de queso de cabra</b><span class="dots"></span><span class="p">24</span></div><small>Caramelo de panela y sal.</small></li>
+        <li><div class="row"><b>Chocolate y café</b><span class="dots"></span><span class="p">26</span></div><small>Mousse de cacao colombiano, crema de café.</small></li>
+      </ul></div>
+      <div class="course" id="c5"><h3>Barra <span>05</span></h3><ul class="items">
+        <li data-peek="coupe"><div class="row"><b>Margarita de la casa</b><span class="dots"></span><span class="p">38</span></div><small>Tequila, lima, borde de sal de mar.</small></li>
+        <li data-peek="wine"><div class="row"><b>Copa de tinto</b><span class="dots"></span><span class="p">32</span></div><small>Selección del sumiller, cambia cada semana.</small></li>
+        <li><div class="row"><b>Negroni de la cabra</b><span class="dots"></span><span class="p">40</span></div><small>Ginebra, vermut rojo, bitter y piel de naranja.</small></li>
+      </ul></div>
+      <p class="menu-note">Precios en miles de pesos. Carta ilustrativa para esta demo.</p>
+    </div>
+  </section>
+
+  <section class="cabra w" aria-labelledby="cT">
+    <div class="wrap">
+      <div class="shot rv"><img id="goatImg" src="img/goat.jpg" alt="La cabra de Selma, con pañuelo amarillo, entrando al restaurante" loading="lazy"></div>
+      <div class="rv">
+        <div class="kick">La anfitriona</div>
+        <h2 class="h2" id="cT">Te presentamos a <em>la cabra</em></h2>
+        <p>Es el símbolo de la casa: curiosa, terca y siempre con hambre. Te acompaña por esta página, y si la tocas, saluda.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="casas w" id="casas" aria-labelledby="dT">
+    <div class="rv"><div class="kick" style="color:var(--ink-soft)">Dónde</div><h2 class="h2" id="dT">Dos casas, <em>una mesa</em></h2></div>
+    <div class="cgrid">
+      <a class="casa rv" href="https://www.instagram.com/selma_rest/" target="_blank" rel="noopener"><img src="img/table.jpg" alt="Mesa servida con platos para compartir en Selma" loading="lazy"><div><b>Medellín</b><span>Piso 1 · 23 Living</span></div></a>
+      <a class="casa rv" href="https://www.instagram.com/selma_rest/" target="_blank" rel="noopener"><img src="img/tuna-plate.jpg" alt="Sándwich de atún de Selma" loading="lazy"><div><b>Bogotá</b><span>Chapinero</span></div></a>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap w">
+    <div class="bigs">Selma</div>
+    <div class="row"><span>Medellín · Bogotá</span><a class="btn" href="https://www.instagram.com/selma_rest/" target="_blank" rel="noopener">Reservar por Instagram</a><span>Demo de diseño web. Fotos y videos: Selma.</span></div>
+  </div>
+</footer>
+
+<div class="peek" id="peek" aria-hidden="true"><img alt=""></div>
+
+<div class="walker" id="walker">
+  <button type="button" aria-label="La cabra de Selma: tócala para que salude">
+    <svg viewBox="0 0 120 96" aria-hidden="true">
+      <g fill="#fff" stroke="#1d1a14" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path class="leg" id="l1" d="M30 58 L28 86"/><path class="leg" id="l2" d="M40 60 L42 88"/>
+        <path class="leg" id="l3" d="M70 60 L68 88"/><path class="leg" id="l4" d="M80 58 L82 86"/>
+        <path d="M14 46 q-6-8 -2-14" fill="none"/>
+        <path d="M18 40 C18 28 36 24 56 26 C76 26 90 30 90 44 C90 58 76 64 56 64 C34 64 18 58 18 40 Z"/>
+        <g class="head" id="head">
+          <path d="M84 34 C88 16 94 10 104 12 C112 14 114 24 110 34 C106 44 98 48 92 46 Z"/>
+          <path d="M98 12 C96 2 88 -2 82 2 C88 4 92 8 94 13" fill="none"/>
+          <path d="M104 12 C106 4 112 2 116 6 C112 7 109 10 107 14" fill="none"/>
+          <circle cx="101" cy="25" r="2" fill="#1d1a14" stroke="none"/>
+          <path d="M104 44 l2 9 4-8" fill="#fff"/>
+          <path d="M86 40 L98 50 L84 52 Z" fill="#f4cf14"/>
+        </g>
+      </g>
+    </svg>
+  </button>
+  <div class="bubble" id="bubble">¡Beee!</div>
+</div>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const ramp = (x, a, b) => clamp((x - a) / (b - a));
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const lerp = (a, b, t) => a + (b - a) * t;
+
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+document.querySelectorAll('.rv, .course').forEach(el => io.observe(el));
+document.querySelectorAll('.items').forEach(ul => [...ul.children].forEach((li, k) => li.style.transitionDelay = `${k * 90}ms`));
+
+// play the videos only while they can be seen
+const vio = new IntersectionObserver(es => es.forEach(e => { const v = e.target; if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); }), { threshold: .01 });
+['v1', 'v2'].forEach(id => vio.observe(document.getElementById(id)));
+
+/* opening: dishes rise around the door, the door opens to full screen */
+const open = document.getElementById('open'), door = document.getElementById('door'), openCopy = document.getElementById('openCopy'), welcome = document.getElementById('welcome');
+const dishes = [...open.querySelectorAll('.dish')];
+// where each dish sits around the door: x,y as fractions of the viewport, its rotation, and how fast it leaves
+const SPOT = { tuna: [.2, .62, -10, 1.3], coupe: [.8, .3, 12, 1.0], fries: [.78, .74, 8, 1.5], eggplant: [.16, .24, -14, .9], wine: [.64, .16, 6, .8], salad: [.36, .86, -4, 1.7] };
+const SPOT_M = { tuna: [.22, .76, -10, 1.3], coupe: [.82, .2, 12, 1.0], fries: [.8, .86, 8, 1.5], eggplant: [.18, .14, -14, .9], wine: [.88, .56, 6, .8], salad: [.14, .5, -4, 1.7] };
+const t0 = performance.now();
+
+/* menu: tabs scroll to their course; hovering a dish shows its photo */
+const tabs = [...document.querySelectorAll('.tabs button')];
+tabs.forEach(b => b.addEventListener('click', () => document.getElementById(b.dataset.go).scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })));
+const courses = tabs.map(b => document.getElementById(b.dataset.go));
+const peek = document.getElementById('peek'), peekImg = peek.querySelector('img');
+let mx = innerWidth / 2, my = innerHeight / 2, px = mx, py = my;
+addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+document.querySelectorAll('[data-peek]').forEach(li => {
+  li.addEventListener('pointerenter', e => { if (e.pointerType !== 'mouse') return; peekImg.src = `img/${li.dataset.peek}.png`; peek.classList.add('on'); });
+  li.addEventListener('pointerleave', () => peek.classList.remove('on'));
+});
+
+/* the goat walks along the bottom as you scroll, turns when you scroll back, and greets when tapped */
+const walker = document.getElementById('walker'), legs = ['l1', 'l2', 'l3', 'l4'].map(id => document.getElementById(id)), head = document.getElementById('head'), bubble = document.getElementById('bubble');
+let dir = 1, step = 0, last = scrollY, bubbleT = 0;
+const SAYS = ['¡Beee!', '¿Mesa para dos?', 'Pide el sándwich de atún', '¡Beeeee!', 'Yo invito… no'];
+let sayI = 0;
+walker.querySelector('button').addEventListener('click', () => { bubble.textContent = SAYS[sayI++ % SAYS.length]; bubble.classList.add('on'); clearTimeout(bubbleT); bubbleT = setTimeout(() => bubble.classList.remove('on'), 1600); });
+
+let cur = scrollY;
+function frame(now) {
+  requestAnimationFrame(frame);
+  cur = reduce ? scrollY : cur + (scrollY - cur) * .14; if (Math.abs(scrollY - cur) < .3) cur = scrollY;
+  const W = innerWidth, H = innerHeight, small = W < 760;
+
+  // opening
+  const p = clamp(cur / (open.offsetHeight - H));
+  const intro = reduce ? 1 : clamp((now - t0) / 1400);
+  const g = ease(ramp(p, .12, .62));
+  const dw0 = small ? Math.min(W * .62, 300) : Math.min(W * .26, 380), dh0 = Math.min(dw0 * 16 / 9, H * .72);
+  const dw = lerp(dw0, W, g), dh = lerp(dh0, H, g), r = lerp(dw0 / 2, 0, g);
+  Object.assign(door.style, { width: dw + 'px', height: dh + 'px', marginLeft: -dw / 2 + 'px', marginTop: (-dh / 2 + lerp(-H * .02, 0, g) + (1 - ease(intro)) * 60) + 'px', borderRadius: `${r}px ${r}px ${lerp(22, 0, g)}px ${lerp(22, 0, g)}px` });
+  door.style.setProperty('--shade', ramp(p, .55, .75).toFixed(3));
+  const sp = small ? SPOT_M : SPOT;
+  dishes.forEach((d, i) => {
+    const [fx, fy, rot, speed] = sp[d.dataset.d];
+    const rise = reduce ? 1 : ease(clamp((now - t0 - 500 - i * 140) / 1100));
+    const away = ease(ramp(p, .08, .55)) * speed;
+    const w = (+getComputedStyle(d).getPropertyValue('--w')) * (small ? .62 : 1) * (W > 1600 ? 1.2 : 1);
+    const x = fx * W - w / 2 + (fx - .5) * W * away * .7, y = fy * H + (1 - rise) * H * .6 - away * H * 1.1 - w * .3;
+    d.style.width = w + 'px';
+    d.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) rotate(${(rot * (1 - rise * .4) + away * rot * 2).toFixed(2)}deg)`;
+    d.style.opacity = (rise * (1 - ramp(p, .35, .6))).toFixed(3);
+  });
+  openCopy.style.opacity = (intro * (1 - ramp(p, .04, .14))).toFixed(3);
+  welcome.style.opacity = ramp(p, .68, .82).toFixed(3); welcome.style.transform = `translateY(${(30 * (1 - ramp(p, .68, .82))).toFixed(1)}px)`;
+
+  // parallax
+  document.querySelectorAll('[data-par]').forEach(el => { const b = el.parentElement.getBoundingClientRect(); const k = ((b.top + b.height / 2) - H / 2) / H; el.style.translate = `0 ${(k * +el.dataset.par * 3).toFixed(1)}px`; });
+  const gi = document.getElementById('goatImg'), gb = gi.parentElement.getBoundingClientRect(); gi.style.transform = `translateY(${(((gb.top + gb.height / 2) - H / 2) / H * -40).toFixed(1)}px)`;
+
+  // active menu tab
+  let act = 0; courses.forEach((c, i) => { if (c.getBoundingClientRect().top < H * .5) act = i; });
+  tabs.forEach((b, i) => b.setAttribute('aria-selected', i === act ? 'true' : 'false'));
+
+  // the peeking dish follows the mouse with a little lag
+  px += (mx - px) * .2; py += (my - py) * .2;
+  peek.style.left = (px + 140) + 'px'; peek.style.top = (py - 20) + 'px';
+
+  // goat
+  const total = Math.max(1, document.documentElement.scrollHeight - H), gp = clamp(cur / total);
+  const dy = scrollY - last; last = scrollY;
+  if (Math.abs(dy) > .5) { dir = dy > 0 ? 1 : -1; step += Math.abs(dy) * .06; }
+  const gw = 92, gx = 8 + gp * (W - gw - 16);
+  walker.style.transform = `translateX(${gx.toFixed(1)}px) scaleX(${dir})`;
+  bubble.style.transform = bubble.classList.contains('on') ? `translate(-50%,-10px) scaleX(${dir})` : '';
+  const sw = reduce ? 0 : Math.sin(step) * 18;
+  legs.forEach((l, i) => l.style.transform = `rotate(${(i % 2 ? sw : -sw).toFixed(2)}deg)`);
+  head.style.transform = `rotate(${(reduce ? 0 : Math.sin(step * .5) * 4).toFixed(2)}deg)`;
+  walker.style.opacity = p > .02 ? 1 : 0;
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
