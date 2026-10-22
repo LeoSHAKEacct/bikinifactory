@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tulia Cocina · Comida vegana en Laureles, Medellín</title>
+<meta name="description" content="100% plant-based comfort food en Laureles, Medellín. Pizzas, hamburguesas, bowls y postrecitos, con porciones enormes y platos de menos de $50.000.">
+<link rel="icon" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--g:#34433b;--g2:#26322b;--sal:#f0a07f;--sal2:#e8865f;--cream:#f7f0e6;--ink:#1f2a24;--mut:#6d756f;--script:'Kaushan Script',cursive;--serif:'Fraunces',Georgia,serif;
+--leaf:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M4 28C4 14 12 5 28 4c0 15-8 24-22 24' fill='%237fa34a' stroke='%2326322b' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M5 27C11 19 17 13 24 8' fill='none' stroke='%2326322b' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") 3 28,auto}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--cream);color:var(--ink);font:400 17px/1.55 Nunito,system-ui,sans-serif;overflow-x:hidden;cursor:var(--leaf)}
+a,button{cursor:var(--leaf)}
+img{display:block;max-width:100%}
+.script{font-family:var(--script);font-weight:400}
+h2{font-family:var(--serif);font-weight:800;letter-spacing:-.03em;line-height:.98;font-size:clamp(40px,6.4vw,92px)}
+.sal{color:var(--sal2)}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+.stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+
+/* header */
+#top{position:fixed;inset:0 0 auto;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:14px clamp(16px,4vw,44px);transition:background .4s,box-shadow .4s}
+#top.solid{background:rgba(247,240,230,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(0,0,0,.06)}
+#top .lg{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--g)}
+#top .lg img{width:46px;height:46px;border-radius:50%}
+#top .lg span{font-family:var(--script);font-size:26px}
+#top nav{display:flex;gap:24px;align-items:center;font-weight:700;font-size:15px}
+#top nav a{text-decoration:none;color:var(--g)}
+#top nav .cta{background:var(--g);color:var(--cream);padding:10px 18px;border-radius:99px}
+@media(max-width:760px){#top nav a:not(.cta){display:none}}
+
+/* opening: the door is a slideshow of the dishes */
+#open{height:330vh;position:relative}
+#open .stick{background:var(--cream)}
+#open .giant{position:absolute;left:50%;top:47%;transform:translate(-50%,-50%);font-family:var(--script);font-size:clamp(150px,30vw,470px);line-height:1;color:var(--sal);opacity:.9;white-space:nowrap;user-select:none}
+#door{position:absolute;left:50%;top:50%;z-index:2;overflow:hidden;background:var(--g);box-shadow:0 30px 60px -30px rgba(38,50,43,.6)}
+#door img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(var(--z,1.08))}
+#door::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(20,28,23,.85),rgba(20,28,23,.25) 55%,transparent 75%);opacity:var(--shade,0)}
+.dish{position:absolute;z-index:3;left:0;top:0;pointer-events:none;filter:drop-shadow(0 18px 22px rgba(38,50,43,.3));will-change:transform}
+.dish img{width:100%;height:auto}
+#openCopy{position:absolute;left:0;right:0;bottom:clamp(20px,5vh,48px);z-index:4;text-align:center;font-weight:800;letter-spacing:.24em;font-size:12px;text-transform:uppercase;color:var(--g)}
+#welcome{position:absolute;z-index:4;left:clamp(16px,6vw,96px);right:clamp(16px,6vw,96px);bottom:clamp(60px,12vh,120px);color:var(--cream);opacity:0}
+#welcome h1{font-family:var(--serif);font-weight:800;letter-spacing:-.03em;line-height:.95;font-size:clamp(46px,8vw,120px)}
+#welcome p{margin-top:16px;max-width:540px;font-size:clamp(16px,1.5vw,20px)}
+
+/* the house */
+#casa{position:relative;padding:clamp(100px,15vh,160px) clamp(16px,6vw,96px);overflow:hidden}
+#casa .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,80px);align-items:center}
+#casa p.lead{margin-top:22px;font-size:19px;max-width:520px;color:#3a463f}
+#casa .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+#casa .badges span{background:#fff;border:1.5px solid var(--g);border-radius:99px;padding:8px 16px;font-weight:800;font-size:14px;color:var(--g)}
+#casa .pics{position:relative;height:min(70vh,640px)}
+#casa .pics figure{position:absolute;border-radius:28px;overflow:hidden;box-shadow:0 30px 50px -30px rgba(38,50,43,.55)}
+#casa .pics figure img{width:100%;height:115%;object-fit:cover;margin-top:-7%}
+#casa .p1{left:0;top:0;width:62%;aspect-ratio:4/5}
+#casa .p2{right:0;bottom:0;width:52%;aspect-ratio:1/1;border-radius:50%!important}
+#sticker{position:absolute;right:clamp(10px,3vw,40px);top:clamp(70px,10vh,110px);width:clamp(110px,11vw,150px);z-index:2;pointer-events:none}
+@media(max-width:760px){#casa .grid{grid-template-columns:1fr}#casa .pics{height:110vw}}
+
+/* numbers strip */
+#nums{background:var(--sal);color:var(--g2);padding:clamp(50px,8vh,80px) clamp(16px,6vw,96px);display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+#nums b{display:block;font-family:var(--serif);font-weight:800;font-size:clamp(46px,6vw,86px);letter-spacing:-.04em;line-height:1}
+#nums span{font-weight:700}
+@media(max-width:760px){#nums{grid-template-columns:1fr}}
+
+/* menu */
+#menu{position:relative;background:var(--g2);color:var(--cream)}
+#menu .bg{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;margin-bottom:-100vh;margin-bottom:-100svh}
+#menu .bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(var(--z,1.1));transition:opacity 1.6s}
+#menu .bg img.on{opacity:1}
+#menu .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(30,40,34,.95) 0,rgba(30,40,34,.86) 55%,rgba(30,40,34,.6) 100%)}
+#menu .wrap{position:relative;padding:clamp(110px,15vh,150px) clamp(16px,6vw,96px) 130px;max-width:1180px}
+#menu .tabs{position:sticky;top:80px;z-index:5;display:flex;gap:8px;margin:28px 0 10px;overflow-x:auto;scrollbar-width:none}
+#menu .tabs button{flex:0 0 auto;font:800 14px Nunito;color:var(--cream);background:rgba(30,40,34,.75);border:1.5px solid rgba(247,240,230,.35);padding:9px 16px;border-radius:99px;backdrop-filter:blur(6px)}
+#menu .tabs button[aria-selected=true]{background:var(--sal);border-color:var(--sal);color:var(--g2)}
+.course{padding-top:56px}
+.course h3{font-family:var(--script);font-weight:400;font-size:clamp(40px,4.6vw,64px);line-height:1;color:var(--sal)}
+.course .sub{color:#b9c2bb;font-size:15px;margin-top:4px}
+.items{list-style:none;margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:4px 48px}
+.items li{display:grid;grid-template-columns:1fr auto;gap:2px 16px;padding:16px 0;border-bottom:1.5px dotted rgba(247,240,230,.25);opacity:0;transform:translateY(14px);transition:opacity .7s,transform .7s}
+.course.in .items li{opacity:1;transform:none}
+.items b{font-family:var(--serif);font-weight:600;font-size:21px}
+.items i{font-style:normal;font-weight:800;color:var(--sal)}
+.items span{grid-column:1/-1;color:#c9d0ca;font-size:15px}
+.items li[data-peek] b::after{content:" ◉";color:var(--sal);font-size:11px;vertical-align:middle}
+.items .real{display:inline-block;margin-left:8px;font:800 10px Nunito;letter-spacing:.1em;background:var(--sal);color:var(--g2);padding:2px 7px;border-radius:99px;vertical-align:middle}
+#menu .fine{color:#9aa49d;font-size:13px;margin-top:40px}
+.peek{position:fixed;z-index:30;left:0;top:0;width:250px;pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.6) rotate(-8deg);transition:opacity .25s,transform .35s cubic-bezier(.2,1.4,.4,1);filter:drop-shadow(0 20px 30px rgba(0,0,0,.45))}
+.peek.on{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(-4deg)}
+.peek img{width:100%;height:auto}
+@media(max-width:760px){.items{grid-template-columns:1fr}#menu .tabs{top:72px}}
+
+/* events */
+#eventos{position:relative;z-index:1;background:var(--cream);padding:clamp(100px,15vh,160px) clamp(16px,6vw,96px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,80px);align-items:center;overflow:hidden}
+#eventos p{margin-top:20px;font-size:19px;max-width:520px;color:#3a463f}
+#eventos .ph{border-radius:200px 200px 28px 28px;overflow:hidden;aspect-ratio:4/5}
+#eventos .ph img{width:100%;height:115%;object-fit:cover;margin-top:-7%}
+.btn{display:inline-flex;align-items:center;gap:10px;margin-top:28px;background:var(--g);color:var(--cream);text-decoration:none;font-weight:800;padding:15px 24px;border-radius:99px}
+.btn.o{background:transparent;color:var(--g);border:1.5px solid var(--g);margin-left:8px}
+@media(max-width:760px){#eventos{grid-template-columns:1fr}.btn.o{margin-left:0}}
+
+/* visit */
+#visita{background:var(--g);color:var(--cream);padding:clamp(100px,15vh,150px) clamp(16px,6vw,96px) 150px;display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,80px)}
+#visita dl{display:grid;gap:22px;margin-top:10px}
+#visita dt{font-weight:800;letter-spacing:.2em;font-size:12px;text-transform:uppercase;color:var(--sal)}
+#visita dd{font-family:var(--serif);font-size:clamp(22px,2.3vw,30px);line-height:1.2;margin-top:4px}
+#visita dd a{color:inherit}
+#visita .btn{background:var(--sal);color:var(--g2)}
+#visita .btn.o{background:transparent;color:var(--cream);border-color:rgba(247,240,230,.5)}
+footer{background:var(--g2);color:#9aa49d;padding:30px clamp(16px,6vw,96px) 140px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:14px}
+@media(max-width:760px){#visita{grid-template-columns:1fr}}
+
+/* the avocado */
+.walker{position:fixed;left:0;bottom:6px;z-index:35;width:86px;transition:opacity .4s}
+.walker button{all:unset;display:block;cursor:var(--leaf)}
+.walker svg{display:block;overflow:visible}
+.bubble{position:absolute;left:50%;bottom:118px;white-space:nowrap;background:#fff;color:var(--g2);font-weight:800;font-size:14px;padding:8px 13px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.15);opacity:0;transform:translate(-50%,8px);transition:opacity .25s,transform .25s;pointer-events:none}
+.bubble::after{content:"";position:absolute;left:50%;bottom:-6px;margin-left:-6px;border:6px solid transparent;border-bottom:0;border-top-color:#fff}
+.bubble.on{opacity:1}
+@media(prefers-reduced-motion:reduce){.rv,.items li{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<header id="top">
+  <a class="lg" href="#open"><img src="img/logo.png" alt=""><span>Tulia</span></a>
+  <nav><a href="#casa">La casa</a><a href="#menu">Menú</a><a href="#eventos">Eventos</a><a href="#visita">Dónde</a><a class="cta" href="https://wa.me/573162946970" target="_blank" rel="noopener">Pide a domicilio</a></nav>
+</header>
+
+<!-- opening: the dishes rise around an arched door; the door opens to full screen on the food -->
+<section id="open">
+  <div class="stick">
+    <div class="giant" aria-hidden="true">Tulia</div>
+    <div id="door">
+      <img src="img/pizza.jpg" alt="Pizza con tomates asados, pesto y cebolla morada">
+      <img src="img/chilli.jpg" alt="Chilli bowl en tortilla crocante">
+      <img src="img/hummus.jpg" alt="Hummus de zanahoria con remolacha y semillas">
+      <img src="img/burger.jpg" alt="Hamburguesa vegana con papas y pan de masa madre">
+    </div>
+    <div class="dish" data-d="chilli"><img src="img/c-chilli.png" alt=""></div>
+    <div class="dish" data-d="hummus"><img src="img/c-hummus.png" alt=""></div>
+    <div class="dish" data-d="burger"><img src="img/c-burger.png" alt=""></div>
+    <div class="dish" data-d="bread"><img src="img/c-bread.png" alt=""></div>
+    <p id="openCopy">Cocina vegana · Laureles, Medellín &nbsp;↓</p>
+    <div id="welcome"><h1>Comida reconfortante.<br><span class="sal">100% plantas.</span></h1><p>Pizzas, hamburguesas, bowls y postrecitos en una casa hermosa cerca del Segundo Parque de Laureles.</p></div>
+  </div>
+</section>
+
+<!-- the house -->
+<section id="casa">
+  <svg id="sticker" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="circ" d="M100 100m-72 0a72 72 0 1 1 144 0a72 72 0 1 1-144 0"/></defs><circle cx="100" cy="100" r="98" fill="#34433b"/><text font-family="Nunito" font-weight="800" font-size="17" letter-spacing="3" fill="#f0a07f"><textPath href="#circ">100% PLANT-BASED · COMFORT FOOD ·</textPath></text><path d="M70 130C70 95 92 72 132 70c0 38-22 60-58 60" fill="#7fa34a"/><path d="M72 128c15-20 30-34 48-46" fill="none" stroke="#26322b" stroke-width="3.5" stroke-linecap="round"/></svg>
+  <div class="grid">
+    <div>
+      <p class="rv script sal" style="font-size:30px">la casa</p>
+      <h2 class="rv">Vegano, sí.<br>Aburrido, <span class="sal">jamás.</span></h2>
+      <p class="lead rv d1">Comida reconfortante hecha solo con plantas, en porciones enormes, para veganos y para los que no lo son. Ven a tardear, a una cita o a tomarte un café con helado.</p>
+      <div class="badges rv d2"><span>🌱 100% plant-based</span><span>☕ Café y helados</span><span>🍕 Pizzas de masa madre</span><span>🤝 Ambiente acogedor</span></div>
+    </div>
+    <div class="pics">
+      <figure class="p1 rv"><img data-par="-12" src="img/burger.jpg" alt="Hamburguesa vegana con papas rústicas"></figure>
+      <figure class="p2 rv d1"><img data-par="-20" src="img/hummus.jpg" alt="Hummus de zanahoria y remolacha"></figure>
+    </div>
+  </div>
+</section>
+
+<section id="nums">
+  <div class="rv"><b>100%</b><span>plantas, en cada plato</span></div>
+  <div class="rv d1"><b>&lt; $50 mil</b><span>ningún plato supera los $50.000</span></div>
+  <div class="rv d2"><b>XL</b><span>porciones enormes, para compartir</span></div>
+</section>
+
+<!-- menu over a slow slideshow of the dishes -->
+<section id="menu">
+  <div class="bg" id="mbg"><img class="on" src="img/pizza.jpg" alt=""><img src="img/chilli.jpg" alt=""><img src="img/burger.jpg" alt=""><img src="img/hummus.jpg" alt=""></div>
+  <div class="wrap">
+    <p class="rv script sal" style="font-size:30px">el menú</p>
+    <h2 class="rv">Para todos<br><span class="sal">los antojos.</span></h2>
+    <div class="tabs" role="tablist">
+      <button data-go="c1" aria-selected="true">Entradas</button><button data-go="c2">Pizzas</button><button data-go="c3">Hamburguesas</button><button data-go="c4">Bowls</button><button data-go="c5">Postrecitos y café</button>
+    </div>
+    <div class="course" id="c1"><h3>Entradas</h3><p class="sub">Para empezar a compartir</p>
+      <ul class="items">
+        <li data-peek="hummus"><b>Hummus de la casa</b><i>22</i><span>Garbanzo y zanahoria, crema de remolacha, semillas tostadas y pan plano.</span></li>
+        <li data-peek="bread"><b>Pan de masa madre</b><i>18</i><span>Al horno, con ajo, perejil y “queso” de anacardo gratinado.</span></li>
+        <li><b>Patacones con hogao</b><i>16</i><span>Crocantes, con hogao de la casa y guacamole.</span></li>
+        <li><b>Croquetas de yuca</b><i>17</i><span>Rellenas de champiñones, con ají de cilantro.</span></li>
+      </ul></div>
+    <div class="course" id="c2"><h3>Pizzas</h3><p class="sub">Masa madre, horneadas al momento</p>
+      <ul class="items">
+        <li><b>Tomates asados y pesto</b><i>38</i><span>Tomates cherry asados, pesto de albahaca, cebolla morada y mozzarella vegetal.</span></li>
+        <li><b>Champiñones y trufa</b><i>42</i><span>Champiñones salteados, aceite de trufa y rúgula.</span></li>
+        <li><b>Hawaiana a la Tulia</b><i>39</i><span>Piña asada, “tocineta” de coco y salsa de la casa.</span></li>
+        <li><b>Margarita</b><i>32</i><span>Tomate, albahaca y mozzarella vegetal.</span></li>
+      </ul></div>
+    <div class="course" id="c3"><h3>Hamburguesas</h3><p class="sub">Con papas rústicas</p>
+      <ul class="items">
+        <li data-peek="burger"><b>La clásica Tulia</b><i>34</i><span>Medallón de lenteja y remolacha, lechuga, tomate, salsa de la casa.</span></li>
+        <li><b>BBQ ahumada</b><i>37</i><span>Medallón de garbanzo, cebolla caramelizada y salsa BBQ.</span></li>
+        <li><b>Picante de jaca</b><i>38</i><span>Jaca desmechada, jalapeños y mayonesa de chipotle.</span></li>
+      </ul></div>
+    <div class="course" id="c4"><h3>Bowls</h3><p class="sub">Para comer con todo</p>
+      <ul class="items">
+        <li data-peek="chilli"><b>Chilli Bowl <span class="real">REAL</span></b><i>21</i><span>Tortilla de trigo crocante en forma de bowl, arroz achiotado, lechuga, madurito, maicitos, chilli de frijol negro con champiñones, crema agria, pico e gallo y salsa de aguacate.</span></li>
+        <li><b>Bowl verde</b><i>26</i><span>Quinua, aguacate, garbanzos asados, hojas y aderezo de tahini.</span></li>
+      </ul></div>
+    <div class="course" id="c5"><h3>Postrecitos y café</h3><p class="sub">Para cerrar la tarde</p>
+      <ul class="items">
+        <li><b>Brownie con helado</b><i>16</i><span>Brownie de cacao y helado vegano de vainilla.</span></li>
+        <li><b>Helado artesanal</b><i>10</i><span>Pregunta por los sabores del día.</span></li>
+        <li><b>Café de origen</b><i>7</i><span>Espresso, americano o capuchino con leche vegetal.</span></li>
+      </ul></div>
+    <p class="fine">Menú ilustrativo para esta demo, salvo el Chilli Bowl ($21.000). Precios en miles de pesos colombianos.</p>
+  </div>
+</section>
+
+<!-- events -->
+<section id="eventos">
+  <div>
+    <p class="rv script sal" style="font-size:30px">tu plan</p>
+    <h2 class="rv">Tu taller o evento,<br><span class="sal">sin pagar alquiler.</span></h2>
+    <p class="rv d1">Tenemos espacios para talleres, encuentros y celebraciones. No cobramos alquiler: solo consumes en la casa.</p>
+    <a class="btn rv d2" href="https://wa.me/573162946970?text=Hola%20Tulia%2C%20quiero%20hacer%20un%20evento%20en%20la%20casa" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+  </div>
+  <div class="ph rv d1"><img data-par="-16" src="img/chilli.jpg" alt="Chilli bowl servido en la mesa"></div>
+</section>
+
+<!-- visit -->
+<section id="visita">
+  <div>
+    <h2 class="rv">Ven a<br><span class="sal">la casa.</span></h2>
+    <a class="btn rv d1" href="https://www.google.com/maps/search/?api=1&query=Carrera%2079%20%2334A-123%2C%20Laureles%2C%20Medell%C3%ADn" target="_blank" rel="noopener">Cómo llegar</a><a class="btn o rv d1" href="https://linktr.ee/tuliacocina" target="_blank" rel="noopener">Todos los enlaces</a>
+  </div>
+  <dl class="rv d1">
+    <div><dt>Dónde</dt><dd>Carrera 79 #34A-123<br>Laureles – Estadio, Medellín</dd></div>
+    <div><dt>Domicilios</dt><dd><a href="https://wa.me/573162946970" target="_blank" rel="noopener">316 294 6970</a> · Valle de Aburrá</dd></div>
+    <div><dt>Síguenos</dt><dd><a href="https://www.instagram.com/tuliaveg/" target="_blank" rel="noopener">@tuliaveg</a> · <a href="https://www.tiktok.com/@restaurantetuliaveg" target="_blank" rel="noopener">TikTok</a></dd></div>
+  </dl>
+</section>
+<footer><span class="script" style="font-size:24px;color:var(--sal)">Tulia Cocina</span><span>Demo de diseño web. Fotos: Tulia y sus clientes en Instagram.</span></footer>
+
+<div class="peek" id="peek"><img alt=""></div>
+
+<!-- the avocado walks along the bottom -->
+<div class="walker" id="walker" style="opacity:0">
+  <span class="bubble" id="bubble">¡Hola!</span>
+  <button aria-label="Saludar al aguacate">
+    <svg viewBox="0 0 86 120" width="86" height="120">
+      <g stroke="#26322b" stroke-width="3.2" stroke-linecap="round" fill="none">
+        <path id="l1" d="M34 96v16" style="transform-origin:34px 96px"/><path id="l2" d="M52 96v16" style="transform-origin:52px 96px"/>
+      </g>
+      <ellipse cx="30" cy="114" rx="7" ry="3.6" fill="#f0a07f"/><ellipse cx="56" cy="114" rx="7" ry="3.6" fill="#f0a07f"/>
+      <g id="av">
+        <path d="M43 6c-12 0-17 14-21 28C17 50 8 62 8 78c0 18 15 26 35 26s35-8 35-26c0-16-9-28-14-44C60 20 55 6 43 6z" fill="#4f6b2c" stroke="#26322b" stroke-width="3"/>
+        <path d="M43 13c-9 0-13 12-16 24-4 14-12 25-12 40 0 14 12 20 28 20s28-6 28-20c0-15-8-26-12-40-3-12-7-24-16-24z" fill="#d6e59a"/>
+        <circle cx="43" cy="72" r="15" fill="#8a5a33"/><circle cx="38" cy="67" r="4" fill="#a87448"/>
+        <g id="face"><circle cx="35" cy="42" r="3.4" fill="#26322b"/><circle cx="51" cy="42" r="3.4" fill="#26322b"/><circle cx="29" cy="49" r="3.2" fill="#f0a07f" opacity=".8"/><circle cx="57" cy="49" r="3.2" fill="#f0a07f" opacity=".8"/><path d="M38 49q5 5 10 0" fill="none" stroke="#26322b" stroke-width="2.6" stroke-linecap="round"/></g>
+        <path id="arm" d="M14 70q-9 4-10 14" fill="none" stroke="#26322b" stroke-width="3.2" stroke-linecap="round" style="transform-origin:14px 70px"/>
+        <path d="M72 70q9 4 10 14" fill="none" stroke="#26322b" stroke-width="3.2" stroke-linecap="round"/>
+      </g>
+    </svg>
+  </button>
+</div>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const ramp = (x, a, b) => clamp((x - a) / (b - a));
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const lerp = (a, b, t) => a + (b - a) * t;
+const $ = s => document.querySelector(s);
+
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+document.querySelectorAll('.rv, .course').forEach(el => io.observe(el));
+document.querySelectorAll('.items').forEach(ul => [...ul.children].forEach((li, k) => li.style.transitionDelay = `${k * 90}ms`));
+
+/* opening */
+const open = $('#open'), door = $('#door'), openCopy = $('#openCopy'), welcome = $('#welcome');
+const slides = [...door.querySelectorAll('img')], dishes = [...open.querySelectorAll('.dish')];
+// x, y as fractions of the viewport, width, rotation, how fast it leaves
+const SPOT = { chilli: [.8, .68, 320, 8, 1.4], hummus: [.18, .3, 260, -10, 1.2], burger: [.8, .22, 270, 8, .9], bread: [.2, .76, 250, -14, 1.6] };
+const SPOT_M = { chilli: [.76, .86, 190, 8, 1.4], hummus: [.2, .15, 140, -10, 1.2], burger: [.82, .16, 150, 8, .9], bread: [.2, .86, 140, -14, 1.6] };
+const t0 = performance.now();
+
+/* menu */
+const tabs = [...document.querySelectorAll('.tabs button')];
+tabs.forEach(b => b.addEventListener('click', () => document.getElementById(b.dataset.go).scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })));
+const courses = tabs.map(b => document.getElementById(b.dataset.go));
+const mbg = [...document.querySelectorAll('#mbg img')];
+const peek = $('#peek'), peekImg = peek.querySelector('img');
+let mx = innerWidth / 2, my = innerHeight / 2, px = mx, py = my;
+addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+document.querySelectorAll('[data-peek]').forEach(li => {
+  li.addEventListener('pointerenter', e => { if (e.pointerType !== 'mouse') return; peekImg.src = `img/c-${li.dataset.peek}.png`; peek.classList.add('on'); });
+  li.addEventListener('pointerleave', () => peek.classList.remove('on'));
+});
+
+/* the avocado waddles with the scroll, turns when you scroll back, and talks when tapped */
+const walker = $('#walker'), av = $('#av'), legs = [$('#l1'), $('#l2')], arm = $('#arm'), bubble = $('#bubble');
+const SAYS = ['¡Hola, soy Palta!', '100% plantas 🌱', '¿Pizza o hamburguesa? Las dos.', 'Ningún animal fue molestado', 'Trae a tu amigo carnívoro', 'Pide el Chilli Bowl'];
+let dir = 1, step = 0, last = scrollY, sayI = 0, bubbleT = 0, wave = 0;
+walker.querySelector('button').addEventListener('click', () => {
+  bubble.textContent = SAYS[sayI++ % SAYS.length]; bubble.classList.add('on'); wave = performance.now();
+  clearTimeout(bubbleT); bubbleT = setTimeout(() => bubble.classList.remove('on'), 1800);
+});
+
+const top_ = $('#top'), pars = [...document.querySelectorAll('[data-par]')], sticker = $('#sticker');
+let cur = scrollY;
+function frame(now) {
+  requestAnimationFrame(frame);
+  cur = reduce ? scrollY : cur + (scrollY - cur) * .14; if (Math.abs(scrollY - cur) < .3) cur = scrollY;
+  const W = innerWidth, H = innerHeight, small = W < 760;
+
+  // opening: the door
+  const p = clamp(cur / (open.offsetHeight - H));
+  const intro = reduce ? 1 : clamp((now - t0) / 1400);
+  const g = ease(ramp(p, .12, .62));
+  const dw0 = small ? Math.min(W * .6, 290) : Math.min(W * .26, 380), dh0 = Math.min(dw0 * 1.45, H * .7);
+  const dw = lerp(dw0, W, g), dh = lerp(dh0, H, g), r = lerp(dw0 / 2, 0, g);
+  Object.assign(door.style, { width: dw + 'px', height: dh + 'px', marginLeft: -dw / 2 + 'px', marginTop: (-dh / 2 + (1 - ease(intro)) * 60) + 'px', borderRadius: `${r}px ${r}px ${lerp(26, 0, g)}px ${lerp(26, 0, g)}px` });
+  door.style.setProperty('--shade', ramp(p, .55, .75).toFixed(3));
+  // a slow slideshow inside the door: each dish holds, then dissolves into the next
+  const ts = reduce ? 0 : now / 2600, si = Math.floor(ts) % slides.length, sf = ease(ramp(ts % 1, .7, 1));
+  slides.forEach((im, i) => {
+    const o = i === si ? 1 : i === (si + 1) % slides.length ? sf : 0;
+    im.style.opacity = o.toFixed(3); im.style.setProperty('--z', (1.12 - .06 * (i === si ? ts % 1 : 0)).toFixed(4));
+  });
+  const sp = small ? SPOT_M : SPOT;
+  dishes.forEach((d, i) => {
+    const [fx, fy, w0, rot, speed] = sp[d.dataset.d];
+    const rise = reduce ? 1 : ease(clamp((now - t0 - 450 - i * 140) / 1100));
+    const away = ease(ramp(p, .06, .55)) * speed;
+    const w = w0 * (W > 1600 ? 1.2 : 1), img = d.firstElementChild, h = w * (img.naturalHeight / img.naturalWidth || .8);
+    const bob = reduce ? 0 : Math.sin(now / 1000 + i * 1.7) * 5;
+    const x = fx * W - w / 2 + (fx - .5) * W * away * .7, y = fy * H - h / 2 + (1 - rise) * H * .6 - away * H * 1.1 + bob;
+    d.style.width = w + 'px';
+    d.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) rotate(${(rot * (1 - rise * .4) + away * rot * 2).toFixed(2)}deg)`;
+    d.style.opacity = (rise * (1 - ramp(p, .35, .6))).toFixed(3);
+  });
+  openCopy.style.opacity = (intro * (1 - ramp(p, .04, .14))).toFixed(3);
+  welcome.style.opacity = ramp(p, .68, .82).toFixed(3); welcome.style.transform = `translateY(${(30 * (1 - ramp(p, .68, .82))).toFixed(1)}px)`;
+  top_.classList.toggle('solid', p > .95);
+
+  // parallax and sticker
+  pars.forEach(el => { const b = el.parentElement.getBoundingClientRect(); el.style.transform = `translateY(${(((b.top + b.height / 2) - H / 2) / H * +el.dataset.par * 3).toFixed(1)}px)`; });
+  sticker.style.transform = `rotate(${(cur * .1).toFixed(1)}deg)`;
+
+  // menu: active tab, and the background follows the course you are reading
+  let act = 0; courses.forEach((c, i) => { if (c.getBoundingClientRect().top < H * .5) act = i; });
+  tabs.forEach((b, i) => b.setAttribute('aria-selected', i === act ? 'true' : 'false'));
+  const bgi = [0, 0, 2, 1, 3][act];
+  mbg.forEach((im, i) => { if (im.classList.contains('on') !== (i === bgi)) im.classList.toggle('on', i === bgi); });
+  const mt = $('#menu').getBoundingClientRect().top; mbg[bgi].style.setProperty('--z', (1.12 - .1 * clamp(-mt / ($('#menu').offsetHeight || 1))).toFixed(4));
+
+  // peek
+  px += (mx - px) * .2; py += (my - py) * .2;
+  peek.style.left = (px + 150) + 'px'; peek.style.top = (py - 20) + 'px';
+
+  // avocado
+  const total = Math.max(1, document.documentElement.scrollHeight - H), gp = clamp(cur / total);
+  const dy = scrollY - last; last = scrollY;
+  if (Math.abs(dy) > .5) { dir = dy > 0 ? 1 : -1; step += Math.abs(dy) * .06; }
+  const ww = 86, wx = 8 + gp * (W - ww - 16);
+  walker.style.transform = `translateX(${wx.toFixed(1)}px)`;
+  walker.querySelector('svg').style.transform = `scaleX(${dir})`;
+  const sw = reduce ? 0 : Math.sin(step) * 22;
+  legs[0].style.transform = `rotate(${sw.toFixed(2)}deg)`; legs[1].style.transform = `rotate(${(-sw).toFixed(2)}deg)`;
+  av.style.transform = `translateY(${(reduce ? 0 : -Math.abs(Math.sin(step)) * 3).toFixed(2)}px) rotate(${(reduce ? 0 : Math.sin(step) * 3).toFixed(2)}deg)`;
+  av.style.transformOrigin = '43px 100px';
+  const wv = now - wave < 1400 ? Math.sin((now - wave) / 90) * 30 - 60 : 0;
+  arm.style.transform = `rotate(${wv.toFixed(1)}deg)`;
+  walker.style.opacity = p > .02 ? 1 : 0;
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
