@@ -119,6 +119,11 @@ h2{font-family:var(--disp);font-weight:400;letter-spacing:-.01em;line-height:.98
 #reserva .in2{position:relative;padding:120px clamp(16px,6vw,96px);max-width:1000px}
 .btn{display:inline-block;margin-top:30px;background:var(--peach);color:var(--ink);text-decoration:none;font-weight:800;padding:16px 26px;border-radius:99px}
 .btn.o{background:transparent;color:var(--cream);border:1.5px solid rgba(251,238,228,.5);margin-left:8px}
+#reserva .info{display:flex;flex-wrap:wrap;gap:20px 48px;margin-top:40px}
+#reserva .info dt{font-weight:800;letter-spacing:.2em;font-size:12px;text-transform:uppercase;color:var(--peach)}
+#reserva .info dd{font-family:var(--disp);font-size:clamp(22px,2.2vw,30px);line-height:1.2;margin-top:4px}
+#reserva .info a{color:var(--cream);text-decoration:none;border-bottom:1px solid rgba(251,238,228,.35)}
+@media(max-width:760px){.btn.o{margin-left:0}}
 footer{background:var(--night);color:#a08578;padding:34px clamp(16px,6vw,96px) 150px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:14px;border-top:1px solid #2c1f1a}
 footer img{height:22px;width:auto}
 
@@ -141,7 +146,7 @@ footer img{height:22px;width:auto}
 
 <header id="top">
   <a class="lg" href="#open" aria-label="Canta Corazón, inicio"><img class="t" src="img/logo.png" alt="Canta Corazón"><img class="c" src="img/logo-cream.png" alt=""></a>
-  <nav><a href="#mani">El saloon</a><a href="#noche">La noche</a><a href="#menu">Carta</a><a href="#mapa">Medellín</a><a class="cta" href="#reserva">Reservar</a></nav>
+  <nav><a href="#mani">El saloon</a><a href="#noche">La noche</a><a href="#menu">Carta</a><a href="#mapa">Medellín</a><a class="cta" href="https://wa.me/573171512002?text=Hola%20Canta%20Coraz%C3%B3n%2C%20quiero%20reservar%20una%20mesa" target="_blank" rel="noopener">Reservar</a></nav>
 </header>
 
 <!-- opening: the facade video sits in one of its own arches; the arch opens to full screen while the night rises around it -->
@@ -248,7 +253,7 @@ footer img{height:22px;width:auto}
       <li>México<span>donde empezó todo</span></li>
       <li>Estados Unidos<span>Miami · Brickell y Wynwood</span></li>
       <li>España<span>Madrid</span></li>
-      <li class="me">Colombia<span style="font-family:'Work Sans';font-size:17px">Medellín, Antioquia</span></li>
+      <li class="me">Colombia<span style="font-family:'Work Sans';font-size:17px">Medellín · Cra 33 #7-127, El Poblado</span></li>
     </ul>
   </div>
 </section>
@@ -259,10 +264,14 @@ footer img{height:22px;width:auto}
     <p class="rv hand pc" style="font-size:40px">esta noche</p>
     <h2 class="rv">¿Y tú qué<br><span class="pc">vienes a cantar?</span></h2>
     <p class="rv d1" style="margin-top:20px;max-width:520px;font-size:19px;color:#e7cfc3">Reserva tu mesa, trae a tus amigas y deja el corazón en la pista.</p>
-    <div class="rv d2"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=Canta%20Coraz%C3%B3n%20Medell%C3%ADn" target="_blank" rel="noopener">Reservar en Medellín</a><a class="btn o" href="https://cantacorazon.com/" target="_blank" rel="noopener">cantacorazon.com</a></div>
+    <div class="rv d2"><a class="btn" href="https://wa.me/573171512002?text=Hola%20Canta%20Coraz%C3%B3n%2C%20quiero%20reservar%20una%20mesa" target="_blank" rel="noopener">Reservar por WhatsApp</a><a class="btn o" href="tel:+573171512002">Llamar · 317 151 2002</a></div>
+    <dl class="info rv d3">
+      <div><dt>Dónde</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=Canta%20Coraz%C3%B3n%2C%20Cra%2033%20%237-127%2C%20El%20Poblado%2C%20Medell%C3%ADn" target="_blank" rel="noopener">Cra 33 #7-127, El Poblado<br>Medellín, Antioquia</a></dd></div>
+      <div><dt>Reservas</dt><dd><a href="tel:+573171512002">317 151 2002</a></dd></div>
+    </dl>
   </div>
 </section>
-<footer><img src="img/logo-cream.png" alt="Canta Corazón"><span>Demo de diseño web. Fotos y videos: Canta Corazón.</span></footer>
+<footer><img src="img/logo-cream.png" alt="Canta Corazón"><span>Cra 33 #7-127, El Poblado, Medellín · 317 151 2002</span><span>Demo de diseño web. Fotos y videos: Canta Corazón.</span></footer>
 
 <!-- the singing heart -->
 <div class="walker" id="walker" style="opacity:0">
