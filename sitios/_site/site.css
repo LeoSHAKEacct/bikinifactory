@@ -99,7 +99,6 @@ section{padding:96px 0}
 .svc::after{content:"";position:absolute;inset:auto -40% -60% auto;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(236,95,122,.18),transparent 70%);transition:transform .4s}
 .svc:hover{transform:translateY(-4px);border-color:rgba(236,95,122,.45);background:rgba(255,220,226,.07)}
 .svc:hover::after{transform:scale(1.4)}
-.svc .num{font-family:"Cormorant Garamond",serif;font-style:italic;color:var(--gold);font-size:20px}
 .svc h3{font-family:"Cormorant Garamond",serif;font-size:27px;font-weight:500;line-height:1.15;margin:10px 0 8px}
 .svc p{font-size:14.5px;color:var(--muted)}
 .benefit{

@@ -155,7 +155,7 @@
           var book = bookingOn && s.bookable !== 'no'
             ? '<button type="button" class="book-btn" data-s="' + si + '" data-i="' + i + '">' + esc(c.booking.button || 'Reservar') + '</button>' : '';
           var pic = s.photo ? '<div class="svc-pic">' + frame(photoUrl(s.photo, slug), s.name, s.fit, s.pos, true) + '</div>' : '';
-          return '<article class="svc reveal' + (pic ? ' has-pic' : '') + '">' + pic + '<div class="num">' + (i < 9 ? '0' : '') + (i + 1) + '</div><h3>' + esc(s.name) + '</h3><p>' + lines(s.desc) + '</p>' + book + '</article>';
+          return '<article class="svc reveal' + (pic ? ' has-pic' : '') + '">' + pic + '<h3>' + esc(s.name) + '</h3><p>' + lines(s.desc) + '</p>' + book + '</article>';
         }).join('');
         return '<section id="' + id + '"><div class="wrap">' + head(x) +
           '<div class="grid">' + items + '</div>' +
