@@ -1,6 +1,78 @@
 [
-  { "slug": "alana", "label": "Alana" },
-  { "slug": "a", "label": "Sitio A" },
-  { "slug": "b", "label": "Sitio B" },
-  { "slug": "c", "label": "Sitio C" }
+  {
+    "slug": "alana",
+    "label": "Alana"
+  },
+  {
+    "slug": "a",
+    "label": "Sitio A"
+  },
+  {
+    "slug": "b",
+    "label": "Sitio B"
+  },
+  {
+    "slug": "c",
+    "label": "Sitio C"
+  },
+  {
+    "slug": "d",
+    "label": "Sitio D"
+  },
+  {
+    "slug": "e",
+    "label": "Sitio E"
+  },
+  {
+    "slug": "f",
+    "label": "Sitio F"
+  },
+  {
+    "slug": "g",
+    "label": "Sitio G"
+  },
+  {
+    "slug": "h",
+    "label": "Sitio H"
+  },
+  {
+    "slug": "y",
+    "label": "Sitio Y"
+  },
+  {
+    "slug": "j",
+    "label": "Sitio J"
+  },
+  {
+    "slug": "k",
+    "label": "Sitio K"
+  },
+  {
+    "slug": "l",
+    "label": "Sitio L"
+  },
+  {
+    "slug": "m",
+    "label": "Sitio M"
+  },
+  {
+    "slug": "n",
+    "label": "Sitio N"
+  },
+  {
+    "slug": "mm",
+    "label": "Sitio MM"
+  },
+  {
+    "slug": "m2",
+    "label": "Sitio M2"
+  },
+  {
+    "slug": "m3",
+    "label": "Sitio M3"
+  },
+  {
+    "slug": "m4",
+    "label": "Sitio M4"
+  }
 ]
