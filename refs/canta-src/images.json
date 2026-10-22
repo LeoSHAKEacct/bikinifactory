@@ -1,0 +1,313 @@
+[
+ {
+  "name": "i000.png",
+  "url": "https://cantacorazon.com/assets/images/logo-canta-corazn.png",
+  "alt": "",
+  "logo": true,
+  "w": 1206,
+  "h": 230,
+  "bytes": 30173,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i001.webp",
+  "url": "https://cantacorazon.com/assets/images/barsecco-1256x847.webp",
+  "alt": "",
+  "logo": false,
+  "w": 1256,
+  "h": 847,
+  "bytes": 211274,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i002.webp",
+  "url": "https://cantacorazon.com/assets/images/ccww.webp",
+  "alt": "",
+  "logo": false,
+  "w": 1063,
+  "h": 1020,
+  "bytes": 141548,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i003.webp",
+  "url": "https://cantacorazon.com/assets/images/carr2-1080x1346.webp",
+  "alt": "",
+  "logo": false,
+  "w": 1080,
+  "h": 1346,
+  "bytes": 197543,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i004.webp",
+  "url": "https://cantacorazon.com/assets/images/carr1-1080x1346.webp",
+  "alt": "",
+  "logo": false,
+  "w": 1080,
+  "h": 1346,
+  "bytes": 242193,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i005.webp",
+  "url": "https://cantacorazon.com/assets/images/carr3-1080x1346.webp",
+  "alt": "",
+  "logo": false,
+  "w": 1080,
+  "h": 1346,
+  "bytes": 307164,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i006.webp",
+  "url": "https://cantacorazon.com/assets/images/carr4-1080x1346.webp",
+  "alt": "",
+  "logo": false,
+  "w": 1080,
+  "h": 1346,
+  "bytes": 286856,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i007.webp",
+  "url": "https://cantacorazon.com/assets/images/pic9-1080x1350.webp",
+  "alt": "",
+  "logo": false,
+  "w": 1080,
+  "h": 1350,
+  "bytes": 162614,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i008.webp",
+  "url": "https://cantacorazon.com/assets/images/bloque1.webp",
+  "alt": "",
+  "logo": false,
+  "w": 2094,
+  "h": 1591,
+  "bytes": 124324,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i009.webp",
+  "url": "https://cantacorazon.com/assets/images/unsalon.webp",
+  "alt": "",
+  "logo": false,
+  "w": 1776,
+  "h": 1476,
+  "bytes": 138698,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i010.webp",
+  "url": "https://cantacorazon.com/assets/images/9f8d46c55abdccc92fa70aabafd5203e-1600x1600.webp",
+  "alt": "",
+  "logo": false,
+  "w": 1600,
+  "h": 1600,
+  "bytes": 109176,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i011.webp",
+  "url": "https://cantacorazon.com/assets/images/4a84245e9cb6c45dffcf977ff9a51bf8.webp",
+  "alt": "",
+  "logo": false,
+  "w": 1600,
+  "h": 1600,
+  "bytes": 177292,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i012.webp",
+  "url": "https://cantacorazon.com/assets/images/c948e77e08346549b985c966445cb50c.webp",
+  "alt": "",
+  "logo": false,
+  "w": 1600,
+  "h": 1600,
+  "bytes": 221660,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i013.webp",
+  "url": "https://cantacorazon.com/assets/images/4980c0bf2fbfaa2e3ce98cca5d77f2c8.webp",
+  "alt": "",
+  "logo": false,
+  "w": 1600,
+  "h": 1600,
+  "bytes": 190618,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i014.webp",
+  "url": "https://cantacorazon.com/assets/images/pic6-1043x1294.webp",
+  "alt": "",
+  "logo": false,
+  "w": 1043,
+  "h": 1294,
+  "bytes": 140587,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i015.webp",
+  "url": "https://cantacorazon.com/assets/images/pic7-1043x1294.webp",
+  "alt": "",
+  "logo": false,
+  "w": 1043,
+  "h": 1294,
+  "bytes": 157203,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i016.webp",
+  "url": "https://cantacorazon.com/assets/images/pic4-1043x1304.webp",
+  "alt": "",
+  "logo": false,
+  "w": 1043,
+  "h": 1304,
+  "bytes": 116080,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i017.webp",
+  "url": "https://cantacorazon.com/assets/images/pic8-1043x1307.webp",
+  "alt": "",
+  "logo": false,
+  "w": 1043,
+  "h": 1307,
+  "bytes": 152557,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i018.webp",
+  "url": "https://cantacorazon.com/assets/images/pic2-1080x1353.webp",
+  "alt": "",
+  "logo": false,
+  "w": 1080,
+  "h": 1353,
+  "bytes": 92397,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i019.webp",
+  "url": "https://cantacorazon.com/assets/images/pic5-1043x1294.webp",
+  "alt": "",
+  "logo": false,
+  "w": 1043,
+  "h": 1294,
+  "bytes": 129090,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i020.webp",
+  "url": "https://cantacorazon.com/assets/images/background1.webp",
+  "alt": "bg",
+  "logo": false,
+  "bytes": 39412,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i021.webp",
+  "url": "https://cantacorazon.com/assets/images/textura.webp",
+  "alt": "bg",
+  "logo": false,
+  "bytes": 66420,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i022.webp",
+  "url": "https://cantacorazon.com/assets/images/vinues-1.webp",
+  "alt": "bg",
+  "logo": false,
+  "bytes": 114912,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i023.webp",
+  "url": "https://cantacorazon.com/assets/images/fondocanta.webp",
+  "alt": "bg",
+  "logo": false,
+  "bytes": 109490,
+  "pages": [
+   "https://cantacorazon.com/",
+   "https://cantacorazon.com/index.html"
+  ]
+ },
+ {
+  "name": "i024.svg",
+  "url": "https://cantacorazon.com/assets/images/fav.svg",
+  "alt": "meta",
+  "logo": false,
+  "bytes": 11549
+ }
+]
