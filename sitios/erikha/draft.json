@@ -101,7 +101,8 @@
         {
           "photo": "foto-mvjp6g6h.jpg",
           "caption": "",
-          "placeholder": "Ambiente"
+          "placeholder": "Ambiente",
+          "fit": "contain"
         },
         {
           "photo": "",
