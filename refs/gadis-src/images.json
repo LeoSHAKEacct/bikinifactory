@@ -1,0 +1,29 @@
+[
+ {
+  "name": "i000.jpg",
+  "url": "https://gadisspamedellin.com/assets/gadis-logo.webp",
+  "alt": "Gadis Spa Medellín",
+  "logo": true,
+  "w": 640,
+  "h": 640,
+  "bytes": 169068,
+  "pages": [
+   "https://gadisspamedellin.com/",
+   "https://gadisspamedellin.com/es/",
+   "https://gadisspamedellin.com/en/"
+  ]
+ },
+ {
+  "name": "i001.jpg",
+  "url": "https://gadisspamedellin.com/assets/gadis-spa-hero.webp",
+  "alt": "Reception area at Gadis Spa in Manila, El Poblado, Medellín",
+  "logo": false,
+  "w": 1536,
+  "h": 1024,
+  "bytes": 218732,
+  "pages": [
+   "https://gadisspamedellin.com/es/",
+   "https://gadisspamedellin.com/en/"
+  ]
+ }
+]
