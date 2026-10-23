@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gadis Spa Medellín · Spa privado en El Poblado</title>
+<meta name="description" content="Gadis Spa, un spa privado en Manila, El Poblado, Medellín. Masajes y experiencias de bienestar, atención en inglés y reserva directa por WhatsApp.">
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0908;--bg2:#120e0c;--gold:#d5b774;--gold2:#ead8a9;--cream:#f5f0e7;--mut:#b9ad98;--line:rgba(213,183,116,.28);--wa:#25d366;--serif:'Cormorant Garamond',Georgia,serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--cream);font:300 17px/1.65 Jost,system-ui,sans-serif;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+.eyebrow{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1}
+h2{font-size:clamp(44px,6.4vw,96px);letter-spacing:-.01em}
+em{font-style:italic;color:var(--gold2)}
+.rv{opacity:0;transform:translateY(26px);transition:opacity 1.1s cubic-bezier(.2,.7,.2,1),transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.12s}.d2{transition-delay:.24s}.d3{transition-delay:.36s}
+.stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 55% at 72% 45%,rgba(120,40,40,.28),transparent 70%),radial-gradient(50% 50% at 15% 80%,rgba(213,183,116,.08),transparent 70%)}
+.wa{display:inline-flex;align-items:center;gap:10px;background:var(--wa);color:#06230f;text-decoration:none;font-weight:500;padding:16px 28px;border-radius:99px;box-shadow:0 14px 34px -12px rgba(37,211,102,.55);transition:transform .3s}
+.wa:hover{transform:translateY(-2px)}
+.wa svg{width:22px;height:22px}
+.ghost{display:inline-flex;align-items:center;gap:8px;color:var(--cream);text-decoration:none;font-weight:400;padding:15px 26px;border-radius:99px;border:1px solid var(--line)}
+
+/* header */
+#top{position:fixed;inset:0 0 auto;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px clamp(16px,4vw,56px);transition:background .5s,border-color .5s;border-bottom:1px solid transparent}
+#top.solid{background:rgba(11,9,8,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-color:var(--line)}
+#top .lg img{height:52px;width:auto}
+#top nav{display:flex;gap:30px;font-size:13px;letter-spacing:.24em;text-transform:uppercase}
+#top nav a{text-decoration:none;color:#d8cfbe}
+#top nav a:hover{color:var(--gold)}
+#top .right{display:flex;gap:12px;align-items:center}
+#lang{background:none;border:1px solid var(--line);color:var(--cream);font:400 12px Jost;letter-spacing:.2em;padding:10px 14px;cursor:pointer}
+#top .wa{padding:11px 20px;font-size:15px}
+@media(max-width:900px){#top nav{display:none}#top .wa span{display:none}#top .wa{padding:11px}}
+
+/* hero: text left, the arched photo right; scrolling opens the arch to the whole screen */
+#hero{height:300vh;position:relative}
+#hero .stick{background:var(--bg)}
+#hero .txt{position:absolute;z-index:3;left:clamp(16px,7vw,130px);top:50%;transform:translateY(-46%);width:min(46vw,680px)}
+#hero h1{font-size:clamp(50px,6.2vw,104px);margin:26px 0 26px}
+#hero h1 em{color:#e6a6a0}
+#hero .hi{font-family:var(--serif);font-size:clamp(22px,2vw,28px)}
+#hero .sub{color:var(--mut);font-size:clamp(16px,1.4vw,19px);max-width:470px;margin-top:6px}
+#hero .ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
+#arch{position:absolute;z-index:2;overflow:hidden;background:#000}
+#arch img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#arch #recep{opacity:0}
+#arch::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(8,6,5,.88),rgba(8,6,5,.25) 55%,transparent);opacity:var(--shade,0)}
+#ring{position:absolute;z-index:1;border:1px solid var(--gold);pointer-events:none}
+#card{position:absolute;z-index:4;background:rgba(14,11,10,.88);border:1px solid var(--line);padding:18px 24px;text-align:right;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+#card b{display:block;font-family:var(--serif);font-style:italic;font-weight:400;font-size:28px;color:var(--gold2)}
+#card span{font-size:14px;color:var(--mut)}
+#inside{position:absolute;z-index:4;left:clamp(16px,7vw,130px);right:clamp(16px,7vw,130px);bottom:clamp(60px,12vh,120px);opacity:0;max-width:760px}
+#inside h2{font-size:clamp(46px,7vw,104px)}
+#inside p{margin-top:18px;color:#ddd3c2;max-width:540px}
+@media(max-width:900px){#hero .txt{top:auto;bottom:4vh;transform:none;right:16px;width:auto}#hero h1{font-size:44px}#hero .sub{display:none}#hero h1{margin:14px 0}#hero .ctas{margin-top:22px}#card{display:none}}
+
+/* pillars */
+#pilares{position:relative;padding:clamp(110px,16vh,170px) clamp(16px,7vw,130px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,6vw,110px);align-items:center;overflow:hidden}
+#pilares p.lead{color:var(--mut);margin-top:24px;max-width:520px}
+#pilares ol{list-style:none;margin-top:44px}
+#pilares li{display:grid;grid-template-columns:60px 1fr;gap:6px 18px;padding:24px 0;border-top:1px solid var(--line)}
+#pilares li i{font-style:normal;font-size:12px;letter-spacing:.2em;color:var(--gold);padding-top:8px}
+#pilares li b{font-family:var(--serif);font-weight:400;font-size:32px}
+#pilares li span{grid-column:2;color:var(--mut)}
+.archpic{position:relative;justify-self:center;width:min(100%,460px)}
+.archpic .f{border-radius:999px 999px 0 0;overflow:hidden;aspect-ratio:4/5}
+.archpic .f img{width:100%;height:118%;object-fit:cover;margin-top:-9%}
+.archpic::before{content:"";position:absolute;inset:-14px -14px 14px 14px;border:1px solid var(--gold);border-radius:999px 999px 0 0;pointer-events:none}
+@media(max-width:900px){#pilares{grid-template-columns:1fr}}
+
+/* breathe */
+#respira{height:340vh;position:relative}
+#respira .stick{display:grid;place-items:center;background:radial-gradient(60% 60% at 50% 50%,#17110e,var(--bg) 70%)}
+#breath{position:relative;width:min(70vw,520px);aspect-ratio:1/1;display:grid;place-items:center}
+#breath .orb{position:absolute;inset:0;border-radius:50%;border:1px solid var(--gold);background:radial-gradient(circle,rgba(213,183,116,.16),rgba(213,183,116,.02) 60%,transparent 70%)}
+#breath .orb2{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(213,183,116,.3)}
+#lotus{position:absolute;width:52%;overflow:visible}
+#lotus path{fill:none;stroke:var(--gold);stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+#bword{position:absolute;bottom:-90px;left:0;right:0;text-align:center;font-family:var(--serif);font-style:italic;font-size:clamp(34px,4vw,54px);color:var(--gold2)}
+#rhythm{position:absolute;left:0;right:0;top:12vh;text-align:center;opacity:0}
+
+/* experiences */
+#experiencias{position:relative;padding:clamp(110px,16vh,160px) clamp(16px,7vw,130px)}
+#experiencias .hd{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap}
+#experiencias .hd p{color:var(--mut);max-width:420px}
+#band{position:relative;margin:56px 0 18px;height:clamp(220px,34vw,460px);overflow:hidden;border:1px solid var(--line)}
+#band img{position:absolute;left:0;width:100%;height:150%;top:-25%;object-fit:cover}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{position:relative;border:1px solid var(--line);padding:clamp(26px,3vw,44px);min-height:330px;display:flex;flex-direction:column;overflow:hidden;background:#0e0c0a;transition:border-color .4s}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(420px circle at var(--mx,30%) var(--my,20%),rgba(213,183,116,.13),transparent 60%);opacity:0;transition:opacity .4s}
+.card:hover{border-color:var(--gold)}
+.card:hover::before{opacity:1}
+.card .no{font-size:12px;letter-spacing:.2em;color:var(--gold)}
+.card .ic{position:absolute;right:clamp(26px,3vw,44px);top:clamp(22px,3vw,40px);width:36px;height:36px;color:var(--gold)}
+.card h3{font-size:clamp(32px,2.8vw,42px);margin:44px 0 14px;position:relative}
+.card p{color:var(--mut);max-width:440px;position:relative}
+.card a{margin-top:auto;padding-top:30px;position:relative;font-size:14px;letter-spacing:.06em;color:var(--gold2);text-decoration:none}
+.card a:hover{color:var(--gold)}
+.fine{color:#8a8070;font-size:14px;margin-top:22px}
+@media(max-width:900px){.cards{grid-template-columns:1fr}.card{min-height:280px}}
+
+/* visit */
+#visita{position:relative;padding:clamp(110px,16vh,160px) clamp(16px,7vw,130px);display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,6vw,110px);align-items:center;overflow:hidden}
+#coords{font-family:var(--serif);font-size:clamp(56px,8vw,120px);line-height:.95;color:var(--gold);margin-bottom:28px}
+#visita dl{display:grid;gap:26px;margin-top:36px}
+#visita dt{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+#visita dd{font-family:var(--serif);font-size:clamp(22px,2vw,28px);line-height:1.3;margin-top:6px}
+#visita dd a{text-decoration:none;border-bottom:1px solid var(--line)}
+@media(max-width:900px){#visita{grid-template-columns:1fr}#visita .archpic{order:2}}
+
+/* steps */
+#pasos{position:relative;padding:clamp(100px,14vh,150px) clamp(16px,7vw,130px);border-top:1px solid var(--line)}
+#pasos .row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px;position:relative}
+#pasos .bar{position:absolute;left:0;right:0;top:0;height:1px;background:var(--line)}
+#pasos .bar i{position:absolute;inset:0;background:var(--gold);transform-origin:0 50%;transform:scaleX(var(--p,0))}
+#pasos .st{padding-top:30px}
+#pasos .st i{font-style:normal;font-size:12px;letter-spacing:.2em;color:var(--gold)}
+#pasos .st b{display:block;font-family:var(--serif);font-weight:400;font-size:34px;margin:12px 0 8px}
+#pasos .st span{color:var(--mut)}
+@media(max-width:900px){#pasos .row{grid-template-columns:1fr}}
+
+/* faq */
+#faq{padding:clamp(100px,14vh,150px) clamp(16px,7vw,130px);display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,6vw,110px)}
+#faq p.lead{color:var(--mut);margin-top:20px;max-width:360px}
+details{border-top:1px solid var(--line)}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;padding:24px 0;font-family:var(--serif);font-size:clamp(22px,2vw,28px)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--gold);font-family:Jost;font-weight:300;transition:transform .3s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--mut);padding:0 0 24px;max-width:600px}
+@media(max-width:900px){#faq{grid-template-columns:1fr}}
+
+/* close */
+#fin{position:relative;min-height:100vh;display:grid;place-items:center;text-align:center;overflow:hidden;padding:120px 16px}
+#fin>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.45);transform:scale(var(--z,1.1))}
+#fin .in2{position:relative}
+#fin .logo{width:min(220px,46vw);margin:0 auto 34px}
+#fin h2 em{display:block}
+footer{border-top:1px solid var(--line);padding:30px clamp(16px,7vw,130px) 40px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:13px;color:#8a8070}
+footer a{text-decoration:none;color:#c5bba9}
+#float{position:fixed;right:22px;bottom:22px;z-index:45;width:64px;height:64px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 14px 30px -10px rgba(37,211,102,.7);transition:transform .3s}
+#float:hover{transform:scale(1.06)}
+#float svg{width:32px;height:32px}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="wai" viewBox="0 0 32 32"><path fill="currentColor" d="M16 3C8.8 3 3 8.7 3 15.8c0 2.3.6 4.5 1.8 6.5L3 29l6.9-1.8c1.9 1 4 1.6 6.1 1.6 7.2 0 13-5.7 13-12.8S23.2 3 16 3zm0 23.6c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.1 1.1-4-.3-.4c-1.1-1.7-1.6-3.6-1.6-5.6C5.3 10 10.1 5.3 16 5.3S26.7 10 26.7 15.8 21.9 26.6 16 26.6zm5.9-8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.6 5.8 5 .8.4 1.4.6 1.9.7.8.3 1.6.2 2.2.1.7-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.1-.3-.2-.6-.4z"/></symbol>
+</defs></svg>
+
+<header id="top">
+  <a class="lg" href="#hero" aria-label="Gadis Spa, inicio"><img src="img/logo.png" alt="Gadis Spa"></a>
+  <nav><a href="#experiencias" data-i="n1">Experiencias</a><a href="#pilares" data-i="n2">El espacio</a><a href="#visita" data-i="n3">Visítanos</a><a href="#faq" data-i="n4">Preguntas</a></nav>
+  <div class="right"><button id="lang" aria-label="Change language to English">EN</button><a class="wa js-wa" href="#" target="_blank" rel="noopener"><svg><use href="#wai"/></svg><span data-i="book">Reservar</span></a></div>
+</header>
+
+<!-- hero -->
+<section id="hero">
+  <div class="stick">
+    <div class="glow"></div>
+    <div class="txt">
+      <p class="eyebrow" data-i="h0">Spa privado · El Poblado</p>
+      <h1 data-i="h1">Un lugar para <em>volver a la calma</em></h1>
+      <p class="hi" data-i="h2">Masajes y bienestar en Manila, Medellín.</p>
+      <p class="sub" data-i="h3">Atención personal y un ambiente privado para bajar el ritmo y desconectarte.</p>
+      <div class="ctas"><a class="wa js-wa" href="#" target="_blank" rel="noopener"><svg><use href="#wai"/></svg><span data-i="h4">Escríbenos por WhatsApp</span></a><a class="ghost" href="#experiencias" data-i="h5">Ver experiencias</a></div>
+    </div>
+    <i id="ring"></i>
+    <div id="arch"><img src="img/stones-arch.jpg" alt="Piedras calientes y velas encendidas sobre una bandeja de nogal"><img id="recep" src="img/recepcion.jpg" alt="Recepción de Gadis Spa en Manila, El Poblado"></div>
+    <div id="card"><b>Gadis Spa</b><span data-i="card">Manila · El Poblado · Medellín</span></div>
+    <div id="inside"><p class="eyebrow" data-i="i0">Un refugio en Medellín</p><h2 style="margin-top:16px" data-i="i1">La ciudad queda <em>un poco más lejos.</em></h2><p data-i="i2">Luz cálida, detalles cuidados y atención personalizada acompañan cada visita.</p></div>
+  </div>
+</section>
+
+<!-- pillars -->
+<section id="pilares">
+  <div class="glow"></div>
+  <div style="position:relative">
+    <p class="eyebrow rv" data-i="p0">El espacio Gadis</p>
+    <h2 class="rv" style="margin-top:18px" data-i="p1">Privado, cálido <em>y a tu ritmo.</em></h2>
+    <p class="lead rv d1" data-i="p2">Desde el primer mensaje, nuestro equipo te ayuda a consultar disponibilidad y elegir la experiencia que mejor se ajuste a tu momento.</p>
+    <ol>
+      <li class="rv"><i>01</i><b data-i="p3">Privacidad</b><span data-i="p4">Un entorno reservado y una comunicación directa desde el primer contacto.</span></li>
+      <li class="rv d1"><i>02</i><b data-i="p5">Atención profesional</b><span data-i="p6">Experiencias guiadas con cuidado, presencia y atención personalizada.</span></li>
+      <li class="rv d2"><i>03</i><b data-i="p7">Asistencia en inglés</b><span data-i="p8">Comunicación clara para visitantes, turistas y residentes internacionales.</span></li>
+    </ol>
+  </div>
+  <div class="archpic rv d1"><div class="f"><img data-par="-16" src="img/candles.jpg" alt="Velas encendidas junto a piedras de basalto"></div></div>
+</section>
+
+<!-- breathe with the scroll -->
+<section id="respira">
+  <div class="stick">
+    <div id="rhythm"><p class="eyebrow" data-i="r0">Masajes y bienestar</p><h2 style="margin-top:14px" data-i="r1">Encuentra <em>tu ritmo.</em></h2></div>
+    <div id="breath">
+      <i class="orb2" id="orb2"></i><i class="orb" id="orb"></i>
+      <svg id="lotus" viewBox="0 0 200 140" aria-hidden="true">
+        <path d="M100 18C86 40 86 72 100 100 114 72 114 40 100 18Z"/>
+        <path d="M100 100C86 74 70 56 44 46 46 74 66 94 100 100Z"/>
+        <path d="M100 100C114 74 130 56 156 46 154 74 134 94 100 100Z"/>
+        <path d="M100 104C76 90 50 84 18 86 32 104 62 112 100 104Z"/>
+        <path d="M100 104C124 90 150 84 182 86 168 104 138 112 100 104Z"/>
+        <path d="M40 118C70 108 130 108 160 118M60 128C84 122 116 122 140 128"/>
+      </svg>
+      <p id="bword">Inhala</p>
+    </div>
+  </div>
+</section>
+
+<!-- experiences -->
+<section id="experiencias">
+  <div class="hd"><div><p class="eyebrow rv" data-i="e0">Experiencias</p><h2 class="rv" style="margin-top:16px" data-i="e1">Elige tu <em>pausa.</em></h2></div><p class="rv d1" data-i="e2">Consulta por WhatsApp la disponibilidad y los detalles de cada experiencia.</p></div>
+  <div id="band" class="rv"><img id="bandImg" src="img/bowl.jpg" alt="Cuenco de piedra con agua, velas flotantes y pétalos"></div>
+  <div class="cards">
+    <article class="card rv"><span class="no">01</span><svg class="ic" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="18" cy="18" r="13" stroke-dasharray="2 3"/></svg><h3 data-i="x1">Masaje muscular</h3><p data-i="x1d">Un masaje privado pensado para liberar tensión acumulada y recuperar una sensación de calma.</p><a class="js-wa" data-x="x1" href="#" target="_blank" rel="noopener"><span data-i="ask">Consultar disponibilidad</span> ↗</a></article>
+    <article class="card rv d1"><span class="no">02</span><svg class="ic" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 18c5-6 10 6 15 0s10 6 15 0"/></svg><h3 data-i="x2">Experiencia de bienestar exclusiva</h3><p data-i="x2d">Una experiencia inmersiva de bienestar, con movimiento suave y atención en un espacio privado.</p><a class="js-wa" data-x="x2" href="#" target="_blank" rel="noopener"><span data-i="ask">Consultar disponibilidad</span> ↗</a></article>
+    <article class="card rv"><span class="no">03</span><svg class="ic" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M18 4v28M4 18h28M8 8l20 20M28 8L8 28"/></svg><h3 data-i="x3">Masaje con dos terapeutas</h3><p data-i="x3d">Dos terapeutas trabajan en armonía para ofrecer una experiencia de masaje más envolvente.</p><a class="js-wa" data-x="x3" href="#" target="_blank" rel="noopener"><span data-i="ask">Consultar disponibilidad</span> ↗</a></article>
+    <article class="card rv d1"><span class="no">04</span><svg class="ic" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M18 18c-3-4-6-6-9-6a6 6 0 0 0 0 12c3 0 6-2 9-6zm0 0c3 4 6 6 9 6a6 6 0 0 0 0-12c-3 0-6 2-9 6z"/></svg><h3 data-i="x4">Experiencia de bienestar en pareja</h3><p data-i="x4d">Un momento para compartir, conectar y hacer una pausa juntos en un entorno tranquilo.</p><a class="js-wa" data-x="x4" href="#" target="_blank" rel="noopener"><span data-i="ask">Consultar disponibilidad</span> ↗</a></article>
+  </div>
+  <p class="fine" data-i="e3">El equipo confirmará por WhatsApp los detalles vigentes, la duración y el valor de cada experiencia.</p>
+</section>
+
+<!-- visit -->
+<section id="visita">
+  <div class="glow"></div>
+  <div class="archpic rv"><div class="f"><img data-par="-16" src="img/recepcion.jpg" alt="Recepción de Gadis Spa" style="object-position:62% 50%"></div></div>
+  <div style="position:relative">
+    <p id="coords" class="rv">6°12′N<br>75°34′W</p>
+    <p class="eyebrow rv" data-i="v0">Manila · El Poblado</p>
+    <h2 class="rv" style="margin-top:14px" data-i="v1">Medellín, <em>a tu ritmo.</em></h2>
+    <dl class="rv d1">
+      <div><dt data-i="v2">Dirección</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=Gadis%20Spa%2C%20Carrera%2043E%20%2313-13%2C%20El%20Poblado%2C%20Medell%C3%ADn" target="_blank" rel="noopener">Carrera 43E #13-13<br>El Poblado, Medellín</a></dd></div>
+      <div><dt data-i="v3">Horario</dt><dd data-i="v4">Lunes a viernes · 9:00 a. m.–9:00 p. m.<br>Sábados, domingos y festivos · 9:00 a. m.–7:00 p. m.</dd></div>
+      <div><dt data-i="v5">Contacto</dt><dd><a class="js-wa" href="#" target="_blank" rel="noopener">WhatsApp · 304 610 1535</a><br><a href="https://www.instagram.com/gadisspamedellin/" target="_blank" rel="noopener">Instagram · @gadisspamedellin</a></dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- steps -->
+<section id="pasos">
+  <p class="eyebrow rv" data-i="s0">Reserva directa</p>
+  <h2 class="rv" style="margin-top:16px" data-i="s1">Sencillo desde <em>el primer mensaje.</em></h2>
+  <div class="row" id="steps"><div class="bar"><i id="sbar"></i></div>
+    <div class="st rv"><i>01</i><b data-i="s2">Escríbenos</b><span data-i="s3">Cuéntanos qué experiencia te interesa y cuándo te gustaría visitarnos.</span></div>
+    <div class="st rv d1"><i>02</i><b data-i="s4">Confirma tu horario</b><span data-i="s5">El equipo revisará la disponibilidad y responderá tus preguntas.</span></div>
+    <div class="st rv d2"><i>03</i><b data-i="s6">Llega y desconéctate</b><span data-i="s7">Te recibiremos en Manila, El Poblado, para que disfrutes tu momento de bienestar.</span></div>
+  </div>
+</section>
+
+<!-- faq -->
+<section id="faq">
+  <div><p class="eyebrow rv" data-i="f0">Antes de visitarnos</p><h2 class="rv" style="margin-top:16px" data-i="f1">Preguntas <em>frecuentes.</em></h2><p class="lead rv d1" data-i="f2">¿Tienes otra pregunta? Escríbenos y te ayudaremos a planear la visita.</p></div>
+  <div class="rv d1">
+    <details><summary data-i="q1">¿Dónde está Gadis Spa?</summary><p data-i="a1">En la Carrera 43E #13-13, en Manila, El Poblado, Medellín: una de las zonas más convenientes de la ciudad para visitantes y residentes.</p></details>
+    <details><summary data-i="q2">¿Cómo puedo reservar?</summary><p data-i="a2">Escríbenos por WhatsApp al 304 610 1535. El equipo revisa la disponibilidad y te confirma la duración y el valor de la experiencia.</p></details>
+    <details><summary data-i="q3">¿Puedo recibir atención en inglés?</summary><p data-i="a3">Sí. Ofrecemos asistencia en inglés para visitantes, turistas y residentes internacionales.</p></details>
+    <details><summary data-i="q4">¿Qué experiencias puedo consultar?</summary><p data-i="a4">Masaje muscular, experiencia de bienestar exclusiva, masaje con dos terapeutas y experiencia de bienestar en pareja.</p></details>
+    <details><summary data-i="q5">¿Cuál es el horario de atención?</summary><p data-i="a5">Lunes a viernes de 9:00 a. m. a 9:00 p. m.; sábados, domingos y festivos de 9:00 a. m. a 7:00 p. m.</p></details>
+  </div>
+</section>
+
+<!-- close -->
+<section id="fin">
+  <img id="finImg" src="img/stones-wide.jpg" alt="">
+  <div class="in2">
+    <img class="logo rv" src="img/logo.png" alt="Gadis Spa">
+    <h2 class="rv" data-i="c1">Tu pausa empieza <em>con un mensaje.</em></h2>
+    <div class="rv d1" style="margin-top:34px"><a class="wa js-wa" href="#" target="_blank" rel="noopener"><svg><use href="#wai"/></svg><span data-i="c2">Hablar con Gadis</span></a></div>
+  </div>
+</section>
+<footer><span>Manila · El Poblado · Medellín, Colombia</span><span><a class="js-wa" href="#" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://www.instagram.com/gadisspamedellin/" target="_blank" rel="noopener">Instagram</a></span><span data-i="foot">© Gadis Spa Medellín · Bienestar privado · Demo de diseño web</span></footer>
+
+<a id="float" class="js-wa" href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><svg style="color:#fff"><use href="#wai"/></svg></a>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const ramp = (x, a, b) => clamp((x - a) / (b - a));
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const lerp = (a, b, t) => a + (b - a) * t;
+const $ = s => document.querySelector(s);
+
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+/* language: Spanish on the page, English kept here */
+const EN = {
+  n1: 'Experiences', n2: 'The space', n3: 'Visit us', n4: 'Questions', book: 'Book',
+  h0: 'Private spa · El Poblado', h1: 'A place to <em>return to calm</em>', h2: 'Massage and wellness in Manila, Medellín.', h3: 'Personal attention and a private setting to slow down and disconnect.', h4: 'Message us on WhatsApp', h5: 'See experiences', card: 'Manila · El Poblado · Medellín',
+  i0: 'A quiet place in Medellín', i1: 'Let the city feel <em>a little farther.</em>', i2: 'Warm light, thoughtful details and personal attention shape each visit.',
+  p0: 'The Gadis space', p1: 'Private, warm <em>and at your pace.</em>', p2: 'From your first message, our team helps you check availability and choose the experience that suits your moment.', p3: 'Privacy', p4: 'A discreet setting and direct communication from your first message.', p5: 'Professional care', p6: 'Experiences guided with care, presence and personal attention.', p7: 'English assistance', p8: 'Clear communication for international visitors, tourists and residents.',
+  r0: 'Massage & wellness', r1: 'Find <em>your rhythm.</em>',
+  e0: 'Experiences', e1: 'Choose your <em>pause.</em>', e2: 'Message us on WhatsApp to check availability and details for each experience.', e3: 'Our team will confirm current details, duration and pricing on WhatsApp.',
+  x1: 'Muscular massage', x1d: 'A private massage designed to ease accumulated tension and help you return to a calmer state.', x2: 'Exclusive wellness experience', x2d: 'An immersive wellness experience with smooth movement and personal care in a private setting.', x3: 'Massage with two therapists', x3d: 'Two therapists work in harmony to offer a more enveloping massage experience.', x4: 'Couple wellness experience', x4d: 'A moment to share, reconnect and slow down together in a calm setting.', ask: 'Ask about availability',
+  v0: 'Manila · El Poblado', v1: 'Medellín, <em>at your pace.</em>', v2: 'Address', v3: 'Hours', v4: 'Monday to Friday · 9:00 AM–9:00 PM<br>Saturday, Sunday & holidays · 9:00 AM–7:00 PM', v5: 'Contact',
+  s0: 'Direct booking', s1: 'Simple from <em>the first message.</em>', s2: 'Send us a message', s3: 'Tell us which experience interests you and when you would like to visit.', s4: 'Confirm your time', s5: 'Our team will check availability and answer your questions.', s6: 'Arrive and unwind', s7: 'We will welcome you in Manila, El Poblado, for a private wellness moment.',
+  f0: 'Before your visit', f1: 'Frequently <em>asked questions.</em>', f2: 'Have another question? Send us a message and we will help you plan your visit.',
+  q1: 'Where is Gadis Spa?', a1: 'At Carrera 43E #13-13, in Manila, El Poblado, Medellín: one of the most convenient areas of the city for visitors and residents.', q2: 'How can I book?', a2: 'Message us on WhatsApp at +57 304 610 1535. The team checks availability and confirms the duration and price of your experience.', q3: 'Can I receive assistance in English?', a3: 'Yes. We offer English assistance for international visitors, tourists and residents.', q4: 'Which experiences can I ask about?', a4: 'Muscular massage, exclusive wellness experience, massage with two therapists and couple wellness experience.', q5: 'What are your opening hours?', a5: 'Monday to Friday 9:00 AM to 9:00 PM; Saturday, Sunday and holidays 9:00 AM to 7:00 PM.',
+  c1: 'Your pause begins <em>with a message.</em>', c2: 'Talk to Gadis', foot: '© Gadis Spa Medellín · Private wellness · Web design demo'
+};
+const ES = {}; document.querySelectorAll('[data-i]').forEach(el => ES[el.dataset.i] = el.innerHTML);
+const MSG = { es: 'Hola Gadis Spa, quiero consultar disponibilidad', en: 'Hi Gadis Spa, I would like to check availability' };
+let lang = 'es';
+function setLang(l) {
+  lang = l; document.documentElement.lang = l;
+  document.querySelectorAll('[data-i]').forEach(el => { const t = (l === 'en' ? EN : ES)[el.dataset.i]; if (t) el.innerHTML = t; });
+  $('#lang').textContent = l === 'en' ? 'ES' : 'EN';
+  $('#lang').setAttribute('aria-label', l === 'en' ? 'Cambiar a español' : 'Change language to English');
+  document.querySelectorAll('.js-wa').forEach(a => {
+    const x = a.dataset.x, what = x ? (l === 'en' ? EN : ES)[x] : '';
+    const text = MSG[l] + (what ? (l === 'en' ? ' for: ' : ' para: ') + what : '');
+    a.href = 'https://wa.me/573046101535?text=' + encodeURIComponent(text);
+  });
+}
+$('#lang').addEventListener('click', () => setLang(lang === 'es' ? 'en' : 'es'));
+setLang(/^en/i.test(navigator.language || '') && !/^es/i.test(navigator.language || '') ? 'en' : 'es');
+
+/* the cards light up under the mouse */
+document.querySelectorAll('.card').forEach(c => c.addEventListener('pointermove', e => { const r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px'); }));
+
+const top_ = $('#top'), hero = $('#hero'), arch = $('#arch'), ring = $('#ring'), card = $('#card'), txt = $('#hero .txt'), inside = $('#inside'), recep = $('#recep'), archImg = arch.firstElementChild;
+const resp = $('#respira'), orb = $('#orb'), orb2 = $('#orb2'), bword = $('#bword'), rhythm = $('#rhythm'), lotus = [...document.querySelectorAll('#lotus path')];
+lotus.forEach(p => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.dataset.l = L; });
+const pars = [...document.querySelectorAll('img[data-par]')], bandImg = $('#bandImg'), sbar = $('#sbar'), steps = $('#steps'), fin = $('#fin'), finImg = $('#finImg');
+let cur = scrollY, lastWord = '';
+
+function frame() {
+  requestAnimationFrame(frame);
+  cur = reduce ? scrollY : cur + (scrollY - cur) * .12; if (Math.abs(scrollY - cur) < .3) cur = scrollY;
+  const W = innerWidth, H = innerHeight, small = W < 900;
+
+  // hero: the arch on the right grows into the whole screen, then the reception comes through
+  const hp = clamp(cur / (hero.offsetHeight - H)), g = ease(ramp(hp, .1, .6));
+  const aw0 = small ? Math.min(W * .52, 240) : Math.min(W * .26, 440), ah0 = Math.min(aw0 * 1.3, H * (small ? .36 : .72));
+  const ax0 = small ? (W - aw0) / 2 : W * .74 - aw0 / 2, ay0 = small ? H * .1 : (H - ah0) / 2 + 24;
+  const ax = lerp(ax0, 0, g), ay = lerp(ay0, 0, g), aw = lerp(aw0, W, g), ah = lerp(ah0, H, g), rr = lerp(aw0 / 2, 0, g);
+  Object.assign(arch.style, { left: ax + 'px', top: ay + 'px', width: aw + 'px', height: ah + 'px', borderRadius: `${rr}px ${rr}px 0 0` });
+  Object.assign(ring.style, { left: ax0 + 16 + 'px', top: ay0 - 16 + 'px', width: aw0 + 'px', height: ah0 + 'px', borderRadius: `${aw0 / 2}px ${aw0 / 2}px 0 0`, opacity: (1 - ramp(hp, .04, .16)).toFixed(3) });
+  Object.assign(card.style, { left: ax0 + aw0 * .42 + 'px', top: ay0 + ah0 - 44 + 'px', opacity: (1 - ramp(hp, .02, .1)).toFixed(3) });
+  archImg.style.transform = `scale(${(1.12 - .12 * g).toFixed(4)})`;
+  recep.style.opacity = ease(ramp(hp, .5, .68)).toFixed(3);
+  arch.style.setProperty('--shade', ramp(hp, .6, .75).toFixed(3));
+  txt.style.opacity = (1 - ramp(hp, .02, .14)).toFixed(3); txt.style.pointerEvents = hp > .1 ? 'none' : '';
+  const ins = ramp(hp, .72, .86); inside.style.opacity = ins.toFixed(3); inside.style.transform = `translateY(${(30 * (1 - ins)).toFixed(1)}px)`;
+  top_.classList.toggle('solid', cur > 40);
+
+  // breathe: two slow breaths, the lotus draws itself on the way in
+  const rp = clamp(-resp.getBoundingClientRect().top / (resp.offsetHeight - H));
+  const br = ramp(rp, .05, .8), phase = br * 2, inhale = Math.sin(phase * Math.PI - Math.PI / 2) * .5 + .5;
+  const s = .55 + .45 * inhale;
+  orb.style.transform = `scale(${s.toFixed(4)})`; orb2.style.transform = `scale(${(.7 + .38 * inhale).toFixed(4)})`; orb2.style.opacity = (.3 + .7 * inhale).toFixed(3);
+  lotus.forEach((p, i) => p.style.strokeDashoffset = (+p.dataset.l * (1 - ease(ramp(rp, .0 + i * .025, .12 + i * .025)))).toFixed(1));
+  const word = rp < .03 ? '' : rp > .82 ? '' : (Math.floor(phase * 2) % 2 === 0 ? (lang === 'en' ? 'Breathe in' : 'Inhala') : (lang === 'en' ? 'Breathe out' : 'Exhala'));
+  if (word !== lastWord) { bword.textContent = word; lastWord = word; }
+  bword.style.opacity = (word ? Math.min(1, Math.abs(Math.sin(phase * Math.PI)) * 1.6 + .2) : 0).toFixed(3);
+  const rh = ramp(rp, .8, .94); rhythm.style.opacity = rh.toFixed(3); rhythm.style.transform = `translateY(${(24 * (1 - rh)).toFixed(1)}px)`;
+
+  // parallax
+  pars.forEach(el => { const b = el.parentElement.getBoundingClientRect(); el.style.transform = `translateY(${(((b.top + b.height / 2) - H / 2) / H * +el.dataset.par * 3).toFixed(1)}px)`; });
+  const bb = bandImg.parentElement.getBoundingClientRect(); bandImg.style.transform = `translateY(${(((bb.top + bb.height / 2) - H / 2) / H * -80).toFixed(1)}px)`;
+  const tr = steps.getBoundingClientRect(); sbar.style.setProperty('--p', ease(ramp(H * .85 - tr.top, 0, H * .5)).toFixed(3));
+  const fr = fin.getBoundingClientRect(); finImg.style.setProperty('--z', (1.12 - .12 * clamp(1 - fr.top / H)).toFixed(4));
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
