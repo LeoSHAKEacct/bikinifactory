@@ -54,7 +54,7 @@ h2{font-family:var(--disp);font-weight:400;letter-spacing:-.01em;line-height:.98
 
 /* manifesto */
 #mani{position:relative;background:var(--night);color:var(--cream);padding:clamp(110px,16vh,170px) clamp(16px,6vw,96px);overflow:hidden}
-#mani .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,80px);align-items:center}
+#mani .grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,80px);align-items:center}
 #mani .q{font-family:var(--disp);font-size:clamp(34px,4.6vw,68px);line-height:1.04}
 #mani p{margin-top:24px;color:#d9c3b8;max-width:500px;font-size:18px}
 #mani .pics{position:relative;height:min(76vh,700px)}
@@ -68,7 +68,7 @@ h2{font-family:var(--disp);font-weight:400;letter-spacing:-.01em;line-height:.98
 
 /* the night: a film strip of feelings */
 #noche{position:relative;height:380vh;background:var(--night);color:var(--cream)}
-#noche .stick{display:flex;flex-direction:column;justify-content:center}
+#noche .stick{z-index:1;display:flex;flex-direction:column;justify-content:center}
 #noche .hd{padding:0 clamp(16px,6vw,96px);margin-bottom:30px;display:flex;justify-content:space-between;align-items:end;gap:20px}
 #noche .hd p{max-width:380px;color:#d9c3b8}
 #noche .track{display:flex;gap:26px;align-items:center;padding-left:clamp(16px,6vw,96px);will-change:transform}
@@ -82,7 +82,8 @@ h2{font-family:var(--disp);font-weight:400;letter-spacing:-.01em;line-height:.98
 #menu .bgv{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;margin-bottom:-100vh;margin-bottom:-100svh}
 #menu .bgv video{width:100%;height:100%;object-fit:cover}
 #menu .bgv::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(22,15,13,.94) 0,rgba(22,15,13,.84) 55%,rgba(22,15,13,.55) 100%)}
-#menu .wrap{position:relative;padding:clamp(110px,15vh,150px) clamp(16px,6vw,96px) 130px;max-width:1180px}
+.deco{position:absolute;z-index:0;pointer-events:none;height:auto;overflow:visible}
+#menu .wrap{position:relative;z-index:1;padding:clamp(110px,15vh,150px) clamp(16px,6vw,96px) 130px;max-width:1180px}
 #menu .tabs{position:sticky;top:80px;z-index:5;display:flex;gap:8px;margin:28px 0 10px;overflow-x:auto;scrollbar-width:none}
 #menu .tabs button{flex:0 0 auto;font:700 14px 'Work Sans';color:var(--cream);background:rgba(22,15,13,.75);border:1.5px solid rgba(251,238,228,.3);padding:9px 16px;border-radius:99px;backdrop-filter:blur(6px)}
 #menu .tabs button[aria-selected=true]{background:var(--peach);border-color:var(--peach);color:var(--ink)}
@@ -100,6 +101,7 @@ h2{font-family:var(--disp);font-weight:400;letter-spacing:-.01em;line-height:.98
 
 /* map */
 #mapa{position:relative;background:var(--peach);padding:clamp(100px,15vh,160px) clamp(16px,6vw,96px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,80px);align-items:center;overflow:hidden}
+#mapa>div{position:relative;z-index:1}
 #mapa .map{position:relative;max-width:560px;justify-self:center;width:100%}
 #mapa .map img{width:100%;height:auto;mix-blend-mode:multiply}
 #mapa .pin{position:absolute;left:35%;top:33.8%}
@@ -142,7 +144,7 @@ footer img{height:22px;width:auto}
 <body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-<path id="st" d="M50 0l9 33 33-10-24 26 30 17-34 3 4 34-18-29-18 29 4-34-34-3 30-17L8 23l33 10z"/>
+<path id="st" d="M55 2C55 26 60 40 98 44 64 50 58 58 64 99 52 64 44 60 3 66 38 52 46 42 55 2Z"/>
 </defs></svg>
 
 <header id="top">
@@ -169,6 +171,7 @@ footer img{height:22px;width:auto}
 
 <!-- manifesto -->
 <section id="mani">
+  <svg class="deco" viewBox="0 0 100 100" aria-hidden="true" style="left:2%;top:4%;width:56px" data-r="-12" data-par="-30"><use href="#st" fill="#c25b32"/></svg><svg class="deco" viewBox="0 0 100 100" aria-hidden="true" style="left:94%;top:88%;width:40px" data-r="20" data-par="-60"><use href="#st" fill="#c25b32"/></svg><svg class="deco" viewBox="0 0 100 100" aria-hidden="true" style="left:91%;top:3%;width:90px" data-r="8" data-par="-20"><use href="#st" fill="#c25b32"/></svg>
   <svg id="sticker" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="circ" d="M100 100m-72 0a72 72 0 1 1 144 0a72 72 0 1 1-144 0"/></defs><circle cx="100" cy="100" r="98" fill="#ffac8d"/><text font-family="Work Sans" font-weight="800" font-size="16.5" letter-spacing="3" fill="#2a1712"><textPath href="#circ">SALOON SENTIMENTAL · MEDELLÍN ·</textPath></text><use href="#st" x="66" y="66" width="68" height="68" fill="#c25b32"/></svg>
   <div class="grid">
     <div>
@@ -187,6 +190,7 @@ footer img{height:22px;width:auto}
 <!-- the night slides past like a film strip; each photo is one of the feelings -->
 <section id="noche">
   <div class="stick">
+  <svg class="deco" viewBox="0 0 100 100" aria-hidden="true" style="left:88%;top:8%;width:80px" data-r="-8" data-par="0"><use href="#st" fill="#c25b32"/></svg><svg class="deco" viewBox="0 0 100 100" aria-hidden="true" style="left:3%;top:88%;width:46px" data-r="14" data-par="0"><use href="#st" fill="#c25b32"/></svg>
     <div class="hd"><h2 class="rv">Cada noche,<br><span class="pc">una fiesta.</span></h2><p class="rv d1">Le damos voz a lo que sentimos pero no siempre sabemos decir.</p></div>
     <div class="track" id="track">
       <figure><img src="img/p-couple.jpg" alt="Una pareja brindando y riendo" loading="lazy"><figcaption>el amor</figcaption></figure>
@@ -204,6 +208,7 @@ footer img{height:22px;width:auto}
 <section id="menu">
   <div class="bgv"><video id="v2" src="media/salon.mp4" poster="media/salon.jpg" muted playsinline loop autoplay preload="metadata" aria-hidden="true"></video></div>
   <div class="wrap">
+  <svg class="deco" viewBox="0 0 100 100" aria-hidden="true" style="left:93%;top:4%;width:54px" data-r="10" data-par="-40"><use href="#st" fill="#c25b32"/></svg><svg class="deco" viewBox="0 0 100 100" aria-hidden="true" style="left:95%;top:62%;width:36px" data-r="-20" data-par="-70"><use href="#st" fill="#c25b32"/></svg>
     <p class="rv hand pc" style="font-size:36px">la carta</p>
     <h2 class="rv">Para comer,<br><span class="pc">brindar y cantar.</span></h2>
     <div class="tabs" role="tablist">
@@ -246,6 +251,7 @@ footer img{height:22px;width:auto}
 
 <!-- Medellín on the map -->
 <section id="mapa">
+  <svg class="deco" viewBox="0 0 100 100" aria-hidden="true" style="left:3%;top:5%;width:54px" data-r="-10" data-par="-30"><use href="#st" fill="#c25b32"/></svg><svg class="deco" viewBox="0 0 100 100" aria-hidden="true" style="left:2%;top:84%;width:100px" data-r="12" data-par="-50"><use href="#st" fill="#c25b32"/></svg><svg class="deco" viewBox="0 0 100 100" aria-hidden="true" style="left:91%;top:4%;width:70px" data-r="24" data-par="-20"><use href="#st" fill="#c25b32"/></svg><svg class="deco" viewBox="0 0 100 100" aria-hidden="true" style="left:94%;top:90%;width:36px" data-r="0" data-par="-60"><use href="#st" fill="#c25b32"/></svg>
   <div class="map rv"><img src="img/colombia.webp" alt="Mapa de Colombia con Antioquia resaltado"><div class="pin"><i></i><i></i><b></b><span>Medellín</span></div></div>
   <div>
     <p class="rv hand" style="font-size:36px;color:#6b3a2a">de México al mundo</p>
@@ -261,6 +267,7 @@ footer img{height:22px;width:auto}
 
 <section id="reserva">
   <img id="resImg" src="img/facade-sky.jpg" alt="">
+  <svg class="deco" viewBox="0 0 100 100" aria-hidden="true" style="left:88%;top:10%;width:100px" data-r="-14" data-par="-40"><use href="#st" fill="#c25b32"/></svg><svg class="deco" viewBox="0 0 100 100" aria-hidden="true" style="left:3%;top:86%;width:44px" data-r="10" data-par="-70"><use href="#st" fill="#c25b32"/></svg>
   <div class="in2">
     <p class="rv hand pc" style="font-size:40px">esta noche</p>
     <h2 class="rv">¿Y tú qué<br><span class="pc">vienes a cantar?</span></h2>
@@ -348,7 +355,8 @@ function note() {
 }
 
 const noche = $('#noche'), track = $('#track'), figs = [...track.children];
-const top_ = $('#top'), pars = [...document.querySelectorAll('[data-par]')], sticker = $('#sticker');
+const decos = [...document.querySelectorAll('.deco')];
+const top_ = $('#top'), pars = [...document.querySelectorAll('img[data-par]')], sticker = $('#sticker');
 const reserva = $('#reserva'), resImg = $('#resImg');
 let cur = scrollY;
 
@@ -396,6 +404,7 @@ function frame(now) {
   // parallax and sticker
   pars.forEach(el => { const b = el.parentElement.getBoundingClientRect(); el.style.transform = `translateY(${(((b.top + b.height / 2) - H / 2) / H * +el.dataset.par * 3).toFixed(1)}px)`; });
   sticker.style.transform = `rotate(${(cur * .1).toFixed(1)}deg)`;
+  decos.forEach((d, i) => { const b = d.getBoundingClientRect(), k = ((b.top + b.height / 2) - H / 2) / H; d.style.transform = `translateY(${(k * +d.dataset.par * 3).toFixed(1)}px) rotate(${(+d.dataset.r + (reduce ? 0 : k * (i % 2 ? 40 : -40))).toFixed(1)}deg)`; });
 
   // the film strip slides sideways and each polaroid sways
   const np = clamp(-noche.getBoundingClientRect().top / (noche.offsetHeight - H)), span = track.scrollWidth - W + (small ? 16 : 96);
