@@ -12,14 +12,14 @@ jobs:
       - uses: actions/checkout@v4
       - name: Download
         run: |
-          while read dir ids; do
+          grep -v "^#" refs/tools/pexels.txt | while read dir ids; do
             mkdir -p refs/pexels/$dir
             for id in $ids; do
-              curl -sSL --fail -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36" \
+              curl -sSL --fail --max-time 40 --retry 1 -H "Accept: image/avif,image/webp,image/*" -H "Referer: https://www.pexels.com/" -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36" \
                 -o refs/pexels/$dir/$id.jpg "https://images.pexels.com/photos/$id/pexels-photo-$id.jpeg?auto=compress&cs=tinysrgb&w=2400" \
                 && echo "ok $dir $id $(stat -c %s refs/pexels/$dir/$id.jpg)" || { echo "fail $dir $id"; rm -f refs/pexels/$dir/$id.jpg; }
             done
-          done < refs/tools/pexels.txt
+          done
       - name: Commit
         run: |
           git config user.name "github-actions[bot]"
