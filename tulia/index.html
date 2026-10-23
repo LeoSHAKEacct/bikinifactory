@@ -38,7 +38,8 @@ h2{font-family:var(--serif);font-weight:800;letter-spacing:-.03em;line-height:.9
 /* opening: the door is a slideshow of the dishes */
 #open{height:330vh;position:relative}
 #open .stick{background:var(--cream)}
-#open .giant{position:absolute;z-index:4;left:50%;top:clamp(70px,10vh,104px);transform:translateX(-50%);font-family:var(--script);font-size:clamp(84px,min(12vw,17vh),190px);line-height:1.05;color:var(--sal);opacity:.9;white-space:nowrap;user-select:none}
+#open .giant{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;overflow:visible}
+#open .giant text{font-family:var(--script);fill:var(--sal);paint-order:stroke;stroke:var(--cream);stroke-width:3px;stroke-linejoin:round}
 #door{position:absolute;left:50%;top:50%;z-index:2;overflow:hidden;background:var(--g);box-shadow:0 30px 60px -30px rgba(38,50,43,.6)}
 #door img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(var(--z,1.08))}
 #door::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(20,28,23,.85),rgba(20,28,23,.25) 55%,transparent 75%);opacity:var(--shade,0)}
@@ -136,7 +137,8 @@ footer{background:var(--g2);color:#9aa49d;padding:30px clamp(16px,6vw,96px) 140p
 <!-- opening: the dishes rise around an arched door; the door opens to full screen on the food -->
 <section id="open">
   <div class="stick">
-    <h1 class="giant">Tulia</h1>
+    <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Tulia</h1>
+    <svg class="giant" aria-hidden="true"><path id="arc" fill="none" d=""/><text text-anchor="middle"><textPath href="#arc" startOffset="50%">Tulia</textPath></text></svg>
     <div id="door">
       <img src="img/pizza.jpg" alt="Pizza con tomates asados, pesto y cebolla morada">
       <img src="img/chilli.jpg" alt="Chilli bowl en tortilla crocante">
@@ -280,7 +282,7 @@ document.querySelectorAll('.rv, .course').forEach(el => io.observe(el));
 document.querySelectorAll('.items').forEach(ul => [...ul.children].forEach((li, k) => li.style.transitionDelay = `${k * 90}ms`));
 
 /* opening */
-const giant = $('#open .giant'), open = $('#open'), door = $('#door'), openCopy = $('#openCopy'), welcome = $('#welcome');
+const giant = $('#open .giant'), arcPath = $('#arc'), giantText = $('#open .giant text'), open = $('#open'), door = $('#door'), openCopy = $('#openCopy'), welcome = $('#welcome');
 const slides = [...door.querySelectorAll('img')], dishes = [...open.querySelectorAll('.dish')];
 // x, y as fractions of the viewport, width, rotation, how fast it leaves
 // each dish sits in the gap beside the door, below the name and above the tagline:
@@ -323,11 +325,16 @@ function frame(now) {
   const intro = reduce ? 1 : clamp((now - t0) / 1400);
   const g = ease(ramp(p, .12, .62));
   // the door fills the band between the name and the tagline
-  const bandT = giant.offsetTop + giant.offsetHeight + (small ? 8 : 12), bandB = openCopy.offsetTop - (small ? 16 : 22), band = Math.max(140, bandB - bandT);
-  const dh0 = band, dw0 = Math.min(dh0 / 1.45, W * (small ? .5 : .3));
+  // the door sits low enough for the name to curve over its top like a halo
+  const bandB = openCopy.offsetTop - (small ? 16 : 22), topMin = small ? 70 : 84;
+  const dw0 = Math.min((bandB - topMin) / 1.9, W * (small ? .56 : .3)), dh0 = dw0 * 1.45, bandT = bandB - dh0, band = dh0;
   const dw = lerp(dw0, W, g), dh = lerp(dh0, H, g), r = lerp(dw0 / 2, 0, g), cy = lerp((bandT + bandB) / 2, H / 2, g);
-  giant.style.opacity = (intro * (1 - ramp(p, .06, .25))).toFixed(3);
-  giant.style.transform = `translateX(-50%) translateY(${(-p * 140).toFixed(1)}px)`;
+  // the name follows the door's arch: baseline just inside its edge so it blends into the picture a little
+  const fs = dw0 * .5, doorTop = cy - dh / 2 + (1 - ease(intro)) * 60, R = Math.max(dw0 * .95, dw * .95), acx = W / 2, acy = doorTop + R - fs * .12;
+  const a0 = 1.02 * Math.PI, a1 = 1.98 * Math.PI, pt = a => `${(acx + R * Math.cos(a)).toFixed(1)} ${(acy + R * Math.sin(a)).toFixed(1)}`;
+  arcPath.setAttribute('d', `M${pt(a0)} A${R.toFixed(1)} ${R.toFixed(1)} 0 0 1 ${pt(a1)}`);
+  giantText.style.fontSize = fs.toFixed(1) + 'px';
+  giant.style.opacity = (intro * (1 - ramp(p, .05, .22))).toFixed(3);
   Object.assign(door.style, { width: dw + 'px', height: dh + 'px', marginLeft: -dw / 2 + 'px', marginTop: (cy - H / 2 - dh / 2 + (1 - ease(intro)) * 60) + 'px', borderRadius: `${r}px ${r}px ${lerp(26, 0, g)}px ${lerp(26, 0, g)}px` });
   door.style.setProperty('--shade', ramp(p, .55, .75).toFixed(3));
   // a slow slideshow inside the door: each dish holds, then dissolves into the next
