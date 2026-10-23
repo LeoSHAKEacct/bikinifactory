@@ -38,7 +38,7 @@ h2{font-family:var(--serif);font-weight:800;letter-spacing:-.03em;line-height:.9
 /* opening: the door is a slideshow of the dishes */
 #open{height:330vh;position:relative}
 #open .stick{background:var(--cream)}
-#open .giant{position:absolute;left:50%;top:47%;transform:translate(-50%,-50%);font-family:var(--script);font-size:clamp(150px,30vw,470px);line-height:1;color:var(--sal);opacity:.9;white-space:nowrap;user-select:none}
+#open .giant{position:absolute;z-index:4;left:50%;top:clamp(70px,10vh,104px);transform:translateX(-50%);font-family:var(--script);font-size:clamp(84px,min(12vw,17vh),190px);line-height:1.05;color:var(--sal);opacity:.9;white-space:nowrap;user-select:none}
 #door{position:absolute;left:50%;top:50%;z-index:2;overflow:hidden;background:var(--g);box-shadow:0 30px 60px -30px rgba(38,50,43,.6)}
 #door img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(var(--z,1.08))}
 #door::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(20,28,23,.85),rgba(20,28,23,.25) 55%,transparent 75%);opacity:var(--shade,0)}
@@ -136,7 +136,7 @@ footer{background:var(--g2);color:#9aa49d;padding:30px clamp(16px,6vw,96px) 140p
 <!-- opening: the dishes rise around an arched door; the door opens to full screen on the food -->
 <section id="open">
   <div class="stick">
-    <div class="giant" aria-hidden="true">Tulia</div>
+    <h1 class="giant">Tulia</h1>
     <div id="door">
       <img src="img/pizza.jpg" alt="Pizza con tomates asados, pesto y cebolla morada">
       <img src="img/chilli.jpg" alt="Chilli bowl en tortilla crocante">
@@ -280,11 +280,13 @@ document.querySelectorAll('.rv, .course').forEach(el => io.observe(el));
 document.querySelectorAll('.items').forEach(ul => [...ul.children].forEach((li, k) => li.style.transitionDelay = `${k * 90}ms`));
 
 /* opening */
-const open = $('#open'), door = $('#door'), openCopy = $('#openCopy'), welcome = $('#welcome');
+const giant = $('#open .giant'), open = $('#open'), door = $('#door'), openCopy = $('#openCopy'), welcome = $('#welcome');
 const slides = [...door.querySelectorAll('img')], dishes = [...open.querySelectorAll('.dish')];
 // x, y as fractions of the viewport, width, rotation, how fast it leaves
-const SPOT = { chilli: [.8, .68, 320, 8, 1.4], hummus: [.18, .3, 260, -10, 1.2], burger: [.8, .22, 270, 8, .9], bread: [.2, .76, 250, -14, 1.6] };
-const SPOT_M = { chilli: [.76, .86, 190, 8, 1.4], hummus: [.2, .15, 140, -10, 1.2], burger: [.82, .16, 150, 8, .9], bread: [.2, .86, 140, -14, 1.6] };
+// each dish sits in the gap beside the door, below the name and above the tagline:
+// side, across the gap (0..1), down the band (0..1), width, rotation, how fast it leaves
+const SPOT = { hummus: ['L', .5, .2, 260, -10, 1.2], bread: ['L', .45, .85, 250, -14, 1.6], burger: ['R', .5, .18, 270, 8, .9], chilli: ['R', .5, .82, 320, 8, 1.4] };
+const SPOT_M = { hummus: ['L', .5, .15, 130, -10, 1.2], bread: ['L', .5, .85, 130, -14, 1.6], burger: ['R', .5, .15, 130, 8, .9], chilli: ['R', .5, .85, 150, 8, 1.4] };
 const t0 = performance.now();
 
 /* menu */
@@ -320,9 +322,13 @@ function frame(now) {
   const p = clamp(cur / (open.offsetHeight - H));
   const intro = reduce ? 1 : clamp((now - t0) / 1400);
   const g = ease(ramp(p, .12, .62));
-  const dw0 = small ? Math.min(W * .6, 290) : Math.min(W * .26, 380), dh0 = Math.min(dw0 * 1.45, H * .7);
-  const dw = lerp(dw0, W, g), dh = lerp(dh0, H, g), r = lerp(dw0 / 2, 0, g);
-  Object.assign(door.style, { width: dw + 'px', height: dh + 'px', marginLeft: -dw / 2 + 'px', marginTop: (-dh / 2 + (1 - ease(intro)) * 60) + 'px', borderRadius: `${r}px ${r}px ${lerp(26, 0, g)}px ${lerp(26, 0, g)}px` });
+  // the door fills the band between the name and the tagline
+  const bandT = giant.offsetTop + giant.offsetHeight + (small ? 8 : 12), bandB = openCopy.offsetTop - (small ? 16 : 22), band = Math.max(140, bandB - bandT);
+  const dh0 = band, dw0 = Math.min(dh0 / 1.45, W * (small ? .5 : .3));
+  const dw = lerp(dw0, W, g), dh = lerp(dh0, H, g), r = lerp(dw0 / 2, 0, g), cy = lerp((bandT + bandB) / 2, H / 2, g);
+  giant.style.opacity = (intro * (1 - ramp(p, .06, .25))).toFixed(3);
+  giant.style.transform = `translateX(-50%) translateY(${(-p * 140).toFixed(1)}px)`;
+  Object.assign(door.style, { width: dw + 'px', height: dh + 'px', marginLeft: -dw / 2 + 'px', marginTop: (cy - H / 2 - dh / 2 + (1 - ease(intro)) * 60) + 'px', borderRadius: `${r}px ${r}px ${lerp(26, 0, g)}px ${lerp(26, 0, g)}px` });
   door.style.setProperty('--shade', ramp(p, .55, .75).toFixed(3));
   // a slow slideshow inside the door: each dish holds, then dissolves into the next
   const ts = reduce ? 0 : now / 2600, si = Math.floor(ts) % slides.length, sf = ease(ramp(ts % 1, .7, 1));
@@ -330,14 +336,17 @@ function frame(now) {
     const o = i === si ? 1 : i === (si + 1) % slides.length ? sf : 0;
     im.style.opacity = o.toFixed(3); im.style.setProperty('--z', (1.12 - .06 * (i === si ? ts % 1 : 0)).toFixed(4));
   });
-  const sp = small ? SPOT_M : SPOT;
+  const sp = small ? SPOT_M : SPOT, gap = (W - dw0) / 2 - 10;
   dishes.forEach((d, i) => {
-    const [fx, fy, w0, rot, speed] = sp[d.dataset.d];
+    const [side, fx, fy, w0, rot, speed] = sp[d.dataset.d];
     const rise = reduce ? 1 : ease(clamp((now - t0 - 450 - i * 140) / 1100));
     const away = ease(ramp(p, .06, .55)) * speed;
-    const w = w0 * (W > 1600 ? 1.2 : 1), img = d.firstElementChild, h = w * (img.naturalHeight / img.naturalWidth || .8);
+    const img = d.firstElementChild, ratio = img.naturalHeight / img.naturalWidth || .8;
+    const w = Math.min(w0 * (W > 1600 ? 1.2 : 1), gap * .92, band * .48 / ratio), h = w * ratio;
+    const cx0 = side === 'L' ? clamp(fx * gap, w / 2 + 4, gap - w / 2) : W - clamp(fx * gap, w / 2 + 4, gap - w / 2);
+    const cy0 = clamp(bandT + fy * band, bandT + h / 2, bandB - h / 2);
     const bob = reduce ? 0 : Math.sin(now / 1000 + i * 1.7) * 5;
-    const x = fx * W - w / 2 + (fx - .5) * W * away * .7, y = fy * H - h / 2 + (1 - rise) * H * .6 - away * H * 1.1 + bob;
+    const x = cx0 - w / 2 + (cx0 / W - .5) * W * away * .7, y = cy0 - h / 2 + (1 - rise) * H * .6 - away * H * 1.1 + bob;
     d.style.width = w + 'px';
     d.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) rotate(${(rot * (1 - rise * .4) + away * rot * 2).toFixed(2)}deg)`;
     d.style.opacity = (rise * (1 - ramp(p, .35, .6))).toFixed(3);
