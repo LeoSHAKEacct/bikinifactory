@@ -158,7 +158,7 @@ footer img{height:22px;width:auto}
   <div class="stick">
     <img class="giant" src="img/logo.png" alt="Canta Corazón, saloon sentimental">
     <p class="tag" aria-hidden="true">una cantadita y se le remedia la vida</p>
-    <div id="door"><img src="media/facade.jpg" alt=""><video id="v1" src="media/facade.mp4" poster="media/facade.jpg" muted playsinline autoplay preload="auto" aria-label="Fachada de Canta Corazón en Medellín al atardecer"></video><video id="v1b" src="media/salon.mp4" poster="media/salon.jpg" muted playsinline loop preload="auto" aria-label="El salón de Canta Corazón por dentro" style="opacity:0;transition:opacity .9s"></video></div>
+    <div id="door"><img src="media/facade.jpg" alt=""><video id="v1" src="media/facade.mp4" poster="media/facade.jpg" muted playsinline loop autoplay preload="auto" aria-label="Fachada de Canta Corazón en Medellín al atardecer"></video></div>
     <img class="fl" data-k="luchador" src="img/luchador.png" alt="El luchador de la casa con sombrero vaquero">
     <img class="fl" data-k="bottle" src="img/bottle.png" alt="Aguardiente Antioqueño">
     <img class="fl glow" data-k="spark" src="img/sparkler.png" alt="">
@@ -318,9 +318,6 @@ document.querySelectorAll('.rv, .course').forEach(el => io.observe(el));
 document.querySelectorAll('.items').forEach(ul => [...ul.children].forEach((li, k) => li.style.transitionDelay = `${k * 90}ms`));
 const vio = new IntersectionObserver(es => es.forEach(e => { const v = e.target; if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); }), { threshold: .01 });
 ['v1', 'v2'].forEach(id => vio.observe(document.getElementById(id)));
-// the facade plays once, then the arch walks inside: the dining room takes over and loops
-const v1 = document.getElementById('v1'), v1b = document.getElementById('v1b');
-v1.addEventListener('ended', () => { vio.unobserve(v1); v1b.style.opacity = 1; v1b.play().catch(() => {}); vio.observe(v1b); });
 
 /* opening */
 const open = $('#open'), door = $('#door'), openCopy = $('#openCopy'), welcome = $('#welcome'), giant = $('#open .giant'), tag = $('#open .tag');
