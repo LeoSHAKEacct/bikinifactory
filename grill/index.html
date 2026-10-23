@@ -36,8 +36,12 @@ h2{font-family:var(--slab);font-weight:400;line-height:.95;font-size:clamp(42px,
 #corte .train{position:absolute;left:50%;top:52%;width:min(92vh,96vw);transform:translate(-50%,-50%);opacity:.08;pointer-events:none}
 #head{position:absolute;left:0;right:0;top:clamp(78px,11vh,110px);text-align:center;z-index:3;padding:0 16px}
 #head h1{font-family:var(--slab);font-weight:400;font-size:clamp(38px,6.2vw,92px);line-height:.95;text-transform:uppercase;text-shadow:0 6px 0 rgba(0,0,0,.18)}
+#head .award{display:inline-flex;align-items:center;gap:10px;margin-bottom:16px;padding:8px 18px 8px 10px;border-radius:99px;background:linear-gradient(90deg,#b47a14,#ffe08a 45%,#e8b23a 70%,#9a6510);color:#3a1d05;text-decoration:none;font-family:var(--cond);font-size:clamp(14px,1.3vw,18px);letter-spacing:.06em;text-transform:uppercase;box-shadow:0 10px 24px -10px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.6);animation:shine 3s ease-in-out infinite;background-size:200% 100%}
+#head .award svg{width:30px;height:30px;background:#7d0f12;border-radius:50%;padding:4px}
+#head .award b{font-weight:600}
+@keyframes shine{50%{background-position:100% 0}}
 #head p{font-family:var(--cond);letter-spacing:.24em;text-transform:uppercase;margin-top:12px;font-size:clamp(13px,1.2vw,16px)}
-#stage{position:absolute;left:50%;top:56%;z-index:2}
+#stage{position:absolute;left:50%;top:61%;z-index:2}
 #stage img{position:absolute;inset:0;width:100%;height:100%;will-change:transform,opacity;filter:saturate(1.2) contrast(1.05)}
 #stage .lay{opacity:0}
 #shadow{position:absolute;left:27%;right:22%;top:63%;height:6%;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.45),transparent);filter:blur(4px)}
@@ -89,14 +93,14 @@ footer small{display:block;color:#a8968a;font-family:Roboto;letter-spacing:0;mar
 
 <header id="top">
   <a class="lg" href="#corte" aria-label="The Grill Station Burger, inicio"><img src="img/logo.png" alt="The Grill Station Burger"></a>
-  <nav><a href="#premio">Burger Master</a><a href="#estacion">Estaciones</a><a href="https://the-grill-station-burger.cluvi.co/" target="_blank" rel="noopener">Menú</a><a class="cta" href="https://wa.me/573105975159?text=Hola%20Grill%20Station%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener">Pide ya</a></nav>
+  <nav><a href="#premio">🏆 Burger Master</a><a href="#estacion">Estaciones</a><a href="https://the-grill-station-burger.cluvi.co/" target="_blank" rel="noopener">Menú</a><a class="cta" href="https://wa.me/573105975159?text=Hola%20Grill%20Station%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener">Pide ya</a></nav>
 </header>
 
 <!-- the burger, sliced open with the scroll -->
 <section id="corte">
   <div class="stick">
     <img class="train" src="img/train.png" alt="">
-    <div id="head"><h1>¡Mejor burger<br>de Medellín!</h1><p>It's a real flavor trip</p></div>
+    <div id="head"><a class="award" href="#premio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v3a5 5 0 0 1-10 0zM7 4H3c0 4 2 6 4.5 6.5M17 4h4c0 4-2 6-4.5 6.5M10 11.5h4l.6 4h-5.2zM8 16h8v3H8z" fill="#ffd76a" stroke="#7a5410" stroke-width=".8"/></svg><span>Ganadores del <b>Burger Master</b></span></a><h1>¡Mejor burger<br>de Medellín!</h1><p>It's a real flavor trip</p></div>
     <div id="stage">
       <i id="shadow"></i>
       <img class="lay" data-l="bun_bottom" src="img/b/L_bun_bottom.webp" alt="">
@@ -144,7 +148,7 @@ footer small{display:block;color:#a8968a;font-family:Roboto;letter-spacing:0;mar
     <text x="150" y="308" text-anchor="middle" font-family="Oswald,Impact" font-size="22" letter-spacing="3" fill="#ffd76a">MASTER</text>
     <g transform="translate(150 96)"><circle r="36" fill="#a3161a" stroke="#ffe08a" stroke-width="4"/><path d="M-20 -2a20 14 0 0 1 40 0z" fill="#f2b45a"/><rect x="-22" y="0" width="44" height="7" rx="3" fill="#5a2a12"/><rect x="-21" y="7" width="42" height="4" fill="#7ab648"/><path d="M-20 11h40a20 9 0 0 1-40 0z" fill="#f2b45a"/></g>
   </svg>
-  <p class="k">🏆 Ganadores</p>
+  <p class="k">🏆 Ganadores · como lo contamos en Instagram</p>
   <h2>Burger Master<span>¡La mejor burger de Medellín!</span></h2>
   <p class="sub">Carne a la parrilla, pan brioche y todo lo que viste por dentro. Ven a probar por qué ganamos.</p>
 </section>
@@ -228,7 +232,7 @@ function frame(now) {
 
   // 2. the knife comes down through the middle, with a white streak behind it
   const kd = ease(ramp(p, .12, .3)), kOut = ease(ramp(p, .3, .38));
-  const sTop = H * .56 - S / 2, kw = knife.getBoundingClientRect().width, kh = kw * 3.5;
+  const sTop = H * .61 - S / 2, kw = knife.getBoundingClientRect().width, kh = kw * 3.5;
   knife.style.transform = `translate(${(-kw / 2).toFixed(1)}px,${(lerp(-kh - 20, sTop + S * .78 - kh, kd) - kOut * H * .2).toFixed(1)}px) rotate(${(kOut * 14).toFixed(2)}deg)`;
   knife.style.opacity = (1 - kOut).toFixed(3);
   const fl = ramp(p, .16, .3) * (1 - ramp(p, .3, .4));
