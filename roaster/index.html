@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Roaster Daily · Coffee Roasters & Community</title>
+<meta name="description" content="Roaster Daily — coffee roasters and coffee community. From green bean to the cup, roasted every day.">
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,700&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#140d09;--bean:#2a1a12;--crema:#c98a4b;--cream:#f2e6d4;--green:#9fae7f;--mut:rgba(242,230,212,.66)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ink)}
+body{background:var(--ink);color:var(--cream);font-family:Inter,system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block}
+a{color:inherit;text-decoration:none}
+.serif{font-family:Fraunces,Georgia,serif}
+.mono{font-family:"DM Mono",ui-monospace,monospace}
+
+/* header */
+#head{position:fixed;inset:0 0 auto;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(16px,3vw,40px);pointer-events:none}
+#head>*{pointer-events:auto}
+.brand{display:flex;align-items:center;gap:12px;font-family:Fraunces,serif;font-weight:500;letter-spacing:.14em;font-size:15px;text-transform:uppercase}
+.brand img{height:34px;width:auto}
+.hr{display:flex;gap:10px;align-items:center}
+.pill{border:1px solid rgba(242,230,212,.35);border-radius:99px;padding:9px 16px;font-size:13px;font-weight:500;backdrop-filter:blur(8px);background:rgba(20,13,9,.35);transition:.25s}
+.pill:hover{background:var(--cream);color:var(--ink)}
+.lang{font-family:"DM Mono",monospace;font-size:12px;cursor:pointer;background:none;color:var(--cream);border:1px solid rgba(242,230,212,.35);border-radius:99px;padding:9px 12px}
+
+/* process stage */
+#process{position:relative;height:1250vh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:#000}
+.ph{position:absolute;inset:0;will-change:transform,clip-path,opacity}
+.ph img{width:100%;height:100%;object-fit:cover;max-width:none}
+.shade{position:absolute;inset:0;pointer-events:none;background:
+ radial-gradient(120% 90% at 50% 45%,transparent 40%,rgba(10,6,4,.55) 100%),
+ linear-gradient(180deg,rgba(10,6,4,.45),transparent 22%,transparent 55%,rgba(10,6,4,.78))}
+.grain{position:absolute;inset:-50%;pointer-events:none;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:gr 1s steps(4) infinite}
+@keyframes gr{25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}}
+
+/* intro title */
+#intro{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 16px;pointer-events:none}
+#intro img{height:clamp(90px,15vh,150px);width:auto;margin-bottom:18px;filter:drop-shadow(0 8px 30px rgba(0,0,0,.6))}
+#intro h1{font-family:Fraunces,serif;font-weight:700;font-size:clamp(54px,13vw,210px);line-height:.86;letter-spacing:-.02em;text-shadow:0 10px 60px rgba(0,0,0,.55)}
+#intro h1 span{display:block;font-weight:300;font-style:italic}
+#intro p{margin-top:22px;font-size:clamp(14px,1.4vw,18px);color:var(--cream);max-width:34ch;text-shadow:0 2px 20px rgba(0,0,0,.8)}
+.hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font:500 11px "DM Mono",monospace;letter-spacing:.25em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:10px}
+.hint i{width:1px;height:46px;background:linear-gradient(var(--cream),transparent);animation:dr 1.8s ease-in-out infinite;transform-origin:top}
+@keyframes dr{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+
+/* captions */
+.cap{position:absolute;left:clamp(16px,5vw,80px);bottom:clamp(90px,12vh,120px);max-width:min(520px,calc(100vw - 32px));opacity:0;pointer-events:none;text-shadow:0 2px 24px rgba(0,0,0,.7)}
+.cap .n{font:500 12px "DM Mono",monospace;letter-spacing:.22em;color:var(--crema);text-transform:uppercase}
+.cap h2{font-family:Fraunces,serif;font-weight:500;font-size:clamp(40px,6.2vw,92px);line-height:.95;letter-spacing:-.015em;margin:10px 0 14px}
+.cap h2 em{font-weight:300}
+.cap p{font-size:clamp(15px,1.25vw,18px);line-height:1.55;color:var(--cream);max-width:44ch}
+
+/* HUD */
+#hud{position:absolute;right:clamp(16px,3vw,40px);top:96px;width:236px;padding:16px 18px;border-radius:16px;background:rgba(20,13,9,.5);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(242,230,212,.16);opacity:0}
+#hud .l{font:500 11px "DM Mono",monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
+#hud .v{font:500 46px/1 "DM Mono",monospace;margin:8px 0 2px;font-variant-numeric:tabular-nums}
+#hud .v small{font-size:18px;margin-left:4px;color:var(--mut)}
+#hud .s{font:400 12px "DM Mono",monospace;color:var(--mut)}
+#curve{margin-top:12px;width:100%;height:84px;overflow:visible}
+#curve .ax{stroke:rgba(242,230,212,.18);stroke-width:1}
+#curve .ln{fill:none;stroke:var(--crema);stroke-width:2.2;stroke-linecap:round}
+#curve text{font:9px "DM Mono",monospace;fill:var(--mut)}
+#bar{height:4px;border-radius:4px;background:rgba(242,230,212,.15);margin-top:12px;overflow:hidden}
+#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--crema))}
+
+/* rail */
+#rail{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);display:flex;gap:6px;opacity:0}
+#rail b{display:block;width:clamp(26px,5vw,64px);height:3px;border-radius:3px;background:rgba(242,230,212,.22);overflow:hidden}
+#rail b i{display:block;height:100%;width:0;background:var(--cream)}
+#rlab{position:absolute;left:50%;bottom:36px;transform:translateX(-50%);font:500 11px "DM Mono",monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);opacity:0;white-space:nowrap}
+
+/* steam over the final cup */
+#steam{position:absolute;left:50%;top:50%;width:min(40vw,360px);transform:translate(-50%,-95%);opacity:0;pointer-events:none;filter:blur(6px)}
+#steam path{fill:none;stroke:rgba(255,255,255,.55);stroke-width:10;stroke-linecap:round;stroke-dasharray:60 240;animation:st 4s linear infinite}
+#steam path:nth-child(2){animation-delay:-1.3s;stroke-width:7}
+#steam path:nth-child(3){animation-delay:-2.6s}
+@keyframes st{from{stroke-dashoffset:300;opacity:0}20%{opacity:1}to{stroke-dashoffset:0;opacity:0}}
+#ready{position:absolute;inset:auto 0 clamp(70px,11vh,110px);text-align:center;opacity:0;pointer-events:none;padding:0 16px}
+#ready h2{font-family:Fraunces,serif;font-weight:500;font-size:clamp(44px,7vw,110px);line-height:.95;text-shadow:0 6px 40px rgba(0,0,0,.7)}
+#ready h2 em{font-weight:300}
+#ready p{margin-top:10px;font:500 12px "DM Mono",monospace;letter-spacing:.24em;text-transform:uppercase;color:var(--crema)}
+
+/* after */
+section.blk{position:relative;padding:clamp(90px,14vh,160px) clamp(16px,6vw,96px)}
+.eyebrow{font:500 12px "DM Mono",monospace;letter-spacing:.22em;text-transform:uppercase;color:var(--crema)}
+.big{font-family:Fraunces,serif;font-weight:500;font-size:clamp(38px,5.4vw,84px);line-height:1;letter-spacing:-.015em;margin-top:16px;max-width:16ch}
+.big em{font-weight:300}
+.lead{margin-top:22px;font-size:clamp(16px,1.3vw,19px);line-height:1.65;color:var(--mut);max-width:56ch}
+#manifest{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,6vw,90px);align-items:center;background:var(--ink)}
+#manifest .ph2{position:relative;aspect-ratio:4/5;border-radius:260px 260px 18px 18px;overflow:hidden}
+#manifest .ph2 img{width:100%;height:120%;object-fit:cover;max-width:none;position:absolute;top:-10%}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:70px}
+.pl{border-top:1px solid rgba(242,230,212,.2);padding-top:20px}
+.pl .mono{font-size:12px;color:var(--crema);letter-spacing:.16em}
+.pl h3{font-family:Fraunces,serif;font-weight:500;font-size:28px;margin:10px 0 8px}
+.pl p{color:var(--mut);line-height:1.6;font-size:15px}
+#strip{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.4vw,18px);padding-top:0}
+#strip figure{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:3/4}
+#strip img{width:100%;height:100%;object-fit:cover;max-width:none;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+#strip figure:hover img{transform:scale(1.06)}
+#strip figcaption{position:absolute;left:14px;bottom:12px;font:500 11px "DM Mono",monospace;letter-spacing:.18em;text-transform:uppercase;text-shadow:0 2px 12px rgba(0,0,0,.8)}
+#join{text-align:center;background:radial-gradient(80% 70% at 50% 0%,#3a2418,var(--ink))}
+#join img.mk{height:120px;width:auto;margin:0 auto 26px}
+#join .big{margin-left:auto;margin-right:auto}
+#join .lead{margin-left:auto;margin-right:auto}
+.cta{display:inline-flex;align-items:center;gap:10px;margin-top:34px;background:var(--cream);color:var(--ink);padding:16px 26px;border-radius:99px;font-weight:600;font-size:15px;transition:.25s}
+.cta:hover{background:var(--crema);color:var(--cream)}
+footer{padding:28px clamp(16px,6vw,96px) 34px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--mut);font-size:13px;border-top:1px solid rgba(242,230,212,.12)}
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1s,transform 1s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+@media (max-width:820px){
+ .brand span{display:none}
+ #hud{top:74px;right:16px;width:168px;padding:12px 14px}
+ #hud .v{font-size:32px}
+ #hud .v small{font-size:14px}
+ #curve{height:56px}
+ .cap{bottom:84px}
+ #manifest{grid-template-columns:1fr}
+ #manifest .ph2{max-width:420px}
+ .pillars{grid-template-columns:1fr;margin-top:40px}
+ #strip{grid-template-columns:repeat(2,1fr)}
+ #rlab{display:none}
+}
+@media (prefers-reduced-motion:reduce){.grain,#steam path,.hint i{animation:none}}
+</style>
+</head>
+<body>
+<header id="head">
+ <a class="brand" href="#"><img src="img/mark-cream.png" alt="Roaster Daily"><span>Roaster Daily</span></a>
+ <div class="hr"><button class="lang" id="lang">ES</button><a class="pill" href="https://www.instagram.com/roasterdaily/" target="_blank" rel="noopener">@roasterdaily</a></div>
+</header>
+
+<section id="process">
+ <div class="stage" id="stage">
+  <div class="ph" data-fx="fade"><img src="img/green.jpg" alt="Green coffee beans" style="object-position:12% 75%"></div>
+  <div class="ph" data-fx="wipe"><img src="img/greenbowl.jpg" alt="Bowls of green coffee"></div>
+  <div class="ph" data-fx="circle"><img src="img/roaster.jpg" alt="Coffee roaster" style="object-position:50% 35%"></div>
+  <div class="ph" data-fx="fade"><img src="img/roastmacro.jpg" alt="Roasted coffee beans"></div>
+  <div class="ph" data-fx="wipe"><img src="img/crack.jpg" alt="Beans falling"></div>
+  <div class="ph" data-fx="circle"><img src="img/drop.jpg" alt="Dropping the roast" style="object-position:55% 50%"></div>
+  <div class="ph" data-fx="fade"><img src="img/cool.jpg" alt="Cooling tray"></div>
+  <div class="ph" data-fx="wipe"><img src="img/grind.jpg" alt="Grinding" style="object-position:50% 45%"></div>
+  <div class="ph" data-fx="circle"><img src="img/extract.jpg" alt="Espresso extraction" style="object-position:40% 55%"></div>
+  <div class="ph" data-fx="wipe"><img src="img/pour.jpg" alt="Pouring latte art" style="object-position:50% 40%"></div>
+  <div class="ph" data-fx="circle"><img src="img/cup.jpg" alt="Latte art cup" style="object-position:48% 50%"></div>
+  <div class="shade"></div>
+  <div class="grain"></div>
+
+  <svg id="steam" viewBox="0 0 200 260"><path d="M70 250C40 200 100 170 70 120S80 40 60 10"/><path d="M110 250C80 200 140 170 110 120S120 40 100 10"/><path d="M150 250C120 200 180 170 150 120S160 40 140 10"/></svg>
+
+  <div id="intro">
+   <img src="img/mark-cream.png" alt="">
+   <h1>Roaster<span>Daily</span></h1>
+   <p data-t="intro">Coffee roasters & coffee community. From the green bean to your cup, in one scroll.</p>
+   <div class="hint"><span data-t="scroll">Scroll</span><i></i></div>
+  </div>
+
+  <div class="cap" data-a="0.55" data-b="2"><div class="n">01 · <span data-t="n1">Green coffee</span></div><h2 data-t="h1">It all starts <em>green.</em></h2><p data-t="p1">Raw, dense and grassy. Specialty green coffee arrives from the farm at around 11% moisture — all the sugar and acidity is there, locked inside.</p></div>
+  <div class="cap" data-a="2" data-b="4"><div class="n">02 · <span data-t="n2">Roasting</span></div><h2 data-t="h2">Fire, air & <em>time.</em></h2><p data-t="p2">The drum turns, the beans dry, then yellow, then brown. Maillard reactions build the sweetness we'll taste later.</p></div>
+  <div class="cap" data-a="4" data-b="5"><div class="n">03 · <span data-t="n3">First crack</span></div><h2 data-t="h3">Listen for the <em>crack.</em></h2><p data-t="p3">Around 196°C the beans pop like popcorn. From here, seconds decide the profile — brighter or deeper.</p></div>
+  <div class="cap" data-a="5" data-b="7"><div class="n">04 · <span data-t="n4">Drop & cool</span></div><h2 data-t="h4">Drop. Stir. <em>Breathe.</em></h2><p data-t="p4">The roast falls into the cooling tray and gets stirred down fast to lock in the flavor. Then it rests to release CO₂.</p></div>
+  <div class="cap" data-a="7" data-b="8"><div class="n">05 · <span data-t="n5">Grinding</span></div><h2 data-t="h5">Ground to <em>order.</em></h2><p data-t="p5">18 grams, fresh, right before brewing. Grind size is the dial between sour and bitter.</p></div>
+  <div class="cap" data-a="8" data-b="9"><div class="n">06 · <span data-t="n6">Extraction</span></div><h2 data-t="h6">Nine bars of <em>patience.</em></h2><p data-t="p6">93°C water at 9 bar for about 28 seconds: 18 g in, 36 g out. Honey-thick, with a hazelnut crema.</p></div>
+  <div class="cap" data-a="9" data-b="10"><div class="n">07 · <span data-t="n7">Milk & art</span></div><h2 data-t="h7">Silk, then a <em>drawing.</em></h2><p data-t="p7">Milk steamed to 62°C into glossy microfoam, poured with a steady hand until a rosetta blooms on top.</p></div>
+
+  <div id="ready"><h2 data-t="ready">Ready to <em>drink.</em></h2><p data-t="readys">Roasted daily · poured with love</p></div>
+
+  <div id="hud">
+   <div class="l" id="hl">Bean temp</div>
+   <div class="v" id="hv">22<small>°C</small></div>
+   <div class="s" id="hs">moisture 11%</div>
+   <svg id="curve" viewBox="0 0 200 80" preserveAspectRatio="none">
+    <line class="ax" x1="0" y1="78" x2="200" y2="78"/><line class="ax" x1="0" y1="0" x2="0" y2="78"/>
+    <path class="ln" id="cl" d="M0 66 C14 72 22 74 34 70 S70 46 100 32 S150 14 170 10 L186 9 C192 30 196 56 200 70"/>
+    <circle id="cd" r="3.5" fill="#f2e6d4"/>
+    <text x="104" y="26" id="ct">1st crack</text>
+   </svg>
+   <div id="bar"><i></i></div>
+  </div>
+  <div id="rail"></div>
+  <div id="rlab"></div>
+ </div>
+</section>
+
+<section class="blk" id="manifest">
+ <div>
+  <div class="eyebrow rv" data-t="m_e">Roasted every day</div>
+  <h2 class="big rv" data-t="m_h">Small batches. <em>Big</em> community.</h2>
+  <p class="lead rv" data-t="m_p">Roaster Daily is a coffee roastery and a meeting point. We roast in small batches, share what we learn, and bring people together around a good cup — from first cupping to the last sip.</p>
+  <div class="pillars">
+   <div class="pl rv"><div class="mono">01</div><h3 data-t="pa">Roast</h3><p data-t="pa_p">Fresh roasts, profiled batch by batch to show each origin at its best.</p></div>
+   <div class="pl rv"><div class="mono">02</div><h3 data-t="pb">Brew</h3><p data-t="pb_p">Espresso, filter and milk drinks, dialed in every morning.</p></div>
+   <div class="pl rv"><div class="mono">03</div><h3 data-t="pc">Community</h3><p data-t="pc_p">Cuppings, talks and coffee friends. Come for a coffee, stay for the conversation.</p></div>
+  </div>
+ </div>
+ <div class="ph2 rv"><img id="par" src="img/roaster.jpg" alt="Roasting"></div>
+</section>
+
+<section class="blk" id="strip">
+ <figure class="rv"><img src="img/greenbowl.jpg" alt="" loading="lazy"><figcaption data-t="f1">Origin</figcaption></figure>
+ <figure class="rv"><img src="img/cool.jpg" alt="" loading="lazy"><figcaption data-t="f2">Roast</figcaption></figure>
+ <figure class="rv"><img src="img/extract.jpg" alt="" loading="lazy"><figcaption data-t="f3">Extract</figcaption></figure>
+ <figure class="rv"><img src="img/pour.jpg" alt="" loading="lazy"><figcaption data-t="f4">Pour</figcaption></figure>
+</section>
+
+<section class="blk" id="join">
+ <img class="mk rv" src="img/mark-cream.png" alt="">
+ <div class="eyebrow rv" data-t="j_e">Coffee roasters & coffee community</div>
+ <h2 class="big rv" data-t="j_h">Come have a cup <em>with us.</em></h2>
+ <p class="lead rv" data-t="j_p">Follow the roasts, the new origins and the next community meetups on Instagram.</p>
+ <a class="cta rv" href="https://www.instagram.com/roasterdaily/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>@roasterdaily</a>
+</section>
+
+<footer><span>© Roaster Daily</span><span data-t="credit">Photography: Pexels</span></footer>
+
+<script>
+const T={es:{intro:"Tostadores de café y comunidad cafetera. Del grano verde a tu taza, en un solo scroll.",scroll:"Desliza",
+n1:"Café verde",h1:"Todo empieza <em>verde.</em>",p1:"Crudo, denso y herbal. El café verde de especialidad llega de la finca con cerca de 11% de humedad: todo el azúcar y la acidez están ahí, guardados.",
+n2:"Tostión",h2:"Fuego, aire y <em>tiempo.</em>",p2:"El tambor gira, el grano se seca, se vuelve amarillo y luego café. Las reacciones de Maillard construyen el dulzor que probaremos después.",
+n3:"Primer crack",h3:"Escucha el <em>crack.</em>",p3:"Cerca de los 196°C el grano revienta como crispetas. Desde aquí, los segundos deciden el perfil: más brillante o más profundo.",
+n4:"Descarga y enfriado",h4:"Soltar. Mover. <em>Respirar.</em>",p4:"El café cae a la bandeja de enfriado y se mueve rápido para fijar el sabor. Luego reposa para liberar CO₂.",
+n5:"Molienda",h5:"Molido al <em>momento.</em>",p5:"18 gramos, frescos, justo antes de preparar. La molienda es el dial entre ácido y amargo.",
+n6:"Extracción",h6:"Nueve bares de <em>paciencia.</em>",p6:"Agua a 93°C y 9 bares por unos 28 segundos: 18 g entran, 36 g salen. Espeso como miel, con crema avellana.",
+n7:"Leche y arte",h7:"Seda, y luego un <em>dibujo.</em>",p7:"Leche texturizada a 62°C en una microespuma brillante, vertida con pulso firme hasta que florece una roseta.",
+ready:"Listo para <em>tomar.</em>",readys:"Tostado a diario · servido con amor",
+m_e:"Tostado todos los días",m_h:"Lotes pequeños. Comunidad <em>grande.</em>",m_p:"Roaster Daily es una tostadora de café y un punto de encuentro. Tostamos en lotes pequeños, compartimos lo que aprendemos y reunimos a la gente alrededor de una buena taza, desde la primera catación hasta el último sorbo.",
+pa:"Tostar",pa_p:"Tostiones frescas, perfiladas lote a lote para mostrar lo mejor de cada origen.",pb:"Preparar",pb_p:"Espresso, filtrados y bebidas con leche, calibrados cada mañana.",pc:"Comunidad",pc_p:"Cataciones, charlas y amigos del café. Ven por un café, quédate por la conversación.",
+f1:"Origen",f2:"Tostión",f3:"Extracción",f4:"Arte",j_e:"Tostadores y comunidad cafetera",j_h:"Ven a tomarte un café <em>con nosotros.</em>",j_p:"Sigue las tostiones, los nuevos orígenes y los próximos encuentros en Instagram.",credit:"Fotografía: Pexels"}};
+const EN={};document.querySelectorAll('[data-t]').forEach(e=>EN[e.dataset.t]=e.innerHTML);T.en=EN;
+let lang='en';
+const HUDT={en:{temp:"Bean temp",moist:"moisture 11%",dry:"drying",maill:"maillard",crack:"first crack",dev:"development",drop:"drop",cool:"cooling",dose:"Dose",fresh:"freshly ground",shot:"Shot time",yield:"yield",milk:"Milk temp",micro:"microfoam",ready:"Ready",enjoy:"enjoy it warm"},
+es:{temp:"Temp. grano",moist:"humedad 11%",dry:"secado",maill:"maillard",crack:"primer crack",dev:"desarrollo",drop:"descarga",cool:"enfriando",dose:"Dosis",fresh:"recién molido",shot:"Tiempo",yield:"rendimiento",milk:"Temp. leche",micro:"microespuma",ready:"Lista",enjoy:"disfrútala tibia"}};
+const RL={en:["Green","Roast","Crack","Cool","Grind","Extract","Pour","Cup"],es:["Verde","Tostión","Crack","Enfriado","Molienda","Extracción","Arte","Taza"]};
+document.getElementById('lang').onclick=e=>{lang=lang=='en'?'es':'en';e.target.textContent=lang=='en'?'ES':'EN';document.documentElement.lang=lang;
+ document.querySelectorAll('[data-t]').forEach(el=>{const v=T[lang][el.dataset.t];if(v!=null)el.innerHTML=v})};
+
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v)),ramp=(v,a,b)=>clamp((v-a)/(b-a)),lerp=(a,b,t)=>a+(b-a)*t,ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const proc=document.getElementById('process'),phs=[...document.querySelectorAll('.ph')],caps=[...document.querySelectorAll('.cap')];
+const intro=document.getElementById('intro'),hud=document.getElementById('hud'),hl=document.getElementById('hl'),hv=document.getElementById('hv'),hs=document.getElementById('hs');
+const cl=document.getElementById('cl'),cd=document.getElementById('cd'),ct=document.getElementById('ct'),curve=document.getElementById('curve'),bar=document.querySelector('#bar i');
+const rail=document.getElementById('rail'),rlab=document.getElementById('rlab'),steam=document.getElementById('steam'),ready=document.getElementById('ready');
+// phase ranges in scroll units (11 images, 0..11)
+const PH=[[0,2],[2,4],[4,5],[5,7],[7,8],[8,9],[9,10],[10,11]];
+PH.forEach(()=>rail.insertAdjacentHTML('beforeend','<b><i></i></b>'));const rb=[...rail.querySelectorAll('i')];
+const CL=cl.getTotalLength();cl.style.strokeDasharray=CL;
+const N=phs.length;let cur=scrollY;
+
+function hudSet(l,v,u,s){hl.textContent=l;hv.innerHTML=v+'<small>'+u+'</small>';hs.textContent=s}
+function frame(){
+ cur+=(scrollY-cur)*.14;
+ const vh=innerHeight,top=proc.offsetTop,span=proc.offsetHeight-vh;
+ const p=clamp((cur-top)/span)*N;
+ // photo layers
+ phs.forEach((el,i)=>{
+  const t=i==0?1:ease(ramp(p,i-.55,i)), life=ramp(p,i-.55,i+1.2);
+  const s=i==0?lerp(1.25,1.02,ramp(p,0,2)):lerp(1.14,1.0,life);
+  el.style.visibility=(t<=0||p>i+2.2)?'hidden':'visible';
+  const fx=el.dataset.fx;
+  if(i==0||fx=='fade'){el.style.opacity=t;el.style.clipPath='none'}
+  else if(fx=='circle'){el.style.opacity=1;el.style.clipPath=`circle(${t*78}% at 50% 50%)`}
+  else{el.style.opacity=1;el.style.clipPath=`inset(${(1-t)*100}% 0 0 0)`}
+  el.style.transform=`scale(${s})`;
+ });
+ // intro
+ const io=1-ramp(p,.08,.5);intro.style.opacity=io;intro.style.transform=`translateY(${-ramp(p,0,.5)*60}px) scale(${1-ramp(p,0,.5)*.06})`;
+ // captions
+ caps.forEach(c=>{const a=+c.dataset.a,b=+c.dataset.b,o=Math.min(ramp(p,a,a+.35),1-ramp(p,b-.3,b));c.style.opacity=o;c.style.transform=`translateY(${(1-ramp(p,a,a+.35))*40}px)`});
+ // HUD values
+ const H=HUDT[lang];let showCurve=0,prog=0;
+ if(p<2){hudSet(H.temp,22,'°C',H.moist);prog=ramp(p,.5,2)*.12}
+ else if(p<4){const t=ramp(p,2,4);hudSet(H.temp,Math.round(lerp(22,196,Math.pow(t,.8))),'°C',t<.35?H.dry:H.maill);showCurve=1;prog=.12+t*.33}
+ else if(p<5){const t=ramp(p,4,5);hudSet(H.temp,Math.round(lerp(196,210,t)),'°C',t<.6?H.crack:H.dev);showCurve=1;prog=.45+t*.1}
+ else if(p<7){const t=ramp(p,5,7);hudSet(H.temp,Math.round(lerp(210,28,Math.pow(t,.6))),'°C',t<.2?H.drop:H.cool);showCurve=1;prog=.55+t*.1}
+ else if(p<8){const t=ramp(p,7,7.9);hudSet(H.dose,lerp(0,18,t).toFixed(1),'g',H.fresh);prog=.65+t*.08}
+ else if(p<9){const t=ramp(p,8,8.9);hudSet(H.shot,Math.round(lerp(0,28,t)),'s',H.yield+' '+Math.round(lerp(0,36,t))+' g');prog=.73+t*.1}
+ else if(p<10){const t=ramp(p,9,9.9);hudSet(H.milk,Math.round(lerp(4,62,t)),'°C',H.micro);prog=.83+t*.12}
+ else{hudSet(H.ready,'✓','',H.enjoy);prog=.95+ramp(p,10,10.6)*.05}
+ hud.style.opacity=ramp(p,.45,.9)*(1-ramp(p,10.2,10.6));
+ curve.style.display=showCurve?'block':'none';
+ const cp=ramp(p,2,6.6);cl.style.strokeDashoffset=CL*(1-cp);const pt=cl.getPointAtLength(CL*Math.max(cp,.001));cd.setAttribute('cx',pt.x);cd.setAttribute('cy',pt.y);ct.style.opacity=ramp(p,4,4.3);
+ bar.style.width=(prog*100)+'%';
+ // rail
+ rail.style.opacity=rlab.style.opacity=ramp(p,.45,.9)*(1-ramp(p,10.2,10.6));
+ let ai=0;PH.forEach((r,i)=>{rb[i].style.width=ramp(p,r[0],r[1])*100+'%';if(p>=r[0])ai=i});
+ rlab.textContent=RL[lang][ai];
+ // finale
+ const f=ramp(p,10.2,10.7);steam.style.opacity=f*.9;ready.style.opacity=f;ready.style.transform=`translateY(${(1-f)*30}px)`;
+ // manifest parallax
+ const par=document.getElementById('par'),r=par.parentElement.getBoundingClientRect();par.style.transform=`translateY(${(r.top+r.height/2-vh/2)*-.08}px)`;
+ requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io2.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.rv').forEach(e=>io2.observe(e));
+</script>
+</body>
+</html>
