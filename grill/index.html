@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Grill Station Burger · ¡Mejor burger de Medellín!</title>
+<meta name="description" content="The Grill Station Burger, ganadores del Burger Master. Domicilios, reservas y estaciones en Medellín y Bogotá.">
+<link rel="icon" href="img/train.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Oswald:wght@400;500;600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--red:#a3161a;--red2:#7d0f12;--cream:#f5ead6;--ink:#1a0d0b;--gold:#e8b23a;--gold2:#ffd76a;--slab:'Alfa Slab One',Georgia,serif;--cond:'Oswald',Impact,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--red);color:var(--cream);font:400 17px/1.55 Roboto,system-ui,sans-serif;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+h2{font-family:var(--slab);font-weight:400;line-height:.95;font-size:clamp(42px,6.6vw,96px);text-transform:uppercase}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}
+.stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+
+/* header */
+#top{position:fixed;inset:0 0 auto;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:12px clamp(16px,4vw,44px);transition:background .4s}
+#top.solid{background:rgba(125,15,18,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+#top .lg img{height:54px;width:auto}
+#top nav{display:flex;gap:22px;align-items:center;font-family:var(--cond);font-size:16px;letter-spacing:.08em;text-transform:uppercase}
+#top nav a{text-decoration:none}
+#top nav .cta{background:var(--cream);color:var(--red);padding:9px 18px;border-radius:99px;font-weight:600}
+@media(max-width:760px){#top nav a:not(.cta){display:none}#top .lg img{height:42px}}
+
+/* hero: the burger gets sliced */
+#corte{height:520vh;position:relative}
+#corte .stick{background:radial-gradient(60% 55% at 50% 52%,#c4262a 0,var(--red) 55%,var(--red2) 100%)}
+#corte .train{position:absolute;left:50%;top:52%;width:min(92vh,96vw);transform:translate(-50%,-50%);opacity:.08;pointer-events:none}
+#head{position:absolute;left:0;right:0;top:clamp(78px,11vh,110px);text-align:center;z-index:3;padding:0 16px}
+#head h1{font-family:var(--slab);font-weight:400;font-size:clamp(38px,6.2vw,92px);line-height:.95;text-transform:uppercase;text-shadow:0 6px 0 rgba(0,0,0,.18)}
+#head p{font-family:var(--cond);letter-spacing:.24em;text-transform:uppercase;margin-top:12px;font-size:clamp(13px,1.2vw,16px)}
+#stage{position:absolute;left:50%;top:56%;z-index:2}
+#stage img{position:absolute;inset:0;width:100%;height:100%;will-change:transform,opacity;filter:saturate(1.2) contrast(1.05)}
+#stage .lay{opacity:0}
+#shadow{position:absolute;left:27%;right:22%;top:63%;height:6%;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.45),transparent);filter:blur(4px)}
+#knife{position:absolute;z-index:4;left:50%;top:0;width:min(46vh,46vw);pointer-events:none;filter:drop-shadow(0 18px 20px rgba(0,0,0,.35))}
+#flash{position:absolute;z-index:3;left:50%;top:0;width:3px;background:linear-gradient(transparent,#fff,transparent);box-shadow:0 0 24px 6px rgba(255,240,200,.7);opacity:0;pointer-events:none}
+.tag{position:absolute;z-index:5;display:flex;align-items:center;gap:10px;font-family:var(--cond);font-size:clamp(14px,1.5vw,20px);font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;opacity:0;pointer-events:none}
+.tag i{display:block;height:2px;background:var(--cream);width:clamp(30px,6vw,90px)}
+.tag b{font-weight:500;background:var(--cream);color:var(--red);padding:4px 10px;border-radius:4px}
+.tag.l{flex-direction:row-reverse}
+#scrollhint{position:absolute;left:0;right:0;bottom:22px;text-align:center;font-family:var(--cond);letter-spacing:.3em;font-size:12px;z-index:3}
+@media(max-width:760px){.tag{font-size:11px;gap:4px}.tag i{width:10px}.tag b{padding:3px 6px}}
+
+/* prize */
+#premio{position:relative;background:var(--ink);padding:clamp(100px,15vh,160px) clamp(16px,6vw,96px);text-align:center;overflow:hidden}
+#rays{position:absolute;left:50%;top:44%;width:1600px;height:1600px;margin:-800px 0 0 -800px;background:repeating-conic-gradient(rgba(232,178,58,.14) 0 6deg,transparent 6deg 18deg);border-radius:50%;-webkit-mask:radial-gradient(closest-side,#000 30%,transparent 72%);mask:radial-gradient(closest-side,#000 30%,transparent 72%);pointer-events:none}
+#confetti{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#trophy{position:relative;width:min(300px,62vw);margin:0 auto;transform:translateY(60px) scale(.8);opacity:0;transition:transform 1.2s cubic-bezier(.2,1.5,.4,1),opacity .6s}
+#premio.go #trophy{transform:none;opacity:1}
+#premio .k{font-family:var(--cond);letter-spacing:.3em;text-transform:uppercase;color:var(--gold2);margin-top:30px}
+#premio h2{color:var(--gold);margin-top:10px;text-shadow:0 4px 0 #7a5410}
+#premio h2 span{display:block;color:var(--cream);text-shadow:none;font-size:.5em;margin-top:.3em}
+#premio p.sub{max-width:560px;margin:22px auto 0;color:#e6d6bd}
+
+/* stations */
+#estacion{position:relative;display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+#estacion .ph{position:relative;overflow:hidden}
+#estacion .ph img{position:absolute;inset:0;width:100%;height:120%;object-fit:cover;top:-10%}
+#estacion .tx{padding:clamp(70px,10vh,120px) clamp(16px,5vw,80px);display:flex;flex-direction:column;justify-content:center;background:var(--red)}
+#estacion .tx p.lead{margin-top:18px;max-width:440px}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:34px}
+.btns a{display:flex;align-items:center;justify-content:center;min-height:56px;padding:10px 14px;border-radius:99px;background:var(--red2);border:2px solid rgba(245,234,214,.25);font-family:var(--cond);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;text-align:center;transition:background .25s,transform .25s}
+.btns a:hover{background:var(--cream);color:var(--red);transform:translateY(-2px)}
+.btns a.big{grid-column:1/-1;background:var(--cream);color:var(--red);font-family:var(--slab);font-size:22px;position:relative;overflow:hidden;min-height:76px}
+.btns a.big img{position:absolute;height:64px;top:6px}
+.btns a.big .m1{left:10px}.btns a.big .m2{right:10px}
+@media(max-width:860px){#estacion{grid-template-columns:1fr}#estacion .ph{min-height:60vh}}
+
+/* the delivery scooter rides along the bottom */
+#rider{position:fixed;z-index:35;left:0;bottom:6px;width:86px;pointer-events:none;transition:opacity .4s}
+footer{background:var(--ink);padding:44px clamp(16px,6vw,96px) 110px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;align-items:center}
+footer img{height:70px;width:auto}
+footer .c{font-family:var(--cond);letter-spacing:.06em;line-height:1.8}
+footer .c a{text-decoration:none;border-bottom:1px solid rgba(245,234,214,.3)}
+footer small{display:block;color:#a8968a;font-family:Roboto;letter-spacing:0;margin-top:8px}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}#trophy{transition:none}}
+</style>
+</head>
+<body>
+
+<header id="top">
+  <a class="lg" href="#corte" aria-label="The Grill Station Burger, inicio"><img src="img/logo.png" alt="The Grill Station Burger"></a>
+  <nav><a href="#premio">Burger Master</a><a href="#estacion">Estaciones</a><a href="https://the-grill-station-burger.cluvi.co/" target="_blank" rel="noopener">Menú</a><a class="cta" href="https://wa.me/573105975159?text=Hola%20Grill%20Station%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener">Pide ya</a></nav>
+</header>
+
+<!-- the burger, sliced open with the scroll -->
+<section id="corte">
+  <div class="stick">
+    <img class="train" src="img/train.png" alt="">
+    <div id="head"><h1>¡Mejor burger<br>de Medellín!</h1><p>It's a real flavor trip</p></div>
+    <div id="stage">
+      <i id="shadow"></i>
+      <img class="lay" data-l="bun_bottom" src="img/b/L_bun_bottom.webp" alt="">
+      <img class="lay" data-l="patty" src="img/b/L_patty.webp" alt="">
+      <img class="lay" data-l="cheese" src="img/b/L_cheese.webp" alt="">
+      <img class="lay" data-l="bacon" src="img/b/L_bacon.webp" alt="">
+      <img class="lay" data-l="tomato" src="img/b/L_tomato.webp" alt="">
+      <img class="lay" data-l="onion" src="img/b/L_onion.webp" alt="">
+      <img class="lay" data-l="lettuce" src="img/b/L_lettuce.webp" alt="">
+      <img class="lay" data-l="bun_top" src="img/b/L_bun_top.webp" alt="">
+      <img id="back" src="img/b/back.webp" alt="Hamburguesa cortada por la mitad: se ven todas sus capas por dentro">
+      <img id="front" src="img/b/front.webp" alt="Hamburguesa de The Grill Station">
+    </div>
+    <i id="flash"></i>
+    <svg id="knife" viewBox="0 0 120 420" aria-hidden="true">
+      <defs><linearGradient id="bl" x1="0" x2="1"><stop offset="0" stop-color="#cfd5da"/><stop offset=".5" stop-color="#ffffff"/><stop offset="1" stop-color="#8f979e"/></linearGradient></defs>
+      <rect x="40" y="0" width="40" height="130" rx="10" fill="#2a1712"/><circle cx="60" cy="30" r="5" fill="#d9c3a0"/><circle cx="60" cy="70" r="5" fill="#d9c3a0"/><circle cx="60" cy="110" r="5" fill="#d9c3a0"/>
+      <rect x="36" y="128" width="48" height="12" rx="3" fill="#9aa2a8"/>
+      <path d="M38 140h44v220c0 30-22 52-44 58z" fill="url(#bl)"/><path d="M38 140v278" stroke="#6b7278" stroke-width="2"/>
+    </svg>
+    <div class="tag" data-for="bun_top"><i></i><b>Pan con ajonjolí</b></div>
+    <div class="tag l" data-for="lettuce"><i></i><b>Lechuga fresca</b></div>
+    <div class="tag" data-for="onion"><i></i><b>Cebolla morada</b></div>
+    <div class="tag l" data-for="tomato"><i></i><b>Tomate</b></div>
+    <div class="tag" data-for="bacon"><i></i><b>Tocineta crocante</b></div>
+    <div class="tag l" data-for="cheese"><i></i><b>Queso cheddar</b></div>
+    <div class="tag" data-for="patty"><i></i><b>Carne a la parrilla</b></div>
+    <div class="tag l" data-for="bun_bottom"><i></i><b>Pan brioche</b></div>
+    <p id="scrollhint">DESLIZA PARA CORTARLA ↓</p>
+  </div>
+</section>
+
+<!-- the prize -->
+<section id="premio">
+  <i id="rays"></i>
+  <canvas id="confetti"></canvas>
+  <svg id="trophy" viewBox="0 0 300 340" aria-hidden="true">
+    <defs><linearGradient id="gd" x1="0" x2="1"><stop offset="0" stop-color="#b47a14"/><stop offset=".45" stop-color="#ffe08a"/><stop offset=".7" stop-color="#e8b23a"/><stop offset="1" stop-color="#9a6510"/></linearGradient></defs>
+    <path d="M70 40c-48 0-58 70-6 96M230 40c48 0 58 70 6 96" fill="none" stroke="url(#gd)" stroke-width="16" stroke-linecap="round"/>
+    <path d="M62 24h176c0 104-38 150-88 158C100 174 62 128 62 24z" fill="url(#gd)"/>
+    <path d="M128 182h44l8 46h-60z" fill="url(#gd)"/>
+    <rect x="86" y="226" width="128" height="22" rx="6" fill="url(#gd)"/>
+    <rect x="66" y="246" width="168" height="78" rx="10" fill="#2a1712" stroke="url(#gd)" stroke-width="6"/>
+    <text x="150" y="280" text-anchor="middle" font-family="Oswald,Impact" font-size="22" letter-spacing="3" fill="#ffd76a">BURGER</text>
+    <text x="150" y="308" text-anchor="middle" font-family="Oswald,Impact" font-size="22" letter-spacing="3" fill="#ffd76a">MASTER</text>
+    <g transform="translate(150 96)"><circle r="36" fill="#a3161a" stroke="#ffe08a" stroke-width="4"/><path d="M-20 -2a20 14 0 0 1 40 0z" fill="#f2b45a"/><rect x="-22" y="0" width="44" height="7" rx="3" fill="#5a2a12"/><rect x="-21" y="7" width="42" height="4" fill="#7ab648"/><path d="M-20 11h40a20 9 0 0 1-40 0z" fill="#f2b45a"/></g>
+  </svg>
+  <p class="k">🏆 Ganadores</p>
+  <h2>Burger Master<span>¡La mejor burger de Medellín!</span></h2>
+  <p class="sub">Carne a la parrilla, pan brioche y todo lo que viste por dentro. Ven a probar por qué ganamos.</p>
+</section>
+
+<!-- stations and links -->
+<section id="estacion">
+  <div class="ph"><img id="restImg" src="img/restaurante.jpg" alt="Interior de The Grill Station: arcos rojos, ladrillo y luces circulares"></div>
+  <div class="tx">
+    <h2 class="rv">Súbete al<br>tren del sabor</h2>
+    <p class="lead rv d1">Visítanos en nuestras estaciones de Medellín y Bogotá, o pide a domicilio y te la llevamos caliente.</p>
+    <div class="btns rv d2">
+      <a class="big" href="https://wa.me/573105975159?text=Hola%20Grill%20Station%2C%20quiero%20pedir%20a%20domicilio" target="_blank" rel="noopener"><img class="m1" src="img/moto.png" alt="">Domicilios<img class="m2" src="img/moto2.png" alt=""></a>
+      <a href="https://the-grill-station-burger.cluvi.co/" target="_blank" rel="noopener">Menú</a>
+      <a href="https://the-grill-station-burger.cluvi.co/" target="_blank" rel="noopener">Reservas</a>
+      <a href="https://the-grill-station-burger.cluvi.co/" target="_blank" rel="noopener">Rappi</a>
+      <a href="https://the-grill-station-burger.cluvi.co/" target="_blank" rel="noopener">Eventos</a>
+      <a href="https://the-grill-station-burger.cluvi.co/" target="_blank" rel="noopener">Compra y recoge</a>
+      <a href="https://the-grill-station-burger.cluvi.co/" target="_blank" rel="noopener">Nuestras estaciones</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img src="img/logo.png" alt="The Grill Station Burger">
+  <div class="c">MEDELLÍN · <a href="https://wa.me/573105975159" target="_blank" rel="noopener">310 597 5159</a> · <a href="tel:+576046361280">604 636 1280</a><br><a href="https://www.instagram.com/thegrillstationburger/" target="_blank" rel="noopener">@thegrillstationburger</a><small>Demo de diseño web. La hamburguesa del corte es un render 3D ilustrativo.</small></div>
+</footer>
+
+<img id="rider" src="img/moto2.png" alt="" style="opacity:0">
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const ramp = (x, a, b) => clamp((x - a) / (b - a));
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const lerp = (a, b, t) => a + (b - a) * t;
+const $ = s => document.querySelector(s);
+
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+// layers bottom to top; y = the layer's middle in the render (0..1), lift = how far it rises in the exploded view
+const LAY = { bun_bottom: [.608, -1.7], patty: [.549, -1.0], cheese: [.531, -.4], bacon: [.516, .15], tomato: [.493, .7], onion: [.471, 1.25], lettuce: [.464, 1.8], bun_top: [.379, 2.6] };
+const corte = $('#corte'), stage = $('#stage'), front = $('#front'), back = $('#back'), knife = $('#knife'), flash = $('#flash'), head = $('#head'), hint = $('#scrollhint'), shadow = $('#shadow');
+const lays = [...document.querySelectorAll('#stage .lay')], tags = [...document.querySelectorAll('.tag')];
+
+/* confetti when the trophy shows up */
+const premio = $('#premio'), cv = $('#confetti'), cx = cv.getContext('2d');
+let parts = [], fired = false;
+function burst() {
+  if (reduce) return;
+  const W = cv.width = premio.offsetWidth, H = cv.height = premio.offsetHeight;
+  const cols = ['#e8b23a', '#ffd76a', '#f5ead6', '#a3161a', '#ffffff'];
+  for (let i = 0; i < 180; i++) parts.push({ x: W / 2, y: H * .35, vx: (Math.random() - .5) * 16, vy: -Math.random() * 15 - 4, r: Math.random() * 6 + 4, c: cols[i % cols.length], a: Math.random() * 6, va: (Math.random() - .5) * .3 });
+}
+new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && !fired) { fired = true; premio.classList.add('go'); setTimeout(burst, 500); } }), { threshold: .35 }).observe(premio);
+function drawConfetti() {
+  if (!parts.length) return;
+  cx.clearRect(0, 0, cv.width, cv.height);
+  parts.forEach(p => { p.vy += .32; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.a += p.va; cx.save(); cx.translate(p.x, p.y); cx.rotate(p.a); cx.fillStyle = p.c; cx.fillRect(-p.r / 2, -p.r / 4, p.r, p.r / 2); cx.restore(); });
+  parts = parts.filter(p => p.y < cv.height + 20);
+}
+
+const top_ = $('#top'), rays = $('#rays'), restImg = $('#restImg'), rider = $('#rider');
+let cur = scrollY;
+function frame(now) {
+  requestAnimationFrame(frame);
+  cur = reduce ? scrollY : cur + (scrollY - cur) * .14; if (Math.abs(scrollY - cur) < .3) cur = scrollY;
+  const W = innerWidth, H = innerHeight, small = W < 760;
+
+  const p = clamp(-corte.getBoundingClientRect().top / (corte.offsetHeight - H));
+  const S = Math.min(H * (small ? 1.0 : 1.15), W * (small ? 1.15 : .95));
+  Object.assign(stage.style, { width: S + 'px', height: S + 'px', marginLeft: -S / 2 + 'px', marginTop: -S / 2 + 'px' });
+
+  // 1. idle: the burger floats and turns a little
+  const bob = reduce ? 0 : Math.sin(now / 700) * 6 * (1 - ramp(p, .05, .12));
+  // on phones the opened burger slides to the left so the names fit on the right
+  const exk = ease(ramp(p, .56, .78)), dx = small ? ((8 - .22 * S) - (W / 2 - S / 2)) * exk : 0;
+  stage.style.transform = `translate(${dx.toFixed(1)}px,${(bob + lerp(0, H * .03, ramp(p, .5, .7))).toFixed(1)}px)`;
+  head.style.opacity = (1 - ramp(p, .08, .16)).toFixed(3); head.style.transform = `translateY(${(-ramp(p, .08, .16) * 40).toFixed(1)}px)`;
+  hint.style.opacity = (1 - ramp(p, .02, .08)).toFixed(3);
+
+  // 2. the knife comes down through the middle, with a white streak behind it
+  const kd = ease(ramp(p, .12, .3)), kOut = ease(ramp(p, .3, .38));
+  const sTop = H * .56 - S / 2, kw = knife.getBoundingClientRect().width, kh = kw * 3.5;
+  knife.style.transform = `translate(${(-kw / 2).toFixed(1)}px,${(lerp(-kh - 20, sTop + S * .78 - kh, kd) - kOut * H * .2).toFixed(1)}px) rotate(${(kOut * 14).toFixed(2)}deg)`;
+  knife.style.opacity = (1 - kOut).toFixed(3);
+  const fl = ramp(p, .16, .3) * (1 - ramp(p, .3, .4));
+  Object.assign(flash.style, { top: sTop + S * .2 + 'px', height: (S * .58 * ease(ramp(p, .14, .3))).toFixed(1) + 'px', opacity: fl.toFixed(3) });
+
+  // 3. the front half falls away towards the viewer and shows the inside
+  const fa = ease(ramp(p, .34, .5));
+  front.style.transform = `translateY(${(fa * H * .9).toFixed(1)}px) scale(${(1 + fa * .5).toFixed(3)}) rotate(${(fa * -14).toFixed(2)}deg)`;
+  front.style.opacity = (1 - ramp(p, .36, .44)).toFixed(3);
+  shadow.style.opacity = (1 - ramp(p, .55, .7)).toFixed(3);
+
+  // 4. the cut half comes apart layer by layer, each with its name
+  const ex = ease(ramp(p, .56, .78)), swap = p > .55;
+  back.style.opacity = swap ? 0 : 1;
+  const gapY = S * (small ? .1 : .07);
+  lays.forEach(im => {
+    const [, lift] = LAY[im.dataset.l];
+    im.style.opacity = swap ? 1 : 0;
+    im.style.transform = `translateY(${(-lift * gapY * ex).toFixed(1)}px)`;
+  });
+  const sr = stage.getBoundingClientRect();
+  tags.forEach((t, i) => {
+    const [y, lift] = LAY[t.dataset.for];
+    const k = ramp(p, .66 + i * .012, .74 + i * .012);
+    const ty = sr.top + y * S - lift * gapY * ex;
+    const left = t.classList.contains('l') && !small;
+    const edge = S * (small ? .25 : .2);
+    t.style.top = (ty - t.offsetHeight / 2).toFixed(1) + 'px';
+    if (left) { t.style.left = 'auto'; t.style.right = (W - (sr.left + edge)).toFixed(1) + 'px'; } else { t.style.right = 'auto'; t.style.left = (small ? sr.left + .75 * S + 2 : sr.right - edge).toFixed(1) + 'px'; t.style.flexDirection = 'row'; }
+    t.style.opacity = k.toFixed(3); t.style.transform = `translateX(${((left ? 1 : -1) * (1 - k) * 30).toFixed(1)}px)`;
+  });
+
+  top_.classList.toggle('solid', cur > H * .4);
+  rays.style.transform = `rotate(${(now / 120 % 360).toFixed(1)}deg)`;
+  drawConfetti();
+  const rr = restImg.parentElement.getBoundingClientRect(); restImg.style.transform = `translateY(${(((rr.top + rr.height / 2) - H / 2) / H * -60).toFixed(1)}px)`;
+
+  // the scooter rides along the bottom as you scroll
+  const tp = clamp(cur / Math.max(1, document.documentElement.scrollHeight - H));
+  rider.style.transform = `translateX(${(8 + tp * (W - 102)).toFixed(1)}px) translateY(${(reduce ? 0 : Math.abs(Math.sin(cur / 40)) * -3).toFixed(1)}px)`;
+  rider.style.opacity = cur > 30 ? 1 : 0;
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
