@@ -52,7 +52,6 @@ em{font-style:italic;color:var(--gold2)}
 #hero .ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
 #arch{position:absolute;z-index:2;overflow:hidden;background:#000}
 #arch img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-#arch #recep{opacity:0}
 #arch::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(8,6,5,.88),rgba(8,6,5,.25) 55%,transparent);opacity:var(--shade,0)}
 #ring{position:absolute;z-index:1;border:1px solid var(--gold);pointer-events:none}
 #card{position:absolute;z-index:4;background:rgba(14,11,10,.88);border:1px solid var(--line);padding:18px 24px;text-align:right;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
@@ -161,7 +160,7 @@ footer a{text-decoration:none;color:#c5bba9}
 </defs></svg>
 
 <header id="top">
-  <a class="lg" href="#hero" aria-label="Gadis Spa, inicio"><img src="img/logo.png" alt="Gadis Spa"></a>
+  <span class="lg" aria-hidden="true"></span>
   <nav><a href="#experiencias" data-i="n1">Experiencias</a><a href="#pilares" data-i="n2">El espacio</a><a href="#visita" data-i="n3">Visítanos</a><a href="#faq" data-i="n4">Preguntas</a></nav>
   <div class="right"><button id="lang" aria-label="Change language to English">EN</button><a class="wa js-wa" href="#" target="_blank" rel="noopener"><svg><use href="#wai"/></svg><span data-i="book">Reservar</span></a></div>
 </header>
@@ -178,7 +177,7 @@ footer a{text-decoration:none;color:#c5bba9}
       <div class="ctas"><a class="wa js-wa" href="#" target="_blank" rel="noopener"><svg><use href="#wai"/></svg><span data-i="h4">Escríbenos por WhatsApp</span></a><a class="ghost" href="#experiencias" data-i="h5">Ver experiencias</a></div>
     </div>
     <i id="ring"></i>
-    <div id="arch"><img src="img/stones-arch.jpg" alt="Piedras calientes y velas encendidas sobre una bandeja de nogal"><img id="recep" src="img/recepcion.jpg" alt="Recepción de Gadis Spa en Manila, El Poblado"></div>
+    <div id="arch"><img src="img/recepcion.jpg" alt="Recepción de Gadis Spa en Manila, El Poblado, con el logo dorado iluminado"></div>
     <div id="card"><b>Gadis Spa</b><span data-i="card">Manila · El Poblado · Medellín</span></div>
     <div id="inside"><p class="eyebrow" data-i="i0">Un refugio en Medellín</p><h2 style="margin-top:16px" data-i="i1">La ciudad queda <em>un poco más lejos.</em></h2><p data-i="i2">Luz cálida, detalles cuidados y atención personalizada acompañan cada visita.</p></div>
   </div>
@@ -330,7 +329,7 @@ setLang(/^en/i.test(navigator.language || '') && !/^es/i.test(navigator.language
 /* the cards light up under the mouse */
 document.querySelectorAll('.card').forEach(c => c.addEventListener('pointermove', e => { const r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px'); }));
 
-const top_ = $('#top'), hero = $('#hero'), arch = $('#arch'), ring = $('#ring'), card = $('#card'), txt = $('#hero .txt'), inside = $('#inside'), recep = $('#recep'), archImg = arch.firstElementChild;
+const top_ = $('#top'), hero = $('#hero'), arch = $('#arch'), ring = $('#ring'), card = $('#card'), txt = $('#hero .txt'), inside = $('#inside'), archImg = arch.firstElementChild;
 const resp = $('#respira'), orb = $('#orb'), orb2 = $('#orb2'), bword = $('#bword'), rhythm = $('#rhythm'), lotus = [...document.querySelectorAll('#lotus path')];
 lotus.forEach(p => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.dataset.l = L; });
 const pars = [...document.querySelectorAll('img[data-par]')], bandImg = $('#bandImg'), sbar = $('#sbar'), steps = $('#steps'), fin = $('#fin'), finImg = $('#finImg');
@@ -349,8 +348,11 @@ function frame() {
   Object.assign(arch.style, { left: ax + 'px', top: ay + 'px', width: aw + 'px', height: ah + 'px', borderRadius: `${rr}px ${rr}px 0 0` });
   Object.assign(ring.style, { left: ax0 + 16 + 'px', top: ay0 - 16 + 'px', width: aw0 + 'px', height: ah0 + 'px', borderRadius: `${aw0 / 2}px ${aw0 / 2}px 0 0`, opacity: (1 - ramp(hp, .04, .16)).toFixed(3) });
   Object.assign(card.style, { left: ax0 + aw0 * .42 + 'px', top: ay0 + ah0 - 44 + 'px', opacity: (1 - ramp(hp, .02, .1)).toFixed(3) });
-  archImg.style.transform = `scale(${(1.12 - .12 * g).toFixed(4)})`;
-  recep.style.opacity = ease(ramp(hp, .5, .68)).toFixed(3);
+  // starts close on the lit logo, pulls back to the whole reception as the arch opens
+  const zx = lerp(84, 50, g), zy = lerp(30, 50, g);
+  archImg.style.objectPosition = `${zx.toFixed(2)}% ${zy.toFixed(2)}%`;
+  archImg.style.transformOrigin = `${zx.toFixed(2)}% ${zy.toFixed(2)}%`;
+  archImg.style.transform = `scale(${lerp(small ? 1.5 : 1.4, 1, g).toFixed(4)})`;
   arch.style.setProperty('--shade', ramp(hp, .6, .75).toFixed(3));
   txt.style.opacity = (1 - ramp(hp, .02, .14)).toFixed(3); txt.style.pointerEvents = hp > .1 ? 'none' : '';
   const ins = ramp(hp, .72, .86); inside.style.opacity = ins.toFixed(3); inside.style.transform = `translateY(${(30 * (1 - ins)).toFixed(1)}px)`;
