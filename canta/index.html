@@ -12,8 +12,8 @@
 --mic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='30' viewBox='0 0 32 30'%3E%3Cpath d='M16 27C6 20 2 15 2 9.5 2 5.4 5.2 2.5 9 2.5c3 0 5.2 1.7 7 4.2 1.8-2.5 4-4.2 7-4.2 3.8 0 7 2.9 7 7 0 5.5-4 10.5-14 17.5z' fill='%23c25b32' stroke='%232a1712' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M7 8.5c.8-1.6 2.4-2.4 4-2.2' fill='none' stroke='%23ffac8d' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") 16 14,auto}
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
-body{background:var(--cream);color:var(--ink);font:400 17px/1.55 'Work Sans',system-ui,sans-serif;overflow-x:hidden;cursor:var(--mic)}
-a,button{cursor:var(--mic)}
+body{background:var(--cream);color:var(--ink);font:400 17px/1.55 'Work Sans',system-ui,sans-serif;overflow-x:hidden}
+a,button{cursor:pointer}
 img,video{display:block;max-width:100%}
 .hand{font-family:var(--hand);font-weight:400}
 h2{font-family:var(--disp);font-weight:400;letter-spacing:-.01em;line-height:.98;font-size:clamp(42px,6.6vw,96px)}
@@ -132,7 +132,7 @@ footer img{height:22px;width:auto}
 
 /* the singing heart */
 .walker{position:fixed;left:0;bottom:6px;z-index:35;width:92px;transition:opacity .4s}
-.walker button{all:unset;display:block;cursor:var(--mic)}
+.walker button{all:unset;display:block;cursor:pointer}
 .walker svg{display:block;overflow:visible}
 .bubble{position:absolute;left:50%;bottom:120px;white-space:nowrap;background:var(--cream);color:var(--ink);font-weight:700;font-size:14px;padding:8px 13px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.25);opacity:0;transform:translate(-50%,8px);transition:opacity .25s,transform .25s;pointer-events:none}
 .bubble::after{content:"";position:absolute;left:50%;bottom:-6px;margin-left:-6px;border:6px solid transparent;border-bottom:0;border-top-color:var(--cream)}
