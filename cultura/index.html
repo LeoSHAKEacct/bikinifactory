@@ -100,6 +100,29 @@ header nav a{text-decoration:none}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:50;width:100%;height:100%}
 @media(max-width:900px){.builder{grid-template-columns:1fr;gap:10px;margin-top:26px}.stage{position:sticky;top:68px;z-index:6;width:min(250px,64vw);background:var(--bg);box-shadow:0 0 0 100vmax var(--bg);clip-path:inset(0 -100vmax);border-bottom:1px solid var(--line)}.lbl{display:none}}
 
+#stats{background:var(--g);color:#fff;padding:34px 0}
+#stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+#stats b{font-family:var(--serif);font-weight:600;font-size:clamp(32px,3.6vw,48px);line-height:1}
+#stats b.star{font-size:.8em;margin-left:2px}
+#stats span{display:block;margin-top:8px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;opacity:.9}
+@media(max-width:700px){#stats .wrap{grid-template-columns:1fr 1fr;row-gap:26px}}
+#menu{background:var(--gl);padding:clamp(70px,10vh,110px) 0}
+#menu h2{font-size:clamp(34px,4.4vw,60px);margin-top:12px}
+.mlead{color:var(--mut);font-size:18px;max-width:700px;margin-top:14px}
+.dishes{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px}
+.dish{display:flex;gap:18px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;transition:transform .3s,box-shadow .3s}
+.dish:hover{transform:translateY(-3px);box-shadow:0 20px 40px -26px rgba(15,60,40,.4)}
+.dish img{width:96px;height:96px;border-radius:16px;object-fit:cover;flex:0 0 auto;box-shadow:0 8px 18px -8px rgba(0,0,0,.4);transition:transform .4s}
+.dish:hover img{transform:scale(1.06) rotate(-2deg)}
+.dish h3{font-size:24px}
+.dish p{color:var(--mut);margin-top:4px}
+.mbtns{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.mb{display:inline-flex;align-items:center;gap:8px;padding:15px 26px;border-radius:99px;background:var(--g);color:#fff;font-weight:700;text-decoration:none;box-shadow:0 12px 26px -12px rgba(15,138,95,.6)}
+.mb.o{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none}
+@media(max-width:820px){.dishes{grid-template-columns:1fr}}
+.greviews{display:inline-block;margin-top:24px;font-weight:600;color:var(--g);text-decoration:none}
+.barph{border-radius:22px;overflow:hidden;aspect-ratio:678/820;position:sticky;top:90px}
+.barph img{width:100%;height:112%;object-fit:cover;margin-top:-6%}
 /* why */
 #why{padding:clamp(70px,10vh,110px) 0;border-top:1px solid var(--line)}
 #why .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);align-items:start}
@@ -109,11 +132,6 @@ header nav a{text-decoration:none}
 #why li i{font-style:normal;font-size:24px;grid-row:span 2}
 #why li b{font-size:18px}
 #why li span{color:var(--mut)}
-.score{margin-top:34px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px;text-align:center}
-.score b{display:block;font-family:var(--serif);font-size:72px;color:var(--g);line-height:1}
-.score .st{color:var(--mustard);font-size:24px;letter-spacing:4px;margin:6px 0}
-.score span{color:var(--mut)}
-.score a{display:inline-block;margin-top:14px;font-weight:600;color:var(--g)}
 @media(max-width:820px){#why .grid{grid-template-columns:1fr}}
 
 /* find us */
@@ -140,7 +158,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 <header>
   <div class="wrap">
     <a class="brand" href="#book" aria-label="A Cultura do Hambúrguer"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="none" stroke="#17201c" stroke-width="2" stroke-dasharray="2 4"/><text font-family="Newsreader,Georgia" font-weight="700" font-size="17" text-anchor="middle"><tspan x="50" y="47">A Cultura</tspan><tspan x="50" y="65" font-size="14">do Hambúrguer</tspan></text></svg><b>A Cultura do Hambúrguer</b></a>
-    <nav><a href="#book" data-i="nav1">Book</a><a href="#why" data-i="nav2">Why us</a><a href="#find" data-i="nav3">Find us</a></nav>
+    <nav><a href="#book" data-i="nav1">Book</a><a href="#menu" data-i="nav4">Menu</a><a href="#why" data-i="nav2">Why us</a><a href="#find" data-i="nav3">Find us</a></nav>
     <div class="lang" role="group" aria-label="Language"><button data-l="pt" aria-pressed="false">PT</button><button data-l="en" aria-pressed="true">EN</button></div>
   </div>
 </header>
@@ -222,20 +240,45 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   </div>
 </section>
 
+<section id="stats">
+  <div class="wrap">
+    <div class="rv"><b data-n="4.7" data-d="1">4,7</b><b class="star">★</b><span data-i="st1">On Google</span></div>
+    <div class="rv"><b data-n="6000" data-plus="1">6000+</b><span data-i="st2">Reviews</span></div>
+    <div class="rv"><b data-n="160" data-u="g">160g</b><span data-i="st3">Premium beef</span></div>
+    <div class="rv"><b>00:00</b><span data-i="st4">Open late</span></div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="wrap">
+    <p class="eyebrow rv" data-i="m0">Our menu</p>
+    <h2 class="rv" data-i="m1">Handmade, with culture</h2>
+    <p class="mlead rv" data-i="m2">Fresh produce, a New York chef's technique and the flavour of Bairro Alto. Here are the house highlights.</p>
+    <div class="dishes">
+      <article class="dish rv"><img src="img/artisan.jpg" alt="Artisan burger with tomato and lettuce on a slate" loading="lazy"><div><h3 data-i="d1">Artisan burgers</h3><p data-i="d1d">160g premium Portuguese beef and handmade buns. Our classic.</p></div></article>
+      <article class="dish rv"><img src="img/salgadeiras.jpg" alt="The Salgadeiras burger with fries" loading="lazy"><div><h3>Salgadeiras</h3><p data-i="d2d">Our iconic house signature, only in Bairro Alto.</p></div></article>
+      <article class="dish rv"><img src="img/pregos.jpg" alt="Beef prego sandwich with fries" loading="lazy"><div><h3 data-i="d3">Beef &amp; tuna pregos</h3><p data-i="d3d">Portuguese classics, generously served.</p></div></article>
+      <article class="dish rv"><img src="img/veggie.jpg" alt="Vegetarian burger in a red bun" loading="lazy"><div><h3 data-i="d4">Vegetarian option</h3><p data-i="d4d">Something for everyone at the table.</p></div></article>
+    </div>
+    <div class="mbtns rv"><a class="mb" href="#book">🍽 <span data-i="m3">Book online</span></a><a class="mb o" href="tel:+351213462322" data-i="m4">Call for takeaway</a></div>
+    <p class="note rv" data-i="m5">We also have options to share and to take away. Give us a call.</p>
+  </div>
+</section>
+
 <section id="why">
   <div class="wrap grid">
     <div>
       <p class="eyebrow rv" data-i="w0">Why A Cultura</p>
       <h2 class="rv" data-i="w1">Lisbon's top rated, in the heart of Bairro Alto</h2>
-      <div class="score rv"><b>4,7</b><div class="st">★★★★★</div><span data-i="w2">6,053 Google reviews</span><br><a href="https://www.google.com/maps/search/?api=1&query=A%20Cultura%20do%20Hamb%C3%BArguer%20Rua%20da%20Atalaia%2057%20Lisboa" target="_blank" rel="noopener" data-i="w3">See Google reviews ↗</a></div>
+      <ul>
+        <li class="rv"><i>🗽</i><b data-i="a1">New York chef technique</b><span data-i="a1d">Recipe and method that make the difference.</span></li>
+        <li class="rv"><i>🥩</i><b data-i="a2">160g premium beef</b><span data-i="a2d">Selected Portuguese beef, juicy.</span></li>
+        <li class="rv"><i>🕛</i><b data-i="a4">Open until midnight</b><span data-i="a4d">Every day, from lunch until midnight.</span></li>
+        <li class="rv"><i>🏆</i><b data-i="a5">Travelers' Choice 2025</b><span data-i="a5d">Recognised by thousands of guests.</span></li>
+      </ul>
+      <a class="greviews rv" href="https://www.google.com/maps/search/?api=1&query=A%20Cultura%20do%20Hamb%C3%BArguer%20Rua%20da%20Atalaia%2057%20Lisboa" target="_blank" rel="noopener">★ 4,7 · <span data-i="w3">See Google reviews ↗</span></a>
     </div>
-    <ul>
-      <li class="rv"><i>🗽</i><b data-i="a1">New York chef technique</b><span data-i="a1d">Recipe and method that make the difference.</span></li>
-      <li class="rv"><i>🥩</i><b data-i="a2">160g premium beef</b><span data-i="a2d">Selected Portuguese beef, juicy.</span></li>
-      <li class="rv"><i>🍞</i><b data-i="a3">Handmade buns</b><span data-i="a3d">Baked for the burger, not the other way around.</span></li>
-      <li class="rv"><i>🕛</i><b data-i="a4">Open until midnight</b><span data-i="a4d">Every day, from lunch until midnight.</span></li>
-      <li class="rv"><i>🏆</i><b data-i="a5">Travelers' Choice 2025</b><span data-i="a5d">Recognised by thousands of guests.</span></li>
-    </ul>
+    <div class="barph rv"><img id="barImg" src="img/bar.jpg" alt="The bar at A Cultura do Hambúrguer: hanging bulbs, painted mural and pallet shelves" loading="lazy"></div>
   </div>
 </section>
 
@@ -266,7 +309,7 @@ $$('.rv').forEach(el => io.observe(el));
 
 /* words */
 const T = {
-  en: { nav1: 'Book', nav2: 'Why us', nav3: 'Find us', rev: '· 6,000+ reviews', h1: 'Look inside. <em>Book your table.</em>', lead: 'Five taps and your table for tonight is ready, in the heart of Bairro Alto. Meanwhile, take a look inside what you are coming for.',
+  en: { nav4: 'Menu', st1: 'On Google', st2: 'Reviews', st3: 'Premium beef', st4: 'Open late', m0: 'Our menu', m1: 'Handmade, with culture', m2: "Fresh produce, a New York chef's technique and the flavour of Bairro Alto. Here are the house highlights.", d1: 'Artisan burgers', d1d: '160g premium Portuguese beef and handmade buns. Our classic.', d2d: 'Our iconic house signature, only in Bairro Alto.', d3: 'Beef &amp; tuna pregos', d3d: 'Portuguese classics, generously served.', d4: 'Vegetarian option', d4d: 'Something for everyone at the table.', m3: 'Book online', m4: 'Call for takeaway', m5: 'We also have options to share and to take away. Give us a call.', nav1: 'Book', nav2: 'Why us', nav3: 'Find us', rev: '· 6,000+ reviews', h1: 'Look inside. <em>Book your table.</em>', lead: 'Five taps and your table for tonight is ready, in the heart of Bairro Alto. Meanwhile, take a look inside what you are coming for.',
     s1k: 'Step 1 · The bottom bun', s1: 'How many are coming?', s2k: 'Step 2 · 160g of beef', s2: 'Which day?', s3k: 'Step 3 · Melt the cheese', s3: 'What time?', s4: "Who's the table for?", name: 'Your name', occ: 'Anything to celebrate? (optional)', s5k: 'Step 5 · Close it up', s5: 'Your table is ready to order.',
     next: 'Add the layer', back: '← Back', call: 'Call to confirm · 213 462 322', copy: 'Copy details', copied: 'Copied!', again: 'Start again', note: "Read us your ticket on the phone and we'll confirm the table. We're open every day until midnight.",
     lunch: 'Lunch', dinner: 'Dinner', late: 'Late', today: 'Today', tomorrow: 'Tomorrow', people: n => n === 1 ? '1 person' : n + ' people', group: 'Big group',
@@ -274,7 +317,7 @@ const T = {
     fName: 'Name', fGuests: 'guests', w0: 'Why A Cultura', w1: "Lisbon's top rated, in the heart of Bairro Alto", w2: '6,053 Google reviews', w3: 'See Google reviews ↗',
     a1: 'New York chef technique', a1d: 'Recipe and method that make the difference.', a2: '160g premium beef', a2d: 'Selected Portuguese beef, juicy.', a3: 'Handmade buns', a3d: 'Baked for the burger, not the other way around.', a4: 'Open until midnight', a4d: 'Every day, from lunch until midnight.', a5: "Travelers' Choice 2025", a5d: 'Recognised by thousands of guests.',
     f0: 'Find us', f1: 'Come by, in Bairro Alto', f2: 'Hours', f3: 'Every day, from lunch until midnight', f4: 'Call to book your table', f5: 'Get directions (Google Maps) ↗', foot: 'Web design demo. The burger is an illustrative 3D render.', locale: 'en-GB' },
-  pt: { nav1: 'Reservar', nav2: 'Porquê nós', nav3: 'Onde estamos', rev: '· +6.000 avaliações', h1: 'Espreita por dentro. <em>Reserva a tua mesa.</em>', lead: 'Cinco toques e a tua mesa para hoje está pronta, no coração do Bairro Alto. Entretanto, espreita por dentro o que te espera.',
+  pt: { nav4: 'Menu', st1: 'No Google', st2: 'Avaliações', st3: 'Carne premium', st4: 'Aberto até tarde', m0: 'O nosso menu', m1: 'Feito à mão, com cultura', m2: 'Produtos frescos, a técnica de um chef de Nova Iorque e o sabor do Bairro Alto. Aqui ficam os destaques da casa.', d1: 'Hambúrgueres artesanais', d1d: '160g de carne portuguesa premium e pão artesanal. O nosso clássico.', d2d: 'A nossa assinatura icónica, só no Bairro Alto.', d3: 'Pregos de novilho e atum', d3d: 'Clássicos portugueses, bem servidos.', d4: 'Opção vegetariana', d4d: 'Há algo para todos à mesa.', m3: 'Reservar online', m4: 'Ligar para take-away', m5: 'Também temos opções para partilhar e para levar. Liga-nos.', nav1: 'Reservar', nav2: 'Porquê nós', nav3: 'Onde estamos', rev: '· +6.000 avaliações', h1: 'Espreita por dentro. <em>Reserva a tua mesa.</em>', lead: 'Cinco toques e a tua mesa para hoje está pronta, no coração do Bairro Alto. Entretanto, espreita por dentro o que te espera.',
     s1k: 'Passo 1 · O pão de baixo', s1: 'Quantos vêm?', s2k: 'Passo 2 · 160g de carne', s2: 'Que dia?', s3k: 'Passo 3 · Derrete o queijo', s3: 'A que horas?', s4: 'Em nome de quem?', name: 'O teu nome', occ: 'Alguma coisa para celebrar? (opcional)', s5k: 'Passo 5 · Fecha-se o pão', s5: 'A tua mesa está pronta a pedir.',
     next: 'Juntar a camada', back: '← Voltar', call: 'Ligar para confirmar · 213 462 322', copy: 'Copiar detalhes', copied: 'Copiado!', again: 'Começar de novo', note: 'Liga-nos, lê-nos o talão e confirmamos a mesa. Estamos abertos todos os dias até à meia-noite.',
     lunch: 'Almoço', dinner: 'Jantar', late: 'Noite', today: 'Hoje', tomorrow: 'Amanhã', people: n => n === 1 ? '1 pessoa' : n + ' pessoas', group: 'Grupo grande',
@@ -393,6 +436,15 @@ function loop(now) {
   });
 }
 requestAnimationFrame(loop);
+
+const sio = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; sio.unobserve(e.target);
+  const b = e.target, to = +b.dataset.n, dec = +(b.dataset.d || 0), t1 = performance.now();
+  (function f(t) { const k = reduce ? 1 : Math.min(1, (t - t1) / 1400), v = to * (1 - Math.pow(1 - k, 3));
+    b.textContent = (dec ? v.toFixed(dec).replace('.', ',') : Math.round(v).toLocaleString('en').replace(/,/g, L === 'pt' ? '.' : ',')) + (b.dataset.u || '') + (b.dataset.plus ? '+' : '');
+    if (k < 1) requestAnimationFrame(f); })(t1); }), { threshold: .6 });
+$$('#stats b[data-n]').forEach(b => sio.observe(b));
+const barImg = $('#barImg');
+addEventListener('scroll', () => { const r = barImg.parentElement.getBoundingClientRect(); barImg.style.transform = `translateY(${(((r.top + r.height / 2) - innerHeight / 2) / innerHeight * -40).toFixed(1)}px)`; }, { passive: true });
 
 render(); show(0);
 </script>
