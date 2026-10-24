@@ -43,13 +43,8 @@ header nav a{text-decoration:none}
 #book h1 em{font-style:italic;color:var(--g)}
 #book p.lead{font-size:clamp(17px,1.6vw,21px);color:var(--mut);max-width:640px}
 .builder{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,56px);margin-top:42px;align-items:center}
-.stage{position:relative;aspect-ratio:1/1;max-height:640px;width:100%;margin:0 auto}
-.stage .ly{position:absolute;left:-10%;top:-16%;width:120%;height:120%;max-width:none;pointer-events:none;will-change:transform,opacity}
-.stage .shade{position:absolute;left:30%;right:30%;top:66%;height:6%;border-radius:50%;background:radial-gradient(closest-side,rgba(23,32,28,.28),transparent);filter:blur(3px)}
-.lbl{position:absolute;z-index:3;display:flex;align-items:center;gap:8px;white-space:nowrap;font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:color .3s}
-.lbl::before{content:"";width:22px;height:1.5px;background:var(--g)}
-.lbl.l{flex-direction:row-reverse}
-.lbl.hot{color:var(--g)}
+.stage{position:relative;aspect-ratio:464/640;width:min(100%,490px);max-width:100%;margin:0 auto;border-radius:28px;overflow:hidden;background:#1d1d1d;box-shadow:0 40px 80px -40px rgba(15,40,30,.55)}
+.stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .stage.squish{animation:squish .4s ease}
 @keyframes squish{40%{transform:scale(1.04,.94)}100%{transform:none}}
 
@@ -98,7 +93,7 @@ header nav a{text-decoration:none}
 .acts .call{background:var(--g);color:#fff;grid-column:1/-1;font-size:17px}
 .acts .sec{background:#fff;color:var(--g)}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:50;width:100%;height:100%}
-@media(max-width:900px){.builder{grid-template-columns:1fr;gap:10px;margin-top:26px}.stage{position:sticky;top:68px;z-index:6;width:min(250px,64vw);background:var(--bg);box-shadow:0 0 0 100vmax var(--bg);clip-path:inset(0 -100vmax);border-bottom:1px solid var(--line)}.lbl{display:none}}
+@media(max-width:900px){.builder{grid-template-columns:1fr;gap:10px;margin-top:26px}.stage{width:min(320px,78vw);border-radius:22px}}
 
 #stats{background:var(--g);color:#fff;padding:34px 0}
 #stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
@@ -171,21 +166,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
     <div class="builder">
       <div class="stage" id="stage" aria-hidden="true">
-        <i class="shade"></i>
-        <img class="ly" data-ly="bun_bottom" src="img/c/L_bun_bottom.webp" alt="">
-        <img class="ly" data-ly="lettuce" src="img/c/L_lettuce.webp" alt="">
-        <img class="ly" data-ly="patty" src="img/c/L_patty.webp" alt="">
-        <img class="ly" data-ly="cheese" src="img/c/L_cheese.webp" alt="">
-        <img class="ly" data-ly="egg" src="img/c/L_egg.webp" alt="">
-        <img class="ly" data-ly="bun_top" src="img/c/L_bun_top.webp" alt="">
-        <img class="ly whole" id="back" src="img/c/back.webp" alt="">
-        <img class="ly whole" id="front" src="img/c/front.webp" alt="">
-        <span class="lbl" data-for="bun_top" data-i="g8">Sesame bun</span>
-        <span class="lbl l" data-for="egg" data-i="g4">Fried egg</span>
-        <span class="lbl" data-for="cheese" data-i="g3">Melted cheese</span>
-        <span class="lbl l" data-for="patty" data-i="g2">160g premium beef</span>
-        <span class="lbl" data-for="lettuce" data-i="g7">Fresh lettuce</span>
-        <span class="lbl l" data-for="bun_bottom" data-i="g1">Handmade bun</span>
+        <video id="burgerVid" src="img/burger.mp4" poster="img/burger-poster.jpg" muted loop playsinline autoplay preload="auto"></video>
       </div>
 
       <div class="panel" id="panel">
@@ -195,14 +176,14 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
           <p class="k">🍞 <span data-i="s1k">Step 1 · The bottom bun</span></p>
           <h2 data-i="s1">How many are coming?</h2>
           <div class="chips" id="people"></div>
-          <button class="go" data-next disabled><span data-i="next">Add the layer</span> ↓</button>
+          <button class="go" data-next disabled><span data-i="next">Next</span> ↓</button>
         </div>
 
         <div class="step" data-s="1">
           <p class="k">🥩 <span data-i="s2k">Step 2 · 160g of beef</span></p>
           <h2 data-i="s2">Which day?</h2>
           <div class="chips" id="days"></div>
-          <button class="go" data-next disabled><span data-i="next">Add the layer</span> ↓</button>
+          <button class="go" data-next disabled><span data-i="next">Next</span> ↓</button>
           <button class="back" data-back data-i="back">← Back</button>
         </div>
 
@@ -210,7 +191,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
           <p class="k">🧀 <span data-i="s3k">Step 3 · Melt the cheese</span></p>
           <h2 data-i="s3">What time?</h2>
           <div class="slots" id="slots"></div>
-          <button class="go" data-next disabled><span data-i="next">Add the layer</span> ↓</button>
+          <button class="go" data-next disabled><span data-i="next">Next</span> ↓</button>
           <button class="back" data-back data-i="back">← Back</button>
         </div>
 
@@ -220,7 +201,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
           <label class="field"><span data-i="name">Your name</span><input id="name" autocomplete="name" maxlength="40"></label>
           <p class="k" style="margin:4px 0 8px;color:var(--ink)" data-i="occ">Anything to celebrate? (optional)</p>
           <div class="chips" id="occ"></div>
-          <button class="go" data-next disabled><span data-i="next">Add the layer</span> ↓</button>
+          <button class="go" data-next disabled><span data-i="next">Next</span> ↓</button>
           <button class="back" data-back data-i="back">← Back</button>
         </div>
 
@@ -298,7 +279,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   </div>
 </section>
 
-<footer><div class="wrap"><span>© A Cultura do Hambúrguer · Bairro Alto, Lisboa</span><span data-i="foot">Web design demo. The burger is an illustrative 3D render.</span></div></footer>
+<footer><div class="wrap"><span>© A Cultura do Hambúrguer · Bairro Alto, Lisboa</span><span data-i="foot">Web design demo. The burger video is illustrative.</span></div></footer>
 <canvas id="confetti"></canvas>
 
 <script>
@@ -310,25 +291,25 @@ $$('.rv').forEach(el => io.observe(el));
 /* words */
 const T = {
   en: { nav4: 'Menu', st1: 'On Google', st2: 'Reviews', st3: 'Premium beef', st4: 'Open late', m0: 'Our menu', m1: 'Handmade, with culture', m2: "Fresh produce, a New York chef's technique and the flavour of Bairro Alto. Here are the house highlights.", d1: 'Artisan burgers', d1d: '160g premium Portuguese beef and handmade buns. Our classic.', d2d: 'Our iconic house signature, only in Bairro Alto.', d3: 'Beef &amp; tuna pregos', d3d: 'Portuguese classics, generously served.', d4: 'Vegetarian option', d4d: 'Something for everyone at the table.', m3: 'Book online', m4: 'Call for takeaway', m5: 'We also have options to share and to take away. Give us a call.', nav1: 'Book', nav2: 'Why us', nav3: 'Find us', rev: '· 6,000+ reviews', h1: 'Look inside. <em>Book your table.</em>', lead: 'Five taps and your table for tonight is ready, in the heart of Bairro Alto. Meanwhile, take a look inside what you are coming for.',
-    s1k: 'Step 1 · The bottom bun', s1: 'How many are coming?', s2k: 'Step 2 · 160g of beef', s2: 'Which day?', s3k: 'Step 3 · Melt the cheese', s3: 'What time?', s4: "Who's the table for?", name: 'Your name', occ: 'Anything to celebrate? (optional)', s5k: 'Step 5 · Close it up', s5: 'Your table is ready to order.',
-    next: 'Add the layer', back: '← Back', call: 'Call to confirm · 213 462 322', copy: 'Copy details', copied: 'Copied!', again: 'Start again', note: "Read us your ticket on the phone and we'll confirm the table. We're open every day until midnight.",
+    s1k: 'Step 1 · Guests', s1: 'How many are coming?', s2k: 'Step 2 · Day', s2: 'Which day?', s3k: 'Step 3 · Time', s3: 'What time?', s4: "Who's the table for?", name: 'Your name', occ: 'Anything to celebrate? (optional)', s5k: 'Step 5 · Your table', s5: 'Your table is ready to order.',
+    next: 'Next', back: '← Back', call: 'Call to confirm · 213 462 322', copy: 'Copy details', copied: 'Copied!', again: 'Start again', note: "Read us your ticket on the phone and we'll confirm the table. We're open every day until midnight.",
     lunch: 'Lunch', dinner: 'Dinner', late: 'Late', today: 'Today', tomorrow: 'Tomorrow', people: n => n === 1 ? '1 person' : n + ' people', group: 'Big group',
-    occs: ['Birthday 🎂', 'Date night ❤️', 'Friends 🍻', 'Work 💼', 'First time in Lisbon ✈️'], tk: 'Table ticket', tName: 'Name', tPeople: 'Guests', tDay: 'Day', tTime: 'Time', tOcc: 'Occasion', tTotal: 'Burgers to build', g1: 'Handmade bun', g2: '160g premium beef', g3: 'Melted cheese', g4: 'Fried egg', g7: 'Fresh lettuce', g8: 'Sesame bun', s4k: 'Step 4 · The fried egg',
+    occs: ['Birthday 🎂', 'Date night ❤️', 'Friends 🍻', 'Work 💼', 'First time in Lisbon ✈️'], tk: 'Table ticket', tName: 'Name', tPeople: 'Guests', tDay: 'Day', tTime: 'Time', tOcc: 'Occasion', tTotal: 'Burgers to build', g1: 'Handmade bun', g2: '160g premium beef', g3: 'Melted cheese', g4: 'Fried egg', g7: 'Fresh lettuce', g8: 'Sesame bun', s4k: 'Step 4 · Your name',
     fName: 'Name', fGuests: 'guests', w0: 'Why A Cultura', w1: "Lisbon's top rated, in the heart of Bairro Alto", w2: '6,053 Google reviews', w3: 'See Google reviews ↗',
     a1: 'New York chef technique', a1d: 'Recipe and method that make the difference.', a2: '160g premium beef', a2d: 'Selected Portuguese beef, juicy.', a3: 'Handmade buns', a3d: 'Baked for the burger, not the other way around.', a4: 'Open until midnight', a4d: 'Every day, from lunch until midnight.', a5: "Travelers' Choice 2025", a5d: 'Recognised by thousands of guests.',
-    f0: 'Find us', f1: 'Come by, in Bairro Alto', f2: 'Hours', f3: 'Every day, from lunch until midnight', f4: 'Call to book your table', f5: 'Get directions (Google Maps) ↗', foot: 'Web design demo. The burger is an illustrative 3D render.', locale: 'en-GB' },
+    f0: 'Find us', f1: 'Come by, in Bairro Alto', f2: 'Hours', f3: 'Every day, from lunch until midnight', f4: 'Call to book your table', f5: 'Get directions (Google Maps) ↗', foot: 'Web design demo. The burger video is illustrative.', locale: 'en-GB' },
   pt: { nav4: 'Menu', st1: 'No Google', st2: 'Avaliações', st3: 'Carne premium', st4: 'Aberto até tarde', m0: 'O nosso menu', m1: 'Feito à mão, com cultura', m2: 'Produtos frescos, a técnica de um chef de Nova Iorque e o sabor do Bairro Alto. Aqui ficam os destaques da casa.', d1: 'Hambúrgueres artesanais', d1d: '160g de carne portuguesa premium e pão artesanal. O nosso clássico.', d2d: 'A nossa assinatura icónica, só no Bairro Alto.', d3: 'Pregos de novilho e atum', d3d: 'Clássicos portugueses, bem servidos.', d4: 'Opção vegetariana', d4d: 'Há algo para todos à mesa.', m3: 'Reservar online', m4: 'Ligar para take-away', m5: 'Também temos opções para partilhar e para levar. Liga-nos.', nav1: 'Reservar', nav2: 'Porquê nós', nav3: 'Onde estamos', rev: '· +6.000 avaliações', h1: 'Espreita por dentro. <em>Reserva a tua mesa.</em>', lead: 'Cinco toques e a tua mesa para hoje está pronta, no coração do Bairro Alto. Entretanto, espreita por dentro o que te espera.',
-    s1k: 'Passo 1 · O pão de baixo', s1: 'Quantos vêm?', s2k: 'Passo 2 · 160g de carne', s2: 'Que dia?', s3k: 'Passo 3 · Derrete o queijo', s3: 'A que horas?', s4: 'Em nome de quem?', name: 'O teu nome', occ: 'Alguma coisa para celebrar? (opcional)', s5k: 'Passo 5 · Fecha-se o pão', s5: 'A tua mesa está pronta a pedir.',
-    next: 'Juntar a camada', back: '← Voltar', call: 'Ligar para confirmar · 213 462 322', copy: 'Copiar detalhes', copied: 'Copiado!', again: 'Começar de novo', note: 'Liga-nos, lê-nos o talão e confirmamos a mesa. Estamos abertos todos os dias até à meia-noite.',
+    s1k: 'Passo 1 · Pessoas', s1: 'Quantos vêm?', s2k: 'Passo 2 · Dia', s2: 'Que dia?', s3k: 'Passo 3 · Hora', s3: 'A que horas?', s4: 'Em nome de quem?', name: 'O teu nome', occ: 'Alguma coisa para celebrar? (opcional)', s5k: 'Passo 5 · A tua mesa', s5: 'A tua mesa está pronta a pedir.',
+    next: 'Seguinte', back: '← Voltar', call: 'Ligar para confirmar · 213 462 322', copy: 'Copiar detalhes', copied: 'Copiado!', again: 'Começar de novo', note: 'Liga-nos, lê-nos o talão e confirmamos a mesa. Estamos abertos todos os dias até à meia-noite.',
     lunch: 'Almoço', dinner: 'Jantar', late: 'Noite', today: 'Hoje', tomorrow: 'Amanhã', people: n => n === 1 ? '1 pessoa' : n + ' pessoas', group: 'Grupo grande',
-    occs: ['Aniversário 🎂', 'Jantar a dois ❤️', 'Amigos 🍻', 'Trabalho 💼', 'Primeira vez em Lisboa ✈️'], tk: 'Talão de mesa', tName: 'Nome', tPeople: 'Pessoas', tDay: 'Dia', tTime: 'Hora', tOcc: 'Ocasião', tTotal: 'Hambúrgueres a montar', g1: 'Pão artesanal', g2: '160g de carne premium', g3: 'Queijo derretido', g4: 'Ovo estrelado', g7: 'Alface fresca', g8: 'Pão com sésamo', s4k: 'Passo 4 · O ovo estrelado',
+    occs: ['Aniversário 🎂', 'Jantar a dois ❤️', 'Amigos 🍻', 'Trabalho 💼', 'Primeira vez em Lisboa ✈️'], tk: 'Talão de mesa', tName: 'Nome', tPeople: 'Pessoas', tDay: 'Dia', tTime: 'Hora', tOcc: 'Ocasião', tTotal: 'Hambúrgueres a montar', g1: 'Pão artesanal', g2: '160g de carne premium', g3: 'Queijo derretido', g4: 'Ovo estrelado', g7: 'Alface fresca', g8: 'Pão com sésamo', s4k: 'Passo 4 · O teu nome',
     fName: 'Nome', fGuests: 'pessoas', w0: 'Porquê A Cultura', w1: 'O mais bem avaliado de Lisboa, no coração do Bairro Alto', w2: '6.053 avaliações no Google', w3: 'Ver avaliações no Google ↗',
     a1: 'Técnica de chef de Nova Iorque', a1d: 'Receita e método que fazem a diferença.', a2: '160g de carne premium', a2d: 'Carne portuguesa selecionada, suculenta.', a3: 'Pão artesanal', a3d: 'Feito para o hambúrguer, e não o contrário.', a4: 'Aberto até à meia-noite', a4d: 'Todos os dias, do almoço à meia-noite.', a5: "Travelers' Choice 2025", a5d: 'Reconhecido por milhares de clientes.',
-    f0: 'Onde estamos', f1: 'Passa por cá, no Bairro Alto', f2: 'Horário', f3: 'Todos os dias, do almoço à meia-noite', f4: 'Liga para reservar a tua mesa', f5: 'Como chegar (Google Maps) ↗', foot: 'Demo de design web. O hambúrguer é um render 3D ilustrativo.', locale: 'pt-PT' }
+    f0: 'Onde estamos', f1: 'Passa por cá, no Bairro Alto', f2: 'Horário', f3: 'Todos os dias, do almoço à meia-noite', f4: 'Liga para reservar a tua mesa', f5: 'Como chegar (Google Maps) ↗', foot: 'Demo de design web. O vídeo do hambúrguer é ilustrativo.', locale: 'pt-PT' }
 };
 let L = /^pt/i.test(navigator.language || '') ? 'pt' : 'en';
 
-/* booking state: each step adds layers to the burger */
+/* booking state */
 const LAYERS = [['bun_bottom'], ['patty'], ['cheese'], ['egg'], ['bun_top']];
 const st = { people: 0, day: null, time: '', name: '', occ: -1 };
 let step = 0;
@@ -359,7 +340,7 @@ function show(i) {
   step = i;
   steps.forEach((s, k) => s.classList.toggle('on', k === i));
   prog.forEach((b, k) => { b.className = k < i ? 'done' : k === i ? 'now' : ''; });
-  if (i === 4) { ticket(); setTimeout(() => { stage.classList.remove('squish'); void stage.offsetWidth; stage.classList.add('squish'); burst(); }, 700); }
+  if (i === 4) { ticket(); if (!reduce) { vid.currentTime = 0; tryPlay(); } setTimeout(() => { stage.classList.remove('squish'); void stage.offsetWidth; stage.classList.add('squish'); burst(); }, 700); }
 }
 function ticket() {
   if (st.day === null) return;
@@ -406,36 +387,11 @@ function tick() {
 }
 
 
-/* the burger next to the form: whole, then the front half slides away and the inside spreads out, then it closes again */
-const LAY = { bun_bottom: [.608, -1.9], lettuce: [.573, -1.05], patty: [.524, -.15], cheese: [.508, .65], egg: [.484, 1.45], bun_top: [.381, 2.5] };
-const LX = { bun_bottom: [.313, .687], lettuce: [.273, .727], patty: [.3, .699], cheese: [.212, .759], egg: [.256, .756], bun_top: [.302, .698] };
-const STEP_LAYER = ['bun_bottom', 'patty', 'cheese', 'egg', 'bun_top'];
-const frontI = $('#front'), backI = $('#back'), cutL = $$('.stage .ly:not(.whole)'), lbls = $$('.lbl');
-const smooth = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2, seg = (t, a, b) => Math.min(1, Math.max(0, (t - a) / (b - a)));
-const t0 = performance.now(), CYCLE = 11;
-function loop(now) {
-  requestAnimationFrame(loop);
-  const t = reduce ? 5 : ((now - t0) / 1000) % CYCLE, S = stage.offsetWidth;
-  const off = smooth(seg(t, 1.8, 3.0)) * (1 - smooth(seg(t, 9.6, 10.6)));          // front half away and back
-  const ex = smooth(seg(t, 3.0, 4.4)) * (1 - smooth(seg(t, 8.4, 9.6)));             // layers apart
-  const bob = reduce ? 0 : Math.sin(now / 800) * S * .008;
-  frontI.style.transform = `translate(${(-off * S * .16).toFixed(1)}px,${(off * S * .32 + bob).toFixed(1)}px) rotate(${(-off * 10).toFixed(2)}deg) scale(${(1 + off * .12).toFixed(3)})`;
-  frontI.style.opacity = (1 - off).toFixed(3);
-  const split = t > 3.0 && t < 9.6;
-  backI.style.opacity = split ? 0 : 1; backI.style.transform = `translateY(${bob.toFixed(1)}px)`;
-  const gap = S * .062, SC = 1.2, OX = -.1, OY = -.16;
-  cutL.forEach(im => { im.style.opacity = split ? 1 : 0; im.style.transform = `translateY(${(-LAY[im.dataset.ly][1] * gap * ex + bob).toFixed(1)}px)`; });
-  const hot = STEP_LAYER[Math.min(step, 4)];
-  lbls.forEach((l, i) => {
-    const [y, lift] = LAY[l.dataset.for], k = seg(t, 4.0 + i * .12, 4.6 + i * .12) * (1 - seg(t, 8.2, 8.6));
-    const ty = (OY + SC * y) * S - lift * gap * ex + bob, [x0, x1] = LX[l.dataset.for];
-    l.style.top = (ty - 9).toFixed(1) + 'px';
-    if (l.classList.contains('l')) { l.style.right = (S - (OX + SC * x0) * S + 4).toFixed(1) + 'px'; l.style.left = 'auto'; } else { l.style.left = ((OX + SC * x1) * S + 4).toFixed(1) + 'px'; l.style.right = 'auto'; }
-    l.style.opacity = k.toFixed(3);
-    l.classList.toggle('hot', l.dataset.for === hot);
-  });
-}
-requestAnimationFrame(loop);
+/* the burger video next to the form; when the ticket is ready it plays the cut again from the start */
+const vid = $('#burgerVid');
+if (reduce) { vid.removeAttribute('autoplay'); vid.pause(); }
+const tryPlay = () => { if (!reduce) vid.play().catch(() => {}); };
+new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? tryPlay() : vid.pause()), { threshold: .2 }).observe(vid);
 
 const sio = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; sio.unobserve(e.target);
   const b = e.target, to = +b.dataset.n, dec = +(b.dataset.d || 0), t1 = performance.now();
