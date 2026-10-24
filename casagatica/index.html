@@ -99,12 +99,13 @@ body::before{content:"";position:fixed;inset:-50%;z-index:100;pointer-events:non
 .hero-art img{width:100%;height:100%;object-fit:cover;animation:sway 7s ease-in-out infinite;
   -webkit-mask-image:radial-gradient(closest-side,#000 62%,transparent 100%);mask-image:radial-gradient(closest-side,#000 62%,transparent 100%)}
 .hero-art::before{content:"";position:absolute;inset:8%;border-radius:50%;border:1px solid rgba(232,184,107,.35);animation:spin2 30s linear infinite}
-.hero-art::after{content:"";position:absolute;left:50%;top:8%;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--gold);box-shadow:0 0 18px var(--gold);transform-origin:5px calc(min(44vw,620px) * .42);animation:spin3 30s linear infinite}
+.hero-art .orbit{position:absolute;inset:8%;animation:spin2 30s linear infinite;pointer-events:none}
+.hero-art .orbit span{position:absolute;top:0;left:50%;font-size:30px;line-height:1;transform:translate(-50%,-50%);filter:drop-shadow(0 0 14px rgba(255,61,110,.9));animation:upright 30s linear infinite}
 @keyframes artIn{from{opacity:0;transform:translateY(-44%) scale(.92)}to{opacity:1;transform:translateY(-50%)}}
 @keyframes sway{0%,100%{transform:rotate(-1.5deg) translateY(0)}50%{transform:rotate(1.5deg) translateY(-14px)}}
 @keyframes spin2{to{transform:rotate(360deg)}}
 @keyframes spin3{to{transform:rotate(360deg)}}
-@media (max-width:900px){.hero-art{position:relative;right:auto;top:auto;transform:none;width:min(88vw,440px);margin:0 auto -30px;animation-name:artInM}.hero-art::after{transform-origin:5px calc(min(88vw,440px) * .42)}.hero{padding-top:90px}}
+@media (max-width:900px){.hero-art{position:relative;right:auto;top:auto;transform:none;width:min(88vw,440px);margin:0 auto -30px;animation-name:artInM}.hero{padding-top:90px}}
 @keyframes artInM{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
 
 /* marquee */
@@ -317,7 +318,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
 <main>
 <section class="hero" id="inicio">
   <div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
-  <div class="hero-art"><img src="img/gata-pole.png" alt="Gata bailando en el tubo con corsé rojo" width="1100" height="1100" fetchpriority="high"></div>
+  <div class="hero-art"><span class="orbit" aria-hidden="true"><span>❤️‍🔥</span></span><img src="img/gata-pole.png" alt="Gata bailando en el tubo con corsé rojo" width="1100" height="1100" fetchpriority="high"></div>
   <div class="wrap hero-inner">
     <span class="eyebrow fade-in" style="animation-delay:.1s">Centro cultural de artes eróticas · Medellín</span>
     <h1>
