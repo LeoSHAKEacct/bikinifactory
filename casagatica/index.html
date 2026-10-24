@@ -239,9 +239,10 @@ a.row:hover{border-color:var(--hot);transform:translateX(6px)}
 .cta{text-align:center;overflow:hidden}
 .cta h2{font-size:clamp(56px,11vw,160px);margin:18px 0 34px}
 .cta .ring{position:absolute;left:50%;top:50%;width:min(900px,140vw);aspect-ratio:1;border-radius:50%;border:1px solid var(--line);transform:translate(-50%,-50%);animation:spin 60s linear infinite;pointer-events:none}
-.cta .ring::before{content:"";position:absolute;top:-6px;left:50%;width:12px;height:12px;border-radius:50%;background:var(--hot);box-shadow:0 0 24px var(--hot)}
+.cta .ring::before{content:"\2764\FE0F\200D\1F525";position:absolute;top:0;left:50%;font-size:34px;line-height:1;transform:translate(-50%,-50%);filter:drop-shadow(0 0 14px rgba(255,61,110,.9));animation:upright 60s linear infinite}
 .cta .ring.r2{width:min(620px,100vw);animation-duration:40s;animation-direction:reverse}
-.cta .ring.r2::before{background:var(--gold);box-shadow:0 0 24px var(--gold)}
+.cta .ring.r2::before{font-size:28px;animation-duration:40s;animation-direction:reverse;filter:drop-shadow(0 0 14px rgba(255,140,40,.9))}
+@keyframes upright{to{transform:translate(-50%,-50%) rotate(-360deg)}}
 @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
 .cta > .wrap{position:relative;z-index:1}
 .dancer{width:clamp(120px,16vw,190px);margin:0 auto 10px;border-radius:50% 50% 24px 24px;overflow:hidden;border:2px solid var(--hot);box-shadow:0 0 50px -10px var(--hot);animation:dance .9s ease-in-out infinite alternate}
