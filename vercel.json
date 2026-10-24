@@ -5,7 +5,7 @@
       "claude/*": false
     }
   },
-  "ignoreCommand": "git diff --quiet ${VERCEL_GIT_PREVIOUS_SHA:-HEAD^} HEAD -- . ':(exclude)sitios' ':(exclude)pranav' ':(exclude)lase'",
+  "ignoreCommand": "git diff --quiet ${VERCEL_GIT_PREVIOUS_SHA:-HEAD^} HEAD -- . ':(exclude)sitios' ':(exclude)pranav' ':(exclude)lase' ':(exclude)casagatica'",
   "buildCommand": "echo 'Static site'",
   "outputDirectory": "."
 }
