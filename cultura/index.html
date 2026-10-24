@@ -35,16 +35,23 @@ header nav a{text-decoration:none}
 @media(max-width:820px){header nav{display:none}.brand b{font-size:17px}}
 
 /* hero + builder */
-#book{padding:clamp(34px,6vh,64px) 0 70px;background:radial-gradient(70% 60% at 85% 20%,#eef7f2,transparent 70%)}
+#book{position:relative;overflow:hidden;isolation:isolate;min-height:calc(100vh - 68px);padding:clamp(34px,6vh,64px) 0 70px;background:#141311;color:#fff}
+#book .badges,#book h1,#book p.lead,#book .panel{position:relative;z-index:1}
+#book .panel{grid-column:2;color:var(--ink)}
+@media(max-width:900px){#book .panel{grid-column:1}}
 .badges{display:flex;flex-wrap:wrap;gap:10px}
-.badges span{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);background:#fff;border-radius:99px;padding:8px 14px;font-weight:600;font-size:14px}
-.badges span i{font-style:normal;color:var(--mut);font-weight:500}
+.badges span{display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(255,255,255,.18);background:rgba(20,19,17,.55);backdrop-filter:blur(8px);color:#fff;border-radius:99px;padding:8px 14px;font-weight:600;font-size:14px}
+.badges span i{font-style:normal;color:rgba(255,255,255,.7);font-weight:500}
 #book h1{font-size:clamp(40px,6vw,82px);margin:22px 0 14px;max-width:900px}
-#book h1 em{font-style:italic;color:var(--g)}
-#book p.lead{font-size:clamp(17px,1.6vw,21px);color:var(--mut);max-width:640px}
+#book h1 em{font-style:italic;color:var(--mustard)}
+#book h1,#book p.lead{text-shadow:0 2px 24px rgba(0,0,0,.6)}
+#book p.lead{font-size:clamp(17px,1.6vw,21px);color:rgba(255,255,255,.86);max-width:560px}
 .builder{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,56px);margin-top:42px;align-items:center}
-.stage{position:relative;aspect-ratio:464/640;width:min(100%,490px);max-width:100%;margin:0 auto;border-radius:28px;overflow:hidden;background:#1d1d1d;box-shadow:0 40px 80px -40px rgba(15,40,30,.55)}
-.stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.stage{position:absolute;inset:0;z-index:0;pointer-events:none}
+.stage video{position:absolute;display:block}
+#burgerBg{inset:-40px;width:calc(100% + 80px);height:calc(100% + 80px);object-fit:cover;filter:blur(28px) brightness(.45) saturate(1.1)}
+#burgerVid{top:0;height:100%;aspect-ratio:464/640;left:max(0px,calc(50% - 640px));object-fit:cover;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 84%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 84%,transparent)}
+.stage::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,19,17,.55),transparent 30%,transparent 70%,rgba(20,19,17,.7)),linear-gradient(90deg,transparent 45%,rgba(20,19,17,.55))}
 .stage.squish{animation:squish .4s ease}
 @keyframes squish{40%{transform:scale(1.04,.94)}100%{transform:none}}
 
@@ -93,7 +100,7 @@ header nav a{text-decoration:none}
 .acts .call{background:var(--g);color:#fff;grid-column:1/-1;font-size:17px}
 .acts .sec{background:#fff;color:var(--g)}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:50;width:100%;height:100%}
-@media(max-width:900px){.builder{grid-template-columns:1fr;gap:10px;margin-top:26px}.stage{width:min(320px,78vw);border-radius:22px}}
+@media(max-width:900px){.builder{grid-template-columns:1fr;gap:10px;margin-top:26px}#burgerVid{left:0;top:150px;width:100%;height:auto;-webkit-mask-image:linear-gradient(180deg,transparent,#000 12%,#000 82%,transparent);mask-image:linear-gradient(180deg,transparent,#000 12%,#000 82%,transparent)}.stage::after{background:linear-gradient(180deg,rgba(20,19,17,.55),transparent 22%)}.builder>.stage+.panel{margin-top:min(300px,42vh)}}
 
 #stats{background:var(--g);color:#fff;padding:34px 0}
 #stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
@@ -166,6 +173,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
     <div class="builder">
       <div class="stage" id="stage" aria-hidden="true">
+        <video id="burgerBg" src="img/burger.mp4" muted loop playsinline autoplay preload="auto" aria-hidden="true"></video>
         <video id="burgerVid" src="img/burger.mp4" poster="img/burger-poster.jpg" muted loop playsinline autoplay preload="auto"></video>
       </div>
 
@@ -340,7 +348,7 @@ function show(i) {
   step = i;
   steps.forEach((s, k) => s.classList.toggle('on', k === i));
   prog.forEach((b, k) => { b.className = k < i ? 'done' : k === i ? 'now' : ''; });
-  if (i === 4) { ticket(); if (!reduce) { vid.currentTime = 0; tryPlay(); } setTimeout(() => { stage.classList.remove('squish'); void stage.offsetWidth; stage.classList.add('squish'); burst(); }, 700); }
+  if (i === 4) { ticket(); if (!reduce) { vid.currentTime = 0; bg.currentTime = 0; tryPlay(); } setTimeout(() => { stage.classList.remove('squish'); void stage.offsetWidth; stage.classList.add('squish'); burst(); }, 700); }
 }
 function ticket() {
   if (st.day === null) return;
@@ -389,9 +397,12 @@ function tick() {
 
 /* the burger video next to the form; when the ticket is ready it plays the cut again from the start */
 const vid = $('#burgerVid');
-if (reduce) { vid.removeAttribute('autoplay'); vid.pause(); }
-const tryPlay = () => { if (!reduce) vid.play().catch(() => {}); };
-new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? tryPlay() : vid.pause()), { threshold: .2 }).observe(vid);
+
+const bg = $('#burgerBg');
+if (reduce) [vid, bg].forEach(v => { v.removeAttribute('autoplay'); v.pause(); });
+const tryPlay = () => { if (!reduce) { vid.play().catch(() => {}); bg.play().catch(() => {}); } };
+setInterval(() => { if (!vid.paused && Math.abs(bg.currentTime - vid.currentTime) > .15) bg.currentTime = vid.currentTime; }, 1000);
+new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? tryPlay() : (vid.pause(), bg.pause())), { threshold: .2 }).observe(vid);
 
 const sio = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; sio.unobserve(e.target);
   const b = e.target, to = +b.dataset.n, dec = +(b.dataset.d || 0), t1 = performance.now();
