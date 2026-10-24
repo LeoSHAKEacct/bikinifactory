@@ -32,8 +32,6 @@ a{color:inherit;text-decoration:none}
 #process{position:relative;height:1250vh}
 .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:#000}
 #film{position:absolute;inset:0;width:100%;height:100%;display:block}
-#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-#glow{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;opacity:0;background:radial-gradient(60% 55% at 55% 60%,rgba(255,120,30,.55),rgba(255,70,0,.18) 45%,transparent 75%)}
 .ph img{width:100%;height:100%;object-fit:cover;max-width:none}
 .shade{position:absolute;inset:0;pointer-events:none;background:
  radial-gradient(120% 90% at 50% 45%,transparent 40%,rgba(10,6,4,.55) 100%),
@@ -143,9 +141,7 @@ footer{padding:28px clamp(16px,6vw,96px) 34px;display:flex;justify-content:space
  <div class="stage" id="stage">
   <canvas id="film" aria-label="Coffee from green bean to cup"></canvas>
   <div class="shade"></div>
-  <div id="glow"></div>
   <div class="grain"></div>
-  <canvas id="fx"></canvas>
 
   <svg id="steam" viewBox="0 0 200 260"><path d="M70 250C40 200 100 170 70 120S80 40 60 10"/><path d="M110 250C80 200 140 170 110 120S120 40 100 10"/><path d="M150 250C120 200 180 170 150 120S160 40 140 10"/></svg>
 
@@ -246,45 +242,23 @@ PH.forEach(()=>rail.insertAdjacentHTML('beforeend','<b><i></i></b>'));const rb=[
 const CL=cl.getTotalLength();cl.style.strokeDasharray=CL;
 const N=11;let cur=scrollY;
 // the film: Roaster Daily's journey video, cut into 20 fps frames and scrubbed by scroll
-const NF=341,FPS=20,film=document.getElementById('film'),fc=film.getContext('2d'),FR=new Array(NF);
+const NF=462,FPS=20,film=document.getElementById('film'),fc=film.getContext('2d'),FR=new Array(NF);
 const pad=n=>String(n).padStart(3,'0');
 const order=[];[8,4,2,1].forEach(st=>{for(let i=0;i<NF;i+=st)if(!order.includes(i))order.push(i)});
 let li=0;function loadNext(){if(li>=order.length)return;const i=order[li++],im=new Image();im.decoding='async';im.onload=()=>{FR[i]=im;loadNext()};im.onerror=loadNext;im.src=`seq/f${pad(i+1)}.webp`}
 for(let k=0;k<6;k++)loadNext();
 // scroll units -> video seconds, so each story step lines up with its scene in the video
-const KP=[[0,0],[2,2.2],[4,7.8],[5,9.08],[7,11.04],[8,13.67],[9,15.38],[10,16.2],[11,17.0]];
-function vt(p){for(let i=1;i<KP.length;i++)if(p<=KP[i][0])return lerp(KP[i-1][1],KP[i][1],ramp(p,KP[i-1][0],KP[i][0]));return 17}
-function vp(t){for(let i=1;i<KP.length;i++)if(t<=KP[i][1])return lerp(KP[i-1][0],KP[i][0],ramp(t,KP[i-1][1],KP[i][1]));return 11}
-// scene cuts in the video and what flies across each one
-const CUTS=[[2.21,'g'],[5.54,'gb'],[7.81,'b'],[9.08,'b'],[11.04,'b'],[12.46,'dust'],[13.67,'drop'],[15.38,'milk']].map(([t,ty])=>[vp(t),ty]);
+// the milk pour is spliced in between the espresso (ends 15.38s) and the final cup
+const KP=[[0,0],[2,2.2],[4,7.8],[5,9.08],[7,11.04],[8,13.67],[9,15.38],[10,21.3],[11,23.05]];
+function vt(p){for(let i=1;i<KP.length;i++)if(p<=KP[i][0])return lerp(KP[i-1][1],KP[i][1],ramp(p,KP[i-1][0],KP[i][0]));return 23.05}
 function drawFilm(p,tm){const want=Math.min(NF-1,Math.round(vt(p)*FPS));let im=FR[want];
  if(!im)for(let d=1;d<NF&&!im;d++)im=FR[want-d]||FR[want+d];
  const W=film.width,H=film.height;if(!im){fc.fillStyle='#140d09';fc.fillRect(0,0,W,H);return}
  const s=(1.05+.02*Math.sin(tm*.4))*Math.max(W/im.naturalWidth,H/im.naturalHeight),dw=im.naturalWidth*s,dh=im.naturalHeight*s;
  fc.drawImage(im,(W-dw)/2+Math.sin(tm*.33)*8*DPR,(H-dh)/2+Math.cos(tm*.27)*6*DPR,dw,dh)}
-const cv=document.getElementById('fx'),g2=cv.getContext('2d');let DPR=1;
-function sizeCv(){DPR=Math.min(2,devicePixelRatio||1);cv.width=film.width=innerWidth*DPR;cv.height=film.height=innerHeight*DPR}
+let DPR=1;
+function sizeCv(){DPR=Math.min(2,devicePixelRatio||1);film.width=innerWidth*DPR;film.height=innerHeight*DPR}
 addEventListener('resize',sizeCv);sizeCv();
-const rng=s=>()=>(s=s*16807%2147483647)/2147483647;
-const PARTS=CUTS.map((_,i)=>{const r=rng(i*977+31);return Array.from({length:34},()=>({a:r()*6.283,sp:.3+r()*.9,s:.55+r()*.9,rot:r()*6.283,spin:(r()-.5)*7,d:r()*.4}))});
-const GB=[166,178,128],RB=[78,46,26];
-function bean(sz,rgb){g2.fillStyle=`rgb(${rgb})`;g2.beginPath();g2.ellipse(0,0,sz,sz*.68,0,0,6.283);g2.fill();
- g2.strokeStyle=`rgb(${rgb.map(v=>v*.5|0)})`;g2.lineWidth=sz*.15;g2.beginPath();g2.moveTo(-sz*.82,0);g2.bezierCurveTo(-sz*.3,-sz*.28,sz*.3,sz*.28,sz*.82,0);g2.stroke();
- g2.fillStyle='rgba(255,255,255,.16)';g2.beginPath();g2.ellipse(-sz*.2,-sz*.36,sz*.5,sz*.16,-.25,0,6.283);g2.fill()}
-function drawParts(p){g2.setTransform(1,0,0,1,0,0);g2.clearRect(0,0,cv.width,cv.height);
- const M=Math.hypot(innerWidth,innerHeight)*.75,k0=Math.min(1,innerWidth/1100)*.5+.5;
- const fx=innerWidth/2,fy=innerHeight*.48;
- for(let k=0;k<CUTS.length;k++){const tp=ramp(p,CUTS[k][0]-.45,CUTS[k][0]+.4);if(tp<=0||tp>=1)continue;const ty=CUTS[k][1];
-  PARTS[k].forEach(q=>{const lt=clamp((tp-q.d)/(1-q.d));if(lt<=0||lt>=1)return;const e=lt*lt,r=14+e*M*q.sp,wet=ty=='drop'||ty=='milk';
-   const x=fx+Math.cos(q.a)*r,y=fy+Math.sin(q.a)*r+(wet?e*e*160:0),sz=(ty=='dust'?3.2:wet?7:13)*q.s*k0*(.45+e*2.4);
-   g2.setTransform(DPR,0,0,DPR,0,0);g2.globalAlpha=Math.pow(Math.sin(Math.PI*lt),.7);g2.translate(x,y);
-   if(ty=='dust'){g2.fillStyle='#3b2416';g2.beginPath();g2.arc(0,0,sz,0,6.283);g2.fill();return}
-   if(wet){g2.rotate(q.a-1.571);g2.fillStyle=ty=='drop'?'#3a1d0e':'#f6efe6';g2.beginPath();g2.moveTo(0,-sz*1.9);g2.bezierCurveTo(sz*.9,-sz*.4,sz,sz*.9,0,sz);g2.bezierCurveTo(-sz,sz*.9,-sz*.9,-sz*.4,0,-sz*1.9);g2.fill();return}
-   g2.rotate(q.rot+q.spin*lt);
-   const m=ty=='g'?0:ty=='b'?1:ease(lt);bean(sz,GB.map((v,j)=>Math.round(lerp(v,RB[j],m))));
-  })}
- g2.globalAlpha=1}
-
 function hudSet(l,v,u,s){hl.textContent=l;hv.innerHTML=v+'<small>'+u+'</small>';hs.textContent=s}
 function frame(){
  cur+=(scrollY-cur)*.14;
@@ -292,8 +266,6 @@ function frame(){
  const p=clamp((cur-top)/span)*N;
  const tm=performance.now()/1000;
  drawFilm(p,tm);
- document.getElementById('glow').style.opacity=(ramp(p,2.2,3)*(1-ramp(p,5,5.8)))*(.55+.25*Math.sin(tm*2.6)+.1*Math.sin(tm*7.3));
- drawParts(p);
  // intro
  const io=1-ramp(p,.08,.5);intro.style.opacity=io;intro.style.transform=`translateY(${-ramp(p,0,.5)*60}px) scale(${1-ramp(p,0,.5)*.06})`;
  // captions
