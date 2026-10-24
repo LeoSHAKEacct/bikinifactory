@@ -31,7 +31,7 @@ h2{font-family:var(--slab);font-weight:400;line-height:.95;font-size:clamp(42px,
 @media(max-width:760px){#top nav a:not(.cta){display:none}#top .lg img{height:42px}}
 
 /* hero: the burger gets sliced */
-#corte{height:420vh;position:relative}
+#corte{height:620vh;position:relative}
 #corte .stick{background:#120705}
 #film{position:absolute;inset:0;width:100%;height:100%;display:block}
 #veil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(18,7,5,.78),rgba(18,7,5,.25) 38%,transparent 60%,rgba(18,7,5,.7))}
@@ -42,10 +42,20 @@ h2{font-family:var(--slab);font-weight:400;line-height:.95;font-size:clamp(42px,
 #head .award b{font-weight:600}
 @keyframes shine{50%{background-position:100% 0}}
 #head p{font-family:var(--cond);letter-spacing:.24em;text-transform:uppercase;margin-top:12px;font-size:clamp(13px,1.2vw,16px)}
-#ingr{position:absolute;left:0;right:0;bottom:clamp(26px,6vh,60px);z-index:4;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:0 16px;list-style:none;margin:0}
-#ingr li{font-family:var(--cond);font-size:clamp(13px,1.4vw,18px);letter-spacing:.06em;text-transform:uppercase;background:var(--cream);color:var(--red);padding:5px 12px;border-radius:4px;opacity:0;box-shadow:0 8px 20px -8px rgba(0,0,0,.5)}
+#stage{position:absolute;left:50%;top:58%;z-index:2;opacity:0}
+@media(max-width:760px){#stage{top:60%}}
+#stage img{position:absolute;inset:0;width:100%;height:100%;will-change:transform,opacity;filter:saturate(1.2) contrast(1.05)}
+#stage .lay{opacity:0}
+#shadow{position:absolute;left:27%;right:22%;top:63%;height:6%;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.55),transparent);filter:blur(4px)}
+.tag{position:absolute;z-index:5;display:flex;align-items:center;gap:10px;font-family:var(--cond);white-space:nowrap;opacity:0;pointer-events:none}
+.tag i{display:block;height:2px;background:var(--cream);width:clamp(30px,5vw,80px);flex:none}
+.tag span{display:flex;flex-direction:column;gap:3px;align-items:flex-start}
+.tag.l span{align-items:flex-end;text-align:right}
+.tag b{font-weight:500;font-size:clamp(14px,1.5vw,20px);letter-spacing:.06em;text-transform:uppercase;background:var(--cream);color:var(--red);padding:4px 10px;border-radius:4px}
+.tag small{font-family:Roboto,system-ui,sans-serif;font-size:clamp(12px,1vw,14px);color:var(--cream);text-shadow:0 2px 10px rgba(0,0,0,.8);white-space:normal;max-width:240px}
+.tag.l{flex-direction:row-reverse}
 #scrollhint{position:absolute;left:0;right:0;bottom:22px;text-align:center;font-family:var(--cond);letter-spacing:.3em;font-size:12px;z-index:3}
-@media(max-width:760px){#ingr{gap:6px}#ingr li{font-size:12px;padding:4px 8px}}
+@media(max-width:760px){.tag{gap:4px}.tag i{width:10px}.tag b{font-size:11px;padding:3px 6px}.tag small{font-size:10.5px;line-height:1.25}}
 
 /* prize */
 #premio{position:relative;background:var(--ink);padding:clamp(100px,15vh,160px) clamp(16px,6vw,96px);text-align:center;overflow:hidden}
@@ -95,7 +105,26 @@ footer small{display:block;color:#a8968a;font-family:Roboto;letter-spacing:0;mar
     <canvas id="film" role="img" aria-label="Hamburguesa de The Grill Station cortada por la mitad junto a la parrilla"></canvas>
     <i id="veil"></i>
     <div id="head"><a class="award" href="#premio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v3a5 5 0 0 1-10 0zM7 4H3c0 4 2 6 4.5 6.5M17 4h4c0 4-2 6-4.5 6.5M10 11.5h4l.6 4h-5.2zM8 16h8v3H8z" fill="#ffd76a" stroke="#7a5410" stroke-width=".8"/></svg><span>Ganadores del <b>Burger Master</b></span></a><h1>¡Mejor burger<br>de Medellín!</h1><p>It's a real flavor trip</p></div>
-    <ul id="ingr" aria-label="Lo que lleva por dentro"><li>Pan brioche</li><li>Cebolla crocante</li><li>Tocineta</li><li>Tomate</li><li>Cebolla morada</li><li>Doble carne a la parrilla</li><li>Queso cheddar</li><li>Lechuga fresca</li></ul>
+    <div id="stage">
+      <i id="shadow"></i>
+      <img class="lay" data-l="bun_bottom" src="img/b/L_bun_bottom.webp" alt="">
+      <img class="lay" data-l="patty" src="img/b/L_patty.webp" alt="">
+      <img class="lay" data-l="cheese" src="img/b/L_cheese.webp" alt="">
+      <img class="lay" data-l="bacon" src="img/b/L_bacon.webp" alt="">
+      <img class="lay" data-l="tomato" src="img/b/L_tomato.webp" alt="">
+      <img class="lay" data-l="onion" src="img/b/L_onion.webp" alt="">
+      <img class="lay" data-l="lettuce" src="img/b/L_lettuce.webp" alt="">
+      <img class="lay" data-l="bun_top" src="img/b/L_bun_top.webp" alt="">
+      <img id="back" src="img/b/back.webp" alt="Hamburguesa cortada por la mitad: se ven todas sus capas por dentro">
+    </div>
+    <div class="tag" data-for="bun_top"><i></i><span><b>Pan brioche</b><small>Suave, dorado y tostado a la plancha</small></span></div>
+    <div class="tag l" data-for="lettuce"><i></i><span><b>Lechuga fresca</b><small>Crocante, para equilibrar cada mordisco</small></span></div>
+    <div class="tag" data-for="onion"><i></i><span><b>Cebolla morada</b><small>Fresca, con un toque dulce</small></span></div>
+    <div class="tag l" data-for="tomato"><i></i><span><b>Tomate</b><small>En rodajas, jugoso y fresco</small></span></div>
+    <div class="tag" data-for="bacon"><i></i><span><b>Tocineta crocante</b><small>Ahumada y dorada al punto</small></span></div>
+    <div class="tag l" data-for="cheese"><i></i><span><b>Queso cheddar</b><small>Fundido sobre la carne caliente</small></span></div>
+    <div class="tag" data-for="patty"><i></i><span><b>Carne a la parrilla</b><small>Sellada al fuego, jugosa por dentro</small></span></div>
+    <div class="tag l" data-for="bun_bottom"><i></i><span><b>Pan brioche</b><small>La base que lo sostiene todo</small></span></div>
     <p id="scrollhint">DESLIZA PARA CORTARLA ↓</p>
   </div>
 </section>
@@ -156,7 +185,10 @@ const $ = s => document.querySelector(s);
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
 document.querySelectorAll('.rv').forEach(el => io.observe(el));
 
-const corte = $('#corte'), head = $('#head'), hint = $('#scrollhint'), ingr = [...document.querySelectorAll('#ingr li')];
+const corte = $('#corte'), head = $('#head'), hint = $('#scrollhint'), stage = $('#stage'), back = $('#back'), shadow = $('#shadow');
+const lays = [...document.querySelectorAll('#stage .lay')], tags = [...document.querySelectorAll('.tag')];
+// layers bottom to top; y = the layer's middle in the render (0..1), lift = how far it rises in the exploded view
+const LAY = { bun_bottom: [.608, -1.7], patty: [.549, -1.0], cheese: [.531, -.4], bacon: [.516, .15], tomato: [.493, .7], onion: [.471, 1.25], lettuce: [.464, 1.8], bun_top: [.379, 2.6] };
 // the film: the burger video cut into frames and played by the scroll
 const NF = 144, film = $('#film'), fc = film.getContext('2d'), FR = new Array(NF);
 const order = []; [8, 4, 2, 1].forEach(st => { for (let i = 0; i < NF; i += st) if (!order.includes(i)) order.push(i); });
@@ -167,7 +199,7 @@ let DPR = 1;
 function sizeFilm() { DPR = Math.min(2, devicePixelRatio || 1); film.width = innerWidth * DPR; film.height = innerHeight * DPR; }
 addEventListener('resize', sizeFilm); sizeFilm();
 function drawFilm(p, now) {
-  const want = Math.min(NF - 1, Math.round(ease(ramp(p, .1, .85)) * (NF - 1)));
+  const want = Math.min(NF - 1, Math.round(ease(ramp(p, .08, .48)) * (NF - 1)));
   let im = FR[want]; for (let d = 1; !im && d < NF; d++) im = FR[want - d] || FR[want + d];
   const W = film.width, H = film.height; if (!im) { fc.fillStyle = '#120705'; fc.fillRect(0, 0, W, H); return; }
   const s = (1.04 + (reduce ? 0 : .015 * Math.sin(now / 1600))) * Math.max(W / im.naturalWidth, H / im.naturalHeight), dw = im.naturalWidth * s, dh = im.naturalHeight * s;
@@ -202,8 +234,31 @@ function frame(now) {
   drawFilm(p, now);
   head.style.opacity = (1 - ramp(p, .08, .16)).toFixed(3); head.style.transform = `translateY(${(-ramp(p, .08, .16) * 40).toFixed(1)}px)`;
   hint.style.opacity = (1 - ramp(p, .02, .08)).toFixed(3);
-  // once it's open, the names of what's inside pop up one by one
-  ingr.forEach((li, i) => { const k = ramp(p, .78 + i * .018, .84 + i * .018); li.style.opacity = k.toFixed(3); li.style.transform = `translateY(${((1 - k) * 16).toFixed(1)}px)`; });
+  // then the cut burger comes forward and opens up layer by layer, each with its name and a note
+  const sIn = ease(ramp(p, .5, .6)), ex = ease(ramp(p, .62, .8)), swap = p > .6;
+  film.style.opacity = (1 - .7 * sIn).toFixed(3);
+  const S = Math.min(H * (small ? 1.0 : 1.12), W * (small ? 1.15 : .92));
+  const dx = small ? ((8 - .22 * S) - (W / 2 - S / 2)) * ex : 0;
+  Object.assign(stage.style, { width: S + 'px', height: S + 'px', marginLeft: -S / 2 + 'px', marginTop: -S / 2 + 'px', opacity: sIn.toFixed(3),
+    transform: `translate(${dx.toFixed(1)}px,${((1 - sIn) * 60).toFixed(1)}px) scale(${(.9 + .1 * sIn).toFixed(3)})` });
+  back.style.opacity = swap ? 0 : 1;
+  shadow.style.opacity = (1 - ramp(p, .6, .72)).toFixed(3);
+  const gapY = S * (small ? .17 : .072);
+  lays.forEach(im => { im.style.opacity = swap ? 1 : 0; im.style.transform = `translateY(${(-LAY[im.dataset.l][1] * gapY * ex).toFixed(1)}px)`; });
+  const sr = stage.getBoundingClientRect();
+  // each tag sits at its layer's height; tags on the same side are nudged apart so none overlap
+  const pos = tags.map(t => { const [y, lift] = LAY[t.dataset.for]; return { t, side: t.classList.contains('l') && !small, h: t.offsetHeight, y: sr.top + y * S * (.9 + .1 * sIn) - lift * gapY * ex }; });
+  [false, true].forEach(side => {
+    const g = pos.filter(o => o.side === side).sort((a, b) => a.y - b.y);
+    for (let it = 0; it < 4; it++) for (let j = 1; j < g.length; j++) { const need = (g[j - 1].h + g[j].h) / 2 + 6, d = g[j].y - g[j - 1].y; if (d < need) { g[j - 1].y -= (need - d) / 2; g[j].y += (need - d) / 2; } }
+  });
+  tags.forEach((t, i) => {
+    const k = ramp(p, .7 + i * .014, .78 + i * .014), ty = pos[i].y, left = pos[i].side, edge = S * (small ? .25 : .2);
+    t.style.top = (ty - t.offsetHeight / 2).toFixed(1) + 'px';
+    if (left) { t.style.left = 'auto'; t.style.right = (W - (sr.left + edge)).toFixed(1) + 'px'; }
+    else { const x = small ? sr.left + .75 * S + 2 : sr.right - edge; t.style.right = 'auto'; t.style.left = x.toFixed(1) + 'px'; t.style.flexDirection = 'row'; t.querySelector('span').style.alignItems = 'flex-start'; t.querySelector('small').style.textAlign = 'left'; if (small) t.querySelector('small').style.maxWidth = (W - x - 30) + 'px'; }
+    t.style.opacity = k.toFixed(3); t.style.transform = `translateX(${((left ? 1 : -1) * (1 - k) * 30).toFixed(1)}px)`;
+  });
 
   top_.classList.toggle('solid', cur > H * .4);
   rays.style.transform = `rotate(${(now / 120 % 360).toFixed(1)}deg)`;
