@@ -131,23 +131,6 @@ form.viewing input:focus-visible { outline: 2px solid var(--red); outline-offset
   .card p { font-size: 14px; }
 }
 
-/* opening: the Dubai skyline film fills the first screen, then scrolls away to the drawing board */
-#intro { position: relative; z-index: 10; height: 100vh; height: 100svh; overflow: hidden; background: #0b1418; color: #f4f2ee; }
-#intro video { position: absolute; display: block; }
-#introBg { inset: -40px; width: calc(100% + 80px); height: calc(100% + 80px); object-fit: cover; filter: blur(30px) brightness(.55); }
-#introVid { top: 0; left: 50%; height: 100%; aspect-ratio: 720 / 1280; transform: translateX(-50%); object-fit: cover;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent); mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent); }
-@media (max-aspect-ratio: 3/4) { #introVid { left: 0; width: 100%; transform: none; -webkit-mask-image: none; mask-image: none; } }
-#intro::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8,16,20,.55), transparent 28%, transparent 55%, rgba(8,16,20,.8)); }
-#intro .in { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; padding: 0 max(16px, env(safe-area-inset-right, 0px)) calc(40px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
-@media (min-width: 760px) { #intro .in { padding-left: max(32px, env(safe-area-inset-left, 0px)); } }
-#intro .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #f4f2ee; opacity: .85; }
-#intro h2 { font-family: var(--display); font-stretch: 68%; font-weight: 600; text-transform: uppercase; font-size: clamp(56px, 9vw, 140px); line-height: .82; letter-spacing: -.015em; margin: 14px 0 16px; text-wrap: balance; }
-#intro p { max-width: 40ch; margin: 0; font-size: 16px; color: rgba(244,242,238,.85); }
-#intro .cue i { background: #f4f2ee; }
-body.on-intro header.top { z-index: 11; }
-body.on-intro .brand, body.on-intro .brand span { color: #f4f2ee; text-shadow: 0 1px 12px rgba(0,0,0,.35); }
-body.on-intro header.top .btn { background: #f4f2ee; color: #13323a; border-color: #f4f2ee; }
 .loader { position: fixed; inset: 0; z-index: 9; display: grid; place-items: center; background: var(--paper); transition: opacity .7s; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); }
 .loader.done { opacity: 0; pointer-events: none; }
 .loader .bar { width: 160px; height: 1px; background: var(--rule); margin-top: 12px; overflow: hidden; }
@@ -183,28 +166,8 @@ body.at-close .brand, body.at-close .brand span { color: var(--ink); text-shadow
 @media (prefers-reduced-motion: reduce) { .cue i, .loader .bar i { animation: none; } .card, .hero, .shot img { transition: none; } .shot img { transform: none; } }
 </style>
 </head>
-<body class="on-intro">
-<section id="intro" aria-label="Dubai skyline at dusk">
-  <video id="introBg" src="img/burj.mp4" poster="img/burj-poster.jpg" muted loop playsinline autoplay preload="auto" aria-hidden="true"></video>
-  <video id="introVid" src="img/burj.mp4" poster="img/burj-poster.jpg" muted loop playsinline autoplay preload="auto"></video>
-  <div class="in">
-    <div class="eyebrow">Dubai · United Arab Emirates</div>
-    <h2>The city<br>at your feet</h2>
-    <p>Above the skyline, by the sea. Scroll to discover Villa Noor on Palm Jumeirah.</p>
-    <div class="cue"><i></i>Scroll</div>
-  </div>
-</section>
+<body>
 <canvas id="gl" aria-label="Three-dimensional model of Villa Noor"></canvas>
-<script>
-// the opening film: both copies play only while it is on screen, and the header turns light over it
-(() => {
-  const el = document.getElementById('intro'), vids = [...el.querySelectorAll('video')];
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) vids.forEach(v => { v.removeAttribute('autoplay'); v.pause(); });
-  else new IntersectionObserver(es => es.forEach(e => vids.forEach(v => e.isIntersecting ? v.play().catch(() => {}) : v.pause())), { threshold: .05 }).observe(el);
-  const mark = () => document.body.classList.toggle('on-intro', scrollY < el.offsetHeight - 60);
-  addEventListener('scroll', mark, { passive: true }); addEventListener('resize', mark); mark();
-})();
-</script>
 <div class="fx vignette" id="vignette"></div>
 <div class="fx grain"></div>
 
@@ -328,7 +291,7 @@ document.getElementById('viewing').addEventListener('submit', e => {
 });
 document.getElementById('restart').addEventListener('click', () => goTo(0));
 document.getElementById('bookTop').addEventListener('click', () => document.getElementById('closing').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' }));
-function goTo(i) { window.scrollTo({ top: introH() + i * innerHeight, behavior: reduceMotion ? 'auto' : 'smooth' }); }
+function goTo(i) { window.scrollTo({ top: i * innerHeight, behavior: reduceMotion ? 'auto' : 'smooth' }); }
 
 try { await Promise.race([document.fonts.load('500 64px "IBM Plex Mono"'), new Promise(r => setTimeout(r, 2500))]); } catch (e) {}
 
@@ -1157,9 +1120,8 @@ const hero = document.getElementById('hero'), vignette = document.getElementById
 const sheetNo = document.getElementById('sheetNo'), sheetStage = document.getElementById('sheetStage'), sheetScale = document.getElementById('sheetScale');
 const railBtns = [...rail.querySelectorAll('button')];
 const gallery = document.getElementById('gallery'), closing = document.getElementById('closing');
-const introEl = document.getElementById('intro'), introH = () => introEl.offsetHeight;
 function readScroll() {
-  pTarget = Math.min(N - 1, Math.max(0, (scrollY - introH()) / innerHeight));
+  pTarget = Math.min(N - 1, Math.max(0, scrollY / innerHeight));
   document.body.classList.toggle('in-gallery', gallery.getBoundingClientRect().top < innerHeight * .5);
   document.body.classList.toggle('at-close', closing.getBoundingClientRect().top < 60);
 }
