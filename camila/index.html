@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Camila Sánchez Joyería</title>
+<meta name="description" content="Camila Sánchez Joyería. Más allá del lujo, momentos que permanecen. Descubre la Colección ETERNA.">
+<link rel="icon" href="img/mono.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#09080a;--card:#121014;--silver:#e4e3e8;--mut:#9c98a3;--em:#3a9a7a;--em2:#1f5f4b;--line:rgba(228,227,232,.14)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);scroll-behavior:smooth}
+body{background:var(--bg);color:var(--silver);font:300 16px/1.6 Jost,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.caps{font-family:Cinzel,Georgia,serif;letter-spacing:.32em;text-transform:uppercase}
+
+/* header */
+#top{position:fixed;inset:0 0 auto;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(16px,4vw,48px);transition:background .4s,backdrop-filter .4s}
+#top.solid{background:rgba(9,8,10,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+#top .mk{display:flex;align-items:center;gap:12px;font-size:13px}
+#top .mk img{width:30px;height:auto}
+#top nav{display:flex;gap:28px;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
+#top nav a:hover{color:var(--silver)}
+@media(max-width:700px){#top nav a:not(:last-child){display:none}#top .mk span{display:none}}
+
+/* hero: the pendant film fills the background */
+#hero{position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden;display:flex;align-items:center}
+#hero video{position:absolute;display:block}
+#bgBlur{inset:-50px;width:calc(100% + 100px);height:calc(100% + 100px);object-fit:cover;filter:blur(34px) brightness(.5) saturate(.9)}
+#bgSharp{top:0;height:100%;aspect-ratio:448/672;left:62%;transform:translateX(-50%);object-fit:cover;-webkit-mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent);mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent)}
+#hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,8,10,.85),rgba(9,8,10,.35) 50%,rgba(9,8,10,.1)),linear-gradient(180deg,rgba(9,8,10,.4),transparent 25%,transparent 70%,var(--bg))}
+.hin{position:relative;z-index:2;width:min(520px,92vw);margin-left:clamp(16px,7vw,110px);text-align:center}
+.hin .logo{width:100%;animation:rise 1.6s cubic-bezier(.2,.7,.2,1) both}
+.hin .tag{margin-top:6px;font-size:clamp(11px,1.1vw,13px);color:var(--silver);line-height:2.2;animation:rise 1.6s .3s cubic-bezier(.2,.7,.2,1) both}
+.hin .tag span{display:block;color:var(--em)}
+.btn{display:inline-flex;align-items:center;gap:12px;margin-top:30px;padding:14px 28px;border:1px solid rgba(228,227,232,.45);font:400 12px Jost;letter-spacing:.28em;text-transform:uppercase;transition:.35s;animation:rise 1.6s .5s cubic-bezier(.2,.7,.2,1) both}
+.btn:hover{background:var(--silver);color:var(--bg)}
+.btn:focus-visible{outline:2px solid var(--em);outline-offset:3px}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}}
+.down{position:absolute;z-index:2;left:50%;bottom:26px;transform:translateX(-50%);width:1px;height:48px;background:linear-gradient(var(--silver),transparent);animation:dn 2.2s ease-in-out infinite}
+@keyframes dn{0%{transform:translateX(-50%) scaleY(0);transform-origin:top}50%{transform:translateX(-50%) scaleY(1);transform-origin:top}100%{transform:translateX(-50%) scaleY(1);opacity:0}}
+@media(max-aspect-ratio:4/5){
+ #bgSharp{left:0;width:100%;transform:none;-webkit-mask-image:none;mask-image:none}
+ #hero{align-items:flex-end}
+ #bgSharp{height:72%}
+ #hero::after{background:linear-gradient(180deg,rgba(9,8,10,.3),transparent 25%,transparent 48%,rgba(9,8,10,.85) 66%,var(--bg) 82%)}
+ .hin{margin:0 auto 64px;width:min(340px,86vw)}
+ .hin .tag{margin-top:14px}
+ .btn{margin-top:22px}
+}
+@media(max-aspect-ratio:4/5) and (max-height:700px){
+ .hin{margin-bottom:30px}.down{display:none}
+ #bgSharp{height:64%}
+}
+
+/* sections */
+section{padding:clamp(90px,14vh,150px) clamp(16px,5vw,64px)}
+.head{text-align:center;margin-bottom:clamp(44px,7vh,70px)}
+.star{display:block;margin:0 auto 18px;width:22px;height:22px;color:var(--silver)}
+.head .eb{font-size:12px;color:var(--em)}
+.head h2{font-family:Cinzel,Georgia,serif;font-weight:400;font-size:clamp(34px,5vw,64px);letter-spacing:.14em;margin-top:10px}
+.head p{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-size:clamp(19px,1.8vw,23px);color:var(--mut);margin-top:12px}
+.rule{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:22px}
+.rule i{width:90px;height:1px;background:linear-gradient(90deg,transparent,rgba(228,227,232,.4))}
+.rule i:last-child{transform:scaleX(-1)}
+.rule b{width:8px;height:8px;background:var(--em);transform:rotate(45deg)}
+
+/* products */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.4vw,32px);max-width:1200px;margin:0 auto}
+.p{background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;transition:border-color .4s,transform .5s cubic-bezier(.2,.7,.2,1)}
+.p:hover{border-color:rgba(58,154,122,.5);transform:translateY(-6px)}
+.p .ph{position:relative;aspect-ratio:4/5;overflow:hidden;background:radial-gradient(70% 60% at 50% 45%,#2b2333,#120f15 75%)}
+.p .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:12%;transition:transform 1.2s cubic-bezier(.2,.7,.2,1);filter:drop-shadow(0 24px 30px rgba(0,0,0,.55))}
+.p .ph img.full{object-fit:cover;padding:0;filter:none}
+.p:hover .ph img{transform:scale(1.05)}
+.p .no{position:absolute;top:16px;left:18px;font-size:11px;color:var(--mut)}
+.p .tx{padding:26px 26px 30px;display:flex;flex-direction:column;gap:8px;flex:1}
+.p h3{font-family:Cinzel,Georgia,serif;font-weight:400;font-size:20px;letter-spacing:.14em}
+.p .d{font-family:"Cormorant Garamond",Georgia,serif;font-size:19px;line-height:1.4;color:var(--mut);flex:1}
+.p .ft{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;padding-top:16px;border-top:1px solid var(--line)}
+.p .pr{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--em)}
+.p .ft a{font-size:12px;letter-spacing:.22em;text-transform:uppercase;border-bottom:1px solid rgba(228,227,232,.4);padding-bottom:2px}
+.p .ft a:hover{color:var(--em);border-color:var(--em)}
+@media(max-width:900px){.grid{grid-template-columns:1fr;max-width:460px}}
+
+/* promise + contact */
+#promesa{background:radial-gradient(60% 80% at 50% 0%,#151219,var(--bg))}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:1000px;margin:0 auto;text-align:center}
+.three div{padding:10px 8px}
+.three h4{font-family:Cinzel,Georgia,serif;font-weight:400;font-size:15px;letter-spacing:.22em;text-transform:uppercase;margin:14px 0 8px}
+.three p{font-family:"Cormorant Garamond",Georgia,serif;font-size:19px;color:var(--mut)}
+.three svg{width:26px;height:26px;color:var(--em)}
+@media(max-width:760px){.three{grid-template-columns:1fr}}
+#contacto{text-align:center;border-top:1px solid var(--line)}
+#contacto .mono{width:90px;margin:0 auto 26px}
+#contacto p.l{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(20px,2vw,24px);color:var(--mut);max-width:34ch;margin:14px auto 0}
+footer{padding:28px clamp(16px,5vw,64px) 34px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px;letter-spacing:.14em;color:var(--mut);border-top:1px solid var(--line)}
+.rv{opacity:0;transform:translateY(34px);transition:opacity 1.1s,transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.hin .logo,.hin .tag,.btn,.down{animation:none}}
+</style>
+</head>
+<body>
+<header id="top">
+  <a class="mk caps" href="#hero"><img src="img/mono.png" alt=""><span>Camila Sánchez</span></a>
+  <nav><a href="#eterna">Colección</a><a href="#promesa">Nosotros</a><a href="#contacto">Contacto</a></nav>
+</header>
+
+<section id="hero" aria-label="Camila Sánchez Joyería">
+  <video id="bgBlur" src="img/collar.mp4" poster="img/poster.jpg" muted loop playsinline autoplay preload="auto" aria-hidden="true"></video>
+  <video id="bgSharp" src="img/collar.mp4" poster="img/poster.jpg" muted loop playsinline autoplay preload="auto" aria-label="Collar Estrella girando sobre terciopelo"></video>
+  <div class="hin">
+    <picture><source media="(max-aspect-ratio: 4/5)" srcset="img/logo-name.png"><img class="logo" src="img/logo.png" alt="Camila Sánchez Joyería"></picture>
+    <p class="tag caps">Más allá del lujo,<span>momentos que permanecen.</span></p>
+    <a class="btn" href="#eterna">Ver la colección</a>
+  </div>
+  <i class="down" aria-hidden="true"></i>
+</section>
+
+<section id="eterna">
+  <div class="head rv">
+    <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c.6 7.5 4.5 11.4 12 12-7.5.6-11.4 4.5-12 12-.6-7.5-4.5-11.4-12-12 7.5-.6 11.4-4.5 12-12z" fill="currentColor"/></svg>
+    <p class="eb caps">Nueva colección</p>
+    <h2>Colección ETERNA</h2>
+    <p>Tres piezas pensadas para quedarse contigo.</p>
+    <div class="rule"><i></i><b></b><i></i></div>
+  </div>
+  <div class="grid">
+    <article class="p rv">
+      <div class="ph"><img class="full" src="img/collar.jpg" alt="Collar Estrella: colgante dorado en forma de estrella con gota central y halo de piedras" loading="lazy"><span class="no caps">I</span></div>
+      <div class="tx"><h3>Collar Estrella</h3><p class="d">Colgante dorado en forma de estrella, con una gota central rodeada de piedras talla brillante.</p>
+        <div class="ft"><span class="pr">Precio a consultar</span><a href="#contacto">Consultar</a></div></div>
+    </article>
+    <article class="p rv">
+      <div class="ph"><img src="img/ring.webp" alt="Anillo Esmeralda: solitario dorado con piedra verde y brillantes en los hombros" loading="lazy"><span class="no caps">II</span></div>
+      <div class="tx"><h3>Anillo Esmeralda</h3><p class="d">Solitario dorado con una piedra verde de seis garras y brillantes a lo largo del aro.</p>
+        <div class="ft"><span class="pr">Precio a consultar</span><a href="#contacto">Consultar</a></div></div>
+    </article>
+    <article class="p rv">
+      <div class="ph"><img src="img/ear.webp" alt="Aretes Aura: argollas doradas con brillantes y una gota verde" loading="lazy"><span class="no caps">III</span></div>
+      <div class="tx"><h3>Aretes Aura</h3><p class="d">Argollas doradas con una línea de brillantes y una pequeña gota verde que se mueve contigo.</p>
+        <div class="ft"><span class="pr">Precio a consultar</span><a href="#contacto">Consultar</a></div></div>
+    </article>
+  </div>
+</section>
+
+<section id="promesa">
+  <div class="three">
+    <div class="rv"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c.6 7.5 4.5 11.4 12 12-7.5.6-11.4 4.5-12 12-.6-7.5-4.5-11.4-12-12 7.5-.6 11.4-4.5 12-12z" fill="currentColor"/></svg><h4>Hecho con detalle</h4><p>Cada pieza se revisa a mano antes de llegar a ti.</p></div>
+    <div class="rv"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" transform="rotate(45 12 12)" fill="currentColor"/></svg><h4>Para siempre</h4><p>Joyas para los momentos que quieres recordar.</p></div>
+    <div class="rv"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2.5" fill="currentColor"/></svg><h4>Atención personal</h4><p>Te asesoramos para elegir la pieza ideal.</p></div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="rv">
+    <img class="mono" src="img/mono.png" alt="">
+    <p class="caps" style="font-size:12px;color:var(--em)">Pedidos y citas privadas</p>
+    <div class="head" style="margin:10px 0 0"><h2 style="font-size:clamp(28px,4vw,48px)">Encuentra tu pieza</h2></div>
+    <p class="l">Escríbenos para conocer precios, medidas y disponibilidad de la Colección ETERNA.</p>
+  </div>
+</section>
+
+<footer><span class="caps">Camila Sánchez Joyería</span><span>Imágenes ilustrativas</span></footer>
+
+<script>
+const top_ = document.getElementById('top');
+addEventListener('scroll', () => top_.classList.toggle('solid', scrollY > 40), { passive: true });
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+// both copies of the film play together, only while the hero is on screen
+const vids = [...document.querySelectorAll('#hero video')];
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) vids.forEach(v => { v.removeAttribute('autoplay'); v.pause(); });
+else {
+  new IntersectionObserver(es => es.forEach(e => vids.forEach(v => e.isIntersecting ? v.play().catch(() => {}) : v.pause())), { threshold: .05 }).observe(document.getElementById('hero'));
+  setInterval(() => { if (Math.abs(vids[0].currentTime - vids[1].currentTime) > .15) vids[0].currentTime = vids[1].currentTime; }, 1000);
+}
+</script>
+</body>
+</html>
