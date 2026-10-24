@@ -98,12 +98,17 @@ body::before{content:"";position:fixed;inset:-50%;z-index:100;pointer-events:non
 .scroll-cue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:2;width:24px;height:40px;border:1.5px solid var(--dim);border-radius:14px}
 .scroll-cue::after{content:"";position:absolute;left:50%;top:8px;width:3px;height:8px;margin-left:-1.5px;border-radius:2px;background:var(--hot);animation:cue 1.8s infinite}
 @keyframes cue{0%{opacity:0;transform:translateY(0)}40%{opacity:1}100%{opacity:0;transform:translateY(14px)}}
-.cat{position:absolute;right:4%;top:50%;transform:translateY(-50%);width:min(36vw,440px);z-index:1;opacity:.9}
-.cat path{fill:none;stroke:url(#lg);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1600;stroke-dashoffset:1600;animation:draw 3.6s .4s var(--ease) forwards}
-@keyframes draw{to{stroke-dashoffset:0}}
-.cat .eye{fill:var(--gold);opacity:0;animation:blink 4s 3.4s infinite}
-@keyframes blink{0%,6%,100%{opacity:1}3%{opacity:0}}
-@media (max-width:900px){.cat{opacity:.18;right:-12%;width:90vw}}
+.hero-art{position:absolute;right:2%;top:50%;width:min(44vw,620px);aspect-ratio:1;transform:translateY(-50%);z-index:1;opacity:0;animation:artIn 1.6s .3s var(--ease) forwards}
+.hero-art img{width:100%;height:100%;object-fit:cover;animation:sway 7s ease-in-out infinite;
+  -webkit-mask-image:radial-gradient(closest-side,#000 62%,transparent 100%);mask-image:radial-gradient(closest-side,#000 62%,transparent 100%)}
+.hero-art::before{content:"";position:absolute;inset:8%;border-radius:50%;border:1px solid rgba(232,184,107,.35);animation:spin2 30s linear infinite}
+.hero-art::after{content:"";position:absolute;left:50%;top:8%;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--gold);box-shadow:0 0 18px var(--gold);transform-origin:5px calc(min(44vw,620px) * .42);animation:spin3 30s linear infinite}
+@keyframes artIn{from{opacity:0;transform:translateY(-44%) scale(.92)}to{opacity:1;transform:translateY(-50%)}}
+@keyframes sway{0%,100%{transform:rotate(-1.5deg) translateY(0)}50%{transform:rotate(1.5deg) translateY(-14px)}}
+@keyframes spin2{to{transform:rotate(360deg)}}
+@keyframes spin3{to{transform:rotate(360deg)}}
+@media (max-width:900px){.hero-art{position:relative;right:auto;top:auto;transform:none;width:min(88vw,440px);margin:0 auto -30px;animation-name:artInM}.hero-art::after{transform-origin:5px calc(min(88vw,440px) * .42)}.hero{padding-top:90px}}
+@keyframes artInM{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
 
 /* marquee */
 .marquee{border-block:1px solid var(--line);background:var(--bg2);overflow:hidden;padding:22px 0;position:relative;z-index:2}
@@ -153,6 +158,7 @@ body::before{content:"";position:fixed;inset:-50%;z-index:100;pointer-events:non
 .exp .tag{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--hot);margin-bottom:10px}
 .exp h3{font-size:34px;margin-bottom:10px}
 .exp p{color:var(--muted);font-size:15px}
+.exp .art.photo{background-size:cover;background-position:center top}
 .art-1{background:radial-gradient(120% 80% at 80% 0%,#7a3b1d 0%,transparent 60%),radial-gradient(90% 70% at 0% 40%,#4a0f22,transparent 70%),#1b0d12}
 .art-2{background:radial-gradient(110% 80% at 20% 0%,#8a0d36 0%,transparent 60%),radial-gradient(90% 70% at 100% 50%,#3a0b1c,transparent 70%),#1b0d12}
 .art-3{background:radial-gradient(110% 80% at 70% 10%,#0f4a5c 0%,transparent 60%),radial-gradient(90% 70% at 0% 60%,#6b0f2a,transparent 70%),#1b0d12}
@@ -174,6 +180,24 @@ body::before{content:"";position:fixed;inset:-50%;z-index:100;pointer-events:non
 .event:hover .arrow{transform:rotate(-45deg);background:var(--hot);border-color:var(--hot)}
 .event .arrow svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6}
 @media (max-width:700px){.event{grid-template-columns:1fr auto;gap:14px}.event .n{grid-column:1/-1}}
+
+.preview{position:fixed;left:0;top:0;width:240px;aspect-ratio:3/4;border-radius:16px;overflow:hidden;pointer-events:none;z-index:30;opacity:0;scale:.85;transition:opacity .35s,scale .45s var(--ease);box-shadow:0 30px 60px -20px rgba(0,0,0,.8);border:1px solid rgba(255,61,110,.4)}
+.preview.on{opacity:1;scale:1}
+.preview img{width:100%;height:100%;object-fit:cover;object-position:center top}
+@media (hover:none){.preview{display:none}}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:170px;gap:14px}
+.gallery figure{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:var(--card);clip-path:inset(100% 0 0 0);transition:clip-path 1.2s var(--ease)}
+.gallery.in figure{clip-path:inset(0 0 0 0)}
+.gallery.in figure:nth-child(2){transition-delay:.12s}.gallery.in figure:nth-child(3){transition-delay:.24s}.gallery.in figure:nth-child(4){transition-delay:.36s}.gallery.in figure:nth-child(5){transition-delay:.48s}
+.gallery img{width:100%;height:100%;object-fit:cover;object-position:center 20%;transform:scale(1.15);transition:transform 1.4s var(--ease),filter .5s}
+.gallery.in img{transform:scale(1)}
+.gallery figure:hover img{transform:scale(1.07);filter:saturate(1.2)}
+.gallery figcaption{position:absolute;left:14px;bottom:14px;padding:7px 14px;border-radius:999px;background:rgba(12,6,8,.7);backdrop-filter:blur(6px);font-size:12px;letter-spacing:.14em;text-transform:uppercase;transform:translateY(10px);opacity:0;transition:.4s var(--ease)}
+.gallery figure:hover figcaption{transform:none;opacity:1}
+.g1{grid-row:span 4}.g2,.g3,.g4,.g5{grid-row:span 2}
+@media (max-width:800px){.gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:130px}.g1{grid-column:1/-1;grid-row:span 4}.gallery figcaption{opacity:1;transform:none}}
 
 /* services */
 .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
@@ -220,6 +244,9 @@ a.row:hover{border-color:var(--hot);transform:translateX(6px)}
 .cta .ring.r2::before{background:var(--gold);box-shadow:0 0 24px var(--gold)}
 @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
 .cta > .wrap{position:relative;z-index:1}
+.dancer{width:clamp(120px,16vw,190px);margin:0 auto 10px;border-radius:50% 50% 24px 24px;overflow:hidden;border:2px solid var(--hot);box-shadow:0 0 50px -10px var(--hot);animation:dance .9s ease-in-out infinite alternate}
+.dancer img{width:100%;aspect-ratio:335/440;object-fit:cover;object-position:center 15%}
+@keyframes dance{from{transform:rotate(-6deg) translateY(0)}to{transform:rotate(6deg) translateY(-12px)}}
 footer{border-top:1px solid var(--line);padding:40px 0;color:var(--dim);font-size:14px}
 footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
 
@@ -261,6 +288,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
 </div>
 
 <div class="glow" id="glow"></div>
+<div class="preview" id="preview"><img alt=""></div>
 
 <header class="nav" id="nav">
   <div class="wrap">
@@ -269,6 +297,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
       <a href="#nosotros">Nosotros</a>
       <a href="#experiencias">Experiencias</a>
       <a href="#eventos">Eventos</a>
+      <a href="#galeria">Galería</a>
       <a href="#servicios">Servicios</a>
       <a href="#visitanos">Visítanos</a>
     </nav>
@@ -281,7 +310,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
   <a href="#nosotros">Nosotros</a>
   <a href="#experiencias">Experiencias</a>
   <a href="#eventos">Eventos</a>
-  <a href="#servicios">Servicios</a>
+  <a href="#galeria">Galería</a>
+      <a href="#servicios">Servicios</a>
   <a href="#visitanos">Visítanos</a>
   <a href="https://wa.me/573113354849" target="_blank" rel="noopener" style="color:var(--hot)">Reservar →</a>
 </nav>
@@ -289,17 +319,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
 <main>
 <section class="hero" id="inicio">
   <div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
-  <svg class="cat" viewBox="0 0 400 460" aria-hidden="true">
-    <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8b86b"/><stop offset="1" stop-color="#ff3d6e"/></linearGradient></defs>
-    <path d="M120 120 L140 40 L185 95 Q200 92 215 95 L260 40 L280 120 Q300 160 290 205 Q275 255 200 262 Q125 255 110 205 Q100 160 120 120 Z"/>
-    <path d="M200 262 Q120 300 130 380 Q140 440 200 440 Q260 440 270 380 Q280 300 200 262"/>
-    <path d="M270 400 Q340 410 350 350 Q358 300 320 290"/>
-    <path d="M190 205 L200 214 L210 205"/>
-    <path d="M200 214 L200 226 M200 226 Q188 236 178 228 M200 226 Q212 236 222 228"/>
-    <path d="M150 210 L95 200 M150 220 L92 224 M250 210 L305 200 M250 220 L308 224"/>
-    <ellipse class="eye" cx="160" cy="170" rx="13" ry="7"/>
-    <ellipse class="eye" cx="240" cy="170" rx="13" ry="7"/>
-  </svg>
+  <div class="hero-art"><img src="img/gata-pole.png" alt="Gata bailando en el tubo con corsé rojo" width="1100" height="1100" fetchpriority="high"></div>
   <div class="wrap hero-inner">
     <span class="eyebrow fade-in" style="animation-delay:.1s">Centro cultural de artes eróticas · Medellín</span>
     <h1>
@@ -357,21 +377,21 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
     </div>
     <div class="exp-grid stagger">
       <article class="exp tilt">
-        <div class="art art-1"></div>
+        <div class="art art-1 photo" style="background-image:url(img/gata-modelo.png)"></div>
         <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9z"/><path d="M17 10h1.5a2.5 2.5 0 0 1 0 5H17M8 3c0 1.5 1 1.5 1 3M12 3c0 1.5 1 1.5 1 3"/></svg></div>
         <span class="tag">Café</span>
         <h3>Café con piernas</h3>
         <p>Un café diferente, atendido con estilo y coquetería.</p>
       </article>
       <article class="exp tilt">
-        <div class="art art-2"></div>
+        <div class="art art-2 photo" style="background-image:url(img/serval-latex.png)"></div>
         <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 12h18M5 12a7 7 0 0 1 14 0M12 5V3M4 16h16M7 16v5M17 16v5"/></svg></div>
         <span class="tag">Gastronomía</span>
         <h3>Comedor erótico</h3>
         <p>Una cena temática donde la cocina y el arte se encuentran.</p>
       </article>
       <article class="exp tilt">
-        <div class="art art-3"></div>
+        <div class="art art-3 photo" style="background-image:url(img/gata-bikini.png)"></div>
         <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 15l2-6h14l2 6v3H3v-3z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/><path d="M8 5c0 1 1 1 1 2M12 4c0 1 1 1 1 2M16 5c0 1 1 1 1 2"/></svg></div>
         <span class="tag">Show</span>
         <h3>Bikini carwash</h3>
@@ -395,11 +415,27 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
       <p class="lead">Nuestra agenda mezcla cine, performance, música y orgullo. Escríbenos para conocer las próximas fechas.</p>
     </div>
     <div class="events stagger">
-      <div class="event"><span class="n">01</span><div><h3>Batalla de cholitas</h3><p>Una competencia llena de actitud, humor y talento sobre el escenario.</p></div><span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-      <div class="event"><span class="n">02</span><div><h3>Cinérotico</h3><p>Proyecciones de cine erótico y de autor para ver y conversar en compañía.</p></div><span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-      <div class="event"><span class="n">03</span><div><h3>Laboratorio Sensorial</h3><p>Una experiencia para explorar sabores, aromas, texturas y sonidos.</p></div><span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-      <div class="event"><span class="n">04</span><div><h3>En el ambiente · Pride</h3><p>Celebramos la diversidad sexual con noches de orgullo, música y momentos mágicos.</p></div><span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-      <div class="event"><span class="n">05</span><div><h3>Noches electrónicas</h3><p>Fiestas de música electrónica junto a colectivos invitados de la escena local.</p></div><span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="event" data-img="img/gata-bikini.png"><span class="n">01</span><div><h3>Batalla de cholitas</h3><p>Una competencia llena de actitud, humor y talento sobre el escenario.</p></div><span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="event" data-img="img/serval-latex.png"><span class="n">02</span><div><h3>Cinérotico</h3><p>Proyecciones de cine erótico y de autor para ver y conversar en compañía.</p></div><span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="event" data-img="img/gata-modelo.png"><span class="n">03</span><div><h3>Laboratorio Sensorial</h3><p>Una experiencia para explorar sabores, aromas, texturas y sonidos.</p></div><span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="event" data-img="img/gata-pole.png"><span class="n">04</span><div><h3>En el ambiente · Pride</h3><p>Celebramos la diversidad sexual con noches de orgullo, música y momentos mágicos.</p></div><span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="event" data-img="img/gata-baile.png"><span class="n">05</span><div><h3>Noches electrónicas</h3><p>Fiestas de música electrónica junto a colectivos invitados de la escena local.</p></div><span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+    </div>
+  </div>
+</section>
+
+<section id="galeria">
+  <div class="wrap">
+    <div class="head reveal">
+      <div><span class="eyebrow">Galería</span><h2>La casa en <em>imágenes</em></h2></div>
+      <p class="lead">Un vistazo al universo felino y atrevido de Casa Gatica.</p>
+    </div>
+    <div class="gallery reveal">
+      <figure class="g1"><img src="img/serval-latex.png" alt="Ilustración de gata serval en látex" loading="lazy"><figcaption>Arte erótico</figcaption></figure>
+      <figure class="g2"><img src="img/gata-pole.png" alt="Gata en el tubo con corsé rojo" loading="lazy"><figcaption>Show</figcaption></figure>
+      <figure class="g3"><img src="img/gata-modelo.png" alt="Modelo con disfraz de leopardo" loading="lazy"><figcaption>Café con piernas</figcaption></figure>
+      <figure class="g4"><img src="img/gata-baile.png" alt="Gato bailando con gafas rosadas" loading="lazy" style="object-position:center 25%"><figcaption>Noches de fiesta</figcaption></figure>
+      <figure class="g5"><img src="img/gata-bikini.png" alt="Gata en bikini" loading="lazy"><figcaption>Bikini carwash</figcaption></figure>
     </div>
   </div>
 </section>
@@ -477,6 +513,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
 <section class="cta">
   <div class="ring"></div><div class="ring r2"></div>
   <div class="wrap reveal">
+    <div class="dancer"><img src="img/gata-baile.png" alt="" loading="lazy"></div>
     <span class="eyebrow">Solo para mayores de 18</span>
     <h2>Ven a <em>calentar</em><br>la noche</h2>
     <a class="btn btn-hot" href="https://wa.me/573113354849?text=Hola%20Casa%20Gatica%2C%20quiero%20hacer%20una%20reserva" target="_blank" rel="noopener">Reservar ahora</a>
@@ -552,11 +589,20 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
   });
 
   // hero parallax
-  var orbs=document.querySelectorAll('.hero .orb'),cat=document.querySelector('.cat');
+  var pv=document.getElementById('preview'),pimg=pv.querySelector('img'),px=0,py=0,qx=0,qy=0;
+  document.querySelectorAll('.event[data-img]').forEach(function(ev){
+    new Image().src=ev.dataset.img;
+    ev.addEventListener('mouseenter',function(){pimg.src=ev.dataset.img;pv.classList.add('on')});
+    ev.addEventListener('mouseleave',function(){pv.classList.remove('on')});
+  });
+  window.addEventListener('mousemove',function(e){qx=e.clientX;qy=e.clientY},{passive:true});
+  (function mv(){px+=(qx-px)*.15;py+=(qy-py)*.15;pv.style.transform='translate('+(px+24)+'px,'+(py-160)+'px) rotate('+((qx-px)*.05)+'deg)';requestAnimationFrame(mv)})();
+
+  var orbs=document.querySelectorAll('.hero .orb'),cat=document.querySelector('.hero-art');
   window.addEventListener('scroll',function(){
     var y=window.scrollY;if(y>window.innerHeight)return;
     orbs.forEach(function(o,i){o.style.translate='0 '+(y*(.15+i*.1))+'px'});
-    cat.style.translate='0 '+(y*.25)+'px';
+    cat.style.translate='0 '+(y*.18)+'px';
   },{passive:true});
 })();
 </script>
