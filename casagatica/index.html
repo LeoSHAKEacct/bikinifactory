@@ -95,9 +95,6 @@ body::before{content:"";position:fixed;inset:-50%;z-index:100;pointer-events:non
 .hero .ctas{display:flex;flex-wrap:wrap;gap:14px}
 .pillars{display:flex;flex-wrap:wrap;gap:10px;margin-top:56px}
 .pillars span{border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:13px;color:var(--muted);background:rgba(27,13,18,.5)}
-.scroll-cue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:2;width:24px;height:40px;border:1.5px solid var(--dim);border-radius:14px}
-.scroll-cue::after{content:"";position:absolute;left:50%;top:8px;width:3px;height:8px;margin-left:-1.5px;border-radius:2px;background:var(--hot);animation:cue 1.8s infinite}
-@keyframes cue{0%{opacity:0;transform:translateY(0)}40%{opacity:1}100%{opacity:0;transform:translateY(14px)}}
 .hero-art{position:absolute;right:2%;top:50%;width:min(44vw,620px);aspect-ratio:1;transform:translateY(-50%);z-index:1;opacity:0;animation:artIn 1.6s .3s var(--ease) forwards}
 .hero-art img{width:100%;height:100%;object-fit:cover;animation:sway 7s ease-in-out infinite;
   -webkit-mask-image:radial-gradient(closest-side,#000 62%,transparent 100%);mask-image:radial-gradient(closest-side,#000 62%,transparent 100%)}
@@ -338,7 +335,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
       <span>Carrera 80 #50-68 · 2° piso</span><span>La América</span><span>Bar · Restaurante · Centro cultural</span>
     </div>
   </div>
-  <a class="scroll-cue" href="#nosotros" aria-label="Bajar"></a>
 </section>
 
 <div class="marquee" aria-hidden="true">
