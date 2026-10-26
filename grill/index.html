@@ -189,22 +189,52 @@ function place(im, apart) {
   if (W < 760) { const s = Math.min(W * .64 / 577, (H - 120) / 700); return { s, x: W * .34 - 606 * s, y: (H + 30) / 2 - 376 * s }; }
   const s = (H - 76) / ih; return { s, x: (W - iw * s) / 2, y: 72 };
 }
-function paint(im, apart, a) {
+function paint(im, apart, a, z = 1, cx = 0, cy = 0) {
   if (!im) return; const q = place(im, apart), x = q.x * DPR, y = q.y * DPR, w = im.naturalWidth * q.s * DPR, hh = im.naturalHeight * q.s * DPR;
+  fc.save(); if (z !== 1) { fc.translate(cx * DPR, cy * DPR); fc.scale(z, z); fc.translate(-cx * DPR, -cy * DPR); }
   fc.globalAlpha = a; fc.drawImage(im, x, y, w, hh);
   if (apart) { // soften the frame's edges into the background
     const f = 70 * DPR, g = (x0, y0, x1, y1) => { const gr = fc.createLinearGradient(x0, y0, x1, y1); gr.addColorStop(0, '#030303'); gr.addColorStop(1, 'rgba(3,3,3,0)'); return gr; };
     fc.fillStyle = g(0, y, 0, y + f); fc.fillRect(x, y, w, f); fc.fillStyle = g(0, y + hh, 0, y + hh - f); fc.fillRect(x, y + hh - f, w, f);
     fc.fillStyle = g(x, 0, x + f, 0); fc.fillRect(x, y, f, hh); fc.fillStyle = g(x + w, 0, x + w - f, 0); fc.fillRect(x + w - f, y, f, hh);
   }
-  fc.globalAlpha = 1;
+  fc.restore(); fc.globalAlpha = 1;
 }
 let lastApart = null;
+// the handoff: the camera pushes into the cut burger while the dark closes in like an iris,
+// embers burst at the darkest moment, and the floating burger opens out of the same spot
+const EMB = Array.from({ length: 70 }, (_, i) => { const r = Math.sin(i * 91.7) * 43758.5; const f = r - Math.floor(r); return { a: i * 2.399 + f, sp: .35 + f * .9, s: 1.5 + ((i * 7) % 5) * .9, d: (i % 9) / 30 }; });
 function drawFilm(p) {
+  const W = innerWidth, H = innerHeight, maxR = Math.hypot(W, H) * .62;
   fc.fillStyle = '#030303'; fc.fillRect(0, 0, film.width, film.height);
-  const mix = ease(ramp(p, .34, .4));
-  if (mix < 1) paint(CUT.get(Math.round(ease(ramp(p, .06, .34)) * (CUT.n - 1))), false, 1);
-  if (mix > 0) { lastApart = APART.get(Math.round(ramp(p, .38, .84) * (APART.n - 1))); paint(lastApart, true, mix); }
+  const close = ease(ramp(p, .3, .38)), open = ease(ramp(p, .39, .47));
+  // where the iris sits: the cut in the first film, the floating burger in the second
+  const ap = APART.get(0), qa = ap ? place(ap, true) : { x: W / 2, y: H / 2, s: 1 };
+  const bx = ap ? qa.x + 606 * qa.s : W / 2, by = ap ? qa.y + 376 * qa.s : H / 2;
+  const cx = p < .385 ? W / 2 : bx, cy = p < .385 ? H * .56 : by;
+  if (p < .385) paint(CUT.get(Math.round(ease(ramp(p, .06, .32)) * (CUT.n - 1))), false, 1, 1 + close * 1.6, W / 2, H * .56);
+  else { lastApart = APART.get(Math.round(ramp(p, .4, .86) * (APART.n - 1))); paint(lastApart, true, 1, lerp(1.7, 1, open), bx, by); }
+  // the iris: dark outside a soft circle that shrinks to nothing, then opens again
+  const R = p < .385 ? lerp(maxR, 0, close) : lerp(0, maxR, open);
+  if (R < maxR - 1) {
+    const g = fc.createRadialGradient(cx * DPR, cy * DPR, R * .55 * DPR, cx * DPR, cy * DPR, Math.max(R, 1) * DPR + 1);
+    g.addColorStop(0, 'rgba(3,3,3,0)'); g.addColorStop(1, 'rgba(3,3,3,1)');
+    fc.fillStyle = g; fc.fillRect(0, 0, film.width, film.height);
+  }
+  // a hot glow and a burst of embers at the moment of the cut
+  const e = ramp(p, .35, .48);
+  if (e > 0 && e < 1 && !reduce) {
+    fc.save(); fc.globalCompositeOperation = 'lighter';
+    const glow = Math.sin(Math.PI * ramp(p, .36, .42));
+    if (glow > 0) { const gg = fc.createRadialGradient(cx * DPR, cy * DPR, 0, cx * DPR, cy * DPR, 260 * DPR); gg.addColorStop(0, `rgba(255,170,60,${.55 * glow})`); gg.addColorStop(1, 'rgba(255,90,0,0)'); fc.fillStyle = gg; fc.fillRect(0, 0, film.width, film.height); }
+    EMB.forEach(m => {
+      const t = clamp((e - m.d) / (1 - m.d)); if (t <= 0 || t >= 1) return;
+      const r = Math.pow(t, .7) * maxR * m.sp, x = cx + Math.cos(m.a) * r, y = cy + Math.sin(m.a) * r - t * t * 60;
+      fc.globalAlpha = Math.sin(Math.PI * t) * .9; fc.fillStyle = t < .5 ? '#ffd27a' : '#ff7a1a';
+      fc.beginPath(); fc.arc(x * DPR, y * DPR, m.s * (1 - t * .5) * DPR, 0, 6.283); fc.fill();
+    });
+    fc.restore(); fc.globalAlpha = 1;
+  }
 }
 
 /* confetti when the trophy shows up */
