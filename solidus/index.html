@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NEXUS Laureles · Constructora Solidus</title>
+<title>Constructora Solidus · NEXUS y Hennabitat</title>
 <meta name="description" content="NEXUS, exclusivo proyecto en Laureles, Medellín, de Constructora Solidus. Una sola torre, un apartamento por piso, totalmente terminado.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Manrope:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -83,6 +83,15 @@ section.s{padding:clamp(80px,12vh,130px) 0}
 @media(max-width:860px){.loc{grid-template-columns:1fr}}
 
 /* company + contact */
+#hennabitat .top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px}
+#hennabitat .price{margin-top:0;border-top:0;padding-top:0}
+.gal{display:grid;grid-template-columns:1.4fr 1fr 1fr;grid-template-rows:repeat(2,minmax(180px,19vw));gap:clamp(10px,1.4vw,18px);margin-top:40px}
+.gal figure{position:relative;overflow:hidden}
+.gal figure:first-child{grid-row:span 2}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.gal figure:hover img{transform:scale(1.04)}
+.gal figcaption{position:absolute;left:12px;bottom:10px;background:rgba(251,250,247,.92);padding:6px 11px;font-size:13px;font-weight:600;color:var(--navy)}
+@media(max-width:760px){.gal{grid-template-columns:1fr 1fr;grid-template-rows:none}.gal figure{aspect-ratio:1}.gal figure:first-child{grid-column:span 2;grid-row:auto;aspect-ratio:4/3}}
 #solidus{background:var(--navy);color:#fff}
 #solidus .h2{color:#fff}
 #solidus .lead{color:rgba(255,255,255,.75)}
@@ -102,7 +111,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 <body>
 <header><div class="wrap">
   <a href="#"><img src="img/logo.png" alt="Solidus, Expertos en Desarrollo Inmobiliario"></a>
-  <nav><a href="#nexus">El proyecto</a><a href="#ubicacion">Ubicación</a><a href="#solidus">Solidus</a><a class="btn solid" href="#contacto">Agenda tu visita</a></nav>
+  <nav><a href="#nexus">NEXUS</a><a href="#hennabitat">Hennabitat</a><a href="#solidus">Solidus</a><a class="btn solid" href="#contacto">Agenda tu visita</a></nav>
 </div></header>
 
 <section id="torre">
@@ -152,13 +161,31 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   <figure class="rv"><img src="img/map.jpg" alt="Mapa de Laureles con NEXUS junto a la Av. Nutibara, cerca del Primer y Segundo Parque de Laureles, Starbucks, Viva Laureles y la UPB" loading="lazy"></figure>
 </div></section>
 
+<section class="s" id="hennabitat"><div class="wrap">
+  <div class="top">
+    <div>
+      <p class="eb rv">Conquistadores · Medellín</p>
+      <h2 class="h2 rv">Hennabitat</h2>
+      <p class="lead rv">Apartamentos para vivienda en el sector Conquistadores: espacios abiertos, cocina con barra, balcón con vista a la ciudad y acabados en madera.</p>
+    </div>
+    <div class="price rv"><small>Precio</small><b>COP 805.000.000</b></div>
+  </div>
+  <div class="gal">
+    <figure class="rv"><img src="img/h-living.jpg" alt="Sala, comedor y cocina abierta de Hennabitat con balcón" loading="lazy"><figcaption>Sala y comedor</figcaption></figure>
+    <figure class="rv"><img src="img/h-kitchen.jpg" alt="Cocina con barra y balcón con vista a Medellín" loading="lazy"><figcaption>Cocina y balcón</figcaption></figure>
+    <figure class="rv"><img src="img/h-bedroom.jpg" alt="Habitación con salida al balcón" loading="lazy"><figcaption>Habitación</figcaption></figure>
+    <figure class="rv"><img src="img/h-suite.jpg" alt="Habitación principal con clóset en madera" loading="lazy"><figcaption>Habitación principal</figcaption></figure>
+    <figure class="rv"><img src="img/h-bath.jpg" alt="Baño con doble lavamanos y ventana de piso a techo" loading="lazy"><figcaption>Baño</figcaption></figure>
+  </div>
+</div></section>
+
 <section class="s" id="solidus"><div class="wrap" id="contacto">
   <img class="lg rv" src="img/logo-white.png" alt="Solidus">
   <p class="eb rv" style="color:#c9d3f5">Constructora Solidus</p>
   <h2 class="h2 rv">Expertos en desarrollo inmobiliario.</h2>
-  <p class="lead rv">Conoce NEXUS en persona. Escríbenos y agendamos tu visita al proyecto en Laureles.</p>
+  <p class="lead rv">Conoce NEXUS en Laureles y Hennabitat en Conquistadores. Escríbenos y agendamos tu visita.</p>
   <div class="cta rv" id="ctas">
-    <a class="btn solid" href="https://constructorasolidus.com" target="_blank" rel="noopener">constructorasolidus.com</a>
+    <a class="btn solid" href="https://solidus.com.co/" target="_blank" rel="noopener">solidus.com.co</a>
   </div>
 </div></section>
 <footer><div class="wrap"><span>© Constructora Solidus · Medellín</span><span>Imágenes de referencia</span></div></footer>
