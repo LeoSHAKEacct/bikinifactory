@@ -93,6 +93,8 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px
 .card.hide{display:none}
 .card .ph{position:relative;aspect-ratio:4/4.4;overflow:hidden;background:#b3240c}
 .card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.1,1)}
+.card .ph.cut{background:radial-gradient(circle at 50% 45%,#fbf8f4,#e4ddd5 75%)}
+.card .ph.cut img{object-fit:contain;padding:12% 8% 10%;filter:drop-shadow(0 18px 18px rgba(0,0,0,.25))}
 .card:hover .ph img{transform:scale(1.06)}
 .tag{position:absolute;left:12px;top:12px;padding:5px 10px;border-radius:3px;background:rgba(10,8,7,.75);font:600 12px "Barlow Condensed";letter-spacing:.18em;text-transform:uppercase}
 .tag.new{background:var(--or);color:#120604}
@@ -186,7 +188,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   </div>
   <div class="grid" id="grid">
     <article class="card" data-c="moto"><div class="ph"><img src="img/moto1.jpg" alt="Matte black streetfighter motorcycle with gold forks" loading="lazy"><span class="tag new">New</span></div><div class="bd"><h3>Jo Street 900</h3><div class="spec"><span>890 cc</span><span>117 hp</span><span>189 kg</span></div><div class="row"><span class="price">$11,490</span><button class="add" data-n="Jo Street 900">Add</button></div></div></article>
-    <article class="card" data-c="moto"><div class="ph"><img src="img/moto2.jpg" alt="Close view of the black streetfighter with a rider stepping off" loading="lazy"><span class="tag">Limited</span></div><div class="bd"><h3>Street 900 Dark Gold</h3><div class="spec"><span>890 cc</span><span>Quickshifter</span><span>Gold forks</span></div><div class="row"><span class="price">$12,290</span><button class="add" data-n="Street 900 Dark Gold">Add</button></div></div></article>
+    <article class="card" data-c="moto"><div class="ph cut"><img src="img/classic125.png" alt="Grey classic street motorcycle with a round headlight and spoke wheels" loading="lazy"><span class="tag new">New</span></div><div class="bd"><h3>Classic 125</h3><div class="spec"><span>125 cc</span><span>Spoke wheels</span><span>Front disc</span></div><div class="row"><span class="price">$1,990</span><button class="add" data-n="Classic 125">Add</button></div></div></article>
     <article class="card" data-c="helmet"><div class="ph"><img src="img/helmet1.jpg" alt="Matte black full-face helmet with smoked gold visor" loading="lazy"><span class="tag new">New</span></div><div class="bd"><h3>Apex Full-Face</h3><div class="spec"><span>Matte black</span><span>Gold visor</span><span>XS – XXL</span></div><div class="row"><span class="price">$449</span><button class="add" data-n="Apex Full-Face">Add</button></div></div></article>
     <article class="card" data-c="helmet"><div class="ph"><img src="img/helmet2.jpg" alt="The matte black helmet seen from the side" loading="lazy"></div><div class="bd"><h3>Apex Aero</h3><div class="spec"><span>Matte black</span><span>Low drag</span><span>XS – XXL</span></div><div class="row"><span class="price">$389</span><button class="add" data-n="Apex Aero">Add</button></div></div></article>
     <article class="card" data-c="helmet"><div class="ph"><img src="img/helmet3.jpg" alt="Inside of the helmet: black liner with orange accents" loading="lazy"></div><div class="bd"><h3>Apex Liner Kit</h3><div class="spec"><span>Liner</span><span>Cheek pads</span><span>Washable</span></div><div class="row"><span class="price">$79</span><button class="add" data-n="Apex Liner Kit">Add</button></div></div></article>
