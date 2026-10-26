@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEXUS Laureles · Constructora Solidus</title>
+<meta name="description" content="NEXUS, exclusivo proyecto en Laureles, Medellín, de Constructora Solidus. Una sola torre, un apartamento por piso, totalmente terminado.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Manrope:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#13235f;--navy2:#0b1640;--sand:#efe7dc;--brick:#c9a98a;--ink:#1a1f2e;--mut:#6b7286;--line:#e2dfd8;--bg:#fbfaf7}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.65 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+.serif{font-family:"Libre Caslon Text",Georgia,serif}
+.eb{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--brick)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;font-weight:700;font-size:14px;letter-spacing:.06em;transition:.25s;border:1.5px solid var(--navy)}
+.btn.solid{background:var(--navy);color:#fff}
+.btn.solid:hover{background:var(--navy2)}
+.btn.line:hover{background:var(--navy);color:#fff}
+.btn:focus-visible{outline:3px solid var(--brick);outline-offset:3px}
+
+header{position:fixed;inset:0 0 auto;z-index:20;background:rgba(251,250,247,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:74px}
+header img{height:42px;width:auto}
+header nav{display:flex;align-items:center;gap:28px;font-size:14px;font-weight:600;color:var(--mut)}
+header nav a:hover{color:var(--navy)}
+header nav .btn{padding:10px 18px;font-size:13px;color:#fff}
+@media(max-width:760px){header nav a:not(.btn){display:none}header img{height:34px}}
+
+/* hero: the tower climbs past as you scroll, from the street to the rooftop */
+#torre{position:relative;height:260vh;background:linear-gradient(180deg,#cfe3f7,#eaf3fb 60%,var(--bg))}
+.stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;grid-template-columns:1fr minmax(300px,40vw);align-items:center;gap:clamp(20px,4vw,60px);padding:74px clamp(16px,5vw,80px) 0}
+.htx{max-width:560px}
+.htx h1{font-family:"Libre Caslon Text",Georgia,serif;font-weight:400;font-size:clamp(56px,8.4vw,128px);line-height:.9;color:var(--navy);letter-spacing:-.01em;margin:16px 0 14px}
+.htx .sub{font-family:"Libre Caslon Text",Georgia,serif;font-style:italic;font-size:clamp(22px,2.4vw,30px);color:var(--navy)}
+.htx p.l{color:var(--mut);margin-top:16px;max-width:44ch}
+.price{display:flex;align-items:baseline;gap:12px;margin-top:22px;padding-top:18px;border-top:1px solid rgba(19,35,95,.18)}
+.price small{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+.price b{font-size:clamp(24px,2.6vw,32px);color:var(--navy);font-weight:700;font-variant-numeric:tabular-nums}
+.htx .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.frame{position:relative;height:calc(100% - 30px);align-self:end;overflow:hidden;border-radius:240px 240px 0 0;box-shadow:0 40px 80px -40px rgba(11,22,64,.5)}
+.frame img{position:absolute;left:0;top:0;width:100%;height:auto;will-change:transform}
+.lvl{position:absolute;right:16px;bottom:22px;z-index:2;background:rgba(11,22,64,.78);color:#fff;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;backdrop-filter:blur(6px)}
+@media(max-width:860px){
+ #torre{height:auto}
+ .stick{position:relative;height:auto;grid-template-columns:1fr;padding-top:104px;padding-bottom:40px}
+ .frame{height:72vh;border-radius:180px 180px 0 0;order:-1}
+}
+
+/* facts */
+.facts{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
+.facts div{padding:clamp(26px,4vw,44px) clamp(16px,3vw,36px);border-right:1px solid var(--line)}
+.facts div:last-child{border-right:0}
+.facts b{display:block;font-family:"Libre Caslon Text",Georgia,serif;font-weight:400;font-size:clamp(30px,3.6vw,48px);color:var(--navy);line-height:1}
+.facts span{display:block;margin-top:10px;color:var(--mut);font-size:15px}
+@media(max-width:760px){.facts{grid-template-columns:1fr}.facts div{border-right:0;border-bottom:1px solid var(--line)}}
+
+section.s{padding:clamp(80px,12vh,130px) 0}
+.h2{font-family:"Libre Caslon Text",Georgia,serif;font-weight:400;font-size:clamp(36px,4.6vw,60px);line-height:1.05;color:var(--navy);margin-top:12px;max-width:18ch}
+.lead{color:var(--mut);margin-top:16px;max-width:54ch}
+
+/* inside */
+.duo{display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(14px,2vw,24px);margin-top:44px}
+.duo figure{position:relative;overflow:hidden}
+.duo img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/10;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.duo figure:hover img{transform:scale(1.04)}
+.duo figcaption{position:absolute;left:16px;bottom:14px;background:rgba(251,250,247,.92);padding:7px 12px;font-size:13px;font-weight:600;color:var(--navy)}
+.incl{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.incl span{border:1px solid rgba(19,35,95,.25);padding:9px 16px;font-size:14px;font-weight:600;color:var(--navy);background:#fff}
+@media(max-width:760px){.duo{grid-template-columns:1fr}}
+
+/* location */
+#ubicacion{background:var(--sand)}
+.loc{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(24px,5vw,70px);align-items:center}
+.loc ul{list-style:none;margin-top:28px;display:grid;gap:0}
+.loc li{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid rgba(19,35,95,.15);font-weight:600;color:var(--navy)}
+.loc li span{font-weight:400;color:var(--mut);font-size:15px}
+.loc figure{box-shadow:0 30px 60px -30px rgba(11,22,64,.35)}
+@media(max-width:860px){.loc{grid-template-columns:1fr}}
+
+/* company + contact */
+#solidus{background:var(--navy);color:#fff}
+#solidus .h2{color:#fff}
+#solidus .lead{color:rgba(255,255,255,.75)}
+#solidus img.lg{height:56px;width:auto;margin-bottom:24px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+#solidus .btn{border-color:#fff}
+#solidus .btn.solid{background:#fff;color:var(--navy)}
+#solidus .btn.line{color:#fff}
+#solidus .btn.line:hover{background:#fff;color:var(--navy)}
+footer{background:var(--navy2);color:rgba(255,255,255,.6);font-size:13px;padding:24px 0}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s,transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a href="#"><img src="img/logo.png" alt="Solidus, Expertos en Desarrollo Inmobiliario"></a>
+  <nav><a href="#nexus">El proyecto</a><a href="#ubicacion">Ubicación</a><a href="#solidus">Solidus</a><a class="btn solid" href="#contacto">Agenda tu visita</a></nav>
+</div></header>
+
+<section id="torre">
+  <div class="stick">
+    <div class="htx">
+      <p class="eb">Laureles · Medellín</p>
+      <h1>NEXUS</h1>
+      <p class="sub">Caminabilidad inigualable.</p>
+      <p class="l">Un exclusivo proyecto de Constructora Solidus en el corazón de Laureles: una sola torre, un apartamento por piso y todo a pocos pasos.</p>
+      <div class="price"><small>Desde</small><b>COP 1.418.000.000</b></div>
+      <div class="row"><a class="btn solid" href="#contacto">Agenda tu visita</a><a class="btn line" href="#nexus">Conoce el proyecto</a></div>
+    </div>
+    <div class="frame"><img id="tw" src="img/facade.jpg" alt="Torre NEXUS en Laureles: balcones curvos de vidrio, fachada en ladrillo y terraza verde"><span class="lvl" id="lvl">Del lobby a la terraza</span></div>
+  </div>
+</section>
+
+<div class="facts" id="nexus">
+  <div class="rv"><b>1</b><span>Sola torre, de líneas curvas y ladrillo</span></div>
+  <div class="rv"><b>1</b><span>Apartamento por piso: sin vecinos de pared</span></div>
+  <div class="rv"><b>100%</b><span>Totalmente terminado, listo para habitar</span></div>
+</div>
+
+<section class="s"><div class="wrap">
+  <p class="eb rv">El apartamento</p>
+  <h2 class="h2 rv">Todo el piso es tuyo.</h2>
+  <p class="lead rv">Sala y comedor abiertos al balcón, luz de lado a lado y acabados terminados para que solo traigas tus cosas.</p>
+  <div class="duo">
+    <figure class="rv"><img src="img/living.jpg" alt="Sala y comedor del apartamento con balcón y vista a Medellín" loading="lazy"><figcaption>Sala, comedor y balcón</figcaption></figure>
+    <figure class="rv"><img src="img/closet.jpg" alt="Vestier con puertas de vidrio acanalado e iluminación cálida" loading="lazy"><figcaption>Vestier</figcaption></figure>
+  </div>
+  <div class="incl rv"><span>Totalmente terminado</span><span>Parqueadero</span><span>Cuarto útil</span><span>Balcón</span></div>
+</div></section>
+
+<section class="s" id="ubicacion"><div class="wrap loc">
+  <div>
+    <p class="eb rv">Ubicación</p>
+    <h2 class="h2 rv">Laureles a pie.</h2>
+    <p class="lead rv">Sobre el eje de la Avenida Nutibara, entre los dos parques de Laureles. El café, el parque y la universidad, caminando.</p>
+    <ul class="rv">
+      <li>Primer Parque de Laureles <span>A pasos</span></li>
+      <li>Segundo Parque de Laureles <span>Cerca</span></li>
+      <li>Av. Nutibara <span>Sobre el eje</span></li>
+      <li>Viva Laureles <span>Centro comercial</span></li>
+      <li>U.P.B. <span>Universidad</span></li>
+    </ul>
+  </div>
+  <figure class="rv"><img src="img/map.jpg" alt="Mapa de Laureles con NEXUS junto a la Av. Nutibara, cerca del Primer y Segundo Parque de Laureles, Starbucks, Viva Laureles y la UPB" loading="lazy"></figure>
+</div></section>
+
+<section class="s" id="solidus"><div class="wrap" id="contacto">
+  <img class="lg rv" src="img/logo-white.png" alt="Solidus">
+  <p class="eb rv" style="color:#c9d3f5">Constructora Solidus</p>
+  <h2 class="h2 rv">Expertos en desarrollo inmobiliario.</h2>
+  <p class="lead rv">Conoce NEXUS en persona. Escríbenos y agendamos tu visita al proyecto en Laureles.</p>
+  <div class="cta rv" id="ctas">
+    <a class="btn solid" href="https://constructorasolidus.com" target="_blank" rel="noopener">constructorasolidus.com</a>
+  </div>
+</div></section>
+<footer><div class="wrap"><span>© Constructora Solidus · Medellín</span><span>Imágenes de referencia</span></div></footer>
+
+<script>
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+// the tower climbs: as you scroll the hero, the façade pans from the street up to the rooftop garden
+const sec = document.getElementById('torre'), tw = document.getElementById('tw'), lvl = document.getElementById('lvl');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let cur = 0;
+function tick() {
+  const fr = tw.parentElement, H = fr.clientHeight, ih = tw.offsetHeight, wide = innerWidth > 860;
+  const p = wide ? Math.min(1, Math.max(0, -sec.getBoundingClientRect().top / (sec.offsetHeight - innerHeight))) : Math.min(1, Math.max(0, (innerHeight - fr.getBoundingClientRect().top) / (innerHeight + H)));
+  cur += ((reduce ? 1 : p) - cur) * .12;
+  const y = -(ih - H) * (1 - cur);   // start at the street, end at the top
+  tw.style.transform = `translateY(${y.toFixed(1)}px)`;
+  lvl.textContent = cur < .15 ? 'Lobby' : cur > .88 ? 'Terraza' : 'Piso ' + Math.max(1, Math.round(cur * 11));
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>
