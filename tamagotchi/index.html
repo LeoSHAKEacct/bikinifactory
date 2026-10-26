@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tamagotchi Ramen Bar</title>
+<meta name="description" content="Tamagotchi Ramen Bar: ramen, edamame y onigiri. Trabajamos sin reserva, ¡bienvenid@s!">
+<link rel="icon" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;800&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--night:#221029;--night2:#160a1b;--pink:#ff3d96;--lilac:#efb8f7;--yolk:#f7b32b;--coral:#e58b6f;--paper:#efe6d8;--paper2:#e4d8c6;--ink:#2b2420;--mut:#7b6e63}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--night);scroll-behavior:smooth}
+body{background:var(--night);color:#fff;font:400 17px/1.65 "Zen Kaku Gothic New",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.r{font-family:"M PLUS Rounded 1c",system-ui,sans-serif}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:999px;font:800 15px "M PLUS Rounded 1c",sans-serif;letter-spacing:.04em;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.pink{background:var(--pink);color:#fff;box-shadow:0 0 0 4px rgba(255,61,150,.25),0 10px 40px -8px var(--pink)}
+.btn:focus-visible{outline:3px solid var(--yolk);outline-offset:3px}
+
+/* opening: neon night, the logo and the steam */
+#hola{position:relative;min-height:100vh;min-height:100svh;display:grid;place-items:center;text-align:center;overflow:hidden;padding:90px 16px 60px;background:radial-gradient(60% 50% at 50% 42%,#4a1a58 0,var(--night) 60%,var(--night2))}
+.kana{position:absolute;font:800 clamp(80px,14vw,200px)/1 "M PLUS Rounded 1c",sans-serif;color:rgba(239,184,247,.06);writing-mode:vertical-rl;user-select:none;pointer-events:none}
+.kana.a{left:3vw;top:8vh}.kana.b{right:3vw;bottom:4vh}
+.logo{position:relative;width:min(340px,70vw);margin:0 auto;animation:pop 1.2s cubic-bezier(.2,1.4,.4,1) both}
+.logo img{width:100%;border-radius:50%;box-shadow:0 0 0 6px var(--night),0 0 0 9px var(--pink),0 0 60px 10px rgba(255,61,150,.45),0 0 140px 30px rgba(170,60,220,.35);animation:bob 5s ease-in-out infinite}
+@keyframes pop{from{opacity:0;transform:scale(.6) rotate(-12deg)}}
+@keyframes bob{50%{transform:translateY(-10px) rotate(2deg)}}
+.steam{position:absolute;left:50%;top:-34%;width:46%;transform:translateX(-50%);opacity:.8;pointer-events:none}
+.steam path{fill:none;stroke:rgba(255,255,255,.6);stroke-width:7;stroke-linecap:round;stroke-dasharray:40 200;animation:st 3.6s linear infinite;filter:blur(2px)}
+.steam path:nth-child(2){animation-delay:-1.2s}.steam path:nth-child(3){animation-delay:-2.4s}
+@keyframes st{from{stroke-dashoffset:240;opacity:0}25%{opacity:1}to{stroke-dashoffset:0;opacity:0}}
+#hola h1{font:800 clamp(34px,6vw,76px)/1 "M PLUS Rounded 1c",sans-serif;color:var(--lilac);letter-spacing:.02em;margin-top:38px;text-shadow:0 0 24px rgba(239,184,247,.55)}
+#hola .sub{margin-top:12px;font-size:clamp(17px,1.8vw,21px);color:#f6dcfa}
+#hola .row{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:30px}
+.noresv{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:7px 14px;border-radius:999px;border:1.5px dashed rgba(247,179,43,.7);color:var(--yolk);font:800 13px "M PLUS Rounded 1c",sans-serif;letter-spacing:.08em}
+
+/* the menu, as a book whose pages turn while you scroll */
+#carta{position:relative;height:420vh;background:var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .5  0 0 0 0 .42  0 0 0 0 .32  0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");color:var(--ink)}
+.stage{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;overflow:hidden;padding:20px 16px}
+.chead{text-align:center}
+.chead .k{font:800 13px "M PLUS Rounded 1c",sans-serif;letter-spacing:.22em;color:var(--coral)}
+.chead h2{font:800 clamp(30px,4vw,48px)/1.05 "M PLUS Rounded 1c",sans-serif;margin-top:6px}
+.book{position:relative;width:var(--pw);height:calc(var(--pw) * 1.22);--pw:min(36vw,calc((100svh - 190px) / 1.22),420px);margin-left:var(--pw);perspective:2200px}
+.page{position:absolute;inset:0;transform-origin:left center;transform-style:preserve-3d;transition:none}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:2px 10px 10px 2px;overflow:hidden;background:var(--paper);box-shadow:0 20px 40px -18px rgba(60,40,20,.5),inset 6px 0 14px -8px rgba(0,0,0,.25)}
+.face.back{transform:rotateY(180deg);border-radius:10px 2px 2px 10px;box-shadow:0 20px 40px -18px rgba(60,40,20,.5),inset -6px 0 14px -8px rgba(0,0,0,.25)}
+.face img{width:100%;height:100%;object-fit:cover}
+.cover{background:var(--coral) !important;display:grid;place-items:center}
+.cover b{font:800 clamp(30px,5vw,64px)/1 "M PLUS Rounded 1c",sans-serif;color:#efe2d6;letter-spacing:.06em}
+.cover small{position:absolute;bottom:22px;left:0;right:0;text-align:center;font:800 12px "M PLUS Rounded 1c",sans-serif;letter-spacing:.3em;color:#f6e8dc}
+.info{padding:clamp(18px,3vw,34px);display:flex;flex-direction:column;justify-content:flex-end;background:var(--paper2) !important}
+.info .jp{font:800 clamp(44px,6vw,80px)/1 "M PLUS Rounded 1c",sans-serif;color:#5d6b4f;margin-bottom:auto}
+.info h3{font:800 clamp(22px,2.4vw,32px)/1.05 "M PLUS Rounded 1c",sans-serif;letter-spacing:.02em}
+.info .pr{font:800 clamp(20px,2.2vw,28px) "M PLUS Rounded 1c",sans-serif;color:var(--coral);margin:4px 0 10px;font-variant-numeric:tabular-nums}
+.info p{font-size:clamp(13px,1.15vw,15px);line-height:1.5;color:var(--mut);text-transform:uppercase;letter-spacing:.03em}
+.info .tags{display:flex;gap:8px;margin-top:14px}
+.info .tags span{border:1.5px solid #5d6b4f;color:#5d6b4f;border-radius:6px;padding:2px 8px;font:800 12px "M PLUS Rounded 1c",sans-serif}
+.info.end{justify-content:center;text-align:center;background:var(--night) !important;color:#fff}
+.info.end h3{color:var(--lilac)}
+.info.end p{color:#f6dcfa;text-transform:none;letter-spacing:0;font-size:clamp(14px,1.3vw,17px);margin-top:10px}
+.under{position:absolute;inset:0;border-radius:2px 10px 10px 2px;overflow:hidden;box-shadow:0 20px 40px -18px rgba(60,40,20,.5)}
+.under img{width:100%;height:100%;object-fit:cover}
+.spine{position:absolute;left:-3px;top:0;bottom:0;width:6px;background:linear-gradient(90deg,rgba(0,0,0,.18),rgba(0,0,0,0));z-index:50;pointer-events:none}
+.hint{font:800 12px "M PLUS Rounded 1c",sans-serif;letter-spacing:.2em;color:var(--mut)}
+.mcap{display:none;text-align:center;max-width:340px}
+.mcap h3{font:800 22px "M PLUS Rounded 1c",sans-serif}
+.mcap .pr{font:800 20px "M PLUS Rounded 1c",sans-serif;color:var(--coral)}
+.mcap p{font-size:13px;color:var(--mut);text-transform:uppercase;line-height:1.45;margin-top:4px}
+@media(max-width:760px){
+ .book{--pw:min(66vw,calc((100svh - 300px) / 1.22));margin-left:0}
+ .face.back{visibility:hidden}
+ .mcap{display:block;min-height:96px}
+}
+
+/* full menu and hours */
+#menu,#horario{color:var(--ink);padding:clamp(80px,12vh,130px) 16px}
+#menu{background:var(--paper)}
+#horario{background:#f6efe4}
+.mw{max-width:980px;margin:0 auto}
+.mw .k{font:800 13px "M PLUS Rounded 1c",sans-serif;letter-spacing:.22em;color:var(--coral)}
+.mw h2{font:800 clamp(32px,4.4vw,54px)/1.05 "M PLUS Rounded 1c",sans-serif;margin:8px 0 34px}
+.list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:6px 48px}
+.list li{display:grid;grid-template-columns:64px 1fr;gap:14px;padding:18px 0;border-bottom:1px dashed rgba(43,36,32,.25)}
+.list .jp{font:800 15px/1.2 "M PLUS Rounded 1c",sans-serif;color:#5d6b4f;writing-mode:vertical-rl;justify-self:center;max-height:96px}
+.list .nm{display:flex;align-items:baseline;gap:10px}
+.list b{font:800 19px "M PLUS Rounded 1c",sans-serif;text-transform:uppercase;letter-spacing:.02em}
+.list .dots{flex:1;border-bottom:2px dotted rgba(43,36,32,.3);transform:translateY(-4px)}
+.list .pr{font:800 18px "M PLUS Rounded 1c",sans-serif;color:var(--coral);font-variant-numeric:tabular-nums;white-space:nowrap}
+.list p{color:var(--mut);font-size:15px;line-height:1.5;margin-top:4px}
+.list em{font-style:normal;font-weight:700;color:#5d6b4f;white-space:nowrap}
+.note{margin-top:22px;font-size:14px;color:var(--mut)}
+.hw{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(24px,5vw,60px);align-items:start}
+.hw .lead{color:var(--mut);max-width:40ch;margin-top:-18px}
+table{width:100%;border-collapse:collapse;background:#fff;border:3px solid var(--ink);font-variant-numeric:tabular-nums}
+th,td{padding:12px 16px;text-align:left;border-bottom:1px solid rgba(43,36,32,.15);font-size:16px}
+thead th{background:var(--ink);color:var(--paper);font:800 12px "M PLUS Rounded 1c",sans-serif;letter-spacing:.14em;text-transform:uppercase}
+tbody th{font-weight:700}
+td:last-child{font-weight:700;color:var(--coral)}
+@media(max-width:820px){.list{grid-template-columns:1fr}.hw{grid-template-columns:1fr}.hw .lead{margin-top:-18px}th,td{padding:10px 10px;font-size:15px}}
+
+/* walk in */
+#ven{background:var(--night);padding:clamp(80px,12vh,130px) 16px;text-align:center}
+#ven .fr{max-width:880px;margin:0 auto;border-radius:28px;overflow:hidden;border:3px solid var(--lilac);box-shadow:0 0 50px -10px rgba(239,184,247,.5)}
+#ven h2{font:800 clamp(34px,5vw,64px)/1.02 "M PLUS Rounded 1c",sans-serif;color:var(--lilac);margin:44px auto 14px;max-width:16ch}
+#ven p{color:#f6dcfa;max-width:44ch;margin:0 auto}
+footer{background:var(--night2);color:rgba(246,220,250,.6);padding:26px 16px;text-align:center;font-size:13px;display:flex;justify-content:center;flex-wrap:wrap;gap:8px 22px}
+.rv{opacity:0;transform:translateY(30px);transition:opacity .9s,transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.logo,.logo img,.steam path{animation:none}.rv{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<section id="hola" aria-label="Tamagotchi Ramen Bar">
+  <span class="kana a" aria-hidden="true">ラーメン</span><span class="kana b" aria-hidden="true">たまごっち</span>
+  <div>
+    <div class="logo">
+      <svg class="steam" viewBox="0 0 200 200" aria-hidden="true"><path d="M60 200C40 160 80 140 60 100S70 30 55 0"/><path d="M100 200C80 160 120 140 100 100S110 30 95 0"/><path d="M140 200C120 160 160 140 140 100S150 30 135 0"/></svg>
+      <img src="img/logo.png" alt="Logo de Tamagotchi Ramen Bar: たまっち! con un bowl de ramen">
+    </div>
+    <h1>TAMAGOTCHI RAMEN BAR</h1>
+    <p class="sub">Ramen, edamame y onigiri. ¡Bienvenid@s!</p>
+    <span class="noresv">✦ TRABAJAMOS SIN RESERVA</span>
+    <div class="row"><a class="btn pink" href="#carta">Abre la carta ↓</a></div>
+  </div>
+</section>
+
+<section id="carta" aria-label="La carta">
+  <div class="stage">
+    <div class="chead"><p class="k">メニュー · LA CARTA</p><h2>Pasa la página</h2></div>
+    <div class="book" id="book">
+      <div class="under"><img src="img/tanuki.jpg" alt="Tanuki samurái con sombrero de paja" style="object-position:30% 50%"></div>
+      <div class="page" data-i="2">
+        <div class="face"><img src="img/onigiri.jpg" alt="Ilustración del onigiri: bola de arroz con alga nori sobre un cojín, con setas y atún"></div>
+        <div class="face back info"><span class="jp">餃子</span><h3>HIRATAKE GYŌZA</h3><div class="pr">$49.000</div><p>Ramen de gyozas con cerdo y jengibre, hongos asados al carbón en mantequilla de sésamo, huevo ajitama y kimchi.</p></div>
+      </div>
+      <div class="page" data-i="1">
+        <div class="face"><img src="img/edamame.jpg" alt="Ilustración del edamame: un bowl de edamame junto a un niño volando sobre una libélula"></div>
+        <div class="face back info"><span class="jp">お握り</span><h3>ONIGIRI</h3><div class="pr">$10.000</div><p>También conocido como omusubi おむすび, relleno de atún y kewpie, o veggie con variedad de setas y alga nori.</p><div class="tags"><span>V</span><span>野菜</span></div></div>
+      </div>
+      <div class="page" data-i="0">
+        <div class="face cover"><b>たまごっち</b><small>TAMAGOTCHI RAMEN BAR</small></div>
+        <div class="face back info"><span class="jp">枝豆</span><h3>EDAMAME</h3><div class="pr">$38.000</div><p>Salteados con togarashi y guisantes con wasabi. 500 g.</p><div class="tags"><span>V</span><span>野菜</span></div></div>
+      </div>
+      <i class="spine"></i>
+    </div>
+    <div class="mcap" id="mcap" aria-live="polite"></div>
+    <p class="hint" id="hint">DESLIZA PARA PASAR LA PÁGINA ↓</p>
+  </div>
+</section>
+
+<section id="menu"><div class="mw">
+  <p class="k rv">食事 · TODA LA CARTA</p>
+  <h2 class="rv">Para pedir en la barra</h2>
+  <ul class="list"><li class="rv"><span class="jp">枝豆</span><div><div class="nm"><b>Edamame</b><span class="dots"></span><span class="pr">$38.000</span></div><p>Salteados con togarashi y guisantes con wasabi. 500 g. <em>V · 野菜</em></p></div></li><li class="rv"><span class="jp">お握り</span><div><div class="nm"><b>Onigiri</b><span class="dots"></span><span class="pr">$10.000</span></div><p>También conocido como omusubi, relleno de atún y kewpie, o veggie con variedad de setas y alga nori. <em>V · 野菜</em></p></div></li><li class="rv"><span class="jp">ススワタリ</span><div><div class="nm"><b>Susuwatari</b><span class="dots"></span><span class="pr">$39.000</span></div><p>Albóndigas de res y cerdo en salsa de ajonjolí, soya y jengibre.</p></div></li><li class="rv"><span class="jp">マグロの刺身</span><div><div class="nm"><b>Sashimi</b><span class="dots"></span><span class="pr">$45.000</span></div><p>Atún fresco con furikake, salsa de ostras, limón y salsa ponzu.</p></div></li><li class="rv"><span class="jp">天ぷら野菜</span><div><div class="nm"><b>Vegetales tempura</b><span class="dots"></span><span class="pr">$38.000</span></div><p>Con la receta de Hiroshi Kaneko. <em>V · 野菜</em></p></div></li><li class="rv"><span class="jp">唐揚げ</span><div><div class="nm"><b>Karaage</b><span class="dots"></span><span class="pr">$38.000</span></div><p>Pollo marinado y apanado al estilo japonés con kewpie.</p></div></li><li class="rv"><span class="jp">カツサンド</span><div><div class="nm"><b>Katsu-sando</b><span class="dots"></span><span class="pr">$45.000</span></div><p>Filete de cerdo apanado en nama panko, kewpie y salsa tonkatsu, con ensalada de col.</p></div></li><li class="rv"><span class="jp">特製牛丼</span><div><div class="nm"><b>Gyudon especial</b><span class="dots"></span><span class="pr">$49.000</span></div><p>Finos cortes de res sobre arroz gohan, beni shoga, huevo ajitama y crocante de noodles con kewpie.</p></div></li><li class="rv"><span class="jp">餃子</span><div><div class="nm"><b>Hiratake gyōza</b><span class="dots"></span><span class="pr">$49.000</span></div><p>Ramen de gyozas con cerdo y jengibre, hongos asados al carbón en mantequilla de sésamo, huevo ajitama y kimchi.</p></div></li></ul>
+  <p class="note rv">V = opción vegetariana. Precios en pesos colombianos.</p>
+</div></section>
+
+<section id="horario"><div class="mw hw">
+  <div class="rv"><p class="k">営業時間 · HORARIOS</p><h2>Abierto todos los días desde las 12</h2><p class="lead">Sin reserva: llega cuando quieras dentro del horario. La hora de la derecha es el último servicio.</p></div>
+  <table class="rv"><thead><tr><th scope="col">Día</th><th scope="col">Abrimos</th><th scope="col">Último servicio</th></tr></thead><tbody><tr><th scope="row">Lunes</th><td>12 m</td><td>10:00 pm</td></tr><tr><th scope="row">Martes</th><td>12 m</td><td>10:00 pm</td></tr><tr><th scope="row">Miércoles</th><td>12 m</td><td>10:00 pm</td></tr><tr><th scope="row">Jueves</th><td>12 m</td><td>10:45 pm</td></tr><tr><th scope="row">Viernes</th><td>12 m</td><td>10:45 pm</td></tr><tr><th scope="row">Sábado</th><td>12 m</td><td>10:45 pm</td></tr><tr><th scope="row">Domingo</th><td>12 m</td><td>9:00 pm</td></tr><tr><th scope="row">Domingo antes de lunes festivo</th><td>12 m</td><td>10:00 pm</td></tr></tbody></table>
+</div></section>
+
+<section id="ven">
+  <div class="fr rv"><img src="img/tanuki.jpg" alt="Ilustración de un tanuki samurái con sombrero de paja rodeado de jengibre, zanahoria y una tetera"></div>
+  <h2 class="rv">Sin reserva. Solo llega con hambre.</h2>
+  <p class="rv">En Tamagotchi no hace falta reservar: entra, siéntate en la barra y pide tu ramen.</p>
+</section>
+
+<footer><span>© Tamagotchi Ramen Bar</span><span>Ilustraciones de la carta: Tamagotchi Ramen Bar</span></footer>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v)), ramp = (x, a, b) => clamp((x - a) / (b - a)), ease = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+// the book: page i turns between scroll ranges, so each spread holds for a moment
+const carta = document.getElementById('carta'), pages = [...document.querySelectorAll('.page')].sort((a, b) => a.dataset.i - b.dataset.i);
+const mcap = document.getElementById('mcap'), hint = document.getElementById('hint');
+const CAPS = ['', '<h3>EDAMAME</h3><div class="pr">$38.000</div><p>Salteados con togarashi y guisantes con wasabi · 500 g · Veggie</p>',
+  '<h3>ONIGIRI</h3><div class="pr">$10.000</div><p>Omusubi おむすび de atún y kewpie, o veggie con setas y alga nori</p>',
+  '<h3>HIRATAKE GYŌZA</h3><div class="pr">$49.000</div><p>Ramen de gyozas con cerdo y jengibre, hongos al carbón, huevo ajitama y kimchi</p>'];
+let cur = 0, lastCap = -1;
+function tick() {
+  requestAnimationFrame(tick);
+  const r = carta.getBoundingClientRect(), p = clamp(-r.top / (carta.offsetHeight - innerHeight));
+  cur += ((reduce ? p : p) - cur) * .14;
+  const small = innerWidth <= 760;
+  let shown = 0;
+  pages.forEach((pg, i) => {
+    const a = .08 + i * .28, t = ease(ramp(cur, a, a + .16));
+    if (t > .5) shown = i + 1;
+    const lift = Math.sin(Math.PI * t) * 30;
+    pg.style.transform = `rotateY(${(-180 * t).toFixed(2)}deg) translateZ(${lift.toFixed(1)}px)`;
+    pg.style.zIndex = t > .5 ? 10 + i : 30 - i;   // turned pages stack on the left, newest on top
+    if (small) pg.style.opacity = (1 - ramp(t, .35, .6)).toFixed(3);
+    else pg.style.opacity = 1;
+  });
+  if (shown !== lastCap) { mcap.innerHTML = CAPS[shown]; lastCap = shown; }
+  hint.style.opacity = (1 - ramp(cur, .02, .1)).toFixed(3);
+}
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>
