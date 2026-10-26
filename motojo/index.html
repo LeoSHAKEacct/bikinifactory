@@ -272,21 +272,46 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     }
     return FY[FY.length - 1][1];
   }
+  // wide screens: the whole film stands in the middle, its own blurred copy fills the sides
+  const tiny = document.createElement('canvas'); tiny.width = 27; tiny.height = 48; const tx = tiny.getContext('2d');
+  const fg = document.createElement('canvas'), fx = fg.getContext('2d');
   function paint(p) {
     const fi = ramp(p, .02, .84) * (NF - 1);
     const im = nearest(Math.round(fi));
     if (!im) return;
     const iw = im.naturalWidth, ih = im.naturalHeight;
-    // the film covers the whole screen; at the end it zooms into the helmet's liner
-    const zt = Math.pow(ease(ramp(p, .86, 1)), 1.6);
-    const s = Math.max(W / iw, H / ih) * (1 + 7 * zt);
-    const dw = iw * s, dh = ih * s;
-    const fy = aimY(fi / 15) + (.55 - aimY(fi / 15)) * zt;
-    const ox = W / 2 - dw * .5;
-    const oy = clamp(H * .5 - dh * fy, H - dh, 0);
+    // at the end it zooms into the helmet's liner
+    const zt = Math.pow(ease(ramp(p, .86, 1)), 1.6), z = 1 + 7 * zt;
     cx.setTransform(DPR, 0, 0, DPR, 0, 0);
     cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high';
-    cx.drawImage(im, ox, oy, dw, dh);
+    if (W / H < .8) {
+      // phones: the film fills the screen
+      const s = Math.max(W / iw, H / ih) * z, dw = iw * s, dh = ih * s;
+      const fy = aimY(fi / 15) + (.55 - aimY(fi / 15)) * zt;
+      cx.drawImage(im, W / 2 - dw * .5, clamp(H * .5 - dh * fy, H - dh, 0), dw, dh);
+      return;
+    }
+    tx.drawImage(im, 0, 0, 27, 48);
+    const bs = Math.max(W / iw, H / ih) * 1.1 * (1 + 2 * zt);
+    cx.drawImage(tiny, W / 2 - iw * bs / 2, H / 2 - ih * bs * .55, iw * bs, ih * bs);
+    cx.fillStyle = 'rgba(30,2,0,.18)'; cx.fillRect(0, 0, W, H);
+    const s = H / ih * z, dw = iw * s, dh = ih * s;
+    const ox = W / 2 - dw / 2, oy = H / 2 - dh * (.5 + .05 * zt);
+    if (fg.width !== cv.width || fg.height !== cv.height) { fg.width = cv.width; fg.height = cv.height; }
+    fx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    fx.globalCompositeOperation = 'source-over';
+    fx.clearRect(0, 0, W, H);
+    fx.imageSmoothingEnabled = true; fx.imageSmoothingQuality = 'high';
+    fx.drawImage(im, ox, oy, dw, dh);
+    // soften the left and right edges into the blur
+    const e = Math.min(160, dw * .22);
+    const g = fx.createLinearGradient(ox, 0, ox + dw, 0);
+    g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(e / dw, '#000');
+    g.addColorStop(1 - e / dw, '#000'); g.addColorStop(1, 'rgba(0,0,0,0)');
+    fx.globalCompositeOperation = 'destination-in';
+    fx.fillStyle = g; fx.fillRect(0, 0, W, H);
+    cx.setTransform(1, 0, 0, 1, 0, 0);
+    cx.drawImage(fg, 0, 0);
   }
 
   function frame() {
