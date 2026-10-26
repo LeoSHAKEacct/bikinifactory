@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Smile From Medellín · Exporting Smiles</title>
+<meta name="description" content="Smile From Medellín: crowns, bridges, implants, InvisiSmile aligners and dental cleaning in Medellín, Colombia.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070605;--bg2:#0f0d0a;--gold:#d8b25a;--gold2:#f3dc95;--gold3:#a9802f;--ink:#f4efe3;--mut:#a59f92;--line:rgba(216,178,90,.22)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:300 17px/1.65 Jost,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,44px)}
+.eb{font:500 12px Jost;letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
+.it{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:500}
+.goldtx{background:linear-gradient(100deg,var(--gold3),var(--gold2) 45%,var(--gold) 60%,var(--gold3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:999px;font:500 13px Jost;letter-spacing:.2em;text-transform:uppercase;transition:transform .25s,background .25s,color .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn.gold{background:linear-gradient(100deg,var(--gold3),var(--gold2),var(--gold));color:#140f05}
+.btn.line{border:1px solid var(--gold);color:var(--gold2)}
+.btn.line:hover{background:rgba(216,178,90,.12)}
+.btn:focus-visible,.lang button:focus-visible{outline:2px solid var(--gold2);outline-offset:3px}
+
+/* nav */
+nav{position:fixed;inset:0 0 auto;z-index:20;padding:16px 0;transition:background .4s,backdrop-filter .4s}
+nav.solid{background:rgba(7,6,5,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font:500 14px Jost;letter-spacing:.14em;text-transform:uppercase}
+.brand img{width:30px;height:auto}
+.brand b{font-weight:600;color:var(--gold2)}
+.links{display:flex;gap:28px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+.links a:hover{color:var(--gold2)}
+.right{display:flex;align-items:center;gap:14px}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.lang button{background:none;border:0;color:var(--mut);font:500 12px Jost;letter-spacing:.14em;padding:7px 11px;cursor:pointer}
+.lang button[aria-pressed=true]{background:var(--gold);color:#140f05}
+nav .btn{padding:10px 18px;font-size:12px}
+@media(max-width:900px){.links{display:none}}
+@media(max-width:520px){.brand span{display:none}nav .btn{display:none}}
+
+/* hero: the gold facets assemble into the tooth */
+#hero{height:300vh;position:relative}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;place-items:center}
+.glow{position:absolute;left:50%;top:46%;width:120vmax;height:120vmax;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(216,178,90,.20),rgba(216,178,90,.05) 45%,transparent 70%);pointer-events:none}
+.dust{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.tooth{position:relative;width:min(56vw,50vh);aspect-ratio:710/605;margin-top:-6vh;will-change:transform}
+.shard{position:absolute;inset:0;background:url(img/tooth.png) center/100% 100% no-repeat;will-change:transform,opacity}
+.shine{position:absolute;inset:0;-webkit-mask:url(img/tooth.png) center/100% 100% no-repeat;mask:url(img/tooth.png) center/100% 100% no-repeat;background:linear-gradient(105deg,transparent 35%,rgba(255,250,225,.85) 50%,transparent 65%) no-repeat;background-size:300% 100%;background-position:150% 0;opacity:0;mix-blend-mode:screen}
+.word{position:absolute;left:50%;bottom:clamp(90px,15vh,150px);transform:translateX(-50%);width:min(78vw,560px);text-align:center}
+.word img{width:100%;opacity:0;transform:translateY(20px)}
+.word p{margin-top:16px;color:var(--mut);opacity:0;font-size:clamp(15px,1.4vw,18px)}
+.intro{position:absolute;top:18vh;left:0;right:0;text-align:center;padding:0 16px}
+.intro h1{font:300 clamp(34px,5.4vw,78px)/1.05 Jost;letter-spacing:-.01em;margin-top:14px}
+.hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font:500 11px Jost;letter-spacing:.3em;text-transform:uppercase;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:10px}
+.hint i{width:1px;height:38px;background:linear-gradient(var(--gold),transparent);animation:drip 1.8s infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@media(max-width:640px){.word{bottom:190px}.tooth{width:min(70vw,44vh)}}
+.cta{position:absolute;bottom:clamp(28px,6vh,60px);left:0;right:0;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;opacity:0;padding:0 16px}
+
+/* statement */
+section{position:relative}
+.state{padding:clamp(90px,16vh,170px) 0;text-align:center}
+.state h2{font:300 clamp(30px,4.4vw,62px)/1.12 Jost;max-width:20ch;margin:18px auto 0}
+.state p.lead{max-width:56ch;margin:26px auto 0;color:var(--mut)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);max-width:860px;margin:64px auto 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stats div{padding:28px 10px}
+.stats div+div{border-left:1px solid var(--line)}
+.stats b{display:block;font:300 clamp(30px,3.4vw,46px) Jost}
+.stats span{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+@media(max-width:640px){.stats{grid-template-columns:1fr}.stats div+div{border-left:0;border-top:1px solid var(--line)}}
+
+/* treatments */
+#tratamientos{padding:clamp(60px,10vh,110px) 0}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(40px,7vh,80px)}
+.head h2{font:300 clamp(34px,4.6vw,64px)/1.05 Jost;margin-top:14px}
+.head p{max-width:40ch;color:var(--mut)}
+.tx{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,80px);align-items:center;padding:clamp(40px,7vh,80px) 0;border-top:1px solid var(--line)}
+.tx:nth-of-type(even){grid-template-columns:.9fr 1.1fr}
+.tx:nth-of-type(even) .pic{order:2}
+.pic{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:16/11;background:var(--bg2);clip-path:inset(12% 12% 12% 12% round 22px);transition:clip-path 1.2s cubic-bezier(.2,.7,.1,1)}
+.pic.in{clip-path:inset(0 0 0 0 round 22px)}
+.pic img{position:absolute;inset:-8% 0;width:100%;height:116%;object-fit:cover;will-change:transform}
+.pic img.b{opacity:0;transition:opacity 1.1s}
+.pic.flip img.b{opacity:1}
+.pic.art{display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,#2a2010,#0d0b08 70%)}
+.pic.art svg{width:58%;height:auto;position:relative}
+.num{font:500 12px Jost;letter-spacing:.3em;color:var(--gold)}
+.tx h3{font:300 clamp(30px,3.6vw,48px)/1.08 Jost;margin:12px 0 16px}
+.tx p{color:var(--mut);max-width:46ch}
+.tx ul{list-style:none;margin-top:22px;display:grid;gap:10px}
+.tx li{display:flex;gap:12px;align-items:baseline;font-size:15.5px}
+.tx li::before{content:"";width:7px;height:7px;flex:none;transform:rotate(45deg) translateY(-2px);background:var(--gold)}
+.tx .btn{margin-top:28px}
+@media(max-width:860px){.tx,.tx:nth-of-type(even){grid-template-columns:1fr}.tx:nth-of-type(even) .pic{order:0}}
+.more{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+.more div{border:1px solid var(--line);border-radius:18px;padding:26px 24px;background:linear-gradient(160deg,rgba(216,178,90,.07),transparent 60%)}
+.more h4{font:400 20px Jost;margin:12px 0 6px}
+.more p{color:var(--mut);font-size:15px}
+.more svg{width:34px;height:34px}
+@media(max-width:860px){.more{grid-template-columns:1fr}}
+
+/* journey */
+#viaje{padding:clamp(80px,13vh,140px) 0;background:linear-gradient(var(--bg),var(--bg2) 30%,var(--bg2) 70%,var(--bg))}
+.steps{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:60px}
+.track{position:absolute;left:0;right:0;top:27px;height:1px;background:var(--line)}
+.track i{position:absolute;inset:0;background:linear-gradient(90deg,var(--gold3),var(--gold2));transform-origin:left;transform:scaleX(0)}
+.step{position:relative;padding-top:74px}
+.step .dot{position:absolute;top:0;left:0;width:56px;height:56px;border-radius:50%;border:1px solid var(--line);background:var(--bg2);display:grid;place-items:center;font:400 15px Jost;color:var(--mut);transition:all .5s}
+.step.on .dot{border-color:var(--gold);color:#140f05;background:linear-gradient(135deg,var(--gold3),var(--gold2));box-shadow:0 0 30px rgba(216,178,90,.35)}
+.step h4{font:400 21px Jost;margin-bottom:8px}
+.step p{color:var(--mut);font-size:15px}
+@media(max-width:860px){.steps{grid-template-columns:1fr;gap:34px;padding-left:76px}.track{left:27px;right:auto;top:0;bottom:0;width:1px;height:auto}.track i{transform-origin:top;transform:scaleY(0)}.step{padding-top:0}.step .dot{left:-76px;top:-6px}}
+
+/* contact */
+#contacto{padding:clamp(100px,16vh,170px) 0;text-align:center;overflow:hidden}
+#contacto .bgtooth{position:absolute;left:50%;top:50%;width:min(900px,120vw);transform:translate(-50%,-50%);opacity:.06;pointer-events:none}
+#contacto h2{font:300 clamp(38px,6vw,86px)/1.02 Jost;margin-top:18px}
+#contacto p{color:var(--mut);margin:22px auto 0;max-width:46ch}
+#contacto .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:38px}
+footer{border-top:1px solid var(--line);padding:28px 0;font-size:13px;color:var(--mut)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center}
+footer img{width:180px;opacity:.85}
+@media(prefers-reduced-motion:reduce){.pic{clip-path:none;transition:none}.hint i{animation:none}}
+</style>
+</head>
+<body>
+<nav id="nav"><div class="wrap">
+  <a class="brand" href="#"><img src="img/tooth.png" alt=""><span><b>Smile</b> from Medellín</span></a>
+  <div class="links">
+    <a href="#tratamientos" data-es="Tratamientos">Treatments</a>
+    <a href="#viaje" data-es="Tu viaje">Your trip</a>
+    <a href="#contacto" data-es="Contacto">Contact</a>
+  </div>
+  <div class="right">
+    <div class="lang" role="group" aria-label="Language"><button type="button" data-l="en" aria-pressed="true">EN</button><button type="button" data-l="es" aria-pressed="false">ES</button></div>
+    <a class="btn gold" href="#contacto" data-es="Agenda">Book</a>
+  </div>
+</div></nav>
+
+<section id="hero" aria-label="Smile From Medellín">
+  <div class="stage">
+    <div class="glow" id="glow"></div>
+    <canvas class="dust" id="dust" aria-hidden="true"></canvas>
+    <div class="intro" id="intro">
+      <p class="eb" data-es="Odontología en Medellín, Colombia">Dentistry in Medellín, Colombia</p>
+      <h1 data-es="Cada pieza, en <span class='it goldtx'>su lugar.</span>">Every piece, in <span class="it goldtx">its place.</span></h1>
+    </div>
+    <div class="tooth" id="tooth" role="img" aria-label="The gold tooth logo of Smile From Medellín"></div>
+    <div class="word" id="word">
+      <img src="img/word.png" alt="Smile From Medellín. Exporting smiles.">
+      <p data-es="Coronas, implantes y alineadores hechos a tu medida, con el cuidado de Medellín.">Crowns, implants and aligners made for you, with Medellín's care.</p>
+    </div>
+    <div class="cta" id="cta">
+      <a class="btn gold" href="#contacto" data-es="Agenda tu valoración">Book your consultation</a>
+      <a class="btn line" href="#tratamientos" data-es="Ver tratamientos">See treatments</a>
+    </div>
+    <div class="hint" id="hint"><span data-es="Desliza">Scroll</span><i></i></div>
+  </div>
+</section>
+
+<section class="state"><div class="wrap">
+  <p class="eb">Exporting smiles</p>
+  <h2 data-es="Viajas por una sonrisa. <span class='it goldtx'>Vuelves con ella.</span>">You travel for a smile. <span class="it goldtx">You fly home with it.</span></h2>
+  <p class="lead" data-es="Pacientes de todo el mundo vienen a Medellín por su sonrisa. Te acompañamos desde la primera foto que nos envías hasta el último control, en una ciudad de eterna primavera.">Patients come to Medellín from all over the world for their smile. We look after you from the first photo you send us to the final check-up, in the city of eternal spring.</p>
+  <div class="stats">
+    <div><b class="goldtx">6</b><span data-es="Tratamientos">Treatments</span></div>
+    <div><b class="goldtx">1:1</b><span data-es="Plan a tu medida">A plan made for you</span></div>
+    <div><b class="goldtx">EN · ES</b><span data-es="Escríbenos en tu idioma">Write to us in either</span></div>
+  </div>
+</div></section>
+
+<section id="tratamientos"><div class="wrap">
+  <div class="head">
+    <div><p class="eb" data-es="Tratamientos">Treatments</p><h2 data-es="Lo que hacemos <span class='it goldtx'>por tu sonrisa</span>">What we do <span class="it goldtx">for your smile</span></h2></div>
+    <p data-es="Cada tratamiento empieza con una valoración. Te explicamos el plan, los tiempos y cuántos días necesitas en Medellín.">Every treatment starts with a consultation. We explain the plan, the timing and how many days you'll need in Medellín.</p>
+  </div>
+
+  <article class="tx">
+    <div class="pic" data-flip><img src="img/crown.jpg" alt="A ceramic crown being placed over a prepared tooth" loading="lazy"><img class="b" src="img/bridge.jpg" alt="A three-piece bridge being placed over two prepared teeth" loading="lazy"></div>
+    <div>
+      <p class="num">01</p>
+      <h3 data-es="Coronas y puentes">Crowns &amp; bridges</h3>
+      <p data-es="Una corona cubre un diente natural para recuperar su forma, resistencia, tamaño y apariencia. Se hace a la medida de cada paciente. Un puente reemplaza las piezas que faltan apoyándose en los dientes vecinos.">A crown covers a natural tooth to bring back its shape, strength, size and look, made to measure for each patient. A bridge replaces missing teeth by resting on the teeth beside them.</p>
+      <ul>
+        <li data-es="Hechas a la medida de tu boca">Made to measure for your mouth</li>
+        <li data-es="Color igual al de tus dientes">Matched to the colour of your teeth</li>
+        <li data-es="Una sola pieza o un tramo completo">A single tooth or a full span</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="tx">
+    <div class="pic art" aria-hidden="true">
+      <svg viewBox="0 0 200 240" fill="none" stroke="url(#g)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dc95"/><stop offset="1" stop-color="#a9802f"/></linearGradient></defs>
+        <path id="crownP" d="M52 70c-6-30 8-52 28-52 8 0 14 6 20 6s12-6 20-6c20 0 34 22 28 52-3 14-14 22-48 22S55 84 52 70z"/>
+        <path d="M86 104h28l-3 18H89z"/>
+        <path d="M84 128h32l-4 86c-1 8-23 8-24 0z"/>
+        <path d="M84 142h32M85 156h30M86 170h28M87 184h26M88 198h24"/>
+        <path d="M20 122c20-6 40-8 60-6M120 116c20-2 40 0 60 6" opacity=".45"/>
+      </svg>
+    </div>
+    <div>
+      <p class="num">02</p>
+      <h3 data-es="Implantes dentales">Dental implants</h3>
+      <p data-es="Implantes diseñados para devolverte la función, la estética y la confianza en tu sonrisa. Un tornillo de titanio reemplaza la raíz y sobre él va una corona que se ve y se siente como un diente natural.">Implants made to bring back function, looks and confidence in your smile. A titanium post replaces the root, and a crown sits on top that looks and feels like a natural tooth.</p>
+      <ul>
+        <li data-es="Reemplaza el diente completo, raíz incluida">Replaces the whole tooth, root included</li>
+        <li data-es="No toca los dientes vecinos">Leaves the neighbouring teeth alone</li>
+        <li data-es="Plan por etapas según tu viaje">Planned in stages around your trip</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="tx">
+    <div class="pic"><img src="img/aligner.jpg" alt="A clear aligner being fitted over the upper teeth" loading="lazy"></div>
+    <div>
+      <p class="num">03</p>
+      <h3>InvisiSmile</h3>
+      <p data-es="Alineadores transparentes. Según tus necesidades, nuestra odontóloga diseña un plan de tratamiento detallado para mover tus dientes poco a poco, casi sin que nadie lo note.">Clear aligners. Based on what your teeth need, our dentist designs a detailed treatment plan to move them little by little, without anyone really noticing.</p>
+      <ul>
+        <li data-es="Transparentes y removibles">Clear and removable</li>
+        <li data-es="Plan diseñado para ti">A plan designed for you</li>
+        <li data-es="Sin brackets ni alambres">No brackets, no wires</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="tx">
+    <div class="pic art" aria-hidden="true">
+      <svg viewBox="0 0 200 200" fill="none" stroke="url(#g)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M58 60c-6-26 8-44 26-44 7 0 11 5 16 5s9-5 16-5c18 0 32 18 26 44-4 18-10 30-12 54-2 22-6 46-16 46-8 0-8-26-14-26s-6 26-14 26c-10 0-14-24-16-46-2-24-8-36-12-54z"/>
+        <path d="M150 34l4 10 10 4-10 4-4 10-4-10-10-4 10-4zM40 112l3 7 7 3-7 3-3 7-3-7-7-3 7-3zM160 118l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/>
+      </svg>
+    </div>
+    <div>
+      <p class="num">04</p>
+      <h3 data-es="Limpieza dental">Dental cleaning</h3>
+      <p data-es="Para mantener tu sonrisa limpia, fresca y libre de problemas. Retiramos el sarro y la placa donde el cepillo no llega y revisamos que todo esté en orden.">To keep your smile clean, fresh and free of problems. We remove the tartar and plaque your brush can't reach and check that everything is in order.</p>
+      <ul>
+        <li data-es="Retiro de sarro y placa">Tartar and plaque removed</li>
+        <li data-es="Revisión completa">A full check-up</li>
+        <li data-es="El mejor comienzo para cualquier tratamiento">The best start for any treatment</li>
+      </ul>
+    </div>
+  </article>
+
+  <div class="more">
+    <div>
+      <svg viewBox="0 0 40 40" fill="none" stroke="#d8b25a" stroke-width="1.6"><path d="M11 12c-1-6 2-9 6-9 2 0 2 1 3 1s1-1 3-1c4 0 7 3 6 9-1 4-2 6-3 11-1 5-1 10-3 10s-2-5-3-5-1 5-3 5-2-5-3-10c-1-5-2-7-3-11z"/><path d="M20 4v29" stroke-dasharray="2 2"/></svg>
+      <h4 data-es="Blanqueamiento">Whitening</h4>
+      <p data-es="Unos tonos más claros, sin dañar el esmalte.">A few shades lighter, without harming the enamel.</p>
+    </div>
+    <div>
+      <svg viewBox="0 0 40 40" fill="none" stroke="#d8b25a" stroke-width="1.6"><path d="M8 16c0-6 5-10 12-10s12 4 12 10c0 8-5 18-12 18S8 24 8 16z"/><path d="M15 15h10v8H15z"/></svg>
+      <h4 data-es="Resinas e incrustaciones">Fillings &amp; inlays</h4>
+      <p data-es="Cambiamos las amalgamas oscuras por material del color de tu diente.">We swap dark metal fillings for tooth-coloured material.</p>
+    </div>
+    <div>
+      <svg viewBox="0 0 40 40" fill="none" stroke="#d8b25a" stroke-width="1.6"><path d="M6 18c4 8 10 12 14 12s10-4 14-12"/><path d="M10 19h20" /><path d="M14 19v4M20 19v5M26 19v4"/></svg>
+      <h4 data-es="Diseño de sonrisa">Smile design</h4>
+      <p data-es="Planeamos contigo cómo se verá tu sonrisa antes de empezar.">We plan with you how your smile will look before we start.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="viaje"><div class="wrap">
+  <p class="eb" data-es="Tu viaje">Your trip</p>
+  <div class="head" style="margin-bottom:0">
+    <h2 style="font:300 clamp(34px,4.6vw,64px)/1.05 Jost;margin-top:14px" data-es="De tu ciudad a Medellín, <span class='it goldtx'>y de vuelta sonriendo</span>">From your city to Medellín, <span class="it goldtx">and home smiling</span></h2>
+  </div>
+  <div class="steps" id="steps">
+    <div class="track"><i id="trackI"></i></div>
+    <div class="step"><span class="dot">1</span><h4 data-es="Escríbenos">Write to us</h4><p data-es="Mándanos fotos de tu sonrisa y cuéntanos qué quieres cambiar.">Send photos of your smile and tell us what you'd like to change.</p></div>
+    <div class="step"><span class="dot">2</span><h4 data-es="Recibe tu plan">Get your plan</h4><p data-es="Te proponemos el tratamiento y cuántos días necesitas en Medellín.">We suggest a treatment and how many days you'll need in Medellín.</p></div>
+    <div class="step"><span class="dot">3</span><h4 data-es="Ven a Medellín">Come to Medellín</h4><p data-es="Valoración en la clínica y tratamiento con nuestro equipo.">A consultation at the clinic and your treatment with our team.</p></div>
+    <div class="step"><span class="dot">4</span><h4 data-es="Vuelve sonriendo">Fly home smiling</h4><p data-es="Seguimos pendientes de ti después del viaje.">We keep in touch after you're back home.</p></div>
+  </div>
+</div></section>
+
+<section id="contacto">
+  <img class="bgtooth" src="img/tooth.png" alt="">
+  <div class="wrap" style="position:relative">
+    <p class="eb" data-es="Agenda tu valoración">Book your consultation</p>
+    <h2 data-es="Tu nueva sonrisa <span class='it goldtx'>empieza aquí.</span>">Your new smile <span class="it goldtx">starts here.</span></h2>
+    <p data-es="Cuéntanos qué te gustaría cambiar y te respondemos con un plan. Medellín, Colombia.">Tell us what you'd like to change and we'll come back with a plan. Medellín, Colombia.</p>
+    <div class="row">
+      <a class="btn gold" href="#contacto" data-es="Escríbenos">Message us</a>
+      <a class="btn line" href="#tratamientos" data-es="Ver tratamientos">See treatments</a>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  <img src="img/word.png" alt="Smile From Medellín. Exporting smiles.">
+  <span>© Smile From Medellín · Medellín, Colombia</span>
+</div></footer>
+
+<script>
+(() => {
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const ramp = (p, a, b) => clamp((p - a) / (b - a));
+  const ease = t => 1 - Math.pow(1 - t, 3);
+
+  // language: every [data-es] keeps its English copy and swaps to Spanish
+  const tr = [...document.querySelectorAll('[data-es]')];
+  tr.forEach(el => el.dataset.en = el.innerHTML);
+  function setLang(l) {
+    tr.forEach(el => el.innerHTML = l === 'es' ? el.dataset.es : el.dataset.en);
+    document.documentElement.lang = l;
+    document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.l === l));
+    try { localStorage.setItem('sfm-lang', l); } catch (e) {}
+  }
+  document.querySelectorAll('.lang button').forEach(b => b.onclick = () => setLang(b.dataset.l));
+  let saved = null; try { saved = localStorage.getItem('sfm-lang'); } catch (e) {}
+  setLang(saved || (/^es/i.test(navigator.language) ? 'es' : 'en'));
+
+  // the logo cut into its own facets; each flies in from far away
+  const SH = [[[0,0],[12.17,0],[40.82,47.55],[29.16,94.71],[26.03,100],[0,100]],[[29.16,94.71],[27.85,100],[26.03,100]],[[40.82,47.55],[49.01,61.16],[29.16,94.71]],[[49.01,61.16],[72.42,100],[27.85,100],[29.16,94.71]],[[12.17,0],[52.57,0],[40.82,47.55]],[[72.4,21.63],[49.01,61.16],[40.82,47.55],[49.01,14.38]],[[52.57,0],[85.2,0],[72.4,21.63],[49.01,14.38]],[[85.2,0],[100,0],[100,100],[72.42,100],[49.01,61.16]]];
+  const FROM = [[-95,-20,-38],[-55,80,30],[-35,62,-24],[25,85,18],[-25,-70,26],[45,-20,-30],[45,-68,22],[100,25,34]];
+  const tooth = document.getElementById('tooth');
+  const shards = SH.map((poly, i) => {
+    const d = document.createElement('div');
+    d.className = 'shard';
+    d.style.clipPath = 'polygon(' + poly.map(([x, y]) => x + '% ' + y + '%').join(',') + ')';
+    tooth.appendChild(d);
+    return { el: d, f: FROM[i], delay: i * .028 };
+  });
+  const shine = document.createElement('div'); shine.className = 'shine'; tooth.appendChild(shine);
+
+  const hero = document.getElementById('hero'), intro = document.getElementById('intro'),
+        word = document.getElementById('word'), wImg = word.querySelector('img'), wP = word.querySelector('p'),
+        cta = document.getElementById('cta'), hint = document.getElementById('hint'), glow = document.getElementById('glow'),
+        nav = document.getElementById('nav');
+
+  // gold dust
+  const cv = document.getElementById('dust'), cx = cv.getContext('2d');
+  let W, H, DPR;
+  const P = Array.from({ length: 70 }, () => ({ x: Math.random(), y: Math.random(), r: .5 + Math.random() * 1.6, s: .2 + Math.random() * .8, o: Math.random() * 6.28 }));
+  function size() { DPR = Math.min(2, devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * DPR; cv.height = H * DPR; }
+  size(); addEventListener('resize', size);
+
+  let p = 0;
+  function heroP() { const r = hero.getBoundingClientRect(); return clamp(-r.top / (r.height - innerHeight)); }
+  function draw(t) {
+    p = RM ? 1 : heroP();
+    const a = ease(ramp(p, 0, .5));
+    const idle = t / 1000;
+    shards.forEach(s => {
+      const k = ease(ramp(p, s.delay, .42 + s.delay));
+      const m = 1 - k;
+      const bob = m * 6 * Math.sin(idle * .9 + s.delay * 40);
+      s.el.style.transform = `translate(${s.f[0] * m}%, ${s.f[1] * m + bob}%) rotate(${s.f[2] * m}deg) scale(${1 - m * .25})`;
+      s.el.style.opacity = .35 + .65 * k;
+    });
+    const sh = ramp(p, .55, .72);
+    shine.style.opacity = sh > 0 && sh < 1 ? 1 : 0;
+    shine.style.backgroundPosition = (150 - sh * 200) + '% 0';
+    const lift = ease(ramp(p, .6, .85));
+    tooth.style.transform = `translateY(${-lift * 9}vh) scale(${1 - lift * .22})`;
+    intro.style.opacity = 1 - ramp(p, .08, .3);
+    intro.style.transform = `translateY(${-ramp(p, .08, .3) * 40}px)`;
+    hint.style.opacity = 1 - ramp(p, 0, .08);
+    const w = ease(ramp(p, .62, .8));
+    wImg.style.opacity = w; wImg.style.transform = `translateY(${(1 - w) * 20}px)`;
+    wP.style.opacity = ease(ramp(p, .72, .86));
+    const c = ease(ramp(p, .8, .94));
+    cta.style.opacity = c; cta.style.transform = `translateY(${(1 - c) * 16}px)`;
+    cta.style.pointerEvents = c > .5 ? 'auto' : 'none';
+    glow.style.opacity = .5 + a * .5 + Math.sin(idle * 1.4) * .06 * a;
+    nav.classList.toggle('solid', scrollY > innerHeight * .4);
+
+    // dust drifts up, gathers toward the tooth while it assembles
+    cx.setTransform(DPR, 0, 0, DPR, 0, 0); cx.clearRect(0, 0, W, H);
+    P.forEach(d => {
+      if (!RM) { d.y -= d.s * .0006; if (d.y < -.02) { d.y = 1.02; d.x = Math.random(); } }
+      const tw = .45 + .55 * Math.sin(idle * 2 * d.s + d.o);
+      cx.globalAlpha = tw * (.35 + .4 * (1 - a * .5));
+      cx.fillStyle = '#f3dc95';
+      cx.beginPath(); cx.arc(d.x * W, d.y * H, d.r, 0, 6.29); cx.fill();
+    });
+    cx.globalAlpha = 1;
+    steps();
+    if (!RM) requestAnimationFrame(draw);
+  }
+
+  // treatment pictures: open up and drift, crown → bridge
+  const pics = [...document.querySelectorAll('.pic')];
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .25 });
+  pics.forEach(el => io.observe(el));
+  function parallax() {
+    pics.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      const q = clamp((innerHeight - r.top) / (innerHeight + r.height));
+      el.querySelectorAll('img').forEach(im => im.style.transform = `translateY(${(q - .5) * -10}%)`);
+      if (el.hasAttribute('data-flip')) el.classList.toggle('flip', q > .55);
+    });
+  }
+
+  // the trip: gold line grows, dots light up
+  const st = document.getElementById('steps'), trI = document.getElementById('trackI'), stepEls = [...st.querySelectorAll('.step')];
+  function steps() {
+    const r = st.getBoundingClientRect();
+    const q = clamp((innerHeight * .75 - r.top) / (r.height + innerHeight * .1));
+    const vertical = innerWidth <= 860;
+    trI.style.transform = vertical ? `scaleY(${q})` : `scaleX(${q})`;
+    stepEls.forEach((s, i) => s.classList.toggle('on', q >= i / 4 + .02));
+    parallax();
+  }
+  if (RM) { pics.forEach(el => el.classList.add('in')); addEventListener('scroll', () => draw(0), { passive: true }); draw(0); }
+  else requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
