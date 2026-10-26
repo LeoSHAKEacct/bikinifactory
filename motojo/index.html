@@ -45,8 +45,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px
 #film{height:620vh;position:relative}
 .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:#9b1a08}
 #cv{position:absolute;inset:0;width:100%;height:100%}
-.shade{position:absolute;inset:auto 0 0;height:55%;background:linear-gradient(transparent,rgba(40,4,0,.55));pointer-events:none}
-@media(min-width:701px){.shade{display:none}}
+.shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(40,4,0,.45),transparent 35%,transparent 65%,rgba(40,4,0,.45)),linear-gradient(transparent 50%,rgba(40,4,0,.5));pointer-events:none}
 .black{position:absolute;inset:0;background:var(--bg);opacity:0;pointer-events:none}
 .cap{position:absolute;pointer-events:none;opacity:0;will-change:transform,opacity}
 .side{position:absolute;top:50%;transform:translateY(-50%);font-size:clamp(90px,15vw,250px);color:var(--ink);text-shadow:0 10px 60px rgba(0,0,0,.25)}
@@ -253,7 +252,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   function nearest(i) { for (let d = 0; d < NF; d++) { if (frames[i - d]) return frames[i - d]; if (frames[i + d]) return frames[i + d]; } return null; }
 
   const cv = document.getElementById('cv'), cx = cv.getContext('2d');
-  const small = document.createElement('canvas'); small.width = 36; small.height = 64; const sx = small.getContext('2d');
   let W, H, DPR, need = true;
   function size() { DPR = Math.min(2, devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * DPR; cv.height = H * DPR; need = true; }
   size(); addEventListener('resize', size);
@@ -263,28 +261,30 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   const C = id => document.getElementById(id);
   const mL = C('mL'), mR = C('mR'), c0 = C('c0'), c1 = C('c1'), c2 = C('c2'), c3 = C('c3');
 
+  // where to aim the crop on wide screens, by video time (seconds → fraction of frame height)
+  const FY = [[0, .54], [1.4, .42], [2.4, .3], [3.6, .33], [4.6, .4], [5.6, .5], [6.9, .55]];
+  function aimY(t) {
+    for (let k = 1; k < FY.length; k++) if (t <= FY[k][0]) {
+      const [t0, y0] = FY[k - 1], [t1, y1] = FY[k], u = (t - t0) / (t1 - t0);
+      return y0 + (y1 - y0) * (u * u * (3 - 2 * u));
+    }
+    return FY[FY.length - 1][1];
+  }
   function paint(p) {
-    const im = nearest(Math.round(ramp(p, .02, .84) * (NF - 1)));
+    const fi = ramp(p, .02, .84) * (NF - 1);
+    const im = nearest(Math.round(fi));
     if (!im) return;
     const iw = im.naturalWidth, ih = im.naturalHeight;
-    // zoom into the helmet's liner at the end
-    const z = 1 + 7 * Math.pow(ease(ramp(p, .86, 1)), 1.6);
-    const fx = .5, fy = .55;
-    cx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    // backdrop: the frame stretched soft, so wide screens stay orange
-    sx.drawImage(im, 0, 0, 36, 64);
-    cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high';
-    const bs = Math.max(W / iw, H / ih) * 1.15 * z;
-    cx.drawImage(small, W / 2 - iw * bs * fx, H * .5 - ih * bs * fy, iw * bs, ih * bs);
-    // the film: fills phones, sits as a tall panel on wide screens
-    const portrait = W / H < .8;
-    let s = portrait ? Math.max(W / iw, H / ih) : H / ih;
-    s *= z;
+    // the film covers the whole screen; at the end it zooms into the helmet's liner
+    const zt = Math.pow(ease(ramp(p, .86, 1)), 1.6);
+    const s = Math.max(W / iw, H / ih) * (1 + 7 * zt);
     const dw = iw * s, dh = ih * s;
-    const ox = W / 2 - dw * fx, oy = H * .5 - dh * fy;
-    if (!portrait && z < 1.02) { cx.shadowColor = 'rgba(60,0,0,.35)'; cx.shadowBlur = 60; }
+    const fy = aimY(fi / 15) + (.55 - aimY(fi / 15)) * zt;
+    const ox = W / 2 - dw * .5;
+    const oy = clamp(H * .5 - dh * fy, H - dh, 0);
+    cx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high';
     cx.drawImage(im, ox, oy, dw, dh);
-    cx.shadowBlur = 0;
   }
 
   function frame() {
