@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blue Hand Car Wash · Houston</title>
+<meta name="description" content="Blue Hand Car Wash: hand car wash at 4605 N Main St, Houston, TX 77009.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=Archivo+Narrow:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0f1f;--blue:#1d4ed8;--blue2:#3b82f6;--ice:#eaf1ff;--mut:#5b6478;--line:#dbe3f3}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:#fff}
+body{background:#fff;color:var(--ink);font:400 17px/1.6 Archivo,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1160px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+.cond{font-family:"Archivo Narrow",Archivo,sans-serif;text-transform:uppercase;letter-spacing:.08em}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 24px;border-radius:999px;font:700 15px "Archivo Narrow",sans-serif;letter-spacing:.08em;text-transform:uppercase;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.solid{background:var(--blue);color:#fff}
+.btn.solid:hover{background:var(--blue2)}
+.btn.ghost{border:1.5px solid rgba(255,255,255,.7);color:#fff}
+.btn:focus-visible{outline:3px solid var(--blue2);outline-offset:3px}
+
+/* hero: the wash video, dirty to deep blue */
+header.top{position:absolute;inset:0 0 auto;z-index:3;padding:20px 0}
+header.top .wrap{display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:10px;color:#fff;font:800 18px Archivo;letter-spacing:.02em}
+.logo i{width:30px;height:30px;border-radius:50%;background:var(--blue);display:grid;place-items:center;font-style:normal}
+.logo i svg{width:16px;height:16px}
+#hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;background:#05070d;color:#fff}
+#hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,13,.55),transparent 30%,transparent 50%,rgba(5,7,13,.9))}
+.hin{position:relative;z-index:2;padding-bottom:clamp(48px,9vh,90px)}
+.hin .eb{font-size:14px;color:#bcd0ff}
+.hin h1{font:800 clamp(52px,10vw,140px)/.9 Archivo;letter-spacing:-.03em;margin:12px 0 18px}
+.hin h1 span{color:var(--blue2)}
+.hin p:not(.eb){max-width:30ch;font-size:clamp(17px,1.6vw,20px);color:rgba(255,255,255,.88)}
+.hin .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+
+/* services */
+section{padding:clamp(70px,11vh,120px) 0}
+.h2{font:800 clamp(34px,4.6vw,58px)/1 Archivo;letter-spacing:-.02em}
+.lead{color:var(--mut);margin-top:12px;max-width:52ch}
+.svc{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.svc article{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#fff}
+.svc img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.svc div{padding:22px 22px 26px}
+.svc h3{font:700 22px "Archivo Narrow",sans-serif;text-transform:uppercase;letter-spacing:.04em}
+.svc p{color:var(--mut);font-size:16px;margin-top:6px}
+@media(max-width:860px){.svc{grid-template-columns:1fr}}
+
+/* visit */
+#visit{background:var(--ice)}
+.visit{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(24px,4vw,56px);align-items:center}
+.addr{font:700 clamp(24px,2.6vw,32px)/1.25 Archivo;margin:18px 0 8px}
+.visit .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.map{border-radius:24px;overflow:hidden;border:1px solid var(--line);aspect-ratio:4/3;background:#dfe7f7}
+.map iframe{width:100%;height:100%;border:0;display:block}
+@media(max-width:860px){.visit{grid-template-columns:1fr}}
+footer{padding:26px 0;font-size:14px;color:var(--mut);border-top:1px solid var(--line)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+@media(prefers-reduced-motion:reduce){.btn{transition:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="logo" href="#"><i><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2C9 7 6 10.5 6 14a6 6 0 0 0 12 0c0-3.5-3-7-6-12z"/></svg></i>Blue Hand Car Wash</a>
+  <a class="btn ghost" href="#visit" style="padding:10px 18px;font-size:13px">Directions</a>
+</div></header>
+
+<section id="hero" aria-label="Blue Hand Car Wash">
+  <video id="vid" src="img/wash.mp4" poster="img/poster.jpg" muted loop playsinline autoplay preload="auto" aria-label="A dirty sports car being pressure washed until it shines deep blue"></video>
+  <div class="wrap hin">
+    <p class="eb cond">Hand car wash · Houston, TX</p>
+    <h1>From dirty<br>to <span>deep blue.</span></h1>
+    <p>Every car washed by hand at 4605 N Main St, in the Near Northside.</p>
+    <div class="row">
+      <a class="btn solid" href="https://www.google.com/maps/dir/?api=1&destination=4605+N+Main+St,+Houston,+TX+77009" target="_blank" rel="noopener">Get directions</a>
+      <a class="btn ghost" href="#services">Our services</a>
+    </div>
+  </div>
+</section>
+
+<section id="services"><div class="wrap">
+  <h2 class="h2">Washed by hand.</h2>
+  <p class="lead">No brushes scratching your paint. Just water, soap, mitts and people who care how your car looks when it drives out.</p>
+  <div class="svc">
+    <article><img src="img/rinse.jpg" alt="Pressure rinse lifting dirt off a car" loading="lazy"><div><h3>Hand wash</h3><p>Pre-rinse, foam and a careful hand wash, wheels included.</p></div></article>
+    <article><img src="img/shine.jpg" alt="Water beading on freshly washed blue paint" loading="lazy"><div><h3>Rinse & dry</h3><p>A spot-free rinse and a hand dry so the paint shines.</p></div></article>
+    <article><img src="img/clean.jpg" alt="Clean blue car with water drops on the hood" loading="lazy"><div><h3>Ready to go</h3><p>Drive in dirty, drive out clean. Ask at the counter about interiors and details.</p></div></article>
+  </div>
+</div></section>
+
+<section id="visit"><div class="wrap visit">
+  <div>
+    <p class="cond" style="color:var(--blue);font-size:14px">Visit us</p>
+    <p class="addr">4605 N Main St<br>Houston, TX 77009</p>
+    <p class="lead" style="margin-top:0">Just drive in, no appointment needed.</p>
+    <div class="row">
+      <a class="btn solid" href="https://www.google.com/maps/dir/?api=1&destination=4605+N+Main+St,+Houston,+TX+77009" target="_blank" rel="noopener">Get directions</a>
+      <a class="btn" style="border:1.5px solid var(--ink)" href="https://maps.apple.com/?daddr=4605+N+Main+St,+Houston,+TX+77009" target="_blank" rel="noopener">Apple Maps</a>
+    </div>
+  </div>
+  <div class="map"><iframe title="Map: 4605 N Main St, Houston, TX 77009" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=4605+N+Main+St,+Houston,+TX+77009&output=embed"></iframe></div>
+</div></section>
+
+<footer><div class="wrap"><span>© Blue Hand Car Wash · Houston, TX</span><span>4605 N Main St, Houston, TX 77009</span></div></footer>
+<script>
+const v = document.getElementById('vid');
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); }
+</script>
+</body>
+</html>
