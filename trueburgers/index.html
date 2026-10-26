@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>True Burgers · Barcelona Smash Burgers</title>
+<meta name="description" content="True Burgers: smash burgers con salsas caseras en el Eixample, Barcelona. Muntaner 92. Sin reservas, delivery y take away.">
+<link rel="icon" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Oswald:wght@400;500;600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--red:#d9531e;--red2:#a83a12;--cream:#f2e8cf;--ink:#1b2033;--gold:#f2e8cf;--gold2:#ffd9a8;--slab:'Alfa Slab One',Georgia,serif;--cond:'Oswald',Impact,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--red);color:var(--cream);font:400 17px/1.55 Roboto,system-ui,sans-serif;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+h2{font-family:var(--slab);font-weight:400;line-height:.95;font-size:clamp(42px,6.6vw,96px);text-transform:uppercase}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}
+.stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+
+/* header */
+#top{position:fixed;inset:0 0 auto;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:12px clamp(16px,4vw,44px);transition:background .4s}
+#top.solid{background:rgba(168,58,18,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+#top .lg img{height:58px;width:auto;border-radius:50%;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+#top nav{display:flex;gap:22px;align-items:center;font-family:var(--cond);font-size:16px;letter-spacing:.08em;text-transform:uppercase}
+#top nav a{text-decoration:none}
+#top nav .cta{background:var(--cream);color:var(--red);padding:9px 18px;border-radius:99px;font-weight:600}
+@media(max-width:760px){#top nav a:not(.cta){display:none}#top .lg img{height:42px}}
+
+/* hero: the burger gets sliced */
+#corte{height:640vh;position:relative}
+#corte .stick{background:#120705}
+#film{position:absolute;inset:0;width:100%;height:100%;display:block}
+#veil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(18,7,5,.78),rgba(18,7,5,.25) 38%,transparent 60%,rgba(18,7,5,.7))}
+#head{position:absolute;left:0;right:0;top:clamp(78px,11vh,110px);text-align:center;z-index:3;padding:0 16px;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+#head h1{font-family:var(--slab);font-weight:400;font-size:clamp(38px,6.2vw,92px);line-height:.95;text-transform:uppercase;text-shadow:0 6px 0 rgba(0,0,0,.18)}
+#head .award{display:inline-flex;align-items:center;gap:10px;margin-bottom:16px;padding:8px 18px 8px 10px;border-radius:99px;background:repeating-linear-gradient(90deg,#f2e8cf 0 14px,#e7dcc0 14px 28px);color:var(--ink);padding-left:18px;text-decoration:none;font-family:var(--cond);font-size:clamp(14px,1.3vw,18px);letter-spacing:.06em;text-transform:uppercase;box-shadow:0 10px 24px -10px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.6);animation:shine 3s ease-in-out infinite;background-size:200% 100%}
+
+#head .award b{font-weight:600}
+@keyframes shine{50%{background-position:100% 0}}
+#head p{font-family:var(--cond);letter-spacing:.24em;text-transform:uppercase;margin-top:12px;font-size:clamp(13px,1.2vw,16px)}
+.tag{position:absolute;z-index:5;display:flex;align-items:center;gap:10px;font-family:var(--cond);white-space:nowrap;opacity:0;pointer-events:none}
+.tag i{display:block;height:2px;background:var(--cream);width:clamp(30px,5vw,80px);flex:none}
+.tag span{display:flex;flex-direction:column;gap:3px;align-items:flex-start}
+.tag.l span{align-items:flex-end;text-align:right}
+.tag b{font-weight:500;font-size:clamp(14px,1.5vw,20px);letter-spacing:.06em;text-transform:uppercase;background:var(--cream);color:var(--red);padding:4px 10px;border-radius:4px}
+.tag small{font-family:Roboto,system-ui,sans-serif;font-size:clamp(12px,1vw,14px);color:var(--cream);text-shadow:0 2px 10px rgba(0,0,0,.8);white-space:normal;max-width:240px}
+.tag.l{flex-direction:row-reverse}
+#scrollhint{position:absolute;left:0;right:0;bottom:22px;text-align:center;font-family:var(--cond);letter-spacing:.3em;font-size:12px;z-index:3}
+@media(max-width:760px){.tag{gap:4px}.tag i{width:10px}.tag b{font-size:11px;padding:3px 6px}.tag small{font-size:10.5px;line-height:1.25}}
+
+/* prize */
+#premio{position:relative;background:var(--ink);padding:clamp(100px,15vh,160px) clamp(16px,6vw,96px);text-align:center;overflow:hidden}
+#rays{position:absolute;left:50%;top:44%;width:1600px;height:1600px;margin:-800px 0 0 -800px;background:repeating-conic-gradient(rgba(217,83,30,.22) 0 6deg,transparent 6deg 18deg);border-radius:50%;-webkit-mask:radial-gradient(closest-side,#000 30%,transparent 72%);mask:radial-gradient(closest-side,#000 30%,transparent 72%);pointer-events:none}
+#confetti{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#trophy{position:relative;width:min(260px,58vw);border-radius:50%;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);margin:0 auto;transform:translateY(60px) scale(.8);opacity:0;transition:transform 1.2s cubic-bezier(.2,1.5,.4,1),opacity .6s}
+#premio.go #trophy{transform:none;opacity:1}
+#premio .k{font-family:var(--cond);letter-spacing:.3em;text-transform:uppercase;color:var(--gold2);margin-top:30px}
+#premio h2{color:var(--gold);margin-top:10px;text-shadow:0 4px 0 var(--red2)}
+#premio h2 span{display:block;color:var(--cream);text-shadow:none;font-size:.5em;margin-top:.3em}
+#premio p.sub{max-width:560px;margin:22px auto 0;color:#e6d6bd}
+
+/* stations */
+#estacion{position:relative;display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+#estacion .ph{position:relative;overflow:hidden}
+#estacion .ph iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:saturate(.85)}
+#estacion .tx{padding:clamp(70px,10vh,120px) clamp(16px,5vw,80px);display:flex;flex-direction:column;justify-content:center;background:var(--red)}
+#estacion .tx p.lead{margin-top:18px;max-width:440px}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:34px}
+.btns a{display:flex;align-items:center;justify-content:center;min-height:56px;padding:10px 14px;border-radius:99px;background:var(--red2);border:2px solid rgba(245,234,214,.25);font-family:var(--cond);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;text-align:center;transition:background .25s,transform .25s}
+.btns a:hover{background:var(--cream);color:var(--red);transform:translateY(-2px)}
+.btns a.big{grid-column:1/-1;background:var(--cream);color:var(--red);font-family:var(--slab);font-size:22px;position:relative;overflow:hidden;min-height:76px}
+.btns a.big img{position:absolute;height:64px;top:6px}
+.btns a.big .m1{left:10px}.btns a.big .m2{right:10px}
+@media(max-width:860px){#estacion{grid-template-columns:1fr}#estacion .ph{min-height:60vh}}
+
+/* the delivery scooter rides along the bottom */
+footer{background:var(--ink);padding:44px clamp(16px,6vw,96px) 110px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;align-items:center}
+footer img{height:70px;width:auto}
+footer .c{font-family:var(--cond);letter-spacing:.06em;line-height:1.8}
+footer .c a{text-decoration:none;border-bottom:1px solid rgba(245,234,214,.3)}
+footer small{display:block;color:#a8968a;font-family:Roboto;letter-spacing:0;margin-top:8px}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}#trophy{transition:none}}
+</style>
+</head>
+<body>
+
+<header id="top">
+  <a class="lg" href="#corte" aria-label="True Burgers, inicio"><img src="img/logo.png" alt="True Burgers"></a>
+  <nav><a href="#smash">Smash</a><a href="#estacion">Visítanos</a><a href="tel:+34675464880">675 464 880</a><a class="cta" href="https://trueburgers.es" target="_blank" rel="noopener">Pide aquí</a></nav>
+</header>
+
+<!-- the burger, sliced open with the scroll -->
+<section id="corte">
+  <div class="stick">
+    <canvas id="film" role="img" aria-label="Hamburguesa smash cortada por la mitad junto a la plancha"></canvas>
+    <i id="veil"></i>
+    <div id="head"><a class="award" href="#smash"><span>🍔 Barcelona <b>Smash Burgers</b></span></a><h1>Smash burgers<br>en el Eixample</h1><p>Carne smash + salsas caseras · Sin reservas</p></div>
+    <div class="tag" data-y="75" data-x0="410" data-x1="800"><i></i><span><b>Pan brioche</b><small>Suave, dorado y tostado a la plancha</small></span></div>
+    <div class="tag l" data-y="180" data-x0="395" data-x1="775"><i></i><span><b>Cebolla crujiente</b><small>Fritos, dorados y crujientes</small></span></div>
+    <div class="tag" data-y="245" data-x0="435" data-x1="748"><i></i><span><b>Cebolla morada</b><small>Fresca, con un toque dulce</small></span></div>
+    <div class="tag l" data-y="305" data-x0="318" data-x1="895"><i></i><span><b>Bacon crujiente</b><small>Ahumado y dorado al punto</small></span></div>
+    <div class="tag" data-y="385" data-x0="425" data-x1="800"><i></i><span><b>Carne con cheddar</b><small>Aplastada en la plancha, con el queso fundido encima</small></span></div>
+    <div class="tag l" data-y="455" data-x0="410" data-x1="803"><i></i><span><b>Tomate</b><small>En rodajas, jugoso y fresco</small></span></div>
+    <div class="tag" data-y="510" data-x0="408" data-x1="808"><i></i><span><b>Doble smash</b><small>Porque una sola no basta</small></span></div>
+    <div class="tag l" data-y="600" data-x0="335" data-x1="857"><i></i><span><b>Lechuga fresca</b><small>Crujiente, para equilibrar cada bocado</small></span></div>
+    <div class="tag" data-y="690" data-x0="390" data-x1="810"><i></i><span><b>Pan brioche</b><small>La base que lo sostiene todo</small></span></div>
+    <p id="scrollhint">DESLIZA PARA CORTARLA ↓</p>
+  </div>
+</section>
+
+<!-- smash + salsas caseras -->
+<section id="premio" class="smash" aria-labelledby="smT">
+  <i id="rays"></i>
+  <canvas id="confetti"></canvas>
+  <img id="trophy" src="img/logo.png" alt="True Burgers">
+  <p class="k" id="smash">Barcelona Smash Burgers</p>
+  <h2 id="smT">Carne smash<span>+ salsas caseras</span></h2>
+  <p class="sub">La carne se aplasta en la plancha caliente hasta que los bordes quedan dorados y crujientes, con el queso fundido encima y salsas hechas en casa. Sin reservas: entra y pide.</p>
+</section>
+
+<!-- stations and links -->
+<section id="estacion">
+  <div class="ph"><iframe title="Mapa: Carrer de Muntaner 92, Barcelona" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Carrer+de+Muntaner+92,+08036+Barcelona&output=embed"></iframe></div>
+  <div class="tx">
+    <h2 class="rv">Muntaner 92,<br>Eixample</h2>
+    <p class="lead rv d1">Ven sin reservar, pide para llevar o recíbela en casa. Tu smash burger, recién hecha.</p>
+    <div class="btns rv d2">
+      <a class="big" href="https://trueburgers.es" target="_blank" rel="noopener">Pide aquí</a>
+      <a href="tel:+34675464880">Llamar · 675 464 880</a>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Carrer+de+Muntaner+92,+Barcelona" target="_blank" rel="noopener">Cómo llegar</a>
+      <a href="https://www.instagram.com/trueburgers.bcn/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://trueburgers.es" target="_blank" rel="noopener">Delivery</a>
+      <a href="https://trueburgers.es" target="_blank" rel="noopener">Take away</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img src="img/logo.png" alt="True Burgers" style="border-radius:50%">
+  <div class="c">BARCELONA · MUNTANER 92 · <a href="tel:+34675464880">675 464 880</a><br><a href="https://www.instagram.com/trueburgers.bcn/" target="_blank" rel="noopener">@trueburgers.bcn</a> · <a href="https://trueburgers.es" target="_blank" rel="noopener">trueburgers.es</a><small>Demo de diseño web. El vídeo de la hamburguesa es ilustrativo.</small></div>
+</footer>
+
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const ramp = (x, a, b) => clamp((x - a) / (b - a));
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const lerp = (a, b, t) => a + (b - a) * t;
+const $ = s => document.querySelector(s);
+
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+const corte = $('#corte'), head = $('#head'), hint = $('#scrollhint'), tags = [...document.querySelectorAll('.tag')];
+// two films played by the scroll: the knife cutting the burger, then the burger floating apart into its layers
+const film = $('#film'), fc = film.getContext('2d');
+function reel(dir, n) {
+  const fr = new Array(n), order = []; [8, 4, 2, 1].forEach(st => { for (let i = 0; i < n; i += st) if (!order.includes(i)) order.push(i); });
+  let li = 0; const next = () => { if (li >= order.length) return; const i = order[li++], im = new Image(); im.onload = () => { fr[i] = im; next(); }; im.onerror = next; im.src = `${dir}/f${String(i + 1).padStart(3, '0')}.webp`; };
+  return { n, fr, start(k) { for (let j = 0; j < k; j++) next(); }, get(i) { let im = fr[i]; for (let d = 1; !im && d < n; d++) im = fr[i - d] || fr[i + d]; return im; } };
+}
+const CUT = reel('seq', 112), APART = reel('seq2', 150);
+CUT.start(5); APART.start(2);
+let DPR = 1;
+function sizeFilm() { DPR = Math.min(2, devicePixelRatio || 1); film.width = innerWidth * DPR; film.height = innerHeight * DPR; }
+addEventListener('resize', sizeFilm); sizeFilm();
+// where a frame lands on screen (css px): the cut fills the screen; the layers fit the height on desktop, and sit to the left on phones
+function place(im, apart) {
+  const W = innerWidth, H = innerHeight, iw = im.naturalWidth, ih = im.naturalHeight;
+  if (!apart) { const s = 1.04 * Math.max(W / iw, H / ih); return { s, x: (W - iw * s) / 2, y: (H - ih * s) * .55 }; }
+  if (W < 760) { const s = Math.min(W * .64 / 577, (H - 120) / 700); return { s, x: W * .34 - 606 * s, y: (H + 30) / 2 - 376 * s }; }
+  const s = (H - 76) / ih; return { s, x: (W - iw * s) / 2, y: 72 };
+}
+function paint(im, apart, a, z = 1, cx = 0, cy = 0) {
+  if (!im) return; const q = place(im, apart), x = q.x * DPR, y = q.y * DPR, w = im.naturalWidth * q.s * DPR, hh = im.naturalHeight * q.s * DPR;
+  fc.save(); if (z !== 1) { fc.translate(cx * DPR, cy * DPR); fc.scale(z, z); fc.translate(-cx * DPR, -cy * DPR); }
+  fc.globalAlpha = a; fc.drawImage(im, x, y, w, hh);
+  if (apart) { // soften the frame's edges into the background
+    const f = 70 * DPR, g = (x0, y0, x1, y1) => { const gr = fc.createLinearGradient(x0, y0, x1, y1); gr.addColorStop(0, '#030303'); gr.addColorStop(1, 'rgba(3,3,3,0)'); return gr; };
+    fc.fillStyle = g(0, y, 0, y + f); fc.fillRect(x, y, w, f); fc.fillStyle = g(0, y + hh, 0, y + hh - f); fc.fillRect(x, y + hh - f, w, f);
+    fc.fillStyle = g(x, 0, x + f, 0); fc.fillRect(x, y, f, hh); fc.fillStyle = g(x + w, 0, x + w - f, 0); fc.fillRect(x + w - f, y, f, hh);
+  }
+  fc.restore(); fc.globalAlpha = 1;
+}
+let lastApart = null;
+// the handoff: the camera pushes into the cut burger while the dark closes in like an iris,
+// embers burst at the darkest moment, and the floating burger opens out of the same spot
+const EMB = Array.from({ length: 70 }, (_, i) => { const r = Math.sin(i * 91.7) * 43758.5; const f = r - Math.floor(r); return { a: i * 2.399 + f, sp: .35 + f * .9, s: 1.5 + ((i * 7) % 5) * .9, d: (i % 9) / 30 }; });
+function drawFilm(p) {
+  const W = innerWidth, H = innerHeight, maxR = Math.hypot(W, H) * .62;
+  fc.fillStyle = '#030303'; fc.fillRect(0, 0, film.width, film.height);
+  const close = ease(ramp(p, .3, .38)), open = ease(ramp(p, .39, .47));
+  // where the iris sits: the cut in the first film, the floating burger in the second
+  const ap = APART.get(0), qa = ap ? place(ap, true) : { x: W / 2, y: H / 2, s: 1 };
+  const bx = ap ? qa.x + 606 * qa.s : W / 2, by = ap ? qa.y + 376 * qa.s : H / 2;
+  const cx = p < .385 ? W / 2 : bx, cy = p < .385 ? H * .56 : by;
+  if (p < .385) paint(CUT.get(Math.round(ease(ramp(p, .06, .32)) * (CUT.n - 1))), false, 1, 1 + close * 1.6, W / 2, H * .56);
+  else { lastApart = APART.get(Math.round(ramp(p, .4, .86) * (APART.n - 1))); paint(lastApart, true, 1, lerp(1.7, 1, open), bx, by); }
+  // the iris: dark outside a soft circle that shrinks to nothing, then opens again
+  const R = p < .385 ? lerp(maxR, 0, close) : lerp(0, maxR, open);
+  if (R < maxR - 1) {
+    const g = fc.createRadialGradient(cx * DPR, cy * DPR, R * .55 * DPR, cx * DPR, cy * DPR, Math.max(R, 1) * DPR + 1);
+    g.addColorStop(0, 'rgba(3,3,3,0)'); g.addColorStop(1, 'rgba(3,3,3,1)');
+    fc.fillStyle = g; fc.fillRect(0, 0, film.width, film.height);
+  }
+  // a hot glow and a burst of embers at the moment of the cut
+  const e = ramp(p, .35, .48);
+  if (e > 0 && e < 1 && !reduce) {
+    fc.save(); fc.globalCompositeOperation = 'lighter';
+    const glow = Math.sin(Math.PI * ramp(p, .36, .42));
+    if (glow > 0) { const gg = fc.createRadialGradient(cx * DPR, cy * DPR, 0, cx * DPR, cy * DPR, 260 * DPR); gg.addColorStop(0, `rgba(255,170,60,${.55 * glow})`); gg.addColorStop(1, 'rgba(255,90,0,0)'); fc.fillStyle = gg; fc.fillRect(0, 0, film.width, film.height); }
+    EMB.forEach(m => {
+      const t = clamp((e - m.d) / (1 - m.d)); if (t <= 0 || t >= 1) return;
+      const r = Math.pow(t, .7) * maxR * m.sp, x = cx + Math.cos(m.a) * r, y = cy + Math.sin(m.a) * r - t * t * 60;
+      fc.globalAlpha = Math.sin(Math.PI * t) * .9; fc.fillStyle = t < .5 ? '#ffd27a' : '#ff7a1a';
+      fc.beginPath(); fc.arc(x * DPR, y * DPR, m.s * (1 - t * .5) * DPR, 0, 6.283); fc.fill();
+    });
+    fc.restore(); fc.globalAlpha = 1;
+  }
+}
+
+/* confetti when the trophy shows up */
+const premio = $('#premio'), cv = $('#confetti'), cx = cv.getContext('2d');
+let parts = [], fired = false;
+function burst() {
+  if (reduce) return;
+  const W = cv.width = premio.offsetWidth, H = cv.height = premio.offsetHeight;
+  const cols = ['#d9531e', '#f2e8cf', '#e7dcc0', '#1b2033', '#ffffff'];
+  for (let i = 0; i < 180; i++) parts.push({ x: W / 2, y: H * .35, vx: (Math.random() - .5) * 16, vy: -Math.random() * 15 - 4, r: Math.random() * 6 + 4, c: cols[i % cols.length], a: Math.random() * 6, va: (Math.random() - .5) * .3 });
+}
+new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && !fired) { fired = true; premio.classList.add('go'); setTimeout(burst, 500); } }), { threshold: .35 }).observe(premio);
+function drawConfetti() {
+  if (!parts.length) return;
+  cx.clearRect(0, 0, cv.width, cv.height);
+  parts.forEach(p => { p.vy += .32; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.a += p.va; cx.save(); cx.translate(p.x, p.y); cx.rotate(p.a); cx.fillStyle = p.c; cx.fillRect(-p.r / 2, -p.r / 4, p.r, p.r / 2); cx.restore(); });
+  parts = parts.filter(p => p.y < cv.height + 20);
+}
+
+const top_ = $('#top'), rays = $('#rays');
+let cur = scrollY;
+function frame(now) {
+  requestAnimationFrame(frame);
+  cur = reduce ? scrollY : cur + (scrollY - cur) * .14; if (Math.abs(scrollY - cur) < .3) cur = scrollY;
+  const W = innerWidth, H = innerHeight, small = W < 760;
+
+  const p = clamp(-corte.getBoundingClientRect().top / (corte.offsetHeight - H));
+  drawFilm(p);
+  head.style.opacity = (1 - ramp(p, .08, .16)).toFixed(3); head.style.transform = `translateY(${(-ramp(p, .08, .16) * 40).toFixed(1)}px)`;
+  hint.style.opacity = (1 - ramp(p, .02, .08)).toFixed(3);
+
+  // the names come in once the layers have floated apart, each pointing at its layer
+  if (lastApart) {
+    const q = place(lastApart, true);
+    // horizontal placement first (it decides how the notes wrap), then measure and space them vertically
+    tags.forEach(t => {
+      if (t.classList.contains('l') && !small) { t.style.left = 'auto'; t.style.right = (W - (q.x + +t.dataset.x0 * q.s) + 10).toFixed(1) + 'px'; t.style.flexDirection = ''; return; }
+      const x = small ? q.x + 870 * q.s + 4 : q.x + +t.dataset.x1 * q.s + 10;
+      t.style.right = 'auto'; t.style.left = x.toFixed(1) + 'px'; t.style.flexDirection = 'row';
+      t.querySelector('span').style.alignItems = 'flex-start'; const sm = t.querySelector('small'); sm.style.textAlign = 'left'; sm.style.maxWidth = small ? (W - x - 26) + 'px' : '';
+    });
+    const pos = tags.map(t => ({ t, side: t.classList.contains('l') && !small, h: t.offsetHeight, y: q.y + +t.dataset.y * q.s }));
+    [false, true].forEach(side => {
+      const g = pos.filter(o => o.side === side).sort((a, b) => a.y - b.y);
+      if (!g.length) return;
+      const mean0 = g.reduce((s, o) => s + o.y, 0) / g.length;
+      for (let j = 1; j < g.length; j++) g[j].y = Math.max(g[j].y, g[j - 1].y + (g[j - 1].h + g[j].h) / 2 + 6);
+      const sh = mean0 - g.reduce((s, o) => s + o.y, 0) / g.length; g.forEach(o => o.y += sh);
+    });
+    tags.forEach((t, i) => {
+      const k = ramp(p, .66 + i * .016, .72 + i * .016), o = pos[i];
+      t.style.top = (o.y - o.h / 2).toFixed(1) + 'px';
+      t.style.opacity = k.toFixed(3); t.style.transform = `translateX(${((o.side ? 1 : -1) * (1 - k) * 30).toFixed(1)}px)`;
+    });
+  }
+
+  top_.classList.toggle('solid', cur > H * .4);
+  rays.style.transform = `rotate(${(now / 120 % 360).toFixed(1)}deg)`;
+  drawConfetti();
+
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
