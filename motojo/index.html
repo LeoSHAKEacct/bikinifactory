@@ -67,7 +67,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px
 @media(max-width:700px){.side{font-size:27vw;top:auto;bottom:24vh;transform:none}#mL{left:16px}#mR{right:16px}.big,.big.r{left:16px;right:16px;bottom:56px;text-align:left}.big.r p{margin-left:0}}
 
 /* inside */
-#inside{position:relative;z-index:2;margin-top:-12vh;padding:clamp(40px,6vh,70px) 0 clamp(50px,8vh,90px);text-align:center}
+#inside{position:relative;z-index:2;margin-top:-73.6vh;padding:clamp(40px,6vh,70px) 0 clamp(50px,8vh,90px);text-align:center}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .helm{position:absolute;left:0;top:0;width:max-content;text-align:center;font-size:250px;line-height:.9;color:var(--ink);white-space:nowrap;transform-origin:50% 50%;opacity:0;pointer-events:none;will-change:transform,opacity;text-shadow:0 0 40px rgba(0,0,0,.6)}
 .helm span{color:var(--or)}
@@ -345,7 +345,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     const k = Math.min(hw, W * .9, H * .8 * nw / nh) / nw;
     const ap = ease(ramp(p, .765, .8));
     helm.style.opacity = ap;
-    helm.style.transform = `translate(${hx - nw / 2}px, ${hy - nh / 2 + (1 - ap) * 40}px) scale(${k * (.85 + .15 * ap)})`;
+    // once it fills the screen it scrolls away like the page, with the next section right behind it
+    const lift = Math.max(0, p - .84) * (film.offsetHeight - innerHeight);
+    helm.style.transform = `translate(${hx - nw / 2}px, ${hy - nh / 2 + (1 - ap) * 40 - lift}px) scale(${k * (.85 + .15 * ap)})`;
     nav.classList.toggle('solid', p >= 1 || r.bottom < innerHeight * .2);
     requestAnimationFrame(frame);
   }
