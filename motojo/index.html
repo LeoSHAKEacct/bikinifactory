@@ -343,8 +343,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     // the headline sits inside the helmet, then grows with the zoom until it fills the screen
     const nw = helm.offsetWidth, nh = helm.offsetHeight;
     const k = Math.min(hw, W * .9, H * .8 * nw / nh) / nw;
-    helm.style.opacity = ease(ramp(p, .63, .68));
-    helm.style.transform = `translate(${hx - nw / 2}px, ${hy - nh / 2}px) scale(${k})`;
+    const ap = ease(ramp(p, .765, .8));
+    helm.style.opacity = ap;
+    helm.style.transform = `translate(${hx - nw / 2}px, ${hy - nh / 2 + (1 - ap) * 40}px) scale(${k * (.85 + .15 * ap)})`;
     nav.classList.toggle('solid', p >= 1 || r.bottom < innerHeight * .2);
     requestAnimationFrame(frame);
   }
