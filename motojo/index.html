@@ -67,9 +67,10 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px
 @media(max-width:700px){.side{font-size:27vw;top:auto;bottom:24vh;transform:none}#mL{left:16px}#mR{right:16px}.big,.big.r{left:16px;right:16px;bottom:56px;text-align:left}.big.r p{margin-left:0}}
 
 /* inside */
-#inside{position:relative;z-index:2;margin-top:-75vh;padding:clamp(40px,6vh,70px) 0 clamp(50px,8vh,90px);text-align:center}
-#inside h2{font-size:clamp(54px,9vw,140px)}
-#inside h2 span{color:var(--or)}
+#inside{position:relative;z-index:2;margin-top:-12vh;padding:clamp(40px,6vh,70px) 0 clamp(50px,8vh,90px);text-align:center}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.helm{position:absolute;left:0;top:0;width:max-content;text-align:center;font-size:250px;line-height:.9;color:var(--ink);white-space:nowrap;transform-origin:50% 50%;opacity:0;pointer-events:none;will-change:transform,opacity;text-shadow:0 0 40px rgba(0,0,0,.6)}
+.helm span{color:var(--or)}
 #inside p.lead{max-width:52ch;margin:22px auto 0;color:var(--mut)}
 .feats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:60px;text-align:left}
 .feats div{background:var(--bg);padding:28px 24px}
@@ -156,15 +157,15 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     <div class="cap sub" id="c0"><span class="cond" style="font-size:14px">Motorcycles · Helmets · Gear</span><p>Black machines. Red-hot rides. Miami.</p></div>
     <div class="cap big" id="c1"><span class="cond">Riding gear</span><h2 class="dsp">Suit<br>up.</h2><p>Jackets, gloves and boots made for the street, not the closet.</p></div>
     <div class="cap big r" id="c2"><span class="cond">Apex helmet line</span><h2 class="dsp">Head<br>first.</h2><p>Matte shell, smoked gold visor, nothing but the road in front of you.</p></div>
-    <div class="cap big" id="c3"><span class="cond">Look inside</span><h2 class="dsp">Built<br>inside<br>out.</h2></div>
     <div class="black" id="black"></div>
+    <div class="helm dsp" id="helm" aria-hidden="true">Comfort is<br><span>a safety</span><br><span>feature.</span></div>
     <div class="hint" id="hint">Scroll to ride<i></i></div>
   </div>
 </section>
 
 <section id="inside"><div class="wrap">
   <p class="cond" style="color:var(--or);font-size:14px">The Apex helmet</p>
-  <h2 class="dsp">Comfort is <span>a safety feature.</span></h2>
+  <h2 class="sr">Comfort is a safety feature.</h2>
   <p class="lead">You notice a helmet most on hour three of a ride. So we start from the inside: the liner, the cheek pads, the strap, then the shell around them.</p>
   <div class="feats">
     <div><b>01</b><span>Removable liner</span><p>Comes out in one piece and goes in the washing machine.</p></div>
@@ -255,13 +256,15 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
   const cv = document.getElementById('cv'), cx = cv.getContext('2d');
   let W, H, DPR, need = true;
+  // where the helmet opening sits on screen, and how wide it is
+  let hx = 0, hy = 0, hw = 0;
   function size() { DPR = Math.min(2, devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * DPR; cv.height = H * DPR; need = true; }
   size(); addEventListener('resize', size);
 
   const film = document.getElementById('film'), black = document.getElementById('black'), bar = document.getElementById('bar'),
         hint = document.getElementById('hint'), nav = document.getElementById('nav');
   const C = id => document.getElementById(id);
-  const mL = C('mL'), mR = C('mR'), c0 = C('c0'), c1 = C('c1'), c2 = C('c2'), c3 = C('c3');
+  const mL = C('mL'), mR = C('mR'), c0 = C('c0'), c1 = C('c1'), c2 = C('c2'), helm = C('helm');
 
   // where to aim the crop on wide screens, by video time (seconds → fraction of frame height)
   const FY = [[0, .54], [1.4, .42], [2.4, .3], [3.6, .33], [4.6, .4], [5.6, .5], [6.9, .55]];
@@ -288,7 +291,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
       // phones: the film fills the screen
       const s = Math.max(W / iw, H / ih) * z, dw = iw * s, dh = ih * s;
       const fy = aimY(fi / 15) + (.55 - aimY(fi / 15)) * zt;
-      cx.drawImage(im, W / 2 - dw * .5, clamp(H * .5 - dh * fy, H - dh, 0), dw, dh);
+      const oy = clamp(H * .5 - dh * fy, H - dh, 0);
+      cx.drawImage(im, W / 2 - dw * .5, oy, dw, dh);
+      hx = W / 2; hy = oy + dh * .55; hw = dw * .3;
       return;
     }
     tx.drawImage(im, 0, 0, 27, 48);
@@ -297,6 +302,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     cx.fillStyle = 'rgba(30,2,0,.18)'; cx.fillRect(0, 0, W, H);
     const s = H / ih * z, dw = iw * s, dh = ih * s;
     const ox = W / 2 - dw / 2, oy = H / 2 - dh * (.5 + .05 * zt);
+    hx = W / 2; hy = oy + dh * .55; hw = dw * .3;
     if (fg.width !== cv.width || fg.height !== cv.height) { fg.width = cv.width; fg.height = cv.height; }
     fx.setTransform(DPR, 0, 0, DPR, 0, 0);
     fx.globalCompositeOperation = 'source-over';
@@ -328,12 +334,17 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     mL.style.transform = (mob ? '' : 'translateY(-50%) ') + `translateX(${-spread}vw)`;
     mR.style.transform = (mob ? '' : 'translateY(-50%) ') + `translateX(${spread}vw)`;
     c0.style.opacity = o0;
-    [[c1, .2, .25, .36, .4], [c2, .44, .48, .56, .6], [c3, .63, .67, .73, .77]].forEach(([el, a, b, c, d]) => {
+    [[c1, .2, .25, .36, .4], [c2, .44, .48, .56, .6]].forEach(([el, a, b, c, d]) => {
       const v = inout(p, a, b, c, d);
       el.style.opacity = v;
       el.style.transform = `translateY(${(1 - v) * 30}px)`;
     });
     black.style.opacity = ramp(p, .78, .83);
+    // the headline sits inside the helmet, then grows with the zoom until it fills the screen
+    const nw = helm.offsetWidth, nh = helm.offsetHeight;
+    const k = Math.min(hw, W * .9, H * .8 * nw / nh) / nw;
+    helm.style.opacity = ease(ramp(p, .63, .68));
+    helm.style.transform = `translate(${hx - nw / 2}px, ${hy - nh / 2}px) scale(${k})`;
     nav.classList.toggle('solid', p >= 1 || r.bottom < innerHeight * .2);
     requestAnimationFrame(frame);
   }
