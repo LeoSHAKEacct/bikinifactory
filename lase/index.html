@@ -343,9 +343,10 @@ a.brand{color:inherit;cursor:pointer}
 .photo-band .bandimg{position:absolute;inset:-20% 0;background-size:cover;background-position:center;opacity:.22;will-change:transform}
 .photo-band::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,var(--bg),transparent 25%,transparent 75%,var(--bg))}
 .photo-band>.wrap{position:relative;z-index:2}
-/* Buying Land sits on deep forest green */
-#land{background:radial-gradient(ellipse 80% 70% at 30% 50%,rgba(16,92,68,.55),transparent 70%),linear-gradient(180deg,var(--bg),var(--forest) 30%,var(--forest) 70%,var(--bg))}
-#land .eyebrow{color:var(--emerald)}#land .eyebrow::before{background:var(--emerald)}
+/* Private Consultation sits on emerald / deep forest green */
+#consult{background:radial-gradient(ellipse 80% 70% at 30% 50%,rgba(16,92,68,.55),transparent 70%),linear-gradient(180deg,var(--bg),var(--forest) 25%,var(--forest) 75%,var(--bg))}
+#consult .eyebrow{color:var(--emerald)}#consult .eyebrow::before{background:var(--emerald)}
+#consult .consult-card{background:linear-gradient(150deg,rgba(212,175,106,.12),rgba(6,32,24,.9))}
 .lst .badge2.rent{color:var(--emerald);border-color:rgba(43,179,138,.45)}
 .grid-floor{position:absolute;left:-50%;right:-50%;bottom:-10%;height:55%;background-image:linear-gradient(rgba(79,216,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(79,216,255,.12) 1px,transparent 1px);background-size:60px 60px;transform:perspective(600px) rotateX(62deg);transform-origin:bottom;mask-image:linear-gradient(to top,#000,transparent 80%);animation:floor 6s linear infinite;pointer-events:none}
 @keyframes floor{to{background-position:0 60px}}
