@@ -325,7 +325,21 @@ footer{scroll-snap-align:end}
 .consult-card .btn{align-self:flex-start}
 .consult-card small{color:var(--muted)}.consult-card small a{color:#f3dca4}
 @media(max-width:900px){.consult{grid-template-columns:1fr;gap:30px}.consult-card{padding:26px}}
-a.brand{color:inherit;cursor:pointer}
+.brand{color:inherit;cursor:pointer;font:inherit}
+.brand.logo img{display:block;max-height:68px;max-width:170px;object-fit:contain;opacity:.85;transition:opacity .3s}
+.brand.logo:hover img{opacity:1}
+.brand-pop{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:20px;background:rgba(3,5,9,.7);backdrop-filter:blur(8px);opacity:0;transition:opacity .2s}
+.brand-pop.on{opacity:1}
+.bp-card{position:relative;width:min(380px,100%);padding:38px 30px 30px;border-radius:24px;border:1px solid rgba(212,175,106,.5);background:linear-gradient(160deg,#121826,#0a0e17);box-shadow:0 40px 90px -20px rgba(0,0,0,.9);text-align:center;transform:translateY(12px) scale(.97);transition:transform .25s}
+.brand-pop.on .bp-card{transform:none}
+.bp-x{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--text);font-size:20px;cursor:pointer}
+.bp-x:hover{border-color:#d4af6a}
+.bp-logo{display:grid;place-items:center;min-height:120px}
+.bp-logo img{max-height:120px;max-width:240px;object-fit:contain}
+.bp-logo b{font:600 34px/1 "Cormorant Garamond",serif;letter-spacing:.14em;text-transform:uppercase;color:#f1e6cc}
+.bp-logo small{display:block;margin-top:8px;font:500 11px "Space Grotesk";letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+.bp-name{margin:18px 0 20px;color:var(--muted);font-size:14px;letter-spacing:.04em}
+.bp-go{justify-content:center;width:100%}
 .lst .ldesc{font-size:13px;color:var(--muted);margin:-6px 0 14px}
 /* gallery */
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:260px;gap:16px}
@@ -344,9 +358,15 @@ a.brand{color:inherit;cursor:pointer}
 .photo-band::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,var(--bg),transparent 25%,transparent 75%,var(--bg))}
 .photo-band>.wrap{position:relative;z-index:2}
 /* Buying Land and Private Consultation sit on emerald / deep forest green */
-#land,#consult{background:radial-gradient(ellipse 80% 70% at 30% 50%,rgba(16,92,68,.55),transparent 70%),linear-gradient(180deg,var(--bg),var(--forest) 25%,var(--forest) 75%,var(--bg))}
-#land .eyebrow,#consult .eyebrow{color:var(--emerald)}#land .eyebrow::before,#consult .eyebrow::before{background:var(--emerald)}
-#consult .consult-card{background:linear-gradient(150deg,rgba(212,175,106,.12),rgba(6,32,24,.9))}
+#land{background:radial-gradient(ellipse 80% 70% at 30% 50%,rgba(16,92,68,.55),transparent 70%),linear-gradient(180deg,var(--bg),var(--forest) 25%,var(--forest) 75%,var(--bg))}
+#land .eyebrow{color:var(--emerald)}#land .eyebrow::before{background:var(--emerald)}
+/* consultation offer inside Leadership */
+.ceo-consult{display:flex;gap:22px;align-items:center;margin-top:24px;padding:18px 22px;border-radius:18px;border:1px solid rgba(212,175,106,.45);background:linear-gradient(120deg,rgba(16,92,68,.35),rgba(10,14,23,.6))}
+.ceo-consult .fee{flex:none;text-align:center}
+.ceo-consult .fee b{display:block;font:700 40px/1 "Space Grotesk";background:linear-gradient(100deg,#f6e3b0,#d4af6a 50%,#b88c3e);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ceo-consult .fee span{display:block;max-width:110px;margin-top:6px;font-size:11px;line-height:1.3;color:var(--muted)}
+.ceo-consult p{margin:0!important;font-size:14px;color:#c3c9d6}
+@media(max-width:600px){.ceo-consult{flex-direction:column;align-items:flex-start;gap:10px;padding:14px 16px}.ceo-consult .fee{text-align:left}.ceo-consult .fee span{max-width:none}}
 .lst .badge2.rent{color:var(--emerald);border-color:rgba(43,179,138,.45)}
 .grid-floor{position:absolute;left:-50%;right:-50%;bottom:-10%;height:55%;background-image:linear-gradient(rgba(79,216,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(79,216,255,.12) 1px,transparent 1px);background-size:60px 60px;transform:perspective(600px) rotateX(62deg);transform-origin:bottom;mask-image:linear-gradient(to top,#000,transparent 80%);animation:floor 6s linear infinite;pointer-events:none}
 @keyframes floor{to{background-position:0 60px}}
@@ -529,7 +549,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
   <div class="wrap">
     <a href="#top" class="logo notranslate">LASE<span>.</span>PROPERTIES</a>
     <div class="links">
-      <a href="#properties">Properties</a><a href="#projects">Projects</a><a href="#track">Track Record</a><a href="#leadership">Leadership</a><a href="#consult">Consultation</a><a href="/blog">Blog</a><a href="#contact">Contact</a>
+      <a href="#properties">Properties</a><a href="#projects">Projects</a><a href="#track">Track Record</a><a href="#leadership">Leadership</a><a href="#leadership">Consultation</a><a href="/blog">Blog</a><a href="#contact">Contact</a>
     </div>
     <div class="nav-right">
       <div class="lang notranslate" id="lang">
@@ -717,8 +737,13 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
       <p>Azeem Akhtar is the visionary leader behind LASE Properties. With an unwavering commitment to excellence, he steers the company towards innovation and growth in Dubai's competitive real estate market.</p>
       <p>His strategic foresight and deep understanding of market dynamics set new benchmarks for the industry, and his passion for delivering real value to every client is the driving force behind LASE's rise.</p>
       <p>Most recently, Azeem assisted the joint-venture deal behind <b>Empire Lake View</b> by Empire Developments.</p>
-      <div class="ctas" style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
-        <a href="https://wa.me/971555902523" target="_blank" rel="noopener" class="btn btn-gilt">Talk to Azeem →</a>
+      <div class="ceo-consult" id="consult">
+        <div class="fee"><b>$200</b><span>60-min private consultation</span></div>
+        <p>One hour with Azeem on your goals in Dubai: market read and pricing, a shortlist that fits, payment plans and the DLD process, and next steps. Online or in Dubai.</p>
+      </div>
+      <div class="ctas" style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap">
+        <a id="bookBtn" class="btn btn-gilt" target="_blank" rel="noopener" href="#">Book a Consultation →</a>
+        <a href="https://wa.me/971555902523" target="_blank" rel="noopener" class="btn btn-ghost">Talk to Azeem</a>
         <a href="https://www.instagram.com/azeemakhtardxb/" target="_blank" rel="noopener" class="btn btn-ghost">@azeemakhtardxb</a>
       </div>
     </div>
@@ -866,24 +891,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
   </div>
 </section>
 
-<section id="consult" class="bg-alt">
-  <div class="wrap consult">
-    <div class="reveal">
-      <span class="eyebrow">Private Consultation</span>
-      <h2>One hour with <span class="gilt-text">LASE.</span></h2>
-      <p>A focused 60-minute session on your goals in Dubai: buying, selling, land, off-plan, joint ventures or relocation. You leave with a clear plan and the numbers behind it.</p>
-      <ul class="consult-list"><li>Market read and price check for your budget</li><li>Shortlist of areas, projects or plots that fit</li><li>Payment plans, fees and the DLD process explained</li><li>Next steps you can act on the same week</li></ul>
-    </div>
-    <div class="consult-card reveal">
-      <span class="fbadge">✦ 60 minutes · Online or in Dubai</span>
-      <div class="fee"><b>$200</b><span>per consultation</span></div>
-      <p>Pick a time that suits you. Payment is taken when you book.</p>
-      <a id="bookBtn" class="btn btn-gilt" target="_blank" rel="noopener" href="#">Book a Consultation →</a>
-      <small>Questions first? <a href="mailto:gm@laseproperties.com">gm@laseproperties.com</a></small>
-    </div>
-  </div>
-</section>
-
 <section id="contact" class="bg-alt photo-band">
   <div class="bandimg" data-img="9n7rZJLWY7o"></div>
   <div class="wrap contact">
@@ -971,6 +978,11 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
   </div>
 </footer>
 
+<div class="brand-pop" id="brandPop" hidden role="dialog" aria-modal="true" aria-label="Partner brand">
+  <div class="bp-card"><button type="button" class="bp-x" aria-label="Close">×</button>
+    <div class="bp-logo"></div><p class="bp-name"></p>
+    <a class="btn btn-gilt bp-go" target="_blank" rel="noopener" href="#">Visit website ↗</a></div>
+</div>
 <button class="to-top" id="toTop" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <a class="wa-float" id="waFloat" href="#contact" aria-label="Chat on WhatsApp">
   <svg viewBox="0 0 32 32"><path d="M16 3a13 13 0 00-11.2 19.6L3 29l6.6-1.7A13 13 0 1016 3zm0 23.7a10.7 10.7 0 01-5.5-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.7 10.7 0 1116 26.7zm5.9-8c-.3-.2-1.9-1-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.8 8.8 0 01-4.4-3.8c-.3-.6.3-.5.9-1.7a.6.6 0 000-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 00-.9.4 3.6 3.6 0 00-1.1 2.7 6.3 6.3 0 001.3 3.3 14.3 14.3 0 005.5 4.9c2 .9 2.8.9 3.8.8a3.3 3.3 0 002.2-1.5 2.7 2.7 0 00.2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg><span>Chat Now</span>
@@ -1329,14 +1341,31 @@ const PROJECTS = [
   });
 })();
 
-/* hotel brands carousel: names only (no logos), two rows looping in opposite directions */
+/* hotel brands carousel: logo when we have one (lase/brands/<slug>.png), name otherwise; two rows looping
+   in opposite directions. Clicking a brand opens a small pop-up with its logo and a link to its website. */
 (() => {
   const SITE = {"Marriott":"https://www.marriott.com","Hilton":"https://www.hilton.com","IHG":"https://www.ihg.com","Accor":"https://all.accor.com","Hyatt":"https://www.hyatt.com","Four Seasons":"https://www.fourseasons.com","Aman":"https://www.aman.com","Mandarin Oriental":"https://www.mandarinoriental.com","Rosewood":"https://www.rosewoodhotels.com","Raffles":"https://www.raffles.com","Jumeirah":"https://www.jumeirah.com","Address":"https://www.addresshotels.com","One&Only":"https://www.oneandonlyresorts.com","Six Senses":"https://www.sixsenses.com","Anantara":"https://www.anantara.com"};
   const A = [["Marriott","International"],["Hilton","For the stay"],["IHG","Hotels & Resorts"],["Accor",""],["Hyatt",""],["Four Seasons","Hotels & Resorts"],["Aman","Resorts"],["Mandarin Oriental","The Hotel Group"]];
   const Bb = [["Rosewood","Hotels & Resorts"],["Raffles","Hotels & Resorts"],["Jumeirah","Hotels & Resorts"],["Address","Hotels + Resorts"],["One&Only","Resorts"],["Six Senses",""],["Anantara","Hotels · Resorts · Spas"]];
-  const html = l => { const h = l.map(([n, t]) => `<a class="brand" href="${SITE[n]}" target="_blank" rel="noopener" aria-label="${n} website"><div><b>${n}</b>${t ? `<small>${t}</small>` : ""}</div></a>`).join(""); return h + h; };
+  const LOGO = {"Accor":"accor","Aman":"aman","Anantara":"anantara","Four Seasons":"four-seasons","Hilton":"hilton"};
+  const ALL = Object.fromEntries([...A, ...Bb]);
+  const esc = v => String(v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const face = (n, t) => LOGO[n] ? `<img src="brands/${LOGO[n]}.png" alt="${esc(n)}" loading="lazy">` : `<div><b>${esc(n)}</b>${t ? `<small>${esc(t)}</small>` : ""}</div>`;
+  const html = l => { const h = l.map(([n, t]) => `<button type="button" class="brand${LOGO[n] ? " logo" : ""}" data-brand="${esc(n)}" aria-label="${esc(n)}">${face(n, t)}</button>`).join(""); return h + h; };
   document.getElementById("brandA").innerHTML = html(A);
   document.getElementById("brandB").innerHTML = html(Bb);
+  const pop = document.getElementById("brandPop");
+  const open = n => {
+    const url = SITE[n];
+    pop.querySelector(".bp-logo").innerHTML = face(n, ALL[n]);
+    pop.querySelector(".bp-name").textContent = n;
+    const a = pop.querySelector(".bp-go"); a.href = url; a.textContent = "Visit " + new URL(url).hostname.replace(/^www\./, "") + " ↗";
+    pop.hidden = false; requestAnimationFrame(() => pop.classList.add("on")); pop.querySelector(".bp-x").focus();
+  };
+  const close = () => { pop.classList.remove("on"); setTimeout(() => pop.hidden = true, 200); };
+  document.querySelector(".brand-belt").addEventListener("click", e => { const b = e.target.closest(".brand[data-brand]"); if (b) open(b.dataset.brand); });
+  pop.addEventListener("click", e => { if (e.target === pop || e.target.closest(".bp-x")) close(); });
+  addEventListener("keydown", e => { if (e.key === "Escape" && !pop.hidden) close(); });
 })();
 /* back-to-top: appears once you're past the middle of the page */
 (() => {
