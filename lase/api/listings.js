@@ -30,12 +30,13 @@ async function gh(path, opts = {}) {
 
 const str = (v, n = 200) => String(v == null ? '' : v).slice(0, n);
 function clean(l) {
+  const imgs = (Array.isArray(l.imgs) ? l.imgs : l.img ? [l.img] : []).slice(0, 30).map(v => str(v, 400)).filter(Boolean);
   return {
     id: str(l.id, 60).toLowerCase().replace(/[^a-z0-9-]/g, '') || crypto.randomBytes(4).toString('hex'),
     tab: ['buy', 'rent'].includes(l.tab) ? l.tab : 'buy',
     title: str(l.title, 120), loc: str(l.loc, 120), price: str(l.price, 60), per: str(l.per, 30),
     beds: str(l.beds, 40), baths: str(l.baths, 40), size: str(l.size, 40),
-    img: str(l.img, 400), desc: str(l.desc, 1200), hidden: !!l.hidden,
+    img: imgs[0] || '', imgs, desc: str(l.desc, 1200), hidden: !!l.hidden,
   };
 }
 
