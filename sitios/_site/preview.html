@@ -7,18 +7,6 @@
 <title>Vista previa</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/_site/site.css">
-<style>
-/* flower editing (admin preview only) */
-.decor{overflow:visible}
-.decor-f{pointer-events:auto;cursor:grab;touch-action:none}
-.decor-f.sel{outline:1.5px dashed #f6dfa6;outline-offset:4px;border-radius:50%}
-.decor-f.drag{cursor:grabbing;opacity:.85}
-.decor-bar{position:fixed;z-index:50;display:flex;gap:4px;padding:5px;border-radius:12px;background:rgba(21,7,10,.94);border:1px solid rgba(246,223,166,.35);box-shadow:0 8px 24px rgba(0,0,0,.5);transform:translate(-50%,0)}
-.decor-bar button{width:32px;height:32px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:transparent;color:#f6dfa6;font:600 16px/1 system-ui,sans-serif;cursor:pointer}
-.decor-bar button:hover{background:rgba(246,223,166,.12)}
-.decor-bar button.del{color:#ff8a8a}
-body.decor-drop{outline:3px dashed rgba(246,223,166,.6);outline-offset:-6px}
-</style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.5h-.01a9.4 9.4 0 0 1-4.8-1.31l-.34-.2-3.57.93.95-3.48-.22-.36a9.4 9.4 0 0 1-1.44-5.02c0-5.2 4.24-9.43 9.44-9.43 2.52 0 4.89.98 6.67 2.77a9.37 9.37 0 0 1 2.76 6.67c0 5.2-4.24 9.43-9.44 9.43m8.03-17.46A11.27 11.27 0 0 0 12.05.72C5.8.72.7 5.8.7 12.06c0 2 .52 3.95 1.52 5.67L.6 23.6l6.01-1.58a11.33 11.33 0 0 0 5.43 1.38h.01c6.25 0 11.34-5.09 11.34-11.34 0-3.03-1.18-5.88-3.32-8.02"/></symbol></svg>
@@ -27,114 +15,10 @@ body.decor-drop{outline:3px dashed rgba(246,223,166,.6);outline-offset:-6px}
 <script>
 // The admin panel posts draft content here for live preview.
 addEventListener('message', function (e) {
-  if (e.origin !== location.origin || !e.data) return;
-  if (e.data.type === 'decor-add') return addFlower(e.data.kind, null);
-  if (e.data.type !== 'preview') return;
+  if (e.origin !== location.origin || !e.data || e.data.type !== 'preview') return;
   var y = scrollY;
   renderSite(e.data.content, e.data.slug, { preview: true });
   scrollTo(0, y);
-  showBar();
-});
-
-// ---------- flowers: the admin owns the content; this frame only reports edits ----------
-var sel = null, bar = null;
-function tell(msg) { msg.type = 'decor'; parent.postMessage(msg, location.origin); }
-function flowerEl(p) { return p && document.querySelector('.decor-f[data-s="' + p.s + '"][data-i="' + p.i + '"]'); }
-// The section under a viewport point (or the one in the middle of the screen) and the point as % of it.
-function spot(cx, cy) {
-  if (cx == null) { cx = innerWidth / 2; cy = innerHeight / 2; }
-  var hit = document.elementsFromPoint(cx, cy).map(function (n) { return n.closest && n.closest('[data-sec]'); }).filter(Boolean)[0];
-  if (!hit) {
-    var all = [].slice.call(document.querySelectorAll('[data-sec]'));
-    if (!all.length) return null;
-    hit = all.reduce(function (best, el) {
-      var r = el.getBoundingClientRect(), d = Math.abs((r.top + r.bottom) / 2 - cy);
-      return !best || d < best.d ? { el: el, d: d } : best;
-    }, null).el;
-  }
-  var r = hit.getBoundingClientRect();
-  var pct = function (v, a, len) { return Math.round(Math.min(100, Math.max(0, (v - a) / len * 100)) * 10) / 10; };
-  return { s: +hit.dataset.sec, x: pct(cx, r.left, r.width), y: pct(cy, r.top, r.height), count: hit.querySelectorAll('.decor-f').length };
-}
-function addFlower(kind, pt) {
-  // A click (no drop point) lands near the middle of the screen, a little apart from the last one.
-  if (!pt) pt = { x: innerWidth / 2 + (Math.random() - .5) * innerWidth * .3, y: innerHeight / 2 + (Math.random() - .5) * innerHeight * .3 };
-  var p = spot(pt.x, pt.y);
-  if (!p) return;
-  sel = { s: p.s, i: p.count };
-  tell({ action: 'add', s: p.s, item: { k: kind, x: p.x, y: p.y, s: 80, r: 0 } });
-}
-function showBar() {
-  var el = flowerEl(sel);
-  document.querySelectorAll('.decor-f.sel').forEach(function (n) { n.classList.remove('sel'); });
-  if (!el) { sel = null; if (bar) bar.hidden = true; return; }
-  el.classList.add('sel');
-  if (!bar) {
-    bar = document.createElement('div');
-    bar.className = 'decor-bar';
-    bar.innerHTML = '<button data-a="smaller" title="Más pequeña">−</button><button data-a="bigger" title="Más grande">+</button>' +
-      '<button data-a="rotate" title="Girar">⟳</button><button data-a="remove" class="del" title="Eliminar">✕</button>';
-    bar.addEventListener('pointerdown', function (e) { e.stopPropagation(); });
-    bar.addEventListener('click', function (e) {
-      var b = e.target.closest('button'); if (!b || !sel) return;
-      var el = flowerEl(sel), size = +el.style.getPropertyValue('--fs') || 80, rot = parseFloat(el.style.getPropertyValue('--fr')) || 0;
-      if (b.dataset.a === 'remove') { tell({ action: 'remove', s: sel.s, i: sel.i }); sel = null; return; }
-      var patch = b.dataset.a === 'rotate' ? { r: (rot + 30) % 360 } : { s: Math.min(320, Math.max(16, Math.round(size * (b.dataset.a === 'bigger' ? 1.2 : 1 / 1.2)))) };
-      tell({ action: 'update', s: sel.s, i: sel.i, patch: patch });
-    });
-    document.body.appendChild(bar);
-  }
-  bar.hidden = false;
-  var r = el.getBoundingClientRect();
-  bar.style.left = Math.min(innerWidth - 80, Math.max(80, r.left + r.width / 2)) + 'px';
-  bar.style.top = (r.bottom + 10 > innerHeight - 50 ? Math.max(8, r.top - 52) : r.bottom + 10) + 'px';
-}
-addEventListener('scroll', function () { if (sel) showBar(); }, { passive: true });
-
-// Drag a flower anywhere on the page, including into another section.
-document.addEventListener('pointerdown', function (e) {
-  var f = e.target.closest('.decor-f');
-  if (!f) { if (sel && !e.target.closest('.decor-bar')) { sel = null; showBar(); } return; }
-  e.preventDefault();
-  var from = { s: +f.dataset.s, i: +f.dataset.i }, layer = f.parentNode.getBoundingClientRect(), moved = false;
-  sel = from; showBar(); if (bar) bar.hidden = true;
-  f.setPointerCapture(e.pointerId);
-  f.classList.add('drag');
-  function move(ev) {
-    moved = true;
-    f.style.left = (ev.clientX - layer.left) / layer.width * 100 + '%';
-    f.style.top = (ev.clientY - layer.top) / layer.height * 100 + '%';
-  }
-  function up(ev) {
-    f.removeEventListener('pointermove', move); f.removeEventListener('pointerup', up); f.removeEventListener('pointercancel', up);
-    f.classList.remove('drag');
-    if (!moved) return showBar();
-    f.style.visibility = 'hidden'; // so the section under the pointer is found, not the flower
-    var p = spot(ev.clientX, ev.clientY);
-    f.style.visibility = '';
-    if (!p) return showBar();
-    sel = p.s === from.s ? from : { s: p.s, i: p.count };
-    tell({ action: 'move', from: from, to: { s: p.s, x: p.x, y: p.y } });
-  }
-  f.addEventListener('pointermove', move); f.addEventListener('pointerup', up); f.addEventListener('pointercancel', up);
-});
-addEventListener('keydown', function (e) {
-  if (sel && (e.key === 'Delete' || e.key === 'Backspace')) { e.preventDefault(); tell({ action: 'remove', s: sel.s, i: sel.i }); sel = null; }
-});
-
-// Flowers dragged in from the admin's palette.
-var FLOWER_TYPE = 'application/x-flower';
-document.addEventListener('dragover', function (e) {
-  if ([].indexOf.call(e.dataTransfer.types, FLOWER_TYPE) < 0) return;
-  e.preventDefault(); e.dataTransfer.dropEffect = 'copy'; document.body.classList.add('decor-drop');
-});
-document.addEventListener('dragleave', function (e) { if (!e.relatedTarget) document.body.classList.remove('decor-drop'); });
-document.addEventListener('drop', function (e) {
-  var kind = e.dataTransfer.getData(FLOWER_TYPE);
-  document.body.classList.remove('decor-drop');
-  if (!kind) return;
-  e.preventDefault();
-  addFlower(kind, { x: e.clientX, y: e.clientY });
 });
 parent.postMessage({ type: 'preview-ready' }, location.origin);
 </script>

@@ -49,11 +49,6 @@ a{color:inherit}
 .seg{display:flex;border:1px solid var(--line2);border-radius:10px;overflow:hidden}
 .seg button{padding:7px 12px;background:transparent;border:0;cursor:pointer}
 .seg button.on{background:var(--panel2);color:var(--rose2)}
-.flowers{display:flex;align-items:center;gap:4px;padding:3px 4px 3px 10px;border:1px solid var(--line2);border-radius:10px}
-.flowers span{color:var(--muted);font-size:12.5px;margin-right:2px}
-.flowers button{width:34px;height:34px;padding:3px;border:0;border-radius:8px;background:transparent;cursor:grab}
-.flowers button:hover{background:var(--panel2)}
-.flowers svg{width:100%;height:100%;display:block}
 .frame-wrap{flex:1;display:flex;justify-content:center;overflow:auto;padding:16px}
 .frame-wrap iframe{width:100%;height:100%;border:1px solid var(--line);border-radius:12px;background:#15070a;transition:width .25s}
 .frame-wrap.mobile iframe{width:390px;flex:none}
@@ -221,7 +216,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
   <section class="preview">
     <div class="pbar">
       <span class="url" id="url"></span>
-      <div class="flowers" id="flowers" title="Clic o arrastra una flor a la página"><span>Flores</span></div>
       <div class="seg" id="device"><button class="on" data-d="desktop">Escritorio</button><button data-d="mobile">Celular</button></div>
       <a class="btn small" id="live" target="_blank" rel="noopener">Ver en vivo ↗</a>
     </div>
@@ -958,44 +952,6 @@ function pushPreview() {
 }
 function schedulePreview() { clearTimeout(previewTimer); previewTimer = setTimeout(pushPreview, 120); }
 
-// ---------- flowers ----------
-// Palette: click drops a flower in the middle of the visible preview; drag drops it where you let go.
-$('flowers').insertAdjacentHTML('beforeend', Object.keys(window.siteFlowers).map(function (k) {
-  return '<button type="button" draggable="true" data-flower="' + k + '" title="' + esc(window.siteFlowers[k].label) + '">' + window.siteFlowerSvg(k) + '</button>';
-}).join(''));
-$('flowers').addEventListener('click', function (e) {
-  var b = e.target.closest('[data-flower]'); if (!b || !draft()) return;
-  $('frame').contentWindow.postMessage({ type: 'decor-add', kind: b.dataset.flower }, location.origin);
-});
-$('flowers').addEventListener('dragstart', function (e) {
-  var b = e.target.closest('[data-flower]'); if (!b) return;
-  e.dataTransfer.setData('application/x-flower', b.dataset.flower);
-  e.dataTransfer.effectAllowed = 'copy';
-});
-// The preview reports each flower edit; the draft is the source of truth.
-addEventListener('message', function (e) {
-  if (e.origin !== location.origin || !e.data || e.data.type !== 'decor') return;
-  var m = e.data, secs = draft() && draft().sections;
-  if (!secs) return;
-  var list = function (si) { return secs[si] ? (secs[si].decor = secs[si].decor || []) : null; };
-  var num = function (v, lo, hi) { return Math.min(hi, Math.max(lo, Math.round(+v * 10) / 10 || 0)); };
-  if (m.action === 'add' && list(m.s) && window.siteFlowers[m.item.k]) {
-    list(m.s).push({ k: m.item.k, x: num(m.item.x, 0, 100), y: num(m.item.y, 0, 100), s: num(m.item.s, 16, 320), r: num(m.item.r, 0, 359) });
-  } else if (m.action === 'move' && list(m.from.s) && list(m.to.s) && list(m.from.s)[m.from.i]) {
-    var f = list(m.from.s)[m.from.i];
-    f.x = num(m.to.x, 0, 100); f.y = num(m.to.y, 0, 100);
-    if (m.to.s !== m.from.s) { list(m.from.s).splice(m.from.i, 1); list(m.to.s).push(f); }
-  } else if (m.action === 'update' && list(m.s) && list(m.s)[m.i]) {
-    var g = list(m.s)[m.i];
-    if (m.patch.s != null) g.s = num(m.patch.s, 16, 320);
-    if (m.patch.r != null) g.r = num(m.patch.r, 0, 359);
-  } else if (m.action === 'remove' && list(m.s) && list(m.s)[m.i]) {
-    list(m.s).splice(m.i, 1);
-  } else return;
-  secs.forEach(function (x) { if (x.decor && !x.decor.length) delete x.decor; });
-  changed(false);
-});
-
 $('device').addEventListener('click', function (e) {
   var b = e.target.closest('button'); if (!b) return;
   [].forEach.call(this.children, function (x) { x.classList.toggle('on', x === b); });
@@ -1327,7 +1283,7 @@ addEventListener('beforeunload', function (e) {
   }
 });
 
-if (EDITOR) { $('feedLink').removeAttribute('target'); $('feedLink').textContent = '← Feed'; }
+if (EDITOR) $('feedLink').hidden = true; // editing a site: no feed button
 if (state.password || state.token) start().catch(function () { logout(); });
 else if (EDITOR) showSiteLogin();
 else $('login').classList.remove('off'); // just show the teacher login; a student's session (for /editor/) stays
