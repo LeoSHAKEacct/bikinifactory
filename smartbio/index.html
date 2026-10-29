@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Smart-Bio · Living Coastal Infrastructure</title>
+<meta name="description" content="Smart-Bio makes bio-composite seawall tiles, submerged breakwater modules and sculptural reef modules that cut wave energy and grow stronger in seawater.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--deep:#04131c;--navy:#072230;--sea:#0d4a5c;--teal:#2fb6a8;--foam:#bff3ea;--sand:#e9dcc3;--coral:#ff7a59;--ink:#eef6f5;--mut:#8fa9ad;--line:rgba(191,243,234,.14)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--deep)}
+body{background:var(--deep);color:var(--ink);font:400 17px/1.6 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,44px)}
+.mono{font-family:"IBM Plex Mono",monospace;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+.eb{color:var(--teal)}
+h2.t{font:700 clamp(34px,4.6vw,62px)/1.04 Manrope;letter-spacing:-.025em}
+h2.t em{font-style:normal;color:var(--teal)}
+.lead{color:var(--mut);font-size:clamp(16px,1.4vw,19px);max-width:58ch}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 24px;border-radius:999px;font:700 15px Manrope;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.pri{background:var(--teal);color:#032019}
+.btn.pri:hover{background:#45d0c1}
+.btn.sec{box-shadow:inset 0 0 0 1.5px rgba(191,243,234,.45)}
+.btn:focus-visible,.tab:focus-visible,input:focus-visible{outline:2px solid var(--foam);outline-offset:3px}
+
+nav{position:fixed;inset:0 0 auto;z-index:30;padding:14px 0;transition:background .35s}
+nav.solid{background:rgba(4,19,28,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font:800 19px Manrope;letter-spacing:-.01em}
+.logo svg{width:30px;height:30px}
+.links{display:flex;gap:28px;font-weight:600;font-size:15px;color:rgba(238,246,245,.78)}
+.links a:hover{color:var(--foam)}
+nav .btn{padding:10px 18px;font-size:14px}
+@media(max-width:860px){.links{display:none}}
+
+/* the coast, in cross-section */
+#coast{height:520vh;position:relative}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+#cv{position:absolute;inset:0;width:100%;height:100%}
+.cap{position:absolute;text-shadow:0 2px 24px rgba(4,19,28,.6);left:clamp(16px,5vw,72px);top:clamp(90px,15vh,150px);max-width:min(520px,88vw);opacity:0;will-change:opacity,transform}
+.cap h1,.cap h3{font:800 clamp(36px,5.2vw,72px)/1.02 Manrope;letter-spacing:-.03em}
+.cap h3{font-size:clamp(30px,3.8vw,52px)}
+.cap p{margin-top:16px;color:#cfe3e2;font-size:clamp(16px,1.4vw,19px);max-width:44ch}
+.cap .mono{display:block;margin-bottom:14px}
+.cap em{font-style:normal;color:var(--teal)}
+.hud{position:absolute;left:clamp(16px,5vw,72px);bottom:clamp(20px,5vh,48px);width:min(300px,42vw);padding:18px 18px 16px;border-radius:14px;background:rgba(4,19,28,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line)}
+.hud .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.hud b{font:700 30px "IBM Plex Mono",monospace;letter-spacing:-.02em}
+.meter{height:6px;border-radius:3px;background:rgba(255,255,255,.1);margin:10px 0 14px;overflow:hidden}
+.meter i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--teal),var(--coral));transform-origin:left;transition:background .3s}
+.hud small{display:block;color:var(--mut);font-size:12.5px;line-height:1.45}
+.hint{position:absolute;left:50%;z-index:1;bottom:20px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:#cfe3e2}
+.hint i{width:1px;height:36px;background:linear-gradient(var(--foam),transparent);animation:drip 1.8s infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@media(max-width:700px){.hint{display:none}.hud{left:16px;right:16px;width:auto;top:auto;bottom:16px;padding:12px 14px}.hud b{font-size:22px}.hud small{display:none}.meter{margin:8px 0 0}.cap{top:84px}}
+
+/* sections */
+section.blk{padding:clamp(80px,13vh,140px) 0}
+.pos{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,6vw,90px);align-items:end}
+.big{font:800 clamp(64px,10vw,150px)/.9 Manrope;letter-spacing:-.05em;background:linear-gradient(180deg,var(--foam),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
+.pos .mkt p{color:var(--mut);margin-top:10px}
+.vs{display:grid;grid-template-columns:1fr 1fr;margin-top:56px;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.vs div{padding:26px 26px 28px}
+.vs div+div{border-left:1px solid var(--line);background:rgba(47,182,168,.07)}
+.vs ul{list-style:none;margin-top:14px;display:grid;gap:9px}
+.vs li{display:flex;gap:10px;align-items:baseline}
+.vs li::before{content:"";width:8px;height:8px;border-radius:2px;flex:none;transform:translateY(-1px);background:var(--mut)}
+.vs div+div li::before{background:var(--teal)}
+.vs div:first-child li{color:var(--mut)}
+@media(max-width:860px){.pos{grid-template-columns:1fr}.vs{grid-template-columns:1fr}.vs div+div{border-left:0;border-top:1px solid var(--line)}}
+
+#products{background:linear-gradient(var(--deep),var(--navy))}
+.prods{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:50px}
+.prod{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:rgba(7,34,48,.6);display:flex;flex-direction:column;transition:transform .35s,border-color .35s}
+.prod:hover{transform:translateY(-6px);border-color:rgba(47,182,168,.5)}
+.prod .art{aspect-ratio:16/11;background:radial-gradient(circle at 50% 30%,#0f5a6c,#06202c 75%);display:grid;place-items:center;position:relative;overflow:hidden}
+.prod .art svg{width:82%;height:auto}
+.prod .bd{padding:22px 22px 26px}
+.prod h3{font:700 23px/1.15 Manrope;margin:8px 0 10px;letter-spacing:-.01em}
+.prod p{color:var(--mut);font-size:15.5px}
+.prod .for{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:14px;color:#cfe3e2}
+.prod .for b{color:var(--teal);font-weight:600}
+@media(max-width:960px){.prods{grid-template-columns:1fr}}
+
+#buyers{background:var(--navy)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:40px}
+.tab{border:1px solid var(--line);background:transparent;border-radius:999px;padding:11px 18px;font-weight:600;font-size:15px;color:var(--mut);transition:all .2s}
+.tab[aria-selected=true]{background:var(--ink);color:var(--deep);border-color:var(--ink)}
+.panel{display:none;margin-top:26px;grid-template-columns:repeat(3,1fr);gap:16px}
+.panel.on{display:grid;animation:rise .5s ease}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+.panel div{border-radius:18px;padding:24px;background:rgba(4,19,28,.55);border:1px solid var(--line)}
+.panel div:last-child{background:linear-gradient(160deg,rgba(47,182,168,.22),rgba(47,182,168,.04));border-color:rgba(47,182,168,.35)}
+.panel h4{font:600 12.5px "IBM Plex Mono";letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+.panel div:first-child h4{color:var(--coral)}
+.panel p{color:#cfe3e2;font-size:16px}
+.panel p+p{margin-top:10px}
+.panel strong{color:var(--ink)}
+@media(max-width:860px){.panel{grid-template-columns:1fr}}
+
+#durability{background:linear-gradient(var(--navy),var(--deep))}
+.dur{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,5vw,70px);align-items:center;margin-top:30px}
+.chart{border:1px solid var(--line);border-radius:20px;padding:22px 22px 18px;background:rgba(7,34,48,.5)}
+.chart svg{width:100%;height:auto;display:block;overflow:visible}
+.slider{display:flex;align-items:center;gap:14px;margin-top:14px}
+.slider input{flex:1;accent-color:var(--teal)}
+.readout{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
+.readout div{border:1px solid var(--line);border-radius:14px;padding:16px}
+.readout b{display:block;font:500 34px "IBM Plex Mono",monospace;letter-spacing:-.03em}
+.readout span{font-size:14px;color:var(--mut)}
+.readout .sb b{color:var(--teal)}
+.readout .cc b{color:#a7b4b7}
+.fine{font-size:13px;color:var(--mut);margin-top:14px}
+@media(max-width:860px){.dur{grid-template-columns:1fr}}
+
+.bens{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:50px}
+.bens div{background:var(--deep);padding:28px 24px 30px}
+.bens b{display:block;font:500 40px/1 "IBM Plex Mono",monospace;color:var(--teal);letter-spacing:-.03em}
+.bens h4{font:700 18px Manrope;margin:16px 0 8px}
+.bens p{color:var(--mut);font-size:15px}
+@media(max-width:960px){.bens{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.bens{grid-template-columns:1fr}}
+
+#contact{padding:clamp(90px,14vh,150px) 0;text-align:center;background:radial-gradient(ellipse at 50% 120%,rgba(47,182,168,.28),transparent 60%)}
+#contact h2{max-width:18ch;margin:16px auto 0}
+#contact .lead{margin:20px auto 0}
+.who{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:34px}
+.who a{border:1px solid var(--line);border-radius:999px;padding:12px 18px;font-weight:600;font-size:15px;transition:all .2s}
+.who a:hover{border-color:var(--teal);color:var(--foam);background:rgba(47,182,168,.1)}
+footer{border-top:1px solid var(--line);padding:26px 0;color:var(--mut);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media(prefers-reduced-motion:reduce){.hint i{animation:none}.prod,.btn{transition:none}}
+</style>
+</head>
+<body>
+<nav id="nav"><div class="wrap">
+  <a class="logo" href="#"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 21c4 0 4-3 8-3s4 3 8 3 4-3 8-3" fill="none" stroke="#bff3ea" stroke-width="2.4" stroke-linecap="round"/><path d="M7 27h18l-3-6H10z" fill="#2fb6a8"/><circle cx="14" cy="24.5" r="1.3" fill="#04131c"/><circle cx="19" cy="24.5" r="1.3" fill="#04131c"/><path d="M16 15V6m0 4-3-3m3 5 3-3" stroke="#ff7a59" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>Smart-Bio</a>
+  <div class="links"><a href="#products">Products</a><a href="#buyers">Who buys</a><a href="#durability">Durability</a></div>
+  <a class="btn pri" href="#contact">Site assessment</a>
+</div></nav>
+
+<section id="coast" aria-label="How Smart-Bio protects a coastline">
+  <div class="stage">
+    <canvas id="cv" role="img" aria-label="Cross-section of a coastline: storm waves roll toward a beach resort, submerged modules settle on the seabed, the waves lose most of their height over them, and coral and fish grow on the modules"></canvas>
+    <div class="cap" id="k0"><span class="mono eb">Living coastal infrastructure</span><h1>Coastal defense that <em>grows stronger</em> every year.</h1><p>Bio-composite seawall and breakwater modules that stop erosion, cut storm surge and turn grey concrete into living reef.</p></div>
+    <div class="cap" id="k1"><span class="mono eb">The problem</span><h3>Storms take the beach. Concrete takes the value.</h3><p>Every storm season, wave energy strips sand, undercuts seawalls and drives up repair bills and insurance payouts.</p></div>
+    <div class="cap" id="k2"><span class="mono eb">Product B · Breakwater modules</span><h3>Break the wave <em>before</em> it reaches land.</h3><p>Heavy, wave-attenuating modules sit offshore on the seabed and force incoming waves to spend their energy over the reef.</p></div>
+    <div class="cap" id="k3"><span class="mono eb">Bio-maturing</span><h3>The structure <em>grows</em> instead of wearing out.</h3><p>Shellfish and coral settle, calcium deposits build up, and the binder gets denser and self-heals over the years. Fish move in.</p></div>
+    <div class="hud" id="hud" aria-live="off">
+      <div class="row"><span class="mono" style="color:var(--mut)">Wave energy at shore</span><b id="en">100%</b></div>
+      <div class="meter"><i id="enBar"></i></div>
+      <div class="row"><span class="mono" style="color:var(--mut)">Reef coverage</span><b id="cov" style="font-size:20px">0%</b></div>
+      <small>Model view. Designed for 90%+ energy reduction; studies of natural coral reefs measure up to 97%.</small>
+    </div>
+    <div class="hint" id="hint"><span class="mono">Scroll</span><i></i></div>
+  </div>
+</section>
+
+<section class="blk" id="pos"><div class="wrap">
+  <div class="pos">
+    <div>
+      <p class="mono eb">The positioning</p>
+      <h2 class="t" style="margin-top:14px">We don't sell ocean preservation. <em>We sell infrastructure.</em></h2>
+      <p class="lead" style="margin-top:20px">Altruism is a small market. Coastal risk is not. Smart-Bio sells structural protection, risk reduction and real-estate value to the people who already pay for seawalls, breakwaters and storm damage. The reef is the bonus that comes with it.</p>
+    </div>
+    <div class="mkt">
+      <p class="mono" style="color:var(--mut)">Coastal protection &amp; civil infrastructure</p>
+      <div class="big">$13B+</div>
+      <p>Market for coastal protection structures, sold B2B to resorts and developers and B2G to cities and port authorities.</p>
+    </div>
+  </div>
+  <div class="vs">
+    <div><p class="mono" style="color:var(--mut)">Standard grey concrete</p><ul><li>Degrades in salt water, 15–20 year life</li><li>Reflects waves and scours the seabed</li><li>Ugly, lowers waterfront value</li><li>Fails "living shoreline" rules for funding</li></ul></div>
+    <div><p class="mono eb">Smart-Bio modules</p><ul><li>Gets denser as marine life calcifies on it</li><li>Absorbs and breaks up wave energy</li><li>A living reef guests and owners want to see</li><li>Counts as a nature-based solution for permits</li></ul></div>
+  </div>
+</div></section>
+
+<section class="blk" id="products"><div class="wrap">
+  <p class="mono eb">Three product lines</p>
+  <h2 class="t" style="margin-top:14px">Three modules. <em>One bio-binder.</em></h2>
+  <p class="lead" style="margin-top:18px">All three are cast from the same bio-composite binder, so every install protects the coast and becomes reef at the same time.</p>
+  <div class="prods">
+    <article class="prod">
+      <div class="art" aria-hidden="true">
+        <svg viewBox="0 0 300 200"><defs><linearGradient id="tA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9dcc3"/><stop offset="1" stop-color="#b9ab92"/></linearGradient></defs>
+          <rect x="12" y="20" width="56" height="170" fill="#56666b"/>
+          <g fill="url(#tA)" stroke="#06202c" stroke-width="3">
+            <path d="M80 30h50l12 18-12 18H80l-12-18z"/><path d="M146 30h50l12 18-12 18h-50l-12-18z"/><path d="M212 30h50l12 18-12 18h-50l-12-18z"/>
+            <path d="M113 70h50l12 18-12 18h-50l-12-18z"/><path d="M179 70h50l12 18-12 18h-50l-12-18z"/>
+            <path d="M80 110h50l12 18-12 18H80l-12-18z"/><path d="M146 110h50l12 18-12 18h-50l-12-18z"/><path d="M212 110h50l12 18-12 18h-50l-12-18z"/>
+            <path d="M113 150h50l12 18-12 18h-50l-12-18z"/><path d="M179 150h50l12 18-12 18h-50l-12-18z"/>
+          </g>
+          <g fill="#06202c" opacity=".55"><circle cx="100" cy="48" r="5"/><circle cx="170" cy="48" r="4"/><circle cx="236" cy="48" r="6"/><circle cx="138" cy="88" r="5"/><circle cx="204" cy="88" r="4"/><circle cx="104" cy="128" r="4"/><circle cx="172" cy="128" r="6"/><circle cx="238" cy="128" r="4"/><circle cx="136" cy="168" r="6"/><circle cx="206" cy="168" r="4"/></g>
+          <g fill="#ff7a59"><circle cx="190" cy="94" r="5"/><circle cx="198" cy="99" r="4"/><circle cx="120" cy="134" r="4"/></g>
+          <g stroke="#2fb6a8" stroke-width="4" stroke-linecap="round" fill="none"><path d="M226 140v-14m0 6 6-6m-6 2-6-5"/><path d="M150 176v-12m0 5 5-5"/></g>
+        </svg>
+      </div>
+      <div class="bd"><p class="mono eb">Product A</p><h3>Interlocking Seawall &amp; Port Armor Tiles</h3><p>Modular bio-binder tiles fixed over existing concrete seawalls, ports and harbors. They stop erosion and turn a flat wall into living wave absorption.</p><p class="for">Built for <b>cities, ports, harbors, waterfront homes</b></p></div>
+    </article>
+    <article class="prod">
+      <div class="art" aria-hidden="true">
+        <svg viewBox="0 0 300 200"><defs><linearGradient id="tB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9dcc3"/><stop offset="1" stop-color="#a39478"/></linearGradient></defs>
+          <path d="M0 60c25-14 50-14 75 0s50 14 75 0 50-14 75 0 50 14 75 0" fill="none" stroke="#bff3ea" stroke-width="3" opacity=".7"/>
+          <path d="M0 168h300v32H0z" fill="#3a3326"/>
+          <g fill="url(#tB)" stroke="#06202c" stroke-width="3">
+            <path d="M28 170c0-44 22-70 56-70s56 26 56 70z"/><path d="M160 170c0-44 22-70 56-70s56 26 56 70z"/>
+          </g>
+          <g fill="#06202c" opacity=".7"><circle cx="62" cy="140" r="11"/><circle cx="100" cy="126" r="9"/><circle cx="96" cy="156" r="8"/><circle cx="194" cy="140" r="11"/><circle cx="232" cy="126" r="9"/><circle cx="230" cy="156" r="8"/></g>
+          <g stroke="#2fb6a8" stroke-width="4" stroke-linecap="round" fill="none"><path d="M84 100V82m0 8 7-7m-7 3-8-6"/><path d="M216 100V86m0 6 6-6"/></g>
+          <g fill="#ff7a59"><ellipse cx="148" cy="118" rx="9" ry="4"/><path d="M139 118l-6-4v8z"/><ellipse cx="268" cy="104" rx="7" ry="3"/><path d="M261 104l-5-3v6z"/></g>
+        </svg>
+      </div>
+      <div class="bd"><p class="mono eb">Product B</p><h3>Submerged Offshore Breakwater Modules</h3><p>Heavy, wave-attenuating bio-structures placed offshore. They break up large storm-surge waves before they reach land.</p><p class="for">Built for <b>insurers, coastal cities, resorts</b></p></div>
+    </article>
+    <article class="prod">
+      <div class="art" aria-hidden="true">
+        <svg viewBox="0 0 300 200"><defs><linearGradient id="tC" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f1e6d0"/><stop offset="1" stop-color="#bba98a"/></linearGradient></defs>
+          <path d="M0 176h300v24H0z" fill="#3a3326"/>
+          <g fill="url(#tC)" stroke="#06202c" stroke-width="3">
+            <path d="M60 178c-6-40 6-80 30-110 10 30 4 60 18 76 6-26 22-44 40-52-4 34 10 56 6 86z"/>
+            <path d="M170 178c4-30 24-58 52-70-6 22 0 38 14 46 4-18 18-28 34-30-8 22-4 40-6 54z"/>
+          </g>
+          <g fill="#06202c" opacity=".6"><circle cx="92" cy="130" r="8"/><circle cx="128" cy="150" r="6"/><circle cx="214" cy="146" r="8"/><circle cx="252" cy="160" r="5"/></g>
+          <g fill="#ff7a59"><ellipse cx="150" cy="84" rx="10" ry="4.5"/><path d="M140 84l-7-5v10z"/><ellipse cx="44" cy="120" rx="7" ry="3"/><path d="M37 120l-5-3v6z"/></g>
+          <g fill="#bff3ea"><ellipse cx="240" cy="70" rx="8" ry="3.5"/><path d="M248 70l6-4v8z"/></g>
+          <g stroke="#2fb6a8" stroke-width="4" stroke-linecap="round" fill="none"><path d="M90 68V52m0 6 6-6"/><path d="M222 108V94m0 6-6-6"/></g>
+          <path d="M120 22h60" stroke="#bff3ea" stroke-width="2" stroke-dasharray="4 6" opacity=".6"/>
+        </svg>
+      </div>
+      <div class="bd"><p class="mono eb">Product C</p><h3>Eco-Tourism "Sculptural Reef" Modules</h3><p>Custom 3D-molded underwater attraction blocks that give luxury resorts a private snorkeling reef right off their own beach.</p><p class="for">Built for <b>resorts, beachfront developers, marinas</b></p></div>
+    </article>
+  </div>
+</div></section>
+
+<section class="blk" id="buyers"><div class="wrap">
+  <p class="mono eb">Who buys · B2B &amp; B2G</p>
+  <h2 class="t" style="margin-top:14px">Four buyers who <em>already have the budget.</em></h2>
+  <div class="tabs" role="tablist" aria-label="Buyers">
+    <button class="tab" role="tab" aria-selected="true" aria-controls="b1" id="t1">Resorts &amp; developers</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="b2" id="t2">Cities &amp; ports</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="b3" id="t3">Insurers</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="b4" id="t4">ESG &amp; offsets</button>
+  </div>
+  <div class="panel on" role="tabpanel" id="b1" aria-labelledby="t1">
+    <div><h4>Their problem</h4><p>Beachfront resorts in the Caribbean, the Maldives, Florida and Mexico lose millions when storms wash away the beach or the snorkeling spots guests pay for. Grey seawalls look ugly and hurt property value.</p></div>
+    <div><h4>What we sell</h4><p><strong>Custom eco-resort modules:</strong> offshore breakwater modules plus sculptural reef modules, shaped to the resort's bay.</p></div>
+    <div><h4>Their return</h4><p><strong>Beach protection.</strong> Wave energy is absorbed offshore, so they stop paying around $500k a year to pump sand back.</p><p><strong>A private reef.</strong> Fish and fast-growing coral create an attraction that supports higher room rates.</p></div>
+  </div>
+  <div class="panel" role="tabpanel" id="b2" aria-labelledby="t2" hidden>
+    <div><h4>Their problem</h4><p>Cities spend billions replacing failing seawalls and breakwaters, and federal and state funding now requires "nature-based solutions" or "living shorelines".</p></div>
+    <div><h4>What we sell</h4><p><strong>Municipal-grade structural armor panels</strong> for seawalls, ports and harbors.</p></div>
+    <div><h4>Their return</h4><p><strong>A wall that matures.</strong> Concrete lasts 15–20 years in salt water. Smart-Bio gets stronger as organisms attach and calcium deposits form.</p><p><strong>Up to 40% lower maintenance</strong> over 30 years, and eligibility for living-shoreline funding.</p></div>
+  </div>
+  <div class="panel" role="tabpanel" id="b3" aria-labelledby="t3" hidden>
+    <div><h4>Their problem</h4><p>Hurricane storm-surge payouts on coastal property keep climbing, and insurers need a physical way to take energy out of waves before they hit insured buildings.</p></div>
+    <div><h4>What we sell</h4><p><strong>Submerged storm-surge barrier reefs</strong> in front of high-value insured coastline.</p></div>
+    <div><h4>Their return</h4><p><strong>Smaller losses.</strong> Studies of reef structures measure wave-energy reductions of up to 97%.</p><p>Insurers fund or subsidize installs to reduce what they pay out after major storms.</p></div>
+  </div>
+  <div class="panel" role="tabpanel" id="b4" aria-labelledby="t4" hidden>
+    <div><h4>Their problem</h4><p>Energy, construction and shipping companies building offshore wind farms and ports must fund "Biodiversity Net Gain" projects to make up for the disruption they cause underwater.</p></div>
+    <div><h4>What we sell</h4><p><strong>Turnkey ecological offset reef projects</strong>: design, modules, installation and monitoring.</p></div>
+    <div><h4>Their return</h4><p><strong>Permits that move.</strong> Our reefs meet mandatory mitigation requirements, so multi-million-dollar projects can legally go ahead.</p></div>
+  </div>
+</div></section>
+
+<section class="blk" id="durability"><div class="wrap">
+  <p class="mono eb">Self-healing durability</p>
+  <h2 class="t" style="margin-top:14px">Concrete wears out. <em>Smart-Bio matures.</em></h2>
+  <div class="dur">
+    <div>
+      <p class="lead">Salt water slowly eats standard concrete; most seawalls need major work within 15–20 years. Smart-Bio's binder is designed for marine life to settle on it, and their calcification fills pores and cracks so the structure gets denser with age.</p>
+      <div class="readout">
+        <div class="cc"><b id="rc">100%</b><span>Concrete condition</span></div>
+        <div class="sb"><b id="rs">90%</b><span>Smart-Bio condition</span></div>
+      </div>
+      <p class="fine">Illustrative curves showing the expected trend, not test data.</p>
+    </div>
+    <div class="chart">
+      <svg viewBox="0 0 600 340" role="img" aria-label="Chart of structural condition over 30 years: concrete falls steadily, Smart-Bio rises as it matures">
+        <g stroke="rgba(191,243,234,.1)"><path d="M50 40H580M50 110H580M50 180H580M50 250H580"/></g>
+        <g fill="#8fa9ad" font-family="IBM Plex Mono" font-size="12"><text x="8" y="44">120%</text><text x="8" y="114">90%</text><text x="8" y="184">60%</text><text x="8" y="254">30%</text>
+          <text x="46" y="300">0</text><text x="214" y="300">10</text><text x="384" y="300">20</text><text x="556" y="300">30 yrs</text></g>
+        <path d="M50 290H580" stroke="rgba(191,243,234,.3)"/>
+        <rect x="390" y="30" width="190" height="260" fill="rgba(255,122,89,.06)"/>
+        <text x="398" y="50" fill="#ff7a59" font-family="IBM Plex Mono" font-size="11">CONCRETE END OF LIFE</text>
+        <path id="lc" fill="none" stroke="#a7b4b7" stroke-width="3" stroke-dasharray="7 6"/>
+        <path id="ls" fill="none" stroke="#2fb6a8" stroke-width="4"/>
+        <line id="cur" y1="30" y2="290" stroke="#bff3ea" stroke-width="1.5"/>
+        <circle id="dc" r="6" fill="#a7b4b7"/><circle id="ds" r="7" fill="#2fb6a8" stroke="#04131c" stroke-width="3"/>
+      </svg>
+      <div class="slider"><span class="mono" style="color:var(--mut)">Year</span><input type="range" id="yr" min="0" max="30" value="0" aria-label="Year"><b id="yv" class="mono" style="font-size:16px;color:var(--ink);min-width:3ch">0</b></div>
+    </div>
+  </div>
+  <div class="bens">
+    <div><b>90%+</b><h4>Wave energy reduction</h4><p>Designed to take most of the energy out of incoming waves, protecting land and buildings from erosion.</p></div>
+    <div><b>↑</b><h4>Self-healing durability</h4><p>Natural marine calcification strengthens the binder over time, while concrete cracks and corrodes.</p></div>
+    <div><b>+$</b><h4>Property value uplift</h4><p>A living underwater ecosystem instead of grey industrial concrete in front of resorts and waterfront homes.</p></div>
+    <div><b>✓</b><h4>Regulatory compliance</h4><p>Meets "nature-based infrastructure" requirements so developers get permits and funding faster.</p></div>
+  </div>
+</div></section>
+
+<section id="contact"><div class="wrap">
+  <p class="mono eb">Start with your coastline</p>
+  <h2 class="t">Tell us where the water hits. <em>We'll show you the reef.</em></h2>
+  <p class="lead">We assess your shoreline, model the wave energy and propose a module layout with costs and expected protection.</p>
+  <div class="who">
+    <a href="mailto:leoneltelesmeneses@gmail.com?subject=Smart-Bio%20site%20assessment%20%E2%80%93%20Resort">I run a resort</a>
+    <a href="mailto:leoneltelesmeneses@gmail.com?subject=Smart-Bio%20site%20assessment%20%E2%80%93%20City%20or%20port">I work for a city or port</a>
+    <a href="mailto:leoneltelesmeneses@gmail.com?subject=Smart-Bio%20site%20assessment%20%E2%80%93%20Insurer">I'm an insurer</a>
+    <a href="mailto:leoneltelesmeneses@gmail.com?subject=Smart-Bio%20site%20assessment%20%E2%80%93%20Offset%20project">I need an offset project</a>
+  </div>
+</div></section>
+<footer><div class="wrap"><span>© Smart-Bio · Living coastal infrastructure</span><span>Seawall tiles · Breakwater modules · Sculptural reefs</span></div></footer>
+
+<script>
+(() => {
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const ramp = (p, a, b) => clamp((p - a) / (b - a));
+  const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const inout = (p, a, b, c, d) => Math.min(ramp(p, a, b), 1 - ramp(p, c, d));
+  const lerp = (a, b, t) => a + (b - a) * t;
+
+  const cv = document.getElementById('cv'), cx = cv.getContext('2d');
+  let W, H, DPR;
+  function size() { DPR = Math.min(2, devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * DPR; cv.height = H * DPR; build(); }
+
+  // scene layout, in fractions of the screen
+  let mods = [], corals = [], fish = [], bubbles = [];
+  const R = (a, b) => a + Math.random() * (b - a);
+  let SHORE = .8;
+  function seabed(x) {
+    const u = x / W, surf = H * .36;
+    if (u >= SHORE) return surf + H * .015 - Math.min(1, (u - SHORE) / .06) * H * .06;
+    return lerp(surf + H * .015, H * .93, Math.pow((SHORE - u) / SHORE, .6)) + Math.sin(u * 17) * 3;
+  }
+  function build() {
+    const mob = W / H < .8;
+    SHORE = mob ? .9 : .8;
+    const x0 = W * (mob ? .2 : .3), x1 = W * (mob ? .76 : .6), n = 4;
+    mods = [];
+    for (let i = 0; i < n; i++) {
+      const x = lerp(x0, x1, (i + .5) / n), w = (x1 - x0) / n * .9, h = Math.min(w * .7, H * .11);
+      mods.push({ x, w, h, delay: i * .025, holes: Array.from({ length: 4 }, () => [R(-.32, .32), R(.25, .7), R(.07, .12)]) });
+    }
+    corals = [];
+    mods.forEach(m => {
+      for (let k = 0; k < 5; k++) corals.push({ m, ox: R(-.4, .4), len: R(.18, .42) * m.h, ang: R(-.5, .5), br: Math.random() < .6, hue: Math.random() < .5 ? '#ff7a59' : (Math.random() < .5 ? '#ffb38a' : '#e45a8c'), d: Math.random() });
+    });
+    fish = Array.from({ length: 26 }, (_, i) => ({ t: R(0, 6.28), r: R(.5, 1.6), y: R(-.6, .2), s: R(.25, .6) * (Math.random() < .5 ? 1 : -1), c: Math.random() < .3 ? '#ffd166' : (Math.random() < .5 ? '#bff3ea' : '#ff7a59'), k: i / 26 }));
+  }
+  size(); addEventListener('resize', size);
+
+  const coast = document.getElementById('coast'), nav = document.getElementById('nav'), hint = document.getElementById('hint');
+  const caps = ['k0', 'k1', 'k2', 'k3'].map(id => document.getElementById(id));
+  const en = document.getElementById('en'), enBar = document.getElementById('enBar'), cov = document.getElementById('cov');
+  let spray = [];
+
+  function draw(time) {
+    const r = coast.getBoundingClientRect();
+    const p = RM ? .9 : clamp(-r.top / (r.height - innerHeight));
+    const t = time / 1000;
+    const storm = ramp(p, .05, .22);                 // the storm builds
+    const inst = ramp(p, .32, .5);                   // modules settle on the seabed
+    const grow = ease(ramp(p, .62, .88));            // reef matures
+    const damp = ease(ramp(p, .42, .58)); // attenuation switches on once modules are down
+    const surf = H * .36;
+
+    cx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    // sky
+    const sky = cx.createLinearGradient(0, 0, 0, surf);
+    sky.addColorStop(0, `rgb(${lerp(18, 10, storm)},${lerp(52, 26, storm)},${lerp(71, 36, storm)})`);
+    sky.addColorStop(1, `rgb(${lerp(74, 32, storm)},${lerp(140, 70, storm)},${lerp(150, 84, storm)})`);
+    cx.fillStyle = sky; cx.fillRect(0, 0, W, surf + 40);
+
+    // wave height along x: full offshore, cut down across the reef
+    const x0 = mods[0].x - mods[0].w, x1 = mods[mods.length - 1].x + mods[0].w;
+    const A0 = lerp(H * .012, H * .05, storm);
+    const keep = 1 - (1 - Math.sqrt(.1)) * damp;     // 10% energy left = ~32% of the height
+    const amp = x => {
+      const u = clamp((x - x0) / (x1 - x0));
+      return A0 * lerp(1, keep, u);
+    };
+    const k = 2 * Math.PI / (W * (W / H < .8 ? .55 : .32)), w = 2.1;
+    const yAt = x => surf + amp(x) * Math.sin(k * x - w * t) - amp(x) * .3 * Math.cos(2 * (k * x - w * t));
+
+    // water body
+    const wat = cx.createLinearGradient(0, surf, 0, H);
+    wat.addColorStop(0, '#0f5d6f'); wat.addColorStop(.5, '#08384a'); wat.addColorStop(1, '#04161f');
+    cx.beginPath(); cx.moveTo(0, H);
+    for (let x = 0; x <= W; x += 6) cx.lineTo(x, yAt(x));
+    cx.lineTo(W, H); cx.closePath(); cx.fillStyle = wat; cx.fill();
+
+    // light rays
+    cx.save(); cx.globalAlpha = .07 * (1 - storm * .6);
+    for (let i = 0; i < 6; i++) { const rx = (i / 6 * W + t * 12) % (W * 1.2) - W * .1; cx.beginPath(); cx.moveTo(rx, surf); cx.lineTo(rx + 40, surf); cx.lineTo(rx + 160, H); cx.lineTo(rx + 60, H); cx.fillStyle = '#bff3ea'; cx.fill(); }
+    cx.restore();
+
+    // seabed + land
+    cx.beginPath(); cx.moveTo(0, H);
+    for (let x = 0; x <= W; x += 8) cx.lineTo(x, seabed(x));
+    cx.lineTo(W, H); cx.closePath();
+    const sb = cx.createLinearGradient(0, H * .5, 0, H); sb.addColorStop(0, '#c9b48d'); sb.addColorStop(1, '#5b4b33');
+    cx.fillStyle = sb; cx.fill();
+    // resort on the beach
+    const shoreX = W * SHORE, landX = W * (SHORE + .06), gy = seabed(W - 1);
+    const lw = W - landX;
+    [[.08, .2, .16], [.38, .28, .2], [.7, .2, .12]].forEach(([fx, fw, fh]) => {
+      const bx = landX + lw * fx, bw = lw * fw, bh = H * fh;
+      cx.fillStyle = '#e6efee'; cx.fillRect(bx, gy - bh, bw, bh);
+      cx.fillStyle = 'rgba(15,93,111,.55)';
+      for (let yy = gy - bh + 8; yy < gy - 8; yy += 12) for (let xx = bx + 4; xx < bx + bw - 5; xx += 9) cx.fillRect(xx, yy, 4, 6);
+    });
+    cx.strokeStyle = '#3d2f1f'; cx.lineWidth = 3; cx.lineCap = 'round';
+    [[W * (SHORE + .035), H * .09], [W * (SHORE + .052), H * .065]].forEach(([px, ph]) => {
+      const base = seabed(px), sway = Math.sin(t * 1.4) * (2 + storm * 10);
+      cx.beginPath(); cx.moveTo(px, base); cx.quadraticCurveTo(px - 4, base - ph * .5, px + sway, base - ph); cx.stroke();
+      cx.strokeStyle = '#2f8f5b';
+      for (let a = 0; a < 5; a++) { const an = -2.6 + a * .55; cx.beginPath(); cx.moveTo(px + sway, base - ph); cx.quadraticCurveTo(px + sway + Math.cos(an) * 14, base - ph + Math.sin(an) * 14 - 6, px + sway + Math.cos(an) * 24, base - ph + Math.sin(an) * 24 + 6); cx.stroke(); }
+      cx.strokeStyle = '#3d2f1f';
+    });
+
+    // modules dropping onto the seabed
+    mods.forEach(m => {
+      const d = ease(ramp(inst, m.delay * 4, m.delay * 4 + .5));
+      if (d <= 0) return;
+      const by = seabed(m.x);
+      const y = lerp(surf - m.h * 1.5, by, d);
+      const cal = grow;
+      cx.save(); cx.translate(m.x, y);
+      cx.beginPath();
+      cx.moveTo(-m.w / 2, 0); cx.bezierCurveTo(-m.w / 2, -m.h * 1.05, m.w / 2, -m.h * 1.05, m.w / 2, 0); cx.closePath();
+      const g = cx.createLinearGradient(0, -m.h, 0, 0);
+      g.addColorStop(0, `rgb(${lerp(190, 236, cal)},${lerp(186, 222, cal)},${lerp(174, 190, cal)})`);
+      g.addColorStop(1, `rgb(${lerp(110, 150, cal)},${lerp(106, 128, cal)},${lerp(96, 98, cal)})`);
+      cx.fillStyle = g; cx.globalAlpha = .4 + .6 * d; cx.fill();
+      cx.fillStyle = 'rgba(4,22,31,.75)';
+      m.holes.forEach(([hx, hy, hr]) => { cx.beginPath(); cx.arc(hx * m.w, -hy * m.h, hr * m.w, 0, 6.29); cx.fill(); });
+      cx.restore();
+      // silt puff when it lands
+      if (d > .97 && !m.landed) { m.landed = true; for (let i = 0; i < 14; i++) bubbles.push({ x: m.x + R(-m.w / 2, m.w / 2), y: by - 4, vx: R(-.6, .6), vy: R(-.8, -.2), a: .5, silt: true }); }
+      if (d < .5) m.landed = false;
+    });
+
+    // coral and kelp growing on the modules
+    corals.forEach(c => {
+      const g = clamp((grow - c.d * .4) / .6);
+      if (g <= 0) return;
+      const m = c.m, bx = m.x + c.ox * m.w, by = seabed(m.x) - m.h * (1 - Math.pow(Math.abs(c.ox) * 2, 2)) * .78;
+      const L = c.len * g, a = c.ang + Math.sin(t * 1.3 + c.d * 9) * .08;
+      cx.strokeStyle = c.hue; cx.lineWidth = Math.max(2, m.w * .035); cx.lineCap = 'round';
+      const ex = bx + Math.sin(a) * L, ey = by - Math.cos(a) * L;
+      cx.beginPath(); cx.moveTo(bx, by); cx.lineTo(ex, ey); cx.stroke();
+      if (c.br) [-.6, .6].forEach(s => { cx.beginPath(); cx.moveTo(lerp(bx, ex, .5), lerp(by, ey, .5)); cx.lineTo(lerp(bx, ex, .5) + Math.sin(a + s) * L * .45, lerp(by, ey, .5) - Math.cos(a + s) * L * .45); cx.stroke(); });
+      cx.fillStyle = c.hue; cx.beginPath(); cx.arc(ex, ey, cx.lineWidth * .9, 0, 6.29); cx.fill();
+    });
+
+    // fish around the reef
+    const rc = (x0 + x1) / 2, rw = (x1 - x0) / 2, ry = seabed(rc) - mods[0].h * 1.2;
+    fish.forEach(f => {
+      if (f.k > grow) return;
+      f.t += f.s * .012;
+      const fx = rc + Math.cos(f.t) * rw * f.r * .8, fy = ry + f.y * mods[0].h * 1.3 + Math.sin(f.t * 2) * 6;
+      const dir = -Math.sin(f.t) * Math.sign(f.s);
+      const s = Math.max(4, W * .006);
+      cx.fillStyle = f.c; cx.globalAlpha = clamp((grow - f.k) * 6);
+      cx.beginPath(); cx.ellipse(fx, fy, s * 1.6, s * .7, 0, 0, 6.29); cx.fill();
+      cx.beginPath(); cx.moveTo(fx - dir * s * 1.4, fy); cx.lineTo(fx - dir * s * 2.5, fy - s * .8); cx.lineTo(fx - dir * s * 2.5, fy + s * .8); cx.fill();
+      cx.globalAlpha = 1;
+    });
+
+    // surface line with foam
+    cx.beginPath();
+    for (let x = 0; x <= W; x += 6) x ? cx.lineTo(x, yAt(x)) : cx.moveTo(x, yAt(x));
+    cx.strokeStyle = 'rgba(191,243,234,.85)'; cx.lineWidth = 2.5; cx.stroke();
+    // whitecaps where waves are big
+    for (let x = 0; x < W; x += 14) {
+      const ph = Math.sin(k * x - w * t);
+      if (ph > .8 && amp(x) > H * .02) { cx.fillStyle = `rgba(255,255,255,${(ph - .8) * 3 * amp(x) / (H * .05)})`; cx.beginPath(); cx.arc(x, yAt(x) - 2, 3 + amp(x) * .08, 0, 6.29); cx.fill(); }
+    }
+    // spray where the wave hits the shore
+    const hit = amp(shoreX) / (H * .05);
+    if (!RM && Math.random() < hit * .9) for (let i = 0; i < 3; i++) spray.push({ x: shoreX + R(-10, 6), y: yAt(shoreX), vx: R(.4, 2.4) * (1 + hit), vy: R(-4, -1.5) * (.6 + hit), a: 1 });
+    spray = spray.filter(s => (s.a -= .02) > 0);
+    spray.forEach(s => { s.x += s.vx; s.y += s.vy; s.vy += .18; cx.fillStyle = `rgba(240,255,252,${s.a})`; cx.beginPath(); cx.arc(s.x, s.y, 2, 0, 6.29); cx.fill(); });
+    bubbles = bubbles.filter(b => (b.a -= .008) > 0);
+    bubbles.forEach(b => { b.x += b.vx; b.y += b.vy; cx.fillStyle = `rgba(201,180,141,${b.a})`; cx.beginPath(); cx.arc(b.x, b.y, 4, 0, 6.29); cx.fill(); });
+
+    // read-outs
+    const e = Math.round(Math.pow(keep, 2) * 100);
+    en.textContent = e + '%';
+    enBar.style.transform = `scaleX(${e / 100})`;
+    cov.textContent = Math.round(grow * 100) + '%';
+    caps[0].style.opacity = 1 - ramp(p, .06, .12);
+    [[1, .14, .18, .27, .31], [2, .34, .38, .54, .58], [3, .62, .66, .92, .97]].forEach(([i, a, b, c, d]) => {
+      const v = inout(p, a, b, c, d); caps[i].style.opacity = v; caps[i].style.transform = `translateY(${(1 - v) * 24}px)`;
+    });
+    hint.style.opacity = 1 - ramp(p, 0, .05);
+    nav.classList.toggle('solid', r.bottom < innerHeight * .3);
+    requestAnimationFrame(draw);
+  }
+  caps[0].style.opacity = 1;
+  requestAnimationFrame(draw);
+
+  // buyer tabs
+  const tabs = [...document.querySelectorAll('.tab')];
+  tabs.forEach((tb, i) => tb.onclick = () => {
+    tabs.forEach((o, j) => { o.setAttribute('aria-selected', i === j); const pn = document.getElementById(o.getAttribute('aria-controls')); pn.hidden = i !== j; pn.classList.toggle('on', i === j); });
+  });
+
+  // durability chart
+  const X = y => 50 + y / 30 * 530, Y = v => 290 - v / 120 * 260;
+  const conc = y => 100 - 2.6 * y - .02 * y * y;              // falls through ~50% by year 18
+  const bio = y => 90 + 30 * (1 - Math.exp(-y / 9));          // rises toward ~118% as it calcifies
+  const path = f => Array.from({ length: 31 }, (_, y) => (y ? 'L' : 'M') + X(y).toFixed(1) + ' ' + Y(Math.max(5, f(y))).toFixed(1)).join(' ');
+  document.getElementById('lc').setAttribute('d', path(conc));
+  document.getElementById('ls').setAttribute('d', path(bio));
+  const yr = document.getElementById('yr'), cur = document.getElementById('cur'), dc = document.getElementById('dc'), ds = document.getElementById('ds');
+  function setYear() {
+    const y = +yr.value;
+    document.getElementById('yv').textContent = y;
+    cur.setAttribute('x1', X(y)); cur.setAttribute('x2', X(y));
+    dc.setAttribute('cx', X(y)); dc.setAttribute('cy', Y(Math.max(5, conc(y))));
+    ds.setAttribute('cx', X(y)); ds.setAttribute('cy', Y(bio(y)));
+    document.getElementById('rc').textContent = Math.round(Math.max(5, conc(y))) + '%';
+    document.getElementById('rs').textContent = Math.round(bio(y)) + '%';
+  }
+  yr.oninput = setYear; setYear();
+  // play the years once when the chart comes into view
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting || RM) return; io.disconnect();
+    let y = 0; const iv = setInterval(() => { yr.value = ++y; setYear(); if (y >= 30) clearInterval(iv); }, 60);
+  }), { threshold: .5 });
+  io.observe(document.querySelector('.chart'));
+})();
+</script>
+</body>
+</html>
