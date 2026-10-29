@@ -218,7 +218,7 @@
       '</div></nav>' +
       sections.map(function (s, i) { return R[s.type] ? R[s.type](s, ids[i], i) : ''; }).join('') +
       '<footer><div class="wrap">© ' + new Date().getFullYear() + ' ' + t('footer') +
-        '<a class="owner-login" href="/editor/?sitio=' + encodeURIComponent(slug || '') + '">Mamacitas Spas</a></div></footer>' +
+        '<a class="owner-login" href="/editor/?sitio=' + encodeURIComponent(slug || '') + '">Portal</a></div></footer>' +
       '<a class="fab" ' + waAttrs + ' aria-label="WhatsApp">' + waIcon + '</a>';
 
     var app = document.getElementById('app');

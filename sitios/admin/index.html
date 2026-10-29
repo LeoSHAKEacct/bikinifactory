@@ -500,11 +500,11 @@ function logout() {
   $('login').classList.remove('off');
 }
 $('logoutBtn').onclick = function () { logout(); if (!EDITOR) location.reload(); };
-// /editor/?sitio=erikha (the "Mamacitas Spas" link at the bottom of each site): log in with the site's name.
+// /editor/?sitio=erikha (the "Portal" link at the bottom of each site): log in with the site's name.
 function showSiteLogin(mode) {
   var want = (/[?&]sitio=([^&#]*)/.exec(location.search) || [])[1];
   if (want && !$('siteName').value) $('siteName').value = decodeURIComponent(want);
-  $('loginTitle').textContent = 'Mamacitas Spas';
+  $('loginTitle').textContent = 'Portal';
   $('siteTabs').hidden = false;
   setSiteMode(mode || 'site-in');
   document.querySelector('#login .feed-link').hidden = true;
@@ -803,7 +803,7 @@ async function loadLinks() {
 function ownerBox() {
   var l = state.links[state.slug] || {}, a = l.account;
   var st = a ? '<b>✓ Cuenta creada</b> · ' + esc(a.email || a.phone || a.name) + ' puede entrar y editar este sitio.'
-    : (l.email || l.phone) ? 'Asociado, pero aún sin cuenta: la persona entra por el link <b>Mamacitas Spas</b> (abajo en su página) y crea su cuenta con este correo o teléfono.'
+    : (l.email || l.phone) ? 'Asociado, pero aún sin cuenta: la persona entra por el link <b>Portal</b> (abajo en su página) y crea su cuenta con este correo o teléfono.'
     : 'Sin dueño: solo tú (profesor) puedes editar este sitio.';
   return '<div class="note owner-box"><b>Dueño del sitio</b>' +
     '<div class="row"><input id="ownerEmail" type="email" placeholder="correo@ejemplo.com" value="' + esc(l.email || '') + '">' +
@@ -820,7 +820,7 @@ $('editor').addEventListener('click', async function (e) {
   try {
     await api('POST', '/api/owners', remove ? { slug: slug, remove: true } : { slug: slug, email: $('ownerEmail').value, phone: $('ownerPhone').value });
     await loadLinks();
-    toast(remove ? 'Acceso quitado.' : 'Guardado. Ya puede crear su cuenta desde "Mamacitas Spas" en su página.', 'ok');
+    toast(remove ? 'Acceso quitado.' : 'Guardado. Ya puede crear su cuenta desde "Portal" en su página.', 'ok');
     if (state.slug === slug) renderEditor();
   } catch (err) { toast(esc(err.message), 'err'); b.disabled = false; }
 });
