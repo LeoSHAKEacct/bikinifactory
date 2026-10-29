@@ -206,7 +206,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
   <button class="btn" id="saveBtn">Guardar</button>
   <button class="btn primary" id="publish">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-    <span>Publicar en Vercel</span>
+    <span>Publicar</span>
   </button>
 </header>
 <div class="mtabs"><button class="btn on" data-view="edit">Editar</button><button class="btn" data-view="preview">Vista previa</button></div>
@@ -285,7 +285,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
 <div class="modal" id="nsModal">
   <form class="card" id="nsForm">
     <h3 id="nsTitle">Nuevo sitio</h3>
-    <p>Se crea una copia que puedes editar. Queda en vivo cuando pulses <b>Publicar en Vercel</b>.</p>
+    <p>Se crea una copia que puedes editar. Queda en vivo cuando pulses <b>Publicar</b>.</p>
     <label class="f"><span>Dirección</span>
       <div style="display:flex;align-items:center;gap:6px"><span id="nsHost" style="color:var(--muted);font-size:13px;white-space:nowrap"></span><input type="text" id="nsSlug" placeholder="d" autocomplete="off"></div>
     </label>
@@ -590,8 +590,8 @@ function renderStatus() {
   st.className = 'status';
   if (!state.published[slug]) st.textContent = '· Nunca publicado';
   else if (isUnpublished(slug)) st.textContent = '· Sin publicar';
-  else if (dep && dep.state === 'pending') { st.textContent = 'Publicando en Vercel…'; st.className = 'status pending'; }
-  else if (dep && dep.state === 'slow') { st.textContent = 'Vercel está tardando, revisa en unos minutos'; st.className = 'status slow'; }
+  else if (dep && dep.state === 'pending') { st.textContent = 'Publicando…'; st.className = 'status pending'; }
+  else if (dep && dep.state === 'slow') { st.textContent = 'Está tardando, revisa en unos minutos'; st.className = 'status slow'; }
   else { st.innerHTML = '✓ En vivo · <a href="/' + esc(slug) + '/" target="_blank" rel="noopener">ver sitio</a>'; st.className = 'status live'; }
 
   $('saveBtn').disabled = !isUnsaved(slug) || saving[slug];
@@ -717,7 +717,7 @@ function renderEditor() {
     (siteOnly ? '' : '<button class="btn small danger" id="delSite">Eliminar sitio</button>') +
     '<button class="btn small danger" id="discard"' + (state.published[state.slug] && isUnpublished(state.slug) ? '' : ' disabled') + '>Descartar cambios</button></div>';
   html += '<div class="note" style="background:rgba(236,95,122,.07);border-color:var(--line2);color:var(--rose2)">Tip: escribe <b>{nombre}</b> o <b>{telefono}</b> en cualquier texto y se reemplaza solo.</div>';
-  html += '<div class="note">Editando <b>' + esc(siteLabel(state.slug)) + '</b> · link: <b>' + esc(location.host) + '/' + esc(state.slug) + '/</b><br>Todo se <b>guarda solo</b> en la nube unos segundos después de editar (también desde otro computador). Con <b>Publicar en Vercel</b> queda en vivo en ~1 minuto.</div>';
+  html += '<div class="note">Editando <b>' + esc(siteLabel(state.slug)) + '</b> · link: <b>' + esc(location.host) + '/' + esc(state.slug) + '/</b><br>Todo se <b>guarda solo</b> en la nube unos segundos después de editar (también desde otro computador). Con <b>Publicar</b> queda en vivo en ~1 minuto.</div>';
 
   if (state.who && state.who.role === 'admin') html += ownerBox();
   var open = function (key, dflt) { return key in openState ? openState[key] : dflt; };
@@ -729,7 +729,7 @@ function renderEditor() {
   html += '<details class="sec" data-key="b"' + (open('b', false) ? ' open' : '') + '><summary><span class="n">📅</span>Agenda y reservas' +
     '<span class="sec-hint">' + (get(d, 'booking.enabled') === 'yes' ? (cal.email ? 'Activa' : 'Falta conectar Google') : 'Desactivada') + '</span></summary><div class="sec-body">';
   if (!cal.configured) {
-    html += '<div class="note">Falta configurar Google en Vercel (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET y TOKEN_KEY). Pídeselo al profesor.</div>';
+    html += '<div class="note">Las reservas con Google Calendar aún no están activas. Pídeselo al profesor.</div>';
   } else if (cal.email) {
     html += '<div class="cal-box ok"><div><b>✓ Google Calendar conectado</b><small>' + esc(cal.email) + '</small></div>' +
       '<button type="button" class="btn small danger" id="calDisconnect">Desconectar</button></div>';
@@ -977,13 +977,13 @@ $('publish').addEventListener('click', async function () {
     adoptUploads(slug, images);
     state.published[slug] = content;
     state.saved[slug] = clone(content);
-    toast('¡Listo! Vercel está publicando <b>' + esc(siteLabel(slug)) + '</b>, toma ~1 minuto. Te aviso aquí cuando esté en vivo.', 'ok', 7000);
+    toast('¡Listo! Publicando <b>' + esc(siteLabel(slug)) + '</b>, toma ~1 minuto. Te aviso aquí cuando esté en vivo.', 'ok', 7000);
     watchDeploy(slug, content);
     if (slug === state.slug) { renderEditor(); pushPreview(); }
   } catch (e) {
     toast('No se pudo publicar: ' + esc(e.message), 'err', 8000);
   } finally {
-    label.textContent = 'Publicar en Vercel';
+    label.textContent = 'Publicar';
     renderTabs();
   }
 });
@@ -1093,7 +1093,7 @@ $('nsForm').onsubmit = async function (e) {
     state.drafts[slug] = clone(c);
     $('nsModal').classList.remove('on');
     await switchSite(slug);
-    toast('Sitio <b>' + esc(label) + '</b> creado y guardado. Edítalo y pulsa <b>Publicar en Vercel</b> para ponerlo en vivo.', 'ok', 8000);
+    toast('Sitio <b>' + esc(label) + '</b> creado y guardado. Edítalo y pulsa <b>Publicar</b> para ponerlo en vivo.', 'ok', 8000);
   } catch (x) {
     err(x.message);
   } finally {
@@ -1271,7 +1271,7 @@ $('histList').addEventListener('click', async function (e) {
     state.drafts[slug] = migrate(j.content);
     $('histModal').classList.remove('on');
     changed(true);
-    toast('Versión restaurada en el editor (y guardada). Pulsa <b>Publicar en Vercel</b> para ponerla en vivo.', 'ok', 8000);
+    toast('Versión restaurada en el editor (y guardada). Pulsa <b>Publicar</b> para ponerla en vivo.', 'ok', 8000);
   } catch (x) { toast(esc(x.message), 'err'); }
 });
 $('histClose').onclick = function () { $('histModal').classList.remove('on'); };
