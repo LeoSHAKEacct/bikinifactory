@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Property — LASE Properties</title>
+<meta name="theme-color" content="#05070c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05070c;--panel:rgba(255,255,255,.035);--line:rgba(255,255,255,.09);--text:#eef1f7;--muted:#8b93a7;--blue:#1fb8ff;--gold:#d4af6a;--emerald:#2bb38a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,.logo{font-family:"Space Grotesk",sans-serif;letter-spacing:-.02em}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+nav{position:sticky;top:0;z-index:20;background:rgba(5,7,12,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:12px}
+.logo{font-weight:700;font-size:18px;letter-spacing:.14em}.logo span{color:var(--blue)}
+.back{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:var(--panel);font:600 14px "Space Grotesk";cursor:pointer;color:var(--text)}
+.back:hover{border-color:var(--gold);color:#f3dca4}
+main{padding:34px 0 120px}
+.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:34px;align-items:start}
+.stage{position:relative;aspect-ratio:4/3;border-radius:22px;overflow:hidden;background:#0d1220 center/cover no-repeat;border:1px solid var(--line);touch-action:pan-y}
+.stage .arrow{position:absolute;top:50%;margin-top:-22px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(5,7,12,.6);backdrop-filter:blur(6px);color:#fff;font-size:22px;cursor:pointer}
+.stage .arrow:hover{border-color:var(--gold)}.stage .prev{left:14px}.stage .next{right:14px}
+.stage .cnt{position:absolute;right:14px;bottom:14px;padding:5px 12px;border-radius:999px;background:rgba(5,7,12,.7);font:600 12px "Space Grotesk"}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;margin-top:12px}
+.thumbs button{aspect-ratio:4/3;border-radius:12px;border:2px solid transparent;background:#0d1220 center/cover;cursor:pointer;opacity:.6;transition:.2s}
+.thumbs button.on,.thumbs button:hover{opacity:1}.thumbs button.on{border-color:var(--gold)}
+.info{position:sticky;top:96px;border:1px solid var(--line);border-radius:22px;background:var(--panel);padding:28px}
+.badge.rent{color:var(--emerald);border-color:rgba(43,179,138,.45)}
+.badge{display:inline-block;padding:6px 12px;border-radius:999px;font:600 11px "Space Grotesk";letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);color:var(--blue)}
+h1{font-size:clamp(28px,3.4vw,40px);line-height:1.1;margin:14px 0 6px}
+.loc{color:var(--muted)}
+.price{font:700 30px "Space Grotesk";margin:18px 0 4px}.price small{font-size:15px;color:var(--muted);font-weight:500}
+.specs{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.specs span{padding:8px 14px;border-radius:12px;border:1px solid var(--line);font-size:14px}
+.specs span::before{content:"◆ ";color:var(--blue);font-size:10px}
+.desc{color:#c9d0dc;white-space:pre-line;margin:6px 0 22px}
+.btn{display:flex;justify-content:center;align-items:center;gap:10px;width:100%;padding:15px 22px;border-radius:999px;font:600 15px "Space Grotesk";letter-spacing:.03em;border:0;cursor:pointer;margin-top:10px;transition:.25s}
+.btn-gilt{background:linear-gradient(100deg,#f6e3b0,#d4af6a 55%,#b88c3e);color:#1a1205;box-shadow:0 10px 40px -10px rgba(212,175,106,.7)}
+.btn-wa{background:#25d366;color:#fff}
+.btn-ghost{border:1px solid var(--line);background:var(--panel);color:var(--text)}
+.btn:hover{transform:translateY(-2px)}
+.btn svg{width:20px;height:20px;fill:currentColor}
+.empty{text-align:center;padding:90px 0}.empty h1{margin-bottom:12px}.empty .back{margin-top:22px}
+footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-size:13px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.info{position:static}.stage{border-radius:16px}}
+@media(max-width:560px){.back span{display:none}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a href="/" class="logo">LASE<span>.</span>PROPERTIES</a><a href="/#properties" class="back" id="back">← <span>Back to listings</span></a></div></nav>
+<main><div class="wrap" id="app"><p style="color:var(--muted)">Loading…</p></div></main>
+<footer><div class="wrap">© LASE Properties LLC · Dubai, UAE · <a href="mailto:gm@laseproperties.com">gm@laseproperties.com</a> · <a href="tel:+971555902523">+971 55 590 2523</a></div></footer>
+<script>
+const WA = "971555902523", EMAIL = "gm@laseproperties.com";
+const RAW = "https://raw.githubusercontent.com/LeoSHAKEacct/bikinifactory/main/lase/";
+const esc = v => String(v == null ? "" : v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const src = p => /^(https?:|data:)/.test(p) ? p : "/" + p;
+const css = u => `url('${String(u).replace(/'/g, "%27")}')`;
+const id = new URLSearchParams(location.search).get("id") || "";
+
+// Back: return to the exact spot on the main page when we came from it, otherwise open the listings section
+document.getElementById("back").onclick = e => {
+  try { if (document.referrer && new URL(document.referrer).origin === location.origin && history.length > 1) { e.preventDefault(); history.back(); } } catch (_) {}
+};
+
+async function load() {
+  const get = async u => { try { const r = await fetch(u, {cache: "no-store"}); return r.ok ? await r.json() : null; } catch (_) { return null; } };
+  let list = await get("/data/listings.json?v=" + Date.now()), l = Array.isArray(list) && list.find(x => x.id === id && !x.hidden);
+  if (!l) { list = await get(RAW + "data/listings.json?v=" + Date.now()); l = Array.isArray(list) && list.find(x => x.id === id && !x.hidden); } // just published, site not rebuilt yet
+  return l || null;
+}
+
+load().then(l => {
+  const app = document.getElementById("app");
+  if (!l) { app.innerHTML = `<div class="empty"><h1>This listing isn't available</h1><p style="color:var(--muted)">It may have been sold or taken down.</p><a href="/#properties" class="back">← Back to listings</a></div>`; return; }
+  document.title = `${l.title} — LASE Properties`;
+  const photos = (Array.isArray(l.imgs) && l.imgs.length ? l.imgs : [l.img]).filter(Boolean);
+  const specs = [l.beds, l.baths, l.size].filter(Boolean);
+  const line = `${l.title}, ${l.loc} (${l.price}${l.per ? " " + l.per : ""})`;
+  const msg = `Hello LASE Properties, I'm interested in: ${line}\n${location.href}`;
+  const waIcon = `<svg viewBox="0 0 32 32"><path d="M16 3a13 13 0 00-11.2 19.6L3 29l6.6-1.7A13 13 0 1016 3zm0 23.7a10.7 10.7 0 01-5.5-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.7 10.7 0 1116 26.7zm5.9-8c-.3-.2-1.9-1-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.8 8.8 0 01-4.4-3.8c-.3-.6.3-.5.9-1.7a.6.6 0 000-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 00-.9.4 3.6 3.6 0 00-1.1 2.7 6.3 6.3 0 001.3 3.3 14.3 14.3 0 005.5 4.9c2 .9 2.8.9 3.8.8a3.3 3.3 0 002.2-1.5 2.7 2.7 0 00.2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg>`;
+  app.innerHTML = `<div class="grid">
+    <div>
+      <div class="stage" id="stage">${photos.length > 1 ? `<button class="arrow prev" aria-label="Previous photo">‹</button><button class="arrow next" aria-label="Next photo">›</button><span class="cnt" id="cnt"></span>` : ""}</div>
+      ${photos.length > 1 ? `<div class="thumbs" id="thumbs">${photos.map((p, i) => `<button aria-label="Photo ${i + 1}" style="background-image:${esc(css(src(p)))}"></button>`).join("")}</div>` : ""}
+    </div>
+    <aside class="info">
+      <span class="badge ${l.tab === "rent" ? "rent" : ""}">${l.tab === "rent" ? "For Rent" : "For Sale"}</span>
+      <h1>${esc(l.title)}</h1>
+      <div class="loc">${esc(l.loc)}</div>
+      <div class="price">${esc(l.price)} <small>${esc(l.per)}</small></div>
+      ${specs.length ? `<div class="specs">${specs.map(x => `<span>${esc(x)}</span>`).join("")}</div>` : ""}
+      ${l.desc ? `<p class="desc">${esc(l.desc)}</p>` : ""}
+      <a class="btn btn-wa" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent(msg)}">${waIcon} Enquire on WhatsApp</a>
+      <a class="btn btn-gilt" href="mailto:${EMAIL}?subject=${encodeURIComponent("Enquiry: " + l.title)}&body=${encodeURIComponent(msg)}">Email us about this property</a>
+      <a class="btn btn-ghost" href="/#consult">Book a 60-min consultation</a>
+    </aside></div>`;
+  const stage = document.getElementById("stage"), thumbs = document.querySelectorAll("#thumbs button");
+  let i = 0;
+  const show = k => {
+    i = (k + photos.length) % photos.length;
+    stage.style.backgroundImage = css(src(photos[i]));
+    const c = document.getElementById("cnt"); if (c) c.textContent = `${i + 1} / ${photos.length}`;
+    thumbs.forEach((t, n) => t.classList.toggle("on", n === i));
+    if (photos.length > 1) new Image().src = src(photos[(i + 1) % photos.length]);
+  };
+  show(0);
+  if (photos.length < 2) return;
+  stage.querySelector(".prev").onclick = () => show(i - 1);
+  stage.querySelector(".next").onclick = () => show(i + 1);
+  thumbs.forEach((t, n) => t.onclick = () => show(n));
+  addEventListener("keydown", e => { if (e.key === "ArrowLeft") show(i - 1); if (e.key === "ArrowRight") show(i + 1); });
+  let x0 = null;
+  stage.addEventListener("touchstart", e => x0 = e.touches[0].clientX, {passive: true});
+  stage.addEventListener("touchend", e => { if (x0 === null) return; const d = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(d) > 40) show(i + (d < 0 ? 1 : -1)); });
+});
+</script>
+</body>
+</html>

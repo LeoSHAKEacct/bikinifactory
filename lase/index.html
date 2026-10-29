@@ -16,6 +16,7 @@
   --bg:#05070c; --bg2:#0a0e17; --panel:rgba(255,255,255,.035); --line:rgba(255,255,255,.09);
   --text:#eef1f7; --muted:#8b93a7; --gold:#1fb8ff; --gold2:#9be7ff; --cyan:#4fd8ff;
   --radius:18px;
+  --emerald:#2bb38a; --forest:#0b3d2e; /* emerald / deep forest green accent */
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:auto}
@@ -96,11 +97,10 @@ body{top:0!important}
 .lst:hover{transform:translateY(-6px);border-color:rgba(31,184,255,.45)}
 .lst .ph{position:relative;aspect-ratio:4/3;background:#0d1220 center/cover}
 .lst .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(5,7,12,.7));pointer-events:none}
-.lst .ph .nav{position:absolute;top:50%;z-index:3;width:34px;height:34px;margin-top:-17px;border-radius:50%;border:1px solid var(--line);background:rgba(5,7,12,.6);backdrop-filter:blur(6px);color:#fff;font-size:18px;line-height:32px;cursor:pointer;opacity:.85;transition:opacity .2s}
-.lst .ph .nav:hover{opacity:1;border-color:var(--gold)}.lst .ph .prev{left:10px}.lst .ph .next{right:10px}
 .lst .ph .cnt{position:absolute;top:14px;right:14px;z-index:2;padding:5px 10px;border-radius:999px;font:600 11px "Space Grotesk";background:rgba(5,7,12,.7);color:#fff}
 .lst .ph .dots{position:absolute;right:16px;bottom:16px;z-index:2;display:flex;gap:5px}
-.lst .ph .dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.45)}.lst .ph .dots i.on{background:var(--gold)}
+.lst .ph .dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.45);transition:background .2s}.lst .ph .dots i.on{background:#d4af6a}
+.lst{cursor:pointer}.lst h3 a:hover{color:#f3dca4}
 .lst .badge2{position:absolute;top:14px;left:14px;z-index:2;padding:6px 12px;border-radius:999px;font:600 11px "Space Grotesk";letter-spacing:.14em;text-transform:uppercase;background:rgba(5,7,12,.7);backdrop-filter:blur(8px);border:1px solid var(--line);color:var(--gold)}
 .lst .price{position:absolute;left:16px;bottom:12px;z-index:2;font:700 22px "Space Grotesk"}
 .lst .price small{font-size:13px;color:var(--muted);font-weight:500}
@@ -343,6 +343,10 @@ a.brand{color:inherit;cursor:pointer}
 .photo-band .bandimg{position:absolute;inset:-20% 0;background-size:cover;background-position:center;opacity:.22;will-change:transform}
 .photo-band::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,var(--bg),transparent 25%,transparent 75%,var(--bg))}
 .photo-band>.wrap{position:relative;z-index:2}
+/* Buying Land sits on deep forest green */
+#land{background:radial-gradient(ellipse 80% 70% at 30% 50%,rgba(16,92,68,.55),transparent 70%),linear-gradient(180deg,var(--bg),var(--forest) 30%,var(--forest) 70%,var(--bg))}
+#land .eyebrow{color:var(--emerald)}#land .eyebrow::before{background:var(--emerald)}
+.lst .badge2.rent{color:var(--emerald);border-color:rgba(43,179,138,.45)}
 .grid-floor{position:absolute;left:-50%;right:-50%;bottom:-10%;height:55%;background-image:linear-gradient(rgba(79,216,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(79,216,255,.12) 1px,transparent 1px);background-size:60px 60px;transform:perspective(600px) rotateX(62deg);transform-origin:bottom;mask-image:linear-gradient(to top,#000,transparent 80%);animation:floor 6s linear infinite;pointer-events:none}
 @keyframes floor{to{background-position:0 60px}}
 .hero-inner{position:relative;z-index:2;padding-top:90px}
@@ -1143,19 +1147,30 @@ const PROJECTS = [
   const specsOf = l => l.specs || [l.beds, l.baths, l.size].filter(Boolean);
   const esc = v => String(v == null ? "" : v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const photosOf = l => (Array.isArray(l.imgs) && l.imgs.length ? l.imgs : [l.img]).filter(Boolean);
-  const gallery = l => { const p = photosOf(l); return p.length < 2 ? "" : `<button class="nav prev" aria-label="Previous photo">‹</button><button class="nav next" aria-label="Next photo">›</button><span class="cnt">1 / ${p.length}</span><span class="dots">${p.map((_, i) => `<i class="${i ? "" : "on"}"></i>`).join("")}</span>`; };
-  const card = l => `<article class="lst"><div class="ph" data-photos="${esc(JSON.stringify(photosOf(l)))}" style="background-image:url('${esc(photosOf(l)[0] || "")}')">${gallery(l)}<span class="badge2">${l.tab === "rent" ? "For Rent" : "For Sale"}</span><span class="price">${esc(l.price)} <small>${esc(l.per)}</small></span></div>
-    <div class="body"><h3>${esc(l.title)}</h3><div class="loc">${esc(l.loc)}</div><div class="specs">${specsOf(l).map(x => `<span>${esc(x)}</span>`).join("")}</div>
+  const gallery = l => { const p = photosOf(l); return p.length < 2 ? "" : `<span class="cnt">1 / ${p.length}</span><span class="dots">${p.map((_, i) => `<i class="${i ? "" : "on"}"></i>`).join("")}</span>`; };
+  const page = l => "/property?id=" + encodeURIComponent(l.id || "");
+  const card = l => `<article class="lst" data-href="${esc(page(l))}"><div class="ph" data-photos="${esc(JSON.stringify(photosOf(l)))}" style="background-image:url('${esc(photosOf(l)[0] || "")}')">${gallery(l)}<span class="badge2 ${l.tab === "rent" ? "rent" : ""}">${l.tab === "rent" ? "For Rent" : "For Sale"}</span><span class="price">${esc(l.price)} <small>${esc(l.per)}</small></span></div>
+    <div class="body"><h3><a href="${esc(page(l))}">${esc(l.title)}</a></h3><div class="loc">${esc(l.loc)}</div><div class="specs">${specsOf(l).map(x => `<span>${esc(x)}</span>`).join("")}</div>
     ${l.desc ? `<p class="ldesc">${esc(l.desc)}</p>` : ""}
     <a href="#contact" class="btn btn-ghost" data-goal="${l.tab === "rent" ? "Rent / Lease" : "Buy a property"}" data-msg="I'm interested in: ${esc(l.title)}, ${esc(l.loc)} (${esc(l.price)}${l.per ? " " + esc(l.per) : ""})">Enquire →</a></div></article>`;
-  box.addEventListener("click", e => {
-    const b = e.target.closest(".ph .nav"); if (!b) return;
-    const ph = b.parentNode, p = JSON.parse(ph.dataset.photos), n = p.length;
-    const i = ((+ph.dataset.i || 0) + (b.classList.contains("next") ? 1 : -1) + n) % n;
+  // hovering a photo flips through that listing's photos (left to right across the image); leaving shows the cover again
+  const showPhoto = (ph, i) => {
+    const p = JSON.parse(ph.dataset.photos); if (p.length < 2 || +ph.dataset.i === i) return;
     ph.dataset.i = i; ph.style.backgroundImage = `url('${p[i].replace(/'/g, "%27")}')`;
-    ph.querySelector(".cnt").textContent = `${i + 1} / ${n}`;
+    ph.querySelector(".cnt").textContent = `${i + 1} / ${p.length}`;
     ph.querySelectorAll(".dots i").forEach((d, k) => d.classList.toggle("on", k === i));
-    new Image().src = p[(i + 1) % n];
+  };
+  box.addEventListener("mouseover", e => { const ph = e.target.closest(".ph"); if (ph && !ph.dataset.pre) { ph.dataset.pre = 1; JSON.parse(ph.dataset.photos).slice(1).forEach(u => new Image().src = u); } });
+  box.addEventListener("mousemove", e => {
+    const ph = e.target.closest(".ph"); if (!ph) return;
+    const n = JSON.parse(ph.dataset.photos).length, r = ph.getBoundingClientRect();
+    showPhoto(ph, Math.min(n - 1, Math.max(0, Math.floor((e.clientX - r.left) / r.width * n))));
+  });
+  box.addEventListener("mouseout", e => { const ph = e.target.closest(".ph"); if (ph && !ph.contains(e.relatedTarget)) showPhoto(ph, 0); });
+  // clicking a listing opens its own page; the Enquire button still goes to the contact form
+  box.addEventListener("click", e => {
+    if (e.target.closest("a")) return;
+    const c = e.target.closest(".lst[data-href]"); if (c) location.href = c.dataset.href;
   });
   let current = "buy";
   function show(tab) {
@@ -1195,9 +1210,9 @@ const PROJECTS = [
 
   // title reveal: at the very top, the first scroll down shows the titles, scrolling up hides them again.
   // Only these two moves are taken over; all other scrolling is the browser's own (fast, trackpad-friendly).
-  let lock = 0;
+  let lock = 0, lockEnd = 0, t0 = 0, lastAbs = 0;
   const atTop = () => scrollY < 5;
-  function intro(on) { B.classList.toggle("intro", on); lock = performance.now() + 650; if (!on) setTimeout(() => document.querySelectorAll(".stats [data-count]").forEach(count), 450); }
+  function intro(on) { B.classList.toggle("intro", on); t0 = performance.now(); lock = t0 + 450; lockEnd = t0 + 1000; lastAbs = 0; if (!on) setTimeout(() => document.querySelectorAll(".stats [data-count]").forEach(count), 450); }
   if (scrollY > 10 || location.hash) B.classList.remove("intro");
   document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener("click", e => { const t = a.getAttribute("href").length > 1 && document.querySelector(a.getAttribute("href")); B.classList.remove("intro"); if (t) { e.preventDefault(); t.scrollIntoView({behavior: "smooth"}); } }));
   const skip = t => t.closest && t.closest("input,select,textarea,.calc,.form");
@@ -1206,8 +1221,14 @@ const PROJECTS = [
     const intr = B.classList.contains("intro");
     const now = performance.now();
     // after the titles appear/disappear, swallow the rest of that swipe (trackpad momentum keeps sending
-    // wheel events for a second or two); the page only moves on with a fresh scroll after a short pause
-    if (now < lock) { e.preventDefault(); lock = Math.max(lock, now + 300); return; }
+    // fading wheel events); a new swipe (a sudden jump in strength) goes through at once, and the hold
+    // never lasts more than a second
+    if (now < lock) {
+      const a = Math.abs(e.deltaY), fresh = now - t0 > 200 && a > 12 && a > lastAbs * 1.8;
+      lastAbs = a;
+      if (!fresh) { e.preventDefault(); lock = Math.min(lockEnd, Math.max(lock, now + 120)); return; }
+      lock = 0;
+    }
     if (intr) { e.preventDefault(); if (e.deltaY > 2) intro(false); return; }
     if (atTop() && e.deltaY < -2) { e.preventDefault(); intro(true); }
   }, {passive: false});
