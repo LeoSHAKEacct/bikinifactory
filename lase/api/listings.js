@@ -2,6 +2,7 @@
 //   POST { action: "image", name, data(base64 jpeg) }  -> stores the photo as a git blob, returns { path, sha }
 //   POST { action: "save", listings: [...], images: [{ path, sha }] } -> one commit: data/listings.json + new photos
 // Every request needs header x-admin-password = ADMIN_PASSWORD (Vercel env). Needs GITHUB_TOKEN (Vercel env).
+// Env changes (ADMIN_PASSWORD, GITHUB_TOKEN) need a new commit in lase/: a Vercel "Redeploy" of the same commit is skipped by ignoreCommand.
 const crypto = require('crypto');
 
 const REPO = process.env.GITHUB_REPO || 'LeoSHAKEacct/bikinifactory';
