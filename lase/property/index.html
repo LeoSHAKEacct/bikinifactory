@@ -98,7 +98,6 @@ load().then(l => {
       ${l.desc ? `<p class="desc">${esc(l.desc)}</p>` : ""}
       <a class="btn btn-wa" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent(msg)}">${waIcon} Enquire on WhatsApp</a>
       <a class="btn btn-gilt" href="mailto:${EMAIL}?subject=${encodeURIComponent("Enquiry: " + l.title)}&body=${encodeURIComponent(msg)}">Email us about this property</a>
-      <a class="btn btn-ghost" href="/#consult">Book a 60-min consultation</a>
     </aside></div>`;
   const stage = document.getElementById("stage"), thumbs = document.querySelectorAll("#thumbs button");
   let i = 0;
