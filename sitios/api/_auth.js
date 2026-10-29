@@ -14,8 +14,11 @@ function checkPassword(req) {
 }
 
 const SESSION_DAYS = 30;
-function sessionToken(user) {
-  return C.sign({ uid: user.id, name: user.name, exp: Date.now() + SESSION_DAYS * 864e5 });
+// site: set when the student logged in with a site's name; the session then only opens that site.
+function sessionToken(user, site) {
+  const t = { uid: user.id, name: user.name, exp: Date.now() + SESSION_DAYS * 864e5 };
+  if (site) t.site = site;
+  return C.sign(t);
 }
 
 // { role: 'admin' } | { role: 'user', id, name } | null
@@ -24,7 +27,8 @@ function identify(req) {
   const m = /^Bearer (.+)$/.exec(String(req.headers.authorization || ''));
   if (!m || !C.hasKey()) return null;
   const s = C.verify(m[1]);
-  return s && s.exp > Date.now() ? { role: 'user', id: s.uid, name: s.name } : null;
+  if (!s || !(s.exp > Date.now())) return null;
+  return s.site ? { role: 'user', id: s.uid, name: s.name, site: s.site } : { role: 'user', id: s.uid, name: s.name };
 }
 
 // Sends an error and returns false, or returns the caller's identity.
@@ -39,7 +43,9 @@ function guard(req, res, method) {
 
 // Sites without an owner belong to the teacher.
 function canEdit(who, site) {
-  return Boolean(site) && (who.role === 'admin' || (site.owner && site.owner === who.id));
+  if (!site) return false;
+  if (who.role === 'admin') return true;
+  return Boolean(site.owner && site.owner === who.id && (!who.site || who.site === site.slug));
 }
 
 module.exports = { checkPassword, identify, guard, canEdit, sessionToken };

@@ -14,6 +14,7 @@ const ROUTES = {
   image: require('./_routes/image'),
   load: require('./_routes/load'),
   login: require('./_routes/login'),
+  owners: require('./_routes/owners'),
   publish: require('./_routes/publish'),
   ratings: require('./_routes/ratings'),
   save: require('./_routes/save'),

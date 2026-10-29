@@ -14,6 +14,7 @@ module.exports = async (req, res) => {
     G.photoRefs(slug, content);
     await G.ensureDrafts();
     const label = create ? String(create.label || '').trim().slice(0, 40) : '';
+    if (create && who.site) throw G.userError('Con esta cuenta solo puedes editar tu sitio.', 403);
     if (create) {
       if (typeof slug !== 'string' || !G.SLUG.test(slug) || G.RESERVED.includes(slug)) {
         throw G.userError('Dirección inválida. Usa letras minúsculas, números o guiones.');

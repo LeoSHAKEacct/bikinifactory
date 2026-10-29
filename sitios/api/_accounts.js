@@ -26,6 +26,6 @@ async function update(message, change) {
 }
 
 const newId = () => crypto.randomBytes(6).toString('hex');
-const publicUser = u => ({ id: u.id, name: u.name, email: u.email, createdAt: u.createdAt });
+const publicUser = u => ({ id: u.id, name: u.name, email: u.email, phone: u.phone, createdAt: u.createdAt });
 
 module.exports = { read, update, newId, publicUser };

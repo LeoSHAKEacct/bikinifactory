@@ -13,6 +13,7 @@ module.exports = async (req, res) => {
   try {
     const site = (await G.readSites()).find(s => s.slug === slug);
     if (!canEdit(who, site)) throw G.userError('No puedes eliminar este sitio.', 403);
+    if (who.site) throw G.userError('Solo el profesor puede eliminar este sitio.', 403);
     const prefix = `${G.DIR}/${slug}/`;
     try { await Google.removeConnection(slug); } catch (e) { /* the files go away below anyway */ }
     await G.commit(G.MAIN, `Admin: delete /${slug}`, async () => {

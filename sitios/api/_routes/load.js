@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
         const users = (await A.read().catch(() => ({ users: [] }))).users;
         sites = sites.map(s => Object.assign({}, s, { ownerName: s.owner ? ((users.find(u => u.id === s.owner) || {}).name || '?') : '' }));
       }
-      return res.status(200).json({ sites, who: who.role === 'admin' ? { role: 'admin' } : { role: 'user', name: who.name } });
+      return res.status(200).json({ sites, who: who.role === 'admin' ? { role: 'admin' } : { role: 'user', name: who.name, site: who.site || '' } });
     }
     if (!canEdit(who, all.find(s => s.slug === slug))) return res.status(404).json({ error: 'Sitio desconocido.' });
     const [published, draft, conn] = await Promise.all([

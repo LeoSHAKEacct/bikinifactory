@@ -71,7 +71,7 @@ details.sec>summary .n{font-family:"Cormorant Garamond",serif;font-style:italic;
 label.f{display:flex;flex-direction:column;gap:6px}
 label.f>span{font-size:12px;letter-spacing:.06em;color:var(--muted)}
 label.f>span em{font-style:normal;color:var(--gold);opacity:.85}
-input[type=text],input[type=tel],input[type=time],textarea,select{color-scheme:dark;
+input:not([type]),input[type=text],input[type=email],input[type=password],input[type=tel],input[type=time],textarea,select{color-scheme:dark;
   width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:9px 11px;outline:none;
 }
 textarea{resize:vertical;min-height:70px;line-height:1.5}
@@ -176,6 +176,14 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
 #loginForm{display:flex;flex-direction:column;gap:12px}
 #loginForm .f{display:none}
 #loginForm[data-m="in"] .lf-in,#loginForm[data-m="up"] .lf-up,#loginForm[data-m="admin"] .lf-admin{display:flex}
+#loginForm[data-m="site-in"] .lf-site,#loginForm[data-m="site-up"] .lf-site,#loginForm[data-m="site-up"] .lf-site-up{display:flex}
+.ltabs2{display:flex;gap:6px;margin:-4px 0 14px}.ltabs2[hidden]{display:none}
+.ltabs2 button{flex:1;padding:9px;border-radius:10px;border:1px solid var(--line2);background:transparent;cursor:pointer}
+.ltabs2 button.on{background:var(--panel2);color:var(--rose2);border-color:var(--rose)}
+.owner-box{display:flex;flex-direction:column;gap:8px}
+.owner-box .row{display:flex;gap:8px;flex-wrap:wrap}
+.owner-box input{flex:1;min-width:150px}
+.owner-box .st{font-size:12.5px;color:var(--muted)}.owner-box .st b{color:var(--ok,#5fd38a)}
 .feed-link{color:var(--gold);font-size:13px;text-align:center;text-decoration:none}
 .who{font-size:13px;color:var(--gold);white-space:nowrap}
 .empty{text-align:center;padding:60px 20px;border:1px dashed var(--line2);border-radius:16px;margin-top:10px}
@@ -223,9 +231,13 @@ input:focus,textarea:focus,select:focus{border-color:var(--rose)}
 
 <div class="login" id="login">
   <div class="card login-card">
-    <h3>Panel de sitios</h3>
+    <h3 id="loginTitle">Panel de sitios</h3>
+    <div class="ltabs2" id="siteTabs" hidden><button type="button" class="on" data-m="site-in">Entrar</button><button type="button" data-m="site-up">Crear cuenta</button></div>
     <form id="loginForm" data-m="admin">
       <label class="f lf-admin"><span>Contraseña del profesor</span><input type="text" id="pwInput" autocomplete="current-password" style="-webkit-text-security:disc"></label>
+      <label class="f lf-site"><span>Nombre de tu sitio</span><input id="siteName" autocomplete="username" placeholder="Ej: erikha"></label>
+      <label class="f lf-site-up"><span>Tu correo o teléfono (el que te dio el profesor)</span><input id="siteContact" autocomplete="email" placeholder="tu@correo.com o 3001234567"></label>
+      <label class="f lf-site"><span>Contraseña</span><input type="password" id="sitePass" autocomplete="current-password" placeholder="Mínimo 6 caracteres"></label>
       <div class="err" id="pwErr"></div>
       <button type="submit" class="btn primary" id="lfSubmit">Entrar</button>
     </form>
@@ -484,16 +496,43 @@ async function api(method, path, body) {
 function logout() {
   state.password = ''; state.token = '';
   try { sessionStorage.removeItem('adminpw'); localStorage.removeItem('stoken'); localStorage.removeItem('sname'); } catch (e) {}
-  if (EDITOR) { location.href = '/feed/?entrar=1'; return; }
+  if (EDITOR) { showSiteLogin(); return; }
   $('login').classList.remove('off');
 }
 $('logoutBtn').onclick = function () { logout(); if (!EDITOR) location.reload(); };
+// /editor/?sitio=erikha (the "Mamacitas Spas" link at the bottom of each site): log in with the site's name.
+function showSiteLogin(mode) {
+  var want = (/[?&]sitio=([^&#]*)/.exec(location.search) || [])[1];
+  if (want && !$('siteName').value) $('siteName').value = decodeURIComponent(want);
+  $('loginTitle').textContent = 'Mamacitas Spas';
+  $('siteTabs').hidden = false;
+  setSiteMode(mode || 'site-in');
+  document.querySelector('#login .feed-link').hidden = true;
+  $('login').classList.remove('off');
+  ($('siteName').value ? $('sitePass') : $('siteName')).focus();
+}
+function setSiteMode(m) {
+  $('loginForm').dataset.m = m; $('pwErr').textContent = '';
+  [].forEach.call($('siteTabs').children, function (b) { b.classList.toggle('on', b.dataset.m === m); });
+  $('lfSubmit').textContent = m === 'site-up' ? 'Crear cuenta' : 'Entrar';
+  $('sitePass').autocomplete = m === 'site-up' ? 'new-password' : 'current-password';
+}
+$('siteTabs').onclick = function (e) { var b = e.target.closest('button'); if (b) setSiteMode(b.dataset.m); };
 $('loginForm').onsubmit = async function (e) {
   e.preventDefault();
   var btn = $('lfSubmit');
   $('pwErr').textContent = ''; btn.disabled = true;
   try {
-    state.password = $('pwInput').value; state.token = '';
+    var m = $('loginForm').dataset.m;
+    if (m === 'site-in' || m === 'site-up') {
+      var r = await fetch('/api/account', { method: 'POST', headers: { 'Content-Type': 'application/json' }, cache: 'no-store', body: JSON.stringify({
+        action: m === 'site-up' ? 'site-signup' : 'site-login', site: $('siteName').value, contact: $('siteContact').value, password: $('sitePass').value }) });
+      var j = await r.json().catch(function () { return {}; });
+      if (!r.ok) throw new Error(j.error || 'No se pudo entrar.');
+      state.password = ''; state.token = j.token;
+      try { localStorage.setItem('stoken', j.token); localStorage.setItem('sname', j.user.name); } catch (e2) {}
+      if (j.site) history.replaceState(null, '', location.pathname + '#' + j.site);
+    } else { state.password = $('pwInput').value; state.token = ''; }
     await start();
   } catch (err) { $('pwErr').textContent = err.message; }
   finally { btn.disabled = false; }
@@ -508,6 +547,7 @@ async function start() {
   $('classBtn').hidden = state.who.role !== 'admin';
   $('feedBtn').hidden = state.who.role !== 'admin';
   $('rateBtn').hidden = state.who.role !== 'admin';
+  await loadLinks();
   // /editor/#nuevo opens "new site"; /editor/#<site> opens that site (links from the feed).
   var want = decodeURIComponent(location.hash.slice(1));
   if (want && state.sites.some(function (s) { return s.slug === want; })) state.slug = want;
@@ -541,7 +581,7 @@ async function loadSite(slug) {
 function renderTabs() {
   $('tabs').innerHTML = state.sites.map(function (s) {
     return '<button class="tab' + (s.slug === state.slug ? ' on' : '') + (isUnpublished(s.slug) ? ' dirty' : '') + '" data-slug="' + esc(s.slug) + '" title="/' + esc(s.slug) + '/"><span class="dot"></span>' + esc(s.label) + (s.ownerName ? ' <small style="opacity:.6">· ' + esc(s.ownerName) + '</small>' : '') + '</button>';
-  }).join('') + '<button class="tab add" id="addSite">+ Nuevo sitio</button>';
+  }).join('') + (state.who && state.who.site ? '' : '<button class="tab add" id="addSite">+ Nuevo sitio</button>'); // a site login only opens that site
   renderStatus();
 }
 function renderStatus() {
@@ -676,14 +716,16 @@ function renderEditor() {
   var openState = {};
   if (!keepOpen) document.querySelectorAll('details.sec').forEach(function (el) { openState[el.dataset.key] = el.open; });
   keepOpen = false;
+  var siteOnly = state.who && state.who.site; // a site login can edit and publish its site, not copy or delete it
   var html = '<div class="site-actions">' +
-    '<button class="btn small" id="dupSite">Duplicar este sitio</button>' +
+    (siteOnly ? '' : '<button class="btn small" id="dupSite">Duplicar este sitio</button>') +
     '<button class="btn small" id="history">Historial</button>' +
-    '<button class="btn small danger" id="delSite">Eliminar sitio</button>' +
+    (siteOnly ? '' : '<button class="btn small danger" id="delSite">Eliminar sitio</button>') +
     '<button class="btn small danger" id="discard"' + (state.published[state.slug] && isUnpublished(state.slug) ? '' : ' disabled') + '>Descartar cambios</button></div>';
   html += '<div class="note" style="background:rgba(236,95,122,.07);border-color:var(--line2);color:var(--rose2)">Tip: escribe <b>{nombre}</b> o <b>{telefono}</b> en cualquier texto y se reemplaza solo.</div>';
   html += '<div class="note">Editando <b>' + esc(siteLabel(state.slug)) + '</b> · link: <b>' + esc(location.host) + '/' + esc(state.slug) + '/</b><br>Todo se <b>guarda solo</b> en la nube unos segundos después de editar (también desde otro computador). Con <b>Publicar en Vercel</b> queda en vivo en ~1 minuto.</div>';
 
+  if (state.who && state.who.role === 'admin') html += ownerBox();
   var open = function (key, dflt) { return key in openState ? openState[key] : dflt; };
   html += '<details class="sec" data-key="g"' + (open('g', true) ? ' open' : '') + '><summary><span class="n">⚙</span>General</summary><div class="sec-body">';
   GENERAL.forEach(function (f) { html += fieldHtml(f[0], f[1], f[2], f[3], get(d, f[0])); });
@@ -750,6 +792,38 @@ function renderEditor() {
   ed.innerHTML = html;
   ed.scrollTop = top;
 }
+
+// ---------- site owner (teacher only) ----------
+// The teacher links a site to an email and/or phone; only an account made with it can edit the site.
+state.links = {};
+async function loadLinks() {
+  if (!state.who || state.who.role !== 'admin') return;
+  try { state.links = (await api('GET', '/api/owners')).links || {}; } catch (e) { state.links = {}; }
+}
+function ownerBox() {
+  var l = state.links[state.slug] || {}, a = l.account;
+  var st = a ? '<b>✓ Cuenta creada</b> · ' + esc(a.email || a.phone || a.name) + ' puede entrar y editar este sitio.'
+    : (l.email || l.phone) ? 'Asociado, pero aún sin cuenta: la persona entra por el link <b>Mamacitas Spas</b> (abajo en su página) y crea su cuenta con este correo o teléfono.'
+    : 'Sin dueño: solo tú (profesor) puedes editar este sitio.';
+  return '<div class="note owner-box"><b>Dueño del sitio</b>' +
+    '<div class="row"><input id="ownerEmail" type="email" placeholder="correo@ejemplo.com" value="' + esc(l.email || '') + '">' +
+    '<input id="ownerPhone" type="tel" placeholder="Teléfono (ej: 3001234567)" value="' + esc(l.phone || '') + '"></div>' +
+    '<div class="row"><button type="button" class="btn small primary" id="ownerSave">' + (l.email || l.phone ? 'Guardar' : 'Asociar') + '</button>' +
+    ((l.email || l.phone || a) ? '<button type="button" class="btn small danger" id="ownerRemove">Quitar acceso</button>' : '') + '</div>' +
+    '<div class="st">' + st + '</div></div>';
+}
+$('editor').addEventListener('click', async function (e) {
+  var b = e.target.closest('#ownerSave, #ownerRemove'); if (!b) return;
+  var slug = state.slug, remove = b.id === 'ownerRemove';
+  if (remove && !confirm('¿Quitar el acceso a ' + siteLabel(slug) + '? Se borra su cuenta y ya no podrá editar este sitio.')) return;
+  b.disabled = true;
+  try {
+    await api('POST', '/api/owners', remove ? { slug: slug, remove: true } : { slug: slug, email: $('ownerEmail').value, phone: $('ownerPhone').value });
+    await loadLinks();
+    toast(remove ? 'Acceso quitado.' : 'Guardado. Ya puede crear su cuenta desde "Mamacitas Spas" en su página.', 'ok');
+    if (state.slug === slug) renderEditor();
+  } catch (err) { toast(esc(err.message), 'err'); b.disabled = false; }
+});
 
 function changed(rerender) {
   var slug = state.slug;
@@ -1255,7 +1329,7 @@ addEventListener('beforeunload', function (e) {
 
 if (EDITOR) { $('feedLink').removeAttribute('target'); $('feedLink').textContent = '← Feed'; }
 if (state.password || state.token) start().catch(function () { logout(); });
-else if (EDITOR) location.href = '/feed/?entrar=1';
+else if (EDITOR) showSiteLogin();
 else $('login').classList.remove('off'); // just show the teacher login; a student's session (for /editor/) stays
 </script>
 </body>
