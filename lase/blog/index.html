@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LASE Properties — Blog</title>
+<meta name="description" content="Insights on Dubai real estate, land and investment from LASE Properties.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05070c;--line:rgba(255,255,255,.09);--text:#eef1f7;--muted:#8b93a7;--blue:#1fb8ff;--gilt:#d4af6a}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scrollbar-width:none}html::-webkit-scrollbar{display:none}
+body{background:var(--bg);color:var(--text);font:16px/1.7 Inter,system-ui,sans-serif;min-height:100vh;background-image:radial-gradient(ellipse at 70% 0,rgba(31,184,255,.10),transparent 55%)}
+h1,h2,h3{font-family:"Space Grotesk",sans-serif;letter-spacing:-.02em;line-height:1.1}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+nav{border-bottom:1px solid rgba(212,175,106,.3)}nav .wrap{display:flex;justify-content:space-between;align-items:center;height:72px}
+.logo{font:700 18px "Space Grotesk";letter-spacing:.14em}.logo span{color:var(--blue)}
+.btn{display:inline-flex;padding:11px 20px;border-radius:999px;font:600 14px "Space Grotesk";background:linear-gradient(100deg,#9be7ff,#1fb8ff);color:#021220}
+.gilt{background:linear-gradient(100deg,#f6e3b0,#d4af6a 45%,#a8823e);-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{font:500 12px "Space Grotesk";letter-spacing:.28em;text-transform:uppercase;color:var(--blue)}
+header.top{padding:90px 0 50px}header.top h1{font-size:clamp(40px,6vw,72px);margin:16px 0}header.top p{color:var(--muted);max-width:620px}
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding-bottom:100px}
+.post{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:rgba(255,255,255,.03);transition:.35s;position:relative}
+.post::before{content:"";position:absolute;left:24px;right:24px;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--gilt),transparent)}
+.post:hover{transform:translateY(-6px);border-color:rgba(212,175,106,.5)}
+.post .ph{aspect-ratio:16/10;background:#0d1220 center/cover}
+.post .b{padding:20px 22px 24px}.post small{color:var(--gilt);font:500 11px "Space Grotesk";letter-spacing:.2em;text-transform:uppercase}
+.post h3{font-size:21px;margin:8px 0}.post p{color:var(--muted);font-size:14px}
+.empty{grid-column:1/-1;text-align:center;padding:70px 20px;border:1px dashed rgba(212,175,106,.4);border-radius:24px}
+.empty h3{font-size:26px;margin:12px 0}.empty p{color:var(--muted);margin-bottom:22px}
+article{max-width:760px;margin:0 auto;padding:70px 20px 110px}
+article .cover{aspect-ratio:16/9;border-radius:22px;background:#0d1220 center/cover;margin:28px 0;border:1px solid rgba(212,175,106,.35)}
+article h1{font-size:clamp(34px,5vw,56px);margin:14px 0}article .meta{color:var(--muted);font-size:14px}
+article .body p{margin:0 0 18px;color:#d4d9e3}article .body h2{font-size:28px;margin:34px 0 14px}
+article .back{color:var(--blue);font-size:14px}
+footer{border-top:1px solid rgba(212,175,106,.25);padding:30px 0;color:var(--muted);font-size:13px}
+@media(max-width:900px){.posts{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a href="/" class="logo">LASE<span>.</span>PROPERTIES</a><a href="/#contact" class="btn">Talk to Us</a></div></nav>
+<main id="main"></main>
+<footer><div class="wrap">© <span id="yr"></span> LASE Properties LLC · Dubai, UAE · Land · Value · Future</div></footer>
+<script>
+/* Posts live in posts.json: [{ "slug", "title", "date", "cover", "excerpt", "body": ["paragraph", "## Heading", ...] }] */
+document.getElementById("yr").textContent = new Date().getFullYear();
+const esc = v => String(v == null ? "" : v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const main = document.getElementById("main"), slug = new URLSearchParams(location.search).get("p");
+fetch("/blog/posts.json?v=" + Date.now()).then(r => r.ok ? r.json() : []).catch(() => []).then(posts => {
+  const post = slug && posts.find(p => p.slug === slug);
+  if (post) {
+    document.title = post.title + " — LASE Properties";
+    main.innerHTML = `<article><a class="back" href="/blog">← All articles</a><h1>${esc(post.title)}</h1><div class="meta">${esc(post.date || "")}</div>
+      ${post.cover ? `<div class="cover" style="background-image:url('${esc(post.cover)}')"></div>` : ""}
+      <div class="body">${(post.body || []).map(t => t.startsWith("## ") ? `<h2>${esc(t.slice(3))}</h2>` : `<p>${esc(t)}</p>`).join("")}</div>
+      <p style="margin-top:40px"><a class="btn" href="/#consult">Book a consultation →</a></p></article>`;
+    return;
+  }
+  main.innerHTML = `<div class="wrap"><header class="top"><span class="eyebrow">Insights</span><h1>The LASE <span class="gilt">Journal.</span></h1><p>Dubai real estate, land, off-plan launches and investment strategy, from the LASE team.</p></header>
+    <div class="posts">${posts.length ? posts.map(p => `<a class="post" href="/blog?p=${encodeURIComponent(p.slug)}"><div class="ph" style="background-image:url('${esc(p.cover || "")}')"></div><div class="b"><small>${esc(p.date || "")}</small><h3>${esc(p.title)}</h3><p>${esc(p.excerpt || "")}</p></div></a>`).join("")
+      : `<div class="empty"><span class="eyebrow">Coming soon</span><h3>Our first articles are on the way.</h3><p>Market insights, land opportunities and investor guides.</p><a class="btn" href="/#contact">Get them first →</a></div>`}</div></div>`;
+});
+</script>
+</body>
+</html>

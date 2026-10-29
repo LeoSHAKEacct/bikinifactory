@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>LASE Listings CRM</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05070c;--panel:#0b1019;--line:rgba(255,255,255,.1);--text:#eef1f7;--muted:#8b93a7;--blue:#1fb8ff;--gold:#d4af6a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,sans-serif;min-height:100vh}
+h1,h2,h3{font-family:"Space Grotesk",sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 20px 80px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+header h1{font-size:22px;letter-spacing:.12em}header h1 span{color:var(--blue)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;border:1px solid var(--line);background:#121826;color:var(--text);font:600 14px "Space Grotesk";cursor:pointer}
+.btn:hover{border-color:var(--gold)}
+.btn.gold{background:linear-gradient(100deg,#f6e3b0,#d4af6a 55%,#b88c3e);color:#1a1205;border-color:transparent}
+.btn.danger{color:#ff8a8a}
+.btn:disabled{opacity:.5;cursor:wait}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px}
+#login{max-width:360px;margin:16vh auto;text-align:center}
+#login h1{margin-bottom:8px}#login p{color:var(--muted);margin-bottom:20px}
+input,select,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#070b12;color:var(--text);font:inherit}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--gold)}
+label{display:block;font-size:12px;color:var(--muted);margin:12px 0 6px;letter-spacing:.04em}
+.grid{display:grid;grid-template-columns:1fr 1.25fr;gap:20px;align-items:start}
+.list{display:grid;gap:10px;max-height:72vh;overflow:auto;padding-right:4px}
+.item{display:grid;grid-template-columns:70px 1fr auto;gap:12px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:14px;cursor:pointer;background:#0a0f18}
+.item.on{border-color:var(--gold)}.item.off{opacity:.45}
+.item img,.item .noimg{width:70px;height:52px;object-fit:cover;border-radius:8px;background:#1a2233}
+.item b{display:block;font-size:14px}.item small{color:var(--muted)}
+.tag{font:600 10px "Space Grotesk";letter-spacing:.14em;padding:4px 8px;border-radius:999px;border:1px solid var(--line);color:var(--blue)}
+.row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.photo{display:flex;gap:14px;align-items:center}.photo img{width:150px;height:105px;object-fit:cover;border-radius:12px;background:#1a2233}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+#status{min-height:22px;margin-top:14px;font-size:14px}.ok{color:#5ee08f}.err{color:#ff8a8a}
+.pub{position:sticky;bottom:16px;margin-top:20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 18px;border-radius:16px;border:1px solid rgba(212,175,106,.5);background:#10141d}
+.pub span{color:var(--muted);font-size:14px}
+@media(max-width:860px){.grid{grid-template-columns:1fr}.row{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div id="login" class="card">
+  <h1>LASE<span style="color:var(--blue)">.</span>CRM</h1>
+  <p>Listings manager</p>
+  <form id="lf"><input id="pw" type="password" inputmode="numeric" placeholder="Password" autocomplete="current-password"><button class="btn gold" style="margin-top:14px;width:100%;justify-content:center">Enter</button></form>
+  <div id="lerr" class="err" style="margin-top:12px"></div>
+</div>
+
+<div id="app" class="wrap" hidden>
+  <header>
+    <h1>LASE<span>.</span>LISTINGS</h1>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn" href="/" target="_blank">View site ↗</a><button class="btn gold" id="new">+ New listing</button><button class="btn" id="out">Log out</button></div>
+  </header>
+  <div class="grid">
+    <div class="card"><h3 style="margin-bottom:12px">All listings <small id="count" style="color:var(--muted)"></small></h3><div class="list" id="list"></div></div>
+    <div class="card" id="editor">
+      <h3 id="etitle">Select or create a listing</h3>
+      <form id="ef" hidden>
+        <div class="row2"><div><label>Type</label><select name="tab"><option value="buy">For sale</option><option value="rent">For rent</option></select></div>
+          <div><label>Visible on site</label><select name="hidden"><option value="">Yes, show it</option><option value="1">No, hide it</option></select></div></div>
+        <label>Title *</label><input name="title" required maxlength="120" placeholder="e.g. Sea-View 2BR Apartment">
+        <label>Location *</label><input name="loc" required maxlength="120" placeholder="e.g. Dubai Marina">
+        <div class="row2"><div><label>Price *</label><input name="price" required maxlength="60" placeholder="AED 2,900,000"></div>
+          <div><label>Price period (rent)</label><input name="per" maxlength="30" placeholder="/ year"></div></div>
+        <div class="row"><div><label>Bedrooms</label><input name="beds" maxlength="40" placeholder="2 Beds"></div><div><label>Bathrooms</label><input name="baths" maxlength="40" placeholder="3 Baths"></div><div><label>Size</label><input name="size" maxlength="40" placeholder="1,350 sqft"></div></div>
+        <label>Description</label><textarea name="desc" rows="4" maxlength="1200" placeholder="Short description shown on the card"></textarea>
+        <label>Photo</label>
+        <div class="photo"><img id="pimg" alt=""><div><input type="file" id="file" accept="image/*"><small style="color:var(--muted);display:block;margin-top:6px">Resized automatically. Landscape works best.</small></div></div>
+        <div class="bar"><button class="btn gold" type="submit">Save listing</button><button class="btn danger" type="button" id="del">Delete</button></div>
+      </form>
+      <div id="status"></div>
+    </div>
+  </div>
+  <div class="pub"><span id="dirty">All changes are published.</span><button class="btn gold" id="publish">Publish to website</button></div>
+</div>
+
+<script>
+const API = "/api/listings";
+let PW = sessionStorage.getItem("lase-pw") || "", data = [], sel = null, pending = [], dirty = false;
+const $ = id => document.getElementById(id);
+const say = (m, ok) => { $("status").textContent = m; $("status").className = ok ? "ok" : "err"; };
+async function call(body) {
+  const r = await fetch(API, { method: "POST", headers: { "Content-Type": "application/json", "x-admin-password": PW }, body: JSON.stringify(body) });
+  const j = await r.json().catch(() => ({ error: "Server error" }));
+  if (!r.ok) throw new Error(j.error || "Error " + r.status);
+  return j;
+}
+async function login(pw) {
+  PW = pw; await call({ action: "login" }); sessionStorage.setItem("lase-pw", pw);
+  $("login").hidden = true; $("app").hidden = false;
+  const r = await fetch("/data/listings.json?v=" + Date.now()); data = r.ok ? await r.json() : [];
+  data.forEach(l => delete l.sample); render();
+}
+$("lf").onsubmit = async e => { e.preventDefault(); $("lerr").textContent = ""; try { await login($("pw").value); } catch (err) { $("lerr").textContent = err.message; } };
+$("out").onclick = () => { sessionStorage.removeItem("lase-pw"); location.reload(); };
+if (PW) login(PW).catch(() => sessionStorage.removeItem("lase-pw"));
+const imgUrl = l => !l.img ? "" : /^https?:/.test(l.img) ? l.img : "/" + l.img;
+function setDirty(v) { dirty = v; $("dirty").textContent = v ? "You have unpublished changes." : "All changes are published."; $("dirty").style.color = v ? "#f3dca4" : ""; }
+function render() {
+  $("count").textContent = `(${data.length})`;
+  $("list").innerHTML = data.map((l, i) => `<div class="item ${i === sel ? "on" : ""} ${l.hidden ? "off" : ""}" data-i="${i}">${l.img ? `<img src="${imgUrl(l)}" alt="">` : `<div class="noimg"></div>`}<div><b>${esc(l.title)}</b><small>${esc(l.loc)} · ${esc(l.price)}${l.per ? " " + esc(l.per) : ""}</small></div><span class="tag">${l.tab === "rent" ? "RENT" : "SALE"}</span></div>`).join("") || `<p style="color:var(--muted)">No listings yet. Click “New listing”.</p>`;
+  document.querySelectorAll(".item").forEach(el => el.onclick = () => edit(+el.dataset.i));
+}
+const esc = v => String(v == null ? "" : v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function edit(i) {
+  sel = i; const l = data[i], f = $("ef"); f.hidden = false; $("etitle").textContent = l.title ? "Edit listing" : "New listing"; say("");
+  ["tab","title","loc","price","per","beds","baths","size","desc"].forEach(k => f[k].value = l[k] || ""); f.hidden.value = l.hidden ? "1" : "";
+  $("pimg").src = imgUrl(l); $("file").value = ""; render();
+}
+$("new").onclick = () => { data.unshift({ id: "", tab: "buy", title: "", loc: "", price: "", img: "" }); edit(0); };
+$("del").onclick = () => { if (sel === null || !confirm("Delete this listing?")) return; data.splice(sel, 1); sel = null; $("ef").hidden = true; $("etitle").textContent = "Select or create a listing"; setDirty(true); render(); };
+$("ef").onsubmit = e => {
+  e.preventDefault(); const f = $("ef"), l = data[sel];
+  ["tab","title","loc","price","per","beds","baths","size","desc"].forEach(k => l[k] = f[k].value.trim()); l.hidden = f.hidden.value === "1";
+  if (!l.id) l.id = (l.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "listing") + "-" + Date.now().toString(36);
+  setDirty(true); render(); say("Saved. Click “Publish to website” when you're done.", true);
+};
+function shrink(file) {
+  return new Promise((ok, bad) => { const im = new Image(); im.onload = () => { const k = Math.min(1, 1600 / im.width); const c = document.createElement("canvas"); c.width = Math.round(im.width * k); c.height = Math.round(im.height * k); c.getContext("2d").drawImage(im, 0, 0, c.width, c.height); ok(c.toDataURL("image/jpeg", .82)); }; im.onerror = () => bad(new Error("Can't read that image.")); im.src = URL.createObjectURL(file); });
+}
+$("file").onchange = async () => {
+  const file = $("file").files[0]; if (!file || sel === null) return;
+  try { say("Uploading photo…", true); const url = await shrink(file); $("pimg").src = url;
+    const name = (file.name.replace(/\.[^.]+$/, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").slice(0, 40) || "photo") + ".jpg";
+    const r = await call({ action: "image", name, data: url.split(",")[1] });
+    pending.push(r); data[sel].img = "data/" + r.path; setDirty(true); say("Photo ready. Save the listing, then publish.", true);
+  } catch (err) { say(err.message); }
+};
+$("publish").onclick = async () => {
+  const b = $("publish"); b.disabled = true; say("Publishing…", true);
+  try { const r = await call({ action: "save", listings: data, images: pending }); pending = []; setDirty(false); say(`Published ${r.count} listings. The website updates in about a minute.`, true); }
+  catch (err) { say(err.message); } finally { b.disabled = false; }
+};
+addEventListener("beforeunload", e => { if (dirty) { e.preventDefault(); e.returnValue = ""; } });
+</script>
+</body>
+</html>

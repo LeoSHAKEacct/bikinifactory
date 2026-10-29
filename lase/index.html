@@ -292,6 +292,20 @@ footer{scroll-snap-align:end}
 .hero-inner{text-align:center}
 .hero p.lead{margin-left:auto;margin-right:auto}
 .hero .ctas{justify-content:center}
+/* consultation */
+.consult{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+.consult h2{font-size:clamp(34px,5vw,60px);margin:18px 0}
+.consult p{color:#c3c9d6;margin-bottom:16px}
+.consult-list{list-style:none;display:grid;gap:12px;margin-top:20px}
+.consult-list li{display:flex;gap:10px}.consult-list li::before{content:"✦";color:var(--gilt)}
+.consult-card{position:relative;padding:40px;border-radius:24px;border:1px solid rgba(212,175,106,.5);background:linear-gradient(150deg,rgba(212,175,106,.12),rgba(10,14,23,.85));box-shadow:0 40px 90px -30px rgba(0,0,0,.9),0 0 60px -25px rgba(212,175,106,.5);display:flex;flex-direction:column;gap:16px}
+.consult-card .fee b{font:700 clamp(54px,7vw,80px)/1 "Space Grotesk";background:linear-gradient(100deg,#f6e3b0,#d4af6a 50%,#b88c3e);-webkit-background-clip:text;background-clip:text;color:transparent}
+.consult-card .fee span{display:block;color:var(--muted);font-size:14px;margin-top:6px}
+.consult-card .btn{align-self:flex-start}
+.consult-card small{color:var(--muted)}.consult-card small a{color:#f3dca4}
+@media(max-width:900px){.consult{grid-template-columns:1fr;gap:30px}.consult-card{padding:26px}}
+a.brand{color:inherit;cursor:pointer}
+.lst .ldesc{font-size:13px;color:var(--muted);margin:-6px 0 14px}
 /* gallery */
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:260px;gap:16px}
 .tile{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#0d1220}
@@ -470,7 +484,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
   <div class="wrap">
     <a href="#top" class="logo">LASE<span>.</span>PROPERTIES</a>
     <div class="links">
-      <a href="#properties">Properties</a><a href="#projects">Projects</a><a href="#track">Track Record</a><a href="#leadership">Leadership</a><a href="#contact">Contact</a>
+      <a href="#properties">Properties</a><a href="#projects">Projects</a><a href="#track">Track Record</a><a href="#leadership">Leadership</a><a href="#consult">Consultation</a><a href="/blog">Blog</a><a href="#contact">Contact</a>
     </div>
     <a href="#contact" class="btn btn-gold nav-cta">Talk to Us</a>
   </div>
@@ -587,7 +601,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
           <a href="#contact" class="btn btn-ghost" data-goal="Off-plan investment" data-msg="I'm interested in villas like Sobha One Golf Ridges.">Ask about similar →</a></div>
       </article>
       <article class="pcard reveal">
-        <img src="past/gcc-waterfront.jpg" alt="GCC waterfront development opportunity, Manama waterfront, Bahrain" loading="lazy">
+        <img src="manama-waterfront.jpg" alt="GCC waterfront development opportunity, Manama waterfront, Bahrain" loading="lazy">
         <div class="body"><small>Manama Waterfront · Bahrain</small><h3>GCC Waterfront Opportunity</h3><p>Prime waterfront plots for joint-venture partners across the UAE, Bahrain, Qatar, KSA and Oman.</p>
           <div class="chips2"><span>JV plots</span><span>Asset swap</span><span>Flexible payment</span></div>
           <a href="#contact" class="btn btn-ghost" data-goal="Channel partnership" data-msg="I'd like to discuss GCC waterfront development / JV opportunities.">Discuss a partnership →</a></div>
@@ -801,6 +815,24 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
   </div>
 </section>
 
+<section id="consult" class="bg-alt">
+  <div class="wrap consult">
+    <div class="reveal">
+      <span class="eyebrow">Private Consultation</span>
+      <h2>One hour with <span class="gilt-text">LASE.</span></h2>
+      <p>A focused 60-minute session on your goals in Dubai: buying, selling, land, off-plan, joint ventures or relocation. You leave with a clear plan and the numbers behind it.</p>
+      <ul class="consult-list"><li>Market read and price check for your budget</li><li>Shortlist of areas, projects or plots that fit</li><li>Payment plans, fees and the DLD process explained</li><li>Next steps you can act on the same week</li></ul>
+    </div>
+    <div class="consult-card reveal">
+      <span class="fbadge">✦ 60 minutes · Online or in Dubai</span>
+      <div class="fee"><b>$200</b><span>per consultation</span></div>
+      <p>Pick a time that suits you. Payment is taken when you book.</p>
+      <a id="bookBtn" class="btn btn-gilt" target="_blank" rel="noopener" href="#">Book a Consultation →</a>
+      <small>Questions first? <a href="mailto:gm@laseproperties.com">gm@laseproperties.com</a></small>
+    </div>
+  </div>
+</section>
+
 <section id="contact" class="bg-alt photo-band">
   <div class="bandimg" data-img="9n7rZJLWY7o"></div>
   <div class="wrap contact">
@@ -896,6 +928,12 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
 <script>
 const WA = "971555902523", EMAIL = "gm@laseproperties.com", IG = "laseproperties"; /* add WhatsApp (digits only) / email to send there directly */
 if (WA) { const w = document.getElementById("waFloat"); w.href = `https://wa.me/${WA}`; w.target = "_blank"; w.rel = "noopener"; }
+const CALENDLY = "";   // e.g. "https://calendly.com/laseproperties/consultation" (60 min, $200, paid via Stripe in Calendly)
+document.addEventListener("DOMContentLoaded", () => {
+  const b = document.getElementById("bookBtn"); if (!b) return;
+  b.href = CALENDLY || "mailto:gm@laseproperties.com?subject=" + encodeURIComponent("Booking a 60-min consultation ($200)") + "&body=" + encodeURIComponent("Hi LASE, I'd like to book a 60-minute consultation. My preferred days/times are: ");
+  if (!CALENDLY) b.removeAttribute("target");
+});
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 if (reduce) document.body.classList.remove("intro");
 document.getElementById("yr").textContent = new Date().getFullYear();
@@ -1042,14 +1080,22 @@ const PROJECTS = [
 ];
 (() => {
   const box = document.getElementById("listings"), sell = document.getElementById("sellPanel"), note = document.getElementById("lstNote");
-  const card = l => `<article class="lst"><div class="ph" style="background-image:url('${l.img}')"><span class="badge2">${l.tab === "rent" ? "For Rent" : "For Sale"}</span><span class="price">${l.price} <small>${l.per || ""}</small></span></div>
-    <div class="body"><h3>${l.title}</h3><div class="loc">${l.loc}</div><div class="specs">${l.specs.map(x => `<span>${x}</span>`).join("")}</div>
-    <a href="#contact" class="btn btn-ghost" data-goal="${l.tab === "rent" ? "Rent / Lease" : "Buy a property"}" data-msg="I'm interested in: ${l.title}, ${l.loc} (${l.price}${l.per ? " " + l.per : ""})">Enquire →</a></div></article>`;
+  const specsOf = l => l.specs || [l.beds, l.baths, l.size].filter(Boolean);
+  const esc = v => String(v == null ? "" : v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const card = l => `<article class="lst"><div class="ph" style="background-image:url('${esc(l.img)}')"><span class="badge2">${l.tab === "rent" ? "For Rent" : "For Sale"}</span><span class="price">${esc(l.price)} <small>${esc(l.per)}</small></span></div>
+    <div class="body"><h3>${esc(l.title)}</h3><div class="loc">${esc(l.loc)}</div><div class="specs">${specsOf(l).map(x => `<span>${esc(x)}</span>`).join("")}</div>
+    ${l.desc ? `<p class="ldesc">${esc(l.desc)}</p>` : ""}
+    <a href="#contact" class="btn btn-ghost" data-goal="${l.tab === "rent" ? "Rent / Lease" : "Buy a property"}" data-msg="I'm interested in: ${esc(l.title)}, ${esc(l.loc)} (${esc(l.price)}${l.per ? " " + esc(l.per) : ""})">Enquire →</a></div></article>`;
+  let current = "buy";
   function show(tab) {
     document.querySelectorAll("#tabs button").forEach(b => b.classList.toggle("on", b.dataset.tab === tab));
     sell.hidden = tab !== "sell"; box.hidden = tab === "sell"; note.hidden = tab === "sell";
-    if (tab !== "sell") box.innerHTML = LISTINGS.filter(l => l.tab === tab).map(card).join("");
+    current = tab;
+    if (tab !== "sell") { const list = LISTINGS.filter(l => l.tab === tab); box.innerHTML = list.length ? list.map(card).join("") : `<p class="note">New ${tab === "rent" ? "rentals" : "listings"} coming soon. <a href="#contact">Tell us what you're looking for →</a></p>`; }
+    note.hidden = tab === "sell" || !LISTINGS.some(l => l.sample);
   }
+  // listings managed in the CRM (/admin) are published to data/listings.json
+  fetch("data/listings.json?v=" + Date.now()).then(r => r.ok ? r.json() : null).then(d => { if (Array.isArray(d)) { LISTINGS.length = 0; LISTINGS.push(...d.filter(l => !l.hidden)); show(current); } }).catch(() => {});
   document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => show(b.dataset.tab));
   show("buy");
   document.getElementById("projectList").innerHTML = PROJECTS.map(p => `<a class="proj reveal" href="${p.url}" target="_blank" rel="noopener"><div class="ph" style="background-image:url('${p.img}')"></div>
@@ -1178,9 +1224,10 @@ const PROJECTS = [
 
 /* hotel brands carousel: names only (no logos), two rows looping in opposite directions */
 (() => {
+  const SITE = {"Marriott":"https://www.marriott.com","Hilton":"https://www.hilton.com","IHG":"https://www.ihg.com","Accor":"https://all.accor.com","Hyatt":"https://www.hyatt.com","Four Seasons":"https://www.fourseasons.com","Aman":"https://www.aman.com","Mandarin Oriental":"https://www.mandarinoriental.com","Rosewood":"https://www.rosewoodhotels.com","Raffles":"https://www.raffles.com","Jumeirah":"https://www.jumeirah.com","Address":"https://www.addresshotels.com","One&Only":"https://www.oneandonlyresorts.com","Six Senses":"https://www.sixsenses.com","Anantara":"https://www.anantara.com"};
   const A = [["Marriott","International"],["Hilton","For the stay"],["IHG","Hotels & Resorts"],["Accor",""],["Hyatt",""],["Four Seasons","Hotels & Resorts"],["Aman","Resorts"],["Mandarin Oriental","The Hotel Group"]];
   const Bb = [["Rosewood","Hotels & Resorts"],["Raffles","Hotels & Resorts"],["Jumeirah","Hotels & Resorts"],["Address","Hotels + Resorts"],["One&Only","Resorts"],["Six Senses",""],["Anantara","Hotels · Resorts · Spas"]];
-  const html = l => { const h = l.map(([n, t]) => `<div class="brand"><div><b>${n}</b>${t ? `<small>${t}</small>` : ""}</div></div>`).join(""); return h + h; };
+  const html = l => { const h = l.map(([n, t]) => `<a class="brand" href="${SITE[n]}" target="_blank" rel="noopener" aria-label="${n} website"><div><b>${n}</b>${t ? `<small>${t}</small>` : ""}</div></a>`).join(""); return h + h; };
   document.getElementById("brandA").innerHTML = html(A);
   document.getElementById("brandB").innerHTML = html(Bb);
 })();

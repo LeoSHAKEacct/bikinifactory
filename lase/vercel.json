@@ -1,4 +1,10 @@
 {
+  "git": {
+    "deploymentEnabled": {
+      "admin-drafts": false
+    }
+  },
+  "ignoreCommand": "git diff --quiet ${VERCEL_GIT_PREVIOUS_SHA:-HEAD^} HEAD -- .",
   "cleanUrls": true,
   "trailingSlash": false
 }
