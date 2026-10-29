@@ -360,6 +360,16 @@ footer{scroll-snap-align:end}
 /* Buying Land and Private Consultation sit on emerald / deep forest green */
 #land{background:radial-gradient(ellipse 80% 70% at 30% 50%,rgba(16,92,68,.55),transparent 70%),linear-gradient(180deg,var(--bg),var(--forest) 25%,var(--forest) 75%,var(--bg))}
 #land .eyebrow{color:var(--emerald)}#land .eyebrow::before{background:var(--emerald)}
+/* Why LASE: four numbered promises */
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.why{padding:28px 26px 30px;border-radius:22px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(212,175,106,.07),rgba(10,14,23,.6));transition:border-color .3s,transform .3s}
+.why:hover{border-color:rgba(212,175,106,.55);transform:translateY(-4px)}
+.why .n{display:block;font:500 46px/1 "Space Grotesk";background:linear-gradient(100deg,#f6e3b0,#d4af6a 55%,#b88c3e);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:40px}
+.why h3{font-size:22px;margin-bottom:10px}
+.why p{color:var(--muted);font-size:15px}
+.why-cta{margin-top:34px}
+@media(max-width:1000px){.why-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.why-grid{grid-template-columns:1fr;gap:12px}.why{padding:20px 20px 22px}.why .n{font-size:34px;margin-bottom:18px}.why h3{font-size:20px}}
 /* consultation offer inside Leadership */
 .ceo-consult{display:flex;gap:22px;align-items:center;margin-top:24px;padding:18px 22px;border-radius:18px;border:1px solid rgba(212,175,106,.45);background:linear-gradient(120deg,rgba(16,92,68,.35),rgba(10,14,23,.6))}
 .ceo-consult .fee{flex:none;text-align:center}
@@ -752,6 +762,22 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
       <div class="corner c1"></div><div class="corner c2"></div>
       <div class="tag"><span><b>Azeem Akhtar</b><br><small>CEO · LASE Properties</small></span><span class="gilt-text" style="font:600 13px 'Space Grotesk'">DUBAI ✦</span></div>
     </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Why LASE</span>
+      <h2>Four promises to <span class="gilt-text">every client.</span></h2>
+    </div>
+    <div class="why-grid">
+      <div class="why reveal"><span class="n">01</span><h3>100% Transparency</h3><p>Clear pricing with no hidden fees or surprise costs, and a straightforward process that saves you time.</p></div>
+      <div class="why reveal"><span class="n">02</span><h3>Dedicated Support</h3><p>One personal advisor guides you through every step, from the first call to the keys.</p></div>
+      <div class="why reveal"><span class="n">03</span><h3>Always at Your Service</h3><p>Message us on WhatsApp any time, day or night. Your property needs are handled when you need them.</p></div>
+      <div class="why reveal"><span class="n">04</span><h3>Speaking Your Language</h3><p>A multilingual team for international investors from the UAE, the GCC, China and beyond.</p></div>
+    </div>
+    <div class="why-cta reveal"><a href="#consult" class="btn btn-gilt">Schedule a Consultation →</a></div>
   </div>
 </section>
 
