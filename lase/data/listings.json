@@ -1,5 +1,25 @@
 [
   {
+    "id": "test-mvtp8vin",
+    "tab": "buy",
+    "title": "TEST",
+    "loc": "asas",
+    "price": "09899809",
+    "per": "2030",
+    "beds": "",
+    "baths": "",
+    "size": "",
+    "img": "data/img/mvtp8jjb-hilton.jpg",
+    "imgs": [
+      "data/img/mvtp8jjb-hilton.jpg",
+      "data/img/mvtp8met-grok-bot.jpg",
+      "data/img/mvtp8qfl-mandarin-oriental-hotel-group.jpg",
+      "data/img/mvtp8u46-marriott-int.jpg"
+    ],
+    "desc": "asas",
+    "hidden": false
+  },
+  {
     "id": "modern-villa-with-pool",
     "tab": "buy",
     "title": "Modern Villa with Pool",
@@ -10,8 +30,11 @@
     "baths": "6 Baths",
     "size": "7,200 sqft",
     "img": "https://unsplash.com/photos/Id7u0EkTjBE/download?w=900",
+    "imgs": [
+      "https://unsplash.com/photos/Id7u0EkTjBE/download?w=900"
+    ],
     "desc": "",
-    "sample": true
+    "hidden": false
   },
   {
     "id": "sky-penthouse-city-views",
@@ -24,8 +47,11 @@
     "baths": "5 Baths",
     "size": "4,100 sqft",
     "img": "https://unsplash.com/photos/-PlfpOk6VKs/download?w=900",
+    "imgs": [
+      "https://unsplash.com/photos/-PlfpOk6VKs/download?w=900"
+    ],
     "desc": "",
-    "sample": true
+    "hidden": false
   },
   {
     "id": "family-townhouse",
@@ -38,8 +64,11 @@
     "baths": "4 Baths",
     "size": "2,300 sqft",
     "img": "https://unsplash.com/photos/sIsiRYz3VKk/download?w=900",
+    "imgs": [
+      "https://unsplash.com/photos/sIsiRYz3VKk/download?w=900"
+    ],
     "desc": "",
-    "sample": true
+    "hidden": false
   },
   {
     "id": "sea-view-apartment",
@@ -52,8 +81,11 @@
     "baths": "3 Baths",
     "size": "1,350 sqft",
     "img": "https://unsplash.com/photos/2fqptw4fKWI/download?w=900",
+    "imgs": [
+      "https://unsplash.com/photos/2fqptw4fKWI/download?w=900"
+    ],
     "desc": "",
-    "sample": true
+    "hidden": false
   },
   {
     "id": "beachfront-villa-noor",
@@ -66,8 +98,11 @@
     "baths": "22 m pool",
     "size": "1,240 m²",
     "img": "projects/villa-noor.jpg",
+    "imgs": [
+      "projects/villa-noor.jpg"
+    ],
     "desc": "",
-    "sample": true
+    "hidden": false
   },
   {
     "id": "burj-view-residence",
@@ -80,8 +115,11 @@
     "baths": "2 Baths",
     "size": "1,600 sqft",
     "img": "https://unsplash.com/photos/j-nRfGUHswQ/download?w=900",
+    "imgs": [
+      "https://unsplash.com/photos/j-nRfGUHswQ/download?w=900"
+    ],
     "desc": "",
-    "sample": true
+    "hidden": false
   },
   {
     "id": "furnished-1br-city-view",
@@ -94,8 +132,11 @@
     "baths": "1 Bath",
     "size": "850 sqft",
     "img": "https://unsplash.com/photos/IlNHSsfTunM/download?w=900",
+    "imgs": [
+      "https://unsplash.com/photos/IlNHSsfTunM/download?w=900"
+    ],
     "desc": "",
-    "sample": true
+    "hidden": false
   },
   {
     "id": "bright-3br-apartment",
@@ -108,8 +149,11 @@
     "baths": "3 Baths",
     "size": "1,900 sqft",
     "img": "https://unsplash.com/photos/12WFO8yWrsw/download?w=900",
+    "imgs": [
+      "https://unsplash.com/photos/12WFO8yWrsw/download?w=900"
+    ],
     "desc": "",
-    "sample": true
+    "hidden": false
   },
   {
     "id": "2br-marina-apartment",
@@ -122,7 +166,10 @@
     "baths": "2 Baths",
     "size": "1,250 sqft",
     "img": "https://unsplash.com/photos/9n7rZJLWY7o/download?w=900",
+    "imgs": [
+      "https://unsplash.com/photos/9n7rZJLWY7o/download?w=900"
+    ],
     "desc": "",
-    "sample": true
+    "hidden": false
   }
 ]

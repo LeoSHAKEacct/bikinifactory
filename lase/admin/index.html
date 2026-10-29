@@ -104,20 +104,23 @@ async function login(pw) {
 $("lf").onsubmit = async e => { e.preventDefault(); $("lerr").textContent = ""; try { await login($("pw").value); } catch (err) { $("lerr").textContent = err.message; } };
 $("out").onclick = () => { sessionStorage.removeItem("lase-pw"); location.reload(); };
 if (PW) login(PW).catch(() => sessionStorage.removeItem("lase-pw"));
-const srcOf = p => !p ? "" : /^(https?:|data:)/.test(p) ? p : "/" + p;
+// photos just uploaded are shown from the browser; published ones that the site hasn't rebuilt with yet come from GitHub
+const local = {}, RAW = "https://raw.githubusercontent.com/LeoSHAKEacct/bikinifactory/main/lase/";
+const srcOf = p => !p ? "" : local[p] || (/^(https?:|data:)/.test(p) ? p : "/" + p);
+const fb = p => /^(https?:|data:)/.test(p || "") ? "" : ` onerror="this.onerror=null;this.src='${RAW}${esc(p)}'"`;
 const imgUrl = l => srcOf(l.img);
 const photosOf = l => Array.isArray(l.imgs) && l.imgs.length ? l.imgs : l.img ? [l.img] : [];
 function setPhotos(l, list) { l.imgs = list; l.img = list[0] || ""; }
 function renderPhotos() {
   const l = data[sel], list = photosOf(l);
-  $("photos").innerHTML = list.map((p, i) => `<div class="pic ${i ? "" : "cover"}"><img src="${esc(srcOf(p))}" alt="">${i ? `<button type="button" class="mk" data-i="${i}" title="Make cover">★</button>` : `<span class="cv">COVER</span>`}<button type="button" class="rm" data-i="${i}" title="Remove">×</button></div>`).join("");
+  $("photos").innerHTML = list.map((p, i) => `<div class="pic ${i ? "" : "cover"}"><img src="${esc(srcOf(p))}"${fb(p)} alt="">${i ? `<button type="button" class="mk" data-i="${i}" title="Make cover">★</button>` : `<span class="cv">COVER</span>`}<button type="button" class="rm" data-i="${i}" title="Remove">×</button></div>`).join("");
   $("photos").querySelectorAll(".rm").forEach(b => b.onclick = () => { const a = photosOf(l).slice(); a.splice(+b.dataset.i, 1); setPhotos(l, a); setDirty(true); renderPhotos(); render(); });
   $("photos").querySelectorAll(".mk").forEach(b => b.onclick = () => { const a = photosOf(l).slice(); a.unshift(a.splice(+b.dataset.i, 1)[0]); setPhotos(l, a); setDirty(true); renderPhotos(); render(); });
 }
 function setDirty(v) { dirty = v; $("dirty").textContent = v ? "You have unpublished changes." : "All changes are published."; $("dirty").style.color = v ? "#f3dca4" : ""; }
 function render() {
   $("count").textContent = `(${data.length})`;
-  $("list").innerHTML = data.map((l, i) => `<div class="item ${i === sel ? "on" : ""} ${l.hidden ? "off" : ""}" data-i="${i}">${l.img ? `<img src="${imgUrl(l)}" alt="">` : `<div class="noimg"></div>`}<div><b>${esc(l.title)}</b><small>${esc(l.loc)} · ${esc(l.price)}${l.per ? " " + esc(l.per) : ""}</small></div><span class="tag">${l.tab === "rent" ? "RENT" : "SALE"}</span></div>`).join("") || `<p style="color:var(--muted)">No listings yet. Click “New listing”.</p>`;
+  $("list").innerHTML = data.map((l, i) => `<div class="item ${i === sel ? "on" : ""} ${l.hidden ? "off" : ""}" data-i="${i}">${l.img ? `<img src="${esc(imgUrl(l))}"${fb(l.img)} alt="">` : `<div class="noimg"></div>`}<div><b>${esc(l.title)}</b><small>${esc(l.loc)} · ${esc(l.price)}${l.per ? " " + esc(l.per) : ""}</small></div><span class="tag">${l.tab === "rent" ? "RENT" : "SALE"}</span></div>`).join("") || `<p style="color:var(--muted)">No listings yet. Click “New listing”.</p>`;
   document.querySelectorAll(".item").forEach(el => el.onclick = () => edit(+el.dataset.i));
 }
 const esc = v => String(v == null ? "" : v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -145,7 +148,7 @@ $("file").onchange = async () => {
       say(`Uploading photo ${done + 1} of ${files.length}…`, true); const url = await shrink(file);
       const name = (file.name.replace(/\.[^.]+$/, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").slice(0, 40) || "photo") + ".jpg";
       const r = await call({ action: "image", name, data: url.split(",")[1] });
-      pending.push(r); setPhotos(l, [...photosOf(l), "data/" + r.path]); done++; setDirty(true);
+      pending.push(r); local["data/" + r.path] = url; setPhotos(l, [...photosOf(l), "data/" + r.path]); done++; setDirty(true);
       if (data[sel] === l) renderPhotos(); render();
     }
     say(`${done} photo${done > 1 ? "s" : ""} added. Save the listing, then publish.`, true);
