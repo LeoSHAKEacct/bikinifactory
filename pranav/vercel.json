@@ -1,7 +1,5 @@
 {
   "git": {
-    "deploymentEnabled": {
-      "admin-drafts": false
-    }
+    "deploymentEnabled": false
   }
 }
