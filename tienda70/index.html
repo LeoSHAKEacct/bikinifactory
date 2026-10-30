@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>La Tienda de la 70 · Fonda paisa en Laureles</title>
+<meta name="description" content="La Tienda de la 70: tienda de día, fonda de noche. Café de la Tienda, buñuelos, música y ambiente paisa sobre La 70, Laureles, Medellín.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Caveat+Brush&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1b1410;--cream:#fff6e0;--yel:#f7c613;--blue:#1f4aa8;--red:#d6262b;--green:#1f8a4c;--pink:#e2348a;--mut:#6d6152}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ink)}
+body{background:var(--cream);color:var(--ink);font:400 17px/1.6 "DM Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,44px)}
+.bw{font-family:"Bowlby One",Impact,sans-serif;font-weight:400;line-height:.95;text-transform:uppercase;letter-spacing:.005em}
+.hand{font-family:"Caveat Brush",cursive}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;font:700 16px "DM Sans";border:2.5px solid var(--ink);transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.btn.y{background:var(--yel)}
+.btn.w{background:#fff}
+.btn:focus-visible,.cmp:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+
+/* nav */
+nav{position:fixed;inset:0 0 auto;z-index:30;padding:12px 0;transition:background .3s,box-shadow .3s}
+nav.solid{background:var(--cream);box-shadow:0 2px 0 var(--ink)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.logo{display:flex;align-items:center;gap:10px;color:#fff;transition:color .3s}
+nav.solid .logo{color:var(--ink)}
+.logo .bw{font-size:20px}
+.logo i{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--yel);border:2.5px solid var(--ink);font:400 15px "Bowlby One";color:var(--ink);font-style:normal}
+.links{display:flex;gap:24px;font-weight:700;color:#fff}
+nav.solid .links{color:var(--ink)}
+.links a:hover{color:var(--yel)}
+nav.solid .links a:hover{color:var(--red)}
+nav .btn{padding:9px 16px;font-size:14px}
+@media(max-width:820px){.links{display:none}}
+@media(max-width:480px){.logo .bw{font-size:15px;max-width:9.5em;line-height:1}}
+
+/* the walk in */
+#entra{height:520vh;position:relative;background:var(--ink)}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+#cv{position:absolute;inset:0;width:100%;height:100%}
+.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(27,20,16,.45),transparent 22%,transparent 45%,rgba(27,20,16,.8));pointer-events:none}
+.bulbs{position:absolute;left:0;right:0;top:0;height:90px;pointer-events:none;z-index:2}
+.bulbs svg{width:100%;height:100%;display:block}
+.cap{position:absolute;opacity:0;pointer-events:none;will-change:opacity,transform;text-shadow:0 4px 30px rgba(0,0,0,.5)}
+#k0{left:0;right:0;bottom:clamp(60px,12vh,120px);text-align:center;color:#fff;padding:0 16px}
+#k0 .bw{font-size:clamp(54px,9vw,140px)}
+#k0 .bw span{color:var(--yel)}
+#k0 p{font-size:clamp(17px,1.6vw,21px);margin-top:12px}
+#k0 .hand{font-size:clamp(30px,3vw,44px);color:var(--yel);display:block;margin-bottom:-6px}
+#k1{left:0;right:0;top:44%;text-align:center;color:var(--yel)}
+#k1 .hand{font-size:clamp(70px,13vw,210px);line-height:.9;transform:rotate(-4deg);display:inline-block}
+#k1 p{color:#fff;font-size:clamp(17px,1.6vw,21px);margin-top:4px}
+#k2{left:clamp(16px,5vw,80px);bottom:clamp(60px,12vh,120px);color:#fff;max-width:min(560px,90vw)}
+#k2 .bw{font-size:clamp(44px,6.6vw,96px)}
+#k2 .bw span{color:var(--pink)}
+#k2 p{margin-top:14px;font-size:clamp(17px,1.5vw,20px);max-width:36ch}
+.hint{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);color:#fff;font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:6px}
+.hint i{width:22px;height:34px;border:2px solid #fff;border-radius:12px;position:relative}
+.hint i::after{content:"";position:absolute;left:50%;top:6px;width:4px;height:8px;border-radius:2px;background:var(--yel);transform:translateX(-50%);animation:w 1.6s infinite}
+@keyframes w{to{transform:translate(-50%,10px);opacity:0}}
+@media(max-width:700px){#k0{bottom:70px}#k2{bottom:50px}.hint{display:none}}
+
+/* colour band */
+.band{background:var(--yel);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);overflow:hidden;white-space:nowrap;padding:14px 0}
+.band div{display:inline-block;animation:mq 26s linear infinite}
+.band span{font:400 clamp(26px,3.4vw,44px)/1 "Bowlby One";text-transform:uppercase;margin:0 18px}
+.band b{display:inline-block;width:18px;height:18px;border-radius:50%;border:2.5px solid var(--ink);vertical-align:middle}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+section.s{padding:clamp(80px,13vh,140px) 0;position:relative}
+.eb{display:inline-block;font:700 13px "DM Sans";letter-spacing:.2em;text-transform:uppercase;padding:6px 12px;border:2px solid var(--ink);border-radius:999px;background:#fff}
+h2.t{font-size:clamp(40px,6vw,86px);margin-top:18px}
+.lead{font-size:clamp(17px,1.5vw,20px);color:var(--mut);max-width:52ch;margin-top:18px}
+
+/* breakfast */
+.cafe{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,70px);align-items:center}
+.frame{position:relative;border:3px solid var(--ink);border-radius:22px;overflow:hidden;box-shadow:10px 10px 0 var(--yel),10px 10px 0 2.5px var(--ink);transform:rotate(-2deg)}
+.frame img{width:100%;height:auto}
+.stick{position:absolute;right:-14px;top:-18px;background:var(--red);color:#fff;border:3px solid var(--ink);border-radius:50%;width:110px;height:110px;display:grid;place-items:center;text-align:center;font:400 26px/1 "Caveat Brush";transform:rotate(12deg);z-index:2}
+.menu{margin-top:26px;display:grid;gap:12px}
+.menu div{display:flex;gap:14px;align-items:center;padding:14px 16px;border:2.5px solid var(--ink);border-radius:16px;background:#fff;transition:transform .2s}
+.menu div:hover{transform:translateX(6px)}
+.menu i{width:44px;height:44px;flex:none;border-radius:12px;border:2.5px solid var(--ink);display:grid;place-items:center;font-style:normal;font-size:22px}
+.menu b{display:block;font-size:18px}
+.menu span{color:var(--mut);font-size:15px}
+@media(max-width:860px){.cafe{grid-template-columns:1fr}.stick{right:6px}}
+
+/* the jeep */
+#jeep{background:var(--red);color:#fff;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);overflow:hidden}
+.jeep{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,5vw,70px);align-items:center}
+#jeep .eb{color:var(--ink)}
+#jeep .lead{color:#ffe3d6}
+.jeepPic{border:3px solid var(--ink);border-radius:22px;overflow:hidden;aspect-ratio:1/1;position:relative;box-shadow:10px 10px 0 var(--ink)}
+.jeepPic img{position:absolute;inset:-10% 0;width:100%;height:120%;object-fit:cover;will-change:transform}
+@media(max-width:860px){.jeep{grid-template-columns:1fr}}
+
+/* day / night */
+.dn{text-align:center}
+.cmp{position:relative;margin:40px auto 0;max-width:900px;aspect-ratio:4/3;border:3px solid var(--ink);border-radius:22px;overflow:hidden;cursor:ew-resize;touch-action:pan-y;user-select:none;box-shadow:10px 10px 0 var(--blue),10px 10px 0 2.5px var(--ink)}
+.cmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.cmp .night{clip-path:inset(0 0 0 50%)}
+.cmp .bar{position:absolute;top:0;bottom:0;left:50%;width:4px;background:#fff;transform:translateX(-50%);box-shadow:0 0 0 2px var(--ink)}
+.cmp .knob{position:absolute;top:50%;left:50%;width:58px;height:58px;border-radius:50%;background:var(--yel);border:3px solid var(--ink);transform:translate(-50%,-50%);display:grid;place-items:center;font:400 20px "Bowlby One"}
+.cmp .lbl{position:absolute;top:16px;padding:6px 14px;border-radius:999px;border:2.5px solid var(--ink);font:400 16px "Bowlby One";text-transform:uppercase}
+.cmp .lbl.d{left:16px;background:var(--yel)}
+.cmp .lbl.n{right:16px;background:var(--pink);color:#fff}
+
+/* facade video */
+#fachada{position:relative;min-height:100vh;display:grid;place-items:center;color:#fff;overflow:hidden;background:var(--ink);text-align:center}
+#fachada video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.15)}
+#fachada::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(27,20,16,.35),rgba(27,20,16,.75))}
+#fachada .in{position:relative;z-index:2;padding:0 16px}
+#fachada .hand{font-size:clamp(40px,5vw,72px);color:var(--yel);transform:rotate(-3deg);display:block}
+#fachada .bw{font-size:clamp(46px,7.5vw,118px)}
+#fachada p{font-size:clamp(17px,1.6vw,21px);max-width:44ch;margin:18px auto 0;color:#f5ead2}
+
+/* visit */
+.visit{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,5vw,70px);align-items:center}
+.where{font:400 clamp(30px,3.6vw,48px)/1 "Bowlby One";text-transform:uppercase;margin-top:20px}
+.where span{color:var(--red)}
+.visit .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.map{border:3px solid var(--ink);border-radius:22px;overflow:hidden;aspect-ratio:4/3;background:#eadfc6;box-shadow:10px 10px 0 var(--green),10px 10px 0 2.5px var(--ink)}
+.map iframe{width:100%;height:100%;border:0;display:block}
+@media(max-width:860px){.visit{grid-template-columns:1fr}}
+footer{background:var(--ink);color:#d9ccb0;padding:28px 0;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+footer .bw{color:var(--yel);font-size:18px}
+@media(prefers-reduced-motion:reduce){.band div,.hint i::after{animation:none}}
+</style>
+</head>
+<body>
+<nav id="nav"><div class="wrap">
+  <a class="logo" href="#"><i>70</i><span class="bw">La Tienda de la 70</span></a>
+  <div class="links"><a href="#cafe">Café</a><a href="#dianoche">Día y noche</a><a href="#visita">Visítanos</a></div>
+  <a class="btn y" href="#visita">Cómo llegar</a>
+</div></nav>
+
+<section id="entra" aria-label="Entrando a La Tienda de la 70">
+  <div class="stage">
+    <canvas id="cv" role="img" aria-label="Caminando por la entrada de La Tienda de la 70, bajo el letrero Viembenidoz, hasta el salón lleno de luces de colores"></canvas>
+    <div class="shade" aria-hidden="true"></div>
+    <div class="bulbs" aria-hidden="true"><svg id="bulbs" viewBox="0 0 1200 90" preserveAspectRatio="none"></svg></div>
+    <div class="cap" id="k0"><span class="hand">Fonda paisa en Laureles</span><h1 class="bw">La Tienda <span>de la 70</span></h1><p>De día tienda. De noche fonda. Siempre con sabor a hogar.</p></div>
+    <div class="cap" id="k1"><span class="hand">¡Bienvenidos!</span><p>Pase, pase, que aquí hay de todo.</p></div>
+    <div class="cap" id="k2"><h2 class="bw">Luces, música <span>y parche.</span></h2><p>Guirnaldas, neón, mesas de colores y la música sonando. Así se vive la noche en La 70.</p></div>
+    <div class="hint" id="hint">Entrá<i></i></div>
+  </div>
+</section>
+
+<div class="band" aria-hidden="true"><div>
+  <span>Tinto</span><b style="background:var(--red)"></b><span>Buñuelos</span><b style="background:var(--blue)"></b><span>Bandeja paisa</span><b style="background:var(--green)"></b><span>Música en vivo</span><b style="background:var(--pink)"></b><span>Fonda</span><b style="background:#fff"></b><span>Laureles</span><b style="background:var(--red)"></b>
+  <span>Tinto</span><b style="background:var(--red)"></b><span>Buñuelos</span><b style="background:var(--blue)"></b><span>Bandeja paisa</span><b style="background:var(--green)"></b><span>Música en vivo</span><b style="background:var(--pink)"></b><span>Fonda</span><b style="background:#fff"></b><span>Laureles</span><b style="background:var(--red)"></b>
+</div></div>
+
+<section class="s" id="cafe"><div class="wrap cafe">
+  <div class="frame"><span class="stick">Café de la Tienda</span><img src="img/desayuno.jpg" alt="Afiche de Café de la Tienda: Mañanas con sabor a hogar, con taza de café, pan y buñuelos" loading="lazy"></div>
+  <div>
+    <span class="eb">Café de la Tienda</span>
+    <h2 class="t bw">Mañanas con <span style="color:var(--red)">sabor a hogar</span></h2>
+    <p class="lead">Arrancá el día como en la casa de la abuela: un tinto caliente o chocolate, algo de horno recién salido y la tienda abriendo sus puertas sobre La 70.</p>
+    <div class="menu">
+      <div><i style="background:var(--yel)">☕</i><p><b>Tinto y chocolate</b><span>En pocillo de peltre, como debe ser.</span></p></div>
+      <div><i style="background:#ffd9a8">🥯</i><p><b>Buñuelos y pandequeso</b><span>Calienticos, para mojar en el café.</span></p></div>
+      <div><i style="background:#cde8d4">🍳</i><p><b>Calentao e hígado</b><span>El desayuno criollo, con arepa y huevo.</span></p></div>
+      <div><i style="background:#f6c6c6">🍲</i><p><b>Bandeja paisa y mondongo</b><span>¡Auténtica cocina criolla!, como dice el afiche.</span></p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="s" id="jeep"><div class="wrap jeep">
+  <div>
+    <span class="eb">La barra</span>
+    <h2 class="t bw">Atendemos desde un <span style="color:var(--yel)">Willys</span></h2>
+    <p class="lead">Nuestra barra es un jeep Willys rojo, el mismo carro que sube café por las montañas de Antioquia. Rines amarillos, baldosa de colores y sillas amarillas: pura tienda de pueblo en plena ciudad.</p>
+  </div>
+  <div class="jeepPic"><img src="img/jeep.jpg" alt="Barra hecha con un jeep Willys rojo de rines amarillos, con sillas amarillas y baldosa decorada" loading="lazy" data-par></div>
+</div></section>
+
+<section class="s dn" id="dianoche"><div class="wrap">
+  <span class="eb">Día y noche</span>
+  <h2 class="t bw">De día tienda. <span style="color:var(--pink)">De noche fonda.</span></h2>
+  <p class="lead" style="margin-left:auto;margin-right:auto">Mové la barra para ver cómo cambia la casa.</p>
+  <div class="cmp" id="cmp" tabindex="0" role="slider" aria-label="Comparar la tienda de día y de noche" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+    <img src="img/dia.jpg" alt="La terraza de día: barra en jeep rojo, sillas amarillas y baranda de colores">
+    <img class="night" src="img/noche.jpg" alt="El salón de noche con luces de neón, escalera rosada y mesas de colores">
+    <span class="lbl d">Día</span><span class="lbl n">Noche</span>
+    <div class="bar"></div><div class="knob" aria-hidden="true">↔</div>
+  </div>
+</div></section>
+
+<section id="fachada">
+  <video src="img/fachada.mp4" poster="img/fachada.jpg" muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video>
+  <div class="in">
+    <span class="hand">Balcones de colores</span>
+    <h2 class="bw">Vení y<br>conocela</h2>
+    <p>Barandas amarillas, azules y rojas, matas, bombillos de colores y una casa que se siente de pueblo en el corazón de Laureles.</p>
+  </div>
+</section>
+
+<section class="s" id="visita"><div class="wrap visit">
+  <div>
+    <span class="eb">Visítanos</span>
+    <p class="where">Sobre <span>La 70</span>,<br>Laureles, Medellín</p>
+    <p class="lead">En la calle más parchada de Laureles. Llegá, sentate y pedí; para grupos grandes, preguntá por reservas.</p>
+    <div class="row">
+      <a class="btn y" href="https://www.google.com/maps/search/?api=1&query=La+Tienda+de+la+70+Laureles+Medell%C3%ADn" target="_blank" rel="noopener">Cómo llegar</a>
+      <a class="btn w" href="#cafe">Ver el café</a>
+    </div>
+  </div>
+  <div class="map"><iframe title="Mapa: La Tienda de la 70, Laureles, Medellín" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=La+Tienda+de+la+70+Laureles+Medell%C3%ADn&output=embed"></iframe></div>
+</div></section>
+
+<footer><div class="wrap"><span class="bw">La Tienda de la 70</span><span>Fonda paisa · La 70, Laureles, Medellín</span></div></footer>
+
+<script>
+(() => {
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const ramp = (p, a, b) => clamp((p - a) / (b - a));
+  const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const inout = (p, a, b, c, d) => Math.min(ramp(p, a, b), 1 - ramp(p, c, d));
+
+  // string of coloured bulbs across the top, they switch on as you walk in
+  const COLS = ['#d6262b', '#f7c613', '#1f8a4c', '#1f4aa8', '#e2348a'];
+  const NB = 18, svgNS = 'http://www.w3.org/2000/svg', bulbs = document.getElementById('bulbs'), bl = [];
+  let d = 'M0 10';
+  for (let i = 0; i <= NB; i++) { const x = i / NB * 1200; d += ` Q ${x - 1200 / NB / 2} ${i ? 46 : 10} ${x} 14`; }
+  const wire = document.createElementNS(svgNS, 'path'); wire.setAttribute('d', d); wire.setAttribute('fill', 'none'); wire.setAttribute('stroke', '#111'); wire.setAttribute('stroke-width', '2'); bulbs.appendChild(wire);
+  for (let i = 0; i < NB; i++) {
+    const x = (i + .5) / NB * 1200, y = 33;
+    const g = document.createElementNS(svgNS, 'ellipse');
+    g.setAttribute('cx', x); g.setAttribute('cy', y + 9); g.setAttribute('rx', 7); g.setAttribute('ry', 10);
+    g.setAttribute('fill', COLS[i % 5]); g.style.transition = 'opacity .3s, filter .3s';
+    bulbs.appendChild(g); bl.push(g);
+  }
+
+  // the walk-in film, scrubbed by scroll
+  const NF = 151, frames = new Array(NF), order = [];
+  for (const st of [8, 4, 2, 1]) for (let i = 0; i < NF; i += st) if (!order.includes(i)) order.push(i);
+  order.splice(1, 0, NF - 1);
+  let li = 0, need = true;
+  function next() {
+    if (li >= order.length) return;
+    const i = order[li++], im = new Image();
+    im.onload = () => { frames[i] = im; need = true; next(); };
+    im.onerror = next;
+    im.src = 'seq/' + String(i + 1).padStart(3, '0') + '.webp';
+  }
+  for (let k = 0; k < 4; k++) next();
+  const near = i => { for (let d = 0; d < NF; d++) { if (frames[i - d]) return frames[i - d]; if (frames[i + d]) return frames[i + d]; } return null; };
+
+  const cv = document.getElementById('cv'), cx = cv.getContext('2d');
+  const tiny = document.createElement('canvas'); tiny.width = 27; tiny.height = 48; const tx = tiny.getContext('2d');
+  const fg = document.createElement('canvas'), fx = fg.getContext('2d');
+  let W, H, DPR;
+  function size() { DPR = Math.min(2, devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * DPR; cv.height = H * DPR; need = true; }
+  size(); addEventListener('resize', size);
+
+  function paint(p) {
+    const im = near(Math.round(ramp(p, .02, .96) * (NF - 1)));
+    if (!im) return;
+    const iw = im.naturalWidth, ih = im.naturalHeight;
+    cx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high';
+    if (W / H < .8) {
+      const s = Math.max(W / iw, H / ih);
+      cx.drawImage(im, (W - iw * s) / 2, (H - ih * s) / 2, iw * s, ih * s);
+      return;
+    }
+    // wide screens: the whole film in the middle, its own blur on the sides
+    tx.drawImage(im, 0, 0, 27, 48);
+    const bs = Math.max(W / iw, H / ih) * 1.1;
+    cx.drawImage(tiny, (W - iw * bs) / 2, (H - ih * bs) / 2, iw * bs, ih * bs);
+    cx.fillStyle = 'rgba(27,20,16,.25)'; cx.fillRect(0, 0, W, H);
+    const s = H / ih, dw = iw * s, dh = ih * s, ox = (W - dw) / 2;
+    if (fg.width !== cv.width || fg.height !== cv.height) { fg.width = cv.width; fg.height = cv.height; }
+    fx.setTransform(DPR, 0, 0, DPR, 0, 0); fx.globalCompositeOperation = 'source-over'; fx.clearRect(0, 0, W, H);
+    fx.imageSmoothingEnabled = true; fx.imageSmoothingQuality = 'high';
+    fx.drawImage(im, ox, 0, dw, dh);
+    const e = Math.min(150, dw * .2), g = fx.createLinearGradient(ox, 0, ox + dw, 0);
+    g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(e / dw, '#000'); g.addColorStop(1 - e / dw, '#000'); g.addColorStop(1, 'rgba(0,0,0,0)');
+    fx.globalCompositeOperation = 'destination-in'; fx.fillStyle = g; fx.fillRect(0, 0, W, H);
+    cx.setTransform(1, 0, 0, 1, 0, 0); cx.drawImage(fg, 0, 0);
+  }
+
+  const entra = document.getElementById('entra'), nav = document.getElementById('nav'), hint = document.getElementById('hint');
+  const k0 = document.getElementById('k0'), k1 = document.getElementById('k1'), k2 = document.getElementById('k2');
+  const pars = [...document.querySelectorAll('[data-par]')];
+  let last = -1;
+  function frame(time) {
+    const r = entra.getBoundingClientRect();
+    const p = RM ? .5 : clamp(-r.top / (r.height - innerHeight));
+    if (need || p !== last) { paint(p); need = false; last = p; }
+    const on = ramp(p, 0, .5) * NB;
+    bl.forEach((b, i) => {
+      const lit = i < on;
+      const flick = lit ? .85 + .15 * Math.sin(time / 300 + i * 1.7) : .3;
+      b.style.opacity = flick;
+      b.style.filter = lit ? `drop-shadow(0 0 8px ${COLS[i % 5]})` : 'none';
+    });
+    k0.style.opacity = 1 - ramp(p, .1, .2);
+    k0.style.transform = `translateY(${-ramp(p, .1, .2) * 40}px)`;
+    [[k1, .34, .4, .52, .58], [k2, .72, .78, 1.1, 1.2]].forEach(([el, a, b, c, d]) => {
+      const v = inout(p, a, b, c, d);
+      el.style.opacity = v;
+      el.style.transform = `translateY(${(1 - v) * 30}px) scale(${.9 + .1 * v})`;
+    });
+    hint.style.opacity = 1 - ramp(p, 0, .05);
+    nav.classList.toggle('solid', r.bottom < 80);
+    pars.forEach(el => {
+      const b = el.parentElement.getBoundingClientRect();
+      if (b.bottom < 0 || b.top > innerHeight) return;
+      const q = clamp((innerHeight - b.top) / (innerHeight + b.height));
+      el.style.transform = `translateY(${(q - .5) * -14}%)`;
+    });
+    requestAnimationFrame(frame);
+  }
+  k0.style.opacity = 1;
+  requestAnimationFrame(frame);
+
+  // day / night slider
+  const cmp = document.getElementById('cmp'), night = cmp.querySelector('.night'), bar = cmp.querySelector('.bar'), knob = cmp.querySelector('.knob');
+  function setCmp(v) {
+    v = clamp(v, 0, 100);
+    night.style.clipPath = `inset(0 0 0 ${v}%)`; bar.style.left = knob.style.left = v + '%';
+    cmp.setAttribute('aria-valuenow', Math.round(v));
+  }
+  let drag = false;
+  const at = e => { const b = cmp.getBoundingClientRect(); return (e.clientX - b.left) / b.width * 100; };
+  cmp.addEventListener('pointerdown', e => { drag = true; cmp.setPointerCapture(e.pointerId); setCmp(at(e)); });
+  cmp.addEventListener('pointermove', e => { if (drag) setCmp(at(e)); });
+  cmp.addEventListener('pointerup', () => drag = false);
+  cmp.addEventListener('keydown', e => {
+    const v = +cmp.getAttribute('aria-valuenow');
+    if (e.key === 'ArrowLeft') setCmp(v - 5); if (e.key === 'ArrowRight') setCmp(v + 5);
+  });
+  // a little nudge the first time it shows up
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting || RM) return; io.disconnect();
+    const t0 = performance.now();
+    (function sw(t) { const k = (t - t0) / 1600; if (k > 1 || drag) return; setCmp(50 + Math.sin(k * Math.PI * 2) * 22); requestAnimationFrame(sw); })(t0);
+  }), { threshold: .6 });
+  io.observe(cmp);
+
+  const fv = document.querySelector('#fachada video');
+  if (RM) { fv.removeAttribute('autoplay'); fv.pause(); }
+})();
+</script>
+</body>
+</html>
