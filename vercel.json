@@ -4,7 +4,6 @@
       "admin-drafts": false
     }
   },
-  "ignoreCommand": "git diff --quiet ${VERCEL_GIT_PREVIOUS_SHA:-HEAD^} HEAD -- . ':(exclude)sitios' ':(exclude)pranav' ':(exclude)lase'",
   "buildCommand": "echo 'Static site'",
   "outputDirectory": "."
 }
