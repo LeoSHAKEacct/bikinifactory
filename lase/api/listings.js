@@ -38,6 +38,7 @@ function clean(l) {
     title: str(l.title, 120), loc: str(l.loc, 120), price: str(l.price, 60), per: str(l.per, 30),
     beds: str(l.beds, 40), baths: str(l.baths, 40), size: str(l.size, 40),
     img: imgs[0] || '', imgs, desc: str(l.desc, 1200), hidden: !!l.hidden,
+    tour: /^(https:\/\/|\/(?!\/))[^\s"'<>]+$/.test(str(l.tour, 500).trim()) ? str(l.tour, 500).trim() : '',
   };
 }
 

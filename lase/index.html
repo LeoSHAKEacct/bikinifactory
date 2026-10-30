@@ -377,6 +377,22 @@ footer{scroll-snap-align:end}
 .ceo-consult .fee span{display:block;max-width:110px;margin-top:6px;font-size:11px;line-height:1.3;color:var(--muted)}
 .ceo-consult p{margin:0!important;font-size:14px;color:#c3c9d6}
 @media(max-width:600px){.ceo-consult{flex-direction:column;align-items:flex-start;gap:10px;padding:14px 16px}.ceo-consult .fee{text-align:left}.ceo-consult .fee span{max-width:none}}
+.lst .tour3d{position:absolute;top:52px;left:14px;z-index:2;padding:5px 11px;border-radius:999px;font:600 11px "Space Grotesk";letter-spacing:.08em;background:rgba(5,7,12,.7);backdrop-filter:blur(8px);border:1px solid rgba(155,231,255,.45);color:var(--gold2)}
+/* 3D walkthrough teaser */
+.tour-band{display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:center}
+.tour-shot{position:relative;display:block;aspect-ratio:16/10;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:#0d1220 center/cover;box-shadow:0 40px 90px -40px rgba(31,184,255,.45)}
+.tour-shot::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(5,7,12,.75))}
+.tour-shot .play{position:absolute;left:50%;top:50%;z-index:2;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;display:grid;place-items:center;background:rgba(5,7,12,.55);backdrop-filter:blur(8px);border:1px solid rgba(155,231,255,.6);transition:transform .3s}
+.tour-shot .play svg{width:30px;height:30px;fill:var(--gold2);margin-left:4px}
+.tour-shot:hover .play{transform:scale(1.08)}
+.tour-shot .lbl{position:absolute;left:20px;bottom:18px;z-index:2;font:600 13px "Space Grotesk";letter-spacing:.06em}
+.tour-shot .lbl small{display:block;color:var(--muted);font-weight:500;letter-spacing:0}
+.tour-stats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:28px 0}
+.tour-stats div{border:1px solid var(--line);border-radius:16px;padding:16px 18px;background:var(--panel)}
+.tour-stats b{display:block;font:700 26px "Space Grotesk";color:var(--text)}
+.tour-stats span{font-size:13px;color:var(--muted)}
+.tour-acts{display:flex;gap:12px;flex-wrap:wrap}
+@media(max-width:900px){.tour-band{grid-template-columns:1fr;gap:30px}}
 .lst .badge2.rent{color:var(--emerald);border-color:rgba(43,179,138,.45)}
 .grid-floor{position:absolute;left:-50%;right:-50%;bottom:-10%;height:55%;background-image:linear-gradient(rgba(79,216,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(79,216,255,.12) 1px,transparent 1px);background-size:60px 60px;transform:perspective(600px) rotateX(62deg);transform-origin:bottom;mask-image:linear-gradient(to top,#000,transparent 80%);animation:floor 6s linear infinite;pointer-events:none}
 @keyframes floor{to{background-position:0 60px}}
@@ -631,9 +647,33 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
         <p>Get a free valuation and reach buyers and tenants in Dubai, the GCC and China through our team and channel partners.</p>
         <a href="#contact" class="btn btn-gilt" style="margin-top:22px" data-goal="Sell my property">Get a Free Valuation →</a>
       </div>
-      <ul><li>Free market valuation</li><li>Professional photos &amp; video tours</li><li>Exposure to 62K+ followers and partner agencies</li><li>Viewings, negotiation and DLD transfer handled</li></ul>
+      <ul><li>Free market valuation</li><li>Professional photos, video &amp; 3D walkthrough tours</li><li>Exposure to 62K+ followers and partner agencies</li><li>Viewings, negotiation and DLD transfer handled</li></ul>
     </div>
     <p class="note" id="lstNote">Sample listings for illustration. Contact us for current availability and prices.</p>
+  </div>
+</section>
+
+<section id="tours">
+  <div class="wrap tour-band">
+    <a class="tour-shot reveal" href="/tour" style="background-image:url(tours/demo-poster.jpg)" aria-label="Open the 3D walkthrough demo">
+      <span class="play"><svg viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg></span>
+      <span class="lbl">Try the 3D walkthrough<small>Opens in your browser · drag to look around</small></span>
+    </a>
+    <div class="reveal">
+      <span class="eyebrow">3D Walkthroughs</span>
+      <h2 class="display" style="font-size:clamp(34px,4.6vw,56px);margin-top:18px">Step inside, <span class="gold">from anywhere.</span></h2>
+      <p style="color:var(--muted);margin-top:18px;font-size:17px">We scan homes into photorealistic 3D that opens in any browser tab. Every room, every angle. No app, no headset, no appointment. Investors in London, Riyadh or Shanghai can walk through a Dubai home before they fly in.</p>
+      <div class="tour-stats">
+        <div><b>Any device</b><span>Phone, tablet or laptop</span></div>
+        <div><b>One link</b><span>Share it on WhatsApp</span></div>
+        <div><b>24/7</b><span>Open house that never closes</span></div>
+        <div><b>True scale</b><span>See real room sizes and flow</span></div>
+      </div>
+      <div class="tour-acts">
+        <a href="/tour" class="btn btn-gold">Take the demo tour →</a>
+        <a href="#contact" class="btn btn-ghost" data-goal="Sell my property" data-msg="I would like a 3D walkthrough scan of my property.">Get your home scanned</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1198,7 +1238,7 @@ const PROJECTS = [
   const photosOf = l => (Array.isArray(l.imgs) && l.imgs.length ? l.imgs : [l.img]).filter(Boolean);
   const gallery = l => { const p = photosOf(l); return p.length < 2 ? "" : `<span class="cnt">1 / ${p.length}</span><span class="dots">${p.map((_, i) => `<i class="${i ? "" : "on"}"></i>`).join("")}</span>`; };
   const page = l => "/property?id=" + encodeURIComponent(l.id || "");
-  const card = l => `<article class="lst" data-href="${esc(page(l))}"><div class="ph" data-photos="${esc(JSON.stringify(photosOf(l)))}" style="background-image:url('${esc(photosOf(l)[0] || "")}')">${gallery(l)}<span class="badge2 ${l.tab === "rent" ? "rent" : ""}">${l.tab === "rent" ? "For Rent" : "For Sale"}</span><span class="price">${esc(l.price)} <small>${esc(l.per)}</small></span></div>
+  const card = l => `<article class="lst" data-href="${esc(page(l))}"><div class="ph" data-photos="${esc(JSON.stringify(photosOf(l)))}" style="background-image:url('${esc(photosOf(l)[0] || "")}')">${gallery(l)}<span class="badge2 ${l.tab === "rent" ? "rent" : ""}">${l.tab === "rent" ? "For Rent" : "For Sale"}</span>${l.tour ? `<span class="tour3d">◆ 3D tour</span>` : ""}<span class="price">${esc(l.price)} <small>${esc(l.per)}</small></span></div>
     <div class="body"><h3><a href="${esc(page(l))}">${esc(l.title)}</a></h3><div class="loc">${esc(l.loc)}</div><div class="specs">${specsOf(l).map(x => `<span>${esc(x)}</span>`).join("")}</div>
     ${l.desc ? `<p class="ldesc">${esc(l.desc)}</p>` : ""}
     <a href="#contact" class="btn btn-ghost" data-goal="${l.tab === "rent" ? "Rent / Lease" : "Buy a property"}" data-msg="I'm interested in: ${esc(l.title)}, ${esc(l.loc)} (${esc(l.price)}${l.per ? " " + esc(l.per) : ""})">Enquire →</a></div></article>`;

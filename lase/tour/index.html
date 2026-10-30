@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>3D Walkthrough — LASE Properties</title>
+<meta name="description" content="Walk through LASE Properties homes in photorealistic 3D, right in your browser. No app, no headset, no appointment.">
+<meta name="theme-color" content="#05070c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05070c;--panel:rgba(5,7,12,.62);--line:rgba(255,255,255,.12);--text:#eef1f7;--muted:#8b93a7;--blue:#1fb8ff;--gold:#d4af6a}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;outline:0}
+.glass{background:var(--panel);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line)}
+.top{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:calc(14px + env(safe-area-inset-top)) 16px 14px;pointer-events:none;background:linear-gradient(rgba(5,7,12,.7),transparent)}
+.top>*{pointer-events:auto}
+.logo{font:700 16px "Space Grotesk";letter-spacing:.14em;white-space:nowrap}.logo span{color:var(--blue)}
+.pill{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px;border-radius:999px;font:600 13px "Space Grotesk";letter-spacing:.03em;color:var(--text);cursor:pointer;white-space:nowrap}
+.pill:hover{border-color:var(--gold);color:#f3dca4}
+.pill svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.card{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:5;max-width:min(380px,calc(100% - 32px));border-radius:18px;padding:16px 18px}
+.card .badge{font:600 10px "Space Grotesk";letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.card h1{font:600 20px/1.15 "Space Grotesk";letter-spacing:-.01em;margin:6px 0 2px;padding-right:22px}
+.card .meta{color:var(--muted);font-size:13px}
+.card .price{font:700 18px "Space Grotesk";margin-top:8px}
+.card .min{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--muted);font-size:16px;line-height:1;cursor:pointer}
+.card.mini .meta,.card.mini .price,.card.mini .acts{display:none}.card.mini h1{margin-bottom:0;padding-right:30px}.card.mini .min{transform:rotate(180deg)}
+.card .acts{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.btn{flex:1;display:inline-flex;justify-content:center;align-items:center;gap:8px;min-height:40px;padding:0 14px;border-radius:999px;border:0;font:600 13px "Space Grotesk";cursor:pointer;white-space:nowrap}
+.btn-wa{background:#25d366;color:#fff}.btn-wa svg{width:16px;height:16px;fill:currentColor}
+.btn-gilt{background:linear-gradient(100deg,#f6e3b0,#d4af6a 55%,#b88c3e);color:#1a1205}
+.dock{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:5;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.seg{display:flex;padding:4px;border-radius:999px;gap:2px}
+.seg button{height:34px;padding:0 14px;border-radius:999px;border:0;background:transparent;color:var(--muted);font:600 12px "Space Grotesk";letter-spacing:.04em;cursor:pointer}
+.seg button.on{background:rgba(255,255,255,.12);color:var(--text)}
+.icons{display:flex;gap:8px}
+.ico{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:var(--text)}
+.ico:hover{border-color:var(--gold)}
+.ico svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hint{position:fixed;left:50%;top:calc(76px + env(safe-area-inset-top));transform:translateX(-50%);z-index:4;padding:9px 16px;border-radius:999px;font-size:12.5px;color:#c9d0dc;white-space:nowrap;transition:opacity .6s;pointer-events:none}
+.hint b{color:var(--text);font-weight:600}
+.hint.gone{opacity:0}
+.credit{position:fixed;right:16px;top:calc(68px + env(safe-area-inset-top));z-index:4;font-size:11px;color:var(--muted);text-align:right}
+.credit a{text-decoration:underline}
+#loader{position:fixed;inset:0;z-index:8;display:grid;place-items:center;background:radial-gradient(ellipse at center,#0d1424,#05070c 70%);transition:opacity .7s}
+#loader.done{opacity:0;pointer-events:none}
+.ld{width:min(320px,80vw);text-align:center}
+.ld .logo{display:block;margin-bottom:26px;font-size:20px}
+.ld .bar{height:3px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden}
+.ld .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#9be7ff,#1fb8ff);transition:width .25s}
+.ld p{margin-top:14px;font:500 13px "Space Grotesk";letter-spacing:.06em;color:var(--muted)}
+.ld .err{color:#ff9b9b;line-height:1.5}
+.ld .err a{color:var(--text);text-decoration:underline}
+iframe.ext{position:fixed;inset:0;width:100%;height:100%;border:0}
+@media(max-width:640px){
+  .top .pill span{display:none}.top .pill{padding:0 13px}
+  .card{right:16px;max-width:none;bottom:calc(76px + env(safe-area-inset-bottom));padding:14px 16px}
+  .card h1{font-size:17px}
+  .dock{left:16px;right:16px;flex-direction:row;justify-content:space-between;align-items:center}
+  .hint{font-size:11.5px;white-space:normal;text-align:center;width:max-content;max-width:calc(100% - 32px);border-radius:16px}
+  .credit{display:none}
+}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<div class="top">
+  <a href="/" class="logo">LASE<span>.</span>PROPERTIES</a>
+  <a href="/#properties" class="pill glass" id="back"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg><span id="backTxt">All listings</span></a>
+</div>
+
+<div class="hint glass" id="hint"></div>
+<div class="credit" id="credit" hidden></div>
+
+<div class="card glass" id="card" hidden></div>
+
+<div class="dock" id="dock" hidden>
+  <div class="seg glass" role="group" aria-label="Navigation mode">
+    <button type="button" id="mOrbit" class="on">Look around</button>
+    <button type="button" id="mWalk">Walk</button>
+  </div>
+  <div class="icons">
+    <button type="button" class="ico glass" id="reset" aria-label="Reset view" title="Reset view"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button>
+    <button type="button" class="ico glass" id="share" aria-label="Share this tour" title="Share"><svg viewBox="0 0 24 24"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg></button>
+    <button type="button" class="ico glass" id="fs" aria-label="Full screen" title="Full screen"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+  </div>
+</div>
+
+<div id="loader"><div class="ld">
+  <span class="logo">LASE<span>.</span>PROPERTIES</span>
+  <div class="bar"><i id="bar"></i></div>
+  <p id="ldTxt">Preparing your walkthrough…</p>
+</div></div>
+
+<script type="importmap">
+{ "imports": {
+  "playcanvas": "https://cdn.jsdelivr.net/npm/playcanvas@2.23.2/build/playcanvas.mjs",
+  "pc-camera-controls": "https://cdn.jsdelivr.net/npm/playcanvas@2.23.2/scripts/esm/camera-controls.mjs"
+} }
+</script>
+<script type="module">
+// 3D walkthrough for a listing, rendered as a Gaussian splat with PlayCanvas.
+//   /tour                 -> demo apartment scan
+//   /tour?id=<listing>    -> the listing's "tour" (a .sog / .ply / .splat / .spz URL, or a SuperSplat link)
+//   /tour?src=<url>       -> any splat file (handy to preview a scan before adding it to a listing)
+// Optional: &flip=0 if a scan shows upside down (most phone-scan exports need the default flip).
+const WA = "971555902523", EMAIL = "gm@laseproperties.com";
+const RAW = "https://raw.githubusercontent.com/LeoSHAKEacct/bikinifactory/main/lase/";
+const DEMO = { src: "/tours/demo-apartment.sog", title: "Demo: city apartment", credit: 'Demo scan "SA3D_R&D_XP47" by <a href="https://sa3d.fr" target="_blank" rel="noopener">Stéphane Agullo</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>' };
+const q = new URLSearchParams(location.search);
+const $ = id => document.getElementById(id);
+const esc = v => String(v == null ? "" : v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const touch = matchMedia("(pointer: coarse)").matches;
+
+const fail = html => { $("bar").style.width = "0"; $("ldTxt").innerHTML = `<span class="err">${html}</span>`; };
+
+async function listing(id) {
+  const get = async u => { try { const r = await fetch(u, {cache: "no-store"}); return r.ok ? await r.json() : null; } catch (_) { return null; } };
+  const find = list => Array.isArray(list) && list.find(x => x.id === id && !x.hidden && x.tour);
+  return find(await get("/data/listings.json?v=" + Date.now())) || find(await get(RAW + "data/listings.json?v=" + Date.now())) || null;
+}
+
+// Download with a progress bar, then hand the bytes to the engine as a blob URL
+async function download(url) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error("HTTP " + r.status);
+  const total = +r.headers.get("content-length") || 0, reader = r.body && r.body.getReader();
+  if (!reader) return await r.blob();
+  const parts = []; let got = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    parts.push(value); got += value.length;
+    $("bar").style.width = total ? Math.min(100, got / total * 100) + "%" : "60%";
+    $("ldTxt").textContent = `Loading 3D scan… ${(got / 1048576).toFixed(1)}${total ? " / " + (total / 1048576).toFixed(1) : ""} MB`;
+  }
+  return new Blob(parts);
+}
+
+function setupCard(l) {
+  const back = $("back");
+  if (l) {
+    back.href = "/property?id=" + encodeURIComponent(l.id); $("backTxt").textContent = "Listing details";
+    document.title = `3D tour: ${l.title} — LASE Properties`;
+    const msg = `Hello LASE Properties, I just took the 3D tour of ${l.title}, ${l.loc} (${l.price}${l.per ? " " + l.per : ""}) and I'd like to know more.\n${location.href}`;
+    $("card").innerHTML = `<div class="badge">3D walkthrough · ${l.tab === "rent" ? "For rent" : "For sale"}</div>
+      <h1>${esc(l.title)}</h1><div class="meta">${esc([l.loc, l.beds, l.baths, l.size].filter(Boolean).join(" · "))}</div>
+      <div class="price">${esc(l.price)} <span class="meta">${esc(l.per)}</span></div>
+      <div class="acts"><a class="btn btn-wa" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent(msg)}"><svg viewBox="0 0 32 32"><path d="M16 3a13 13 0 00-11.2 19.6L3 29l6.6-1.7A13 13 0 1016 3zm5.9 15.7c-.3-.2-1.9-1-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.8 8.8 0 01-4.4-3.8c-.3-.6.3-.5.9-1.7a.6.6 0 000-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 00-.9.4 3.6 3.6 0 00-1.1 2.7 6.3 6.3 0 001.3 3.3 14.3 14.3 0 005.5 4.9c2 .9 2.8.9 3.8.8a3.3 3.3 0 002.2-1.5 2.7 2.7 0 00.2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg>Book a viewing</a>
+      <a class="btn btn-gilt" href="mailto:${EMAIL}?subject=${encodeURIComponent("3D tour: " + l.title)}&body=${encodeURIComponent(msg)}">Email us</a></div>`;
+  } else {
+    const msg = `Hello LASE Properties, I'd like a 3D walkthrough scan of my property.\n${location.origin}/tour`;
+    $("card").innerHTML = `<div class="badge">3D walkthrough · Demo</div>
+      <h1>Tour homes from anywhere</h1><div class="meta">Every room, every angle, from a browser tab. No app, no headset, no appointment. Selling or letting? We can scan your property.</div>
+      <div class="acts"><a class="btn btn-wa" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent(msg)}"><svg viewBox="0 0 32 32"><path d="M16 3a13 13 0 00-11.2 19.6L3 29l6.6-1.7A13 13 0 1016 3zm5.9 15.7c-.3-.2-1.9-1-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.8 8.8 0 01-4.4-3.8c-.3-.6.3-.5.9-1.7a.6.6 0 000-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 00-.9.4 3.6 3.6 0 00-1.1 2.7 6.3 6.3 0 001.3 3.3 14.3 14.3 0 005.5 4.9c2 .9 2.8.9 3.8.8a3.3 3.3 0 002.2-1.5 2.7 2.7 0 00.2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg>Get my home scanned</a></div>`;
+  }
+  $("card").insertAdjacentHTML("afterbegin", `<button type="button" class="min" aria-label="Minimise details">⌄</button>`);
+  $("card").querySelector(".min").onclick = () => $("card").classList.toggle("mini");
+  if (innerWidth < 640 && innerHeight < 700) $("card").classList.add("mini");
+  $("card").hidden = false;
+}
+
+// SuperSplat / other hosted viewers: just embed them full screen
+function embed(url) {
+  const f = document.createElement("iframe");
+  f.className = "ext"; f.src = url; f.allow = "fullscreen; xr-spatial-tracking"; f.allowFullscreen = true;
+  document.body.prepend(f); $("c").remove(); $("loader").classList.add("done");
+}
+
+// Low/high percentiles and median of the splat centres (sampled), in world space
+function robustBox(centers, m, Vec3) {
+  if (!centers || centers.length < 30) return null;
+  const n = centers.length / 3, step = Math.max(1, Math.floor(n / 150000)), xs = [], ys = [], zs = [];
+  const v = { x: 0, y: 0, z: 0 }, d = m.data;
+  for (let i = 0; i < n; i += step) {
+    const x = centers[i * 3], y = centers[i * 3 + 1], z = centers[i * 3 + 2];
+    if (!isFinite(x + y + z)) continue;
+    xs.push(d[0] * x + d[4] * y + d[8] * z + d[12]); ys.push(d[1] * x + d[5] * y + d[9] * z + d[13]); zs.push(d[2] * x + d[6] * y + d[10] * z + d[14]);
+  }
+  const pct = (a, p) => a[Math.min(a.length - 1, Math.floor(a.length * p))];
+  [xs, ys, zs].forEach(a => a.sort((p, q) => p - q));
+  const V = (p) => ({ x: pct(xs, p), y: pct(ys, p), z: pct(zs, p) });
+  const mk = o => new Vec3(o.x, o.y, o.z);
+  return { lo: mk(V(0.08)), hi: mk(V(0.92)), mid: mk(V(0.5)) };
+}
+
+async function main() {
+  const id = q.get("id"), srcParam = q.get("src");
+  let l = null, src = srcParam, name = "scene";
+  if (id) {
+    l = await listing(id);
+    if (!l) return fail(`This 3D tour isn't available.<br><a href="/#properties">Back to listings</a>`);
+    src = l.tour; name = l.id;
+  }
+  if (!src) { src = DEMO.src; name = "demo-apartment"; $("credit").innerHTML = DEMO.credit; $("credit").hidden = false; }
+  setupCard(l);
+
+  if (/^https?:\/\/([^/]+\.)?superspl\.at\//i.test(src)) return embed(src);
+
+  const ext = (new URL(src, location.href).pathname.match(/\.(sog|ply|splat|spz|json)$/i) || [, "ply"])[1].toLowerCase();
+  const pc = await import("playcanvas");
+  const { CameraControls } = await import("pc-camera-controls");
+
+  const canvas = $("c");
+  const device = await pc.createGraphicsDevice(canvas, { deviceTypes: ["webgl2"], antialias: false });
+  device.maxPixelRatio = Math.min(devicePixelRatio, touch ? 1.5 : 2);
+  const app = new pc.Application(canvas, {
+    graphicsDevice: device, mouse: new pc.Mouse(canvas), touch: new pc.TouchDevice(canvas), keyboard: new pc.Keyboard(window)
+  });
+  app.setCanvasFillMode(pc.FILLMODE_FILL_WINDOW);
+  app.setCanvasResolution(pc.RESOLUTION_AUTO);
+  addEventListener("resize", () => app.resizeCanvas());
+
+  let blob;
+  try { blob = await download(src); }
+  catch (e) { return fail(`We couldn't load this 3D scan (${esc(e.message)}).<br><a href="${l ? "/property?id=" + encodeURIComponent(l.id) : "/#properties"}">Go back</a>`); }
+  $("ldTxt").textContent = "Building the scene…";
+  const blobUrl = URL.createObjectURL(blob);
+  const asset = new pc.Asset(name, "gsplat", { url: blobUrl, filename: name + "." + ext });
+  app.assets.add(asset);
+  await new Promise((res, rej) => { asset.once("load", res); asset.once("error", rej); app.assets.load(asset); })
+    .catch(e => { fail(`This file isn't a supported 3D scan (${esc(e && e.message || e)}). Use .sog, .ply, .splat or .spz.`); throw e; });
+  URL.revokeObjectURL(blobUrl);
+
+  app.start();
+  const splat = new pc.Entity("splat");
+  splat.addComponent("gsplat", { asset });
+  // Phone-scan exports are Y-down; flip them upright unless told otherwise
+  if (q.get("flip") !== "0") splat.setLocalEulerAngles(180, 0, 0);
+  app.root.addChild(splat);
+
+  // Frame the scan from its dense core (percentiles of splat centres), so stray floaters don't push the camera outside
+  const m = splat.getWorldTransform(), core = robustBox(asset.resource.centers, m, pc.Vec3) || (() => {
+    const b = asset.resource.aabb, c = new pc.Vec3(); m.transformPoint(b.center, c);
+    return { lo: c.clone().sub(b.halfExtents), hi: c.clone().add(b.halfExtents), mid: c };
+  })();
+  const span = new pc.Vec3().sub2(core.hi, core.lo), size = Math.max(span.x, span.z, 1);
+  const focus = core.mid.clone();
+  const start = new pc.Vec3(focus.x + span.x * 0.12, focus.y + span.y * 0.05, focus.z + span.z * 0.28);
+
+  const camera = new pc.Entity("camera");
+  camera.addComponent("camera", { clearColor: new pc.Color(0.02, 0.027, 0.047), fov: touch ? 75 : 65, nearClip: 0.03, farClip: Math.max(200, size * 20), toneMapping: pc.TONEMAP_LINEAR });
+  app.root.addChild(camera);
+  camera.setPosition(start); camera.lookAt(focus);
+  camera.addComponent("script");
+  const cc = camera.script.create(CameraControls, { properties: {
+    focusPoint: focus, enableFly: true, enableOrbit: true, enablePan: true,
+    moveSpeed: Math.max(1.2, size * 0.35), moveFastSpeed: Math.max(3, size * 0.8), moveSlowSpeed: Math.max(0.5, size * 0.12),
+    zoomRange: new pc.Vec2(0.01, size * 6), rotateSpeed: 0.25
+  } });
+
+  // Mode switch: orbit around the room, or walk (WASD / joystick) through it
+  const setMode = walk => {
+    $("mWalk").classList.toggle("on", walk); $("mOrbit").classList.toggle("on", !walk);
+    cc.enableOrbit = !walk; cc.enableFly = walk;
+    hint(walk);
+  };
+  const hint = walk => {
+    const h = $("hint");
+    h.innerHTML = touch
+      ? (walk ? "<b>Drag</b> to look · <b>left stick</b> to walk" : "<b>Drag</b> to look around · <b>pinch</b> to zoom · <b>two fingers</b> to move")
+      : (walk ? "<b>WASD</b> / arrows to walk · <b>drag</b> to look · <b>Shift</b> faster" : "<b>Drag</b> to look around · <b>scroll</b> to zoom · <b>right-drag</b> to move · <b>W A S D</b> to walk");
+    h.classList.remove("gone"); clearTimeout(hint.t); hint.t = setTimeout(() => h.classList.add("gone"), 6000);
+  };
+  $("mOrbit").onclick = () => setMode(false);
+  $("mWalk").onclick = () => setMode(true);
+  // Desktop: pressing a walk key while orbiting switches to walk mode
+  addEventListener("keydown", e => { if (!$("mWalk").classList.contains("on") && /^(KeyW|KeyA|KeyS|KeyD|ArrowUp|ArrowDown|ArrowLeft|ArrowRight)$/.test(e.code)) setMode(true); });
+  $("reset").onclick = () => { setMode(false); cc.reset(focus, start); };
+  $("fs").onclick = () => { const d = document; if (d.fullscreenElement) d.exitFullscreen(); else (d.documentElement.requestFullscreen || d.documentElement.webkitRequestFullscreen || (() => {})).call(d.documentElement); };
+  $("share").onclick = async () => {
+    const data = { title: document.title, url: location.href };
+    try { if (navigator.share) return await navigator.share(data); await navigator.clipboard.writeText(location.href); $("hint").innerHTML = "<b>Link copied.</b> Send it to anyone, anywhere."; $("hint").classList.remove("gone"); setTimeout(() => $("hint").classList.add("gone"), 2500); } catch (_) {}
+  };
+
+  setMode(false);
+  $("dock").hidden = false;
+  // Let the first sorted frames land before revealing the scene
+  let frames = 0;
+  app.on("frameend", function reveal() { if (++frames > 8) { $("loader").classList.add("done"); app.off("frameend", reveal); } });
+  window.__tour = { app, camera, splat, cc };
+}
+
+main().catch(e => { console.error(e); if (!$("ldTxt").querySelector(".err")) fail("Your browser couldn't open the 3D viewer. Try the latest Chrome, Safari or Edge."); });
+</script>
+</body>
+</html>

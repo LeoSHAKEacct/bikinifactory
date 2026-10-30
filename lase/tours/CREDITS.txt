@@ -1,0 +1,7 @@
+demo-apartment.sog
+  Title:   SA3D_R&D_XP47 (https://superspl.at/view?id=cdcec084)
+  Author:  Stéphane Agullo (https://sa3d.fr)
+  License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Credited on /tour.
+  Copied from the PlayCanvas engine examples (examples/assets/splats/apartment.sog).
+demo-poster.jpg
+  A render of the same scan, used as the homepage teaser image.

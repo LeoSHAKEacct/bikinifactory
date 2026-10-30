@@ -73,6 +73,8 @@ label{display:block;font-size:12px;color:var(--muted);margin:12px 0 6px;letter-s
           <div><label>Price period (rent)</label><input name="per" maxlength="30" placeholder="/ year"></div></div>
         <div class="row"><div><label>Bedrooms</label><input name="beds" maxlength="40" placeholder="2 Beds"></div><div><label>Bathrooms</label><input name="baths" maxlength="40" placeholder="3 Baths"></div><div><label>Size</label><input name="size" maxlength="40" placeholder="1,350 sqft"></div></div>
         <label>Description</label><textarea name="desc" rows="4" maxlength="1200" placeholder="Short description shown on the card"></textarea>
+        <label>3D walkthrough (optional)</label><input name="tour" maxlength="500" placeholder="https://… link to a .sog / .ply / .splat scan, or a SuperSplat link">
+        <small style="color:var(--muted);display:block;margin-top:6px">Adds a "Walk through in 3D" button. Scan the home with a phone app (e.g. Polycam, Luma, Scaniverse), export a Gaussian splat (.sog, .ply or .splat) or publish it on superspl.at, then paste the link. <a href="#" id="tourTry" style="text-decoration:underline">Preview this link</a></small>
         <label>Photos</label>
         <div class="photos" id="photos"></div>
         <input type="file" id="file" accept="image/*" multiple><small style="color:var(--muted);display:block;margin-top:6px">Pick one or several photos at once. The first one is the cover; ★ makes a photo the cover, × removes it. Resized automatically. Landscape works best.</small>
@@ -126,17 +128,19 @@ function render() {
 const esc = v => String(v == null ? "" : v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function edit(i) {
   sel = i; const l = data[i], f = $("ef"); f.hidden = false; $("etitle").textContent = l.title ? "Edit listing" : "New listing"; say("");
-  ["tab","title","loc","price","per","beds","baths","size","desc"].forEach(k => f[k].value = l[k] || ""); f.hidden.value = l.hidden ? "1" : "";
+  ["tab","title","loc","price","per","beds","baths","size","desc","tour"].forEach(k => f[k].value = l[k] || ""); f.hidden.value = l.hidden ? "1" : "";
   renderPhotos(); $("file").value = ""; render();
 }
 $("new").onclick = () => { data.unshift({ id: "", tab: "buy", title: "", loc: "", price: "", img: "", imgs: [] }); edit(0); };
 $("del").onclick = () => { if (sel === null || !confirm("Delete this listing?")) return; data.splice(sel, 1); sel = null; $("ef").hidden = true; $("etitle").textContent = "Select or create a listing"; setDirty(true); render(); };
 $("ef").onsubmit = e => {
   e.preventDefault(); const f = $("ef"), l = data[sel];
-  ["tab","title","loc","price","per","beds","baths","size","desc"].forEach(k => l[k] = f[k].value.trim()); l.hidden = f.hidden.value === "1";
+  ["tab","title","loc","price","per","beds","baths","size","desc","tour"].forEach(k => l[k] = f[k].value.trim()); l.hidden = f.hidden.value === "1";
+  if (l.tour && !/^(https:\/\/|\/(?!\/))\S+$/.test(l.tour)) return say("The 3D walkthrough link must start with https://", false);
   if (!l.id) l.id = (l.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "listing") + "-" + Date.now().toString(36);
   setDirty(true); render(); say("Saved. Click “Publish to website” when you're done.", true);
 };
+$("tourTry").onclick = e => { e.preventDefault(); const u = $("ef").tour.value.trim(); if (!u) return say("Paste a 3D scan link first.", false); open("/tour?src=" + encodeURIComponent(u), "_blank"); };
 function shrink(file) {
   return new Promise((ok, bad) => { const im = new Image(); im.onload = () => { const k = Math.min(1, 1600 / im.width); const c = document.createElement("canvas"); c.width = Math.round(im.width * k); c.height = Math.round(im.height * k); c.getContext("2d").drawImage(im, 0, 0, c.width, c.height); ok(c.toDataURL("image/jpeg", .82)); }; im.onerror = () => bad(new Error("Can't read that image.")); im.src = URL.createObjectURL(file); });
 }
