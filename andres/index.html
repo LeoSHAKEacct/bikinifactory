@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Andrés Medellín · Seguí los corazones</title>
+<meta name="description" content="Andrés Medellín en El Poblado, Edificio Río Sur frente a Oviedo: carne a la brasa, música, fiesta y un corazón de engranajes en la entrada.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Yellowtail&family=Work+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--red:#c8102e;--red2:#8e0a1f;--deep:#160608;--yel:#ffcf3f;--cream:#fbf1e4;--neon:#ffd9ae;--mut:#c9a9a0}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--deep)}
+body{background:var(--deep);color:var(--cream);font:400 17px/1.6 "Work Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,44px)}
+.sc{font-family:Yellowtail,cursive;font-weight:400}
+.bb{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;letter-spacing:.02em;line-height:.92}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:999px;font:700 15px "Work Sans";letter-spacing:.04em;transition:transform .2s,background .2s,color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.r{background:var(--red);color:#fff}
+.btn.r:hover{background:#e01535}
+.btn.y{background:var(--yel);color:var(--deep)}
+.btn.o{box-shadow:inset 0 0 0 2px rgba(251,241,228,.6)}
+.btn:focus-visible{outline:2px solid var(--yel);outline-offset:3px}
+.eb{font:700 13px "Work Sans";letter-spacing:.22em;text-transform:uppercase;color:var(--yel)}
+.heart{display:inline-block;width:1em;height:1em;vertical-align:-.12em}
+
+nav{position:fixed;inset:0 0 auto;z-index:30;padding:12px 0;transition:background .35s}
+nav.solid{background:rgba(22,6,8,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,207,63,.18)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.logo{font:400 34px/1 Yellowtail;color:#fff;text-shadow:0 0 18px rgba(200,16,46,.7)}
+.logo small{font:700 11px "Work Sans";letter-spacing:.24em;text-transform:uppercase;color:var(--yel);margin-left:6px;vertical-align:middle}
+.links{display:flex;gap:26px;font-weight:600;font-size:15px}
+.links a:hover{color:var(--yel)}
+nav .btn{padding:9px 18px;font-size:14px}
+@media(max-width:820px){.links{display:none}}
+@media(max-width:420px){.logo small{display:none}}
+
+/* the walk in */
+#walk{height:620vh;position:relative}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--deep)}
+#cv{position:absolute;inset:0;width:100%;height:100%}
+.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,6,8,.5),transparent 25%,transparent 50%,rgba(22,6,8,.75));pointer-events:none}
+#steps{position:absolute;inset:0;pointer-events:none}
+#steps svg{position:absolute;width:34px;height:30px;opacity:0;transition:opacity .35s,transform .35s;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4))}
+.cap{position:absolute;opacity:0;pointer-events:none;will-change:opacity,transform;text-shadow:0 4px 28px rgba(0,0,0,.55)}
+#k0{left:0;right:0;bottom:clamp(60px,12vh,120px);text-align:center;padding:0 16px}
+#k0 .sc{font-size:clamp(110px,17vw,250px);line-height:.8;color:#fff;display:block;text-shadow:0 0 30px rgba(200,16,46,.9),0 0 80px rgba(200,16,46,.6)}
+#k0 .bb{font-size:clamp(26px,3vw,40px);letter-spacing:.3em;color:var(--yel);margin-top:4px}
+#k0 p{margin-top:14px;font-size:clamp(17px,1.5vw,20px)}
+.side{left:clamp(16px,5vw,80px);bottom:clamp(60px,12vh,120px);max-width:min(560px,90vw)}
+.side .bb{font-size:clamp(50px,7vw,108px)}
+.side .bb span{color:var(--yel)}
+.side p{margin-top:12px;font-size:clamp(17px,1.5vw,20px);max-width:36ch}
+.side.r{left:auto;right:clamp(16px,5vw,80px);text-align:right}
+.side.r p{margin-left:auto}
+#neon{position:absolute;left:0;top:0;width:200px;height:200px;opacity:0;pointer-events:none;will-change:transform,opacity;overflow:visible}
+#flood{position:absolute;inset:0;background:var(--red);opacity:0;pointer-events:none}
+.hint{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;font:700 12px "Work Sans";letter-spacing:.24em;text-transform:uppercase}
+.hint svg{width:22px;height:20px;animation:hop 1.2s infinite}
+@keyframes hop{50%{transform:translateY(6px)}}
+@media(max-width:700px){.side,.side.r{left:16px;right:16px;bottom:56px;text-align:left}.side.r p{margin-left:0}.hint{display:none}}
+
+/* manifesto */
+#es{background:var(--red);color:#fff;padding:clamp(90px,14vh,150px) 0;text-align:center;position:relative;overflow:hidden}
+#es .bb{font-size:clamp(56px,10vw,160px)}
+#es .bb .sc{font-size:1.15em;letter-spacing:0;color:var(--yel);text-transform:none;line-height:.6}
+#es p{max-width:54ch;margin:26px auto 0;font-size:clamp(17px,1.6vw,21px);color:#ffe3e3}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:60px;text-align:left}
+.trio div{background:rgba(22,6,8,.22);border:1px solid rgba(255,255,255,.22);border-radius:22px;padding:26px 24px}
+.trio b{display:block;font:400 46px/1 "Bebas Neue";letter-spacing:.03em;color:var(--yel)}
+.trio p{margin:10px 0 0;font-size:16px;color:#ffe3e3;max-width:none}
+@media(max-width:860px){.trio{grid-template-columns:1fr}}
+#es .fl{position:absolute;color:rgba(255,207,63,.18);pointer-events:none}
+
+/* stories */
+.story{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,80px);align-items:center;padding:clamp(70px,11vh,120px) 0}
+.story.flip .media{order:2}
+.media{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:4/5;background:#2a0d10;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.media video,.media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.media .tag{position:absolute;left:16px;bottom:16px;background:rgba(22,6,8,.7);backdrop-filter:blur(6px);padding:8px 14px;border-radius:999px;font:700 12px "Work Sans";letter-spacing:.16em;text-transform:uppercase}
+.story h2{font:400 clamp(50px,6.4vw,96px)/.92 "Bebas Neue";letter-spacing:.02em;margin-top:14px}
+.story h2 .sc{color:var(--red);font-size:1.1em;letter-spacing:0;text-shadow:0 0 22px rgba(200,16,46,.5)}
+.story p.l{color:var(--mut);font-size:clamp(17px,1.5vw,20px);margin-top:16px;max-width:44ch}
+@media(max-width:860px){.story{grid-template-columns:1fr}.story.flip .media{order:0}.media{aspect-ratio:4/4.4}}
+
+/* gallery strip */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding-bottom:clamp(70px,11vh,120px)}
+.strip figure{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:3/4;background:#2a0d10}
+.strip img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.1,1)}
+.strip figure:hover img{transform:scale(1.06)}
+.strip figcaption{position:absolute;left:12px;right:12px;bottom:12px;font:400 26px/1 Yellowtail;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.7)}
+@media(max-width:860px){.strip{grid-template-columns:1fr 1fr}}
+
+/* visit */
+#visita{background:linear-gradient(180deg,var(--deep),#2a0b0f);padding:clamp(80px,13vh,140px) 0}
+.visit{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,5vw,70px);align-items:center}
+.visit h2{font:400 clamp(54px,7vw,104px)/.9 "Bebas Neue";letter-spacing:.02em;margin-top:14px}
+.addr{font:400 clamp(28px,3vw,40px)/1.05 "Bebas Neue";letter-spacing:.04em;color:var(--yel);margin-top:18px}
+.visit p.l{color:var(--mut);margin-top:10px}
+.visit .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.map{border-radius:24px;overflow:hidden;aspect-ratio:4/3;background:#2a0d10;border:2px solid rgba(255,207,63,.25)}
+.map iframe{width:100%;height:100%;border:0;display:block;filter:saturate(.9) contrast(1.05)}
+@media(max-width:860px){.visit{grid-template-columns:1fr}}
+footer{border-top:1px solid rgba(255,207,63,.15);padding:26px 0;color:var(--mut);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+footer .sc{font-size:30px;color:#fff}
+@media(prefers-reduced-motion:reduce){.hint svg{animation:none}.strip img{transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="h" viewBox="0 0 32 29"><path d="M16 29S0 18.6 0 8.6C0 3.8 3.7 0 8.3 0c3.2 0 6 1.8 7.7 4.5C17.7 1.8 20.5 0 23.7 0 28.3 0 32 3.8 32 8.6 32 18.6 16 29 16 29z"/></symbol></svg>
+
+<nav id="nav"><div class="wrap">
+  <a class="logo" href="#">Andrés<small>Medellín</small></a>
+  <div class="links"><a href="#es">La casa</a><a href="#historias">Antes de entrar</a><a href="#visita">Cómo llegar</a></div>
+  <a class="btn r" href="https://www.andrescarnederes.com" target="_blank" rel="noopener">Reservar</a>
+</div></nav>
+
+<section id="walk" aria-label="Llegando a Andrés Medellín">
+  <div class="stage">
+    <canvas id="cv" role="img" aria-label="Recorrido desde la vaca alada y el corazón de engranajes, por el camino de corazones amarillos, hasta el corazón de neón dentro de Andrés Medellín"></canvas>
+    <div class="shade"></div>
+    <div id="steps" aria-hidden="true"></div>
+    <div class="cap" id="k0"><span class="sc">Andrés</span><div class="bb">Medellín</div><p>Seguí los corazones amarillos. Adentro te espera la fiesta.</p></div>
+    <div class="cap side" id="k1"><h2 class="bb">Una vaca <span>con alas.</span></h2><p>Un corazón de engranajes, palmas y letreros rojos. Y apenas estás llegando.</p></div>
+    <div class="cap side r" id="k2"><h2 class="bb">Seguí los <span>corazones.</span></h2><p>Están pintados en el piso. Ellos saben el camino.</p></div>
+    <div class="cap side" id="k3"><h2 class="bb">Adentro, la fiesta <span>ya empezó.</span></h2><p>Luces, neón y un corazón que brilla hasta en el piso.</p></div>
+    <svg id="neon" viewBox="-4 -4 40 37" aria-hidden="true"><use href="#h" fill="none" stroke="#fff4e0" stroke-width="1.6"/><use href="#h" fill="none" stroke="#ffb46b" stroke-width="3.2" opacity=".55"/></svg>
+    <div id="flood"></div>
+    <div class="hint" id="hint"><svg viewBox="0 0 32 29"><use href="#h" fill="#ffcf3f"/></svg>Bajá</div>
+  </div>
+</section>
+
+<section id="es">
+  <svg class="fl" style="left:4%;top:12%;width:90px" viewBox="0 0 32 29" aria-hidden="true"><use href="#h" fill="currentColor"/></svg>
+  <svg class="fl" style="right:6%;top:30%;width:60px" viewBox="0 0 32 29" aria-hidden="true"><use href="#h" fill="currentColor"/></svg>
+  <svg class="fl" style="left:12%;bottom:10%;width:46px" viewBox="0 0 32 29" aria-hidden="true"><use href="#h" fill="currentColor"/></svg>
+  <div class="wrap">
+    <p class="eb" style="color:#ffe08a">El Poblado · Medellín</p>
+    <h2 class="bb" style="margin-top:14px">Esto no es un restaurante.<br>Es <span class="sc">Andrés.</span></h2>
+    <p>Carne a la brasa, música que te saca a bailar entre plato y plato, y una decoración que no cabe en una sola mirada. Venís a comer y te vas con una historia.</p>
+    <div class="trio">
+      <div><b>Comer</b><p>Carne a la brasa y cocina colombiana para compartir en la mesa.</p></div>
+      <div><b>Bailar</b><p>La rumba no espera al postre: arranca donde estés sentado.</p></div>
+      <div><b>Celebrar</b><p>Cumpleaños, despedidas, aniversarios o un martes cualquiera.</p></div>
+    </div>
+  </div>
+</section>
+
+<div id="historias" class="wrap">
+  <article class="story">
+    <div class="media"><video src="img/corazon.mp4" poster="img/corazon.jpg" muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video><span class="tag">La entrada</span></div>
+    <div>
+      <p class="eb">La foto obligada</p>
+      <h2>El corazón de <span class="sc">engranajes</span></h2>
+      <p class="l">Antes de entrar, todo el mundo se para aquí: una vaca de colores con alas amarillas frente a un corazón gigante hecho de engranajes blancos. Si no hay foto, no fuiste.</p>
+    </div>
+  </article>
+  <article class="story flip">
+    <div class="media"><video src="img/letras.mp4" poster="img/letras.jpg" muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video><span class="tag">Edificio Río Sur</span></div>
+    <div>
+      <p class="eb">Ya llegaste</p>
+      <h2>Las letras <span class="sc">rojas</span></h2>
+      <p class="l">El nombre en letras rojas gigantes entre las matas, y los corazones amarillos marcando el camino hasta la puerta.</p>
+    </div>
+  </article>
+  <div class="strip">
+    <figure><img src="img/entrada.jpg" alt="El letrero rojo de Andrés Medellín colgado sobre el andén de la entrada" loading="lazy"><figcaption>El letrero</figcaption></figure>
+    <figure><img src="img/huellas.jpg" alt="Corazones amarillos pintados en el piso llevando hacia la puerta" loading="lazy"><figcaption>Las huellas</figcaption></figure>
+    <figure><img src="img/tienda.jpg" alt="La tienda de recuerdos de Andrés con muñecos y objetos de colores" loading="lazy"><figcaption>La tienda</figcaption></figure>
+    <figure><img src="img/neon.jpg" alt="El letrero de neón Andrés Medellín y un corazón de neón reflejado en el piso" loading="lazy"><figcaption>El neón</figcaption></figure>
+  </div>
+</div>
+
+<section id="visita"><div class="wrap visit">
+  <div>
+    <p class="eb">Cómo llegar</p>
+    <h2>Te esperamos en <span class="sc" style="color:var(--red);font-size:1.1em">El Poblado</span></h2>
+    <p class="addr">Edificio Río Sur<br>frente al C.C. Oviedo</p>
+    <p class="l">El Poblado, Medellín. Buscá las letras rojas y seguí los corazones.</p>
+    <div class="row">
+      <a class="btn y" href="https://www.google.com/maps/search/?api=1&query=Andr%C3%A9s+Carne+de+Res+Medell%C3%ADn+R%C3%ADo+Sur" target="_blank" rel="noopener">Cómo llegar</a>
+      <a class="btn r" href="https://www.andrescarnederes.com" target="_blank" rel="noopener">Reservar</a>
+    </div>
+  </div>
+  <div class="map"><iframe title="Mapa: Andrés Medellín, Edificio Río Sur, El Poblado" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Andr%C3%A9s+Carne+de+Res+Medell%C3%ADn+R%C3%ADo+Sur&output=embed"></iframe></div>
+</div></section>
+
+<footer><div class="wrap"><span class="sc">Andrés</span><span>Edificio Río Sur, frente al C.C. Oviedo · El Poblado, Medellín</span></div></footer>
+
+<script>
+(() => {
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const ramp = (p, a, b) => clamp((p - a) / (b - a));
+  const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const inout = (p, a, b, c, d) => Math.min(ramp(p, a, b), 1 - ramp(p, c, d));
+
+  // frames from three clips back to back: the sculpture, the heart path, the neon room
+  const NF = 198, frames = new Array(NF), order = [];
+  for (const st of [8, 4, 2, 1]) for (let i = 0; i < NF; i += st) if (!order.includes(i)) order.push(i);
+  order.splice(1, 0, NF - 1);
+  let li = 0, need = true;
+  function next() {
+    if (li >= order.length) return;
+    const i = order[li++], im = new Image();
+    im.onload = () => { frames[i] = im; need = true; next(); };
+    im.onerror = next;
+    im.src = 'seq/' + String(i + 1).padStart(3, '0') + '.webp';
+  }
+  for (let k = 0; k < 4; k++) next();
+  const near = i => { for (let d = 0; d < NF; d++) { if (frames[i - d]) return frames[i - d]; if (frames[i + d]) return frames[i + d]; } return null; };
+
+  const cv = document.getElementById('cv'), cx = cv.getContext('2d');
+  const tiny = document.createElement('canvas'); tiny.width = 27; tiny.height = 48; const tx = tiny.getContext('2d');
+  const fg = document.createElement('canvas'), fx = fg.getContext('2d');
+  let W, H, DPR;
+  function size() { DPR = Math.min(2, devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * DPR; cv.height = H * DPR; need = true; }
+  size(); addEventListener('resize', size);
+
+  // where the neon heart of the last frame sits on screen
+  let nx = 0, ny = 0, nw = 0;
+  const NX = .485, NY = .37, NWID = .31;
+  function paint(p) {
+    const im = near(Math.round(ramp(p, .02, .84) * (NF - 1)));
+    if (!im) return;
+    const iw = im.naturalWidth, ih = im.naturalHeight;
+    cx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high';
+    if (W / H < .8) {
+      const s = Math.max(W / iw, H / ih), dw = iw * s, dh = ih * s, ox = (W - dw) / 2, oy = (H - dh) / 2;
+      cx.drawImage(im, ox, oy, dw, dh);
+      nx = ox + dw * NX; ny = oy + dh * NY; nw = dw * NWID;
+      return;
+    }
+    tx.drawImage(im, 0, 0, 27, 48);
+    const bs = Math.max(W / iw, H / ih) * 1.1;
+    cx.drawImage(tiny, (W - iw * bs) / 2, (H - ih * bs) / 2, iw * bs, ih * bs);
+    cx.fillStyle = 'rgba(22,6,8,.3)'; cx.fillRect(0, 0, W, H);
+    const s = H / ih, dw = iw * s, dh = ih * s, ox = (W - dw) / 2;
+    if (fg.width !== cv.width || fg.height !== cv.height) { fg.width = cv.width; fg.height = cv.height; }
+    fx.setTransform(DPR, 0, 0, DPR, 0, 0); fx.globalCompositeOperation = 'source-over'; fx.clearRect(0, 0, W, H);
+    fx.imageSmoothingEnabled = true; fx.imageSmoothingQuality = 'high';
+    fx.drawImage(im, ox, 0, dw, dh);
+    const e = Math.min(150, dw * .2), g = fx.createLinearGradient(ox, 0, ox + dw, 0);
+    g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(e / dw, '#000'); g.addColorStop(1 - e / dw, '#000'); g.addColorStop(1, 'rgba(0,0,0,0)');
+    fx.globalCompositeOperation = 'destination-in'; fx.fillStyle = g; fx.fillRect(0, 0, W, H);
+    cx.setTransform(1, 0, 0, 1, 0, 0); cx.drawImage(fg, 0, 0);
+    nx = ox + dw * NX; ny = dh * NY; nw = dw * NWID;
+  }
+
+  // yellow heart footprints that appear as you walk
+  const stepsEl = document.getElementById('steps'), NS = 14, steps = [];
+  for (let i = 0; i < NS; i++) {
+    const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    s.setAttribute('viewBox', '0 0 32 29');
+    s.innerHTML = '<use href="#h" fill="#ffcf3f"/>';
+    stepsEl.appendChild(s); steps.push(s);
+  }
+  function placeSteps() {
+    steps.forEach((s, i) => {
+      const k = i / (NS - 1);
+      const sc = 1.6 - k * 1.1;                          // smaller as they head into the distance
+      const x = 50 + (i % 2 ? 1 : -1) * (6 - k * 4.5);   // left, right, left...
+      const y = 96 - Math.pow(k, .8) * 46;
+      s.style.left = `calc(${x}% - 17px)`; s.style.top = y + '%';
+      s.dataset.sc = sc; s.dataset.r = (i % 2 ? 12 : -12);
+    });
+  }
+  placeSteps();
+
+  const walk = document.getElementById('walk'), nav = document.getElementById('nav'), hint = document.getElementById('hint');
+  const C = id => document.getElementById(id);
+  const k0 = C('k0'), k1 = C('k1'), k2 = C('k2'), k3 = C('k3'), neon = C('neon'), flood = C('flood');
+  let last = -1;
+  function frame(time) {
+    const r = walk.getBoundingClientRect();
+    const p = RM ? .5 : clamp(-r.top / (r.height - innerHeight));
+    if (need || p !== last) { paint(p); need = false; last = p; }
+    k0.style.opacity = 1 - ramp(p, .06, .14);
+    k0.style.transform = `translateY(${-ramp(p, .06, .14) * 40}px)`;
+    [[k1, .14, .18, .26, .3], [k2, .33, .37, .48, .52], [k3, .58, .62, .72, .76]].forEach(([el, a, b, c, d]) => {
+      const v = inout(p, a, b, c, d);
+      el.style.opacity = v; el.style.transform = `translateY(${(1 - v) * 30}px)`;
+    });
+    // footprints along the heart path, one per step, gone once you're inside
+    const shown = ramp(p, .3, .52) * NS, gone = ramp(p, .54, .6);
+    steps.forEach((s, i) => {
+      const on = clamp(shown - i) * (1 - gone);
+      s.style.opacity = on;
+      s.style.transform = `scale(${s.dataset.sc * (.6 + .4 * on)}) rotate(${s.dataset.r}deg)`;
+    });
+    // the neon heart lights up over the real one, then grows until the room turns red
+    const glow = ramp(p, .8, .85), grow = ease(ramp(p, .86, .97));
+    const sc = nw / 160 * (1 + grow * (Math.max(W, H) * 2.2 / nw));
+    neon.style.opacity = glow * (1 - ramp(p, .97, 1));
+    neon.style.transform = `translate(${nx - 100}px, ${ny - 100}px) scale(${sc})`;
+    neon.style.filter = `drop-shadow(0 0 ${6 + 10 * Math.sin(time / 260) ** 2}px #ff9f5a) drop-shadow(0 0 22px #c8102e)`;
+    flood.style.opacity = ramp(p, .92, 1);
+    hint.style.opacity = 1 - ramp(p, 0, .04);
+    nav.classList.toggle('solid', r.bottom < 80);
+    requestAnimationFrame(frame);
+  }
+  k0.style.opacity = 1;
+  requestAnimationFrame(frame);
+
+  document.querySelectorAll('video').forEach(v => { if (RM) { v.removeAttribute('autoplay'); v.pause(); } });
+})();
+</script>
+</body>
+</html>
