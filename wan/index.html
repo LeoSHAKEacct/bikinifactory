@@ -188,7 +188,7 @@ footer b{font:800 18px "Shippori Mincho";letter-spacing:.3em;color:var(--gold2)}
     const i = order[li++], im = new Image();
     im.onload = () => { frames[i] = im; need = true; next(); };
     im.onerror = next;
-    im.src = 'seq/' + String(i + 1).padStart(3, '0') + '.webp';
+    im.src = 'f2/' + String(i + 1).padStart(3, '0') + '.webp';
   }
   for (let k = 0; k < 4; k++) next();
   const near = i => { for (let d = 0; d < NF; d++) { if (frames[i - d]) return frames[i - d]; if (frames[i + d]) return frames[i + d]; } return null; };
