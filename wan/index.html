@@ -207,7 +207,7 @@ footer b{font:800 18px "Shippori Mincho";letter-spacing:.3em;color:var(--gold2)}
   // the text half shows the same frame blurred; the stone face: full screen, no blur.
   const lerp = (a, b, t) => a + (b - a) * t;
   function layout(p) {
-    const toL = ease(ramp(p, .12, .18)), toR = ease(ramp(p, .41, .46)), full = ease(ramp(p, .64, .7));
+    const toL = ease(ramp(p, .07, .13)), toR = ease(ramp(p, .41, .46)), full = ease(ramp(p, .64, .7));
     let c = lerp(.5, .25, toL); c = lerp(c, .75, toR); c = lerp(c, .5, full);
     const w = lerp(.5 * toL, 1, full);   // 0 = the natural column, .5 = half the screen, 1 = all of it
     return { c, w, full };
