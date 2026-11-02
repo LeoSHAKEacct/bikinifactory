@@ -38,7 +38,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px
 @media(max-width:480px){.air .mono span{display:none}}
 
 /* walking up from the street */
-#calle{height:900vh;position:relative;background:var(--ink)}
+#calle{height:1100vh;position:relative;background:var(--ink)}
 .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 #cv{position:absolute;inset:0;width:100%;height:100%}
 .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.1) 22%,rgba(0,0,0,.15) 55%,rgba(0,0,0,.7));pointer-events:none}
@@ -123,6 +123,30 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px
 footer{background:var(--ink);color:#bdb6aa;padding:26px 0;font-size:14px}
 footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
 footer .blk{color:var(--paper);font-size:22px}
+
+/* members */
+.right{display:flex;align-items:center;gap:16px}
+.mbtn{background:var(--or);color:var(--ink);border:0;padding:9px 14px;font-weight:600;cursor:pointer}
+.mbtn:focus-visible{outline:2px solid #fff;outline-offset:3px}
+#mm{position:fixed;inset:0;z-index:60;display:none;place-items:center;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:16px}
+#mm.on{display:grid}
+.mbox{width:min(440px,100%);background:var(--paper);color:var(--ink);border:2px solid var(--ink);box-shadow:12px 12px 0 var(--or);padding:28px 26px;position:relative;max-height:92vh;overflow:auto}
+.mbox h3{font:400 34px/1 "Archivo Black";text-transform:uppercase;margin:10px 0 6px}
+.mbox p.s{color:#4a463f;font-size:15px}
+.mbox label{display:block;margin-top:16px;font:600 12px "JetBrains Mono";letter-spacing:.12em;text-transform:uppercase}
+.mbox input{width:100%;margin-top:6px;padding:12px 14px;border:2px solid var(--ink);background:#fff;font:400 16px Archivo}
+.mbox input:focus{outline:none;border-color:var(--or)}
+.mbox .btn{width:100%;justify-content:center;margin-top:20px;border:0;cursor:pointer}
+.mbox .x{position:absolute;right:12px;top:10px;background:none;border:0;font:400 26px Archivo;cursor:pointer;line-height:1}
+.demo{display:inline-block;background:var(--ink);color:var(--paper);padding:3px 8px}
+.card{background:var(--ink);color:var(--paper);padding:20px;margin-top:16px;position:relative;overflow:hidden;aspect-ratio:1.6}
+.card svg{position:absolute;right:-30px;bottom:-30px;width:150px;opacity:.9}
+.card b{display:block;font:400 26px "Archivo Black";text-transform:uppercase}
+.card .num{position:absolute;left:20px;bottom:18px}
+.perks{list-style:none;margin-top:16px;display:grid;gap:8px}
+.perks li{display:flex;gap:10px;align-items:baseline;font-size:15px}
+.perks li::before{content:"";width:8px;height:8px;background:var(--or);flex:none}
+@media(max-width:480px){.air{display:none}}
 @media(prefers-reduced-motion:reduce){.band div,.eq i,.dot{animation:none}}
 </style>
 </head>
@@ -132,7 +156,7 @@ footer .blk{color:var(--paper);font-size:22px}
 <nav id="nav"><div class="wrap">
   <a class="logo" href="#"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#rec"/></svg>MAD RADIO</a>
   <div class="links mono"><a href="#disco">La casa</a><a href="#tienda">Records store</a><a href="#visita">Visítanos</a></div>
-  <div class="air"><i class="dot" aria-hidden="true"></i><span class="mono">On air <span>24/7</span></span></div>
+  <div class="right"><div class="air"><i class="dot" aria-hidden="true"></i><span class="mono">On air <span>24/7</span></span></div><button class="mbtn mono" id="openM" type="button">Members</button></div>
 </div></nav>
 
 <section id="calle" aria-label="Llegando a Mad Radio">
@@ -181,7 +205,7 @@ footer .blk{color:var(--paper);font-size:22px}
     <div class="tile"><img src="img/store.jpg" alt="Letrero iluminado Mad Records Store sobre un hueco redondo en la pared de ladrillo" loading="lazy"><span class="cap2 mono">La tienda</span></div>
     <div class="tile"><video src="img/invasion.mp4" poster="img/invasion.jpg" muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video><span class="cap2 mono">Invasion</span></div>
     <div class="tile"><img src="img/wall.jpg" alt="Repisas con vinilos de soul y disco sobre ladrillo" loading="lazy"><span class="cap2 mono">Vinilos</span></div>
-    <div class="tile"><img src="img/merch.jpg" alt="Gorras naranjas y negras de Mad Radio en una vitrina" loading="lazy"><span class="cap2 mono">Merch</span></div>
+    <div class="tile"><video src="img/merch.mp4" poster="img/merch.jpg" muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video><span class="cap2 mono">Merch</span></div>
   </div>
 </div></section>
 
@@ -201,6 +225,35 @@ footer .blk{color:var(--paper);font-size:22px}
   <div class="map"><iframe title="Mapa: Mad Radio Medellín" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Mad+Radio+Medell%C3%ADn&output=embed"></iframe></div>
 </div></section>
 
+
+<div id="mm" role="dialog" aria-modal="true" aria-labelledby="mT">
+  <div class="mbox">
+    <button class="x" id="closeM" type="button" aria-label="Cerrar">×</button>
+    <div id="mLogin">
+      <span class="demo mono">Demo</span>
+      <h3 id="mT">Mad Club</h3>
+      <p class="s">Entrá con tu cuenta de miembro. En esta demo cualquier dato funciona; no se envía nada.</p>
+      <form id="mForm">
+        <label for="mE">Correo</label><input id="mE" type="email" value="demo@madradio.club" autocomplete="off" required>
+        <label for="mP">Contraseña</label><input id="mP" type="password" value="madradio" autocomplete="off" required>
+        <button class="btn o" type="submit">Entrar</button>
+      </form>
+    </div>
+    <div id="mIn" hidden>
+      <span class="demo mono">Demo</span>
+      <h3>Hola, <span id="mName">miembro</span></h3>
+      <p class="s">Tu membresía Mad Club está activa.</p>
+      <div class="card"><span class="mono" style="color:var(--or)">Mad Club · Medellín</span><b>Member</b><span class="num mono">MR-0420-7713</span><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#rec"/></svg></div>
+      <ul class="perks">
+        <li>Entrada sin fila los viernes y sábados</li>
+        <li>10% en vinilos y merch del Records Store</li>
+        <li>Preventa para las noches con DJs invitados</li>
+        <li>Acceso a los sets grabados de la radio</li>
+      </ul>
+      <button class="btn k" id="mOut" type="button">Salir</button>
+    </div>
+  </div>
+</div>
 <footer><div class="wrap"><span class="blk">Mad Radio</span><span class="mono">The art of listening · Vinyl sounds</span></div></footer>
 
 <script>
@@ -213,8 +266,8 @@ footer .blk{color:var(--paper);font-size:22px}
   const lerp = (a, b, t) => a + (b - a) * t;
 
   // full-resolution frames for wide screens, lighter ones for phones
-  const SET = innerWidth > 820 ? 'hd/' : 'sd/';
-  const NF = 252, frames = new Array(NF), order = [];
+  const SET = innerWidth > 820 ? 'v2/hd/' : 'v2/sd/';
+  const NF = 351, frames = new Array(NF), order = [];
   for (const st of [8, 4, 2, 1]) for (let i = 0; i < NF; i += st) if (!order.includes(i)) order.push(i);
   order.splice(1, 0, NF - 1);
   let li = 0, need = true;
@@ -241,8 +294,8 @@ footer .blk{color:var(--paper);font-size:22px}
   const V0 = .74, V1 = .87;                                        // the vinyl stretch of the scroll
   let spinA = 0;
   function frameAt(p) {
-    if (p < V0) return Math.round(ramp(p, .02, V0) * 200);
-    return 219 + Math.round(ramp(p, V1 + .01, .98) * (NF - 1 - 219));
+    if (p < V0) return Math.round(ramp(p, .02, V0) * 299);
+    return 318 + Math.round(ramp(p, V1 + .01, .98) * (NF - 1 - 318));
   }
   function cover(im, fxp, fyp, z) {
     const iw = im.naturalWidth, ih = im.naturalHeight, s = Math.max(W / iw, H / ih) * z;
@@ -292,7 +345,7 @@ footer .blk{color:var(--paper);font-size:22px}
     if (p >= V0 && p < V1 && still.complete && still.naturalWidth) { vinyl(p); return; }
     const im = near(frameAt(p));
     if (!im) return;
-    const ay = W / H < .8 ? .5 : lerp(.32, .5, ramp(p, .12, .26));
+    const ay = W / H < .8 ? .5 : lerp(.36, .5, ramp(p, .3, .42));
     cover(im, .5, ay, 1);
     if (p >= V1) { cx.fillStyle = `rgba(0,0,0,${1 - ramp(p, V1, .91)})`; cx.fillRect(0, 0, W, H); }
   }
@@ -307,10 +360,10 @@ footer .blk{color:var(--paper);font-size:22px}
     const p = RM ? .3 : clamp(-r.top / (r.height - innerHeight));
     const now = performance.now(); spinA += (now - (frame.t || now)) / 1000 * 3.49; frame.t = now;
     if (need || p !== last || (p >= V0 && p < V1)) { paint(p); need = false; last = p; }
-    k0.style.opacity = 1 - ramp(p, .05, .1);
-    k0.style.transform = `translateY(${-ramp(p, .05, .1) * 50}px)`;
+    k0.style.opacity = 1 - ramp(p, .18, .24);
+    k0.style.transform = `translateY(${-ramp(p, .18, .24) * 50}px)`;
     const mob = innerWidth <= 700;
-    [[k1, .13, .16, .24, .27], [k2, .33, .37, .62, .66], [k3, .68, .71, .78, .81], [k4, .9, .93, 1.1, 1.2]].forEach(([el, a, b, c, d]) => {
+    [[k1, .27, .3, .38, .41], [k2, .45, .48, .62, .66], [k3, .68, .71, .78, .81], [k4, .9, .93, 1.1, 1.2]].forEach(([el, a, b, c, d]) => {
       const v = inout(p, a, b, c, d);
       el.style.opacity = v;
       el.style.transform = (mob ? '' : 'translateY(-50%) ') + `translateY(${(1 - v) * 30}px)`;
@@ -332,6 +385,23 @@ footer .blk{color:var(--paper);font-size:22px}
   k0.style.opacity = 1;
   requestAnimationFrame(frame);
   document.querySelectorAll('video').forEach(v => { if (RM) { v.removeAttribute('autoplay'); v.pause(); } });
+
+  // members: a demo login, nothing leaves the page
+  const mm = document.getElementById('mm'), mLogin = document.getElementById('mLogin'), mIn = document.getElementById('mIn');
+  const openM = document.getElementById('openM');
+  function show(on) { mm.classList.toggle('on', on); if (on) (mIn.hidden ? document.getElementById('mE') : document.getElementById('mOut')).focus(); else openM.focus(); }
+  openM.onclick = () => show(true);
+  document.getElementById('closeM').onclick = () => show(false);
+  mm.addEventListener('click', e => { if (e.target === mm) show(false); });
+  addEventListener('keydown', e => { if (e.key === 'Escape' && mm.classList.contains('on')) show(false); });
+  document.getElementById('mForm').onsubmit = e => {
+    e.preventDefault();
+    const n = document.getElementById('mE').value.split('@')[0] || 'miembro';
+    document.getElementById('mName').textContent = n.charAt(0).toUpperCase() + n.slice(1);
+    document.getElementById('mP').value = '';
+    mLogin.hidden = true; mIn.hidden = false; openM.textContent = 'Mi cuenta'; document.getElementById('mOut').focus();
+  };
+  document.getElementById('mOut').onclick = () => { mIn.hidden = true; mLogin.hidden = false; openM.textContent = 'Members'; document.getElementById('mP').value = 'madradio'; };
 })();
 </script>
 </body>
