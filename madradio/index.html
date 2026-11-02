@@ -168,7 +168,7 @@ footer .blk{color:var(--paper);font-size:22px}
     <div class="cap" id="k0"><h1 class="blk">Mad<br><span>Radio</span></h1><div class="row"><p>The art of listening. Vinyl sounds.</p><span class="mono">Bar · Radio · Records · Galería</span></div></div>
     <div class="cap side r" id="k1"><span class="mono">Provenza · Medellín</span><h2 class="blk">Una casa <span>que suena.</span></h2><p>Una fachada de madera, una camiseta en la vitrina y música saliendo hasta la calle. Ya llegaste.</p></div>
     <div class="cap side l" id="k2"><span class="mono">Merch, records &amp; hot stuff</span><h2 class="blk">Mad Records <span>Store.</span></h2><p>Vinilos en la pared de ladrillo y un hueco redondo con un micrófono que dice LO-FI.</p></div>
-    <div class="cap side r" id="k3"><span class="mono">Side A · 33⅓</span><h2 class="blk">Siempre hay <span>algo girando.</span></h2><p>El afiche Invasion, el tocadiscos y las gorras naranjas en la vitrina.</p></div>
+    <div class="cap side r" id="k3"><span class="mono">Side A · 33⅓</span><h2 class="blk">Siempre hay <span>algo girando.</span></h2><p>Discos volando, el brazo baja y la aguja entra en el surco.</p></div>
     <div class="cap side l" id="k4"><span class="mono">On air</span><h2 class="blk">La cabina <span>en vivo.</span></h2><p>Parlantes, tocadiscos y la camiseta colgada. Lo que suena aquí sale al aire.</p></div>
   </div>
 </section>
@@ -295,7 +295,7 @@ footer .blk{color:var(--paper);font-size:22px}
   for (const st of [8, 4, 2, 1]) for (let i = 0; i < NG; i += st) if (!gen[i]) loadGen(i);
   const nearG = i => { for (let d = 0; d < NG; d++) { if (gen[i - d]) return gen[i - d]; if (gen[i + d]) return gen[i + d]; } return null; };
   function frameAt(p) {
-    if (p < V0) return Math.round(ramp(p, .02, V0) * 299);
+    if (p < V0) return Math.round(ramp(p, .02, V0) * 275);   // street → door → records wall (the Invasion wall is left out)
     return 318 + Math.round(ramp(p, V1 + .01, .98) * (NF - 1 - 318));
   }
   function cover(im, fxp, fyp, z) {
@@ -305,11 +305,11 @@ footer .blk{color:var(--paper);font-size:22px}
     return { ox, oy, s: s * iw / 1080 };
   }
   function vinyl(p) {
-    const im = nearG(Math.round(ramp(p, V0 + .01, .84) * (NG - 1)));
+    const im = nearG(Math.round(ramp(p, V0, .84) * (NG - 1)));
     if (!im) return false;
     // the video ends close on the record; keep pushing in until it's all black vinyl
     const z = 1 + 1.4 * Math.pow(ramp(p, .82, .865), 1.5);
-    cover(im, .5, .62, z);
+    cover(im, .5, lerp(.4, .62, ramp(p, .77, .81)), z);   // records flying above first, then down to the turntable
     const into = 1 - ramp(p, V0, V0 + .012);   // short dissolve from the turntable shot
     if (into > 0) { cx.fillStyle = `rgba(0,0,0,${into * .6})`; cx.fillRect(0, 0, W, H); }
     cx.fillStyle = `rgba(0,0,0,${ramp(p, .835, .865)})`; cx.fillRect(0, 0, W, H);
@@ -346,7 +346,7 @@ footer .blk{color:var(--paper);font-size:22px}
     k0.style.opacity = 1 - ramp(p, .18, .24);
     k0.style.transform = `translateY(${-ramp(p, .18, .24) * 50}px)`;
     const mob = innerWidth <= 700;
-    [[k1, .27, .3, .38, .41], [k2, .45, .48, .62, .66], [k3, .68, .71, .78, .81], [k4, .9, .93, 1.1, 1.2]].forEach(([el, a, b, c, d]) => {
+    [[k1, .27, .3, .38, .41], [k2, .45, .48, .62, .66], [k3, .76, .79, .82, .84], [k4, .9, .93, 1.1, 1.2]].forEach(([el, a, b, c, d]) => {
       const v = inout(p, a, b, c, d);
       el.style.opacity = v;
       el.style.transform = (mob ? '' : 'translateY(-50%) ') + `translateY(${(1 - v) * 30}px)`;
