@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mad Radio · The Art of Listening</title>
+<meta name="description" content="Mad Radio Medellín: bar, radio, disquería y galería en Provenza. The art of listening, vinyl sounds.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0e0e0e;--paper:#efebe3;--or:#ff5a1f;--or2:#ff8a3d;--mut:#8b857b;--line:rgba(14,14,14,.14)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ink)}
+body{background:var(--paper);color:var(--ink);font:400 17px/1.6 Archivo,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,4vw,44px)}
+.blk{font-family:"Archivo Black",Impact,sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:-.02em;line-height:.88}
+.mono{font-family:"JetBrains Mono",monospace;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;font:700 14px "JetBrains Mono";letter-spacing:.1em;text-transform:uppercase;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.o{background:var(--or);color:var(--ink)}
+.btn.k{background:var(--ink);color:var(--paper)}
+.btn.l{box-shadow:inset 0 0 0 2px currentColor}
+.btn:focus-visible,.tab:focus-visible{outline:2px solid var(--or);outline-offset:3px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--or);box-shadow:0 0 0 0 rgba(255,90,31,.7);animation:pulse 1.6s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(255,90,31,0)}100%{box-shadow:0 0 0 0 rgba(255,90,31,0)}}
+
+nav{position:fixed;inset:0 0 auto;z-index:30;padding:14px 0;color:#fff;transition:background .3s,color .3s}
+nav.solid{background:var(--paper);color:var(--ink);border-bottom:2px solid var(--ink)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font:400 22px "Archivo Black";letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.logo svg{width:30px;height:30px}
+.air{display:flex;align-items:center;gap:8px}
+.links{display:flex;gap:26px}
+.links a:hover{color:var(--or)}
+@media(max-width:860px){.links{display:none}}
+@media(max-width:480px){.air .mono span{display:none}}
+
+/* walking up from the street */
+#calle{height:900vh;position:relative;background:var(--ink)}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+#cv{position:absolute;inset:0;width:100%;height:100%}
+.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45),transparent 22%,transparent 55%,rgba(0,0,0,.7));pointer-events:none}
+.cap{position:absolute;opacity:0;pointer-events:none;color:#fff;will-change:opacity,transform}
+#k0{left:clamp(16px,4vw,56px);right:clamp(16px,4vw,56px);bottom:clamp(40px,8vh,90px)}
+#k0 .blk{font-size:clamp(78px,15vw,240px);mix-blend-mode:normal}
+#k0 .blk span{color:var(--or)}
+#k0 .row{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-top:14px}
+#k0 p{font:500 clamp(17px,1.6vw,22px) Archivo;max-width:30ch}
+.side{top:50%;transform:translateY(-50%);width:min(44vw,560px)}
+.side.l{left:clamp(16px,5vw,80px)}
+.side.r{right:clamp(16px,5vw,80px)}
+.side .blk{font-size:clamp(46px,6.2vw,96px)}
+.side .blk span{color:var(--or)}
+.side p{margin-top:16px;font-size:clamp(16px,1.4vw,19px);color:#eee;max-width:34ch}
+.side .mono{color:var(--or2);display:block;margin-bottom:14px}
+.dial{position:absolute;left:0;right:0;top:74px;display:flex;justify-content:center;pointer-events:none;z-index:2}
+.dial div{display:flex;align-items:center;gap:12px;padding:8px 14px;border-radius:999px;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff}
+.dial svg{width:120px;height:18px}
+@media(max-width:700px){.side{left:16px!important;right:16px!important;width:auto;top:auto;bottom:60px;transform:none}.dial{top:66px}}
+
+/* vinyl */
+#disco{background:var(--paper);padding:clamp(80px,13vh,140px) 0;overflow:hidden}
+.vin{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,80px);align-items:center}
+.record{position:relative;aspect-ratio:1;max-width:560px;width:100%;margin:0 auto}
+.record svg{width:100%;height:100%;display:block;will-change:transform}
+.tone{position:absolute;right:-6%;top:-4%;width:46%;transform-origin:85% 10%;transition:transform .8s cubic-bezier(.2,.7,.1,1)}
+.vin h2{font-size:clamp(52px,7vw,110px)}
+.vin h2 span{color:var(--or)}
+.vin p.l{color:#4a463f;font-size:clamp(17px,1.5vw,20px);margin-top:18px;max-width:42ch}
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:28px}
+.pillars div{border:2px solid var(--ink);padding:14px 16px}
+.pillars b{display:block;font:400 22px "Archivo Black";text-transform:uppercase}
+.pillars span{font-size:14.5px;color:#4a463f}
+@media(max-width:860px){.vin{grid-template-columns:1fr}}
+
+/* store */
+#tienda{background:var(--ink);color:var(--paper);padding:clamp(80px,13vh,140px) 0}
+.th{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.th h2{font-size:clamp(52px,7.4vw,120px)}
+.th h2 span{color:var(--or)}
+.th p{max-width:36ch;color:#bdb6aa}
+.mosaic{display:grid;grid-template-columns:1.1fr .9fr .9fr;grid-template-rows:1fr 1fr;gap:12px;margin-top:44px;height:min(86vh,820px)}
+.tile{position:relative;overflow:hidden;background:#1a1a1a}
+.tile:first-child{grid-row:span 2}
+.tile video,.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.1,1)}
+.tile:hover img,.tile:hover video{transform:scale(1.05)}
+.tile .cap2{position:absolute;left:12px;bottom:12px;background:var(--paper);color:var(--ink);padding:6px 10px}
+@media(max-width:860px){.mosaic{grid-template-columns:1fr 1fr;grid-template-rows:auto;height:auto}.tile{aspect-ratio:3/4}.tile:first-child{grid-column:span 2;grid-row:auto;aspect-ratio:4/5}}
+
+/* cities band */
+.band{background:var(--or);color:var(--ink);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);overflow:hidden;white-space:nowrap;padding:16px 0}
+.band div{display:inline-block;animation:mq 30s linear infinite}
+.band span{font:400 clamp(30px,4vw,56px)/1 "Archivo Black";text-transform:uppercase;margin:0 22px}
+.band i{font-style:normal;font:400 clamp(20px,2.4vw,32px) "JetBrains Mono";vertical-align:middle}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* booth */
+#cabina{position:relative;min-height:100vh;display:grid;align-items:end;overflow:hidden;background:var(--ink);color:#fff}
+#cabina video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#cabina::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.75))}
+#cabina .wrap{position:relative;z-index:2;padding-bottom:clamp(50px,10vh,100px)}
+#cabina h2{font-size:clamp(56px,9vw,150px)}
+#cabina h2 span{color:var(--or)}
+#cabina p{margin-top:16px;max-width:40ch;font-size:clamp(17px,1.5vw,20px);color:#e9e4da}
+.eq{display:flex;gap:4px;align-items:flex-end;height:40px;margin-bottom:18px}
+.eq i{width:8px;background:var(--or);animation:eq 1s ease-in-out infinite;transform-origin:bottom}
+@keyframes eq{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+
+/* visit */
+#visita{padding:clamp(80px,13vh,140px) 0}
+.visit{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,5vw,70px);align-items:center}
+.visit h2{font-size:clamp(52px,7vw,110px)}
+.visit h2 span{color:var(--or)}
+.addr{font:400 clamp(26px,2.8vw,38px)/1.05 "Archivo Black";text-transform:uppercase;margin-top:20px}
+.visit p.l{color:#4a463f;margin-top:10px}
+.visit .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.map{border:2px solid var(--ink);aspect-ratio:4/3;background:#ddd6c8;box-shadow:12px 12px 0 var(--or)}
+.map iframe{width:100%;height:100%;border:0;display:block;filter:grayscale(.6) contrast(1.05)}
+@media(max-width:860px){.visit{grid-template-columns:1fr}}
+footer{background:var(--ink);color:#bdb6aa;padding:26px 0;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+footer .blk{color:var(--paper);font-size:22px}
+@media(prefers-reduced-motion:reduce){.band div,.eq i,.dot{animation:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="rec" viewBox="0 0 100 100"><circle cx="50" cy="50" r="49" fill="#111"/><g fill="none" stroke="#2a2a2a" stroke-width=".6"><circle cx="50" cy="50" r="44"/><circle cx="50" cy="50" r="40"/><circle cx="50" cy="50" r="36"/><circle cx="50" cy="50" r="32"/><circle cx="50" cy="50" r="28"/><circle cx="50" cy="50" r="24"/></g><path d="M50 3a47 47 0 0 1 40 22" stroke="rgba(255,255,255,.12)" stroke-width="8" fill="none"/><circle cx="50" cy="50" r="17" fill="#ff5a1f"/><circle cx="50" cy="50" r="1.8" fill="#efebe3"/></symbol></svg>
+
+<nav id="nav"><div class="wrap">
+  <a class="logo" href="#"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#rec"/></svg>MAD RADIO</a>
+  <div class="links mono"><a href="#disco">La casa</a><a href="#tienda">Records store</a><a href="#visita">Visítanos</a></div>
+  <div class="air"><i class="dot" aria-hidden="true"></i><span class="mono">On air <span>24/7</span></span></div>
+</div></nav>
+
+<section id="calle" aria-label="Llegando a Mad Radio">
+  <div class="stage">
+    <canvas id="cv" role="img" aria-label="Fachada de madera de Mad Radio con el letrero The Art of Listening, Vinyl Sounds; la cámara cruza la calle y entra por el pasillo"></canvas>
+    <div class="shade"></div>
+    <div class="dial" aria-hidden="true"><div><i class="dot"></i><span class="mono" id="sig">Sintonizando</span><svg viewBox="0 0 120 18"><g stroke="#fff" stroke-width="1" opacity=".6"><path d="M2 4v10M12 7v4M22 4v10M32 7v4M42 4v10M52 7v4M62 4v10M72 7v4M82 4v10M92 7v4M102 4v10M112 7v4"/></g><rect id="needle" x="2" y="1" width="2.4" height="16" fill="#ff5a1f"/></svg></div></div>
+    <div class="cap" id="k0"><h1 class="blk">Mad<br><span>Radio</span></h1><div class="row"><p>The art of listening. Vinyl sounds.</p><span class="mono">Bar · Radio · Records · Galería</span></div></div>
+    <div class="cap side r" id="k1"><span class="mono">Provenza · Medellín</span><h2 class="blk">Una casa <span>que suena.</span></h2><p>Una fachada de madera, una camiseta en la vitrina y música saliendo hasta la calle. Ya llegaste.</p></div>
+    <div class="cap side l" id="k2"><span class="mono">Merch, records &amp; hot stuff</span><h2 class="blk">Mad Records <span>Store.</span></h2><p>Vinilos en la pared de ladrillo y un hueco redondo con un micrófono que dice LO-FI.</p></div>
+    <div class="cap side r" id="k3"><span class="mono">Side A · 33⅓</span><h2 class="blk">Siempre hay <span>algo girando.</span></h2><p>El afiche Invasion, el tocadiscos y las gorras naranjas en la vitrina.</p></div>
+    <div class="cap side l" id="k4"><span class="mono">On air</span><h2 class="blk">La cabina <span>en vivo.</span></h2><p>Parlantes, tocadiscos y la camiseta colgada. Lo que suena aquí sale al aire.</p></div>
+  </div>
+</section>
+
+<section id="disco"><div class="wrap vin">
+  <div class="record" id="record">
+    <svg viewBox="0 0 100 100" aria-hidden="true" id="spin"><use href="#rec"/><text x="50" y="47.5" text-anchor="middle" font-family="Archivo Black" font-size="5.2" fill="#111">MAD</text><text x="50" y="55" text-anchor="middle" font-family="JetBrains Mono" font-size="3" fill="#111">SIDE A · 33⅓</text></svg>
+    <svg class="tone" id="tone" viewBox="0 0 60 100" aria-hidden="true"><circle cx="50" cy="10" r="8" fill="#cfc8bb" stroke="#111" stroke-width="2"/><path d="M50 10 L44 70 L30 88" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round"/><rect x="22" y="84" width="14" height="8" rx="1.5" fill="#ff5a1f" stroke="#111" stroke-width="1.5" transform="rotate(-30 29 88)"/></svg>
+  </div>
+  <div>
+    <p class="mono" style="color:var(--or)">Desde 2017</p>
+    <h2 class="blk">No es un bar. <span>Es una frecuencia.</span></h2>
+    <p class="l">Mad Radio nació en Medellín como bar, emisora y disquería al mismo tiempo. Los DJs tocan en vivo, la radio transmite todo el día y los discos se pueden llevar a la casa.</p>
+    <div class="pillars">
+      <div><b>Bar</b><span>Tragos con la música bien alta y bien puesta.</span></div>
+      <div><b>Radio</b><span>Sets en vivo transmitidos en línea, 24/7.</span></div>
+      <div><b>Records</b><span>Vinilos, merch y cosas raras.</span></div>
+      <div><b>Galería</b><span>Arte en las paredes, como el afiche Invasion.</span></div>
+    </div>
+  </div>
+</div></section>
+
+<div class="band" aria-hidden="true"><div>
+  <span>Medellín</span><i>●</i><span>Bogotá</span><i>●</i><span>Miami</span><i>●</i><span>New York</span><i>●</i><span>Barcelona</span><i>●</i>
+  <span>Medellín</span><i>●</i><span>Bogotá</span><i>●</i><span>Miami</span><i>●</i><span>New York</span><i>●</i><span>Barcelona</span><i>●</i>
+</div></div>
+
+<section id="tienda"><div class="wrap">
+  <div class="th">
+    <h2 class="blk">Mad Records <span>Store</span></h2>
+    <p>Merch, records &amp; hot stuff. Discos en la pared de ladrillo, gorras naranjas en la vitrina y un tocadiscos que nunca para.</p>
+  </div>
+  <div class="mosaic">
+    <div class="tile"><video src="img/discos.mp4" poster="img/discos.jpg" muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video><span class="cap2 mono">Las paredes</span></div>
+    <div class="tile"><img src="img/store.jpg" alt="Letrero iluminado Mad Records Store sobre un hueco redondo en la pared de ladrillo" loading="lazy"><span class="cap2 mono">La tienda</span></div>
+    <div class="tile"><video src="img/invasion.mp4" poster="img/invasion.jpg" muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video><span class="cap2 mono">Invasion</span></div>
+    <div class="tile"><img src="img/wall.jpg" alt="Repisas con vinilos de soul y disco sobre ladrillo" loading="lazy"><span class="cap2 mono">Vinilos</span></div>
+    <div class="tile"><img src="img/merch.jpg" alt="Gorras naranjas y negras de Mad Radio en una vitrina" loading="lazy"><span class="cap2 mono">Merch</span></div>
+  </div>
+</div></section>
+
+
+
+<section id="visita"><div class="wrap visit">
+  <div>
+    <p class="mono" style="color:var(--or)">Visítanos</p>
+    <h2 class="blk">Subile <span>el volumen.</span></h2>
+    <p class="addr">Provenza<br>El Poblado, Medellín</p>
+    <p class="l">Buscá la fachada de madera con el letrero "The Art of Listening".</p>
+    <div class="row">
+      <a class="btn o" href="https://www.google.com/maps/search/?api=1&query=Mad+Radio+Medell%C3%ADn" target="_blank" rel="noopener">Cómo llegar</a>
+      <a class="btn l" href="#tienda">Records store</a>
+    </div>
+  </div>
+  <div class="map"><iframe title="Mapa: Mad Radio Medellín" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Mad+Radio+Medell%C3%ADn&output=embed"></iframe></div>
+</div></section>
+
+<footer><div class="wrap"><span class="blk">Mad Radio</span><span class="mono">The art of listening · Vinyl sounds</span></div></footer>
+
+<script>
+(() => {
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const ramp = (p, a, b) => clamp((p - a) / (b - a));
+  const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const inout = (p, a, b, c, d) => Math.min(ramp(p, a, b), 1 - ramp(p, c, d));
+  const lerp = (a, b, t) => a + (b - a) * t;
+
+  const NF = 252, frames = new Array(NF), order = [];
+  for (const st of [8, 4, 2, 1]) for (let i = 0; i < NF; i += st) if (!order.includes(i)) order.push(i);
+  order.splice(1, 0, NF - 1);
+  let li = 0, need = true;
+  function next() {
+    if (li >= order.length) return;
+    const i = order[li++], im = new Image();
+    im.onload = () => { frames[i] = im; need = true; next(); };
+    im.onerror = next;
+    im.src = 'f2/' + String(i + 1).padStart(3, '0') + '.webp';
+  }
+  for (let k = 0; k < 4; k++) next();
+  const near = i => { for (let d = 0; d < NF; d++) { if (frames[i - d]) return frames[i - d]; if (frames[i + d]) return frames[i + d]; } return null; };
+
+  const cv = document.getElementById('cv'), cx = cv.getContext('2d');
+  const tiny = document.createElement('canvas'); tiny.width = 27; tiny.height = 48; const tx = tiny.getContext('2d');
+  const fg = document.createElement('canvas'), fx = fg.getContext('2d');
+  let W, H, DPR;
+  function size() { DPR = Math.min(2, devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * DPR; cv.height = H * DPR; need = true; }
+  size(); addEventListener('resize', size);
+
+  // wide screens: full frame for the title, then the video takes the half away from the text
+  const KEYS = [[0, .5, 1], [.07, .5, 1], [.12, .25, .5], [.27, .25, .5], [.31, .75, .5], [.67, .75, .5], [.71, .25, .5], [.83, .25, .5], [.87, .75, .5], [1, .75, .5]];
+  function layout(p) {
+    for (let i = 1; i < KEYS.length; i++) if (p <= KEYS[i][0]) {
+      const [p0, c0, w0] = KEYS[i - 1], [p1, c1, w1] = KEYS[i], t = ease(ramp(p, p0, p1));
+      return { c: lerp(c0, c1, t), w: lerp(w0, w1, t) };
+    }
+    return { c: .75, w: .5 };
+  }
+  function paint(p) {
+    const im = near(Math.round(ramp(p, .02, .96) * (NF - 1)));
+    if (!im) return;
+    const iw = im.naturalWidth, ih = im.naturalHeight;
+    cx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high';
+    if (W / H < .8) {
+      const s = Math.max(W / iw, H / ih), dw = iw * s, dh = ih * s;
+      cx.drawImage(im, (W - dw) / 2, (H - dh) / 2, dw, dh);
+      return;
+    }
+    const L = layout(p);
+    tx.drawImage(im, 0, 0, 27, 48);
+    const bs = Math.max(W / iw, H / ih) * 1.1;
+    cx.drawImage(tiny, (W - iw * bs) / 2, (H - ih * bs) / 2, iw * bs, ih * bs);
+    cx.fillStyle = 'rgba(0,0,0,.4)'; cx.fillRect(0, 0, W, H);
+    const pw = Math.max(H / ih * iw, L.w * W), x0 = L.c * W - pw / 2;
+    const s = Math.max(pw / iw, H / ih), dw = iw * s, dh = ih * s;
+    // keep the shopfront sign in view while it's a wide crop
+    const ay = lerp(.32, .5, ramp(p, .12, .26));
+    if (fg.width !== cv.width || fg.height !== cv.height) { fg.width = cv.width; fg.height = cv.height; }
+    fx.setTransform(DPR, 0, 0, DPR, 0, 0); fx.globalCompositeOperation = 'source-over'; fx.clearRect(0, 0, W, H);
+    fx.imageSmoothingEnabled = true; fx.imageSmoothingQuality = 'high';
+    fx.save(); fx.beginPath(); fx.rect(x0, 0, pw, H); fx.clip();
+    fx.drawImage(im, x0 + pw / 2 - dw / 2, clamp(H / 2 - dh * ay, H - dh, 0), dw, dh); fx.restore();
+    const e = Math.min(160, pw * .2);
+    const fl = x0 > 1 ? e / pw : 0, fr = x0 + pw < W - 1 ? e / pw : 0;
+    if (fl || fr) {
+      const g = fx.createLinearGradient(x0, 0, x0 + pw, 0);
+      g.addColorStop(0, fl ? 'rgba(0,0,0,0)' : '#000'); g.addColorStop(fl, '#000');
+      g.addColorStop(1 - fr, '#000'); g.addColorStop(1, fr ? 'rgba(0,0,0,0)' : '#000');
+      fx.globalCompositeOperation = 'destination-in'; fx.fillStyle = g; fx.fillRect(0, 0, W, H);
+    }
+    cx.setTransform(1, 0, 0, 1, 0, 0); cx.drawImage(fg, 0, 0);
+  }
+
+  const calle = document.getElementById('calle'), nav = document.getElementById('nav');
+  const k0 = document.getElementById('k0'), [k1, k2, k3, k4] = ['k1', 'k2', 'k3', 'k4'].map(id => document.getElementById(id));
+  const needle = document.getElementById('needle'), sig = document.getElementById('sig');
+  const spin = document.getElementById('spin'), tone = document.getElementById('tone'), disco = document.getElementById('disco');
+  let last = -1, ang = 0, lastY = scrollY;
+  function frame() {
+    const r = calle.getBoundingClientRect();
+    const p = RM ? .3 : clamp(-r.top / (r.height - innerHeight));
+    if (need || p !== last) { paint(p); need = false; last = p; }
+    k0.style.opacity = 1 - ramp(p, .05, .1);
+    k0.style.transform = `translateY(${-ramp(p, .05, .1) * 50}px)`;
+    const mob = innerWidth <= 700;
+    [[k1, .13, .16, .24, .27], [k2, .33, .37, .62, .66], [k3, .72, .75, .8, .83], [k4, .88, .91, 1.1, 1.2]].forEach(([el, a, b, c, d]) => {
+      const v = inout(p, a, b, c, d);
+      el.style.opacity = v;
+      el.style.transform = (mob ? '' : 'translateY(-50%) ') + `translateY(${(1 - v) * 30}px)`;
+    });
+    // the tuning dial finds the station as you walk in
+    needle.setAttribute('x', 2 + ramp(p, 0, .3) * 108);
+    sig.textContent = p < .3 ? 'Sintonizando…' : 'Mad Radio · en vivo';
+    nav.classList.toggle('solid', r.bottom < 70);
+    // the record spins with scrolling, the arm drops when it reaches the middle
+    const dy = scrollY - lastY; lastY = scrollY;
+    const b = disco.getBoundingClientRect();
+    if (b.bottom > 0 && b.top < innerHeight) {
+      ang += (RM ? 0 : .6) + dy * .35;
+      spin.style.transform = `rotate(${ang}deg)`;
+      tone.style.transform = `rotate(${b.top < innerHeight * .55 ? 18 : -8}deg)`;
+    }
+    requestAnimationFrame(frame);
+  }
+  k0.style.opacity = 1;
+  requestAnimationFrame(frame);
+  document.querySelectorAll('video').forEach(v => { if (RM) { v.removeAttribute('autoplay'); v.pause(); } });
+})();
+</script>
+</body>
+</html>
