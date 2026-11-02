@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Susurro · Medellín</title>
+<meta name="description" content="Susurro, Medellín: una puerta blanca en el número 10-31, un patio de luz y baldosa, y una mesa larga tras la cortina.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1d1a17;--wall:#f2efe9;--rust:#a6402e;--mut:#7a726a;--line:rgba(29,26,23,.15)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--wall)}
+body{background:var(--wall);color:var(--ink);font:300 17px/1.7 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,44px)}
+.serif{font-family:Fraunces,Georgia,serif;font-weight:300}
+.sc{font:500 12px Inter;letter-spacing:.42em;text-transform:uppercase}
+nav{position:fixed;inset:0 0 auto;z-index:20;padding:18px 0;color:#fff;transition:background .4s,color .4s}
+nav.solid{background:rgba(242,239,233,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--ink);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center}
+.logo{font:500 15px Inter;letter-spacing:.5em;color:inherit}
+nav.solid .logo{color:var(--rust)}
+.links{display:flex;gap:28px}
+.links a{font:500 12px Inter;letter-spacing:.24em;text-transform:uppercase;opacity:.85}
+@media(max-width:700px){.links{display:none}}
+
+#film{height:700vh;position:relative;background:var(--ink)}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+#cv{position:absolute;inset:0;width:100%;height:100%}
+.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 25%,transparent 55%,rgba(0,0,0,.55));pointer-events:none}
+.cap{position:absolute;left:0;right:0;text-align:center;color:#fff;opacity:0;pointer-events:none;padding:0 16px;text-shadow:0 2px 30px rgba(0,0,0,.45);will-change:opacity,transform}
+#k0{bottom:clamp(60px,12vh,130px)}
+#k0 h1{font:300 clamp(64px,12vw,190px)/.9 Fraunces,serif;letter-spacing:.06em}
+#k0 p{margin-top:14px}
+.mid{top:50%}
+.mid::before{content:"";position:absolute;left:50%;top:50%;width:min(900px,140vw);height:150%;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(15,12,10,.6),rgba(15,12,10,.3) 60%,transparent);z-index:-1}
+.mid h2{font:300 clamp(40px,6vw,92px)/1.02 Fraunces,serif}
+.mid h2 i{font-style:italic}
+.mid p{margin:16px auto 0;max-width:36ch;font-size:clamp(16px,1.4vw,19px)}
+.hint{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);color:#fff;display:flex;flex-direction:column;align-items:center;gap:8px}
+.hint i{width:1px;height:38px;background:linear-gradient(#fff,transparent);animation:d 1.8s infinite}
+@keyframes d{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+section.s{padding:clamp(90px,14vh,150px) 0}
+.intro{text-align:center}
+.intro h2{font:300 clamp(40px,5.4vw,78px)/1.06 Fraunces,serif;max-width:18ch;margin:20px auto 0}
+.intro h2 i{color:var(--rust)}
+.intro p{color:var(--mut);max-width:52ch;margin:24px auto 0;font-size:clamp(16px,1.4vw,19px)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,60px);margin-top:70px;align-items:end}
+.pair figure{position:relative;overflow:hidden}
+.pair img{width:100%;display:block;aspect-ratio:4/5;object-fit:cover}
+.pair figure:last-child{margin-bottom:-60px}
+.pair figcaption{margin-top:12px;color:var(--mut);font-size:14px}
+@media(max-width:760px){.pair{grid-template-columns:1fr}.pair figure:last-child{margin-bottom:0}}
+.visit{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,70px);align-items:center;border-top:1px solid var(--line);padding-top:clamp(60px,10vh,110px)}
+.visit h2{font:300 clamp(44px,6vw,90px)/1 Fraunces,serif}
+.visit h2 i{color:var(--rust)}
+.num{font:300 clamp(70px,10vw,150px)/1 Fraunces,serif;color:var(--rust)}
+.visit p{color:var(--mut);margin-top:14px}
+.btn{display:inline-block;margin-top:26px;padding:14px 24px;border:1px solid var(--ink);font:500 12px Inter;letter-spacing:.28em;text-transform:uppercase;transition:background .3s,color .3s}
+.btn:hover{background:var(--ink);color:var(--wall)}
+.btn:focus-visible{outline:2px solid var(--rust);outline-offset:3px}
+@media(max-width:760px){.visit{grid-template-columns:1fr}}
+footer{padding:30px 0;border-top:1px solid var(--line);color:var(--mut);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+footer b{font-weight:500;letter-spacing:.5em;color:var(--rust)}
+@media(prefers-reduced-motion:reduce){.hint i{animation:none}}
+</style>
+</head>
+<body>
+<nav id="nav"><div class="wrap">
+  <a class="logo" href="#">SUSURRO</a>
+  <div class="links"><a href="#casa">La casa</a><a href="#visita">Visítanos</a></div>
+</div></nav>
+
+<section id="film" aria-label="Entrando a Susurro">
+  <div class="stage">
+    <canvas id="cv" role="img" aria-label="La fachada blanca de Susurro con el número 10-31, la puerta de reja, el patio de baldosa amarilla y vino tinto, y el comedor con cortinas y una mesa larga de madera"></canvas>
+    <div class="shade"></div>
+    <div class="cap" id="k0"><h1>Susurro</h1><p class="sc">Medellín · 10-31</p></div>
+    <div class="cap mid" id="k1"><h2>Una puerta blanca.<br><i>Nada más.</i></h2><p>Sin letrero grande, sin luces. Solo el nombre, en rojo, sobre la pared.</p></div>
+    <div class="cap mid" id="k2"><h2>Adentro, <i>la luz</i><br>cae del techo.</h2><p>Un patio alto, baldosa de dos colores y la barra al fondo.</p></div>
+    <div class="cap mid" id="k3"><h2>Y detrás de la cortina,<br><i>la mesa.</i></h2><p>Madera larga, botellas en lo alto y la ventana abierta a la calle.</p></div>
+    <div class="hint" id="hint"><span class="sc" style="font-size:11px">Entrá</span><i></i></div>
+  </div>
+</section>
+
+<section class="s" id="casa"><div class="wrap intro">
+  <p class="sc" style="color:var(--rust)">La casa</p>
+  <h2>Un lugar para hablar <i>en voz baja.</i></h2>
+  <p>Una casa vieja de Medellín, pintada de blanco por fuera y llena de luz por dentro. Se entra por una reja, se cruza un patio y se llega a la mesa.</p>
+  <div class="pair">
+    <figure><img src="img/patio.jpg" alt="Patio de doble altura con baldosa amarilla y vino tinto, sillas de madera y una barra" loading="lazy"><figcaption>El patio</figcaption></figure>
+    <figure><img src="img/mesa.jpg" alt="Comedor con cortinas cafés, mesa larga de madera y botellas en una repisa alta" loading="lazy"><figcaption>El comedor</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="s" id="visita"><div class="wrap visit">
+  <div>
+    <p class="sc" style="color:var(--rust)">Visítanos</p>
+    <h2>Buscá la <i>puerta blanca.</i></h2>
+    <p>Medellín. El nombre está escrito en rojo sobre la entrada.</p>
+    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Susurro+Medell%C3%ADn" target="_blank" rel="noopener">Cómo llegar</a>
+  </div>
+  <div style="text-align:right"><div class="num">10-31</div><p class="sc">El número en la puerta</p></div>
+</div></section>
+<footer><div class="wrap"><b>SUSURRO</b><span>Medellín</span></div></footer>
+
+<script>
+(() => {
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const ramp = (p, a, b) => clamp((p - a) / (b - a));
+  const inout = (p, a, b, c, d) => Math.min(ramp(p, a, b), 1 - ramp(p, c, d));
+  const SET = innerWidth > 820 ? 'hd/' : 'sd/';
+  const NF = 219, frames = new Array(NF), order = [];
+  for (const st of [8, 4, 2, 1]) for (let i = 0; i < NF; i += st) if (!order.includes(i)) order.push(i);
+  order.splice(1, 0, NF - 1);
+  let li = 0, need = true;
+  function next() {
+    if (li >= order.length) return;
+    const i = order[li++], im = new Image();
+    im.onload = () => { frames[i] = im; need = true; next(); };
+    im.onerror = next;
+    im.src = SET + String(i + 1).padStart(3, '0') + '.webp';
+  }
+  for (let k = 0; k < 4; k++) next();
+  const near = i => { for (let d = 0; d < NF; d++) { if (frames[i - d]) return frames[i - d]; if (frames[i + d]) return frames[i + d]; } return null; };
+  const cv = document.getElementById('cv'), cx = cv.getContext('2d');
+  let W, H, DPR;
+  function size() { DPR = Math.min(2, devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * DPR; cv.height = H * DPR; need = true; }
+  size(); addEventListener('resize', size);
+  // the film fills the whole screen
+  function paint(p) {
+    const im = near(Math.round(ramp(p, .02, .97) * (NF - 1)));
+    if (!im) return;
+    const iw = im.naturalWidth, ih = im.naturalHeight, s = Math.max(W / iw, H / ih);
+    cx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high';
+    cx.drawImage(im, (W - iw * s) / 2, (H - ih * s) / 2, iw * s, ih * s);
+  }
+  const film = document.getElementById('film'), nav = document.getElementById('nav'), hint = document.getElementById('hint');
+  const k = ['k0', 'k1', 'k2', 'k3'].map(id => document.getElementById(id));
+  let last = -1;
+  function frame() {
+    const r = film.getBoundingClientRect();
+    const p = RM ? .5 : clamp(-r.top / (r.height - innerHeight));
+    if (need || p !== last) { paint(p); need = false; last = p; }
+    k[0].style.opacity = 1 - ramp(p, .06, .12);
+    [[k[1], .15, .19, .3, .35], [k[2], .5, .54, .64, .68], [k[3], .78, .82, 1.1, 1.2]].forEach(([el, a, b, c, d]) => {
+      const v = inout(p, a, b, c, d);
+      el.style.opacity = v; el.style.transform = `translateY(calc(-50% + ${(1 - v) * 24}px))`;
+    });
+    hint.style.opacity = 1 - ramp(p, 0, .04);
+    nav.classList.toggle('solid', r.bottom < 80);
+    requestAnimationFrame(frame);
+  }
+  k[0].style.opacity = 1;
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
