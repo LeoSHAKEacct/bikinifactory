@@ -212,6 +212,8 @@ footer .blk{color:var(--paper);font-size:22px}
   const inout = (p, a, b, c, d) => Math.min(ramp(p, a, b), 1 - ramp(p, c, d));
   const lerp = (a, b, t) => a + (b - a) * t;
 
+  // full-resolution frames for wide screens, lighter ones for phones
+  const SET = innerWidth > 820 ? 'hd/' : 'sd/';
   const NF = 252, frames = new Array(NF), order = [];
   for (const st of [8, 4, 2, 1]) for (let i = 0; i < NF; i += st) if (!order.includes(i)) order.push(i);
   order.splice(1, 0, NF - 1);
@@ -221,7 +223,7 @@ footer .blk{color:var(--paper);font-size:22px}
     const i = order[li++], im = new Image();
     im.onload = () => { frames[i] = im; need = true; next(); };
     im.onerror = next;
-    im.src = 'f2/' + String(i + 1).padStart(3, '0') + '.webp';
+    im.src = SET + String(i + 1).padStart(3, '0') + '.webp';
   }
   for (let k = 0; k < 4; k++) next();
   const near = i => { for (let d = 0; d < NF; d++) { if (frames[i - d]) return frames[i - d]; if (frames[i + d]) return frames[i + d]; } return null; };
