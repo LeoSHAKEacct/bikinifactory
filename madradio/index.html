@@ -41,7 +41,8 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px
 #calle{height:900vh;position:relative;background:var(--ink)}
 .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 #cv{position:absolute;inset:0;width:100%;height:100%}
-.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45),transparent 22%,transparent 55%,rgba(0,0,0,.7));pointer-events:none}
+.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.1) 22%,rgba(0,0,0,.15) 55%,rgba(0,0,0,.7));pointer-events:none}
+.cap{text-shadow:0 2px 30px rgba(0,0,0,.65),0 0 2px rgba(0,0,0,.4)}
 .cap{position:absolute;opacity:0;pointer-events:none;color:#fff;will-change:opacity,transform}
 #k0{left:clamp(16px,4vw,56px);right:clamp(16px,4vw,56px);bottom:clamp(40px,8vh,90px)}
 #k0 .blk{font-size:clamp(78px,15vw,240px);mix-blend-mode:normal}
@@ -233,14 +234,8 @@ footer .blk{color:var(--paper);font-size:22px}
   size(); addEventListener('resize', size);
 
   // wide screens: full frame for the title, then the video takes the half away from the text
-  const KEYS = [[0, .5, 1], [.07, .5, 1], [.12, .25, .5], [.27, .25, .5], [.31, .75, .5], [.67, .75, .5], [.71, .25, .5], [.83, .25, .5], [.87, .75, .5], [1, .75, .5]];
-  function layout(p) {
-    for (let i = 1; i < KEYS.length; i++) if (p <= KEYS[i][0]) {
-      const [p0, c0, w0] = KEYS[i - 1], [p1, c1, w1] = KEYS[i], t = ease(ramp(p, p0, p1));
-      return { c: lerp(c0, c1, t), w: lerp(w0, w1, t) };
-    }
-    return { c: .75, w: .5 };
-  }
+  // the film always fills the whole screen, sharp
+  function layout() { return { c: .5, w: 1 }; }
   function paint(p) {
     const im = near(Math.round(ramp(p, .02, .96) * (NF - 1)));
     if (!im) return;
