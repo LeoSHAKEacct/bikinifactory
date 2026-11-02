@@ -44,7 +44,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px
 body>section,body>.band,body>footer{position:relative;z-index:1}
 @media(max-width:700px){#bgv{left:-50vmin;width:150vmin;height:150vmin;margin-top:-75vmin}}
 /* walking up from the street */
-#calle{height:850vh;position:relative}
+#calle{height:1300vh;position:relative}
 .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 #cv{position:absolute;inset:0;width:100%;height:100%}
 .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.1) 22%,rgba(0,0,0,.15) 55%,rgba(0,0,0,.7));pointer-events:none}
@@ -133,6 +133,8 @@ footer .blk{color:var(--paper);font-size:22px}
 
 /* members */
 .right{display:flex;align-items:center;gap:16px}
+.snd{background:rgba(255,255,255,.12);color:inherit;border:1px solid currentColor;padding:8px 12px;cursor:pointer}
+.snd[aria-pressed=true]{background:var(--or);color:var(--ink);border-color:var(--or)}
 .mbtn{background:var(--or);color:var(--ink);border:0;padding:9px 14px;font-weight:600;cursor:pointer}
 .mbtn:focus-visible{outline:2px solid #fff;outline-offset:3px}
 #mm{position:fixed;inset:0;z-index:60;display:none;place-items:center;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:16px}
@@ -164,7 +166,7 @@ footer .blk{color:var(--paper);font-size:22px}
 <nav id="nav"><div class="wrap">
   <a class="logo" href="#"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#rec"/></svg>MAD RADIO</a>
   <div class="links mono"><a href="#disco">La casa</a><a href="#tienda">Records store</a><a href="#visita">Visítanos</a></div>
-  <div class="right"><div class="air"><i class="dot" aria-hidden="true"></i><span class="mono">On air <span>24/7</span></span></div><button class="mbtn mono" id="openM" type="button">Members</button></div>
+  <div class="right"><div class="air"><i class="dot" aria-hidden="true"></i><span class="mono">On air <span>24/7</span></span></div><button class="snd mono" id="snd" type="button" aria-pressed="false" title="Sonido de vinilo al hacer scroll">♪ Sonido</button><button class="mbtn mono" id="openM" type="button">Members</button></div>
 </div></nav>
 
 <section id="calle" aria-label="Llegando a Mad Radio">
@@ -274,9 +276,9 @@ footer .blk{color:var(--paper);font-size:22px}
   const lerp = (a, b, t) => a + (b - a) * t;
 
   // full-resolution frames for wide screens, lighter ones for phones
-  const SET = innerWidth > 820 ? 'v4/hd/' : 'v4/sd/';
-  const NF = 242, frames = new Array(NF), order = [];
-  for (const st of [8, 4, 2, 1]) for (let i = 0; i <= 208; i += st) if (!order.includes(i)) order.push(i);
+  const SET = innerWidth > 820 ? 'v5/hd/' : 'v5/sd/';
+  const NF = 350, frames = new Array(NF), order = [];
+  for (const st of [8, 4, 2, 1]) for (let i = 0; i < NF; i += st) if (!order.includes(i)) order.push(i);
   let li = 0, need = true;
   function next() {
     if (li >= order.length) return;
@@ -327,11 +329,11 @@ footer .blk{color:var(--paper);font-size:22px}
     cx.fillStyle = `rgba(0,0,0,${ramp(p, .745, .775)})`; cx.fillRect(0, 0, W, H);
     return true;
   }
-  // the street from across the road (frames 0-62), then the walk inside (63-208), nothing else
+  // the street from across the road (frames 0-62), then the whole walk inside (63-349), nothing else
   function paint(p) {
     cx.setTransform(DPR, 0, 0, DPR, 0, 0);
     cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high';
-    const i = p < .24 ? Math.round(ramp(p, .02, .24) * 62) : 63 + Math.round(ramp(p, .24, .98) * (208 - 63));
+    const i = p < .24 ? Math.round(ramp(p, .02, .24) * 62) : 63 + Math.round(ramp(p, .24, .99) * (NF - 1 - 63));
     const im = near(i);
     if (!im) return;
     if (p < .24) {
@@ -357,7 +359,7 @@ footer .blk{color:var(--paper);font-size:22px}
     k0.style.opacity = 1 - ramp(p, .1, .14);
     k0.style.transform = `translateY(${-ramp(p, .1, .14) * 50}px)`;
     const mob = innerWidth <= 700;
-    [[k1, .14, .17, .21, .23], [k2, .3, .35, .55, .6], [k3, 2, 2, 2, 2], [k4, .78, .83, 1.1, 1.2]].forEach(([el, a, b, c, d]) => {
+    [[k1, .14, .17, .21, .23], [k2, .3, .34, .5, .55], [k3, 2, 2, 2, 2], [k4, .86, .9, 1.1, 1.2]].forEach(([el, a, b, c, d]) => {
       const v = inout(p, a, b, c, d);
       el.style.opacity = v;
       el.style.transform = (mob ? '' : 'translateY(-50%) ') + `translateY(${(1 - v) * 30}px)`;
@@ -381,6 +383,45 @@ footer .blk{color:var(--paper);font-size:22px}
   requestAnimationFrame(frame);
   document.querySelectorAll('video').forEach(v => { if (RM) { v.removeAttribute('autoplay'); v.pause(); } });
 
+
+  // vinyl scratch: noise through a filter whose pitch follows the scroll speed;
+  // scrolling down sweeps it up, scrolling up sweeps it down. Browsers only allow
+  // sound after a click or key press, so it starts on the first one (or the ♪ button).
+  const sndBtn = document.getElementById('snd');
+  let ac = null, src, bp, gn, on = false, vel = 0, prevY = scrollY;
+  function startAudio() {
+    if (ac) return;
+    ac = new (window.AudioContext || window.webkitAudioContext)();
+    const len = ac.sampleRate * 2, buf = ac.createBuffer(1, len, ac.sampleRate), d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) {
+      const t = i / ac.sampleRate;
+      // groove hiss with a wobble, plus sparse crackle
+      d[i] = (Math.random() * 2 - 1) * (.55 + .45 * Math.sin(t * 2 * Math.PI * 9)) + (Math.random() < .0008 ? (Math.random() * 2 - 1) * 3 : 0);
+    }
+    src = ac.createBufferSource(); src.buffer = buf; src.loop = true;
+    bp = ac.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = 3.5; bp.frequency.value = 800;
+    gn = ac.createGain(); gn.gain.value = 0;
+    src.connect(bp); bp.connect(gn); gn.connect(ac.destination); src.start();
+  }
+  function setOn(v) {
+    on = v; sndBtn.setAttribute('aria-pressed', v);
+    if (v) { startAudio(); ac.resume(); } else if (gn) gn.gain.setTargetAtTime(0, ac.currentTime, .05);
+  }
+  sndBtn.onclick = () => setOn(!on);
+  const firstGesture = e => { if (e.target === sndBtn) return; if (!ac) setOn(true); removeEventListener('pointerdown', firstGesture); removeEventListener('keydown', firstGesture); };
+  addEventListener('pointerdown', firstGesture); addEventListener('keydown', firstGesture);
+  (function scratch() {
+    const dy = scrollY - prevY; prevY = scrollY;
+    vel = vel * .7 + dy * .3;
+    if (on && ac) {
+      const r = calle.getBoundingClientRect(), inHero = r.bottom > innerHeight * .3;
+      const sp = Math.min(1, Math.abs(vel) / 40), t = ac.currentTime;
+      gn.gain.setTargetAtTime(inHero ? sp * .55 : 0, t, .03);
+      bp.frequency.setTargetAtTime(vel >= 0 ? 600 + sp * 2600 : 900 - sp * 650, t, .02);
+      src.playbackRate.setTargetAtTime(vel >= 0 ? 1 + sp * 1.4 : .9 - sp * .55, t, .02);
+    }
+    requestAnimationFrame(scratch);
+  })();
   // members: a demo login, nothing leaves the page
   const mm = document.getElementById('mm'), mLogin = document.getElementById('mLogin'), mIn = document.getElementById('mIn');
   const openM = document.getElementById('openM');
