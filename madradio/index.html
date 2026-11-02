@@ -45,6 +45,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px
 .cap{text-shadow:0 2px 30px rgba(0,0,0,.65),0 0 2px rgba(0,0,0,.4)}
 .cap{position:absolute;opacity:0;pointer-events:none;color:#fff;will-change:opacity,transform}
 #k0{left:clamp(16px,4vw,56px);right:clamp(16px,4vw,56px);bottom:clamp(40px,8vh,90px)}
+@media(min-width:701px) and (min-aspect-ratio:4/5){#k0{right:auto;width:min(48vw,720px)}#k0 .blk{font-size:clamp(64px,8.2vw,150px)}}
 #k0 .blk{font-size:clamp(78px,15vw,240px);mix-blend-mode:normal}
 #k0 .blk span{color:var(--or)}
 #k0 .row{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-top:14px}
@@ -288,11 +289,11 @@ footer .blk{color:var(--paper);font-size:22px}
 
   // wide screens: full frame for the title, then the video takes the half away from the text
   // the film always fills the whole screen, sharp. Between the turntable and the booth
-  // the camera leaves the video, pushes into the spinning record and goes to black.
-  const still = new Image(); still.src = 'img/tocadiscos.webp'; still.onload = () => need = true;
-  const REC = { x: 712, y: 1271, rx: 145, ry: 50, label: 44 };   // the record in the still (1080x1920)
-  const V0 = .74, V1 = .87;                                        // the vinyl stretch of the scroll
-  let spinA = 0;
+  // it cuts to the record video, pushes all the way in and goes to black.
+  const V0 = .74, V1 = .87, NG = 73, gen = new Array(NG);
+  function loadGen(i) { const im = new Image(); im.onload = () => { gen[i] = im; need = true; }; im.src = 'v2/gen/' + String(i + 1).padStart(3, '0') + '.webp'; }
+  for (const st of [8, 4, 2, 1]) for (let i = 0; i < NG; i += st) if (!gen[i]) loadGen(i);
+  const nearG = i => { for (let d = 0; d < NG; d++) { if (gen[i - d]) return gen[i - d]; if (gen[i + d]) return gen[i + d]; } return null; };
   function frameAt(p) {
     if (p < V0) return Math.round(ramp(p, .02, V0) * 299);
     return 318 + Math.round(ramp(p, V1 + .01, .98) * (NF - 1 - 318));
@@ -304,49 +305,32 @@ footer .blk{color:var(--paper);font-size:22px}
     return { ox, oy, s: s * iw / 1080 };
   }
   function vinyl(p) {
-    // steady push in (even in log space), first onto the turning label, then off it into the grooves
-    const z = Math.exp(Math.log(70) * Math.pow(ramp(p, .75, .855), 1.25));
-    const kk = ease(ramp(p, V0, .78)), gg = ease(ramp(p, .8, .85));
-    const lx = REC.x / 1080, ly = REC.y / 1920, gx = (REC.x - REC.rx * .6) / 1080;
-    const g = cover(still, lerp(lerp(.5, lx, kk), gx, gg), lerp(.5, ly, kk), z);
-    const R = REC.rx * g.s, rx = g.ox + REC.x * g.s, ry = g.oy + REC.y * g.s;
-    cx.save(); cx.translate(rx, ry); cx.scale(1, REC.ry / REC.rx);
-    // up close the photo turns to mush, so real grooves take over
-    const a = ramp(z, 5, 16);
-    if (a > 0) {
-      cx.globalAlpha = a; cx.fillStyle = '#0c0c0c';
-      cx.beginPath(); cx.arc(0, 0, R * .985, 0, 6.2832); cx.fill();
-      cx.strokeStyle = 'rgba(255,255,255,.06)'; cx.lineWidth = Math.max(1, R / 500);
-      for (let r = R * .32; r < R * .98; r += R / 140) { cx.beginPath(); cx.arc(0, 0, r, 0, 6.2832); cx.stroke(); }
-      cx.globalAlpha = 1;
-    }
-    cx.rotate(spinA);
-    // light sweeping round the grooves, the way a playing record catches it
-    if (cx.createConicGradient) {
-      const cg = cx.createConicGradient(0, 0, 0);
-      [[0, 0], [.06, .16], [.12, 0], [.5, 0], [.56, .12], [.62, 0], [1, 0]].forEach(([o, v]) => cg.addColorStop(o, `rgba(255,240,225,${v})`));
-      cx.fillStyle = cg; cx.beginPath(); cx.arc(0, 0, R * .98, 0, 6.2832); cx.arc(0, 0, R * .31, 0, 6.2832, true); cx.fill();
-    }
-    // the orange label turning
-    const L = REC.label / REC.rx * R;
-    cx.fillStyle = '#e68a3e'; cx.beginPath(); cx.arc(0, 0, L, 0, 6.2832); cx.fill();
-    cx.fillStyle = 'rgba(90,30,0,.35)'; cx.beginPath(); cx.arc(0, 0, L * .62, 0, 6.2832); cx.fill();
-    cx.fillStyle = '#1a1a1a'; cx.font = `700 ${L * .22}px "Archivo Black", sans-serif`; cx.textAlign = 'center';
-    cx.fillText('MAD', 0, -L * .68 + L * .08);
-    cx.font = `${L * .1}px "JetBrains Mono", monospace`; cx.fillText('SIDE A · 33⅓', 0, L * .78);
-    cx.fillStyle = '#f2eee6'; cx.beginPath(); cx.arc(L * .45, 0, L * .05, 0, 6.2832); cx.fill();
-    cx.fillStyle = '#111'; cx.beginPath(); cx.arc(0, 0, L * .06, 0, 6.2832); cx.fill();
-    cx.restore();
+    const im = nearG(Math.round(ramp(p, V0 + .01, .84) * (NG - 1)));
+    if (!im) return false;
+    // the video ends close on the record; keep pushing in until it's all black vinyl
+    const z = 1 + 1.4 * Math.pow(ramp(p, .82, .865), 1.5);
+    cover(im, .5, .62, z);
+    const into = 1 - ramp(p, V0, V0 + .012);   // short dissolve from the turntable shot
+    if (into > 0) { cx.fillStyle = `rgba(0,0,0,${into * .6})`; cx.fillRect(0, 0, W, H); }
     cx.fillStyle = `rgba(0,0,0,${ramp(p, .835, .865)})`; cx.fillRect(0, 0, W, H);
+    return true;
   }
   function paint(p) {
     cx.setTransform(DPR, 0, 0, DPR, 0, 0);
     cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high';
-    if (p >= V0 && p < V1 && still.complete && still.naturalWidth) { vinyl(p); return; }
+    if (p >= V0 && p < V1 && vinyl(p)) return;
     const im = near(frameAt(p));
     if (!im) return;
-    const ay = W / H < .8 ? .5 : lerp(.36, .5, ramp(p, .3, .42));
-    cover(im, .5, ay, 1);
+    const ay = W / H < .8 ? .5 : lerp(.47, .5, ramp(p, .3, .42));
+    if (W / H >= .8 && p < .28) {
+      // opening on wide screens: the whole frame, the venue seen from across the street,
+      // standing on the right next to the title; then it grows to fill the screen
+      const iw = im.naturalWidth, ih = im.naturalHeight, t = ease(ramp(p, .19, .28));
+      const s = lerp(H / ih * .96, Math.max(W / iw, H / ih), t);
+      const cxp = lerp(W * .73, W / 2, t), cyp = lerp(H * .5, H / 2 - ih * s * (ay - .5), t);
+      cx.fillStyle = '#0e0e0e'; cx.fillRect(0, 0, W, H);
+      cx.drawImage(im, cxp - iw * s / 2, cyp - ih * s / 2, iw * s, ih * s);
+    } else cover(im, .5, ay, 1);
     if (p >= V1) { cx.fillStyle = `rgba(0,0,0,${1 - ramp(p, V1, .91)})`; cx.fillRect(0, 0, W, H); }
   }
 
@@ -358,8 +342,7 @@ footer .blk{color:var(--paper);font-size:22px}
   function frame() {
     const r = calle.getBoundingClientRect();
     const p = RM ? .3 : clamp(-r.top / (r.height - innerHeight));
-    const now = performance.now(); spinA += (now - (frame.t || now)) / 1000 * 3.49; frame.t = now;
-    if (need || p !== last || (p >= V0 && p < V1)) { paint(p); need = false; last = p; }
+    if (need || p !== last) { paint(p); need = false; last = p; }
     k0.style.opacity = 1 - ramp(p, .18, .24);
     k0.style.transform = `translateY(${-ramp(p, .18, .24) * 50}px)`;
     const mob = innerWidth <= 700;
