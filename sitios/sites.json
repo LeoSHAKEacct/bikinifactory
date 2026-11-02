@@ -1,9 +1,5 @@
 [
   {
-    "slug": "a",
-    "label": "Sitio A"
-  },
-  {
     "slug": "c",
     "label": "Sitio C",
     "owner": "d6dd0f2ce43b"
