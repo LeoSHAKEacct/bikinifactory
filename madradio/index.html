@@ -11,7 +11,7 @@
 :root{--ink:#0e0e0e;--paper:#efebe3;--or:#ff5a1f;--or2:#ff8a3d;--mut:#8b857b;--line:rgba(14,14,14,.14)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:var(--ink)}
-body{background:var(--paper);color:var(--ink);font:400 17px/1.6 Archivo,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
+body{background:transparent;color:var(--ink);font:400 17px/1.6 Archivo,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 .wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,4vw,44px)}
@@ -37,8 +37,14 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px
 @media(max-width:860px){.links{display:none}}
 @media(max-width:480px){.air .mono span{display:none}}
 
+
+/* a record behind the whole page; it turns with the scroll, backwards when you scroll up */
+#bgv{position:fixed;left:-34vmin;top:50%;width:118vmin;height:118vmin;margin-top:-59vmin;z-index:0;pointer-events:none;will-change:transform}
+#bgv svg{width:100%;height:100%;display:block}
+body>section,body>.band,body>footer{position:relative;z-index:1}
+@media(max-width:700px){#bgv{left:-50vmin;width:150vmin;height:150vmin;margin-top:-75vmin}}
 /* walking up from the street */
-#calle{height:1000vh;position:relative;background:var(--ink)}
+#calle{height:1000vh;position:relative}
 .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 #cv{position:absolute;inset:0;width:100%;height:100%}
 .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.1) 22%,rgba(0,0,0,.15) 55%,rgba(0,0,0,.7));pointer-events:none}
@@ -63,7 +69,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px
 @media(max-width:700px){.side{left:16px!important;right:16px!important;width:auto;top:auto;bottom:60px;transform:none}.dial{top:66px}}
 
 /* vinyl */
-#disco{background:var(--paper);padding:clamp(80px,13vh,140px) 0;overflow:hidden}
+#disco{background:rgba(239,235,227,.86);padding:clamp(80px,13vh,140px) 0;overflow:hidden}
 .vin{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,80px);align-items:center}
 .record{position:relative;aspect-ratio:1;max-width:560px;width:100%;margin:0 auto}
 .record svg{width:100%;height:100%;display:block;will-change:transform}
@@ -78,7 +84,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px
 @media(max-width:860px){.vin{grid-template-columns:1fr}}
 
 /* store */
-#tienda{background:var(--ink);color:var(--paper);padding:clamp(80px,13vh,140px) 0}
+#tienda{background:rgba(14,14,14,.8);color:var(--paper);padding:clamp(80px,13vh,140px) 0}
 .th{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
 .th h2{font-size:clamp(52px,7.4vw,120px)}
 .th h2 span{color:var(--or)}
@@ -111,7 +117,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px
 @keyframes eq{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
 
 /* visit */
-#visita{padding:clamp(80px,13vh,140px) 0}
+#visita{background:rgba(239,235,227,.86);padding:clamp(80px,13vh,140px) 0}
 .visit{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,5vw,70px);align-items:center}
 .visit h2{font-size:clamp(52px,7vw,110px)}
 .visit h2 span{color:var(--or)}
@@ -121,7 +127,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px
 .map{border:2px solid var(--ink);aspect-ratio:4/3;background:#ddd6c8;box-shadow:12px 12px 0 var(--or)}
 .map iframe{width:100%;height:100%;border:0;display:block;filter:grayscale(.6) contrast(1.05)}
 @media(max-width:860px){.visit{grid-template-columns:1fr}}
-footer{background:var(--ink);color:#bdb6aa;padding:26px 0;font-size:14px}
+footer{background:rgba(14,14,14,.85);color:#bdb6aa;padding:26px 0;font-size:14px}
 footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
 footer .blk{color:var(--paper);font-size:22px}
 
@@ -154,6 +160,7 @@ footer .blk{color:var(--paper);font-size:22px}
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="rec" viewBox="0 0 100 100"><circle cx="50" cy="50" r="49" fill="#111"/><g fill="none" stroke="#2a2a2a" stroke-width=".6"><circle cx="50" cy="50" r="44"/><circle cx="50" cy="50" r="40"/><circle cx="50" cy="50" r="36"/><circle cx="50" cy="50" r="32"/><circle cx="50" cy="50" r="28"/><circle cx="50" cy="50" r="24"/></g><path d="M50 3a47 47 0 0 1 40 22" stroke="rgba(255,255,255,.12)" stroke-width="8" fill="none"/><circle cx="50" cy="50" r="17" fill="#ff5a1f"/><circle cx="50" cy="50" r="1.8" fill="#efebe3"/></symbol></svg>
 
+<div id="bgv" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="49" fill="#111"/><g fill="none" stroke="#262626" stroke-width=".5"><circle cx="50" cy="50" r="46"/><circle cx="50" cy="50" r="43"/><circle cx="50" cy="50" r="40"/><circle cx="50" cy="50" r="37"/><circle cx="50" cy="50" r="34"/><circle cx="50" cy="50" r="31"/><circle cx="50" cy="50" r="28"/><circle cx="50" cy="50" r="25"/><circle cx="50" cy="50" r="22"/></g><path d="M50 4a46 46 0 0 1 34 15" stroke="rgba(255,255,255,.1)" stroke-width="7" fill="none"/><path d="M50 96a46 46 0 0 1-34-15" stroke="rgba(255,255,255,.06)" stroke-width="7" fill="none"/><circle cx="50" cy="50" r="16" fill="#5a2210"/><circle cx="50" cy="50" r="10.5" fill="none" stroke="#7a3216" stroke-width=".6"/><circle cx="58" cy="50" r="1.2" fill="#a0461f"/><circle cx="50" cy="50" r="1.6" fill="#0e0e0e"/></svg></div>
 <nav id="nav"><div class="wrap">
   <a class="logo" href="#"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#rec"/></svg>MAD RADIO</a>
   <div class="links mono"><a href="#disco">La casa</a><a href="#tienda">Records store</a><a href="#visita">Visítanos</a></div>
@@ -356,13 +363,13 @@ footer .blk{color:var(--paper);font-size:22px}
       const iw = im.naturalWidth, ih = im.naturalHeight, t = ease(ramp(p, .17, .24));
       const s = lerp(H / ih * .96, Math.max(W / iw, H / ih), t);
       const cxp = lerp(W * .73, W / 2, t), cyp = lerp(H * .5, H / 2 - ih * s * (ay - .5), t);
-      cx.fillStyle = '#0e0e0e'; cx.fillRect(0, 0, W, H);
+      cx.clearRect(0, 0, W, H);
       cx.drawImage(im, cxp - iw * s / 2, cyp - ih * s / 2, iw * s, ih * s);
     } else if (W / H < .8 && p < .24) {
       // phones: the whole frame too, edge to edge, then it fills the screen
       const iw = im.naturalWidth, ih = im.naturalHeight, t = ease(ramp(p, .17, .24));
       const s = lerp(Math.min(W / iw, H / ih), Math.max(W / iw, H / ih), t);
-      cx.fillStyle = '#0e0e0e'; cx.fillRect(0, 0, W, H);
+      cx.clearRect(0, 0, W, H);
       cx.drawImage(im, (W - iw * s) / 2, (H - ih * s) / 2, iw * s, ih * s);
     } else {
       cover(im, .5, ay, 1);
@@ -376,7 +383,8 @@ footer .blk{color:var(--paper);font-size:22px}
   const k0 = document.getElementById('k0'), [k1, k2, k3, k4] = ['k1', 'k2', 'k3', 'k4'].map(id => document.getElementById(id));
   const needle = document.getElementById('needle'), sig = document.getElementById('sig');
   const spin = document.getElementById('spin'), tone = document.getElementById('tone'), disco = document.getElementById('disco');
-  let last = -1, ang = 0, lastY = scrollY;
+  let last = -1, ang = 0, lastY = scrollY, bgA = 0;
+  const bgv = document.getElementById('bgv');
   function frame() {
     const r = calle.getBoundingClientRect();
     const p = RM ? .3 : clamp(-r.top / (r.height - innerHeight));
@@ -395,6 +403,7 @@ footer .blk{color:var(--paper);font-size:22px}
     nav.classList.toggle('solid', r.bottom < 70);
     // the record spins with scrolling, the arm drops when it reaches the middle
     const dy = scrollY - lastY; lastY = scrollY;
+    bgA += dy * .25; bgv.style.transform = `rotate(${bgA}deg)`;
     const b = disco.getBoundingClientRect();
     if (b.bottom > 0 && b.top < innerHeight) {
       ang += (RM ? 0 : .6) + dy * .35;
