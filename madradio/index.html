@@ -166,7 +166,7 @@ footer .blk{color:var(--paper);font-size:22px}
     <div class="shade"></div>
     <div class="dial" aria-hidden="true"><div><i class="dot"></i><span class="mono" id="sig">Sintonizando</span><svg viewBox="0 0 120 18"><g stroke="#fff" stroke-width="1" opacity=".6"><path d="M2 4v10M12 7v4M22 4v10M32 7v4M42 4v10M52 7v4M62 4v10M72 7v4M82 4v10M92 7v4M102 4v10M112 7v4"/></g><rect id="needle" x="2" y="1" width="2.4" height="16" fill="#ff5a1f"/></svg></div></div>
     <div class="cap" id="k0"><h1 class="blk">Mad<br><span>Radio</span></h1><div class="row"><p>The art of listening. Vinyl sounds.</p><span class="mono">Bar · Radio · Records · Galería</span></div></div>
-    <div class="cap side r" id="k1"><span class="mono">Provenza · Medellín</span><h2 class="blk">Una casa <span>que suena.</span></h2><p>Una fachada de madera, una camiseta en la vitrina y música saliendo hasta la calle. Ya llegaste.</p></div>
+    <div class="cap side l" id="k1"><span class="mono">Provenza · Medellín</span><h2 class="blk">Una casa <span>que suena.</span></h2><p>Una fachada de madera, una camiseta en la vitrina y música saliendo hasta la calle. Ya llegaste.</p></div>
     <div class="cap side l" id="k2"><span class="mono">Merch, records &amp; hot stuff</span><h2 class="blk">Mad Records <span>Store.</span></h2><p>Vinilos en la pared de ladrillo y un hueco redondo con un micrófono que dice LO-FI.</p></div>
     <div class="cap side r" id="k3"><span class="mono">Side A · 33⅓</span><h2 class="blk">Siempre hay <span>algo girando.</span></h2><p>Discos volando, el brazo baja y la aguja entra en el surco.</p></div>
     <div class="cap side l" id="k4"><span class="mono">On air</span><h2 class="blk">La cabina <span>en vivo.</span></h2><p>Parlantes, tocadiscos y la camiseta colgada. Lo que suena aquí sale al aire.</p></div>
@@ -295,7 +295,7 @@ footer .blk{color:var(--paper);font-size:22px}
   for (const st of [8, 4, 2, 1]) for (let i = 0; i < NG; i += st) if (!gen[i]) loadGen(i);
   const nearG = i => { for (let d = 0; d < NG; d++) { if (gen[i - d]) return gen[i - d]; if (gen[i + d]) return gen[i + d]; } return null; };
   function frameAt(p) {
-    if (p < V0) return Math.round(ramp(p, .02, V0) * 275);   // street → door → records wall (the Invasion wall is left out)
+    if (p < V0) return 99 + Math.round(ramp(p, .02, V0) * (275 - 99));   // from across the street → door → records wall
     return 318 + Math.round(ramp(p, V1 + .01, .98) * (NF - 1 - 318));
   }
   function cover(im, fxp, fyp, z) {
@@ -321,15 +321,21 @@ footer .blk{color:var(--paper);font-size:22px}
     if (p >= V0 && p < V1 && vinyl(p)) return;
     const im = near(frameAt(p));
     if (!im) return;
-    const ay = W / H < .8 ? .5 : lerp(.47, .5, ramp(p, .3, .42));
-    if (W / H >= .8 && p < .28) {
+    const ay = .5;
+    if (W / H >= .8 && p < .34) {
       // opening on wide screens: the whole frame, the venue seen from across the street,
       // standing on the right next to the title; then it grows to fill the screen
-      const iw = im.naturalWidth, ih = im.naturalHeight, t = ease(ramp(p, .19, .28));
+      const iw = im.naturalWidth, ih = im.naturalHeight, t = ease(ramp(p, .27, .34));
       const s = lerp(H / ih * .96, Math.max(W / iw, H / ih), t);
       const cxp = lerp(W * .73, W / 2, t), cyp = lerp(H * .5, H / 2 - ih * s * (ay - .5), t);
       cx.fillStyle = '#0e0e0e'; cx.fillRect(0, 0, W, H);
       cx.drawImage(im, cxp - iw * s / 2, cyp - ih * s / 2, iw * s, ih * s);
+    } else if (W / H < .8 && p < .34) {
+      // phones: the whole frame too, edge to edge, then it fills the screen
+      const iw = im.naturalWidth, ih = im.naturalHeight, t = ease(ramp(p, .27, .34));
+      const s = lerp(Math.min(W / iw, H / ih), Math.max(W / iw, H / ih), t);
+      cx.fillStyle = '#0e0e0e'; cx.fillRect(0, 0, W, H);
+      cx.drawImage(im, (W - iw * s) / 2, (H - ih * s) / 2, iw * s, ih * s);
     } else cover(im, .5, ay, 1);
     if (p >= V1) { cx.fillStyle = `rgba(0,0,0,${1 - ramp(p, V1, .91)})`; cx.fillRect(0, 0, W, H); }
   }
@@ -343,10 +349,10 @@ footer .blk{color:var(--paper);font-size:22px}
     const r = calle.getBoundingClientRect();
     const p = RM ? .3 : clamp(-r.top / (r.height - innerHeight));
     if (need || p !== last) { paint(p); need = false; last = p; }
-    k0.style.opacity = 1 - ramp(p, .18, .24);
-    k0.style.transform = `translateY(${-ramp(p, .18, .24) * 50}px)`;
+    k0.style.opacity = 1 - ramp(p, .1, .14);
+    k0.style.transform = `translateY(${-ramp(p, .1, .14) * 50}px)`;
     const mob = innerWidth <= 700;
-    [[k1, .27, .3, .38, .41], [k2, .45, .48, .62, .66], [k3, .76, .79, .82, .84], [k4, .9, .93, 1.1, 1.2]].forEach(([el, a, b, c, d]) => {
+    [[k1, .15, .18, .24, .27], [k2, .4, .43, .62, .66], [k3, .76, .79, .82, .84], [k4, .9, .93, 1.1, 1.2]].forEach(([el, a, b, c, d]) => {
       const v = inout(p, a, b, c, d);
       el.style.opacity = v;
       el.style.transform = (mob ? '' : 'translateY(-50%) ') + `translateY(${(1 - v) * 30}px)`;
