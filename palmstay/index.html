@@ -57,6 +57,9 @@ nav .btn{padding:10px 18px;font-size:14px}
 .mid h2 i{font-style:italic}
 .mid p.s{margin:14px auto 0;max-width:38ch;font-size:clamp(16px,1.4vw,19px);color:#eef3ee}
 .mid::before{content:"";position:absolute;left:50%;top:50%;width:min(860px,140vw);height:160%;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(10,20,15,.45),transparent);z-index:-1}
+.hint{position:absolute;left:50%;bottom:54px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:#fff;font:500 11px Inter;letter-spacing:.28em;text-transform:uppercase;pointer-events:none}
+.hint i{width:1px;height:38px;background:linear-gradient(#fff,transparent);animation:dr 1.8s infinite}
+@keyframes dr{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 .prog{position:absolute;left:clamp(16px,6vw,96px);right:clamp(16px,6vw,96px);bottom:22px;display:flex;gap:6px}
 .prog i{flex:1;height:2px;background:rgba(255,255,255,.25);overflow:hidden;position:relative}
 .prog i b{position:absolute;inset:0;background:#fff;transform-origin:left;transform:scaleX(0)}
@@ -153,6 +156,7 @@ footer img{height:28px;filter:brightness(0) invert(1);opacity:.8}
     <div class="cap mid" id="k2"><p class="eb">Five-star stays</p><h2>Rested guests<br>write <i>the best reviews.</i></h2><p class="s">Fresh linen, quick replies and a team on call, day and night.</p></div>
     <div class="cap mid" id="k3"><p class="eb">The details</p><h2>The little things<br><i>guests remember.</i></h2><p class="s">Garden showers, breakfast by the pool, a record player in the living room.</p></div>
     <div class="cap mid" id="k4"><p class="eb">Your villa, working for you</p><h2>Booked by day.<br><i>Beautiful at night.</i></h2></div>
+    <div class="hint" id="hint" aria-hidden="true"><span>Scroll to enter</span><i></i></div>
     <div class="prog" id="prog" aria-hidden="true"><span id="room">Arriving</span><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
   </div>
 </section>
@@ -268,7 +272,7 @@ footer img{height:28px;filter:brightness(0) invert(1);opacity:.8}
     }
     return { k, u };
   }
-  const shade0 = document.getElementById('shade0'), enter = document.getElementById('enter'), nav = document.getElementById('nav');
+  const hint = document.getElementById('hint'), shade0 = document.getElementById('shade0'), enter = document.getElementById('enter'), nav = document.getElementById('nav');
   const caps = ['k0', 'k1', 'k2', 'k3', 'k4'].map(id => document.getElementById(id));
   const bars = [...document.querySelectorAll('#prog b')], room = document.getElementById('room');
   const talkBg = document.getElementById('talkBg'), talk = document.getElementById('talk');
@@ -279,10 +283,13 @@ footer img{height:28px;filter:brightness(0) invert(1);opacity:.8}
     if (need || p !== last) { const s = paint(p); need = false; last = p; room.textContent = SHOTS[s.k].name; }
     const q = clamp(p / .92) * N;
     bars.forEach((b, i) => b.style.transform = `scaleX(${clamp(q - i)})`);
-    caps[0].style.opacity = 1 - ramp(p, .06, .13);
-    caps[0].style.transform = `translateY(${-ramp(p, .06, .13) * 40}px)`;
-    caps[0].style.pointerEvents = p < .08 ? 'auto' : 'none';
-    shade0.style.opacity = 1 - ramp(p, .06, .13);
+    // the villa first, alone; the words rise in on the first scroll while the camera moves
+    const in0 = ease(ramp(p, .004, .035)), out0 = ramp(p, .1, .14);
+    caps[0].style.opacity = in0 * (1 - out0);
+    caps[0].style.transform = `translateY(${(1 - in0) * 50 - out0 * 40}px)`;
+    caps[0].style.pointerEvents = in0 > .5 && out0 < .5 ? 'auto' : 'none';
+    shade0.style.opacity = in0 * (1 - out0);
+    hint.style.opacity = 1 - ramp(p, 0, .01);
     for (let i = 1; i < N; i++) {
       const a = i * SEG, v = inout(p, a + .02, a + .05, a + SEG * .55, a + SEG * .72);
       caps[i].style.opacity = v; caps[i].style.transform = `translateY(calc(-50% + ${(1 - v) * 24}px))`;
@@ -292,7 +299,7 @@ footer img{height:28px;filter:brightness(0) invert(1);opacity:.8}
     if (t.bottom > 0 && t.top < innerHeight) talkBg.style.transform = `translateY(${(t.top / innerHeight) * -6}%)`;
     requestAnimationFrame(frame);
   }
-  caps[0].style.opacity = 1;
+  shade0.style.opacity = 0;
   requestAnimationFrame(frame);
 })();
 </script>
