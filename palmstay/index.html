@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Palm Stay Bali · Villa Management</title>
+<meta name="description" content="Palm Stay Bali manages Bali villas for their owners: global marketing, dynamic pricing, five-star guest care and clear monthly reports.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--sand:#f5efe4;--sand2:#ece3d3;--palm:#1f4a3a;--leaf:#5ebe90;--clay:#c9774a;--ink:#1c2420;--mut:#6c7268;--line:rgba(28,36,32,.12)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--sand)}
+body{background:var(--sand);color:var(--ink);font:300 17px/1.7 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,44px)}
+.serif{font-family:Fraunces,Georgia,serif;font-weight:300}
+.eb{font:600 12px Inter;letter-spacing:.24em;text-transform:uppercase;color:var(--clay)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:999px;font:500 15px Inter;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.p{background:var(--palm);color:#fff}
+.btn.p:hover{background:#2a6150}
+.btn.l{background:#fff;color:var(--palm)}
+.btn.o{box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.7);color:#fff}
+.btn:focus-visible{outline:2px solid var(--clay);outline-offset:3px}
+
+nav{position:fixed;inset:0 0 auto;z-index:30;padding:14px 0;transition:background .4s,box-shadow .4s}
+nav.solid{background:rgba(245,239,228,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;color:#fff;font:500 19px Fraunces,serif;transition:color .4s}
+.logo img{height:30px;width:auto;filter:brightness(0) invert(1);transition:filter .4s}
+nav.solid .logo{color:var(--palm)}
+nav.solid .logo img{filter:none}
+.links{display:flex;gap:28px;color:#fff;font-size:15px;transition:color .4s}
+nav.solid .links{color:var(--ink)}
+.links a:hover{color:var(--leaf)}
+nav .btn{padding:10px 18px;font-size:14px}
+@media(max-width:860px){.links{display:none}}
+@media(max-width:440px){.logo span{display:none}}
+
+/* walking into the villa */
+#enter{height:640vh;position:relative;background:#0f1a15}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+#cv{position:absolute;inset:0;width:100%;height:100%}
+.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,20,15,.45),transparent 28%,transparent 52%,rgba(10,20,15,.7));pointer-events:none}
+#shade0{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,20,15,.6),rgba(10,20,15,.15) 55%,transparent);pointer-events:none}
+.cap{position:absolute;color:#fff;opacity:0;pointer-events:none;text-shadow:0 2px 30px rgba(0,0,0,.4);will-change:opacity,transform}
+#k0{left:clamp(16px,6vw,96px);right:16px;bottom:clamp(60px,13vh,130px)}
+#k0 h1{font:300 clamp(48px,7.6vw,118px)/.98 Fraunces,serif;letter-spacing:-.01em;max-width:12ch}
+#k0 h1 i{font-style:italic;color:#d9f2e4}
+#k0 p{margin-top:18px;max-width:42ch;font-size:clamp(16px,1.5vw,20px);color:#eef3ee}
+#k0 .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;pointer-events:auto}
+.mid{left:0;right:0;text-align:center;top:50%;padding:0 16px}
+.mid p.eb{color:#ffd9bf;margin-bottom:12px}
+.mid h2{font:300 clamp(36px,5.4vw,82px)/1.04 Fraunces,serif}
+.mid h2 i{font-style:italic}
+.mid p.s{margin:14px auto 0;max-width:38ch;font-size:clamp(16px,1.4vw,19px);color:#eef3ee}
+.mid::before{content:"";position:absolute;left:50%;top:50%;width:min(860px,140vw);height:160%;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(10,20,15,.45),transparent);z-index:-1}
+.prog{position:absolute;left:clamp(16px,6vw,96px);right:clamp(16px,6vw,96px);bottom:22px;display:flex;gap:6px}
+.prog i{flex:1;height:2px;background:rgba(255,255,255,.25);overflow:hidden;position:relative}
+.prog i b{position:absolute;inset:0;background:#fff;transform-origin:left;transform:scaleX(0)}
+.prog span{position:absolute;left:0;bottom:10px;font:500 11px Inter;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+
+section.s{padding:clamp(80px,13vh,140px) 0}
+.h2{font:300 clamp(36px,4.8vw,66px)/1.06 Fraunces,serif;margin-top:14px}
+.h2 i{font-style:italic;color:var(--palm)}
+.lead{color:var(--mut);font-size:clamp(16px,1.4vw,19px);max-width:56ch;margin-top:18px}
+
+/* owner promise */
+.prom{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,80px);align-items:end}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:56px}
+.stats div{background:var(--sand);padding:26px 24px}
+.stats b{display:block;font:300 clamp(36px,3.8vw,52px)/1 Fraunces,serif;color:var(--palm)}
+.stats span{display:block;margin-top:8px;color:var(--mut);font-size:15px}
+@media(max-width:760px){.prom{grid-template-columns:1fr}.stats{grid-template-columns:1fr}}
+
+/* services */
+#how{background:var(--palm);color:#fff}
+#how .h2 i{color:var(--leaf)}
+#how .lead{color:#c8dcd2}
+.svc{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:54px}
+.svc article{border:1px solid rgba(255,255,255,.16);border-radius:22px;padding:30px 26px 32px;background:rgba(255,255,255,.04);transition:background .35s,transform .35s}
+.svc article:hover{background:rgba(255,255,255,.09);transform:translateY(-4px)}
+.svc .n{font:300 15px Fraunces,serif;color:var(--leaf)}
+.svc h3{font:400 26px/1.15 Fraunces,serif;margin:16px 0 12px}
+.svc p{color:#c8dcd2;font-size:16px}
+@media(max-width:900px){.svc{grid-template-columns:1fr}}
+
+/* villas */
+.vh{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.villas{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:48px}
+.villa{background:#fff;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 50px -30px rgba(28,36,32,.35);transition:transform .4s}
+.villa:hover{transform:translateY(-6px)}
+.villa .ph{position:relative;aspect-ratio:16/10;overflow:hidden}
+.villa .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.7,.1,1)}
+.villa:hover .ph img{transform:scale(1.06)}
+.villa .rt{position:absolute;right:14px;top:14px;background:rgba(255,255,255,.92);padding:6px 12px;border-radius:999px;font:600 14px Inter;color:var(--palm)}
+.villa .bd{padding:22px 24px 26px;display:flex;flex-direction:column;gap:8px;flex:1}
+.villa h3{font:400 28px/1.1 Fraunces,serif}
+.villa .loc{font:500 13px Inter;letter-spacing:.14em;text-transform:uppercase;color:var(--clay)}
+.villa p{color:var(--mut);font-size:15.5px}
+.villa .meta{display:flex;gap:16px;margin-top:auto;padding-top:12px;font-size:14px;color:var(--ink)}
+.villa .go{font-weight:500;color:var(--palm)}
+@media(max-width:760px){.villas{grid-template-columns:1fr}}
+
+/* reviews */
+#reviews{background:var(--sand2)}
+.rev{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 2px 24px;margin-top:44px;scrollbar-width:thin}
+.rev blockquote{flex:0 0 min(420px,86vw);scroll-snap-align:start;background:#fff;border-radius:22px;padding:28px 26px}
+.rev blockquote p{font:300 19px/1.5 Fraunces,serif}
+.rev cite{display:block;margin-top:16px;font:500 14px Inter;font-style:normal;color:var(--palm)}
+.rev cite span{color:var(--mut);font-weight:400}
+.stars{color:#e0a238;letter-spacing:2px;margin-bottom:10px}
+
+/* cta */
+#talk{position:relative;min-height:88vh;display:grid;place-items:center;text-align:center;color:#fff;overflow:hidden}
+#talk .bg{position:absolute;inset:-6% 0;background:url(img/night.webp) center/cover;will-change:transform}
+#talk::after{content:"";position:absolute;inset:0;background:rgba(10,20,15,.5)}
+#talk .in{position:relative;z-index:2;padding:0 16px}
+#talk h2{font:300 clamp(40px,6vw,92px)/1.02 Fraunces,serif;max-width:14ch;margin:16px auto 0}
+#talk h2 i{color:#d9f2e4}
+#talk p{max-width:46ch;margin:20px auto 0;color:#e8efe9}
+#talk .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+.mgr{display:inline-flex;align-items:center;gap:12px;margin-top:34px;padding:8px 18px 8px 8px;border-radius:999px;background:rgba(255,255,255,.12);backdrop-filter:blur(6px)}
+.mgr img{width:42px;height:42px;border-radius:50%;object-fit:cover}
+.mgr span{font-size:14px;text-align:left;line-height:1.3}
+footer{background:#0f1a15;color:#a9b8af;padding:28px 0;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+footer img{height:28px;filter:brightness(0) invert(1);opacity:.8}
+@media(prefers-reduced-motion:reduce){.villa,.villa .ph img,.svc article{transition:none}}
+</style>
+</head>
+<body>
+<nav id="nav"><div class="wrap">
+  <a class="logo" href="#"><img src="img/logo.svg" alt="Palm Stay Bali"><span>Palm Stay</span></a>
+  <div class="links"><a href="#how">What we do</a><a href="#villas">Our villas</a><a href="#reviews">Reviews</a></div>
+  <a class="btn l" href="#talk">Free consultation</a>
+</div></nav>
+
+<section id="enter" aria-label="Walk into a villa we manage">
+  <div class="stage">
+    <canvas id="cv" role="img" aria-label="The camera moves toward Bula Villa across the pool, through the glass doors into the living room, the bedroom, the garden shower, and back out to the pool at night"></canvas>
+    <div class="shade"></div>
+    <div id="shade0"></div>
+    <div class="cap" id="k0">
+      <p class="eb" style="color:#ffd9bf">Bali villa management</p>
+      <h1>Effortless returns from your <i>Bali villa.</i></h1>
+      <p>We fill your calendar, look after every guest and send you clear numbers every month. You enjoy the investment.</p>
+      <div class="row"><a class="btn l" href="#talk">Schedule a free consultation</a><a class="btn o" href="#villas">See our villas</a></div>
+    </div>
+    <div class="cap mid" id="k1"><p class="eb">Step inside</p><h2>Every room <i>ready</i><br>for the next guest.</h2><p class="s">Spotless, stocked and styled before anyone arrives.</p></div>
+    <div class="cap mid" id="k2"><p class="eb">Five-star stays</p><h2>Rested guests<br>write <i>the best reviews.</i></h2><p class="s">Fresh linen, quick replies and a team on call, day and night.</p></div>
+    <div class="cap mid" id="k3"><p class="eb">The details</p><h2>The little things<br><i>guests remember.</i></h2><p class="s">Garden showers, breakfast by the pool, a record player in the living room.</p></div>
+    <div class="cap mid" id="k4"><p class="eb">Your villa, working for you</p><h2>Booked by day.<br><i>Beautiful at night.</i></h2></div>
+    <div class="prog" id="prog" aria-hidden="true"><span id="room">Arriving</span><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+  </div>
+</section>
+
+<section class="s"><div class="wrap">
+  <div class="prom">
+    <div><p class="eb">For villa owners</p><h2 class="h2">You own the villa.<br><i>We run it.</i></h2></div>
+    <p class="lead" style="margin:0">Palm Stay Bali specialises in maximising your villa's income and giving your guests a flawless stay, so you save the time and the effort. From the listing to the last checkout, we handle it.</p>
+  </div>
+  <div class="stats">
+    <div><b>5.0</b><span>Guest rating at Kalos Villa</span></div>
+    <div><b>4.72</b><span>Guest rating at Bula Villa</span></div>
+    <div><b>Monthly</b><span>Clear financial reports on one dashboard</span></div>
+  </div>
+</div></section>
+
+<section class="s" id="how"><div class="wrap">
+  <p class="eb" style="color:var(--leaf)">How we drive your success</p>
+  <h2 class="h2">Three things we do <i>every single day.</i></h2>
+  <p class="lead">Each one is built to keep your villa full, your guests happy and your numbers clear.</p>
+  <div class="svc">
+    <article><span class="n">01</span><h3>Dynamic marketing &amp; global reach</h3><p>We make sure the right guests around the world find your villa. Listing optimisation and dynamic pricing keep your calendar full and your revenue high.</p></article>
+    <article><span class="n">02</span><h3>Five-star guest experiences</h3><p>From quick replies to personal care, our service turns first-time guests into repeat visitors and leaves outstanding reviews behind them.</p></article>
+    <article><span class="n">03</span><h3>Clear financial performance</h3><p>See the full picture of your investment. Transparent monthly reports show your earnings and expenses in one easy-to-read dashboard.</p></article>
+  </div>
+</div></section>
+
+<section class="s" id="villas"><div class="wrap">
+  <div class="vh">
+    <div><p class="eb">Our managed villas</p><h2 class="h2">Places guests <i>don't want to leave.</i></h2></div>
+    <a class="btn p" href="#talk">Add your villa</a>
+  </div>
+  <div class="villas">
+    <a class="villa" href="https://palmstaybali.com/property/bula-villa/" target="_blank" rel="noopener"><div class="ph"><img src="img/bula.webp" alt="Bula Villa with its pool, sun loungers and palm trees" loading="lazy"><span class="rt">★ 4.72</span></div><div class="bd"><span class="loc">Seririt · North Bali</span><h3>Bula Villa</h3><p>Built in 2022, with sunset views over the sea, rice fields and mountains, 700 m from Umeanyar Beach.</p><div class="meta"><span>1 bedroom</span><span>2 bathrooms</span><span class="go" style="margin-left:auto">View →</span></div></div></a>
+    <a class="villa" href="https://palmstaybali.com/property/kalos-villa/" target="_blank" rel="noopener"><div class="ph"><img src="img/kalos.webp" alt="Kalos Villa living room with a terracotta sofa" loading="lazy"><span class="rt">★ 5.0</span></div><div class="bd"><span class="loc">Bali</span><h3>Kalos Villa</h3><p>A warm, fully furnished living room made for slow evenings with a book and a cup of something warm.</p><div class="meta"><span>2 bedrooms</span><span class="go" style="margin-left:auto">View →</span></div></div></a>
+    <a class="villa" href="https://palmstaybali.com/property/anam-tang/" target="_blank" rel="noopener"><div class="ph"><img src="img/anam.webp" alt="Long pool at Anam Tang surrounded by palms and loungers" loading="lazy"><span class="rt">★ 5</span></div><div class="bd"><span class="loc">Kuta Utara</span><h3>Anam Tang</h3><p>A cosy tropical studio among lush gardens and palms, for solo travellers and couples.</p><div class="meta"><span>1 bathroom</span><span class="go" style="margin-left:auto">View →</span></div></div></a>
+    <a class="villa" href="https://palmstaybali.com/property/sailormoon-house/" target="_blank" rel="noopener"><div class="ph"><img src="img/sailor.webp" alt="Sailormoon House in Canggu" loading="lazy"></div><div class="bd"><span class="loc">Canggu</span><h3>Sailormoon House</h3><p>A clean, cosy room in a quiet part of Canggu, close to everything.</p><div class="meta"><span class="go" style="margin-left:auto">View →</span></div></div></a>
+  </div>
+</div></section>
+
+<section class="s" id="reviews"><div class="wrap">
+  <p class="eb">What our guests say</p>
+  <h2 class="h2">A great review is <i>proof of a well-run villa.</i></h2>
+  <div class="rev" tabindex="0" aria-label="Guest reviews">
+    <blockquote><div class="stars" aria-label="5 stars">★★★★★</div><p>"This is one of the rare villas where the photos don't do it justice. Absolutely beautiful and thoughtful from all aspects."</p><cite>Gunnar <span>· Bula Villa</span></cite></blockquote>
+    <blockquote><div class="stars" aria-label="5 stars">★★★★★</div><p>"I visit North Bali quite often and have stayed in many villas, but Bula Villa easily became my number one favourite."</p><cite>Yong <span>· Bula Villa</span></cite></blockquote>
+    <blockquote><div class="stars" aria-label="5 stars">★★★★★</div><p>"We had such a lovely stay over Christmas. It had everything we needed for a relaxing and restorative break from the busy city."</p><cite>Henry <span>· Bula Villa</span></cite></blockquote>
+    <blockquote><div class="stars" aria-label="5 stars">★★★★★</div><p>"The sunsets over the sea were a dream. Ketut made us feel at home right away, and her cooking with fresh market ingredients rivals a fine restaurant."</p><cite>Marvin <span>· translated from German</span></cite></blockquote>
+    <blockquote><div class="stars" aria-label="5 stars">★★★★★</div><p>"I was afraid to go to a place without reviews, but this was the best choice I made."</p><cite>Andrei <span>· Bula Villa</span></cite></blockquote>
+  </div>
+</div></section>
+
+<section id="talk">
+  <div class="bg" id="talkBg" aria-hidden="true"></div>
+  <div class="in">
+    <p class="eb" style="color:#ffd9bf">Free consultation</p>
+    <h2>Let's make your villa <i>work for you.</i></h2>
+    <p>Tell us about your property. We'll show you what it could earn and how we'd run it.</p>
+    <div class="row">
+      <a class="btn l" href="https://wa.me/6281211661194?text=Hi%20Palm%20Stay%20Bali%2C%20I'd%20like%20a%20free%20consultation%20for%20my%20villa." target="_blank" rel="noopener">WhatsApp us</a>
+      <a class="btn o" href="#villas">See our villas</a>
+    </div>
+    <div class="mgr"><img src="img/yoga.webp" alt=""><span>Yoga and the team<br><small style="opacity:.8">Usually reply within the hour</small></span></div>
+  </div>
+</section>
+
+<footer><div class="wrap"><img src="img/logo.svg" alt="Palm Stay Bali"><span>© Palm Stay Bali · Villa management in Bali</span></div></footer>
+
+<script>
+(() => {
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const ramp = (p, a, b) => clamp((p - a) / (b - a));
+  const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const inout = (p, a, b, c, d) => Math.min(ramp(p, a, b), 1 - ramp(p, c, d));
+  const lerp = (a, b, t) => a + (b - a) * t;
+
+  // the walk-through: each shot is pushed into toward a point (the doorway, the window...),
+  // and the next shot opens from slightly zoomed out as the camera passes through
+  const SHOTS = [
+    { src: 'img/s1.webp', fx: .52, fy: .5, name: 'Arriving' },     // villa across the pool, toward the glass doors
+    { src: 'img/s2.webp', fx: .8, fy: .5, name: 'Living room' },    // living room, toward the open sliding doors
+    { src: 'img/s4.webp', fx: .82, fy: .45, name: 'Bedroom' },      // bedroom, toward the garden window
+    { src: 'img/s5.webp', fx: .55, fy: .5, name: 'Garden shower' },
+    { src: 'img/night.webp', fx: .5, fy: .55, name: 'Evening' }
+  ];
+  SHOTS.forEach(s => { s.im = new Image(); s.im.onload = () => need = true; s.im.src = s.src; });
+  const cv = document.getElementById('cv'), cx = cv.getContext('2d');
+  let W, H, DPR, need = true;
+  function size() { DPR = Math.min(2, devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * DPR; cv.height = H * DPR; need = true; }
+  size(); addEventListener('resize', size);
+  function draw(s, z, a) {
+    const im = s.im; if (!im.complete || !im.naturalWidth) return;
+    const iw = im.naturalWidth, ih = im.naturalHeight, sc = Math.max(W / iw, H / ih) * z;
+    // the focal point drifts to the screen centre as the camera pushes in
+    const t = clamp((z - 1) / 1.6), fx = lerp(.5, s.fx, t), fy = lerp(.5, s.fy, t);
+    let ox = W / 2 - fx * iw * sc, oy = H / 2 - fy * ih * sc;
+    ox = clamp(ox, W - iw * sc, 0); oy = clamp(oy, H - ih * sc, 0);
+    cx.globalAlpha = a; cx.drawImage(im, ox, oy, iw * sc, ih * sc); cx.globalAlpha = 1;
+  }
+  const N = SHOTS.length, SEG = .92 / N;
+  function paint(p) {
+    cx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high';
+    cx.fillStyle = '#0f1a15'; cx.fillRect(0, 0, W, H);
+    const q = clamp(p / .92) * N, k = Math.min(N - 1, Math.floor(q)), u = q - k;
+    // within a shot: slow push, then a fast dive in the last third
+    const push = u < .62 ? .25 * (u / .62) : .25 + 1.6 * Math.pow(ramp(u, .62, 1), 2);
+    draw(SHOTS[k], 1 + (k === N - 1 ? .2 * u : push), 1);
+    if (k < N - 1) {
+      const f = ramp(u, .78, 1);
+      if (f > 0) draw(SHOTS[k + 1], lerp(1.25, 1, ease(f)), ease(f));
+    }
+    return { k, u };
+  }
+  const shade0 = document.getElementById('shade0'), enter = document.getElementById('enter'), nav = document.getElementById('nav');
+  const caps = ['k0', 'k1', 'k2', 'k3', 'k4'].map(id => document.getElementById(id));
+  const bars = [...document.querySelectorAll('#prog b')], room = document.getElementById('room');
+  const talkBg = document.getElementById('talkBg'), talk = document.getElementById('talk');
+  let last = -1;
+  function frame() {
+    const r = enter.getBoundingClientRect();
+    const p = RM ? 0 : clamp(-r.top / (r.height - innerHeight));
+    if (need || p !== last) { const s = paint(p); need = false; last = p; room.textContent = SHOTS[s.k].name; }
+    const q = clamp(p / .92) * N;
+    bars.forEach((b, i) => b.style.transform = `scaleX(${clamp(q - i)})`);
+    caps[0].style.opacity = 1 - ramp(p, .06, .13);
+    caps[0].style.transform = `translateY(${-ramp(p, .06, .13) * 40}px)`;
+    caps[0].style.pointerEvents = p < .08 ? 'auto' : 'none';
+    shade0.style.opacity = 1 - ramp(p, .06, .13);
+    for (let i = 1; i < N; i++) {
+      const a = i * SEG, v = inout(p, a + .02, a + .05, a + SEG * .55, a + SEG * .72);
+      caps[i].style.opacity = v; caps[i].style.transform = `translateY(calc(-50% + ${(1 - v) * 24}px))`;
+    }
+    nav.classList.toggle('solid', r.bottom < 80);
+    const t = talk.getBoundingClientRect();
+    if (t.bottom > 0 && t.top < innerHeight) talkBg.style.transform = `translateY(${(t.top / innerHeight) * -6}%)`;
+    requestAnimationFrame(frame);
+  }
+  caps[0].style.opacity = 1;
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
