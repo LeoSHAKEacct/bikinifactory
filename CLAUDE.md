@@ -6,7 +6,6 @@ This repo holds several separate websites. Each folder is deployed by its own Ve
 |------------|----------------------------------------|------------------------------------|
 | `pranav/`  | `pranav`                               | https://pranav-sepia.vercel.app (Pranav's own page only) |
 | `lase/`    | `lase-properties` (was `bikinifactory-5h36`) | LASE Properties site         |
-| `tatiana/` | `tatiana-realestate`                   | Tatiana Gamba, Real Estate Medellín (her own site only) |
 | `sitios/`  | `sitios` (to be created)               | Admin, student feed and student sites (`/admin`, `/editor`, `/feed`, `/<slug>`) |
 
 - **Never force-push `main`** and never rewrite its history (no `git push --force`, no `reset` + push).
