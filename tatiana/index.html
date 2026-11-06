@@ -40,6 +40,7 @@ nav .btn{padding:10px 18px;font-size:14px}
 #hero{height:300vh;position:relative;background:var(--navy)}
 .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 .tower{position:absolute;inset:-3%;background:url(img/torre-hd.jpg) center 55%/cover;filter:grayscale(1) contrast(1.15) brightness(.72) blur(.6px);will-change:transform}
+.colorize{position:absolute;inset:0;pointer-events:none;opacity:0;mix-blend-mode:color;background:linear-gradient(160deg,#2b6fd6 0%,#7a4bd1 38%,#e0753a 72%,#f2c14e 100%);will-change:opacity}
 .grain{position:absolute;inset:0;pointer-events:none;opacity:.18;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .tpanel{position:absolute;left:50%;top:50%;height:min(80vh,820px);aspect-ratio:302/336;transform:translate(-50%,-50%);border-radius:14px;overflow:hidden;box-shadow:0 40px 90px -30px rgba(0,0,0,.7);will-change:transform,opacity}
 .tpanel img{width:100%;height:100%;object-fit:cover}
@@ -129,6 +130,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 <section id="hero" aria-label="Tatiana Gamba, realtor en Medellín">
   <div class="stage">
     <div class="tower" id="tower" role="img" aria-label="Edificio residencial moderno en Medellín con balcones y jardines"></div>
+    <div class="colorize" id="colorize" aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div>
     <div class="tint"></div>
     <div class="lede" id="lede"><p>Medellín <i>se valoriza.</i></p><span>Desliza</span></div>
@@ -209,13 +211,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
   const ramp = (p, a, b) => clamp((p - a) / (b - a));
   const ease = t => 1 - Math.pow(1 - t, 3);
-  const hero = document.getElementById('hero'), tower = document.getElementById('tower'), lede = document.getElementById('lede'),
+  const colorize = document.getElementById('colorize'), hero = document.getElementById('hero'), tower = document.getElementById('tower'), lede = document.getElementById('lede'),
         frame = document.getElementById('frame'), copy = document.getElementById('copy'), nav = document.getElementById('nav');
   const mob = () => innerWidth <= 760;
   function frameLoop() {
     const r = hero.getBoundingClientRect(), p = RM ? 1 : clamp(-r.top / (r.height - innerHeight));
     // the building slowly rises and the camera pulls back; then she steps in and the words follow
     tower.style.transform = `scale(${1.12 - .1 * ease(p)})`;
+    // black and white until the first scroll, then it floods with invented colour
+    colorize.style.opacity = ease(ramp(p, .005, .08)) * .85;
+    tower.style.filter = `grayscale(1) contrast(${1.15 + .1 * ramp(p, .005, .08)}) brightness(${.72 + .1 * ramp(p, .005, .08)}) blur(.6px)`;
     const l = ramp(p, .08, .25);
     lede.style.opacity = 1 - l; lede.style.transform = `translateY(${-l * 40}px)`;
     const f = ease(ramp(p, .22, .52));
