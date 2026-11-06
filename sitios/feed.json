@@ -19,98 +19,6 @@
       "updatedAt": "2026-10-24T00:22:02.529Z"
     },
     {
-      "slug": "m4",
-      "name": "Rosa Spa",
-      "category": "",
-      "description": "Rosa Spa — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta.",
-      "photo": "/m4/foto-mv8drgj4.jpg",
-      "phone": "5075574382",
-      "places": [
-        "Panama City"
-      ],
-      "owner": "",
-      "updatedAt": "2026-10-22T04:54:02.239Z"
-    },
-    {
-      "slug": "d",
-      "name": "Juegos Filipe",
-      "category": "",
-      "description": "Juegos Filipe — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta.",
-      "photo": "",
-      "phone": "573217455367",
-      "places": [
-        "Medellín",
-        "Itagüí",
-        "La Estrella",
-        "Sabaneta"
-      ],
-      "owner": "",
-      "updatedAt": "2026-10-18T06:55:20.632Z"
-    },
-    {
-      "slug": "c",
-      "name": "Hotel Gemini",
-      "category": "",
-      "description": "Hotel Gemini — Hotel no centro de la ciudade",
-      "photo": "",
-      "phone": "8767890",
-      "places": [],
-      "owner": "",
-      "updatedAt": "2026-10-18T06:54:06.722Z"
-    },
-    {
-      "slug": "n",
-      "name": "No site here",
-      "category": "",
-      "description": "No site here — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta.",
-      "photo": "",
-      "phone": "570384840000",
-      "places": [
-        "Yutacan"
-      ],
-      "owner": "",
-      "updatedAt": "2026-10-17T22:24:30.320Z"
-    },
-    {
-      "slug": "mm",
-      "name": "Sauna",
-      "category": "",
-      "description": "Sauna — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta.",
-      "photo": "",
-      "phone": "5755743200002",
-      "places": [
-        "Yutacan"
-      ],
-      "owner": "",
-      "updatedAt": "2026-10-17T22:24:30.317Z"
-    },
-    {
-      "slug": "m3",
-      "name": "Spa ejemplo",
-      "category": "",
-      "description": "Spa ejemplo — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en",
-      "photo": "/m3/foto-mv8mlcuz.jpg",
-      "phone": "57557432000",
-      "places": [
-        "Yutacan"
-      ],
-      "owner": "",
-      "updatedAt": "2026-10-17T22:24:30.310Z"
-    },
-    {
-      "slug": "m2",
-      "name": "Spa ejemplo",
-      "category": "",
-      "description": "Spa ejemplo — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta.",
-      "photo": "",
-      "phone": "5750008782",
-      "places": [
-        "Yutacan"
-      ],
-      "owner": "",
-      "updatedAt": "2026-10-17T22:24:30.306Z"
-    },
-    {
       "slug": "m",
       "name": "Zara Spa",
       "category": "",
@@ -122,46 +30,6 @@
       ],
       "owner": "",
       "updatedAt": "2026-10-17T22:24:30.298Z"
-    },
-    {
-      "slug": "l",
-      "name": "Sasha Spa",
-      "category": "",
-      "description": "Sasha Spa — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta.",
-      "photo": "/l/foto-mvb937ni.jpg",
-      "phone": "5256546000",
-      "places": [
-        "Los Angeles"
-      ],
-      "owner": "",
-      "updatedAt": "2026-10-17T22:24:30.295Z"
-    },
-    {
-      "slug": "f",
-      "name": "Cups to sell",
-      "category": "",
-      "description": "Cups to sell — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta.",
-      "photo": "",
-      "phone": "573217455367",
-      "places": [
-        "Medellín",
-        "Itagüí",
-        "La Estrella",
-        "Sabaneta"
-      ],
-      "owner": "",
-      "updatedAt": "2026-10-17T22:24:30.286Z"
-    },
-    {
-      "slug": "a",
-      "name": "Nails salon",
-      "category": "",
-      "description": "Nails salon — relajación y salud.",
-      "photo": "",
-      "phone": "57301100098",
-      "places": [],
-      "owner": "",
-      "updatedAt": "2026-10-17T22:24:30.274Z"
     },
     {
       "slug": "e",
@@ -178,22 +46,6 @@
       ],
       "owner": "",
       "updatedAt": "2026-10-13T02:43:13.816Z"
-    },
-    {
-      "slug": "alana",
-      "name": "Alana",
-      "category": "",
-      "description": "Alana — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta.",
-      "photo": "/alana/alana.jpg",
-      "phone": "573217455367",
-      "places": [
-        "Medellín",
-        "Itagüí",
-        "La Estrella",
-        "Sabaneta"
-      ],
-      "owner": "",
-      "updatedAt": "2026-10-10T19:48:00.220Z"
     }
   ],
   "texts": {
