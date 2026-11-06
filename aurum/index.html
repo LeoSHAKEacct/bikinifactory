@@ -199,9 +199,9 @@ footer{border-top:1px solid var(--line);padding:26px clamp(16px,4vw,44px);color:
   // how far into the video its approach runs, and how close the camera gets
   const CARS = [
     { id: 'blue', color:'#2f63c4',shape:'gt',m:[.66,.30,20],perf:{hp:612,nm:700,top:325,acc:3.1},d:{Engine:'4.0 L twin-turbo V8',Gearbox:'8-speed dual-clutch',Drive:'Rear-wheel',Weight:'1,520 kg',Interior:'Nappa leather, carbon trim',Price:'On request'}, name: 'Azzurro GT', kind: 'Grand tourer', tag: 'Mid-engine, hand-finished in Monaco blue.', a: [.33, .82], b: [.38, .73], end: 144, zoom: 1.25, specs: [['612', 'hp'], ['3.1 s', '0-100 km/h'], ['2024', 'Year'], ['4,200 km', 'Mileage']] },
-    { id: 'red', color:'#a3141f',shape:'saloon',m:[.44,.15,22],perf:{hp:560,nm:680,top:305,acc:3.6},d:{Engine:'4.0 L twin-turbo V8',Gearbox:'8-speed automatic',Drive:'All-wheel',Weight:'1,890 kg',Interior:'Black leather, red stitching',Price:'On request'}, name: 'Rosso Coupé', kind: 'Sports coupé', tag: 'Four seats, twin-turbo V8, deep metallic red.', a: [.36, .57], b: [.47, .48], end: 36, zoom: 2.6, specs: [['560', 'hp'], ['3.6 s', '0-100 km/h'], ['2023', 'Year'], ['9,800 km', 'Mileage']] },
-    { id: 'black', color:'#121214',shape:'saloon',m:[.42,.14,20],perf:{hp:523,nm:750,top:290,acc:4.1},d:{Engine:'4.4 L twin-turbo V8',Gearbox:'8-speed automatic',Drive:'All-wheel',Weight:'2,050 kg',Interior:'Cream leather, open-pore wood',Price:'On request'}, name: 'Nero Berlina', kind: 'Executive saloon', tag: 'Quiet power for long distances, in gloss black.', a: [.48, .44], b: [.55, .36], end: 36, zoom: 2.9, specs: [['523', 'hp'], ['4.1 s', '0-100 km/h'], ['2024', 'Year'], ['3,100 km', 'Mileage']] },
-    { id: 'white', color:'#ecebe6',shape:'spider',m:[.34,.12,18],perf:{hp:480,nm:530,top:300,acc:3.9},d:{Engine:'3.8 L flat-six',Gearbox:'7-speed dual-clutch',Drive:'Rear-wheel',Weight:'1,560 kg',Interior:'Tan leather, soft top',Price:'On request'}, name: 'Bianca Spider', kind: 'Convertible', tag: 'Roof down, tan leather, made for the coast.', a: [.55, .35], b: [.62, .26], end: 36, zoom: 3.2, specs: [['480', 'hp'], ['3.9 s', '0-100 km/h'], ['2022', 'Year'], ['12,400 km', 'Mileage']] },
+    { id: 'red', g: { end: 74, at: [.6, .5], zoom: 1.12, m: [.55, .2, 18] }, color:'#a3141f',shape:'saloon',m:[.44,.15,22],perf:{hp:560,nm:680,top:305,acc:3.6},d:{Engine:'4.0 L twin-turbo V8',Gearbox:'8-speed automatic',Drive:'All-wheel',Weight:'1,890 kg',Interior:'Black leather, red stitching',Price:'On request'}, name: 'Rosso Coupé', kind: 'Sports coupé', tag: 'Four seats, twin-turbo V8, deep metallic red.', a: [.36, .57], b: [.47, .48], end: 36, zoom: 2.6, specs: [['560', 'hp'], ['3.6 s', '0-100 km/h'], ['2023', 'Year'], ['9,800 km', 'Mileage']] },
+    { id: 'black', g: { end: 106, at: [.45, .58], zoom: 1.12, m: [.5, .18, 18] }, color:'#121214',shape:'saloon',m:[.42,.14,20],perf:{hp:523,nm:750,top:290,acc:4.1},d:{Engine:'4.4 L twin-turbo V8',Gearbox:'8-speed automatic',Drive:'All-wheel',Weight:'2,050 kg',Interior:'Cream leather, open-pore wood',Price:'On request'}, name: 'Nero Berlina', kind: 'Executive saloon', tag: 'Quiet power for long distances, in gloss black.', a: [.48, .44], b: [.55, .36], end: 36, zoom: 2.9, specs: [['523', 'hp'], ['4.1 s', '0-100 km/h'], ['2024', 'Year'], ['3,100 km', 'Mileage']] },
+    { id: 'white', g: { end: 138, at: [.56, .52], zoom: 1.08, m: [.5, .2, 16] }, color:'#ecebe6',shape:'spider',m:[.34,.12,18],perf:{hp:480,nm:530,top:300,acc:3.9},d:{Engine:'3.8 L flat-six',Gearbox:'7-speed dual-clutch',Drive:'Rear-wheel',Weight:'1,560 kg',Interior:'Tan leather, soft top',Price:'On request'}, name: 'Bianca Spider', kind: 'Convertible', tag: 'Roof down, tan leather, made for the coast.', a: [.55, .35], b: [.62, .26], end: 36, zoom: 3.2, specs: [['480', 'hp'], ['3.9 s', '0-100 km/h'], ['2022', 'Year'], ['12,400 km', 'Mileage']] },
     { id: 'night', color:'#1b1d22',shape:'gt',m:[.30,.09,15],perf:{hp:600,nm:800,top:318,acc:3.4},d:{Engine:'6.0 L twin-turbo W12',Gearbox:'8-speed dual-clutch',Drive:'All-wheel',Weight:'2,240 kg',Interior:'Black leather, diamond quilting',Price:'On request'}, name: 'Notte GT', kind: 'Grand tourer', tag: 'Long bonnet, black on black, built to cross a continent.', a: [.62, .27], b: [.68, .19], end: 36, zoom: 3.6, specs: [['600', 'hp'], ['3.4 s', '0-100 km/h'], ['2023', 'Year'], ['6,700 km', 'Mileage']] },
     { id: 'suv', color:'#16171a',shape:'suv',m:[.29,.14,15],perf:{hp:550,nm:850,top:290,acc:4.5},d:{Engine:'4.4 L twin-turbo V8',Gearbox:'8-speed automatic',Drive:'All-wheel',Weight:'2,600 kg',Interior:'Seven seats, panoramic roof',Price:'On request'}, name: 'Ombra SUV', kind: 'Luxury SUV', tag: 'Seven seats, full-size and fully loaded.', a: [.65, .21], b: [.68, .11], end: 36, zoom: 3.6, specs: [['550', 'hp'], ['4.5 s', '0-100 km/h'], ['2024', 'Year'], ['2,300 km', 'Mileage']] }
   ];
@@ -218,6 +218,17 @@ footer{border-top:1px solid var(--line);padding:26px clamp(16px,4vw,44px);color:
     im.src = 'f/' + String(i + 1).padStart(3, '0') + '.webp';
   }
   for (let k = 0; k < 4; k++) next();
+  // second clip (frames in g/): the crane continues past the blue car to the red, black and white ones
+  const gfr = new Array(NF); let gLoaded = false;
+  function loadG() {
+    if (gLoaded) return; gLoaded = true;
+    const o2 = [0]; for (const st2 of [8, 4, 2, 1]) for (let i = 0; i < NF; i += st2) if (!o2.includes(i)) o2.push(i);
+    let k2 = 0;
+    const nx = () => { if (k2 >= o2.length) return; const i = o2[k2++], im = new Image(); im.onload = () => { gfr[i] = im; need = true; nx(); }; im.onerror = nx; im.src = 'g/' + String(i + 1).padStart(3, '0') + '.webp'; };
+    for (let q = 0; q < 4; q++) nx();
+  }
+  setTimeout(loadG, 1500);
+  const nearG = i => { for (let d = 0; d < NF; d++) { if (gfr[i - d]) return gfr[i - d]; if (gfr[i + d]) return gfr[i + d]; } return null; };
   const near = i => { for (let d = 0; d < NF; d++) { if (frames[i - d]) return frames[i - d]; if (frames[i + d]) return frames[i + d]; } return null; };
 
   const room = document.getElementById('room'), cv = document.getElementById('cv'), cx = cv.getContext('2d');
@@ -234,10 +245,11 @@ footer{border-top:1px solid var(--line);padding:26px clamp(16px,4vw,44px);color:
     return { s, x: cx0 - iw * s / 2, y: (H - ih * s) / 2 };
   }
   // state: f = video frame, z = zoom, (px,py) = focus point in frame fractions, t = 0..1 how far we've flown in
-  let st = { f: 0, z: 1, px: .5, py: .5, t: 0 }, sel = -1;
+  let st = { f: 0, z: 1, px: .5, py: .5, t: 0, gf: 0 }, sel = -1, mode = 'a';
   function carAt(c, f) { const u = clamp(f / 36); return [lerp(c.a[0], c.b[0], u), lerp(c.a[1], c.b[1], u)]; }
   function paint() {
-    const im = near(Math.round(st.f));
+    const useG = mode === 'g' && nearG(Math.round(st.gf));
+    const im = useG ? nearG(Math.round(st.gf)) : near(Math.round(st.f));
     if (!im) return;
     const iw = im.naturalWidth, ih = im.naturalHeight, B = base(iw, ih);
     cx.setTransform(DPR, 0, 0, DPR, 0, 0);
@@ -265,7 +277,8 @@ footer{border-top:1px solid var(--line);padding:26px clamp(16px,4vw,44px);color:
     // info callouts on the chosen car (no masking: the showroom stays as it is)
     if (sel >= 0 && st.t > 0 && hud > 0) {
       const c = CARS[sel], unit = iw * s;
-      drawHud(c, sx, sy, c.m[0] * unit, c.m[1] * unit, c.m[2] * Math.PI / 180);
+      const m = useG && c.g ? c.g.m : c.m;
+      drawHud(c, sx, sy, m[0] * unit, m[1] * unit, m[2] * Math.PI / 180);
     }
     placePins(B, iw, ih);
   }
@@ -367,8 +380,15 @@ footer{border-top:1px solid var(--line);padding:26px clamp(16px,4vw,44px);color:
     const c = CARS[i];
     const start = () => {
       sel = i; room.classList.add('room-busy'); fill(c);
-      const [ex, ey] = c.id === 'blue' ? [.46, .7] : carAt(c, c.end);
       st.px = carAt(c, 0)[0]; st.py = carAt(c, 0)[1];
+      if (c.g && gfr[c.g.end]) {
+        // real camera move: run the second clip to this car, with only a light zoom
+        mode = 'g'; st.gf = 0;
+        tween({ ...st }, { gf: c.g.end, z: c.g.zoom, px: c.g.at[0], py: c.g.at[1], t: 1 }, 2600, () => { room.classList.add('room-open'); hudT = 1; });
+        return;
+      }
+      mode = 'a';
+      const [ex, ey] = c.id === 'blue' ? [.46, .7] : carAt(c, c.end);
       tween({ ...st }, { f: c.end, z: c.zoom, px: ex, py: ey, t: 1 }, c.id === 'blue' ? 3800 : 2200, () => { room.classList.add('room-open'); hudT = 1; });
     };
     if (sel >= 0) back(start); else start();
@@ -376,7 +396,7 @@ footer{border-top:1px solid var(--line);padding:26px clamp(16px,4vw,44px);color:
   function back(then) {
     if (anim) return;
     room.classList.remove('room-open', 'room-3d'); hudT = 0; hud = 0; if (car3) car3.pause();
-    tween({ ...st }, { f: 0, z: 1, t: 0, px: st.px, py: st.py }, 1600, () => { sel = -1; room.classList.remove('room-busy'); need = true; then && then(); });
+    tween({ ...st }, { f: 0, gf: 0, z: 1, t: 0, px: st.px, py: st.py }, 1600, () => { mode = 'a'; sel = -1; room.classList.remove('room-busy'); need = true; then && then(); });
   }
   document.getElementById('back').onclick = () => back();
   document.getElementById('cNext').onclick = () => go((sel + 1) % CARS.length);
