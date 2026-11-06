@@ -39,10 +39,12 @@ nav .btn{padding:10px 18px;font-size:14px}
 /* opening: the tower first, then she appears */
 #hero{height:300vh;position:relative;background:var(--navy)}
 .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
-.tower{position:absolute;inset:-4% 0;background:url(img/torre.jpg) center 70%/cover;will-change:transform,filter}
-.tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(27,42,74,.45),rgba(27,42,74,.15) 35%,rgba(22,24,29,.75))}
-.frame{position:absolute;right:clamp(16px,7vw,110px);top:50%;width:min(380px,34vw);aspect-ratio:3/4;transform:translateY(-50%);border-radius:200px 200px 18px 18px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.6);opacity:0;will-change:transform,opacity}
-.frame img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.tower{position:absolute;inset:-6%;background:url(img/torre-hd.jpg) center 60%/cover;filter:blur(18px) saturate(1.1) brightness(.62);will-change:transform}
+.tpanel{position:absolute;left:50%;top:50%;height:min(80vh,820px);aspect-ratio:302/336;transform:translate(-50%,-50%);border-radius:14px;overflow:hidden;box-shadow:0 40px 90px -30px rgba(0,0,0,.7);will-change:transform,opacity}
+.tpanel img{width:100%;height:100%;object-fit:cover}
+.tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(27,42,74,.35),transparent 35%,rgba(22,24,29,.55));pointer-events:none}
+.frame{position:absolute;right:clamp(16px,5vw,80px);top:54%;width:min(600px,44vw);aspect-ratio:302/336;max-height:84vh;transform:translateY(-50%);border-radius:200px 200px 18px 18px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.6);opacity:0;will-change:transform,opacity}
+.frame img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
 .copy{position:absolute;left:clamp(16px,6vw,96px);bottom:clamp(60px,13vh,130px);max-width:min(620px,88vw);color:#fff;opacity:0;will-change:transform,opacity}
 .copy h1{font:400 clamp(44px,6.4vw,96px)/1 "Playfair Display",serif;margin:14px 0 18px}
 .copy h1 i{color:var(--camel2)}
@@ -52,7 +54,7 @@ nav .btn{padding:10px 18px;font-size:14px}
 .lede p{font:400 clamp(34px,5vw,74px)/1.08 "Playfair Display",serif;text-shadow:0 4px 30px rgba(0,0,0,.4)}
 .lede p i{color:var(--camel2)}
 .lede span{display:block;margin-top:14px;font:600 12px Inter;letter-spacing:.3em;text-transform:uppercase;opacity:.85}
-@media(max-width:760px){.frame{left:50%;right:auto;top:110px;width:56vw;transform:translateX(-50%)}.copy{bottom:40px}.copy h1{font-size:40px}}
+@media(max-width:760px){.tpanel{height:auto;width:78vw}.frame{left:50%;right:auto;top:84px;width:72vw;max-height:38vh;transform:translateX(-50%)}.copy{bottom:40px}.copy h1{font-size:40px}}
 
 section.s{padding:clamp(80px,13vh,140px) 0}
 .h2{font:400 clamp(36px,4.6vw,64px)/1.06 "Playfair Display",serif;margin-top:14px}
@@ -102,6 +104,7 @@ section.s{padding:clamp(80px,13vh,140px) 0}
 
 /* about */
 .about{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,5vw,80px);align-items:center}
+/* bigger, sharper portrait */
 .about img{border-radius:200px 200px 18px 18px;width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 25%}
 .quote{font:italic 400 clamp(24px,2.6vw,34px)/1.35 "Playfair Display",serif;margin-top:20px}
 @media(max-width:860px){.about{grid-template-columns:1fr}.about img{max-width:340px}}
@@ -125,9 +128,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 <section id="hero" aria-label="Tatiana Gamba, realtor en Medellín">
   <div class="stage">
     <div class="tower" id="tower" role="img" aria-label="Edificio residencial moderno en Medellín con balcones y jardines"></div>
+    <div class="tpanel" id="tpanel"><img src="img/torre-hd.jpg" alt=""></div>
     <div class="tint"></div>
     <div class="lede" id="lede"><p>Medellín <i>se valoriza.</i></p><span>Desliza</span></div>
-    <div class="frame" id="frame"><img src="img/tatiana.jpg" alt="Tatiana Gamba"></div>
+    <div class="frame" id="frame"><img src="img/tatiana-hd.jpg" alt="Tatiana Gamba"></div>
     <div class="copy" id="copy">
       <p class="eb" style="color:var(--camel2)">Tatiana Gamba · Realtor Medellín</p>
       <h1>Invierte en Medellín <i>sin complicaciones.</i></h1>
@@ -178,7 +182,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 </div></section>
 
 <section class="s"><div class="wrap about">
-  <img src="img/tatiana.jpg" alt="Tatiana Gamba" loading="lazy">
+  <img src="img/tatiana-hd.jpg" alt="Tatiana Gamba" loading="lazy">
   <div>
     <p class="eb">Sobre mí</p>
     <h2 class="h2">Hola, soy <i>Tatiana.</i></h2>
@@ -204,18 +208,22 @@ footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
   const ramp = (p, a, b) => clamp((p - a) / (b - a));
   const ease = t => 1 - Math.pow(1 - t, 3);
-  const hero = document.getElementById('hero'), tower = document.getElementById('tower'), lede = document.getElementById('lede'),
+  const tpanel = document.getElementById('tpanel'), hero = document.getElementById('hero'), tower = document.getElementById('tower'), lede = document.getElementById('lede'),
         frame = document.getElementById('frame'), copy = document.getElementById('copy'), nav = document.getElementById('nav');
   const mob = () => innerWidth <= 760;
   function frameLoop() {
     const r = hero.getBoundingClientRect(), p = RM ? 1 : clamp(-r.top / (r.height - innerHeight));
     // the building slowly rises and the camera pulls back; then she steps in and the words follow
-    tower.style.transform = `translateY(${-p * 4}%) scale(${1.18 - .14 * ease(p)})`;
+    tower.style.transform = `scale(${1.1 - .06 * ease(p)})`;
+    // the building stands sharp in the middle, then steps back to make room for her
+    const tp = ease(ramp(p, .18, .5));
+    tpanel.style.transform = `translate(calc(-50% - ${tp * (mob() ? 0 : 22)}vw), -50%) scale(${1 - tp * .18})`;
+    tpanel.style.opacity = 1 - tp * .85;
     const l = ramp(p, .08, .25);
     lede.style.opacity = 1 - l; lede.style.transform = `translateY(${-l * 40}px)`;
     const f = ease(ramp(p, .22, .52));
     frame.style.opacity = f;
-    frame.style.transform = (mob() ? 'translateX(-50%)' : 'translateY(-50%)') + ` translateY(${(1 - f) * 60}px) scale(${.9 + .1 * f})`;
+    frame.style.transform = (mob() ? 'translateX(-50%)' : 'translateY(-50%)') + ` translateY(${(1 - f) * 80}px) scale(${.82 + .18 * f})`;
     const c = ease(ramp(p, .42, .72));
     copy.style.opacity = c; copy.style.transform = `translateY(${(1 - c) * 40}px)`;
     copy.style.pointerEvents = c > .5 ? 'auto' : 'none';
