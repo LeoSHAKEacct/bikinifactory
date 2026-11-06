@@ -241,8 +241,8 @@ footer{border-top:1px solid var(--line);padding:26px clamp(16px,4vw,44px);color:
   function base(iw, ih) {
     const wide = W / H > .9;
     const s = wide ? H / ih : Math.max(W / iw, H / ih);
-    const cx0 = wide ? W * .36 : W / 2;
-    return { s, x: cx0 - iw * s / 2, y: (H - ih * s) / 2 };
+    // wide screens: the frame sits against the left edge; only the right side shows the soft backdrop
+    return { s, x: wide ? 0 : W / 2 - iw * s / 2, y: (H - ih * s) / 2 };
   }
   // state: f = video frame, z = zoom, (px,py) = focus point in frame fractions, t = 0..1 how far we've flown in
   let st = { f: 0, z: 1, px: .5, py: .5, t: 0, gf: 0 }, sel = -1, mode = 'a';
@@ -264,13 +264,14 @@ footer{border-top:1px solid var(--line);padding:26px clamp(16px,4vw,44px);color:
     const sx0 = B.x + fx * B.s, sy0 = B.y + fy * B.s;                      // where the car sits before the move
     const wide = W / H > .9, tgtX = wide ? W * .34 : W / 2, tgtY = wide ? H * .5 : H * .36;
     const sx = lerp(sx0, tgtX, st.t), sy = lerp(sy0, tgtY, st.t);
-    const ox = sx - fx * s, oy = sy - fy * s;
+    let ox = sx - fx * s; const oy = sy - fy * s;
+    if (W / H > .9 && ox > 0) ox = 0;   // never leave a gap on the left
     // draw the frame; while it is narrower than the screen, darken its side edges into the backdrop
     const dw = iw * s, dh = ih * s;
     cx.drawImage(im, ox, oy, dw, dh);
     if (dw < W) {
       const e = Math.min(.12, 120 / dw), fade = cx.createLinearGradient(ox, 0, ox + dw, 0);
-      fade.addColorStop(0, 'rgba(11,11,12,.9)'); fade.addColorStop(e, 'rgba(11,11,12,0)');
+      fade.addColorStop(0, 'rgba(11,11,12,0)');
       fade.addColorStop(1 - e, 'rgba(11,11,12,0)'); fade.addColorStop(1, 'rgba(11,11,12,.9)');
       cx.fillStyle = fade; cx.fillRect(ox, oy, dw, dh);
     }
