@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aurum Motors · Private Showroom</title>
+<meta name="description" content="Aurum Motors, a private showroom for exceptional cars. Pick a car from the gallery and the camera brings you to it.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0b0b0c;--ink2:#141416;--gold:#c8a96a;--gold2:#e7d3a3;--cream:#f2eee6;--mut:#8f8a80;--line:rgba(200,169,106,.25)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--ink);color:var(--cream);font:300 16px/1.6 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+.serif{font-family:"Cormorant Garamond",Georgia,serif;font-weight:300}
+.eb{font:500 11px Manrope;letter-spacing:.34em;text-transform:uppercase;color:var(--gold)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:2px;font:500 12px Manrope;letter-spacing:.22em;text-transform:uppercase;transition:background .25s,color .25s,transform .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn.g{background:var(--gold);color:var(--ink)}
+.btn.g:hover{background:var(--gold2)}
+.btn.l{box-shadow:inset 0 0 0 1px var(--gold);color:var(--gold2)}
+.btn:focus-visible,.pin:focus-visible,.list button:focus-visible,.back:focus-visible{outline:2px solid var(--gold2);outline-offset:3px}
+
+header{position:fixed;inset:0 0 auto;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:18px clamp(16px,4vw,44px);pointer-events:none}
+header>*{pointer-events:auto}
+.logo{font:500 22px "Cormorant Garamond",serif;letter-spacing:.42em;color:var(--gold2)}
+.logo small{display:block;font:500 9px Manrope;letter-spacing:.42em;color:var(--mut);margin-top:-2px}
+header .btn{padding:10px 16px;font-size:11px}
+
+/* showroom */
+#room{position:relative;height:100vh;height:100svh;overflow:hidden}
+#cv{position:absolute;inset:0;width:100%;height:100%;display:block}
+.vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 40% 50%,transparent 45%,rgba(11,11,12,.55)),linear-gradient(180deg,rgba(11,11,12,.55),transparent 18%,transparent 80%,rgba(11,11,12,.7))}
+#pins{position:absolute;inset:0;pointer-events:none;z-index:3}
+.intro{pointer-events:none}.intro .list{pointer-events:auto}
+.pin{position:absolute;pointer-events:auto;transform:translate(-50%,-50%);display:flex;align-items:center;gap:8px;padding:0;transition:opacity .4s}
+.pin i{width:16px;height:16px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(200,169,106,.6);animation:ping 2.2s infinite;flex:none}
+.pin span{font:500 11px Manrope;letter-spacing:.2em;text-transform:uppercase;background:rgba(11,11,12,.72);backdrop-filter:blur(6px);padding:6px 10px;border:1px solid var(--line);white-space:nowrap;opacity:0;transform:translateX(-6px);transition:all .3s}
+.pin:hover span,.pin:focus-visible span,.pin.hot span{opacity:1;transform:none}
+@keyframes ping{70%{box-shadow:0 0 0 14px rgba(200,169,106,0)}100%{box-shadow:0 0 0 0 rgba(200,169,106,0)}}
+.room-busy .pin{opacity:0;pointer-events:none}
+
+.intro{position:absolute;right:clamp(16px,5vw,80px);top:50%;transform:translateY(-50%);width:min(420px,40vw);transition:opacity .6s,transform .6s}
+.intro h1{font:300 clamp(46px,5.4vw,88px)/.95 "Cormorant Garamond",serif;margin:14px 0 18px}
+.intro h1 i{color:var(--gold2)}
+.intro p{color:#c9c3b8}
+.list{margin-top:26px;border-top:1px solid var(--line)}
+.list button{display:flex;justify-content:space-between;align-items:baseline;width:100%;padding:13px 0;border-bottom:1px solid var(--line);text-align:left;transition:color .25s,padding .25s}
+.list button:hover,.list button.hot{color:var(--gold2);padding-left:8px}
+.list b{font:400 22px "Cormorant Garamond",serif}
+.list span{font:500 11px Manrope;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
+.hint{margin-top:18px;font-size:13px;color:var(--mut)}
+.room-busy .intro{opacity:0;transform:translateY(-50%) translateX(30px);pointer-events:none}
+
+/* detail card */
+.card{position:absolute;right:clamp(16px,5vw,80px);top:50%;width:min(440px,42vw);transform:translateY(-50%) translateX(40px);opacity:0;pointer-events:none;transition:opacity .6s,transform .6s;background:rgba(11,11,12,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);padding:30px 30px 28px}
+.room-open .card{opacity:1;transform:translateY(-50%);pointer-events:auto}
+.card h2{font:300 clamp(42px,4.2vw,64px)/1 "Cormorant Garamond",serif;margin:10px 0 6px}
+.card .tag{color:#c9c3b8;font-style:italic;font-family:"Cormorant Garamond",serif;font-size:20px}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin:22px 0;border:1px solid var(--line)}
+.specs div{background:rgba(11,11,12,.85);padding:12px 14px}
+.specs b{display:block;font:400 24px "Cormorant Garamond",serif;color:var(--gold2)}
+.specs span{font:500 10px Manrope;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
+.card .row{display:flex;gap:10px;flex-wrap:wrap}
+.back{position:absolute;left:clamp(16px,4vw,44px);bottom:28px;display:flex;align-items:center;gap:10px;font:500 11px Manrope;letter-spacing:.24em;text-transform:uppercase;color:var(--gold2);opacity:0;pointer-events:none;transition:opacity .5s}
+.room-open .back{opacity:1;pointer-events:auto}
+.back svg{width:18px;height:18px}
+
+@media(max-width:820px){
+  .intro{left:16px;right:16px;top:auto;bottom:18px;transform:none;width:auto;background:linear-gradient(transparent,rgba(11,11,12,.85) 22%);padding-top:40px}
+  .intro h1{font-size:44px;margin:8px 0 8px}
+  .intro p{font-size:14px}
+  .list{display:none}
+  .room-busy .intro{transform:translateY(30px)}
+  .card{left:12px;right:12px;width:auto;top:auto;bottom:12px;transform:translateY(40px);padding:22px 20px}
+  .room-open .card{transform:none}
+  .card h2{font-size:40px}
+  .specs{margin:14px 0}
+  .back{top:76px;bottom:auto}
+}
+
+/* below the showroom */
+section.s{padding:clamp(80px,13vh,140px) clamp(16px,4vw,44px);max-width:1200px;margin:0 auto}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:44px}
+.three div{background:var(--ink);padding:30px 26px}
+.three h3{font:400 28px "Cormorant Garamond",serif;margin:12px 0 8px}
+.three p{color:#bdb7ac;font-size:15px}
+.h2{font:300 clamp(40px,5vw,72px)/1.02 "Cormorant Garamond",serif;margin-top:14px}
+.h2 i{color:var(--gold2)}
+@media(max-width:820px){.three{grid-template-columns:1fr}}
+.visit{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;border-top:1px solid var(--line);padding-top:60px}
+.visit p{color:#bdb7ac}
+@media(max-width:820px){.visit{grid-template-columns:1fr}}
+footer{border-top:1px solid var(--line);padding:26px clamp(16px,4vw,44px);color:var(--mut);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+@media(prefers-reduced-motion:reduce){.pin i{animation:none}}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="#">AURUM<small>MOTORS · PRIVATE SHOWROOM</small></a>
+  <a class="btn l" href="#visit">Book a viewing</a>
+</header>
+
+<section id="room" aria-label="Showroom">
+  <canvas id="cv" role="img" aria-label="Overhead view of a showroom with a row of cars: blue, red, black, white, black and a dark SUV"></canvas>
+  <div class="vig"></div>
+  <div id="pins"></div>
+
+  <div class="intro">
+    <p class="eb">The collection</p>
+    <h1>Choose your <i>car.</i></h1>
+    <p>Click any car in the showroom and the camera takes you to it.</p>
+    <div class="list" id="list"></div>
+    <p class="hint">Every car is inspected, documented and ready to drive away.</p>
+  </div>
+
+  <article class="card" id="card" aria-live="polite">
+    <p class="eb" id="cKind">Grand tourer</p>
+    <h2 id="cName">Car</h2>
+    <p class="tag" id="cTag"></p>
+    <div class="specs" id="cSpecs"></div>
+    <div class="row"><a class="btn g" id="cBook" href="#visit">Book a private viewing</a><button class="btn l" type="button" id="cNext">Next car →</button></div>
+  </article>
+
+  <button class="back" id="back" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7"/></svg>Back to the showroom</button>
+</section>
+
+<section class="s">
+  <p class="eb">Why Aurum</p>
+  <h2 class="h2">Fewer cars. <i>Better ones.</i></h2>
+  <div class="three">
+    <div><p class="eb">01</p><h3>Hand-picked</h3><p>Every car is chosen one by one for its history, condition and specification.</p></div>
+    <div><p class="eb">02</p><h3>Fully documented</h3><p>Service records, independent inspection and a clear history before you sign anything.</p></div>
+    <div><p class="eb">03</p><h3>Delivered to you</h3><p>Enclosed transport to your door, financing and part-exchange arranged in-house.</p></div>
+  </div>
+</section>
+
+<section class="s" id="visit">
+  <div class="visit">
+    <div><p class="eb">Private viewings</p><h2 class="h2">See it <i>in person.</i></h2></div>
+    <div>
+      <p>By appointment only, so the showroom is yours while you're here. Tell us which car caught your eye.</p>
+      <p style="margin-top:14px;color:var(--gold2)">1200 Collins Avenue, Miami Beach, FL · +1 (305) 555-0188</p>
+      <div style="margin-top:22px;display:flex;gap:10px;flex-wrap:wrap"><a class="btn g" href="mailto:viewings@aurummotors.example?subject=Private%20viewing" id="mail">Request a viewing</a><a class="btn l" href="#room">Back to the collection</a></div>
+    </div>
+  </div>
+</section>
+<footer><span>© Aurum Motors · Demo site: cars, address and phone are examples</span><span>Private showroom</span></footer>
+
+<script>
+(() => {
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+  // each car: where it sits in the first frame (a) and 1.5 s in (b), as fractions of the frame,
+  // how far into the video its approach runs, and how close the camera gets
+  const CARS = [
+    { id: 'blue', name: 'Azzurro GT', kind: 'Grand tourer', tag: 'Mid-engine, hand-finished in Monaco blue.', a: [.33, .82], b: [.38, .73], end: 144, zoom: 1.25, specs: [['612', 'hp'], ['3.1 s', '0-100 km/h'], ['2024', 'Year'], ['4,200 km', 'Mileage']] },
+    { id: 'red', name: 'Rosso Coupé', kind: 'Sports coupé', tag: 'Four seats, twin-turbo V8, deep metallic red.', a: [.36, .57], b: [.47, .48], end: 36, zoom: 2.6, specs: [['560', 'hp'], ['3.6 s', '0-100 km/h'], ['2023', 'Year'], ['9,800 km', 'Mileage']] },
+    { id: 'black', name: 'Nero Berlina', kind: 'Executive saloon', tag: 'Quiet power for long distances, in gloss black.', a: [.48, .44], b: [.55, .36], end: 36, zoom: 2.9, specs: [['523', 'hp'], ['4.1 s', '0-100 km/h'], ['2024', 'Year'], ['3,100 km', 'Mileage']] },
+    { id: 'white', name: 'Bianca Spider', kind: 'Convertible', tag: 'Roof down, tan leather, made for the coast.', a: [.55, .35], b: [.62, .26], end: 36, zoom: 3.2, specs: [['480', 'hp'], ['3.9 s', '0-100 km/h'], ['2022', 'Year'], ['12,400 km', 'Mileage']] },
+    { id: 'night', name: 'Notte GT', kind: 'Grand tourer', tag: 'Long bonnet, black on black, built to cross a continent.', a: [.62, .27], b: [.68, .19], end: 36, zoom: 3.6, specs: [['600', 'hp'], ['3.4 s', '0-100 km/h'], ['2023', 'Year'], ['6,700 km', 'Mileage']] },
+    { id: 'suv', name: 'Ombra SUV', kind: 'Luxury SUV', tag: 'Seven seats, full-size and fully loaded.', a: [.65, .21], b: [.68, .11], end: 36, zoom: 3.6, specs: [['550', 'hp'], ['4.5 s', '0-100 km/h'], ['2024', 'Year'], ['2,300 km', 'Mileage']] }
+  ];
+
+  // frames (coarse first so the opening shot is ready at once)
+  const NF = 145, frames = new Array(NF), order = [0];
+  for (const st of [12, 6, 3, 1]) for (let i = 0; i < NF; i += st) if (!order.includes(i)) order.push(i);
+  let li = 0, need = true;
+  function next() {
+    if (li >= order.length) return;
+    const i = order[li++], im = new Image();
+    im.onload = () => { frames[i] = im; need = true; next(); };
+    im.onerror = next;
+    im.src = 'f/' + String(i + 1).padStart(3, '0') + '.webp';
+  }
+  for (let k = 0; k < 4; k++) next();
+  const near = i => { for (let d = 0; d < NF; d++) { if (frames[i - d]) return frames[i - d]; if (frames[i + d]) return frames[i + d]; } return null; };
+
+  const room = document.getElementById('room'), cv = document.getElementById('cv'), cx = cv.getContext('2d');
+  const tiny = document.createElement('canvas'); tiny.width = 24; tiny.height = 36; const tx = tiny.getContext('2d');
+  let W, H, DPR;
+  function size() { DPR = Math.min(2, devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * DPR; cv.height = H * DPR; need = true; }
+  size(); addEventListener('resize', size);
+
+  // base layout: the whole tall frame, placed left of the text on wide screens; on phones it fills the screen
+  function base(iw, ih) {
+    const wide = W / H > .9;
+    const s = wide ? H / ih : Math.max(W / iw, H / ih);
+    const cx0 = wide ? W * .36 : W / 2;
+    return { s, x: cx0 - iw * s / 2, y: (H - ih * s) / 2 };
+  }
+  // state: f = video frame, z = zoom, (px,py) = focus point in frame fractions, t = 0..1 how far we've flown in
+  let st = { f: 0, z: 1, px: .5, py: .5, t: 0 }, sel = -1;
+  function carAt(c, f) { const u = clamp(f / 36); return [lerp(c.a[0], c.b[0], u), lerp(c.a[1], c.b[1], u)]; }
+  function paint() {
+    const im = near(Math.round(st.f));
+    if (!im) return;
+    const iw = im.naturalWidth, ih = im.naturalHeight, B = base(iw, ih);
+    cx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high';
+    // soft backdrop from the same frame
+    tx.drawImage(im, 0, 0, 24, 36);
+    const bs = Math.max(W / 24, H / 36) * 1.15;
+    cx.drawImage(tiny, (W - 24 * bs) / 2, (H - 36 * bs) / 2, 24 * bs, 36 * bs);
+    cx.fillStyle = 'rgba(11,11,12,.55)'; cx.fillRect(0, 0, W, H);
+    // the camera: scale around the chosen car and slide it toward the open side of the screen
+    const s = B.s * st.z, fx = st.px * iw, fy = st.py * ih;
+    const sx0 = B.x + fx * B.s, sy0 = B.y + fy * B.s;                      // where the car sits before the move
+    const wide = W / H > .9, tgtX = wide ? W * .34 : W / 2, tgtY = wide ? H * .5 : H * .36;
+    const sx = lerp(sx0, tgtX, st.t), sy = lerp(sy0, tgtY, st.t);
+    const ox = sx - fx * s, oy = sy - fy * s;
+    // draw the frame; while it is narrower than the screen, darken its side edges into the backdrop
+    const dw = iw * s, dh = ih * s;
+    cx.drawImage(im, ox, oy, dw, dh);
+    if (dw < W) {
+      const e = Math.min(.12, 120 / dw), fade = cx.createLinearGradient(ox, 0, ox + dw, 0);
+      fade.addColorStop(0, 'rgba(11,11,12,.9)'); fade.addColorStop(e, 'rgba(11,11,12,0)');
+      fade.addColorStop(1 - e, 'rgba(11,11,12,0)'); fade.addColorStop(1, 'rgba(11,11,12,.9)');
+      cx.fillStyle = fade; cx.fillRect(ox, oy, dw, dh);
+    }
+    placePins(B, iw, ih);
+  }
+
+  // clickable pins over the cars (only in the overview)
+  const pinsEl = document.getElementById('pins'), list = document.getElementById('list');
+  const pins = CARS.map((c, i) => {
+    const b = document.createElement('button');
+    b.className = 'pin'; b.type = 'button'; b.setAttribute('aria-label', 'View ' + c.name);
+    b.innerHTML = `<i></i><span>${c.name}</span>`;
+    b.onclick = () => go(i);
+    b.onmouseenter = () => hot(i, true); b.onmouseleave = () => hot(i, false);
+    pinsEl.appendChild(b);
+    const li = document.createElement('button');
+    li.type = 'button'; li.innerHTML = `<b>${c.name}</b><span>${c.kind}</span>`;
+    li.onclick = () => go(i);
+    li.onmouseenter = () => hot(i, true); li.onmouseleave = () => hot(i, false);
+    list.appendChild(li);
+    return { b, li };
+  });
+  function hot(i, on) { pins[i].b.classList.toggle('hot', on); pins[i].li.classList.toggle('hot', on); }
+  function placePins(B, iw, ih) {
+    if (st.t > 0) return;
+    CARS.forEach((c, i) => {
+      const [u, v] = carAt(c, st.f);
+      pins[i].b.style.left = (B.x + u * iw * B.s) + 'px';
+      pins[i].b.style.top = (B.y + v * ih * B.s) + 'px';
+    });
+  }
+  // clicking anywhere on a car also works: pick the nearest pin
+  cv.addEventListener('click', e => {
+    if (sel >= 0 || anim) return;
+    const r = cv.getBoundingClientRect(); let best = -1, bd = 1e9;
+    pins.forEach((p, i) => {
+      const dx = parseFloat(p.b.style.left) - (e.clientX - r.left), dy = parseFloat(p.b.style.top) - (e.clientY - r.top), d = dx * dx + dy * dy;
+      if (d < bd) { bd = d; best = i; }
+    });
+    if (best >= 0 && bd < Math.pow(Math.min(W, H) * .16, 2)) go(best);
+  });
+  cv.addEventListener('mousemove', e => {
+    if (sel >= 0) return;
+    const r = cv.getBoundingClientRect(); let best = -1, bd = 1e9;
+    pins.forEach((p, i) => { const dx = parseFloat(p.b.style.left) - (e.clientX - r.left), dy = parseFloat(p.b.style.top) - (e.clientY - r.top), d = dx * dx + dy * dy; if (d < bd) { bd = d; best = i; } });
+    const ok = bd < Math.pow(Math.min(W, H) * .16, 2);
+    pins.forEach((p, i) => hot(i, ok && i === best)); cv.style.cursor = ok ? 'pointer' : 'default';
+  });
+
+  // fly the camera: play the video toward the chosen car while zooming onto it
+  let anim = null;
+  function tween(from, to, ms, done) {
+    const t0 = performance.now();
+    anim = true;
+    (function step(now) {
+      const k = RM ? 1 : clamp((now - t0) / ms), e = ease(k);
+      for (const key in to) st[key] = lerp(from[key], to[key], e);
+      need = true;
+      if (k < 1) requestAnimationFrame(step); else { anim = null; done && done(); }
+    })(t0);
+  }
+  const card = document.getElementById('card');
+  function fill(c) {
+    document.getElementById('cKind').textContent = c.kind;
+    document.getElementById('cName').textContent = c.name;
+    document.getElementById('cTag').textContent = c.tag;
+    document.getElementById('cSpecs').innerHTML = c.specs.map(([v, l]) => `<div><b>${v}</b><span>${l}</span></div>`).join('');
+    document.getElementById('cBook').href = '#visit';
+    document.getElementById('mail').href = 'mailto:viewings@aurummotors.example?subject=' + encodeURIComponent('Private viewing: ' + c.name);
+  }
+  function go(i) {
+    if (anim) return;
+    const c = CARS[i];
+    const start = () => {
+      sel = i; room.classList.add('room-busy'); fill(c);
+      const [ex, ey] = c.id === 'blue' ? [.46, .7] : carAt(c, c.end);
+      st.px = carAt(c, 0)[0]; st.py = carAt(c, 0)[1];
+      tween({ ...st }, { f: c.end, z: c.zoom, px: ex, py: ey, t: 1 }, c.id === 'blue' ? 3800 : 2200, () => room.classList.add('room-open'));
+    };
+    if (sel >= 0) back(start); else start();
+  }
+  function back(then) {
+    if (anim) return;
+    room.classList.remove('room-open');
+    tween({ ...st }, { f: 0, z: 1, t: 0, px: st.px, py: st.py }, 1600, () => { sel = -1; room.classList.remove('room-busy'); need = true; then && then(); });
+  }
+  document.getElementById('back').onclick = () => back();
+  document.getElementById('cNext').onclick = () => go((sel + 1) % CARS.length);
+  addEventListener('keydown', e => { if (e.key === 'Escape' && sel >= 0) back(); });
+
+  (function loop() { if (need) { paint(); need = false; } requestAnimationFrame(loop); })();
+})();
+</script>
+</body>
+</html>
