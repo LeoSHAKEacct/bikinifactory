@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Oriental Wellness Center · Dr. Tsang</title>
+<meta name="description" content="Oriental Wellness Center by Dr. Tsang: acupuntura, moxibustión, eliminación de toxinas y terapia herbal. Agenda tu cita en línea.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#fbf7ef;--sand:#f1e8d8;--gold:#c09a48;--gold2:#e0c27d;--gold3:#8f6d2a;--ink:#2b2418;--mut:#7a6f5f;--jade:#3f6b5c;--line:rgba(143,109,42,.2)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--cream);scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font:300 17px/1.7 Jost,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+img{display:block;max-width:100%}
+.wrap{max-width:1160px;margin:0 auto;padding:0 clamp(16px,4vw,44px)}
+.cg{font-family:"Cormorant Garamond",Georgia,serif;font-weight:400}
+.eb{font:500 12px Jost;letter-spacing:.3em;text-transform:uppercase;color:var(--gold3)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:999px;font:500 14px Jost;letter-spacing:.06em;transition:transform .2s,background .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.g{background:linear-gradient(120deg,var(--gold3),var(--gold) 50%,var(--gold2));color:#fff;box-shadow:0 10px 30px -12px rgba(143,109,42,.7)}
+.btn.o{box-shadow:inset 0 0 0 1.5px var(--gold);color:var(--gold3)}
+.btn:focus-visible,.svc:focus-visible,.day:focus-visible,.slot:focus-visible{outline:2px solid var(--jade);outline-offset:3px}
+
+nav{position:fixed;inset:0 0 auto;z-index:30;padding:14px 0;transition:background .4s,box-shadow .4s}
+nav.solid{background:rgba(251,247,239,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo img{height:38px;width:auto}
+.logo b{font:500 20px "Cormorant Garamond",serif;color:var(--gold3);line-height:1}
+.logo small{display:block;font:500 9px Jost;letter-spacing:.3em;color:var(--mut);margin-top:3px}
+.links{display:flex;gap:28px;font-size:15px}
+.links a:hover{color:var(--gold3)}
+nav .btn{padding:10px 18px;font-size:13px}
+@media(max-width:860px){.links{display:none}}
+
+/* opening: the hands rise and lift the qi above them */
+#hero{height:250vh;position:relative}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 60%,#fffaf0 0%,var(--cream) 45%,var(--sand) 100%)}
+#qi{position:absolute;inset:0;width:100%;height:100%}
+.emb{position:relative;width:min(300px,52vw);aspect-ratio:838/946;margin-top:-6vh}
+.emb img{position:absolute;left:0;width:100%;will-change:transform,opacity}
+.emb .sp{top:0}
+.emb .pa{bottom:0}
+.title{position:absolute;left:0;right:0;bottom:clamp(50px,11vh,110px);text-align:center;padding:0 16px}
+.title h1{font:400 clamp(40px,6vw,86px)/1 "Cormorant Garamond",serif;color:var(--ink)}
+.title h1 i{color:var(--gold3)}
+.title p{margin-top:12px;color:var(--mut)}
+.title .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+@media(max-width:600px){.emb{width:42vw;margin-top:-22vh}}
+.zh{position:absolute;font:400 clamp(90px,16vw,220px)/1 "Cormorant Garamond",serif;color:rgba(192,154,72,.09);pointer-events:none;writing-mode:vertical-rl;letter-spacing:.1em}
+.zh.l{left:3vw;top:12vh}.zh.r{right:3vw;bottom:8vh}
+
+section.s{padding:clamp(80px,13vh,140px) 0}
+.h2{font:400 clamp(36px,4.8vw,64px)/1.05 "Cormorant Garamond",serif;margin-top:14px}
+.h2 i{color:var(--gold3)}
+.lead{color:var(--mut);font-size:clamp(16px,1.4vw,19px);max-width:56ch;margin-top:18px}
+
+/* treatments */
+.tx{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+.tx article{background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px 24px;transition:transform .35s,box-shadow .35s}
+.tx article:hover{transform:translateY(-6px);box-shadow:0 24px 50px -30px rgba(143,109,42,.6)}
+.tx svg{width:44px;height:44px;stroke:var(--gold3);fill:none;stroke-width:1.4}
+.tx h3{font:500 26px "Cormorant Garamond",serif;margin:16px 0 8px}
+.tx p{color:var(--mut);font-size:15px}
+.tx .bk{display:inline-block;margin-top:14px;font-size:14px;color:var(--jade);font-weight:500}
+@media(max-width:960px){.tx{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.tx{grid-template-columns:1fr}}
+
+/* meridians band */
+.band{background:var(--jade);color:#fff;padding:clamp(70px,11vh,120px) 0;position:relative;overflow:hidden}
+.band .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,70px);align-items:center}
+.band .h2 i{color:var(--gold2)}
+.band p{color:#d6e3dd}
+.body{position:relative;max-width:360px;margin:0 auto}
+.body svg{width:100%;height:auto;display:block}
+.body .pt{fill:var(--gold2)}
+.body .mer{stroke:var(--gold2);stroke-width:1.6;fill:none;stroke-dasharray:6 6;animation:flow 6s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-120}}
+.body .pt{animation:glow 2.4s ease-in-out infinite}
+@keyframes glow{50%{opacity:.35}}
+@media(max-width:860px){.band .wrap{grid-template-columns:1fr}}
+
+/* booking */
+#agenda{background:linear-gradient(var(--cream),var(--sand))}
+.bk-wrap{display:grid;grid-template-columns:1fr 360px;gap:22px;margin-top:44px;align-items:start}
+.panel{min-width:0;background:#fff;border:1px solid var(--line);border-radius:24px;padding:26px}
+.step{display:flex;align-items:center;gap:12px;margin:4px 0 16px}
+.step b{width:28px;height:28px;border-radius:50%;background:var(--gold);color:#fff;display:grid;place-items:center;font:500 13px Jost;flex:none}
+.step span{font:500 22px "Cormorant Garamond",serif}
+.svcs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:26px}
+.svc{border:1px solid var(--line);border-radius:14px;padding:12px 14px;text-align:left;transition:all .2s}
+.svc b{display:block;font-weight:500}
+.svc small{color:var(--mut)}
+.svc[aria-pressed=true]{border-color:var(--gold);background:#fbf3e2;box-shadow:inset 0 0 0 1px var(--gold)}
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:22px;scrollbar-width:thin}
+.day{flex:0 0 64px;border:1px solid var(--line);border-radius:14px;padding:10px 0;text-align:center;transition:all .2s}
+.day small{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.day b{display:block;font:500 24px "Cormorant Garamond",serif;line-height:1.1}
+.day[aria-pressed=true]{background:var(--gold);border-color:var(--gold);color:#fff}
+.day[aria-pressed=true] small{color:#fff}
+.day:disabled{opacity:.35;cursor:not-allowed}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px;margin-bottom:26px}
+.slot{border:1px solid var(--line);border-radius:999px;padding:9px 0;font-size:15px;transition:all .2s}
+.slot[aria-pressed=true]{background:var(--jade);border-color:var(--jade);color:#fff}
+.slot:disabled{text-decoration:line-through;opacity:.35;cursor:not-allowed}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fields label{font-size:13px;color:var(--mut)}
+.fields input,.fields textarea{width:100%;margin-top:4px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font:300 16px Jost;background:var(--cream)}
+.fields input:focus,.fields textarea:focus{outline:none;border-color:var(--gold)}
+.fields .full{grid-column:1/-1}
+.sum{position:sticky;top:90px}
+.sum h3{font:500 26px "Cormorant Garamond",serif}
+.sum dl{margin:16px 0;display:grid;gap:10px}
+.sum dl div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed var(--line);padding-bottom:8px;font-size:15px}
+.sum dt{color:var(--mut)}
+.sum dd{text-align:right;font-weight:500}
+.sum .btn{width:100%;justify-content:center;margin-top:8px}
+.sum .note{font-size:13px;color:var(--mut);margin-top:12px}
+.err{color:#a8452f;font-size:14px;margin-top:10px;min-height:20px}
+.ok{display:none;text-align:center;padding:10px 0}
+.ok.on{display:block;animation:fin .5s ease}
+@keyframes fin{from{opacity:0;transform:translateY(10px)}}
+.ok svg{width:56px;height:56px;margin:0 auto 10px;stroke:var(--jade);fill:none;stroke-width:1.8}
+@media(max-width:900px){.bk-wrap{grid-template-columns:1fr}.sum{position:static}}
+@media(max-width:520px){.svcs,.fields{grid-template-columns:1fr}}
+
+/* doctor & visit */
+.doc{display:grid;grid-template-columns:.7fr 1.3fr;gap:clamp(30px,5vw,70px);align-items:center}
+.doc img{border-radius:200px 200px 20px 20px;aspect-ratio:3/3.6;object-fit:cover;width:100%;max-width:340px}
+.quote{font:italic 400 clamp(22px,2.4vw,30px)/1.4 "Cormorant Garamond",serif;margin-top:18px}
+@media(max-width:860px){.doc{grid-template-columns:1fr}}
+footer{background:var(--ink);color:#c9bfae;padding:30px 0;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+footer img{height:34px;filter:brightness(1.3)}
+.demo{background:#fff6dc;border:1px solid var(--gold2);color:var(--gold3);font-size:13px;padding:8px 12px;border-radius:10px;margin-top:14px}
+</style>
+</head>
+<body>
+<nav id="nav"><div class="wrap">
+  <a class="logo" href="#"><img src="img/hands.png" alt=""><span><b>Oriental Wellness Center</b><small>BY DR. TSANG</small></span></a>
+  <div class="links"><a href="#tratamientos">Tratamientos</a><a href="#meridianos">Meridianos</a><a href="#doctor">Dr. Tsang</a></div>
+  <a class="btn g" href="#agenda">Agendar cita</a>
+</div></nav>
+
+<section id="hero" aria-label="Oriental Wellness Center">
+  <div class="stage">
+    <canvas id="qi" aria-hidden="true"></canvas>
+    <span class="zh l" aria-hidden="true">氣血</span><span class="zh r" aria-hidden="true">平衡</span>
+    <div class="emb" id="emb" aria-hidden="true"><img class="sp" id="sp" src="img/spirit.png" alt=""><img class="pa" id="pa" src="img/palms.png" alt=""></div>
+    <div class="title" id="title">
+      <p class="eb">Centro de terapia tradicional china</p>
+      <h1>Equilibrio para <i>cuerpo y energía.</i></h1>
+      <p>Acupuntura · Eliminación de toxinas · Moxibustión · Terapia herbal</p>
+      <div class="row"><a class="btn g" href="#agenda">Agenda tu cita</a><a class="btn o" href="#tratamientos">Ver tratamientos</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="tratamientos"><div class="wrap">
+  <p class="eb">Tratamientos</p>
+  <h2 class="h2">Medicina que <i>escucha a tu cuerpo.</i></h2>
+  <p class="lead">La medicina tradicional china busca la causa del malestar, no solo el síntoma. Cada sesión empieza con una valoración del Dr. Tsang.</p>
+  <div class="tx">
+    <article><svg viewBox="0 0 48 48"><path d="M24 4v28M20 32h8l-4 12z"/><circle cx="24" cy="4" r="2"/></svg><h3>Acupuntura</h3><p>Agujas finas en puntos de los meridianos para aliviar el dolor y desbloquear la energía.</p><a class="bk" href="#agenda" data-svc="Acupuntura">Agendar →</a></article>
+    <article><svg viewBox="0 0 48 48"><path d="M10 38c8-4 20-4 28 0M14 30c6-3 14-3 20 0M24 6c4 6 4 12 0 18-4-6-4-12 0-18z"/></svg><h3>Eliminación de toxinas</h3><p>Ventosas y técnicas tradicionales que promueven la eliminación de toxinas y la circulación.</p><a class="bk" href="#agenda" data-svc="Eliminación de toxinas">Agendar →</a></article>
+    <article><svg viewBox="0 0 48 48"><path d="M18 40h12l-2-18h-8z"/><path d="M24 22c-3-4-1-8 0-12 1 4 3 8 0 12zM20 12c-1-2 0-4 1-5M28 12c1-2 0-4-1-5"/></svg><h3>Moxibustión</h3><p>Calor de artemisa sobre puntos clave para fortalecer la energía y mejorar la circulación.</p><a class="bk" href="#agenda" data-svc="Moxibustión">Agendar →</a></article>
+    <article><svg viewBox="0 0 48 48"><path d="M24 42V18M24 26c-8 0-12-6-12-12 8 0 12 6 12 12zM24 22c6 0 10-4 10-10-6 0-10 4-10 10z"/></svg><h3>Terapia herbal</h3><p>Fórmulas de hierbas preparadas según tu diagnóstico, para acompañar el tratamiento en casa.</p><a class="bk" href="#agenda" data-svc="Terapia herbal">Agendar →</a></article>
+  </div>
+</div></section>
+
+<section class="band" id="meridianos"><div class="wrap">
+  <div>
+    <p class="eb" style="color:var(--gold2)">Meridianos</p>
+    <h2 class="h2">Desbloquea los meridianos, <i>alivia los dolores.</i></h2>
+    <p class="lead" style="color:#d6e3dd">La energía vital (qi) recorre el cuerpo por canales llamados meridianos. Cuando se bloquea aparece el dolor, el cansancio o el estrés. El tratamiento devuelve el flujo y el equilibrio.</p>
+  </div>
+  <div class="body" aria-hidden="true">
+    <svg viewBox="0 0 200 400">
+      <g fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.4">
+        <circle cx="100" cy="40" r="22"/>
+        <path d="M100 62v18M70 84c-14 10-22 60-26 110M130 84c14 10 22 60 26 110M70 84h60l-6 120h-48z M76 204l-8 180M124 204l8 180M100 210v170"/>
+      </g>
+      <path class="mer" d="M100 40v330"/>
+      <path class="mer" d="M84 70c-10 40-22 90-36 120" style="animation-delay:-2s"/>
+      <path class="mer" d="M116 70c10 40 22 90 36 120" style="animation-delay:-4s"/>
+      <path class="mer" d="M90 200c-4 60-10 120-18 180" style="animation-delay:-1s"/>
+      <path class="mer" d="M110 200c4 60 10 120 18 180" style="animation-delay:-3s"/>
+      <g class="pt"><circle cx="100" cy="98" r="3.5"/><circle cx="100" cy="150" r="3.5" style="animation-delay:-.6s"/><circle cx="100" cy="190" r="3.5" style="animation-delay:-1.2s"/><circle cx="60" cy="150" r="3" style="animation-delay:-.3s"/><circle cx="140" cy="150" r="3" style="animation-delay:-.9s"/><circle cx="80" cy="290" r="3" style="animation-delay:-1.5s"/><circle cx="120" cy="290" r="3" style="animation-delay:-1.8s"/></g>
+    </svg>
+  </div>
+</div></section>
+
+<section class="s" id="agenda"><div class="wrap">
+  <p class="eb">Agenda en línea</p>
+  <h2 class="h2">Reserva tu cita <i>en un minuto.</i></h2>
+  <p class="lead">Elige el tratamiento, el día y la hora. Tu solicitud llega directo al WhatsApp del centro y puedes guardarla en tu Google Calendar.</p>
+  <div class="bk-wrap">
+    <form class="panel" id="form" novalidate>
+      <div class="step"><b>1</b><span>Tratamiento</span></div>
+      <div class="svcs" id="svcs" role="group" aria-label="Tratamiento"></div>
+      <div class="step"><b>2</b><span>Día</span></div>
+      <div class="days" id="days" role="group" aria-label="Día"></div>
+      <div class="step"><b>3</b><span>Hora</span></div>
+      <div class="slots" id="slots" role="group" aria-label="Hora"></div>
+      <div class="step"><b>4</b><span>Tus datos</span></div>
+      <div class="fields">
+        <label>Nombre<input id="fName" autocomplete="name" required></label>
+        <label>Teléfono / WhatsApp<input id="fPhone" type="tel" autocomplete="tel" required></label>
+        <label class="full">¿Qué te gustaría tratar? (opcional)<textarea id="fNote" rows="2"></textarea></label>
+      </div>
+    </form>
+    <aside class="panel sum" aria-live="polite">
+      <div id="sumBox">
+        <h3>Tu cita</h3>
+        <dl>
+          <div><dt>Tratamiento</dt><dd id="sSvc">—</dd></div>
+          <div><dt>Duración</dt><dd id="sDur">—</dd></div>
+          <div><dt>Día</dt><dd id="sDay">—</dd></div>
+          <div><dt>Hora</dt><dd id="sTime">—</dd></div>
+        </dl>
+        <button class="btn g" id="confirm" type="button">Confirmar por WhatsApp</button>
+        <p class="err" id="err"></p>
+        <p class="note">Te confirmamos la cita por WhatsApp. Si necesitas cambiarla, escríbenos.</p>
+      </div>
+      <div class="ok" id="ok">
+        <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20"/><path d="M15 25l6 6 12-13"/></svg>
+        <h3 class="cg" style="font-size:28px">¡Solicitud enviada!</h3>
+        <p style="color:var(--mut);font-size:15px;margin:8px 0 16px" id="okText"></p>
+        <a class="btn o" id="gcal" href="#" target="_blank" rel="noopener" style="width:100%;justify-content:center">Añadir a Google Calendar</a>
+        <button class="btn" id="again" type="button" style="width:100%;justify-content:center;margin-top:8px;color:var(--mut)">Agendar otra cita</button>
+      </div>
+      <p class="demo">Ejemplo: los horarios ocupados son de muestra. La conexión con el calendario del centro se activa después.</p>
+    </aside>
+  </div>
+</div></section>
+
+<section class="s" id="doctor"><div class="wrap doc">
+  <img src="img/dr.jpg" alt="Dr. Tsang frente al Oriental Wellness Center" loading="lazy">
+  <div>
+    <p class="eb">Dr. Tsang</p>
+    <h2 class="h2">Tradición china, <i>atención cercana.</i></h2>
+    <p class="quote">"La energía también se cuida. La medicina tradicional china te enseña a vivir con equilibrio."</p>
+    <p class="lead">Acupuntura, clínica del dolor y medicina tradicional china en un mismo lugar.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
+      <a class="btn g" href="#agenda">Agenda tu cita</a>
+      <a class="btn o" href="https://waze.com/ul/hd1x7n5ztd" target="_blank" rel="noopener">Cómo llegar (Waze)</a>
+      <a class="btn o" href="https://www.instagram.com/orientalwellness99/" target="_blank" rel="noopener">@orientalwellness99</a>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap"><img src="img/hands.png" alt="Oriental Wellness Center"><span>© Oriental Wellness Center by Dr. Tsang · Acupuntura, clínica del dolor y medicina tradicional china</span></div></footer>
+
+<script>
+(() => {
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const ramp = (p, a, b) => clamp((p - a) / (b - a));
+  const ease = t => 1 - Math.pow(1 - t, 3);
+
+  // ---------- opening: the palms rise, the qi lifts out of them, golden particles drift up ----------
+  const hero = document.getElementById('hero'), sp = document.getElementById('sp'), pa = document.getElementById('pa'),
+        title = document.getElementById('title'), nav = document.getElementById('nav'), cv = document.getElementById('qi'), cx = cv.getContext('2d');
+  let W, H, DPR;
+  function size() { DPR = Math.min(2, devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * DPR; cv.height = H * DPR; }
+  size(); addEventListener('resize', size);
+  const P = Array.from({ length: 70 }, () => ({ x: Math.random(), y: Math.random(), r: .6 + Math.random() * 2, s: .2 + Math.random() * .8, o: Math.random() * 6.3 }));
+  function frame(t) {
+    const r = hero.getBoundingClientRect(), p = RM ? .6 : clamp(-r.top / (r.height - innerHeight));
+    const intro = RM ? 1 : ease(clamp((t - 200) / 1600));             // plays once on load
+    pa.style.transform = `translateY(${(1 - intro) * 40}px)`; pa.style.opacity = intro;
+    const lift = ease(ramp(p, 0, .6));
+    sp.style.transform = `translateY(${(1 - intro) * 60 - lift * 50 + Math.sin(t / 900) * 4}px) scale(${1 + lift * .08})`;
+    sp.style.opacity = clamp(intro * 1.4 - .2);
+    title.style.opacity = clamp(intro * 1.2 - .3) * (1 - ramp(p, .7, .95));
+    title.style.transform = `translateY(${(1 - intro) * 20 - ramp(p, .7, .95) * 30}px)`;
+    nav.classList.toggle('solid', r.bottom < 80);
+    cx.setTransform(DPR, 0, 0, DPR, 0, 0); cx.clearRect(0, 0, W, H);
+    P.forEach(d => {
+      if (!RM) { d.y -= d.s * .0012 * (1 + lift * 2); if (d.y < -.02) { d.y = 1.02; d.x = .3 + Math.random() * .4; } }
+      const a = (.25 + .45 * Math.sin(t / 700 * d.s + d.o) ** 2) * intro;
+      cx.fillStyle = `rgba(192,154,72,${a})`; cx.beginPath(); cx.arc(d.x * W + Math.sin(t / 1500 + d.o) * 20, d.y * H, d.r, 0, 6.29); cx.fill();
+    });
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  // ---------- booking ----------
+  const WA = '50760000000';                    // example number: replace with the clinic's WhatsApp
+  const SVC = [['Acupuntura', 60], ['Eliminación de toxinas', 45], ['Moxibustión', 45], ['Terapia herbal', 30], ['Valoración inicial', 30], ['Clínica del dolor', 60]];
+  const HOURS = { 1: [9, 18], 2: [9, 18], 3: [9, 18], 4: [9, 18], 5: [9, 18], 6: [9, 13] };   // Mon-Sat; Sunday closed (example)
+  const state = { svc: null, day: null, time: null };
+  const $ = id => document.getElementById(id);
+  const svcs = $('svcs'), days = $('days'), slots = $('slots');
+  SVC.forEach(([n, m]) => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'svc'; b.setAttribute('aria-pressed', 'false');
+    b.innerHTML = `<b>${n}</b><small>${m} min</small>`; b.onclick = () => pickSvc(n); svcs.appendChild(b);
+  });
+  function pickSvc(n) {
+    state.svc = n;
+    [...svcs.children].forEach(b => b.setAttribute('aria-pressed', b.querySelector('b').textContent === n));
+    upd();
+  }
+  document.querySelectorAll('[data-svc]').forEach(a => a.addEventListener('click', () => pickSvc(a.dataset.svc)));
+  const fmtD = new Intl.DateTimeFormat('es', { weekday: 'short' }), fmtL = new Intl.DateTimeFormat('es', { weekday: 'long', day: 'numeric', month: 'long' });
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  for (let i = 0; i < 14; i++) {
+    const d = new Date(today); d.setDate(d.getDate() + i);
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'day'; b.setAttribute('aria-pressed', 'false');
+    b.innerHTML = `<small>${i === 0 ? 'Hoy' : fmtD.format(d).replace('.', '')}</small><b>${d.getDate()}</b>`;
+    b.setAttribute('aria-label', fmtL.format(d));
+    b.disabled = !HOURS[d.getDay()];
+    b.onclick = () => { state.day = d; state.time = null; [...days.children].forEach(x => x.setAttribute('aria-pressed', x === b)); drawSlots(); upd(); };
+    days.appendChild(b);
+  }
+  // example busy slots: a fixed pseudo-random pattern per date
+  const busy = (d, h) => ((d.getDate() * 7 + h * 13) % 5) === 0;
+  function drawSlots() {
+    slots.innerHTML = '';
+    if (!state.day) { slots.innerHTML = '<p style="color:var(--mut);font-size:15px;grid-column:1/-1">Primero elige un día.</p>'; return; }
+    const [a, z] = HOURS[state.day.getDay()], now = new Date();
+    for (let h = a; h < z; h++) for (const m of [0, 30]) {
+      const t = new Date(state.day); t.setHours(h, m);
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'slot';
+      const lab = `${String(h).padStart(2, '0')}:${m ? '30' : '00'}`;
+      b.textContent = lab; b.setAttribute('aria-pressed', 'false');
+      b.disabled = t <= now || busy(state.day, h * 2 + m / 30);
+      b.onclick = () => { state.time = lab; [...slots.children].forEach(x => x.setAttribute('aria-pressed', x === b)); upd(); };
+      slots.appendChild(b);
+    }
+  }
+  drawSlots();
+  function upd() {
+    const d = SVC.find(s => s[0] === state.svc);
+    $('sSvc').textContent = state.svc || '—'; $('sDur').textContent = d ? d[1] + ' min' : '—';
+    $('sDay').textContent = state.day ? fmtL.format(state.day) : '—'; $('sTime').textContent = state.time || '—';
+    $('err').textContent = '';
+  }
+  const pad = n => String(n).padStart(2, '0');
+  const gstamp = d => `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
+  $('confirm').onclick = () => {
+    const name = $('fName').value.trim(), phone = $('fPhone').value.trim();
+    const miss = [!state.svc && 'tratamiento', !state.day && 'día', !state.time && 'hora', !name && 'nombre', !phone && 'teléfono'].filter(Boolean);
+    if (miss.length) { $('err').textContent = 'Falta: ' + miss.join(', ') + '.'; return; }
+    const [h, m] = state.time.split(':').map(Number), start = new Date(state.day); start.setHours(h, m);
+    const dur = SVC.find(s => s[0] === state.svc)[1], end = new Date(start.getTime() + dur * 60000);
+    const note = $('fNote').value.trim();
+    const msg = `Hola Dr. Tsang, quiero agendar una cita:\n• Tratamiento: ${state.svc}\n• Día: ${fmtL.format(state.day)}\n• Hora: ${state.time}\n• Nombre: ${name}\n• Teléfono: ${phone}` + (note ? `\n• Motivo: ${note}` : '');
+    window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+    const g = new URL('https://calendar.google.com/calendar/render');
+    g.searchParams.set('action', 'TEMPLATE'); g.searchParams.set('text', `${state.svc} · Oriental Wellness Center`);
+    g.searchParams.set('dates', `${gstamp(start)}/${gstamp(end)}`);
+    g.searchParams.set('details', `Cita con el Dr. Tsang.\nPaciente: ${name} (${phone})` + (note ? `\nMotivo: ${note}` : ''));
+    g.searchParams.set('location', 'Oriental Wellness Center');
+    $('gcal').href = g.toString();
+    $('okText').textContent = `${state.svc}, ${fmtL.format(state.day)} a las ${state.time}. Te confirmaremos por WhatsApp.`;
+    $('sumBox').style.display = 'none'; $('ok').classList.add('on');
+  };
+  $('again').onclick = () => { $('ok').classList.remove('on'); $('sumBox').style.display = ''; };
+})();
+</script>
+</body>
+</html>
