@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Room Visualizer</title>
+<meta name="description" content="See art pieces on your own wall before you buy. Upload a photo of your room, place pieces, resize and frame them, and save the result.">
+<meta name="theme-color" content="#f4f1ec">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f1ec; --panel:#ffffff; --ink:#1d1b18; --muted:#7a746b; --line:#e3ddd3;
+  --accent:#b5562f; --accent-ink:#fff; --stage:#e9e4dc; --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141311; --panel:#1d1b19; --ink:#f1ede6; --muted:#a39c91; --line:#34302b;
+    --accent:#e07a4f; --accent-ink:#141311; --stage:#0d0c0b;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141311; --panel:#1d1b19; --ink:#f1ede6; --muted:#a39c91; --line:#34302b;
+  --accent:#e07a4f; --accent-ink:#141311; --stage:#0d0c0b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+h1,h2{font-family:Fraunces,Georgia,serif;font-weight:600;letter-spacing:-.01em}
+
+.app{display:grid;grid-template-columns:320px 1fr;height:100vh;height:100dvh}
+aside{background:var(--panel);border-right:1px solid var(--line);overflow-y:auto;padding:22px 20px 30px;display:flex;flex-direction:column;gap:22px}
+.brand h1{font-size:1.55rem;line-height:1.1}
+.brand p{color:var(--muted);margin-top:6px}
+section h2{font-size:1rem;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.step{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font:600 .75rem Inter,sans-serif}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);background:transparent;border-radius:999px;padding:10px 16px;font-weight:600;cursor:pointer;transition:background .15s,border-color .15s,transform .15s}
+.btn:hover{border-color:var(--ink)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.primary:hover{filter:brightness(1.05)}
+.btn.full{width:100%}
+.btn svg{width:16px;height:16px;flex:none}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+
+.rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.rooms button{aspect-ratio:4/3;border-radius:10px;border:2px solid transparent;overflow:hidden;cursor:pointer;padding:0;background:var(--stage)}
+.rooms button.on{border-color:var(--accent)}
+.rooms canvas{width:100%;height:100%;display:block}
+
+.catalog{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.piece{border:1px solid var(--line);border-radius:12px;padding:10px;cursor:pointer;background:transparent;text-align:left;transition:border-color .15s,transform .15s}
+.piece:hover{border-color:var(--ink);transform:translateY(-2px)}
+.piece .thumb{aspect-ratio:1;display:grid;place-items:center;background:var(--stage);border-radius:8px;margin-bottom:8px;overflow:hidden}
+.piece canvas{max-width:80%;max-height:80%;box-shadow:0 4px 12px rgba(0,0,0,.18)}
+.piece b{display:block;font-weight:600;font-size:.85rem}
+.piece span{color:var(--muted);font-size:.78rem}
+
+.controls{display:flex;flex-direction:column;gap:12px}
+.controls[hidden]{display:none}
+.field label{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);margin-bottom:6px}
+.field input[type=range]{width:100%;accent-color:var(--accent)}
+.swatches{display:flex;gap:8px;flex-wrap:wrap}
+.swatches button{border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:transparent;cursor:pointer;font-size:.8rem;display:flex;align-items:center;gap:6px}
+.swatches button i{width:12px;height:12px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.2)}
+.swatches button.on{border-color:var(--accent);color:var(--accent)}
+.hint{color:var(--muted);font-size:.8rem}
+
+main{position:relative;background:var(--stage);display:flex;flex-direction:column;min-width:0;min-height:0}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--panel)}
+.toolbar .hint{flex:1}
+.stagewrap{flex:1;display:grid;place-items:center;padding:20px;min-height:0;overflow:hidden}
+#stage{max-width:100%;max-height:100%;border-radius:10px;box-shadow:0 20px 50px -20px rgba(0,0,0,.4);touch-action:none;cursor:default;background:#ddd}
+.drop{position:absolute;inset:0;display:none;place-items:center;background:rgba(181,86,47,.15);border:3px dashed var(--accent);font:600 1.2rem Fraunces,serif;color:var(--accent);pointer-events:none}
+.drop.on{display:grid}
+
+@media (max-width:820px){
+  .app{grid-template-columns:1fr;grid-template-rows:auto 1fr;height:auto;min-height:100dvh}
+  main{order:-1;height:62dvh;position:sticky;top:0;z-index:5}
+  aside{border-right:0;border-top:1px solid var(--line);padding:18px 16px 40px}
+  .stagewrap{padding:10px}
+  .toolbar{padding:10px 16px}
+  .toolbar .hint{display:none}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div class="brand">
+      <h1>See it on your wall</h1>
+      <p>Upload a photo of your room, place a piece, then drag, resize and frame it until it looks right.</p>
+    </div>
+
+    <section>
+      <h2><span class="step">1</span> Your room</h2>
+      <button class="btn primary full" id="uploadBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4m0 0-5 5m5-5 5 5M4 20h16"/></svg>
+        Upload a room photo
+      </button>
+      <input type="file" id="file" accept="image/*" hidden>
+      <p class="hint" style="margin-top:8px">Or try a sample room:</p>
+      <div class="rooms" id="rooms"></div>
+    </section>
+
+    <section>
+      <h2><span class="step">2</span> Pick a piece</h2>
+      <div class="catalog" id="catalog"></div>
+    </section>
+
+    <section>
+      <h2><span class="step">3</span> Adjust</h2>
+      <p class="hint" id="noSel">Tap a piece on the wall to select it. Drag to move it, use the corner handle or pinch to resize.</p>
+      <div class="controls" id="controls" hidden>
+        <div class="field">
+          <label><span>Size</span><span id="sizeVal"></span></label>
+          <input type="range" id="size" min="6" max="90" step="1">
+        </div>
+        <div class="field">
+          <label><span>Tilt</span><span id="rotVal"></span></label>
+          <input type="range" id="rot" min="-15" max="15" step="0.5">
+        </div>
+        <div class="field">
+          <label><span>Frame</span></label>
+          <div class="swatches" id="frames"></div>
+        </div>
+        <div class="field">
+          <label><span>Mat (white border)</span></label>
+          <div class="swatches" id="mats"></div>
+        </div>
+        <div class="row">
+          <button class="btn" id="dupBtn">Duplicate</button>
+          <button class="btn" id="frontBtn">Bring to front</button>
+          <button class="btn" id="delBtn">Remove</button>
+        </div>
+      </div>
+    </section>
+  </aside>
+
+  <main>
+    <div class="toolbar">
+      <span class="hint" id="status">Sample room loaded. Pick a piece to place it.</span>
+      <div class="row">
+        <button class="btn" id="clearBtn">Clear</button>
+        <button class="btn primary" id="saveBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v12m0 0 5-5m-5 5-5-5M4 20h16"/></svg>
+          Save image
+        </button>
+      </div>
+    </div>
+    <div class="stagewrap" id="stagewrap"><canvas id="stage"></canvas></div>
+    <div class="drop" id="drop">Drop your room photo</div>
+  </main>
+</div>
+
+<script>
+(() => {
+  // ---------- Catalog: generative art pieces drawn on canvas ----------
+  const PIECES = [
+    { id:'dune',    name:'Dune',        meta:'Abstract · 60×80', ratio:3/4, draw:drawDune },
+    { id:'orbit',   name:'Orbit',       meta:'Geometric · 70×70', ratio:1,   draw:drawOrbit },
+    { id:'tide',    name:'Tide',        meta:'Minimal · 50×70', ratio:5/7, draw:drawTide },
+    { id:'bloom',   name:'Bloom',       meta:'Organic · 60×60', ratio:1,   draw:drawBloom },
+    { id:'grid',    name:'Terrace',     meta:'Bauhaus · 90×60', ratio:3/2, draw:drawGrid },
+    { id:'horizon', name:'Horizon',     meta:'Landscape · 100×50', ratio:2, draw:drawHorizon },
+  ];
+
+  function drawDune(c,w,h){
+    const g=c.createLinearGradient(0,0,0,h); g.addColorStop(0,'#f3d9b8'); g.addColorStop(1,'#e9b98a');
+    c.fillStyle=g; c.fillRect(0,0,w,h);
+    c.fillStyle='#c4572d'; c.beginPath(); c.arc(w*.62,h*.3,w*.16,0,7); c.fill();
+    const cols=['#d98c56','#b8653a','#7c3b22'];
+    cols.forEach((col,i)=>{ c.fillStyle=col; c.beginPath(); const y=h*(.55+i*.13); c.moveTo(0,y);
+      c.bezierCurveTo(w*.3,y-h*.14,w*.6,y+h*.1,w,y-h*.05); c.lineTo(w,h); c.lineTo(0,h); c.fill(); });
+  }
+  function drawOrbit(c,w,h){
+    c.fillStyle='#1f2a36'; c.fillRect(0,0,w,h);
+    const cx=w/2, cy=h/2;
+    [['#e9c46a',.36],['#f4a261',.26],['#e76f51',.16]].forEach(([col,r])=>{ c.strokeStyle=col; c.lineWidth=w*.025; c.beginPath(); c.arc(cx,cy,w*r,0,7); c.stroke(); });
+    c.fillStyle='#f1ede6'; c.beginPath(); c.arc(cx+w*.26,cy-h*.0,w*.04,0,7); c.fill();
+    c.fillStyle='#2a9d8f'; c.beginPath(); c.arc(cx-w*.11,cy+h*.12,w*.03,0,7); c.fill();
+  }
+  function drawTide(c,w,h){
+    c.fillStyle='#eef0ec'; c.fillRect(0,0,w,h);
+    for(let i=0;i<9;i++){ c.strokeStyle=`rgba(40,70,90,${.15+i*.08})`; c.lineWidth=h*.012; c.beginPath();
+      const y=h*.25+i*h*.06; for(let x=0;x<=w;x+=w/40){ c.lineTo(x,y+Math.sin(x/w*Math.PI*2+i*.6)*h*.025); } c.stroke(); }
+    c.fillStyle='#284659'; c.font=`${h*.035}px Inter, sans-serif`; c.fillText('TIDE · 01',w*.08,h*.92);
+  }
+  function drawBloom(c,w,h){
+    c.fillStyle='#f6efe4'; c.fillRect(0,0,w,h);
+    const cols=['#e07a5f','#f2cc8f','#81b29a','#3d405b','#e07a5f'];
+    for(let i=0;i<5;i++){ c.save(); c.translate(w/2,h/2); c.rotate(i*Math.PI*2/5); c.fillStyle=cols[i]; c.globalAlpha=.85;
+      c.beginPath(); c.ellipse(0,-h*.18,w*.11,h*.2,0,0,7); c.fill(); c.restore(); }
+    c.fillStyle='#3d405b'; c.beginPath(); c.arc(w/2,h/2,w*.06,0,7); c.fill();
+  }
+  function drawGrid(c,w,h){
+    c.fillStyle='#f2ead9'; c.fillRect(0,0,w,h);
+    const R=[[.06,.1,.36,.5,'#d1462f'],[.46,.1,.2,.32,'#1f4e79'],[.7,.1,.24,.32,'#e8b931'],[.46,.46,.48,.44,'#222'],[.06,.64,.36,.26,'#e8b931']];
+    R.forEach(([x,y,ww,hh,col])=>{ c.fillStyle=col; c.fillRect(x*w,y*h,ww*w,hh*h); });
+    c.fillStyle='#f2ead9'; c.beginPath(); c.arc(w*.7,h*.68,h*.14,0,7); c.fill();
+  }
+  function drawHorizon(c,w,h){
+    const g=c.createLinearGradient(0,0,0,h); g.addColorStop(0,'#8fb3c9'); g.addColorStop(.55,'#f2d4b7'); g.addColorStop(1,'#c9a27e');
+    c.fillStyle=g; c.fillRect(0,0,w,h);
+    c.fillStyle='rgba(255,240,220,.9)'; c.beginPath(); c.arc(w*.7,h*.52,h*.1,0,7); c.fill();
+    c.fillStyle='#5b6e7d'; c.beginPath(); c.moveTo(0,h*.62); c.lineTo(w*.18,h*.42); c.lineTo(w*.34,h*.58); c.lineTo(w*.5,h*.46); c.lineTo(w*.74,h*.62); c.lineTo(w,h*.5); c.lineTo(w,h); c.lineTo(0,h); c.fill();
+    c.fillStyle='#3e4c57'; c.fillRect(0,h*.72,w,h*.28);
+  }
+
+  // Render each piece once at high resolution
+  const ART = {};
+  PIECES.forEach(p=>{
+    const W=900, H=Math.round(W/p.ratio);
+    const cv=document.createElement('canvas'); cv.width=W; cv.height=H;
+    p.draw(cv.getContext('2d'),W,H); ART[p.id]=cv;
+  });
+
+  // ---------- Sample rooms (drawn) ----------
+  const ROOMS = [
+    { id:'living', draw:roomLiving },
+    { id:'bed',    draw:roomBed },
+    { id:'dark',   draw:roomDark },
+  ];
+  function wallAndFloor(c,w,h,wall,floor,floorY){
+    const g=c.createLinearGradient(0,0,0,floorY); g.addColorStop(0,wall[0]); g.addColorStop(1,wall[1]);
+    c.fillStyle=g; c.fillRect(0,0,w,floorY);
+    c.fillStyle=floor; c.fillRect(0,floorY,w,h-floorY);
+    c.fillStyle='rgba(0,0,0,.08)'; c.fillRect(0,floorY-h*.012,w,h*.012);
+    const vg=c.createRadialGradient(w*.5,h*.35,w*.1,w*.5,h*.5,w*.8); vg.addColorStop(0,'rgba(255,255,255,0)'); vg.addColorStop(1,'rgba(0,0,0,.18)');
+    c.fillStyle=vg; c.fillRect(0,0,w,h);
+  }
+  function roomLiving(c,w,h){
+    wallAndFloor(c,w,h,['#efe9df','#e2d8c9'],'#b48a63',h*.78);
+    // sofa
+    c.fillStyle='rgba(0,0,0,.15)'; c.beginPath(); c.ellipse(w*.5,h*.86,w*.33,h*.03,0,0,7); c.fill();
+    c.fillStyle='#6f7f73'; rr(c,w*.2,h*.58,w*.6,h*.14,h*.03); rr(c,w*.17,h*.66,w*.66,h*.17,h*.03);
+    c.fillStyle='#5f6e63'; rr(c,w*.15,h*.62,w*.06,h*.21,h*.025); rr(c,w*.79,h*.62,w*.06,h*.21,h*.025);
+    c.fillStyle='#d9a066'; rr(c,w*.26,h*.6,w*.08,h*.08,h*.015);
+    // plant
+    c.fillStyle='#8a5a3b'; rr(c,w*.88,h*.7,w*.06,h*.12,h*.01);
+    c.fillStyle='#4f7a52'; for(let i=0;i<6;i++){ c.beginPath(); c.ellipse(w*.91+(i-2.5)*w*.012,h*.6,w*.015,h*.09,(i-2.5)*.25,0,7); c.fill(); }
+  }
+  function roomBed(c,w,h){
+    wallAndFloor(c,w,h,['#dfe5e6','#cdd6d8'],'#c9b79c',h*.8);
+    c.fillStyle='rgba(0,0,0,.14)'; c.beginPath(); c.ellipse(w*.5,h*.9,w*.36,h*.03,0,0,7); c.fill();
+    c.fillStyle='#8c6d52'; rr(c,w*.22,h*.5,w*.56,h*.22,h*.02);
+    c.fillStyle='#f4f1ea'; rr(c,w*.2,h*.68,w*.6,h*.2,h*.02);
+    c.fillStyle='#ffffff'; rr(c,w*.27,h*.62,w*.18,h*.08,h*.03); rr(c,w*.55,h*.62,w*.18,h*.08,h*.03);
+    c.fillStyle='#b9c7cc'; rr(c,w*.2,h*.76,w*.6,h*.12,h*.02);
+    c.fillStyle='#8c6d52'; rr(c,w*.06,h*.68,w*.1,h*.14,h*.01); rr(c,w*.84,h*.68,w*.1,h*.14,h*.01);
+    c.fillStyle='#f3d8a2'; rr(c,w*.09,h*.58,w*.04,h*.1,h*.01); rr(c,w*.87,h*.58,w*.04,h*.1,h*.01);
+  }
+  function roomDark(c,w,h){
+    wallAndFloor(c,w,h,['#3c4a4f','#2f3b3f'],'#6b5444',h*.8);
+    c.fillStyle='rgba(0,0,0,.25)'; c.beginPath(); c.ellipse(w*.5,h*.9,w*.3,h*.025,0,0,7); c.fill();
+    c.fillStyle='#7a4f35'; rr(c,w*.24,h*.68,w*.52,h*.04,h*.01);
+    c.fillStyle='#5c3b28'; c.fillRect(w*.27,h*.72,w*.015,h*.16); c.fillRect(w*.715,h*.72,w*.015,h*.16);
+    c.fillStyle='#d9cbb5'; rr(c,w*.32,h*.6,w*.06,h*.08,h*.01);
+    c.fillStyle='#b5562f'; c.beginPath(); c.arc(w*.62,h*.645,w*.03,0,7); c.fill();
+    c.fillStyle='#e8d9bd'; c.fillRect(w*.86,h*.2,w*.005,h*.5); c.beginPath(); c.moveTo(w*.83,h*.24); c.lineTo(w*.895,h*.24); c.lineTo(w*.875,h*.16); c.lineTo(w*.85,h*.16); c.fill();
+  }
+  function rr(c,x,y,w,h,r){ c.beginPath(); c.roundRect ? c.roundRect(x,y,w,h,r) : c.rect(x,y,w,h); c.fill(); }
+
+  function renderRoom(room,W=1600,H=1200){
+    const cv=document.createElement('canvas'); cv.width=W; cv.height=H; room.draw(cv.getContext('2d'),W,H); return cv;
+  }
+
+  // ---------- State ----------
+  const FRAMES = [
+    { id:'none',  name:'None',      color:null },
+    { id:'black', name:'Black',     color:'#151515' },
+    { id:'white', name:'White',     color:'#f7f7f5' },
+    { id:'oak',   name:'Oak',       color:'#b98b5a' },
+    { id:'gold',  name:'Brass',     color:'#c6a15b' },
+  ];
+  const MATS = [ {id:0,name:'None'}, {id:.06,name:'Thin'}, {id:.14,name:'Wide'} ];
+
+  const stage=document.getElementById('stage'), ctx=stage.getContext('2d');
+  let bg=null;            // canvas or image
+  let items=[];           // {pid,x,y,w,rot,frame,mat}   x,y center in bg px, w in bg px
+  let sel=-1;
+  const HANDLE=26;
+
+  function setBackground(src){
+    bg=src;
+    const maxW=2400, s=Math.min(1,maxW/src.width);
+    stage.width=Math.round(src.width*s); stage.height=Math.round(src.height*s);
+    items=[]; select(-1); draw();
+  }
+
+  function itemGeom(it){
+    const p=PIECES.find(p=>p.id===it.pid);
+    const fw = it.frame==='none'?0:it.w*.035;
+    const m  = it.w*it.mat;
+    const artW=it.w-2*fw-2*m;
+    const artH=artW/p.ratio;
+    const h=artH+2*fw+2*m;
+    return {fw,m,artW,artH,h};
+  }
+
+  function drawItem(c,it,isSel){
+    const g=itemGeom(it), fr=FRAMES.find(f=>f.id===it.frame);
+    c.save(); c.translate(it.x,it.y); c.rotate(it.rot*Math.PI/180);
+    const x=-it.w/2, y=-g.h/2;
+    // shadow
+    c.save(); c.shadowColor='rgba(0,0,0,.35)'; c.shadowBlur=it.w*.05; c.shadowOffsetX=it.w*.012; c.shadowOffsetY=it.w*.03;
+    c.fillStyle=fr.color||'#fff'; c.fillRect(x,y,it.w,g.h); c.restore();
+    // frame bevel
+    if(fr.color){
+      c.fillStyle=fr.color; c.fillRect(x,y,it.w,g.h);
+      const bev=c.createLinearGradient(x,y,x+it.w,y+g.h); bev.addColorStop(0,'rgba(255,255,255,.18)'); bev.addColorStop(1,'rgba(0,0,0,.18)');
+      c.fillStyle=bev; c.fillRect(x,y,it.w,g.h);
+    }
+    if(it.mat){ c.fillStyle='#fbfaf6'; c.fillRect(x+g.fw,y+g.fw,it.w-2*g.fw,g.h-2*g.fw);
+      c.strokeStyle='rgba(0,0,0,.12)'; c.lineWidth=Math.max(1,it.w*.002); c.strokeRect(x+g.fw+g.m,y+g.fw+g.m,g.artW,g.artH); }
+    c.drawImage(ART[it.pid],x+g.fw+g.m,y+g.fw+g.m,g.artW,g.artH);
+    // inner shadow at frame edge
+    if(fr.color){ c.strokeStyle='rgba(0,0,0,.25)'; c.lineWidth=Math.max(1,it.w*.004); c.strokeRect(x+g.fw,y+g.fw,it.w-2*g.fw,g.h-2*g.fw); }
+    // light sheen
+    const sh=c.createLinearGradient(x,y,x+it.w,y+g.h); sh.addColorStop(0,'rgba(255,255,255,.07)'); sh.addColorStop(.5,'rgba(255,255,255,0)');
+    c.fillStyle=sh; c.fillRect(x,y,it.w,g.h);
+    if(isSel){
+      const k=stage.width/stage.clientWidth || 1;
+      c.strokeStyle='#e07a4f'; c.lineWidth=2*k; c.setLineDash([8*k,6*k]); c.strokeRect(x-6*k,y-6*k,it.w+12*k,g.h+12*k); c.setLineDash([]);
+      c.fillStyle='#fff'; c.strokeStyle='#e07a4f'; c.lineWidth=2.5*k;
+      c.beginPath(); c.arc(x+it.w+6*k,y+g.h+6*k,HANDLE/2*k,0,7); c.fill(); c.stroke();
+      c.strokeStyle='#e07a4f'; c.lineWidth=2*k; c.beginPath();
+      const hx=x+it.w+6*k, hy=y+g.h+6*k, a=5*k; c.moveTo(hx-a,hy-a); c.lineTo(hx+a,hy+a); c.moveTo(hx+a,hy+a-4*k); c.lineTo(hx+a,hy+a); c.lineTo(hx+a-4*k,hy+a); c.stroke();
+    }
+    c.restore();
+  }
+
+  function draw(showSel=true){
+    if(!bg) return;
+    ctx.clearRect(0,0,stage.width,stage.height);
+    ctx.drawImage(bg,0,0,stage.width,stage.height);
+    items.forEach((it,i)=>drawItem(ctx,it,showSel&&i===sel));
+  }
+
+  // ---------- Hit testing ----------
+  function toLocal(it,px,py){
+    const a=-it.rot*Math.PI/180, dx=px-it.x, dy=py-it.y;
+    return [dx*Math.cos(a)-dy*Math.sin(a), dx*Math.sin(a)+dy*Math.cos(a)];
+  }
+  function hitHandle(it,px,py){
+    const g=itemGeom(it), k=stage.width/stage.clientWidth, [lx,ly]=toLocal(it,px,py);
+    return Math.hypot(lx-(it.w/2+6*k), ly-(g.h/2+6*k)) < HANDLE*k;
+  }
+  function hitItem(px,py){
+    for(let i=items.length-1;i>=0;i--){ const it=items[i], g=itemGeom(it), [lx,ly]=toLocal(it,px,py);
+      if(Math.abs(lx)<=it.w/2 && Math.abs(ly)<=g.h/2) return i; }
+    return -1;
+  }
+  function evPos(e){ const r=stage.getBoundingClientRect(); return [(e.clientX-r.left)*stage.width/r.width,(e.clientY-r.top)*stage.height/r.height]; }
+
+  // ---------- Pointer interaction (drag, handle-resize, pinch) ----------
+  const pointers=new Map(); let mode=null, start=null;
+  stage.addEventListener('pointerdown',e=>{
+    stage.setPointerCapture(e.pointerId);
+    const [px,py]=evPos(e); pointers.set(e.pointerId,[px,py]);
+    if(pointers.size===2 && sel>=0){
+      const [a,b]=[...pointers.values()];
+      mode='pinch'; start={d:Math.hypot(a[0]-b[0],a[1]-b[1]), w:items[sel].w, ang:Math.atan2(b[1]-a[1],b[0]-a[0]), rot:items[sel].rot}; return;
+    }
+    if(sel>=0 && hitHandle(items[sel],px,py)){
+      const it=items[sel]; mode='resize'; start={d:Math.hypot(px-it.x,py-it.y), w:it.w}; return;
+    }
+    const i=hitItem(px,py); select(i);
+    if(i>=0){ mode='move'; start={dx:px-items[i].x, dy:py-items[i].y}; }
+    draw();
+  });
+  stage.addEventListener('pointermove',e=>{
+    const [px,py]=evPos(e);
+    if(!pointers.has(e.pointerId)){
+      stage.style.cursor = sel>=0&&hitHandle(items[sel],px,py)?'nwse-resize':(hitItem(px,py)>=0?'move':'default'); return;
+    }
+    pointers.set(e.pointerId,[px,py]);
+    if(sel<0) return; const it=items[sel];
+    if(mode==='move'){ it.x=px-start.dx; it.y=py-start.dy; }
+    else if(mode==='resize'){ it.w=clampW(start.w*Math.hypot(px-it.x,py-it.y)/start.d); }
+    else if(mode==='pinch' && pointers.size===2){
+      const [a,b]=[...pointers.values()];
+      it.w=clampW(start.w*Math.hypot(a[0]-b[0],a[1]-b[1])/start.d);
+      const ang=Math.atan2(b[1]-a[1],b[0]-a[0]); it.rot=Math.max(-15,Math.min(15,start.rot+(ang-start.ang)*180/Math.PI));
+    }
+    syncControls(); draw();
+  });
+  const end=e=>{ pointers.delete(e.pointerId); if(pointers.size===0) mode=null; else if(mode==='pinch') mode=null; };
+  stage.addEventListener('pointerup',end); stage.addEventListener('pointercancel',end);
+  stage.addEventListener('wheel',e=>{ if(sel<0) return; e.preventDefault(); const it=items[sel]; it.w=clampW(it.w*(e.deltaY<0?1.05:.95)); syncControls(); draw(); },{passive:false});
+  function clampW(w){ return Math.max(stage.width*.06, Math.min(stage.width*.9, w)); }
+
+  window.addEventListener('keydown',e=>{
+    if(sel<0 || /INPUT|SELECT/.test(document.activeElement.tagName)) return;
+    const it=items[sel], step=e.shiftKey?20:4;
+    if(e.key==='Delete'||e.key==='Backspace'){ removeSel(); e.preventDefault(); return; }
+    if(e.key==='ArrowLeft') it.x-=step; else if(e.key==='ArrowRight') it.x+=step;
+    else if(e.key==='ArrowUp') it.y-=step; else if(e.key==='ArrowDown') it.y+=step; else return;
+    e.preventDefault(); draw();
+  });
+
+  // ---------- UI ----------
+  const $=id=>document.getElementById(id);
+  const controls=$('controls'), noSel=$('noSel'), status=$('status');
+
+  function select(i){ sel=i; controls.hidden=i<0; noSel.hidden=i>=0; syncControls(); }
+  function syncControls(){
+    if(sel<0) return; const it=items[sel];
+    const pct=Math.round(it.w/stage.width*100);
+    $('size').value=pct; $('sizeVal').textContent=pct+'% of photo width';
+    $('rot').value=it.rot; $('rotVal').textContent=(+it.rot).toFixed(1)+'°';
+    [...$('frames').children].forEach(b=>b.classList.toggle('on',b.dataset.id===it.frame));
+    [...$('mats').children].forEach(b=>b.classList.toggle('on',+b.dataset.id===it.mat));
+  }
+  function addPiece(pid){
+    if(!bg) return;
+    const n=items.length;
+    items.push({pid,x:stage.width*(.5+((n%3)-1)*.08),y:stage.height*(.33+((n%2))*.04),w:stage.width*.26,rot:0,frame:'black',mat:.06});
+    select(items.length-1); draw();
+    status.textContent='Drag the piece to move it. Use the corner handle, scroll or pinch to resize.';
+  }
+  function removeSel(){ if(sel<0) return; items.splice(sel,1); select(-1); draw(); }
+
+  // catalog
+  PIECES.forEach(p=>{
+    const b=document.createElement('button'); b.className='piece'; b.type='button';
+    const t=document.createElement('div'); t.className='thumb';
+    const cv=document.createElement('canvas'); const TW=220; cv.width=TW; cv.height=Math.round(TW/p.ratio);
+    cv.getContext('2d').drawImage(ART[p.id],0,0,cv.width,cv.height);
+    if(p.ratio>=1){ cv.style.width='80%'; } else { cv.style.height='80%'; }
+    t.appendChild(cv); b.appendChild(t);
+    b.insertAdjacentHTML('beforeend',`<b>${p.name}</b><span>${p.meta} cm</span>`);
+    b.onclick=()=>addPiece(p.id); $('catalog').appendChild(b);
+  });
+  // rooms
+  ROOMS.forEach((r,i)=>{
+    const b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label','Sample room '+(i+1));
+    const cv=renderRoom(r,320,240); b.appendChild(cv);
+    b.onclick=()=>{ [...$('rooms').children].forEach(x=>x.classList.remove('on')); b.classList.add('on'); setBackground(renderRoom(r)); status.textContent='Sample room loaded. Pick a piece to place it.'; };
+    $('rooms').appendChild(b);
+  });
+  // frames & mats
+  FRAMES.forEach(f=>{ const b=document.createElement('button'); b.type='button'; b.dataset.id=f.id;
+    b.innerHTML=(f.color?`<i style="background:${f.color}"></i>`:'')+f.name;
+    b.onclick=()=>{ if(sel<0) return; items[sel].frame=f.id; syncControls(); draw(); }; $('frames').appendChild(b); });
+  MATS.forEach(m=>{ const b=document.createElement('button'); b.type='button'; b.dataset.id=m.id; b.textContent=m.name;
+    b.onclick=()=>{ if(sel<0) return; items[sel].mat=m.id; syncControls(); draw(); }; $('mats').appendChild(b); });
+
+  $('size').oninput=e=>{ if(sel<0) return; items[sel].w=stage.width*e.target.value/100; syncControls(); draw(); };
+  $('rot').oninput=e=>{ if(sel<0) return; items[sel].rot=+e.target.value; syncControls(); draw(); };
+  $('delBtn').onclick=removeSel;
+  $('dupBtn').onclick=()=>{ if(sel<0) return; const c={...items[sel],x:items[sel].x+stage.width*.04,y:items[sel].y+stage.width*.02}; items.push(c); select(items.length-1); draw(); };
+  $('frontBtn').onclick=()=>{ if(sel<0) return; const [it]=items.splice(sel,1); items.push(it); select(items.length-1); draw(); };
+  $('clearBtn').onclick=()=>{ items=[]; select(-1); draw(); };
+  $('saveBtn').onclick=()=>{
+    draw(false);
+    stage.toBlob(blob=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='my-wall.png'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),2000); draw(); },'image/png');
+  };
+
+  // upload
+  function loadFile(f){
+    if(!f || !f.type.startsWith('image/')) return;
+    const img=new Image(); img.onload=()=>{ [...$('rooms').children].forEach(x=>x.classList.remove('on')); setBackground(img); URL.revokeObjectURL(img.src); status.textContent='Your room is loaded. Pick a piece to place it.'; };
+    img.src=URL.createObjectURL(f);
+  }
+  $('uploadBtn').onclick=()=>$('file').click();
+  $('file').onchange=e=>loadFile(e.target.files[0]);
+  const drop=$('drop');
+  ['dragenter','dragover'].forEach(t=>window.addEventListener(t,e=>{ e.preventDefault(); drop.classList.add('on'); }));
+  ['dragleave','drop'].forEach(t=>window.addEventListener(t,e=>{ e.preventDefault(); if(t==='drop'||e.target===drop||!e.relatedTarget) drop.classList.remove('on'); }));
+  window.addEventListener('drop',e=>loadFile(e.dataTransfer.files[0]));
+
+  // init
+  $('rooms').children[0].classList.add('on');
+  setBackground(renderRoom(ROOMS[0]));
+  addPiece('dune'); status.textContent='Sample room loaded. Pick a piece, or upload a photo of your own room.';
+})();
+</script>
+</body>
+</html>
