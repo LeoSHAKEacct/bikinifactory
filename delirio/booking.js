@@ -26,6 +26,7 @@
   function renderCards() {
     $('#cards').innerHTML = DS.TREATMENTS.map((tr, i) => `
       <article class="card rv" style="--c:${tr.color}">
+        <div class="card-img"><img src="img/${tr.id}.webp" alt="" loading="lazy"></div>
         ${tr.signature ? `<span class="tag">${t('menu.signature')}</span>` : ''}
         <div class="num">0${i + 1}</div>
         <h3>${L(tr.name)}</h3>

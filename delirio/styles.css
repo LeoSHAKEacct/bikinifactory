@@ -89,11 +89,21 @@ section { padding: clamp(80px, 11vw, 140px) 0; position: relative; }
 .hero-art { position: relative; aspect-ratio: 4/5; }
 .arch { position: absolute; inset: 0; border-radius: 999px 999px 24px 24px; overflow: hidden; border: 1px solid var(--line2); background: radial-gradient(70% 50% at 50% 30%, #c98a62 0%, #7a2a36 45%, #2a1215 100%); box-shadow: 0 40px 80px -30px rgba(0,0,0,.8); }
 .arch::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(115deg, transparent 0 22px, rgba(255,255,255,.025) 22px 23px); }
-.arch svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.flame { position: absolute; left: 50%; bottom: 20%; width: 18px; height: 34px; transform: translateX(-50%); background: radial-gradient(50% 60% at 50% 70%, #fff6d8, #f2b45a 50%, transparent 72%); border-radius: 50% 50% 45% 45%; filter: blur(.5px); animation: flick 2.6s ease-in-out infinite; }
-@keyframes flick { 0%,100% { transform: translateX(-50%) scaleY(1); opacity: 1; } 40% { transform: translateX(-52%) scaleY(1.12); opacity: .9; } 70% { transform: translateX(-48%) scaleY(.94); } }
-.glow { position: absolute; left: 50%; bottom: 14%; width: 240px; height: 240px; transform: translateX(-50%); background: radial-gradient(circle, rgba(255,190,110,.35), transparent 65%); animation: pulse 4s ease-in-out infinite; }
-@keyframes pulse { 50% { opacity: .65; } }
+.arch img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.9) contrast(1.05); animation: kb 24s ease-in-out infinite alternate; }
+.arch::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(17,11,12,0) 50%, rgba(17,11,12,.55)), linear-gradient(0deg, rgba(122,34,50,.18), rgba(122,34,50,.18)); }
+@keyframes kb { to { transform: scale(1.08); } }
+.wide { margin: 64px 0 0; border-radius: 24px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 21/9; position: relative; }
+.wide img, .gal img { width: 100%; height: 100%; object-fit: cover; }
+.wide::after, .gal figure::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(17,11,12,.7)); pointer-events: none; }
+.gallery { padding: 0 0 clamp(80px, 11vw, 140px); }
+.gal { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+.gal figure { margin: 0; position: relative; border-radius: 20px; overflow: hidden; aspect-ratio: 9/11; border: 1px solid var(--line); }
+.gal figure:nth-child(2) { transform: translateY(40px); }
+.gal figure:nth-child(2).rv:not(.in) { transform: translateY(64px); }
+.gal img { transition: transform 1.2s ease; filter: sepia(.28) saturate(.9) brightness(.8) contrast(1.05); }
+.gal figure:hover img { transform: scale(1.05); }
+.gal figcaption { position: absolute; left: 22px; bottom: 18px; z-index: 1; font-family: var(--serif); font-style: italic; font-size: 26px; }
+@media (max-width: 760px) { .wide { aspect-ratio: 4/3; margin-top: 40px; } .gal { grid-template-columns: 1fr; } .gal figure { aspect-ratio: 4/3; } .gal figure:nth-child(2), .gal figure:nth-child(2).rv.in { transform: none; } }
 .badge-float { position: absolute; left: -36px; bottom: 12%; background: rgba(30,20,21,.85); backdrop-filter: blur(12px); border: 1px solid var(--line2); border-radius: 16px; padding: 14px 18px; display: flex; gap: 12px; align-items: center; font-size: 13px; color: var(--muted); }
 .badge-float strong { display: block; color: var(--ink); font-size: 14px; }
 .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px rgba(143,199,154,.18); flex: none; }
@@ -125,9 +135,14 @@ section { padding: clamp(80px, 11vw, 140px) 0; position: relative; }
 .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .card { position: relative; padding: 32px 28px 28px; border-radius: var(--r); border: 1px solid var(--line); background: var(--surface); display: flex; flex-direction: column; transition: border-color .3s, transform .3s; overflow: hidden; }
 .card:hover { border-color: var(--line2); transform: translateY(-4px); }
-.card::before { content: ''; position: absolute; inset: 0 0 auto; height: 3px; background: var(--c, var(--gold)); opacity: .9; }
+.card::before { content: ''; position: absolute; inset: 0 0 auto; height: 3px; z-index: 2; background: var(--c, var(--gold)); opacity: .9; }
 .card .tag { position: absolute; top: 22px; right: 22px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--line2); padding: 4px 10px; border-radius: 999px; }
-.card .num { font-family: var(--serif); font-style: italic; color: var(--faint); font-size: 20px; margin-bottom: 26px; }
+.card .num { font-family: var(--serif); font-style: italic; color: var(--faint); font-size: 20px; margin-bottom: 14px; }
+.card-img { margin: -32px -28px 24px; aspect-ratio: 4/3; overflow: hidden; position: relative; }
+.card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s ease; }
+.card-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, var(--surface)); }
+.card:hover .card-img img { transform: scale(1.05); }
+.card .tag { z-index: 2; background: rgba(17,11,12,.7); backdrop-filter: blur(6px); }
 .card h3 { font-size: 30px; margin-bottom: 12px; padding-right: 60px; }
 .card p { color: var(--muted); font-size: 15px; margin: 0 0 28px; flex: 1; }
 .card .opts { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
@@ -287,4 +302,4 @@ footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wr
 /* Reveal */
 .rv { opacity: 0; transform: translateY(24px); transition: opacity .9s ease, transform .9s ease; }
 .rv.in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; } .orb, .marquee div, .flame, .glow { animation: none; } html { scroll-behavior: auto; } }
+@media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; } .orb, .marquee div, .arch img { animation: none; } html { scroll-behavior: auto; } }

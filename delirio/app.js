@@ -108,7 +108,8 @@
       'contact.kicker': 'Visite-nos', 'contact.title': 'Contacto & horário', 'contact.hours': 'Horário',
       'd.week': 'Segunda a sexta', 'd.sat': 'Sábado', 'd.sun': 'Domingo', 'd.closed': 'Fechado',
       'contact.call': 'Ligar', 'contact.wa': 'WhatsApp', 'contact.map': 'Abrir no mapa',
-      'foot.adult': 'Serviço exclusivo para maiores de 18 anos.', 'foot.rights': 'Todos os direitos reservados.',
+      'foot.adult': 'Serviço exclusivo para maiores de 18 anos.', 'foot.photos': 'Imagens ilustrativas (Pexels)',
+      'g1': 'Salas privadas', 'g2': 'Cada detalhe pensado', 'g3': 'Rituais de cuidado', 'foot.rights': 'Todos os direitos reservados.',
       'ag.title': 'Agenda da equipa', 'ag.today': 'Hoje', 'ag.k1': 'Marcações', 'ag.k2': 'Ocupação', 'ag.k3': 'Faturação prevista', 'ag.k4': 'Reservas online',
       'ag.online': 'Online', 'ag.list': 'Reservas feitas no site (demo)', 'ag.empty': 'Ainda não há reservas feitas no site. Faça uma na página principal.', 'ag.reset': 'Limpar reservas demo', 'ag.site': 'Ver site', 'ag.closed': 'Fechado neste dia.'
     },
@@ -146,7 +147,8 @@
       'contact.kicker': 'Visit us', 'contact.title': 'Contact & hours', 'contact.hours': 'Opening hours',
       'd.week': 'Monday to Friday', 'd.sat': 'Saturday', 'd.sun': 'Sunday', 'd.closed': 'Closed',
       'contact.call': 'Call', 'contact.wa': 'WhatsApp', 'contact.map': 'Open in maps',
-      'foot.adult': 'Service exclusively for adults 18+.', 'foot.rights': 'All rights reserved.',
+      'foot.adult': 'Service exclusively for adults 18+.', 'foot.photos': 'Illustrative images (Pexels)',
+      'g1': 'Private rooms', 'g2': 'Every detail considered', 'g3': 'Rituals of care', 'foot.rights': 'All rights reserved.',
       'ag.title': 'Team agenda', 'ag.today': 'Today', 'ag.k1': 'Appointments', 'ag.k2': 'Occupancy', 'ag.k3': 'Expected revenue', 'ag.k4': 'Online bookings',
       'ag.online': 'Online', 'ag.list': 'Bookings made on the site (demo)', 'ag.empty': 'No bookings from the site yet. Make one on the main page.', 'ag.reset': 'Clear demo bookings', 'ag.site': 'View site', 'ag.closed': 'Closed on this day.'
     }
