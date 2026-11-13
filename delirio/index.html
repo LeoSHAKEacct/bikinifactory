@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Delírio Spa · Massagens em Lisboa</title>
+<meta name="description" content="Delírio Spa — massagens tântricas e sensuais num espaço íntimo e discreto no centro de Lisboa. Reserve online.">
+<meta name="theme-color" content="#110b0c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23110b0c'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='40' fill='%23d0ab72'%3ED%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo"><b>Delírio</b><span>Spa</span></a>
+    <nav class="nav-links" id="links">
+      <a href="#about" data-i18n="nav.about">A experiência</a>
+      <a href="#menu" data-i18n="nav.menu">Massagens</a>
+      <a href="#gift" data-i18n="nav.gift">Vouchers</a>
+      <a href="#faq" data-i18n="nav.faq">Perguntas</a>
+      <a href="#contact" data-i18n="nav.contact">Contacto</a>
+    </nav>
+    <div class="langs"><button data-lang="pt">PT</button><button data-lang="en">EN</button></div>
+    <a href="#book" class="btn btn-gold btn-sm btn-nav" data-i18n="nav.book">Reservar</a>
+    <button class="burger" id="burger" aria-label="Menu"><i></i><i></i></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-bg"><div class="orb a"></div><div class="orb b"></div><div class="orb c"></div><div class="grain"></div></div>
+    <div class="wrap hero-grid">
+      <div>
+        <p class="kicker rv" data-i18n="hero.kicker">Lisboa · Conde de Redondo</p>
+        <h1 class="rv" data-i18n="hero.title">Um refúgio<br>para <em>os sentidos.</em></h1>
+        <p class="lead rv" data-i18n="hero.sub"></p>
+        <div class="hero-ctas rv">
+          <a href="#book" class="btn btn-gold" data-i18n="hero.cta">Reservar agora</a>
+          <a href="#menu" class="btn btn-ghost" data-i18n="hero.cta2">Ver massagens</a>
+        </div>
+        <div class="rating rv"><b>4,6</b><div><div class="stars">★★★★★</div><span data-i18n="hero.rating">avaliação média online</span></div></div>
+      </div>
+      <div class="hero-art rv">
+        <div class="arch">
+          <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0c79a" stop-opacity=".0"/><stop offset="1" stop-color="#f0c79a" stop-opacity=".35"/></linearGradient>
+            </defs>
+            <path d="M-20 360 C 80 300, 160 420, 260 350 S 420 300, 440 330 L440 520 L-20 520Z" fill="#1d0c0f" opacity=".75"/>
+            <path d="M-20 400 C 100 360, 180 450, 300 400 S 420 380, 440 390 L440 520 L-20 520Z" fill="#12080a"/>
+            <path d="M60 140 C 120 100, 170 180, 230 130 S 330 120, 360 160" stroke="url(#g1)" stroke-width="1.2" fill="none"/>
+            <path d="M40 190 C 120 150, 180 230, 250 180 S 340 170, 380 210" stroke="url(#g1)" stroke-width="1" fill="none" opacity=".7"/>
+            <rect x="182" y="352" width="36" height="58" rx="4" fill="#efe0c8" opacity=".92"/>
+            <ellipse cx="200" cy="352" rx="18" ry="4" fill="#d9c4a4"/>
+            <circle cx="120" cy="414" r="14" fill="#3a1a1f"/><circle cx="292" cy="418" r="10" fill="#3a1a1f"/>
+          </svg>
+          <div class="glow"></div><div class="flame"></div>
+        </div>
+        <div class="badge-float"><span class="dot"></span><div><strong id="nextFree">—</strong><span id="nextFreeSub"></span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div id="marquee"></div></div>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="about-grid">
+        <div><p class="kicker rv" data-i18n="about.kicker"></p><h2 class="rv" data-i18n="about.title"></h2></div>
+        <p class="lead rv" data-i18n="about.body"></p>
+      </div>
+      <div class="pillars">
+        <div class="pillar rv"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/></svg></div><h3 data-i18n="p1.t"></h3><p data-i18n="p1.b"></p></div>
+        <div class="pillar rv"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2c3 4 6 7.5 6 11a6 6 0 0 1-12 0c0-3.5 3-7 6-11z"/></svg></div><h3 data-i18n="p2.t"></h3><p data-i18n="p2.b"></p></div>
+        <div class="pillar rv"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg></div><h3 data-i18n="p3.t"></h3><p data-i18n="p3.b"></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu" class="menu">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="kicker rv" data-i18n="menu.kicker"></p><h2 class="rv" data-i18n="menu.title"></h2></div>
+        <p class="lead rv" data-i18n="menu.sub"></p>
+      </div>
+      <div class="cards" id="cards"></div>
+    </div>
+  </section>
+
+  <section id="gift">
+    <div class="wrap">
+      <div class="gift-box rv">
+        <div>
+          <p class="kicker" data-i18n="gift.kicker"></p>
+          <h2 data-i18n="gift.title" style="margin-bottom:20px"></h2>
+          <p class="lead" data-i18n="gift.body" style="margin-bottom:32px"></p>
+          <a class="btn btn-gold" href="https://wa.me/351912859786" target="_blank" rel="noopener" data-i18n="gift.cta"></a>
+        </div>
+        <div class="voucher"><div><div style="font-size:11px;letter-spacing:.3em;font-weight:700">GIFT · VOUCHER</div><b>Delírio Spa</b></div><div class="v-row"><span>Lisboa</span><span>€100</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="book" class="booking">
+    <div class="wrap">
+      <div class="book-head">
+        <p class="kicker" data-i18n="book.kicker"></p>
+        <h2 data-i18n="book.title"></h2>
+        <p class="lead" data-i18n="book.sub"></p>
+        <div class="demo-note">✦ <span data-i18n="b.demo"></span></div>
+      </div>
+
+      <div class="book">
+        <div class="panel">
+          <ol class="steps" id="steps">
+            <li data-s="1"><i>1</i><span data-i18n="step.1"></span></li>
+            <li data-s="2"><i>2</i><span data-i18n="step.2"></span></li>
+            <li data-s="3"><i>3</i><span data-i18n="step.3"></span></li>
+            <li data-s="4"><i>✓</i><span data-i18n="step.4"></span></li>
+          </ol>
+
+          <div class="pane" data-p="1">
+            <p class="label" data-i18n="step.1"></p>
+            <div class="tlist" id="tlist"></div>
+            <div class="grp" id="durGrp"><p class="label" data-i18n="b.duration"></p><div class="chips" id="durs"></div></div>
+            <div class="pane-foot"><span></span><button class="btn btn-gold" id="next1" data-i18n="b.next"></button></div>
+          </div>
+
+          <div class="pane" data-p="2">
+            <p class="label" data-i18n="b.therapist"></p>
+            <div class="ths" id="ths"></div>
+            <div class="grp dt">
+              <div>
+                <p class="label" data-i18n="b.date"></p>
+                <div class="cal-head"><button class="icon-btn" id="mPrev" aria-label="prev">‹</button><b id="mTitle"></b><button class="icon-btn" id="mNext" aria-label="next">›</button></div>
+                <div class="cal" id="cal"></div>
+              </div>
+              <div>
+                <p class="label" data-i18n="b.time"></p>
+                <p class="day-title" id="dayTitle"></p>
+                <div id="slots"></div>
+              </div>
+            </div>
+            <div class="pane-foot"><button class="btn btn-ghost" data-back data-i18n="b.back"></button><button class="btn btn-gold" id="next2" data-i18n="b.next"></button></div>
+          </div>
+
+          <div class="pane" data-p="3">
+            <form class="form" id="form" novalidate>
+              <div class="field" id="fName"><label data-i18n="b.name"></label><input name="name" autocomplete="given-name" maxlength="60"></div>
+              <div class="field" id="fPhone"><label data-i18n="b.phone"></label><input name="phone" type="tel" autocomplete="tel" placeholder="+351 9xx xxx xxx" maxlength="20"></div>
+              <div class="field full"><label data-i18n="b.email"></label><input name="email" type="email" autocomplete="email" maxlength="80"></div>
+              <div class="field full"><label data-i18n="b.notes"></label><textarea name="notes" rows="3" maxlength="300"></textarea></div>
+              <label class="check full"><input type="checkbox" name="adult"><span data-i18n="b.adult"></span></label>
+              <div class="err full" id="err"></div>
+            </form>
+            <div class="pane-foot"><button class="btn btn-ghost" data-back data-i18n="b.back"></button><button class="btn btn-gold" id="confirm" data-i18n="b.confirm"></button></div>
+          </div>
+
+          <div class="pane" data-p="4">
+            <div class="done">
+              <div class="tick"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+              <h3 data-i18n="b.doneT"></h3>
+              <p data-i18n="b.doneB"></p>
+              <div class="ticket" id="ticket"></div>
+              <div class="row"><button class="btn btn-ghost" id="ics" data-i18n="b.cal"></button><button class="btn btn-gold" id="again" data-i18n="b.new"></button></div>
+            </div>
+          </div>
+        </div>
+
+        <aside>
+          <div class="panel summary">
+            <h4 data-i18n="b.summary"></h4>
+            <div id="sum"></div>
+            <div class="sum-total"><span data-i18n="b.total"></span><b id="total">€0</b></div>
+            <p class="sum-note" data-i18n="b.payat"></p>
+          </div>
+          <div class="panel mine" id="mine" hidden><h5 data-i18n="b.mine"></h5><div id="mineList"></div></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap faq-grid">
+      <div><p class="kicker rv" data-i18n="faq.kicker"></p><h2 class="rv" data-i18n="faq.title"></h2></div>
+      <div class="rv">
+        <details open><summary data-i18n="q1"></summary><p data-i18n="a1"></p></details>
+        <details><summary data-i18n="q2"></summary><p data-i18n="a2"></p></details>
+        <details><summary data-i18n="q3"></summary><p data-i18n="a3"></p></details>
+        <details><summary data-i18n="q4"></summary><p data-i18n="a4"></p></details>
+        <details><summary data-i18n="q5"></summary><p data-i18n="a5"></p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <p class="kicker rv" data-i18n="contact.kicker"></p>
+      <h2 class="rv" data-i18n="contact.title" style="margin-bottom:56px"></h2>
+      <div class="contact-grid">
+        <div class="info rv">
+          <div><h3>Morada</h3><p>Rua do Conde de Redondo, 60<br>1150-108 Lisboa</p></div>
+          <div><h3 data-i18n="contact.hours"></h3>
+            <div class="hours"><span data-i18n="d.week"></span><span>11:00 – 21:00</span><span data-i18n="d.sat"></span><span>11:00 – 19:00</span><span data-i18n="d.sun"></span><span data-i18n="d.closed"></span></div>
+          </div>
+          <div><h3>Tel.</h3><p>+351 912 859 786</p></div>
+          <div class="row">
+            <a class="btn btn-gold btn-sm" href="tel:+351912859786" data-i18n="contact.call"></a>
+            <a class="btn btn-ghost btn-sm" href="https://wa.me/351912859786" target="_blank" rel="noopener" data-i18n="contact.wa"></a>
+            <a class="btn btn-ghost btn-sm" href="https://maps.google.com/?q=Rua+do+Conde+de+Redondo+60,+1150-108+Lisboa" target="_blank" rel="noopener" data-i18n="contact.map"></a>
+          </div>
+        </div>
+        <div class="map rv"><iframe loading="lazy" title="Mapa" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Rua%20do%20Conde%20de%20Redondo%2060%2C%201150-108%20Lisboa&z=16&output=embed"></iframe></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="#top" class="logo"><b>Delírio</b><span>Spa</span></a>
+    <span class="adult"><b>18+</b><span data-i18n="foot.adult"></span></span>
+    <span>© <span id="yr"></span> Delírio Spa · <span data-i18n="foot.rights"></span></span>
+  </div>
+</footer>
+
+<div class="mbar"><a href="#book" class="btn btn-gold" data-i18n="nav.book">Reservar</a></div>
+<a class="wa" href="https://wa.me/351912859786" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.1-1.2-.2-.2-.5-.3z"/></svg></a>
+
+<script src="app.js"></script>
+<script src="booking.js"></script>
+</body>
+</html>

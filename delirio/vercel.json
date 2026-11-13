@@ -1,0 +1,8 @@
+{
+  "ignoreCommand": "git diff --quiet ${VERCEL_GIT_PREVIOUS_SHA:-HEAD^} HEAD -- . 2>/dev/null; [ $? -eq 0 ] && exit 0 || exit 1",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    { "source": "/agenda", "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }] }
+  ]
+}
