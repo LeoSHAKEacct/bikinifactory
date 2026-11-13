@@ -16,7 +16,11 @@
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
   $('#burger').onclick = () => $('#links').classList.toggle('open');
   $$('#links a').forEach((a) => (a.onclick = () => $('#links').classList.remove('open')));
-  if ('IntersectionObserver' in window) new IntersectionObserver((es) => es.forEach((e) => $('.mbar').classList.toggle('hide', e.isIntersecting)), { threshold: 0.05 }).observe($('#book'));
+  if ('IntersectionObserver' in window) {
+    const seen = new Set();
+    const mo = new IntersectionObserver((es) => { es.forEach((e) => (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target))); $('.mbar').classList.toggle('hide', seen.size > 0); }, { threshold: 0.05 });
+    ['#book', '.band'].forEach((s) => $(s) && mo.observe($(s)));
+  }
   $('#yr').textContent = new Date().getFullYear();
 
   const io = 'IntersectionObserver' in window ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 }) : null;
