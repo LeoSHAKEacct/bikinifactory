@@ -67,15 +67,22 @@ body{top:0!important}
 .hero-bg .slide{position:absolute;inset:-4%;background-size:cover;background-position:center;opacity:0;transform:scale(1.12);transition:opacity 2s ease,transform 9s linear;filter:saturate(1.1) contrast(1.05)}
 .hero-bg .slide.on{opacity:1;transform:scale(1)}
 /* opening videos (made with Kling from the same photos): each sits on top of its photo and fades in once it can play */
-.hero-bg .slide video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .8s}
-/* the whole (portrait) video is shown; a blurred, darker copy of its photo fills the rest of the screen */
-.hero-bg .slide .bk{position:absolute;inset:-60px;background:center/cover no-repeat;filter:blur(34px) brightness(.5) saturate(1.15);opacity:0;transition:opacity .8s}
-.hero-bg .slide.vready .bk{opacity:1}
+.hero-bg .slide video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s}
 .hero-bg .slide video.ready{opacity:1}
 /* once a video is playing, it is the star: no drawn skyline or grid on top, no extra photo zoom, lighter shade */
 body.vid #sky,body.vid .grid-floor{opacity:0!important}
 body.vid .hero-bg .slide{transform:none!important;filter:none}
 body.vid .hero-bg::after{background:linear-gradient(180deg,rgba(5,7,12,.55),rgba(5,7,12,.15) 30%,rgba(5,7,12,.25) 65%,rgba(5,7,12,.85)),radial-gradient(ellipse at 50% 55%,rgba(5,7,12,.35),transparent 70%)}
+@media(min-aspect-ratio:1/1){
+  body.vid .hero{overflow-x:clip;overflow-y:visible;z-index:0}
+  body.vid .hero::after{background:radial-gradient(ellipse at 70% 30%,rgba(31,184,255,.12),transparent 55%)}
+  body.vid .hero~section{z-index:1}
+  body.vid .hero-bg{bottom:auto;height:150vw;transform-origin:50% 0}
+  body.vid .hero-bg .slide{inset:0}
+  body.vid .hero-bg .slide.vready{background-image:none!important}
+  body.vid .hero-bg .slide video{height:auto;bottom:auto;-webkit-mask-image:linear-gradient(#000 60%,transparent 97%);mask-image:linear-gradient(#000 60%,transparent 97%)}
+  body.vid .hero-bg::after{background:linear-gradient(180deg,rgba(5,7,12,.55),rgba(5,7,12,.18) 16%,rgba(5,7,12,.3) 40%,rgba(5,7,12,.55) 70%)}
+}
 .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,12,.92) 0%,rgba(5,7,12,.6) 45%,rgba(5,7,12,.25) 100%),linear-gradient(180deg,rgba(5,7,12,.3),transparent 30%)}
 .hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(31,184,255,.12),transparent 55%),linear-gradient(180deg,transparent 60%,var(--bg));pointer-events:none}
 .hero-grid{display:grid;grid-template-columns:1.4fr .8fr;gap:50px;align-items:center}
@@ -1088,9 +1095,8 @@ document.querySelectorAll("[data-img]").forEach(el => setBg(el, el.dataset.img, 
       ["muted", "playsinline", "webkit-playsinline"].forEach(a => v.setAttribute(a, ""));
       v.preload = n ? "metadata" : "auto";
       v.src = `hero/${n + 1}.mp4`;
-      const bk = document.createElement("div"); bk.className = "bk"; bk.style.backgroundImage = `url("hero/${n + 1}.jpg")`; s.appendChild(bk);
       v.addEventListener("playing", () => { v.classList.add("ready"); s.classList.add("vready"); document.body.classList.add("vid"); });
-      v.addEventListener("error", () => { v.remove(); bk.remove(); });
+      v.addEventListener("error", () => v.remove());
       s.appendChild(v); s.video = v;
     }
     return s; });
