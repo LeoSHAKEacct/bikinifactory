@@ -66,6 +66,9 @@ body{top:0!important}
 .hero-bg{position:absolute;inset:0;overflow:hidden;background:#05070c}
 .hero-bg .slide{position:absolute;inset:-4%;background-size:cover;background-position:center;opacity:0;transform:scale(1.12);transition:opacity 2s ease,transform 9s linear;filter:saturate(1.1) contrast(1.05)}
 .hero-bg .slide.on{opacity:1;transform:scale(1)}
+/* opening videos (made with Kling from the same photos): each sits on top of its photo and fades in once it can play */
+.hero-bg .slide video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s}
+.hero-bg .slide video.ready{opacity:1}
 .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,12,.92) 0%,rgba(5,7,12,.6) 45%,rgba(5,7,12,.25) 100%),linear-gradient(180deg,rgba(5,7,12,.3),transparent 30%)}
 .hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(31,184,255,.12),transparent 55%),linear-gradient(180deg,transparent 60%,var(--bg));pointer-events:none}
 .hero-grid{display:grid;grid-template-columns:1.4fr .8fr;gap:50px;align-items:center}
@@ -1070,16 +1073,32 @@ document.querySelectorAll("[data-img]").forEach(el => setBg(el, el.dataset.img, 
     own.onload = () => { s.style.backgroundImage = `url("${own.src}")`; s.classList.add("loaded"); };
     own.onerror = () => setBg(s, id, n ? 1920 : 1400);
     own.src = `hero/${n + 1}.jpg`;
-    return s; });   // first photo a bit lighter so it lands sooner
+    // the photo's short video plays over it; skipped for reduced motion and data-saver, and the photo stays if it fails
+    if (!reduce && !(navigator.connection && navigator.connection.saveData)) {
+      const v = document.createElement("video");
+      v.muted = true; v.defaultMuted = true; v.playsInline = true; v.setAttribute("playsinline", ""); v.preload = n ? "metadata" : "auto";
+      v.src = `hero/${n + 1}.mp4`;
+      v.addEventListener("playing", () => v.classList.add("ready"));
+      v.addEventListener("error", () => v.remove());
+      s.appendChild(v); s.video = v;
+    }
+    return s; });
   let k = 0;
   const next = () => {
-    for (let n = 0; n < slides.length; n++) { const s = slides[k++ % slides.length]; if (s.classList.contains("loaded")) { slides.forEach(x => x.classList.remove("on")); s.classList.add("on"); setTimeout(() => document.body.classList.remove("nophoto"), 900); return; } }
+    for (let n = 0; n < slides.length; n++) { const s = slides[k++ % slides.length]; if (s.classList.contains("loaded")) {
+      slides.forEach(x => { if (x !== s && x.classList.contains("on") && x.video) setTimeout(() => x.video && x.video.pause(), 2000); x.classList.remove("on"); });
+      s.classList.add("on");
+      if (s.video) { try { s.video.currentTime = 0; } catch (_) {} const p = s.video.play(); if (p) p.catch(() => {}); }
+      setTimeout(() => document.body.classList.remove("nophoto"), 900); return; } }
   };
+  // a slide with a playing video moves on when its 5s clip ends; a photo-only slide stays 7s as before
+  const tick = () => { const cur = slides.find(x => x.classList.contains("on")), v = cur && cur.video;
+    setTimeout(() => { next(); tick(); }, v && v.isConnected && !v.error ? 5000 : 7000); };
   // start on the Burj photo; if it's slow (phones), don't wait more than 2.5s: show whichever photo is ready
   const t0 = performance.now();
   const first = setInterval(() => {
     const ok = slides[0].classList.contains("loaded") || (performance.now() - t0 > 2500 && slides.some(x => x.classList.contains("loaded")));
-    if (ok) { clearInterval(first); if (!slides[0].classList.contains("loaded")) k = slides.findIndex(x => x.classList.contains("loaded")); next(); if (!reduce) setInterval(next, 7000); }
+    if (ok) { clearInterval(first); if (!slides[0].classList.contains("loaded")) k = slides.findIndex(x => x.classList.contains("loaded")); next(); if (!reduce) tick(); }
   }, 150);
 })();
 addEventListener("scroll", () => {
