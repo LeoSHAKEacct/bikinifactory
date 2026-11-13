@@ -541,6 +541,12 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
 .acro b{display:block;font:700 34px "Space Grotesk";color:var(--gold);text-shadow:0 0 18px rgba(31,184,255,.6)}
 .acro span{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
 .logo-photo{filter:contrast(1.1) saturate(1.2)!important;background-size:cover}
+/* About: the logo and its heartbeat float on the page, no card. The logo photo's grey texture is pushed to black
+   (it sits at 12-25% brightness) so only the glowing logo and line remain; the edges fade out. */
+#tilt{border:0!important;background:none!important;border-radius:0!important;box-shadow:none!important;mix-blend-mode:screen;
+  -webkit-mask-image:radial-gradient(ellipse 62% 60% at 50% 50%,#000 58%,transparent 100%);mask-image:radial-gradient(ellipse 62% 60% at 50% 50%,#000 58%,transparent 100%)}
+#tilt .tag,#tilt .corner,#tilt .scan,#tilt .photo-lines,#tilt .photo-glow{display:none!important}
+#tilt .photo,#tilt .ecg{filter:contrast(2.15) saturate(1.25)!important}
 .logo-card .img{background-position:center!important;filter:none!important}
 .logo-card{aspect-ratio:1/1!important}
 .mkts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
