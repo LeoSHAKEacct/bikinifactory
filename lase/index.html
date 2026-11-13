@@ -1373,7 +1373,7 @@ const PROJECTS = [
   const SITE = {"Marriott":"https://www.marriott.com","Hilton":"https://www.hilton.com","IHG":"https://www.ihg.com","Accor":"https://all.accor.com","Hyatt":"https://www.hyatt.com","Four Seasons":"https://www.fourseasons.com","Aman":"https://www.aman.com","Mandarin Oriental":"https://www.mandarinoriental.com","Rosewood":"https://www.rosewoodhotels.com","Raffles":"https://www.raffles.com","Jumeirah":"https://www.jumeirah.com","Address":"https://www.addresshotels.com","One&Only":"https://www.oneandonlyresorts.com","Six Senses":"https://www.sixsenses.com","Anantara":"https://www.anantara.com"};
   const A = [["Marriott","International"],["Hilton","For the stay"],["IHG","Hotels & Resorts"],["Accor",""],["Hyatt",""],["Four Seasons","Hotels & Resorts"],["Aman","Resorts"],["Mandarin Oriental","The Hotel Group"]];
   const Bb = [["Rosewood","Hotels & Resorts"],["Raffles","Hotels & Resorts"],["Jumeirah","Hotels & Resorts"],["Address","Hotels + Resorts"],["One&Only","Resorts"],["Six Senses",""],["Anantara","Hotels · Resorts · Spas"]];
-  const LOGO = {"Accor":"accor","Aman":"aman","Anantara":"anantara","Four Seasons":"four-seasons","Hilton":"hilton"};
+  const LOGO = {"Accor":"accor","Aman":"aman","Anantara":"anantara","Four Seasons":"four-seasons","Hilton":"hilton","Marriott":"marriott","Mandarin Oriental":"mandarin-oriental","Rosewood":"rosewood","IHG":"ihg","Hyatt":"hyatt"};
   const ALL = Object.fromEntries([...A, ...Bb]);
   const esc = v => String(v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const face = (n, t) => LOGO[n] ? `<img src="brands/${LOGO[n]}.png" alt="${esc(n)}" loading="lazy">` : `<div><b>${esc(n)}</b>${t ? `<small>${esc(t)}</small>` : ""}</div>`;
