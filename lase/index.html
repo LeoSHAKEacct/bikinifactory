@@ -1073,22 +1073,30 @@ document.querySelectorAll("[data-img]").forEach(el => setBg(el, el.dataset.img, 
     own.onload = () => { s.style.backgroundImage = `url("${own.src}")`; s.classList.add("loaded"); };
     own.onerror = () => setBg(s, id, n ? 1920 : 1400);
     own.src = `hero/${n + 1}.jpg`;
-    // the photo's short video plays over it; skipped for reduced motion and data-saver, and the photo stays if it fails
-    if (!reduce && !(navigator.connection && navigator.connection.saveData)) {
+    // the photo's short video plays over it (silent, slow, so it also plays with Reduce Motion on); skipped on data-saver,
+    // and the photo stays if the video fails
+    if (!(navigator.connection && navigator.connection.saveData)) {
       const v = document.createElement("video");
-      v.muted = true; v.defaultMuted = true; v.playsInline = true; v.setAttribute("playsinline", ""); v.preload = n ? "metadata" : "auto";
+      v.muted = true; v.defaultMuted = true; v.playsInline = true; v.loop = !!reduce;
+      ["muted", "playsinline", "webkit-playsinline"].forEach(a => v.setAttribute(a, ""));
+      v.preload = n ? "metadata" : "auto";
       v.src = `hero/${n + 1}.mp4`;
       v.addEventListener("playing", () => v.classList.add("ready"));
       v.addEventListener("error", () => v.remove());
       s.appendChild(v); s.video = v;
     }
     return s; });
+  // if the browser refuses to start a video on its own, start it on the visitor's first scroll, tap or key
+  const blocked = new Set();
+  const playV = v => { const p = v.play(); if (p) p.catch(() => blocked.add(v)); };
+  const retry = () => blocked.forEach(v => { blocked.delete(v); if (v.parentNode && v.parentNode.classList.contains("on")) playV(v); });
+  ["pointerdown", "touchstart", "keydown", "wheel", "scroll"].forEach(e => addEventListener(e, retry, {passive: true}));
   let k = 0;
   const next = () => {
     for (let n = 0; n < slides.length; n++) { const s = slides[k++ % slides.length]; if (s.classList.contains("loaded")) {
       slides.forEach(x => { if (x !== s && x.classList.contains("on") && x.video) setTimeout(() => x.video && x.video.pause(), 2000); x.classList.remove("on"); });
       s.classList.add("on");
-      if (s.video) { try { s.video.currentTime = 0; } catch (_) {} const p = s.video.play(); if (p) p.catch(() => {}); }
+      if (s.video) { try { s.video.currentTime = 0; } catch (_) {} playV(s.video); }
       setTimeout(() => document.body.classList.remove("nophoto"), 900); return; } }
   };
   // a slide with a playing video moves on when its 5s clip ends; a photo-only slide stays 7s as before
