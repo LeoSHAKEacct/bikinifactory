@@ -1,25 +1,5 @@
 [
   {
-    "id": "test-mvtp8vin",
-    "tab": "buy",
-    "title": "TEST",
-    "loc": "asas",
-    "price": "09899809",
-    "per": "2030",
-    "beds": "",
-    "baths": "",
-    "size": "",
-    "img": "data/img/mvtp8jjb-hilton.jpg",
-    "imgs": [
-      "data/img/mvtp8jjb-hilton.jpg",
-      "data/img/mvtp8met-grok-bot.jpg",
-      "data/img/mvtp8qfl-mandarin-oriental-hotel-group.jpg",
-      "data/img/mvtp8u46-marriott-int.jpg"
-    ],
-    "desc": "asas",
-    "hidden": false
-  },
-  {
     "id": "modern-villa-with-pool",
     "tab": "buy",
     "title": "Modern Villa with Pool",
