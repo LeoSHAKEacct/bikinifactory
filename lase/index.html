@@ -79,7 +79,7 @@ body{top:0!important}
 .photo-tint{position:absolute;inset:0;background:linear-gradient(160deg,rgba(155,231,255,.55),rgba(31,184,255,.25) 40%,rgba(10,20,40,.7));mix-blend-mode:soft-light}
 .photo-glow{position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(5,7,12,.85)),radial-gradient(circle at 30% 20%,rgba(79,216,255,.18),transparent 50%)}
 .photo-lines{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px);pointer-events:none}
-.svc-top{display:grid;grid-template-columns:1.3fr .7fr;gap:50px;align-items:center;margin-bottom:60px}
+.svc-top{display:grid;grid-template-columns:1fr;gap:50px;align-items:center;margin-bottom:60px}
 .svc-top .sec-head{margin-bottom:0}
 .sec-head p.onsite{color:#d4d9e3;border-left:2px solid var(--gold);padding-left:14px}
 .site-card{position:relative;justify-self:end;width:min(300px,100%);aspect-ratio:393/560;border-radius:24px;overflow:hidden;border:1px solid rgba(31,184,255,.35);box-shadow:0 40px 80px -30px rgba(0,0,0,.9),0 0 50px -20px rgba(31,184,255,.3);transform:rotate(2deg);transition:transform .5s}
@@ -796,11 +796,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
         <p>At LASE Properties LLC we specialise in sourcing and facilitating the acquisition of premium land opportunities across Dubai's most strategic locations.</p>
         <p class="onsite">We work closely with investors, developers, family offices and institutions to identify high-potential land for residential, commercial, mixed-use, hospitality and master-planned developments.</p>
       </div>
-      <div class="site-card logo-card reveal">
-        <div class="img" style="background-image:url(lase-logo.jpg)"></div>
-        <canvas class="ecg" aria-hidden="true"></canvas>
-        <span class="live"><i class="dot"></i> Open for enquiries</span>
-      </div>
     </div>
     <h3 class="exp-title reveal"><span>Our Expertise</span></h3>
     <div class="cards exp">
@@ -1317,34 +1312,49 @@ const PROJECTS = [
     s = Math.max(cv.width / IW, cv.height / IH); ox = (cv.width - IW * s) / 2; oy = (cv.height - IH * s) / 2;
   }
   const yAt = i => { const c = T[i]; if (!c) return BASE; return Math.abs(c[0] - BASE) > Math.abs(c[1] - BASE) ? c[0] : c[1]; };
+  // one cycle = a sweep, then a rest; the line it leaves behind is gold and fades back to the logo's blue
+  const SWEEP = PASS, CYCLE = 4200, FADE = 2800, stamp = new Float64Array(T.length).fill(-1e9);
+  let prev = 0, first = true;
   function frame(t0) {
     return now => {
-      const t = now - t0, pass = Math.floor(t / PASS), head = Math.min(T.length, (t % PASS) / PASS * (T.length + GAP));
+      const t = now - t0, cyc = Math.floor(t / CYCLE), ct = t % CYCLE;
+      if (cyc > 0) first = false;
+      const sweeping = ct < SWEEP, head = sweeping ? (ct / SWEEP) * (T.length + GAP) : T.length + GAP;
+      if (sweeping && head < prev) prev = 0;
+      for (let i = Math.floor(prev); i < Math.min(T.length, Math.floor(head)); i++) stamp[i] = now;
+      prev = head;
       x.setTransform(s, 0, 0, s, ox, oy);
       x.drawImage(img, 0, 0, IW, IH);
-      if (pass >= PASSES) { cancelAnimationFrame(raf); return; }
-      // erase: everything ahead of the head on the first pass, a moving gap after that (using the logo's own texture)
-      const from = Math.max(0, head), to = Math.min(IW, pass === 0 ? IW : head + GAP);
-      if (to > from) x.drawImage(plate, from, BAND[0], to - from, BAND[1] - BAND[0], from, BAND[0], to - from, BAND[1] - BAND[0]);
-      // fresh trace glows brighter behind the head
-      x.save(); x.lineCap = "round"; x.lineJoin = "round"; x.shadowColor = "#3fd0ff"; x.shadowBlur = 12;
-      for (let i = Math.max(1, Math.floor(head) - 90); i < Math.floor(head); i++) {
+      // erase: everything ahead of the head on the very first sweep, a moving gap after that (using the logo's own texture)
+      if (sweeping) {
+        const from = Math.max(0, head), to = Math.min(IW, first ? IW : head + GAP);
+        if (to > from) x.drawImage(plate, from, BAND[0], to - from, BAND[1] - BAND[0], from, BAND[0], to - from, BAND[1] - BAND[0]);
+      }
+      // gold trail: bright where the dot just passed, fading back to blue over FADE ms
+      x.save(); x.lineCap = "round"; x.lineJoin = "round"; x.shadowColor = "rgba(230,175,70,.9)"; x.shadowBlur = 12; x.lineWidth = 3.4;
+      for (let i = 1; i < T.length; i++) {
+        const age = now - stamp[i]; if (age >= FADE) continue;
+        if (sweeping && i >= head && i < head + GAP) continue;
         const c = T[i], p = T[i - 1]; if (!c || !p) continue;
-        x.strokeStyle = `rgba(150,235,255,${(1 - (head - i) / 90) * .9})`; x.lineWidth = 3.2;
+        // gold, warming to soft champagne-white, then fading out onto the blue (never mixing into green)
+        const k = 1 - age / FADE, g = Math.min(1, k / .55), a = k > .45 ? 1 : k / .45;
+        x.strokeStyle = `rgba(${Math.round(245 - 40 * g)},${Math.round(232 - 72 * g)},${Math.round(205 - 125 * g)},${(a * .95).toFixed(3)})`;
         x.beginPath(); x.moveTo(i - 1, (p[0] + p[1]) / 2); x.lineTo(i, c[0]); x.lineTo(i, c[1]); x.stroke();
       }
-      // the monitor dot
-      if (head < T.length) {
+      // the golden monitor dot
+      if (sweeping && head < T.length) {
         const hx = head, hy = yAt(Math.min(T.length - 1, Math.floor(head)));
-        const r = x.createRadialGradient(hx, hy, 0, hx, hy, 16);
-        r.addColorStop(0, "rgba(255,255,255,1)"); r.addColorStop(.25, "rgba(120,225,255,.9)"); r.addColorStop(1, "rgba(31,184,255,0)");
-        x.fillStyle = r; x.beginPath(); x.arc(hx, hy, 16, 0, 7); x.fill();
+        const r = x.createRadialGradient(hx, hy, 0, hx, hy, 17);
+        r.addColorStop(0, "rgba(255,250,235,1)"); r.addColorStop(.25, "rgba(225,180,90,.95)"); r.addColorStop(1, "rgba(212,175,106,0)");
+        x.fillStyle = r; x.beginPath(); x.arc(hx, hy, 17, 0, 7); x.fill();
       }
       x.restore();
       raf = requestAnimationFrame(frame(t0));
     };
   }
-  function play() { cancelAnimationFrame(raf); size(); if (reduce) { frame(-1e9)(0); return; } raf = requestAnimationFrame(now => frame(now)(now)); }
+  let on = false;
+  function play() { if (on) return; on = true; size(); if (reduce) { x.setTransform(s, 0, 0, s, ox, oy); x.drawImage(img, 0, 0, IW, IH); return; } raf = requestAnimationFrame(now => frame(now)(now)); }
+  function stop() { on = false; cancelAnimationFrame(raf); }
   const plate = document.createElement("canvas"); plate.width = IW; plate.height = IH;
   img.onload = () => {
     // clean background for the line band: per column, blend the logo's colours just above and below the line, plus grain
@@ -1367,7 +1377,8 @@ const PROJECTS = [
     pc.putImageData(out, 0, BAND[0]);
     }
     size(); x.setTransform(s, 0, 0, s, ox, oy); x.drawImage(img, 0, 0, IW, IH);
-    new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) play(); }), {threshold: .5}).observe(cv);
+    // loops while the logo is on screen, pauses when it scrolls away
+    new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) play(); else stop(); }), {threshold: .35}).observe(cv);
   };
   addEventListener("resize", () => { size(); x.setTransform(s, 0, 0, s, ox, oy); if (img.complete) x.drawImage(img, 0, 0, IW, IH); });
   });
