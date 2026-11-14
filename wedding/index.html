@@ -74,22 +74,28 @@ section{position:relative;padding:clamp(90px,13vw,170px) 0}
   -webkit-mask-composite:source-in;
   mask-image:linear-gradient(to right,transparent,#000 9%,#000 91%,transparent),linear-gradient(to bottom,transparent,#000 12%,#000 88%,transparent);
   mask-composite:intersect}
-.op-stage canvas{display:block;width:100%;height:100%}
-.op-head{position:absolute;left:0;right:0;top:clamp(70px,9vh,110px);text-align:center;z-index:2;padding:0 20px;text-shadow:0 1px 18px rgba(255,248,238,.9)}
+.op-stage video{display:block;width:100%;height:100%;object-fit:cover;background:transparent}
+.op-head,.op-hint{transition:opacity .8s, transform .8s}
+#opening.playing .op-head{opacity:0;transform:translateY(-20px)}
+#opening.playing .op-hint{opacity:0}
+.op-end{transition:opacity 1s, transform 1s}
+.op-end.on{opacity:1;transform:none}
+.op-skip{position:absolute;right:clamp(16px,3vw,40px);bottom:clamp(18px,3.5vh,36px);z-index:3;font-family:var(--sans);font-size:10px;letter-spacing:.35em;text-transform:uppercase;
+  color:#5a4330;padding:10px 0;border-bottom:1px solid rgba(90,67,48,.4);opacity:0;pointer-events:none;transition:opacity .6s}
+#opening.playing .op-skip{opacity:.8;pointer-events:auto}
+.op-head{position:absolute;left:0;right:0;top:clamp(56px,8vh,100px);text-align:center;z-index:2;padding:0 20px;text-shadow:0 0 12px rgba(255,248,238,1),0 0 28px rgba(255,248,238,.95),0 0 50px rgba(255,248,238,.8)}
 .op-head .label{color:#8a6a38}
 .op-head .guest{font-family:var(--script);font-size:clamp(38px,6vw,60px);line-height:1.2;margin-top:4px;color:#5a4330}
-.op-hint{position:absolute;left:50%;bottom:clamp(20px,4vh,40px);transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:12px;
-  font-family:var(--sans);font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:#5a4330;text-shadow:0 1px 14px rgba(255,248,238,.9)}
-.op-hint i{width:1px;height:46px;background:rgba(90,67,48,.25);position:relative;overflow:hidden}
-.op-hint i:after{content:"";position:absolute;left:0;top:0;width:1px;height:100%;background:#8a6a38;animation:drip 2.2s var(--ease) infinite}
+.op-hint{position:absolute;left:50%;bottom:clamp(22px,5vh,48px);transform:translateX(-50%);z-index:2;white-space:nowrap;
+  font-family:var(--sans);font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:#4a3626;
+  padding:13px 22px 13px 26px;border-radius:999px;background:rgba(251,246,239,.78);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  box-shadow:0 10px 30px -12px rgba(80,55,30,.45);animation:hintPulse 2.4s ease-in-out infinite}
+@keyframes hintPulse{0%,100%{box-shadow:0 10px 30px -12px rgba(80,55,30,.45),0 0 0 0 rgba(251,246,239,.6)}50%{box-shadow:0 10px 30px -12px rgba(80,55,30,.45),0 0 0 10px rgba(251,246,239,0)}}
 .op-end{position:absolute;left:0;right:0;bottom:clamp(18px,3.5vh,40px);text-align:center;z-index:2;opacity:0;transform:translateY(20px);text-shadow:0 1px 18px rgba(255,248,238,.95)}
 .no-anim .op-end{opacity:1;transform:none}
 .op-end .nm{font-family:var(--script);font-size:clamp(34px,5vw,54px);line-height:1.1;color:#5a4330}
 .op-end .dt{font-family:var(--sans);font-size:11px;letter-spacing:.45em;color:#6b5240;margin-top:4px}
-.op-bar{position:absolute;right:clamp(16px,3vw,40px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:2}
-.op-bar i{width:6px;height:6px;border-radius:50%;border:1px solid rgba(90,67,48,.55);transition:background .4s, transform .4s}
-.op-bar i.on{background:#8a6a38;border-color:#8a6a38;transform:scale(1.25)}
-@media (max-width:640px){ .op-bar{display:none} .op-head{top:84px} }
+@media (max-width:640px){ .op-head{top:84px} }
 @media (min-width:641px) and (max-height:760px){ .op-head{display:none} }
 
 #dust{position:fixed;inset:0;pointer-events:none;z-index:140}
@@ -345,14 +351,18 @@ footer .fine{margin-top:110px;font-family:var(--sans);font-size:10px;letter-spac
 </nav>
 
 <main>
-<!-- ============ OPENING: envelope frames, played by scrolling ============ -->
+<!-- ============ OPENING: the gift-box video. The first tap, click, scroll or
+     swipe plays it to the end, then the page moves on to the next section. ============ -->
 <section id="opening" data-label="Welcome">
-  <div class="op-bg" id="seqBgWrap" aria-hidden="true"><img id="seqBg" src="seq/bg.webp" alt=""></div>
-  <div class="op-center"><div class="op-stage" id="seqStage" role="img" aria-label="A gift box tied with a satin bow unties and opens, revealing an envelope with a gold wax seal; the envelope opens and two polaroid photos of the couple rise out"><canvas id="seqCanvas"></canvas></div></div>
+  <div class="op-bg" id="opBgWrap" aria-hidden="true"><img src="media/bg.webp" alt=""></div>
+  <div class="op-center"><div class="op-stage" id="opStage">
+    <video id="opVideo" poster="media/poster.webp" muted playsinline preload="auto"
+      aria-label="A pair of hands unties a satin bow on a gift box, opens it to reveal an envelope with a gold wax seal, and pulls out two polaroid photos of the couple"><source src="media/opening.mp4" type="video/mp4"><source src="media/opening.webm" type="video/webm"></video>
+  </div></div>
   <div class="op-head"><div class="label">Exclusively for</div><div class="guest foil" id="guestName">Our Dear Guest</div></div>
-  <div class="op-bar" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-  <div class="op-end"><div class="nm" id="opNames"></div><div class="dt" id="opDate"></div></div>
-  <div class="op-hint" id="opHint"><i></i>Scroll to open</div>
+  <div class="op-end" id="opEnd"><div class="nm" id="opNames"></div><div class="dt" id="opDate"></div></div>
+  <div class="op-hint" id="opHint">Tap or scroll to open</div>
+  <button class="op-skip" id="opSkip" type="button">Skip</button>
 </section>
 
 <!-- ============ HERO ============ -->
@@ -855,75 +865,81 @@ function heroIn(){
     .from("#heroPlace, .scroll-ind",{opacity:0,y:16,duration:1.4,stagger:.15},1.4);
 }
 
-/* ---------- opening: the gift-box video, played by scrolling ----------
-   The video is stored as still frames (seq/0001.webp …) so it can be
-   scrubbed forwards and backwards smoothly on every phone.            */
-const SEQ = { path:"seq/", count:120, pad:4, ext:"webp" };
-const seq = { imgs:[], A:1.5, cur:0, w:0, h:0 };
-const cv2 = $("#seqCanvas"), ctx2 = cv2.getContext("2d");
-const seqSrc = i => SEQ.path + String(i+1).padStart(SEQ.pad,"0") + "." + SEQ.ext;
-function seqLoad(i){
-  if(seq.imgs[i]) return seq.imgs[i];
-  const im = new Image(); im.decoding = "async"; im.src = seqSrc(i);
-  im.onload = () => { im.ok = true; if(Math.abs(i - seq.cur) < 2) seqDraw(seq.cur); };
-  return seq.imgs[i] = im;
-}
-/* load order: first frame, then coarse-to-fine so any scroll position soon has a frame */
-function seqPreload(){
-  const order = [], seen = new Set();
-  for(let step=Math.pow(2,Math.ceil(Math.log2(SEQ.count))); step>=1; step=step/2|0){
-    for(let i=0;i<SEQ.count;i+=step) if(!seen.has(i)){ seen.add(i); order.push(i); }
-    if(step===1) break;
-  }
-  let k = 0;
-  const next = () => { const batch = order.slice(k, k+6); k += 6; batch.forEach(seqLoad); if(k < order.length) setTimeout(next, 60); };
-  next();
-}
-function nearestLoaded(i){
-  for(let d=0; d<SEQ.count; d++){
-    if(seq.imgs[i-d] && seq.imgs[i-d].ok) return i-d;
-    if(seq.imgs[i+d] && seq.imgs[i+d].ok) return i+d;
-  }
-  return -1;
-}
-function seqDraw(f){
-  seq.cur = f;
-  const i = Math.floor(f), t = f - i;
-  const a = nearestLoaded(i); if(a < 0) return;
-  ctx2.globalAlpha = 1; ctx2.drawImage(seq.imgs[a], 0, 0, cv2.width, cv2.height);
-  const b = i + 1;
-  if(t > 0.02 && a === i && seq.imgs[b] && seq.imgs[b].ok){ ctx2.globalAlpha = t; ctx2.drawImage(seq.imgs[b], 0, 0, cv2.width, cv2.height); ctx2.globalAlpha = 1; }
-}
-function seqLayout(){
-  const vw = innerWidth, vh = innerHeight, A = seq.A;
+/* ---------- opening: the gift-box video ----------
+   The page waits on the closed box. The first tap, click, scroll, swipe or
+   key press plays the whole video; when it ends the names appear and the page
+   glides to the next section. Nav links and "Skip" jump straight past it.   */
+const opV = $("#opVideo"), opSec = $("#opening");
+let opA = 1768/1172, opState = "waiting";          /* waiting -> playing -> done */
+function opLayout(){
+  if(opV.videoWidth) opA = opV.videoWidth / opV.videoHeight;
+  const vw = innerWidth, vh = innerHeight, A = opA;
   /* wide screens: fill the page. tall screens (phones): full width and a bit more, over the table */
   const w = vw/vh >= A*0.9 ? Math.max(vw*1.06, vh*1.06*A) : Math.min(vw*1.34, vh*A*.95);
   const h = w / A;
-  const st = $("#seqStage"); st.style.width = w+"px"; st.style.height = h+"px";
-  const bg = $("#seqBgWrap"); bg.style.width = 3*w+"px"; bg.style.height = 3*h+"px"; bg.style.margin = (-1.5*h)+"px 0 0 "+(-1.5*w)+"px";
-  const dpr = Math.min(devicePixelRatio||1, 2);
-  cv2.width = Math.round(Math.min(w*dpr, 1920)); cv2.height = Math.round(cv2.width / A);
-  seqDraw(seq.cur);
+  const st = $("#opStage"); st.style.width = w+"px"; st.style.height = h+"px";
+  const bg = $("#opBgWrap"); bg.style.width = 3*w+"px"; bg.style.height = 3*h+"px"; bg.style.margin = (-1.5*h)+"px 0 0 "+(-1.5*w)+"px";
+}
+opLayout();
+opV.addEventListener("loadedmetadata", opLayout);
+addEventListener("resize", opLayout);
+
+function opLock(on){
+  document.body.classList.toggle("locked", on);
+  if(lenis) on ? lenis.stop() : lenis.start();
 }
 let petalsDone = false;
+function opDone(goNext){
+  if(opState === "done") return;
+  opState = "done";
+  opSec.classList.remove("playing");
+  removeEventListener("wheel", opTrigger, {passive:false});
+  removeEventListener("touchmove", opTrigger, {passive:false});
+  removeEventListener("keydown", opKey);
+  opLock(false);
+  if(!petalsDone){ petalsDone = true; petals(60); }
+  if(goNext){
+    const hero = $("#hero");
+    lenis ? lenis.scrollTo(hero,{duration:1.8}) : hero.scrollIntoView({behavior:"smooth"});
+  }
+}
+function opPlay(){
+  if(opState !== "waiting") return;
+  opState = "playing";
+  opSec.classList.add("playing");
+  const p = opV.play();
+  if(p && p.catch) p.catch(() => opFinish());      /* video can't play: move on anyway */
+}
+function opFinish(){
+  if(opState === "done") return;
+  $("#opEnd").classList.add("on");
+  setTimeout(() => opDone(true), 1400);
+}
+function opTrigger(e){
+  if(opState === "done") return;
+  if(e.cancelable) e.preventDefault();             /* the first scroll/swipe plays the video instead of scrolling */
+  opPlay();
+}
+function opKey(e){
+  if(opState === "done") return;
+  if([" ","ArrowDown","PageDown","Enter"].includes(e.key)){ e.preventDefault(); opPlay(); }
+}
 function buildOpening(){
-  const first = seqLoad(0);
-  const ready = () => { if(first.naturalWidth) seq.A = first.naturalWidth / first.naturalHeight; seqLayout(); seqPreload(); };
-  first.complete && first.naturalWidth ? ready() : first.addEventListener("load", ready, {once:true});
-  addEventListener("resize", seqLayout);
-  if(!hasGSAP) return;
-  const dotsEl = $$(".op-bar i");
-  const setDot = p => { const k=Math.min(5,Math.floor(p*6)); dotsEl.forEach((d,i)=>d.classList.toggle("on",i===k)); };
-  setDot(0);
-  const play = { f:0 };
-  const last = SEQ.count - 1;
-  const tl = gsap.timeline({defaults:{ease:"none"},scrollTrigger:{trigger:"#opening",start:"top top",end:()=>"+="+innerHeight*5,pin:true,scrub:0.6,anticipatePin:1,
-    onUpdate:s=>setDot(s.progress), onLeave:()=>{ if(!petalsDone){ petalsDone=true; petals(60); } }}});
-  tl.to(".op-head",{opacity:0,y:-30,duration:.5},0)
-    .to("#opHint",{opacity:0,duration:.3},0)
-    .to(play,{f:last,duration:8.6,onUpdate:()=>seqDraw(play.f)},0.2)
-    .to(".op-end",{opacity:1,y:0,duration:.6,ease:"power2.out"},8.4)
-    .to({}, {duration:.8});
+  if(scrollY > innerHeight*0.5){ opState = "done"; try{ opV.currentTime = 999; }catch(_){} $("#opEnd").classList.add("on"); return; } /* reloaded mid-page */
+  opLock(true);
+  opV.addEventListener("ended", opFinish);
+  const opFail = () => { if(opState !== "done") opDone(false); };
+  opV.addEventListener("error", opFail);
+  const srcs = opV.querySelectorAll("source"); srcs[srcs.length-1].addEventListener("error", opFail);
+  addEventListener("pointerdown", e => {
+    if(opState !== "waiting") return;
+    if(e.target.closest("#nav, #menu")){ try{ opV.currentTime = 999; }catch(_){} $("#opEnd").classList.add("on"); opDone(false); return; } /* menu/RSVP first: skip intro */
+    opPlay();
+  });
+  addEventListener("wheel", opTrigger, {passive:false});
+  addEventListener("touchmove", opTrigger, {passive:false});
+  addEventListener("keydown", opKey);
+  $("#opSkip").addEventListener("click", e => { e.stopPropagation(); opV.pause(); if(opV.duration) opV.currentTime = opV.duration; opFinish(); });
 }
 
 function start(){
