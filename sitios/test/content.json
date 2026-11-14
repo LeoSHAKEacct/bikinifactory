@@ -106,13 +106,14 @@
     {
       "type": "zones",
       "eyebrow": "Domicilios",
-      "title": "También voy a donde estés",
-      "text": "Se realiza domicilio en el área metropolitana. Hago salidas a:",
+      "title": "Também vou a onde estas",
+      "text": "Atendimento em domicílio na região metropolitana. Realizo atendimentos em:",
       "places": [
-        "Medellín",
-        "Itagüí",
-        "La Estrella",
-        "Sabaneta"
+        "Lisboa",
+        "Oeiras",
+        "Cascais",
+        "Sintra",
+        "Setubal"
       ]
     },
     {
