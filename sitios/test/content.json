@@ -122,5 +122,8 @@
       "text": "Escríbeme por WhatsApp y agenda tu momento de relajación y placer.",
       "button": "WhatsApp {telefono}"
     }
-  ]
+  ],
+  "booking": {
+    "timezone": "Europe/Lisbon"
+  }
 }
