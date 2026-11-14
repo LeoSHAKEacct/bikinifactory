@@ -3,6 +3,22 @@
   "subtitle": "Negocios creados por nuestros estudiantes",
   "sites": [
     {
+      "slug": "test",
+      "name": "Test website 123",
+      "category": "",
+      "description": "Test website 123 — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta.",
+      "photo": "",
+      "phone": "23456543",
+      "places": [
+        "Medellín",
+        "Itagüí",
+        "La Estrella",
+        "Sabaneta"
+      ],
+      "owner": "",
+      "updatedAt": "2026-11-14T15:59:58.727Z"
+    },
+    {
       "slug": "erikha",
       "name": "Erikha Vélez ",
       "category": "",
