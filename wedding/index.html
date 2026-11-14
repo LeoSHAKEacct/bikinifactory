@@ -858,7 +858,7 @@ function heroIn(){
 /* ---------- opening: the gift-box video, played by scrolling ----------
    The video is stored as still frames (seq/0001.webp …) so it can be
    scrubbed forwards and backwards smoothly on every phone.            */
-const SEQ = { path:"seq/", count:96, pad:4, ext:"webp" };
+const SEQ = { path:"seq/", count:120, pad:4, ext:"webp" };
 const seq = { imgs:[], A:1.5, cur:0, w:0, h:0 };
 const cv2 = $("#seqCanvas"), ctx2 = cv2.getContext("2d");
 const seqSrc = i => SEQ.path + String(i+1).padStart(SEQ.pad,"0") + "." + SEQ.ext;
@@ -897,7 +897,7 @@ function seqDraw(f){
 function seqLayout(){
   const vw = innerWidth, vh = innerHeight, A = seq.A;
   /* wide screens: fill the page. tall screens (phones): full width and a bit more, over the table */
-  const w = vw/vh >= A*0.9 ? Math.max(vw*1.06, vh*1.06*A) : Math.min(vw*1.22, vh*A*.95);
+  const w = vw/vh >= A*0.9 ? Math.max(vw*1.06, vh*1.06*A) : Math.min(vw*1.34, vh*A*.95);
   const h = w / A;
   const st = $("#seqStage"); st.style.width = w+"px"; st.style.height = h+"px";
   const bg = $("#seqBgWrap"); bg.style.width = 3*w+"px"; bg.style.height = 3*h+"px"; bg.style.margin = (-1.5*h)+"px 0 0 "+(-1.5*w)+"px";
