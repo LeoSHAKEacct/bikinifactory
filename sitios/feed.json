@@ -4,11 +4,11 @@
   "sites": [
     {
       "slug": "test",
-      "name": "Test website 123",
+      "name": "Amanda Spa",
       "category": "",
-      "description": "Test website 123 — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta.",
-      "photo": "",
-      "phone": "23456543",
+      "description": "{nome} — relaxamento e prazer em uma massagem. Apartamento discreto com estacionamento e atendimento em domicílio em Lisboa.",
+      "photo": "/test/foto-mwgy7oxa.jpg",
+      "phone": "1234565678",
       "places": [
         "Medellín",
         "Itagüí",
@@ -16,7 +16,7 @@
         "Sabaneta"
       ],
       "owner": "",
-      "updatedAt": "2026-11-14T15:59:58.727Z"
+      "updatedAt": "2026-11-14T22:03:02.816Z"
     },
     {
       "slug": "erikha",

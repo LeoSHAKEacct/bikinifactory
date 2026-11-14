@@ -1,29 +1,29 @@
 {
-  "name": "Test website 123",
-  "phone": "23456543",
-  "waMessage": "Hola {nombre}, quiero reservar un masaje",
+  "name": "Amanda Spa",
+  "phone": "1234565678",
+  "waMessage": "Olá {nombre}, quero reservar uma massagem.",
   "seo": {
-    "title": "{nombre} · Masajes",
-    "description": "{nombre} — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta."
+    "title": "{nombre} · Massagens",
+    "description": "{nome} — relaxamento e prazer em uma massagem. Apartamento discreto com estacionamento e atendimento em domicílio em Lisboa."
   },
   "nav": {
-    "services": "Masajes",
-    "facilities": "Instalaciones",
-    "zones": "Zonas",
+    "services": "Massagens",
+    "facilities": "Local",
+    "zones": "Mais",
     "reserve": "Reservar"
   },
-  "footer": "{nombre} · Masajes · Solo mayores de 18 años",
+  "footer": "{nombre} · Massagens· Só maiores de 18 anos",
   "sections": [
     {
       "type": "hero",
-      "photo": "",
+      "photo": "foto-mwgy7oxa.jpg",
       "eyebrow": "Masajes · Medellín",
       "title": "Relajación y placer",
       "titleAccent": "en un masaje",
-      "greeting": "¡Hola, soy {nombre}!",
-      "lead": "Ven y le daré un roce con mis manos a tu cuerpo.",
-      "ctaPrimary": "Escríbeme por WhatsApp",
-      "ctaSecondary": "Ver masajes",
+      "greeting": "Olá sou {nombre}!",
+      "lead": "Venha, e eu passarei minhas mãos pelo seu corpo.",
+      "ctaPrimary": "Escreve-me por WhatsApp",
+      "ctaSecondary": "Ver massagens",
       "badgeTitle": "{nombre}",
       "badgeText": "Apartamento discreto · Domicilios",
       "photoFit": "contain",
@@ -31,7 +31,7 @@
     },
     {
       "type": "intro",
-      "quote": "¡Nada que un buen masaje erótico",
+      "quote": "Nada como uma boa massagem erótica",
       "quoteAccent": "no pueda arreglar!",
       "body": "Ven y disfruta de un agradable masaje relajante. Cada movimiento que realizaré con mis suaves manos está diseñado para reconectar tu cuerpo con tu energía, para que por medio de unas delicadas caricias y nuestro toque erótico llegues a ese éxtasis de placer."
     },
