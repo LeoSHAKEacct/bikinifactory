@@ -175,14 +175,17 @@ section{position:relative;padding:clamp(90px,13vw,170px) 0}
 .chap p{color:var(--ink2)}
 .h-progress{position:absolute;left:8vw;right:8vw;bottom:44px;height:1px;background:var(--line)}
 .h-progress i{position:absolute;inset:0;background:var(--gold);transform-origin:left;transform:scaleX(0)}
+/* phones: same sideways story as desktop, each chapter stacked (photo above text) and one screen wide */
 @media (max-width:899px){
-  #story{padding:110px 0}
-  .h-track{flex-direction:column;align-items:stretch;height:auto;width:auto;padding:0 24px;gap:90px}
-  .h-intro{width:auto;text-align:center}.h-intro p{margin:0 auto}
-  .chap{grid-template-columns:1fr;width:auto;justify-items:center;text-align:center}
-  .chap .frame{width:min(320px,78vw)}
-  .chap .yr{right:auto;left:50%;transform:translateX(-50%);top:auto;bottom:-30px;font-size:120px}
-  .h-progress{display:none}
+  .h-track{padding:0 10vw;gap:14vw}
+  .h-intro{width:76vw;text-align:center}.h-intro p{margin:0 auto;font-size:19px}
+  .chap{grid-template-columns:1fr;width:80vw;justify-items:center;text-align:center;gap:22px}
+  .chap .frame{width:min(60vw,34svh)}
+  .chap .yr{left:0;right:0;top:-14px;text-align:center;font-size:clamp(84px,26vw,130px)}
+  .chap h3{font-size:clamp(28px,8vw,36px);margin:8px 0 10px}
+  .chap p{font-size:17px;line-height:1.5}
+  .chap .tx{width:100%;max-width:100%;min-width:0}
+  .h-progress{left:10vw;right:10vw;bottom:clamp(20px,4svh,36px)}
 }
 
 /* ============ EVENTS ============ */
@@ -827,11 +830,16 @@ function buildScroll(){
     gsap.set(h,{opacity:1});
   });
 
-  /* story */
-  const mm = gsap.matchMedia();
-  mm.add("(min-width:900px)", ()=>{
-    const track=$("#track"), dist=()=>track.scrollWidth-innerWidth;
+  /* story: pinned, chapters slide in sideways as you scroll (desktop and phones) */
+  ScrollTrigger.config({ignoreMobileResize:true});     /* phone address bar showing/hiding must not restart the pin */
+  {
+    const track=$("#track"), panels=[...track.children];
+    /* measure from the last chapter itself (the faint year numbers stick out and must not count) */
+    const dist=()=>{ const last=panels[panels.length-1]; return Math.max(0, last.offsetLeft + last.offsetWidth + parseFloat(getComputedStyle(track).paddingRight) - innerWidth); };
+    /* when the guest stops scrolling, settle on the nearest chapter, centred */
+    const snapPoints=()=>{ const d=dist()||1; return panels.map(p=>Math.min(1,Math.max(0,(p.offsetLeft + p.offsetWidth/2 - innerWidth/2)/d))); };
     const tw = gsap.to(track,{x:()=>-dist(),ease:"none",scrollTrigger:{trigger:"#story",pin:true,scrub:1,end:()=>"+="+dist(),invalidateOnRefresh:true,
+      snap: innerWidth >= 900 ? false : {snapTo:p=>{ const pts=snapPoints(); return pts.reduce((a,b)=>Math.abs(b-p)<Math.abs(a-p)?b:a, pts[0]); }, duration:{min:.25,max:.7}, delay:.12, inertia:false, ease:"power2.inOut"},
       onUpdate:s=>gsap.set("#hProg",{scaleX:s.progress})}});
     $$(".chap").forEach(c=>{
       const img=c.querySelector("img");
@@ -840,13 +848,7 @@ function buildScroll(){
       gsap.fromTo(c.querySelector(".yr"),{xPercent:40},{xPercent:-40,ease:"none",scrollTrigger:{trigger:c,containerAnimation:tw,start:"left right",end:"right left",scrub:true}});
       gsap.fromTo(c.querySelector(".tx"),{opacity:0,x:60},{opacity:1,x:0,ease:"none",scrollTrigger:{trigger:c,containerAnimation:tw,start:"left 80%",end:"left 40%",scrub:true}});
     });
-  });
-  mm.add("(max-width:899px)", ()=>{
-    $$(".chap").forEach(c=>{
-      gsap.fromTo(c.querySelector(".frame"),{clipPath:"inset(100% 0 0 0)"},{clipPath:"inset(0% 0 0 0)",duration:1.6,ease:"expo.inOut",scrollTrigger:{trigger:c,start:"top 85%"}});
-      gsap.fromTo(c.querySelector(".tx"),{opacity:0,y:40},{opacity:1,y:0,duration:1.2,delay:.3,ease:"expo.out",scrollTrigger:{trigger:c,start:"top 80%"}});
-    });
-  });
+  }
 
   /* schedule spine draws */
   gsap.to("#spine",{scaleY:1,ease:"none",scrollTrigger:{trigger:"#sched",start:"top 70%",end:"bottom 60%",scrub:true}});
