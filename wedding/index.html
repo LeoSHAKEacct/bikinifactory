@@ -365,7 +365,7 @@ footer .fine{margin-top:110px;font-family:var(--sans);font-size:10px;letter-spac
   <div class="op-bg" id="opBgWrap" aria-hidden="true"><img src="media/bg.webp" alt=""></div>
   <div class="op-center"><div class="op-stage" id="opStage">
     <video id="opVideo" poster="media/poster.webp" muted playsinline preload="auto"
-      aria-label="A satin bow on a gift box unties, the box opens to reveal an envelope with a gold wax seal, and two polaroid photos of the couple rise out"><source src="media/opening.mp4" type="video/mp4"><source src="media/opening.webm" type="video/webm"></video>
+      aria-label="A gift box tied with a satin bow is untied and opened, revealing an envelope with a gold wax seal; the envelope opens and polaroid photos of the couple are taken out"><source src="media/opening.mp4" type="video/mp4"><source src="media/opening.webm" type="video/webm"></video>
   </div></div>
   <div class="op-head"><div class="label">Exclusively for</div><div class="guest foil" id="guestName">Our Dear Guest</div></div>
   <div class="op-end" id="opEnd"><div class="nm" id="opNames"></div><div class="dt" id="opDate"></div></div>
@@ -878,7 +878,7 @@ function heroIn(){
    key press plays the whole video; when it ends the names appear and the page
    glides to the next section. Nav links and "Skip" jump straight past it.   */
 const opV = $("#opVideo"), opSec = $("#opening");
-let opA = 1768/1172, opState = "waiting";          /* waiting -> playing -> done */
+let opA = 4/3, opState = "waiting";          /* waiting -> playing -> done */
 function opLayout(){
   if(opV.videoWidth) opA = opV.videoWidth / opV.videoHeight;
   const vw = innerWidth, vh = innerHeight, A = opA;
