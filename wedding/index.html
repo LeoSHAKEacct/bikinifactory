@@ -62,31 +62,36 @@ section{position:relative;padding:clamp(90px,13vw,170px) 0}
 .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
 /* ============ OPENING (scroll-driven envelope) ============ */
-#opening{position:relative;height:100vh;height:100svh;padding:0;overflow:hidden;background:var(--night);color:var(--ivory)}
-.op-bg{position:absolute;inset:-8%}
-.op-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(48px) saturate(1.15);opacity:0}
-.op-bg img:first-child{opacity:.5}
-.op-bg:after{content:"";position:absolute;inset:0;background:radial-gradient(70% 70% at 50% 50%,rgba(20,17,15,.1),rgba(20,17,15,.8))}
+#opening{--st:min(96vw,92vh,980px);position:relative;height:100vh;height:100svh;padding:0;overflow:hidden;background:#d2b89c;color:var(--ink)}
+/* the table: same scene, filling the screen, softly out of focus */
+.op-bg{position:absolute;left:50%;top:50%;width:calc(var(--st) * 3);height:calc(var(--st) * 3);margin:calc(var(--st) * -1.5) 0 0 calc(var(--st) * -1.5)}
+.op-bg img{position:absolute;inset:0;width:100%;height:100%;opacity:0}
+.op-bg img:first-child{opacity:1}
+#opening:after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(80% 80% at 50% 50%,rgba(255,244,228,0) 55%,rgba(110,80,55,.18))}
 .op-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
-.op-stage{position:relative;width:min(88vw,68vh,720px);aspect-ratio:1;border-radius:3px;overflow:hidden;
-  box-shadow:0 60px 120px -40px rgba(0,0,0,.85),0 0 0 1px rgba(230,207,152,.18)}
+/* the envelope: sharp, edges feathered so it melts into the table */
+.op-stage{position:relative;width:var(--st);aspect-ratio:1;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 13%,#000 87%,transparent),linear-gradient(to bottom,transparent,#000 13%,#000 87%,transparent);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to right,transparent,#000 13%,#000 87%,transparent),linear-gradient(to bottom,transparent,#000 13%,#000 87%,transparent);
+  mask-composite:intersect}
 .op-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;will-change:opacity,transform}
 .op-stage img:first-child{opacity:1}
 .no-anim .op-stage img:last-child{opacity:1}
-.op-head{position:absolute;left:0;right:0;top:clamp(70px,9vh,110px);text-align:center;z-index:2;padding:0 20px}
-.op-head .label{color:rgba(230,207,152,.85)}
-.op-head .guest{font-family:var(--script);font-size:clamp(38px,6vw,60px);line-height:1.2;margin-top:4px}
+.op-head{position:absolute;left:0;right:0;top:clamp(70px,9vh,110px);text-align:center;z-index:2;padding:0 20px;text-shadow:0 1px 18px rgba(255,248,238,.9)}
+.op-head .label{color:#8a6a38}
+.op-head .guest{font-family:var(--script);font-size:clamp(38px,6vw,60px);line-height:1.2;margin-top:4px;color:#5a4330}
 .op-hint{position:absolute;left:50%;bottom:clamp(20px,4vh,40px);transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:12px;
-  font-family:var(--sans);font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:rgba(245,239,230,.7)}
-.op-hint i{width:1px;height:46px;background:rgba(245,239,230,.2);position:relative;overflow:hidden}
-.op-hint i:after{content:"";position:absolute;left:0;top:0;width:1px;height:100%;background:var(--gold-l);animation:drip 2.2s var(--ease) infinite}
-.op-end{position:absolute;left:0;right:0;bottom:clamp(26px,5vh,54px);text-align:center;z-index:2;opacity:0;transform:translateY(20px)}
+  font-family:var(--sans);font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:#5a4330;text-shadow:0 1px 14px rgba(255,248,238,.9)}
+.op-hint i{width:1px;height:46px;background:rgba(90,67,48,.25);position:relative;overflow:hidden}
+.op-hint i:after{content:"";position:absolute;left:0;top:0;width:1px;height:100%;background:#8a6a38;animation:drip 2.2s var(--ease) infinite}
+.op-end{position:absolute;left:0;right:0;bottom:clamp(18px,3.5vh,40px);text-align:center;z-index:2;opacity:0;transform:translateY(20px);text-shadow:0 1px 18px rgba(255,248,238,.95)}
 .no-anim .op-end{opacity:1;transform:none}
-.op-end .nm{font-family:var(--script);font-size:clamp(34px,5vw,54px);line-height:1.1}
-.op-end .dt{font-family:var(--sans);font-size:11px;letter-spacing:.45em;color:rgba(245,239,230,.75);margin-top:4px}
+.op-end .nm{font-family:var(--script);font-size:clamp(34px,5vw,54px);line-height:1.1;color:#5a4330}
+.op-end .dt{font-family:var(--sans);font-size:11px;letter-spacing:.45em;color:#6b5240;margin-top:4px}
 .op-bar{position:absolute;right:clamp(16px,3vw,40px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:2}
-.op-bar i{width:6px;height:6px;border-radius:50%;border:1px solid rgba(230,207,152,.6);transition:background .4s, transform .4s}
-.op-bar i.on{background:var(--gold-l);transform:scale(1.25)}
+.op-bar i{width:6px;height:6px;border-radius:50%;border:1px solid rgba(90,67,48,.55);transition:background .4s, transform .4s}
+.op-bar i.on{background:#8a6a38;border-color:#8a6a38;transform:scale(1.25)}
 @media (max-width:640px){ .op-bar{display:none} .op-head{top:84px} }
 @media (min-width:641px) and (max-height:760px){ .op-head{display:none} }
 
@@ -96,6 +101,7 @@ section{position:relative;padding:clamp(90px,13vw,170px) 0}
 #nav{position:fixed;top:0;left:0;right:0;z-index:120;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(18px,4vw,44px);
   color:var(--ivory);transition:background .6s, color .6s, padding .6s, transform .8s var(--ease);transform:translateY(-110%)}
 #nav.show{transform:none}
+#nav.on-light{color:var(--ink)}
 #nav.solid{background:rgba(245,239,230,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--ink);padding-top:12px;padding-bottom:12px;box-shadow:0 1px 0 var(--line)}
 #nav .mono{font-family:var(--script);font-size:30px;line-height:1}
 #nav .r{display:flex;align-items:center;gap:clamp(16px,3vw,30px)}
@@ -344,11 +350,11 @@ footer .fine{margin-top:110px;font-family:var(--sans);font-size:10px;letter-spac
 <main>
 <!-- ============ OPENING: envelope frames, played by scrolling ============ -->
 <section id="opening" data-label="Welcome">
-  <div class="op-bg" aria-hidden="true"><img src="frames/1.webp" alt="" decoding="async"><img src="frames/2.webp" alt="" decoding="async"><img src="frames/3.webp" alt="" decoding="async"><img src="frames/4.webp" alt="" decoding="async"><img src="frames/5.webp" alt="" decoding="async"><img src="frames/6.webp" alt="" decoding="async"></div>
+  <div class="op-bg" aria-hidden="true"><img src="frames/bg1.webp" alt="" decoding="async"><img src="frames/bg2.webp" alt="" decoding="async"><img src="frames/bg3.webp" alt="" decoding="async"><img src="frames/bg4.webp" alt="" decoding="async"><img src="frames/bg5.webp" alt="" decoding="async"><img src="frames/bg6.webp" alt="" decoding="async"></div>
   <div class="op-head"><div class="label">Exclusively for</div><div class="guest foil" id="guestName">Our Dear Guest</div></div>
   <div class="op-center"><div class="op-stage" role="img" aria-label="An envelope with a gold wax seal opens and two photos of the couple slide out: Our Wedding, save the date"><img src="frames/1.webp" alt="" decoding="async"><img src="frames/2.webp" alt="" decoding="async"><img src="frames/3.webp" alt="" decoding="async"><img src="frames/4.webp" alt="" decoding="async"><img src="frames/5.webp" alt="" decoding="async"><img src="frames/6.webp" alt="" decoding="async"></div></div>
   <div class="op-bar" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-  <div class="op-end"><div class="nm foil" id="opNames"></div><div class="dt" id="opDate"></div></div>
+  <div class="op-end"><div class="nm" id="opNames"></div><div class="dt" id="opDate"></div></div>
   <div class="op-hint" id="opHint"><i></i>Scroll to open</div>
 </section>
 
@@ -771,8 +777,9 @@ document.addEventListener("click", e => {
 });
 
 /* ---------- nav state ---------- */
-function navState(y){ $("#nav").classList.toggle("solid", $("#hero").getBoundingClientRect().bottom < 80); $("#nav").classList.toggle("show", y>60 || document.body.classList.contains("opened")); }
+function navState(y){ $("#nav").classList.toggle("on-light", $("#opening").getBoundingClientRect().bottom > 60); $("#nav").classList.toggle("solid", $("#hero").getBoundingClientRect().bottom < 80); $("#nav").classList.toggle("show", y>60 || document.body.classList.contains("opened")); }
 addEventListener("scroll", ()=>navState(scrollY), {passive:true});
+navState(scrollY);
 
 /* ---------- animations ---------- */
 let heroSplit;
@@ -861,12 +868,12 @@ function buildOpening(){
     onUpdate:s=>setDot(s.progress), onLeave:()=>{ if(!petalsDone){ petalsDone=true; petals(60); } }}});
   tl.to(".op-head",{opacity:0,y:-30,duration:.6},0)
     .to("#opHint",{opacity:0,duration:.4},0)
-    .fromTo(".op-stage",{scale:.9},{scale:1.03,duration:6},0);
+    .fromTo(".op-stage, .op-bg",{scale:.94},{scale:1.03,duration:6},0);
   for(let i=1;i<frames.length;i++){
     const t=i-.6;
     tl.to(frames[i],{opacity:1,duration:.75,ease:"power1.inOut"},t)
-      .fromTo(frames[i],{scale:1.07},{scale:1,duration:1.1,ease:"power2.out"},t)
-      .to(bgs[i],{opacity:.5,duration:.75},t)
+      .fromTo(frames[i],{scale:1.03},{scale:1,duration:1.1,ease:"power2.out"},t)
+      .to(bgs[i],{opacity:1,duration:.75},t)
       .to(bgs[i-1],{opacity:0,duration:.75},t);
   }
   tl.to(".op-end",{opacity:1,y:0,duration:.6,ease:"power2.out"},5)
@@ -878,7 +885,7 @@ function start(){
   if(!hasGSAP) return;
   gsap.registerPlugin(ScrollTrigger, SplitText);
   gsap.from(".op-head > *",{y:24,opacity:0,duration:1.6,stagger:.2,ease:"expo.out",delay:.2});
-  gsap.from(".op-stage",{y:50,opacity:0,duration:1.8,ease:"expo.out",delay:.3});
+  gsap.from(".op-stage",{opacity:0,duration:1.6,ease:"power2.out",delay:.2});
   buildOpening();
   heroIn();
   buildScroll();
