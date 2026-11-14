@@ -327,6 +327,14 @@ footer .fine{margin-top:110px;font-family:var(--sans);font-size:10px;letter-spac
   .cd .u{padding:0 10px}
 }
 @media (prefers-reduced-motion:reduce){ body:after,.foil,.seal-glow{animation:none} }
+
+/* golden heart cursor (mouse and trackpad only; touch screens have no cursor) */
+@media (pointer:fine){
+  html,body{cursor:url(media/cursor-heart.png) 16 17,auto;cursor:-webkit-image-set(url(media/cursor-heart.png) 1x,url(media/cursor-heart@2x.png) 2x) 16 17,auto}
+  a,button,[role=button],label,summary,select,.choice label,.gal .frame,.qa button,.stepper button,#opening:not(.playing):not(.done){
+    cursor:url(media/cursor-heart-hover.png) 16 17,pointer;cursor:-webkit-image-set(url(media/cursor-heart-hover.png) 1x,url(media/cursor-heart-hover@2x.png) 2x) 16 17,pointer}
+  input,textarea{cursor:text}
+}
 </style>
 </head>
 <body>
@@ -357,7 +365,7 @@ footer .fine{margin-top:110px;font-family:var(--sans);font-size:10px;letter-spac
   <div class="op-bg" id="opBgWrap" aria-hidden="true"><img src="media/bg.webp" alt=""></div>
   <div class="op-center"><div class="op-stage" id="opStage">
     <video id="opVideo" poster="media/poster.webp" muted playsinline preload="auto"
-      aria-label="A pair of hands unties a satin bow on a gift box, opens it to reveal an envelope with a gold wax seal, and pulls out two polaroid photos of the couple"><source src="media/opening.mp4" type="video/mp4"><source src="media/opening.webm" type="video/webm"></video>
+      aria-label="A satin bow on a gift box unties, the box opens to reveal an envelope with a gold wax seal, and two polaroid photos of the couple rise out"><source src="media/opening.mp4" type="video/mp4"><source src="media/opening.webm" type="video/webm"></video>
   </div></div>
   <div class="op-head"><div class="label">Exclusively for</div><div class="guest foil" id="guestName">Our Dear Guest</div></div>
   <div class="op-end" id="opEnd"><div class="nm" id="opNames"></div><div class="dt" id="opDate"></div></div>
@@ -893,6 +901,7 @@ function opDone(goNext){
   if(opState === "done") return;
   opState = "done";
   opSec.classList.remove("playing");
+  opSec.classList.add("done");
   removeEventListener("wheel", opTrigger, {passive:false});
   removeEventListener("touchmove", opTrigger, {passive:false});
   removeEventListener("keydown", opKey);
@@ -925,7 +934,7 @@ function opKey(e){
   if([" ","ArrowDown","PageDown","Enter"].includes(e.key)){ e.preventDefault(); opPlay(); }
 }
 function buildOpening(){
-  if(scrollY > innerHeight*0.5){ opState = "done"; try{ opV.currentTime = 999; }catch(_){} $("#opEnd").classList.add("on"); return; } /* reloaded mid-page */
+  if(scrollY > innerHeight*0.5){ opState = "done"; opSec.classList.add("done"); try{ opV.currentTime = 999; }catch(_){} $("#opEnd").classList.add("on"); return; } /* reloaded mid-page */
   opLock(true);
   opV.addEventListener("ended", opFinish);
   const opFail = () => { if(opState !== "done") opDone(false); };
