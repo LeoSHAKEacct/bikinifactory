@@ -62,22 +62,19 @@ section{position:relative;padding:clamp(90px,13vw,170px) 0}
 .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
 /* ============ OPENING (scroll-driven envelope) ============ */
-#opening{--st:min(96vw,92vh,980px);position:relative;height:100vh;height:100svh;padding:0;overflow:hidden;background:#d2b89c;color:var(--ink)}
-/* the table: same scene, filling the screen, softly out of focus */
-.op-bg{position:absolute;left:50%;top:50%;width:calc(var(--st) * 3);height:calc(var(--st) * 3);margin:calc(var(--st) * -1.5) 0 0 calc(var(--st) * -1.5)}
-.op-bg img{position:absolute;inset:0;width:100%;height:100%;opacity:0}
-.op-bg img:first-child{opacity:1}
-#opening:after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(80% 80% at 50% 50%,rgba(255,244,228,0) 55%,rgba(110,80,55,.18))}
+#opening{position:relative;height:100vh;height:100svh;padding:0;overflow:hidden;background:#d8c2a6;color:var(--ink)}
+/* the table: one still built from the video's edges, lined up behind the video */
+.op-bg{position:absolute;left:50%;top:50%}
+.op-bg img{position:absolute;inset:0;width:100%;height:100%}
+#opening:after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(85% 85% at 50% 50%,rgba(255,244,228,0) 60%,rgba(110,80,55,.16))}
 .op-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
-/* the envelope: sharp, edges feathered so it melts into the table */
-.op-stage{position:relative;width:var(--st);aspect-ratio:1;
-  -webkit-mask-image:linear-gradient(to right,transparent,#000 13%,#000 87%,transparent),linear-gradient(to bottom,transparent,#000 13%,#000 87%,transparent);
+/* the video, drawn frame by frame; edges feathered into the table */
+.op-stage{position:relative;flex:none;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 9%,#000 91%,transparent),linear-gradient(to bottom,transparent,#000 12%,#000 88%,transparent);
   -webkit-mask-composite:source-in;
-  mask-image:linear-gradient(to right,transparent,#000 13%,#000 87%,transparent),linear-gradient(to bottom,transparent,#000 13%,#000 87%,transparent);
+  mask-image:linear-gradient(to right,transparent,#000 9%,#000 91%,transparent),linear-gradient(to bottom,transparent,#000 12%,#000 88%,transparent);
   mask-composite:intersect}
-.op-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;will-change:opacity,transform}
-.op-stage img:first-child{opacity:1}
-.no-anim .op-stage img:last-child{opacity:1}
+.op-stage canvas{display:block;width:100%;height:100%}
 .op-head{position:absolute;left:0;right:0;top:clamp(70px,9vh,110px);text-align:center;z-index:2;padding:0 20px;text-shadow:0 1px 18px rgba(255,248,238,.9)}
 .op-head .label{color:#8a6a38}
 .op-head .guest{font-family:var(--script);font-size:clamp(38px,6vw,60px);line-height:1.2;margin-top:4px;color:#5a4330}
@@ -350,9 +347,9 @@ footer .fine{margin-top:110px;font-family:var(--sans);font-size:10px;letter-spac
 <main>
 <!-- ============ OPENING: envelope frames, played by scrolling ============ -->
 <section id="opening" data-label="Welcome">
-  <div class="op-bg" aria-hidden="true"><img src="frames/bg1.webp" alt="" decoding="async"><img src="frames/bg2.webp" alt="" decoding="async"><img src="frames/bg3.webp" alt="" decoding="async"><img src="frames/bg4.webp" alt="" decoding="async"><img src="frames/bg5.webp" alt="" decoding="async"><img src="frames/bg6.webp" alt="" decoding="async"></div>
+  <div class="op-bg" id="seqBgWrap" aria-hidden="true"><img id="seqBg" src="seq/bg.webp" alt=""></div>
+  <div class="op-center"><div class="op-stage" id="seqStage" role="img" aria-label="A gift box tied with a satin bow unties and opens, revealing an envelope with a gold wax seal; the envelope opens and two polaroid photos of the couple rise out"><canvas id="seqCanvas"></canvas></div></div>
   <div class="op-head"><div class="label">Exclusively for</div><div class="guest foil" id="guestName">Our Dear Guest</div></div>
-  <div class="op-center"><div class="op-stage" role="img" aria-label="An envelope with a gold wax seal opens and two photos of the couple slide out: Our Wedding, save the date"><img src="frames/1.webp" alt="" decoding="async"><img src="frames/2.webp" alt="" decoding="async"><img src="frames/3.webp" alt="" decoding="async"><img src="frames/4.webp" alt="" decoding="async"><img src="frames/5.webp" alt="" decoding="async"><img src="frames/6.webp" alt="" decoding="async"></div></div>
   <div class="op-bar" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
   <div class="op-end"><div class="nm" id="opNames"></div><div class="dt" id="opDate"></div></div>
   <div class="op-hint" id="opHint"><i></i>Scroll to open</div>
@@ -858,34 +855,83 @@ function heroIn(){
     .from("#heroPlace, .scroll-ind",{opacity:0,y:16,duration:1.4,stagger:.15},1.4);
 }
 
-/* ---------- opening: the envelope plays as you scroll ---------- */
+/* ---------- opening: the gift-box video, played by scrolling ----------
+   The video is stored as still frames (seq/0001.webp …) so it can be
+   scrubbed forwards and backwards smoothly on every phone.            */
+const SEQ = { path:"seq/", count:96, pad:4, ext:"webp" };
+const seq = { imgs:[], A:1.5, cur:0, w:0, h:0 };
+const cv2 = $("#seqCanvas"), ctx2 = cv2.getContext("2d");
+const seqSrc = i => SEQ.path + String(i+1).padStart(SEQ.pad,"0") + "." + SEQ.ext;
+function seqLoad(i){
+  if(seq.imgs[i]) return seq.imgs[i];
+  const im = new Image(); im.decoding = "async"; im.src = seqSrc(i);
+  im.onload = () => { im.ok = true; if(Math.abs(i - seq.cur) < 2) seqDraw(seq.cur); };
+  return seq.imgs[i] = im;
+}
+/* load order: first frame, then coarse-to-fine so any scroll position soon has a frame */
+function seqPreload(){
+  const order = [], seen = new Set();
+  for(let step=Math.pow(2,Math.ceil(Math.log2(SEQ.count))); step>=1; step=step/2|0){
+    for(let i=0;i<SEQ.count;i+=step) if(!seen.has(i)){ seen.add(i); order.push(i); }
+    if(step===1) break;
+  }
+  let k = 0;
+  const next = () => { const batch = order.slice(k, k+6); k += 6; batch.forEach(seqLoad); if(k < order.length) setTimeout(next, 60); };
+  next();
+}
+function nearestLoaded(i){
+  for(let d=0; d<SEQ.count; d++){
+    if(seq.imgs[i-d] && seq.imgs[i-d].ok) return i-d;
+    if(seq.imgs[i+d] && seq.imgs[i+d].ok) return i+d;
+  }
+  return -1;
+}
+function seqDraw(f){
+  seq.cur = f;
+  const i = Math.floor(f), t = f - i;
+  const a = nearestLoaded(i); if(a < 0) return;
+  ctx2.globalAlpha = 1; ctx2.drawImage(seq.imgs[a], 0, 0, cv2.width, cv2.height);
+  const b = i + 1;
+  if(t > 0.02 && a === i && seq.imgs[b] && seq.imgs[b].ok){ ctx2.globalAlpha = t; ctx2.drawImage(seq.imgs[b], 0, 0, cv2.width, cv2.height); ctx2.globalAlpha = 1; }
+}
+function seqLayout(){
+  const vw = innerWidth, vh = innerHeight, A = seq.A;
+  /* wide screens: fill the page. tall screens (phones): full width and a bit more, over the table */
+  const w = vw/vh >= A*0.9 ? Math.max(vw*1.06, vh*1.06*A) : Math.min(vw*1.22, vh*A*.95);
+  const h = w / A;
+  const st = $("#seqStage"); st.style.width = w+"px"; st.style.height = h+"px";
+  const bg = $("#seqBgWrap"); bg.style.width = 3*w+"px"; bg.style.height = 3*h+"px"; bg.style.margin = (-1.5*h)+"px 0 0 "+(-1.5*w)+"px";
+  const dpr = Math.min(devicePixelRatio||1, 2);
+  cv2.width = Math.round(Math.min(w*dpr, 1920)); cv2.height = Math.round(cv2.width / A);
+  seqDraw(seq.cur);
+}
 let petalsDone = false;
 function buildOpening(){
-  const frames=$$(".op-stage img"), bgs=$$(".op-bg img"), dotsEl=$$(".op-bar i");
-  const setDot = p => { const k=Math.min(5,Math.round(p*5)); dotsEl.forEach((d,i)=>d.classList.toggle("on",i===k)); };
+  const first = seqLoad(0);
+  const ready = () => { if(first.naturalWidth) seq.A = first.naturalWidth / first.naturalHeight; seqLayout(); seqPreload(); };
+  first.complete && first.naturalWidth ? ready() : first.addEventListener("load", ready, {once:true});
+  addEventListener("resize", seqLayout);
+  if(!hasGSAP) return;
+  const dotsEl = $$(".op-bar i");
+  const setDot = p => { const k=Math.min(5,Math.floor(p*6)); dotsEl.forEach((d,i)=>d.classList.toggle("on",i===k)); };
   setDot(0);
-  const tl = gsap.timeline({defaults:{ease:"none"},scrollTrigger:{trigger:"#opening",start:"top top",end:()=>"+="+innerHeight*4.5,pin:true,scrub:1.1,anticipatePin:1,
+  const play = { f:0 };
+  const last = SEQ.count - 1;
+  const tl = gsap.timeline({defaults:{ease:"none"},scrollTrigger:{trigger:"#opening",start:"top top",end:()=>"+="+innerHeight*5,pin:true,scrub:0.6,anticipatePin:1,
     onUpdate:s=>setDot(s.progress), onLeave:()=>{ if(!petalsDone){ petalsDone=true; petals(60); } }}});
-  tl.to(".op-head",{opacity:0,y:-30,duration:.6},0)
-    .to("#opHint",{opacity:0,duration:.4},0)
-    .fromTo(".op-stage, .op-bg",{scale:.94},{scale:1.03,duration:6},0);
-  for(let i=1;i<frames.length;i++){
-    const t=i-.6;
-    tl.to(frames[i],{opacity:1,duration:.75,ease:"power1.inOut"},t)
-      .fromTo(frames[i],{scale:1.03},{scale:1,duration:1.1,ease:"power2.out"},t)
-      .to(bgs[i],{opacity:1,duration:.75},t)
-      .to(bgs[i-1],{opacity:0,duration:.75},t);
-  }
-  tl.to(".op-end",{opacity:1,y:0,duration:.6,ease:"power2.out"},5)
-    .to({}, {duration:.7});
+  tl.to(".op-head",{opacity:0,y:-30,duration:.5},0)
+    .to("#opHint",{opacity:0,duration:.3},0)
+    .to(play,{f:last,duration:8.6,onUpdate:()=>seqDraw(play.f)},0.2)
+    .to(".op-end",{opacity:1,y:0,duration:.6,ease:"power2.out"},8.4)
+    .to({}, {duration:.8});
 }
 
 function start(){
   document.body.classList.add("opened");
-  if(!hasGSAP) return;
+  if(!hasGSAP){ buildOpening(); return; }
   gsap.registerPlugin(ScrollTrigger, SplitText);
   gsap.from(".op-head > *",{y:24,opacity:0,duration:1.6,stagger:.2,ease:"expo.out",delay:.2});
-  gsap.from(".op-stage",{opacity:0,duration:1.6,ease:"power2.out",delay:.2});
+  gsap.from(".op-stage",{opacity:0,duration:1.2,ease:"power2.out"});
   buildOpening();
   heroIn();
   buildScroll();
