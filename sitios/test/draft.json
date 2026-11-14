@@ -1,6 +1,6 @@
 {
-  "name": "Amanda",
-  "phone": "12345566",
+  "name": "Test website 123",
+  "phone": "23456543",
   "waMessage": "Hola {nombre}, quiero reservar un masaje",
   "seo": {
     "title": "{nombre} · Masajes",
@@ -16,7 +16,7 @@
   "sections": [
     {
       "type": "hero",
-      "photo": "",
+      "photo": "foto-mwgy7oxa.jpg",
       "eyebrow": "Masajes · Medellín",
       "title": "Relajación y placer",
       "titleAccent": "en un masaje",
