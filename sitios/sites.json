@@ -10,5 +10,9 @@
   {
     "slug": "erikha",
     "label": "Sitio ERIKHA"
+  },
+  {
+    "slug": "test",
+    "label": "Sitio TEST"
   }
 ]
