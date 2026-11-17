@@ -14,5 +14,9 @@
   {
     "slug": "test",
     "label": "Sitio TEST"
+  },
+  {
+    "slug": "dany",
+    "label": "Sitio DANY"
   }
 ]
