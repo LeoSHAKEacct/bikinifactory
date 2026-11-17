@@ -3,6 +3,22 @@
   "subtitle": "Negocios creados por nuestros estudiantes",
   "sites": [
     {
+      "slug": "dany",
+      "name": "New Dawn Spa",
+      "category": "",
+      "description": "New Dawn Spa — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta.",
+      "photo": "/dany/foto-mwlaejj8.jpg",
+      "phone": "1000111000",
+      "places": [
+        "Medellín",
+        "Itagüí",
+        "La Estrella",
+        "Sabaneta"
+      ],
+      "owner": "",
+      "updatedAt": "2026-11-17T23:05:35.777Z"
+    },
+    {
       "slug": "test",
       "name": "Amanda Spa",
       "category": "",
