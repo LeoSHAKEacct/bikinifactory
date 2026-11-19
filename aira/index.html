@@ -1268,8 +1268,8 @@ $('tCalc').addEventListener('click', () => { closeTour(); $('returns').scrollInt
 addEventListener('keydown', e => {
   if (!tourEl.classList.contains('on')) { if (e.key === 'Escape' && stage.classList.contains('floor')) backToTower(); return; }
   if (e.key === 'Escape') closeTour();
-  else if (e.key === 'ArrowRight') show(ri + 1);
-  else if (e.key === 'ArrowLeft') show(ri - 1);
+  else if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); roomStep(1); }
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); roomStep(-1); }
   else if (e.key === ' ' && e.target.tagName !== 'BUTTON') { e.preventDefault(); setPlay(!playing); }
   else if (e.key === 'Tab') { // keep focus inside the tour
     const f = [...tourEl.querySelectorAll('button, a[href]')].filter(x => x.offsetParent);
@@ -1278,10 +1278,27 @@ addEventListener('keydown', e => {
     else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
   }
 });
-// swipe between rooms on touch screens
-let sx = null;
-view.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
-view.addEventListener('touchend', e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) show(ri + (dx < 0 ? 1 : -1)); sx = null; });
+// scroll through the rooms: wheel down = next room, wheel up = previous room (no wrap-around)
+const roomStep = d => { const n = ri + d; if (n >= 0 && n < ROOMS.length) show(n); };
+let wheelSum = 0, wheelLock = 0, wheelIdle = null;
+tourEl.addEventListener('wheel', e => {
+  if (e.target.closest('.stops')) return;            // let the room list scroll on its own
+  e.preventDefault();
+  clearTimeout(wheelIdle); wheelIdle = setTimeout(() => { wheelSum = 0; }, 180);
+  if (performance.now() < wheelLock) return;           // one room per scroll gesture
+  wheelSum += e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;
+  if (Math.abs(wheelSum) > 60) { roomStep(wheelSum > 0 ? 1 : -1); wheelSum = 0; wheelLock = performance.now() + 750; }
+}, { passive: false });
+// swipe between rooms on touch screens: left or up = next, right or down = previous
+let sx = null, sy = null;
+view.addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+view.addEventListener('touchmove', e => { if (sy !== null) e.preventDefault(); }, { passive: false });
+view.addEventListener('touchend', e => {
+  if (sx === null) return;
+  const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+  if (Math.max(Math.abs(dx), Math.abs(dy)) > 50) roomStep(Math.abs(dx) > Math.abs(dy) ? (dx < 0 ? 1 : -1) : (dy < 0 ? 1 : -1));
+  sx = sy = null;
+});
 
 /* =========================================================
    RETURNS CALCULATOR
