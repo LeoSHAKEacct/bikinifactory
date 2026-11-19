@@ -65,11 +65,34 @@ button, input, select { font: inherit; color: inherit; }
 
 /* ---------- hero ---------- */
 .hero { position: relative; min-height: 100svh; display: grid; align-items: end; color: var(--fog); background: var(--deep); overflow: hidden; }
-.hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; transform: scale(1.06); animation: drift 22s ease-out forwards; }
+.shot { position: absolute; left: 0; top: 0; width: 100%; height: 100%; transform: scale(1.06); transform-origin: 60% 50%; animation: drift 22s ease-out forwards; }
+.shot img { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* glowing suites over the tower in the photo (same crop as the photo: xMidYMid slice) */
+.hmap { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.shot { z-index: 1; }
+.hero::after { z-index: 1; }
+.hhint, .htip { z-index: 3; }
+.hmap .hz { pointer-events: auto; }
+.hmap .zonehit { fill: transparent; cursor: pointer; }
+.hmap .cell { fill: rgba(255,214,150,0); stroke: rgba(255,232,186,0); stroke-width: 1.5; transition: fill .45s ease, stroke .45s ease; pointer-events: none; }
+.hmap .cell.av { pointer-events: auto; cursor: pointer; }
+.hmap.on .cell.av { fill: rgba(255,208,135,.5); stroke: rgba(255,236,196,.95); transition-delay: var(--d, 0s); }
+.hmap.on .cell.av:hover, .hmap .cell.av.hot { fill: rgba(255,236,200,.92); stroke: #fff; transition-delay: 0s; }
+.hmap .glow { filter: drop-shadow(0 0 6px rgba(255,200,120,.95)) drop-shadow(0 0 18px rgba(255,180,90,.55)); }
+.htip { position: absolute; z-index: 3; pointer-events: none; padding: 10px 12px; border-radius: 10px; background: rgba(8,28,26,.9); border: 1px solid var(--line); color: var(--fog); font-size: 13px; line-height: 1.35; white-space: nowrap; opacity: 0; transform: translate(-50%, calc(-100% - 16px)); transition: opacity .15s; text-shadow: none; }
+.htip.on { opacity: 1; }
+.htip b { font: 400 18px/1 var(--display); display: block; margin-bottom: 4px; }
+.htip .s { color: var(--fog-dim); }
+.hhint { position: absolute; z-index: 2; pointer-events: none; display: inline-flex; align-items: center; gap: 8px; padding: 9px 13px; border-radius: 999px; background: rgba(8,28,26,.72); border: 1px solid var(--line); color: var(--fog); font: 700 11px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; transform: translate(-50%, -50%); transition: opacity .3s; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.hhint i { width: 8px; height: 8px; border-radius: 50%; background: var(--glow); box-shadow: 0 0 10px var(--glow); animation: pulse 1.8s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: .35; } }
+.hero.lit .hhint { opacity: 0; }
 @keyframes drift { to { transform: scale(1); } }
-.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(8,28,26,.95) 0%, rgba(8,28,26,.6) 34%, rgba(8,28,26,0) 62%), linear-gradient(90deg, rgba(8,28,26,.82) 0%, rgba(8,28,26,.5) 38%, rgba(8,28,26,0) 62%), linear-gradient(180deg, rgba(8,28,26,.6) 0%, rgba(8,28,26,0) 22%); }
+.hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(0deg, rgba(8,28,26,.95) 0%, rgba(8,28,26,.6) 34%, rgba(8,28,26,0) 62%), linear-gradient(90deg, rgba(8,28,26,.82) 0%, rgba(8,28,26,.5) 38%, rgba(8,28,26,0) 62%), linear-gradient(180deg, rgba(8,28,26,.6) 0%, rgba(8,28,26,0) 22%); }
 .hero .in { text-shadow: 0 1px 18px rgba(4,16,15,.45); }
-.hero .in { position: relative; z-index: 1; padding: 120px var(--gut) 44px; max-width: 1280px; width: 100%; margin: 0 auto; }
+.hero .in { pointer-events: none; }
+.hero .in a, .hero .in button { pointer-events: auto; }
+.hero .in { position: relative; z-index: 2; padding: 120px var(--gut) 44px; max-width: 1280px; width: 100%; margin: 0 auto; }
 .eyebrow { font: 700 11.5px/1.3 var(--body); letter-spacing: .22em; text-transform: uppercase; color: var(--glow); }
 .hero h1 { font: 300 clamp(44px, 7.2vw, 104px)/.98 var(--display); letter-spacing: -.02em; margin: 18px 0 20px; max-width: 13ch; text-wrap: balance; }
 .hero h1 em { font-style: italic; color: var(--glow); }
@@ -149,6 +172,10 @@ button, input, select { font: inherit; color: inherit; }
 .plate .hit.sold { cursor: not-allowed; background: repeating-linear-gradient(135deg, rgba(8,28,26,.62) 0 8px, rgba(8,28,26,.42) 8px 16px); }
 .plate .hit.sold::after { content: "Sold"; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font: 700 11px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--fog); background: rgba(8,28,26,.85); padding: 6px 8px; border-radius: 999px; }
 .plate .hit.av:hover { border-color: var(--mint); background: rgba(127,209,189,.12); }
+.plate .hit.av::before { content: "View inside"; position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); font: 700 10px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; color: #2a1c05; background: var(--glow); padding: 6px 8px; border-radius: 999px; opacity: 0; transition: opacity .2s; }
+.plate .hit.av:hover::before, .plate .hit.av:focus-visible::before { opacity: 1; }
+.floorview { cursor: zoom-out; }
+.floorview .frame, .floorview .fv-head > * { cursor: default; }
 .plate .hit.sel { border-color: var(--glow); background: rgba(240,207,146,.2); box-shadow: 0 0 0 4px rgba(240,207,146,.25), 0 0 40px rgba(240,207,146,.55); }
 .fv-foot { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; align-items: center; font-size: 13px; color: var(--fog-dim); }
 
@@ -426,7 +453,12 @@ footer p { margin: 0; max-width: 110ch; }
 
 <!-- hero -->
 <section class="hero" id="top">
-  <img src="img/hero.jpg" alt="AIRA tower rising above the green lot between the Caribbean and Cartagena's skyline" fetchpriority="high">
+  <div class="shot" id="shot">
+    <img src="img/hero.jpg" alt="AIRA tower rising above the green lot between the Caribbean and Cartagena's skyline" fetchpriority="high">
+    <svg class="hmap" id="hmap" viewBox="0 0 2200 1424" preserveAspectRatio="none" aria-hidden="true"></svg>
+  </div>
+  <div class="hhint" id="hhint"><i></i>Hover the tower</div>
+  <div class="htip" id="htip"></div>
   <div class="in">
     <div class="eyebrow">Cartagena de Indias · Licensed for short-term rental</div>
     <h1>A suite by the Caribbean <em>that earns while you're away.</em></h1>
@@ -474,7 +506,7 @@ footer p { margin: 0; max-width: 110ch; }
           <img src="img/floorplate.webp" alt="Typical floor plate with seven suites numbered 01 to 07 from left to right, terraces facing the street">
         </div>
       </div>
-      <div class="fv-foot"><span>Typical floor plate · suites 01 to 07 · terraces on the facade side</span><span>Tap another suite on this floor to compare</span></div>
+      <div class="fv-foot"><span>Typical floor plate · suites 01 to 07 · terraces on the facade side</span><span>Click a suite to see inside · click outside the plan to go back</span></div>
     </div>
   </div>
 
@@ -1009,7 +1041,7 @@ const frame = $('frame');
 const hits = COLS.map(([a, b], i) => {
   const h = document.createElement('button'); h.type = 'button'; h.className = 'hit';
   h.style.left = a + '%'; h.style.width = (b - a) + '%';
-  h.addEventListener('click', () => { const s = byId[String(curFloor * 100 + i + 1)]; if (s.av) select(s.id, { stay: true }); });
+  h.addEventListener('click', e => { e.stopPropagation(); const s = byId[String(curFloor * 100 + i + 1)]; if (s.av) { select(s.id, { stay: true }); openTour(); } });
   frame.appendChild(h); return h;
 });
 let curFloor = 14;
@@ -1086,21 +1118,29 @@ async function backToTower() {
 $('fUp').addEventListener('click', () => goFloor(1));
 $('fDown').addEventListener('click', () => goFloor(-1));
 $('fBack').addEventListener('click', backToTower);
+// clicking anywhere outside the floor plate model returns to the whole building
+$('floorview').addEventListener('click', e => {
+  if (!stage.classList.contains('floor')) return;
+  if (e.target.closest('.frame, .fv-head')) return;
+  backToTower();
+});
 addEventListener('resize', () => { if (stage.classList.contains('floor')) setVB(floorVB(curFloor)); });
 
 /* =========================================================
    THE TOUR: renders from AIRA's brochure, plan alongside
    zone: [left, top, width, height] in % of each type's plan
 ========================================================= */
-const ROOMS = [
+/* Interiors shown when a suite is opened. Add a suite id with its own photos to override the default, e.g.
+   INTERIORS['502'] = [{ img: 'img/interiors/502-living.jpg', name: 'Living room', text: '...' }, ...]; */
+const INTERIORS = {
+  default: [
+    { name: 'Inside the suite', img: 'img/interiors/suite-default.jpg', kb: 'kbR', zone: { A: [43, 2, 43, 94], B: [26, 2, 53, 96] },
+      text: 'A sofa, a queen bed and a work desk in one bright room, with floor-to-ceiling glass onto the private terrace and the lagoon and skyline beyond.' },
+  ],
+};
+const BUILDING = [
   { name: 'Arrival', where: 'Ground floor · Lobby', img: 'img/lobby.jpg', kb: 'kbIn',
     text: 'A double-height lobby with a green wall and timber curves. The operator\'s front desk checks your guests in, so you never have to hand over a key.' },
-  { name: 'Living and kitchen', zone: { A: [24, 2, 44, 94], B: [1, 2, 49, 96] }, img: 'img/suite-living.jpg', kb: 'kbR',
-    text: 'The TV wall, a work desk and a bar counter under a pendant lamp, with floor-to-ceiling glass looking over the city.' },
-  { name: 'Living to bedroom', zone: { A: [43, 2, 43, 94], B: [26, 2, 53, 96] }, img: 'img/suite-wide.jpg', kb: 'kbL',
-    text: 'One continuous space from the sofa to the bed, with floor-to-ceiling glass onto the outdoor area. It is easy to clean and easy to turn over between guests.' },
-  { name: 'Bedroom', zone: { A: [66, 2, 20, 94], B: [50, 2, 29, 96] }, img: 'img/suite-bed.jpg', kb: 'kbR',
-    text: 'A queen bed facing the window, a desk for guests who work while they travel, and a terrace with a planted edge beyond the glass.' },
   { name: 'Rooftop lounge', where: 'Rooftop · Lounge and pool', img: 'img/lounge.jpg', kb: 'kbL',
     text: 'A shaded lounge under the pergola beside the pool, with the city and the Caribbean on the horizon. This is the photo your guests will post.' },
   { name: 'Infinity deck', where: 'Rooftop · Sun deck', img: 'img/rooftop.jpg', kb: 'kbIn',
@@ -1108,19 +1148,25 @@ const ROOMS = [
 ];
 const DUR = 7000;
 const tourEl = $('tour'), view = $('view'), zone = $('zone'), where = $('where');
-ROOMS.forEach((r, i) => {
-  const d = document.createElement('div'); d.className = 'r';
-  d.innerHTML = `<img src="${r.img}" alt="" loading="lazy">`;
-  d.style.setProperty('--kb', r.kb); d.style.setProperty('--dur', DUR + 'ms');
-  view.insertBefore(d, view.querySelector('.tbar')); r.el = d;
-  const li = document.createElement('li');
-  li.innerHTML = `<button class="stop" type="button"><span class="i num">${String(i + 1).padStart(2, '0')}</span><span>${r.name}</span><span class="w">${r.where ? r.where.split(' · ')[0] : 'Suite'}</span></button>`;
-  li.firstChild.addEventListener('click', () => show(i));
-  $('stops').appendChild(li); r.stop = li.firstChild;
-  const bar = document.createElement('i'); bar.innerHTML = '<b></b>'; bar.style.setProperty('--dur', DUR + 'ms');
-  bar.addEventListener('click', () => show(i));
-  $('progress').appendChild(bar); r.bar = bar;
-});
+let ROOMS = [];
+function buildRooms(s) {
+  view.querySelectorAll('.r').forEach(n => n.remove());
+  $('stops').innerHTML = ''; $('progress').innerHTML = '';
+  ROOMS = [...(INTERIORS[s.id] || INTERIORS.default), ...BUILDING].map(r => ({ ...r }));
+  ROOMS.forEach((r, i) => {
+    const d = document.createElement('div'); d.className = 'r';
+    d.innerHTML = `<img src="${r.img}" alt="">`;
+    d.style.setProperty('--kb', r.kb || 'kbR'); d.style.setProperty('--dur', DUR + 'ms');
+    view.insertBefore(d, view.querySelector('.tbar')); r.el = d;
+    const li = document.createElement('li');
+    li.innerHTML = `<button class="stop" type="button"><span class="i num">${String(i + 1).padStart(2, '0')}</span><span>${r.name}</span><span class="w">${r.where ? r.where.split(' · ')[0] : 'Suite ' + s.id}</span></button>`;
+    li.firstChild.addEventListener('click', () => show(i));
+    $('stops').appendChild(li); r.stop = li.firstChild;
+    const bar = document.createElement('i'); bar.innerHTML = '<b></b>'; bar.style.setProperty('--dur', DUR + 'ms');
+    bar.addEventListener('click', () => show(i));
+    $('progress').appendChild(bar); r.bar = bar;
+  });
+}
 let ri = 0, timer = null, playing = true, lastFocus = null;
 function show(i) {
   ri = (i + ROOMS.length) % ROOMS.length;
@@ -1136,11 +1182,12 @@ function show(i) {
   void r.bar.offsetWidth; r.bar.classList.add('on');
   $('rk').textContent = `${String(ri + 1).padStart(2, '0')} / ${String(ROOMS.length).padStart(2, '0')}${r.where ? ' · ' + r.where : ' · Suite ' + s.id}`;
   $('rname').textContent = r.name; $('rtext').textContent = r.text;
-  if (r.zone) {
+  if (r.zone && r.zone[s.type]) {
     const [x, y, w, h] = r.zone[s.type];
     Object.assign(zone.style, { left: `calc(8px + (100% - 16px) * ${x / 100})`, top: `calc(8px + (100% - 16px) * ${y / 100})`, width: `calc((100% - 16px) * ${w / 100})`, height: `calc((100% - 16px) * ${h / 100})` });
     zone.classList.remove('off'); where.classList.remove('on');
-  } else { zone.classList.add('off'); where.textContent = r.where; where.classList.add('on'); }
+  } else if (r.where) { zone.classList.add('off'); where.textContent = r.where; where.classList.add('on'); }
+  else { zone.classList.add('off'); where.classList.remove('on'); }
   r.stop.scrollIntoView({ block: 'nearest' });
   clearTimeout(timer);
   if (playing && ri < ROOMS.length - 1) timer = setTimeout(() => show(ri + 1), DUR);
@@ -1160,6 +1207,7 @@ function openTour() {
   $('tpImg').src = T.plan;
   $('tsPrice').textContent = mOnly(s.price, 0); $('tsM2').textContent = mOnly(s.m2, 1); $('tsNet').textContent = mOnly(e.net / 12, 1);
   $('tWa').href = $('cWa').href;
+  buildRooms(s);
   lastFocus = document.activeElement;
   tourEl.classList.add('on'); tourEl.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
@@ -1255,6 +1303,77 @@ $('lead').addEventListener('submit', e => {
   const msg = `Hello, I'm ${d.get('name')}${d.get('country') ? ' from ' + d.get('country') : ''}. I'm interested in ${suite} at AIRA Cartagena. Use: ${d.get('use')}. Budget: ${d.get('budget')}. Could you send me the payment plan and the operator's terms?`;
   window.open(waLink(msg), '_blank', 'noopener');
 });
+
+/* =========================================================
+   HERO: available suites light up when the pointer is on the tower.
+   Front face of the tower measured on img/hero.jpg (2200 x 1424):
+   7 columns (x edges below) by 11 suite floors, slabs sloping slightly to the right.
+========================================================= */
+(function heroMap() {
+  const hmap = $('hmap'), hero = document.querySelector('.hero'), htip = $('htip'), hhint = $('hhint');
+  const XS = [1495, 1525, 1562, 1600, 1642, 1685, 1735, 1800];
+  const topY = x => 370 + 8 * (x - XS[0]) / (XS[7] - XS[0]);
+  const botY = x => 958 + 10 * (x - XS[0]) / (XS[7] - XS[0]);
+  const yAt = (x, r) => topY(x) + (botY(x) - topY(x)) * r / 11;
+  // the whole tower (suites, roof and podium) is the hover zone
+  const hz = svgEl('g', { class: 'hz' }, hmap);
+  let lastType = 'mouse';
+  hz.addEventListener('pointerdown', e => { lastType = e.pointerType; });
+  svgEl('polygon', { class: 'zonehit', points: '1470,300 1880,300 1880,1080 1470,1080' }, hz);
+  const g = svgEl('g', { class: 'glow' }, hz);
+  SUITES.forEach(s => {
+    const r = 14 - s.floor, a = XS[s.col - 1] + 3, b = XS[s.col] - 3;
+    const pts = [[a, yAt(a, r) + 4], [b, yAt(b, r) + 4], [b, yAt(b, r + 1) - 3], [a, yAt(a, r + 1) - 3]];
+    const c = svgEl('polygon', { class: 'cell' + (s.av ? ' av' : ''), points: pts.map(p => p.map(n => n.toFixed(1)).join(',')).join(' ') }, g);
+    c.style.setProperty('--d', ((10 - r) * 0.045 + (s.col - 1) * 0.012).toFixed(3) + 's');   // light climbs from floor 4 up
+    if (!s.av) return;
+    c.addEventListener('pointerenter', e => tipFor(s, e));
+    c.addEventListener('pointermove', e => tipFor(s, e));
+    c.addEventListener('pointerleave', () => { htip.classList.remove('on'); });
+    c.addEventListener('click', e => {
+      e.stopPropagation();
+      if (lastType === 'touch' && !hmap.classList.contains('on')) { on(true); tipFor(s, e); return; }   // first tap lights the tower
+      openSuite(s.id);
+    });
+    s.hc = c;
+  });
+  function tipFor(s, e) {
+    const r = hero.getBoundingClientRect();
+    htip.innerHTML = `<b>Suite ${s.id}</b>Floor ${s.floor} · type ${s.type} · ${s.area} m²<br><span class="s">${cop(s.price)} · click to fly in</span>`;
+    htip.style.left = Math.min(Math.max(e.clientX - r.left, 120), r.width - 120) + 'px';
+    htip.style.top = (e.clientY - r.top) + 'px';
+    htip.classList.add('on');
+  }
+  const on = v => { hmap.classList.toggle('on', v); hero.classList.toggle('lit', v); if (!v) htip.classList.remove('on'); };
+  hz.addEventListener('pointerenter', e => { if (e.pointerType !== 'touch') on(true); });
+  hz.addEventListener('pointerleave', e => { if (e.pointerType !== 'touch') on(false); });
+  hz.addEventListener('click', e => { if (!e.target.closest('.cell.av')) on(!hmap.classList.contains('on')); });  // taps on phones
+  // place the hint chip just left of the tower, wherever the crop puts it
+  function placeHint() {
+    const ctm = hmap.getScreenCTM(), r = hero.getBoundingClientRect(); if (!ctm) return;
+    const pt = hmap.createSVGPoint(); pt.x = XS[0] - 10; pt.y = 520;
+    const q = pt.matrixTransform(ctm);
+    const x = q.x - r.left, w = hhint.offsetWidth;
+    hhint.style.left = Math.max(w / 2 + 12, x - w / 2 - 14) + 'px'; hhint.style.top = (q.y - r.top) + 'px';
+    hhint.style.display = innerWidth < 560 ? 'none' : '';
+  }
+  // cover the hero with the photo, keeping the tower in view on narrow screens
+  const shot = $('shot'), AR = 2200 / 1424, TOWER = 1650 / 2200;
+  function layout() {
+    const hw = hero.clientWidth, hh = hero.clientHeight;
+    const W = Math.max(hw, hh * AR), H = W / AR;
+    const want = hw < 900 ? hw * 0.66 - TOWER * W : (hw - W) / 2;   // phones: put the tower about two-thirds across
+    const left = Math.min(0, Math.max(hw - W, want));
+    Object.assign(shot.style, { width: W + 'px', height: H + 'px', left: left + 'px', top: (hh - H) / 2 + 'px' });
+    placeHint();
+  }
+  addEventListener('resize', layout); layout(); setTimeout(placeHint, 23000);
+})();
+function openSuite(id) {
+  stage.scrollIntoView({ behavior: reduce() ? 'auto' : 'smooth' });
+  lightUp();
+  setTimeout(() => select(id, { noScroll: true }), reduce() ? 0 : 650);
+}
 
 /* ---------- top bar, reveals, deep links ---------- */
 const bar = $('bar');
