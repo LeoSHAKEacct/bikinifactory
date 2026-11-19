@@ -1,6 +1,6 @@
 // Website chat demo: same answers as the WhatsApp bot, returned as JSON.
 //   POST { text } or { id }  ->  { messages: [...], handoff }
-const { reply } = require('./_bot');
+const { reply } = require('../bot-engine');
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).json({ error: 'POST only' });

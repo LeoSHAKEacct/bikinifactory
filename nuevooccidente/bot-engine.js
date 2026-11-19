@@ -1,14 +1,16 @@
 // Bot logic for Clínica Veterinaria Nuevo Occidente. Pure: input -> list of replies.
-// Used by api/whatsapp.js (real WhatsApp) and api/bot-demo.js (the chat on the website).
-// Prices and services come from data/clinica.json.
+// Used by api/whatsapp.js (real WhatsApp), api/bot-demo.js, and directly in the browser by
+// index.html and bot.html (so the demo also works as static files). Prices come from data/clinica.json.
 //
 // A reply is one of:
 //   { type: 'text', body }
 //   { type: 'buttons', body, buttons: [{ id, title }] }            (max 3, title <= 20 chars)
 //   { type: 'list', body, button, sections: [{ title, rows: [{ id, title, description }] }] } (max 10 rows)
 // The result also carries `handoff: true` when a person from the clinic should take over the chat.
-const DATA = require('../data/clinica.json');
-
+(function (factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('./data/clinica.json'));
+  else window.NuevoBot = factory; // browser: NuevoBot(data).reply({ text })
+})(function (DATA) {
 const C = DATA.clinica;
 const EXAMPLE = DATA.precios_de_ejemplo;
 
@@ -161,4 +163,5 @@ function reply(input) {
   return wrap([mainMenu('No entendí bien tu mensaje 🙈. Elige una opción del menú o escribe *asesor* para hablar con una persona.')]);
 }
 
-module.exports = { reply, mainMenu, DATA };
+return { reply, mainMenu, DATA };
+});

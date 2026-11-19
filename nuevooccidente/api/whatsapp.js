@@ -10,7 +10,7 @@
 //   UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN  optional; makes the "person took over" pause survive restarts
 //   BOT_PAUSE_HOURS       optional, default 12: how long the bot stays quiet in a chat after a handoff
 const crypto = require('crypto');
-const { reply } = require('./_bot');
+const { reply } = require('../bot-engine');
 
 const GRAPH = 'https://graph.facebook.com/v21.0';
 const PAUSE_HOURS = Number(process.env.BOT_PAUSE_HOURS || 12);

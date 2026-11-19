@@ -58,7 +58,7 @@ form button{background:var(--blue);color:#fff;border:0;border-radius:50%;width:4
     <li>💬 <code>baño perro grande</code></li>
     <li>💬 <code>quiero agendar cita</code></li>
   </ul>
-  <p style="margin-top:14px"><a href="/">← Ver la página web</a></p>
+  <p style="margin-top:14px"><a href="index.html">← Ver la página web</a></p>
 </div>
 
 <div class="app">
@@ -70,9 +70,10 @@ form button{background:var(--blue);color:#fff;border:0;border-radius:50%;width:4
   <form id="f"><input id="in" autocomplete="off" placeholder="Escribe un mensaje" maxlength="300"><button aria-label="Enviar"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20l18-8L3 4v6l12 2-12 2v6Z"/></svg></button></form>
 </div>
 
+<script src="bot-engine.js"></script>
 <script>
 (function(){
-  var body=document.getElementById('body'),WA='573004305292';
+  var body=document.getElementById('body'),WA='573004305292',BOT=null;
   var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
   var fmt=function(s){return esc(s).replace(/\*([^*\n]+)\*/g,'<b>$1</b>').replace(/_([^_\n]+)_/g,'<i>$1</i>');};
   var down=function(){body.scrollTop=body.scrollHeight;};
@@ -85,8 +86,7 @@ form button{background:var(--blue);color:#fff;border:0;border-radius:50%;width:4
   function ask(input){
     var t=bubble('<span class="typing"><i></i><i></i><i></i></span>');
     var started=Date.now();
-    fetch('/api/bot-demo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(input)})
-      .then(function(r){return r.json();})
+    (BOT?Promise.resolve(BOT.reply(input)):Promise.reject())
       .then(function(r){
         setTimeout(function(){
           t.remove();
@@ -101,8 +101,7 @@ form button{background:var(--blue);color:#fff;border:0;border-radius:50%;width:4
       .catch(function(){t.remove();bubble('Uy, no pudimos responder ahora 🙏');});
   }
   document.getElementById('f').onsubmit=function(e){e.preventDefault();var i=document.getElementById('in');var v=i.value.trim();if(!v)return;i.value='';bubble(esc(v),true);ask({text:v});};
-  fetch('/data/clinica.json').then(function(r){return r.json();}).then(function(d){WA=d.clinica.whatsapp;}).catch(function(){});
-  ask({text:'hola'});
+  fetch('data/clinica.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){WA=d.clinica.whatsapp;BOT=window.NuevoBot(d);ask({text:'hola'});}).catch(function(){bubble('Uy, no pudimos cargar el asistente 🙏');});
 })();
 </script>
 </body>
