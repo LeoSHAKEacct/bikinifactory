@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='32' fill='%231a6be0'/><g fill='white'><ellipse cx='32' cy='40' rx='11' ry='9'/><circle cx='19' cy='27' r='5'/><circle cx='27' cy='19' r='5'/><circle cx='37' cy='19' r='5'/><circle cx='45' cy='27' r='5'/></g></svg>">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%2220%2030%20160%20142%22%3E%3Crect%20x%3D%2220%22%20y%3D%2230%22%20width%3D%22160%22%20height%3D%22142%22%20rx%3D%2240%22%20fill%3D%22%23fff%22/%3E%3Cpath%20stroke%3D%22%231a6be0%22%20stroke-width%3D%227%22%20d%3D%22M103%20153C70%20130%2042%20110%2040%2085C38%2062%2050%2052%2064%2052C80%2052%2090%2060%2092%2072C94%2084%2096%2090%20105%2098C102%20108%2090%20114%2077%20113%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20stroke%3D%22%231a6be0%22%20stroke-width%3D%227%22%20d%3D%22M77%2057C76%2070%2072%2080%2066%2086C60%2090%2052%2086%2046%2078%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20stroke%3D%22%23a9b1bc%22%20stroke-width%3D%226%22%20d%3D%22M103%20153C125%20135%20150%20118%20157%20100C164%2082%20160%2066%20147%2060L124%2051C122%2058%20120%2064%20117%2069C110%2076%20106%2086%20107%2095C110%20102%20120%20104%20132%20103%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22/%3E%3C/svg%3E">
 <style>
 :root{
   --blue:#1a6be0; --blue-d:#0d3f8f; --navy:#0b2557; --sky:#eaf3ff; --sky-2:#d6e8ff;
@@ -33,7 +33,7 @@ img,svg{display:block}
 header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
-.brand .mark{width:42px;height:42px;border-radius:50%;background:var(--sky);display:grid;place-items:center}
+.brand .mark{width:46px;height:46px;border-radius:50%;background:#fff;border:1px solid var(--line);display:grid;place-items:center}
 .brand small{display:block;font-size:.72rem;color:var(--muted);font-weight:700;letter-spacing:.02em}
 .brand b{font-family:"Baloo 2";font-size:1.25rem;color:var(--blue);line-height:1}
 nav a{text-decoration:none;font-weight:700;color:var(--muted);margin-left:22px;font-size:.95rem}
@@ -137,7 +137,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 <header>
   <div class="wrap">
     <a class="brand" href="index.html">
-      <span class="mark"><svg width="26" height="26" viewBox="0 0 64 64" fill="#1a6be0"><ellipse cx="32" cy="42" rx="12" ry="10"/><circle cx="17" cy="28" r="6"/><circle cx="26" cy="17" r="6"/><circle cx="38" cy="17" r="6"/><circle cx="47" cy="28" r="6"/></svg></span>
+      <span class="mark"><svg width="34" height="34" viewBox="30 40 140 122" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="#1a6be0" stroke-width="4" d="M103 153C70 130 42 110 40 85C38 62 50 52 64 52C80 52 90 60 92 72C94 84 96 90 105 98C102 108 90 114 77 113"/><path stroke="#1a6be0" stroke-width="4" d="M77 57C76 70 72 80 66 86C60 90 52 86 46 78"/><path stroke="#a9b1bc" stroke-width="3.4" d="M103 153C125 135 150 118 157 100C164 82 160 66 147 60L124 51C122 58 120 64 117 69C110 76 106 86 107 95C110 102 120 104 132 103"/></svg></span>
       <span><small>Clínica veterinaria</small><b>Nuevo Occidente</b></span>
     </a>
     <nav>
@@ -165,10 +165,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     </div>
     <div class="hero-art" aria-hidden="true">
       <div class="blob"></div>
-      <svg class="pets" viewBox="0 0 200 200" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M100 172C58 146 30 118 30 84c0-22 16-38 36-38 14 0 26 8 34 20 8-12 20-20 34-20 20 0 36 16 36 38 0 34-28 62-70 88Z"/>
-        <g fill="#fff" stroke="none"><ellipse cx="100" cy="118" rx="22" ry="18"/><circle cx="72" cy="94" r="10"/><circle cx="88" cy="76" r="10"/><circle cx="112" cy="76" r="10"/><circle cx="128" cy="94" r="10"/></g>
-      </svg>
+      <svg class="pets" viewBox="30 40 140 122" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="#ffffff" stroke-width="5" d="M103 153C70 130 42 110 40 85C38 62 50 52 64 52C80 52 90 60 92 72C94 84 96 90 105 98C102 108 90 114 77 113"/><path stroke="#ffffff" stroke-width="5" d="M77 57C76 70 72 80 66 86C60 90 52 86 46 78"/><path stroke="#cfe0ff" stroke-width="4.5" d="M103 153C125 135 150 118 157 100C164 82 160 66 147 60L124 51C122 58 120 64 117 69C110 76 106 86 107 95C110 102 120 104 132 103"/></svg>
       <div class="float f1"><i>💉</i>Esquemas de vacunación</div>
       <div class="float f2"><i>🩺</i>Médicos especialistas</div>
     </div>
@@ -260,7 +257,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 <button class="fab" id="fab" type="button" aria-controls="chat" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/></svg><span>¿Precios? Pregúntame</span></button>
 <div class="chat" id="chat" role="dialog" aria-label="Asistente de precios">
   <div class="chat-top">
-    <span class="av"><svg width="22" height="22" viewBox="0 0 64 64" fill="#1a6be0"><ellipse cx="32" cy="42" rx="12" ry="10"/><circle cx="17" cy="28" r="6"/><circle cx="26" cy="17" r="6"/><circle cx="38" cy="17" r="6"/><circle cx="47" cy="28" r="6"/></svg></span>
+    <span class="av"><svg width="30" height="30" viewBox="30 40 140 122" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="#1a6be0" stroke-width="4" d="M103 153C70 130 42 110 40 85C38 62 50 52 64 52C80 52 90 60 92 72C94 84 96 90 105 98C102 108 90 114 77 113"/><path stroke="#1a6be0" stroke-width="4" d="M77 57C76 70 72 80 66 86C60 90 52 86 46 78"/><path stroke="#a9b1bc" stroke-width="3.4" d="M103 153C125 135 150 118 157 100C164 82 160 66 147 60L124 51C122 58 120 64 117 69C110 76 106 86 107 95C110 102 120 104 132 103"/></svg></span>
     <span><b>Asistente Nuevo Occidente</b><small>Responde al instante</small></span>
     <button type="button" id="closeChat" aria-label="Cerrar">×</button>
   </div>
