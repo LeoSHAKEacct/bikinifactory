@@ -108,13 +108,7 @@
       "eyebrow": "Domicilios",
       "title": "Também vou a onde estas",
       "text": "Atendimento em domicílio na região metropolitana. Realizo atendimentos em:",
-      "places": [
-        "Lisboa",
-        "Oeiras",
-        "Cascais",
-        "Sintra",
-        "Setubal"
-      ]
+      "places": []
     },
     {
       "type": "cta",
