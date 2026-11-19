@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -54,6 +54,12 @@ button, input, select { font: inherit; color: inherit; }
 .bar nav { display: flex; gap: 4px; }
 .bar nav a { color: var(--fog); text-decoration: none; font: 600 12px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; padding: 10px 12px; border-radius: 999px; }
 .bar nav a:hover { background: rgba(255,255,255,.08); }
+.bar .right { display: flex; align-items: center; gap: 10px; }
+.lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: rgba(11,36,34,.5); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.lang button { cursor: pointer; border: 0; background: transparent; border-radius: 999px; padding: 8px 10px; font: 700 11px/1 var(--body); letter-spacing: .12em; color: var(--fog-dim); }
+.lang button[aria-pressed="true"] { background: var(--fog); color: var(--deep); }
+:root { --t-sold: "Vendida"; --t-inside: "Ver por dentro"; }
+html[lang="en"] { --t-sold: "Sold"; --t-inside: "View inside"; }
 .pill { display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; text-decoration: none; white-space: nowrap;
   font: 700 12px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; padding: 13px 18px; border-radius: 999px; border: 1px solid var(--line); background: rgba(11,36,34,.5); color: var(--fog); }
 .pill:hover { border-color: rgba(231,239,236,.4); }
@@ -87,6 +93,7 @@ button, input, select { font: inherit; color: inherit; }
 .hhint i { width: 8px; height: 8px; border-radius: 50%; background: var(--glow); box-shadow: 0 0 10px var(--glow); animation: pulse 1.8s ease-in-out infinite; }
 @keyframes pulse { 50% { opacity: .35; } }
 .hero.lit .hhint { opacity: 0; }
+.hero:not(.glow) .hmap, .hero:not(.glow) .hhint, .hero:not(.glow) .htip { display: none; }
 @keyframes drift { to { transform: scale(1); } }
 .hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(0deg, rgba(8,28,26,.95) 0%, rgba(8,28,26,.6) 34%, rgba(8,28,26,0) 62%), linear-gradient(90deg, rgba(8,28,26,.82) 0%, rgba(8,28,26,.5) 38%, rgba(8,28,26,0) 62%), linear-gradient(180deg, rgba(8,28,26,.6) 0%, rgba(8,28,26,0) 22%); }
 .hero .in { text-shadow: 0 1px 18px rgba(4,16,15,.45); }
@@ -170,9 +177,9 @@ button, input, select { font: inherit; color: inherit; }
 .plate img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 20px 40px rgba(0,0,0,.45)); }
 .plate .hit { position: absolute; top: 29.5%; height: 57.5%; border-radius: 6px; border: 2px solid transparent; background: transparent; cursor: pointer; padding: 0; transition: background .25s, border-color .25s, box-shadow .25s; }
 .plate .hit.sold { cursor: not-allowed; background: repeating-linear-gradient(135deg, rgba(8,28,26,.62) 0 8px, rgba(8,28,26,.42) 8px 16px); }
-.plate .hit.sold::after { content: "Sold"; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font: 700 11px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--fog); background: rgba(8,28,26,.85); padding: 6px 8px; border-radius: 999px; }
+.plate .hit.sold::after { content: var(--t-sold); position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font: 700 11px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--fog); background: rgba(8,28,26,.85); padding: 6px 8px; border-radius: 999px; }
 .plate .hit.av:hover { border-color: var(--mint); background: rgba(127,209,189,.12); }
-.plate .hit.av::before { content: "View inside"; position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); font: 700 10px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; color: #2a1c05; background: var(--glow); padding: 6px 8px; border-radius: 999px; opacity: 0; transition: opacity .2s; }
+.plate .hit.av::before { content: var(--t-inside); position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); font: 700 10px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; color: #2a1c05; background: var(--glow); padding: 6px 8px; border-radius: 999px; opacity: 0; transition: opacity .2s; }
 .plate .hit.av:hover::before, .plate .hit.av:focus-visible::before { opacity: 1; }
 .floorview { cursor: zoom-out; }
 .floorview .frame, .floorview .fv-head > * { cursor: default; }
@@ -420,6 +427,7 @@ footer p { margin: 0; max-width: 110ch; }
 }
 @media (max-width: 560px) {
   :root { --gut: 16px; }
+  .bar .pill.glow { display: none; }
   .bar .pill.glow { padding: 11px 14px; }
   .hero h1 { font-size: 46px; }
   .times { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -448,7 +456,13 @@ footer p { margin: 0; max-width: 110ch; }
     <a href="#amenities">Amenities</a>
     <a href="#contact">Contact</a>
   </nav>
-  <a class="pill glow" href="#suites">Pick a suite</a>
+  <div class="right">
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="es" aria-pressed="true">ES</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <a class="pill glow" href="#suites">Pick a suite</a>
+  </div>
 </header>
 
 <!-- hero -->
@@ -799,18 +813,26 @@ const FLOORS = []; for (let f = 14; f >= 4; f--) FLOORS.push(f);
 const AVAIL = SUITES.filter(s => s.av);
 
 const TYPE = {
-  A: { name: 'Suite type A', plan: 'img/plan-a.jpg', rooms: 'Outdoor area, private indoor jacuzzi, bedroom, living room, bathroom, kitchen and dining', rate: 360000 },
-  B: { name: 'Suite type B', plan: 'img/plan-b.jpg', rooms: 'Outdoor area, bedroom, living room, bathroom, kitchen and dining', rate: 300000 },
+  A: { name: ['Suite type A', 'Suite tipo A'], plan: 'img/plan-a.jpg', rooms: ['Outdoor area, private indoor jacuzzi, bedroom, living room, bathroom, kitchen and dining', 'Área exterior, jacuzzi privado interior, habitación, sala, baño, cocina y comedor'], rate: 360000 },
+  B: { name: ['Suite type B', 'Suite tipo B'], plan: 'img/plan-b.jpg', rooms: ['Outdoor area, bedroom, living room, bathroom, kitchen and dining', 'Área exterior, habitación, sala, baño, cocina y comedor'], rate: 300000 },
 };
 
 /* ---------- helpers ---------- */
 const $ = id => document.getElementById(id);
 const NS = 'http://www.w3.org/2000/svg';
 const svgEl = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
-const fmt = n => Math.round(n).toLocaleString('en-US');
+/* ---------- language: Spanish by default, English on request ---------- */
+let LANG = 'es';
+try { LANG = new URLSearchParams(location.search).get('lang') || localStorage.getItem('aira-lang') || 'es'; } catch (e) {}
+if (LANG !== 'en') LANG = 'es';
+const L = (en, es) => LANG === 'es' ? es : en;            // inline strings in code
+const tr = x => Array.isArray(x) ? (LANG === 'es' ? x[1] : x[0]) : x;
+const fmt = n => Math.round(n).toLocaleString(LANG === 'es' ? 'es-CO' : 'en-US');
+const dec = (n, d) => { const t = (+n).toFixed(d); return LANG === 'es' ? t.replace('.', ',') : t; };
+const ar = a => (LANG === 'es' ? String(a).replace('.', ',') : String(a)) + ' m²';
 const cop = n => 'COP ' + fmt(n);
-const copM = (n, d = 1) => 'COP ' + (n / 1e6).toFixed(d) + 'M';
-const mOnly = (n, d = 1) => (n / 1e6).toFixed(d) + 'M';
+const copM = (n, d = 1) => 'COP ' + dec(n / 1e6, d) + 'M';
+const mOnly = (n, d = 1) => dec(n / 1e6, d) + 'M';
 const usd = n => 'US$ ' + fmt(Math.round(n / 500) * 500);
 const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 const waLink = text => `https://wa.me/${WA}?text=${encodeURIComponent(text)}`;
@@ -874,7 +896,7 @@ const GROUND = PODIUM_TOP + 3 * 54;
     for (let c = 1; c <= 7; c++) {
       const s = byId[String(f * 100 + c)];
       const x = X0 + (c - 1) * BAY;
-      const g = svgEl('g', { class: 'u ' + (s.av ? 'av' : 'sold'), 'data-id': s.id, tabindex: s.av ? 0 : -1, role: 'button', 'aria-label': s.av ? `Suite ${s.id}, type ${s.type}, ${s.area} square metres, ${cop(s.price)}` : `Suite ${s.id}, sold` }, units);
+      const g = svgEl('g', { class: 'u ' + (s.av ? 'av' : 'sold'), 'data-id': s.id, tabindex: s.av ? 0 : -1, role: 'button' }, units);
       svgEl('rect', { class: 'g', x: x + 5, y: top + 5, width: BAY - 10, height: FT - 12, rx: 2 }, g);
       svgEl('line', { class: 'rail', x1: x + 5, y1: top + FT * .62, x2: x + BAY - 5, y2: top + FT * .62 }, g);
       const t = svgEl('text', { x: x + BAY / 2, y: top + FT * .34 }, g); t.textContent = s.id;
@@ -917,10 +939,16 @@ const GROUND = PODIUM_TOP + 3 * 54;
   const st = svgEl('text', { class: 'tag', x: X1 + 26, y: fTop(14) + 20 }, tower); st.textContent = 'Suites';
   const st2 = svgEl('text', { class: 'tag', x: X1 + 26, y: fTop(14) + 36, style: 'letter-spacing:.04em;text-transform:none;font-weight:500' }, tower); st2.textContent = 'Floors 4 to 14';
 
+  labelUnits();
   palm(X0 - 70, 88); palm(X0 - 52, 64); palm(X1 + 60, 96); palm(X1 + 86, 70);
   svgEl('rect', { class: 'ground', x: -400, y: GROUND, width: 1440, height: 4 }, tower);
 })();
 
+function labelUnits() {
+  SUITES.forEach(s => s.g && s.g.setAttribute('aria-label', s.av
+    ? L(`Suite ${s.id}, type ${s.type}, ${s.area} square metres, ${cop(s.price)}`, `Suite ${s.id}, tipo ${s.type}, ${ar(s.area)}, ${cop(s.price)}`)
+    : L(`Suite ${s.id}, sold`, `Suite ${s.id}, vendida`)));
+}
 /* ---------- the light climbs: available windows switch on floor by floor ---------- */
 let lit = false;
 function lightUp() {
@@ -945,8 +973,8 @@ function showTip(s, evt) {
   if (evt && evt.clientX) { x = evt.clientX - r.left; y = evt.clientY - r.top; }
   else { const b = s.g.getBoundingClientRect(); x = b.left + b.width / 2 - r.left; y = b.top - r.top; }
   tip.innerHTML = s.av
-    ? `<b>Suite ${s.id}</b>Type ${s.type} · ${s.area} m²<br><span class="s">${cop(s.price)}</span>`
-    : `<b>Suite ${s.id}</b><span class="s">Sold</span>`;
+    ? `<b>Suite ${s.id}</b>${L('Type', 'Tipo')} ${s.type} · ${ar(s.area)}<br><span class="s">${cop(s.price)}</span>`
+    : `<b>Suite ${s.id}</b><span class="s">${L('Sold', 'Vendida')}</span>`;
   tip.style.left = Math.min(Math.max(x, 90), r.width - 90) + 'px'; tip.style.top = y + 'px';
   tip.classList.add('on');
 }
@@ -974,13 +1002,13 @@ function buildList() {
     if (!rows.length) return;
     const avN = all.filter(s => s.av).length;
     const wrap = document.createElement('div'); wrap.className = 'fl';
-    wrap.innerHTML = `<h4><span>Floor ${f}</span><b>${avN} of 7 available</b></h4>`;
+    wrap.innerHTML = `<h4><span>${L('Floor', 'Piso')} ${f}</span><b>${L(`${avN} of 7 available`, `${avN} de 7 disponibles`)}</b></h4>`;
     rows.forEach(s => {
       const b = document.createElement('button'); b.type = 'button';
       b.className = 'row' + (s.av ? '' : ' is-sold') + (s.id === current ? ' sel' : '');
       b.innerHTML = s.av
-        ? `<span class="n num">${s.id}</span><span class="m"><em>Type ${s.type}</em> · ${s.area} m²${s.type === 'A' ? ' · jacuzzi' : ''}</span><span class="p">${mOnly(s.price)}</span>`
-        : `<span class="n num">${s.id}</span><span class="m">Type ${s.type}</span><span class="p">Sold</span>`;
+        ? `<span class="n num">${s.id}</span><span class="m"><em>${L('Type', 'Tipo')} ${s.type}</em> · ${ar(s.area)}${s.type === 'A' ? ' · jacuzzi' : ''}</span><span class="p">${mOnly(s.price)}</span>`
+        : `<span class="n num">${s.id}</span><span class="m">${L('Type', 'Tipo')} ${s.type}</span><span class="p">${L('Sold', 'Vendida')}</span>`;
       if (s.av) {
         shownAv++;
         b.addEventListener('click', () => select(s.id));
@@ -993,7 +1021,7 @@ function buildList() {
     });
     list.appendChild(wrap);
   });
-  $('panelCount').textContent = filter === 'all' ? `${AVAIL.length} / 77` : `${shownAv} type ${filter}`;
+  $('panelCount').textContent = filter === 'all' ? `${AVAIL.length} / 77` : `${shownAv} ${L('type', 'tipo')} ${filter}`;
   // dim tower cells that don't match the filter
   SUITES.forEach(s => s.g.classList.toggle('dim', filter !== 'all' && filter !== 'sold' && s.type !== filter));
 }
@@ -1050,12 +1078,12 @@ function paintFloor(f) {
   curFloor = f;
   $('fvNum').textContent = f;
   const all = SUITES.filter(s => s.floor === f), n = all.filter(s => s.av).length;
-  $('fvAvail').textContent = `${n} of 7 available`;
+  $('fvAvail').textContent = L(`${n} of 7 available`, `${n} de 7 disponibles`);
   hits.forEach((h, i) => {
     const s = all[i];
     h.className = 'hit ' + (s.av ? 'av' : 'sold') + (s.id === current ? ' sel' : '');
     h.disabled = !s.av;
-    h.setAttribute('aria-label', s.av ? `Suite ${s.id}, type ${s.type}, ${s.area} square metres` : `Suite ${s.id}, sold`);
+    h.setAttribute('aria-label', s.av ? L(`Suite ${s.id}, type ${s.type}, ${s.area} square metres. Open the interior`, `Suite ${s.id}, tipo ${s.type}, ${ar(s.area)}. Ver el interior`) : L(`Suite ${s.id}, sold`, `Suite ${s.id}, vendida`));
   });
   const fls = FLOORS;
   $('fUp').disabled = f >= 14; $('fDown').disabled = f <= 4;
@@ -1065,19 +1093,24 @@ function paintFloor(f) {
 
 function paintCard(s) {
   const T = TYPE[s.type];
-  $('panelTitle').textContent = 'Your suite';
-  $('panelCount').textContent = `Floor ${s.floor}`;
-  $('cType').textContent = T.name + (s.type === 'A' ? ' · private jacuzzi' : '');
+  $('panelTitle').textContent = L('Your suite', 'Tu suite');
+  $('panelCount').textContent = `${L('Floor', 'Piso')} ${s.floor}`;
+  $('cType').textContent = tr(T.name) + (s.type === 'A' ? L(' · private jacuzzi', ' · jacuzzi privado') : '');
   $('cNum').textContent = s.id;
-  $('cSub').textContent = `Floor ${s.floor} · ${T.rooms.toLowerCase()}`;
-  $('cArea').textContent = s.area + ' m²';
+  $('cSub').textContent = `${L('Floor', 'Piso')} ${s.floor} · ${tr(T.rooms).toLowerCase()}`;
+  $('cArea').textContent = ar(s.area);
   $('cPrice').textContent = cop(s.price);
   $('cM2').textContent = copM(s.m2, 2);
   $('cUsd').textContent = '≈ ' + usd(s.price / fx());
   const e = estimate(s);
-  $('cEarn').innerHTML = `<b>≈ ${copM(e.net / 12)} / month</b>Estimated net rental income, ${(e.yield * 100).toFixed(1)}% a year, using the assumptions in the <a href="#returns">returns calculator</a>.`;
-  $('cWa').href = waLink(`Hello, I'd like to reserve suite ${s.id} (floor ${s.floor}, type ${s.type}, ${s.area} m²) at AIRA Cartagena. Could you send me the payment plan?`);
-  $('cPlan').src = T.plan; $('cPlan').alt = `Plan of ${T.name.toLowerCase()}`;
+  $('cEarn').innerHTML = earnHTML(e);
+  $('cWa').href = waLink(L(`Hello, I'd like to reserve suite ${s.id} (floor ${s.floor}, type ${s.type}, ${s.area} m²) at AIRA Cartagena. Could you send me the payment plan?`,
+    `Hola, quiero separar la suite ${s.id} (piso ${s.floor}, tipo ${s.type}, ${ar(s.area)}) en AIRA Cartagena. ¿Me pueden enviar el plan de pagos?`));
+  $('cPlan').src = T.plan; $('cPlan').alt = L(`Plan of ${tr(T.name).toLowerCase()}`, `Plano de la ${tr(T.name).toLowerCase()}`);
+}
+function earnHTML(e) {
+  return L(`<b>≈ ${copM(e.net / 12)} / month</b>Estimated net rental income, ${dec(e.yield * 100, 1)}% a year, using the assumptions in the <a href="#returns">returns calculator</a>.`,
+           `<b>≈ ${copM(e.net / 12)} / mes</b>Ingreso neto estimado por renta, ${dec(e.yield * 100, 1)}% al año, con los supuestos de la <a href="#returns">calculadora de rentabilidad</a>.`);
 }
 
 async function select(id, opts = {}) {
@@ -1110,7 +1143,7 @@ async function backToTower() {
   stage.classList.remove('floor');
   SUITES.forEach(s => s.g.classList.remove('fade'));
   document.querySelectorAll('.flabel').forEach(t => t.classList.remove('on'));
-  $('panelTitle').textContent = 'Available suites';
+  $('panelTitle').textContent = L('Available suites', 'Suites disponibles');
   buildList();
   history.replaceState(null, '', '#suites');
   await flyTo(HOME, 900);
@@ -1134,17 +1167,21 @@ addEventListener('resize', () => { if (stage.classList.contains('floor')) setVB(
    INTERIORS['502'] = [{ img: 'img/interiors/502-living.jpg', name: 'Living room', text: '...' }, ...]; */
 const INTERIORS = {
   default: [
-    { name: 'Inside the suite', img: 'img/interiors/suite-default.jpg', kb: 'kbR', zone: { A: [43, 2, 43, 94], B: [26, 2, 53, 96] },
-      text: 'A sofa, a queen bed and a work desk in one bright room, with floor-to-ceiling glass onto the private terrace and the lagoon and skyline beyond.' },
+    { name: ['Inside the suite', 'Dentro de la suite'], img: 'img/interiors/suite-default.jpg', kb: 'kbR', zone: { A: [43, 2, 43, 94], B: [26, 2, 53, 96] },
+      text: ['A sofa, a queen bed and a work desk in one bright room, with floor-to-ceiling glass onto the private terrace and the lagoon and skyline beyond.',
+             'Sofá, cama queen y escritorio en un solo espacio luminoso, con ventanales de piso a techo hacia la terraza privada, la ciénaga y el skyline.'] },
   ],
 };
 const BUILDING = [
-  { name: 'Arrival', where: 'Ground floor · Lobby', img: 'img/lobby.jpg', kb: 'kbIn',
-    text: 'A double-height lobby with a green wall and timber curves. The operator\'s front desk checks your guests in, so you never have to hand over a key.' },
-  { name: 'Rooftop lounge', where: 'Rooftop · Lounge and pool', img: 'img/lounge.jpg', kb: 'kbL',
-    text: 'A shaded lounge under the pergola beside the pool, with the city and the Caribbean on the horizon. This is the photo your guests will post.' },
-  { name: 'Infinity deck', where: 'Rooftop · Sun deck', img: 'img/rooftop.jpg', kb: 'kbIn',
-    text: 'Sun loungers on a timber deck at the water\'s edge of the pool. This is where a suite earns its five-star reviews.' },
+  { name: ['Arrival', 'Llegada'], where: ['Ground floor · Lobby', 'Primer piso · Lobby'], img: 'img/lobby.jpg', kb: 'kbIn',
+    text: ['A double-height lobby with a green wall and timber curves. The operator\'s front desk checks your guests in, so you never have to hand over a key.',
+           'Un lobby de doble altura con muro verde y curvas en madera. La recepción del operador recibe a tus huéspedes: nunca tendrás que entregar una llave.'] },
+  { name: ['Rooftop lounge', 'Lounge en la terraza'], where: ['Rooftop · Lounge and pool', 'Terraza · Lounge y piscina'], img: 'img/lounge.jpg', kb: 'kbL',
+    text: ['A shaded lounge under the pergola beside the pool, with the city and the Caribbean on the horizon. This is the photo your guests will post.',
+           'Un lounge a la sombra de la pérgola junto a la piscina, con la ciudad y el Caribe en el horizonte. Esta es la foto que tus huéspedes van a publicar.'] },
+  { name: ['Infinity deck', 'Deck infinito'], where: ['Rooftop · Sun deck', 'Terraza · Solárium'], img: 'img/rooftop.jpg', kb: 'kbIn',
+    text: ['Sun loungers on a timber deck at the water\'s edge of the pool. This is where a suite earns its five-star reviews.',
+           'Asoleadoras sobre un deck de madera al borde de la piscina. Aquí es donde una suite gana sus reseñas de cinco estrellas.'] },
 ];
 const DUR = 7000;
 const tourEl = $('tour'), view = $('view'), zone = $('zone'), where = $('where');
@@ -1152,7 +1189,7 @@ let ROOMS = [];
 function buildRooms(s) {
   view.querySelectorAll('.r').forEach(n => n.remove());
   $('stops').innerHTML = ''; $('progress').innerHTML = '';
-  ROOMS = [...(INTERIORS[s.id] || INTERIORS.default), ...BUILDING].map(r => ({ ...r }));
+  ROOMS = [...(INTERIORS[s.id] || INTERIORS.default), ...BUILDING].map(r => ({ ...r, name: tr(r.name), text: tr(r.text), where: tr(r.where) }));
   ROOMS.forEach((r, i) => {
     const d = document.createElement('div'); d.className = 'r';
     d.innerHTML = `<img src="${r.img}" alt="">`;
@@ -1195,7 +1232,7 @@ function show(i) {
 }
 function setPlay(p) {
   playing = p; tourEl.classList.toggle('paused', !p);
-  $('tPlay').textContent = p ? 'Pause' : 'Play'; $('tPlay').setAttribute('aria-label', p ? 'Pause the tour' : 'Play the tour');
+  $('tPlay').textContent = p ? L('Pause', 'Pausa') : L('Play', 'Seguir'); $('tPlay').setAttribute('aria-label', p ? L('Pause the tour', 'Pausar el recorrido') : L('Play the tour', 'Seguir el recorrido'));
   clearTimeout(timer);
   if (p) { if (ri >= ROOMS.length - 1) show(0); else timer = setTimeout(() => show(ri + 1), DUR * .6); }
 }
@@ -1203,7 +1240,7 @@ function openTour() {
   const s = byId[current]; if (!s) return;
   const T = TYPE[s.type], e = estimate(s);
   $('tNum').textContent = s.id; $('tFloor').textContent = s.floor;
-  $('tpTitle').textContent = T.name; $('tpArea').textContent = s.area + ' m²';
+  $('tpTitle').textContent = tr(T.name); $('tpArea').textContent = ar(s.area);
   $('tpImg').src = T.plan;
   $('tsPrice').textContent = mOnly(s.price, 0); $('tsM2').textContent = mOnly(s.m2, 1); $('tsNet').textContent = mOnly(e.net / 12, 1);
   $('tWa').href = $('cWa').href;
@@ -1212,7 +1249,7 @@ function openTour() {
   tourEl.classList.add('on'); tourEl.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
   if (!reduce()) { const fl = $('flash'); fl.classList.remove('go'); void fl.offsetWidth; fl.classList.add('go'); }
-  playing = true; tourEl.classList.remove('paused'); $('tPlay').textContent = 'Pause';
+  playing = true; tourEl.classList.remove('paused'); $('tPlay').textContent = L('Pause', 'Pausa');
   show(0);
   $('tClose').focus();
 }
@@ -1251,12 +1288,19 @@ view.addEventListener('touchend', e => { if (sx === null) return; const dx = e.c
 ========================================================= */
 const kSuite = $('kSuite'), kRate = $('kRate'), kOcc = $('kOcc'), kFee = $('kFee'), kCost = $('kCost'), kFx = $('kFx');
 let rateTouched = false;
-AVAIL.forEach(s => {
-  const o = document.createElement('option'); o.value = s.id;
-  o.textContent = `${s.id} · floor ${s.floor} · type ${s.type} · ${s.area} m² · ${copM(s.price)}`;
-  kSuite.appendChild(o);
-  const o2 = o.cloneNode(true); $('leadSuite').appendChild(o2);
-});
+function fillSuiteOptions() {
+  [kSuite, $('leadSuite')].forEach(sel => {
+    const keep = sel.value;
+    sel.querySelectorAll('option').forEach(o => { if (o.value) o.remove(); });
+    AVAIL.forEach(s => {
+      const o = document.createElement('option'); o.value = s.id;
+      o.textContent = L(`${s.id} · floor ${s.floor} · type ${s.type} · ${s.area} m² · ${copM(s.price)}`, `${s.id} · piso ${s.floor} · tipo ${s.type} · ${ar(s.area)} · ${copM(s.price)}`);
+      sel.appendChild(o);
+    });
+    sel.value = keep;
+  });
+}
+fillSuiteOptions();
 const fx = () => Math.max(1000, +kFx.value || 4000);
 function estimate(s, rate) {
   rate = rate ?? (rateTouched ? +kRate.value : TYPE[s.type].rate);
@@ -1269,10 +1313,10 @@ function calc() {
   const s = byId[kSuite.value] || AVAIL[0];
   if (!rateTouched) kRate.value = TYPE[s.type].rate;
   const e = estimate(s, +kRate.value);
-  $('kSuiteHint').textContent = `Type ${s.type}${s.type === 'A' ? ' with private jacuzzi' : ''} · ${s.area} m² · ${cop(s.price)}`;
+  $('kSuiteHint').textContent = `${L('Type', 'Tipo')} ${s.type}${s.type === 'A' ? L(' with private jacuzzi', ' con jacuzzi privado') : ''} · ${ar(s.area)} · ${cop(s.price)}`;
   $('oRate').textContent = cop(+kRate.value); $('oOcc').textContent = kOcc.value + '%';
   $('oFee').textContent = kFee.value + '%'; $('oCost').textContent = cop(+kCost.value);
-  $('yNet').textContent = (e.yield * 100).toFixed(1) + '%';
+  $('yNet').textContent = dec(e.yield * 100, 1) + '%';
   $('lNights').textContent = Math.round(e.nights);
   $('lGross').textContent = copM(e.gross);
   $('lFee').textContent = '− ' + copM(e.fee);
@@ -1280,14 +1324,14 @@ function calc() {
   $('lNet').textContent = copM(e.net);
   $('lMonth').textContent = copM(e.net / 12);
   $('lUsd').textContent = usd(e.net / fx());
-  $('lPay').textContent = e.net > 0 ? (s.price / e.net).toFixed(1) : '—';
+  $('lPay').textContent = e.net > 0 ? dec(s.price / e.net, 1) : '—';
   const tot = Math.max(e.gross, 1);
   $('bNet').style.width = Math.max(0, e.net) / tot * 100 + '%';
   $('bFee').style.width = e.fee / tot * 100 + '%';
   $('bCost').style.width = Math.min(e.cost, tot) / tot * 100 + '%';
   if (current && byId[current]) {
     const c = byId[current], ce = estimate(c);
-    $('cEarn').innerHTML = `<b>≈ ${copM(ce.net / 12)} / month</b>Estimated net rental income, ${(ce.yield * 100).toFixed(1)}% a year, using the assumptions in the <a href="#returns">returns calculator</a>.`;
+    $('cEarn').innerHTML = earnHTML(ce);
     $('cUsd').textContent = '≈ ' + usd(c.price / fx());
   }
 }
@@ -1299,8 +1343,9 @@ kSuite.addEventListener('change', () => { calc(); });
 $('lead').addEventListener('submit', e => {
   e.preventDefault();
   const d = new FormData(e.target);
-  const suite = d.get('suite') ? `suite ${d.get('suite')}` : 'a suite (not sure which yet)';
-  const msg = `Hello, I'm ${d.get('name')}${d.get('country') ? ' from ' + d.get('country') : ''}. I'm interested in ${suite} at AIRA Cartagena. Use: ${d.get('use')}. Budget: ${d.get('budget')}. Could you send me the payment plan and the operator's terms?`;
+  const suite = d.get('suite') ? `suite ${d.get('suite')}` : L('a suite (not sure which yet)', 'una suite (aún no sé cuál)');
+  const msg = L(`Hello, I'm ${d.get('name')}${d.get('country') ? ' from ' + d.get('country') : ''}. I'm interested in ${suite} at AIRA Cartagena. Use: ${d.get('use')}. Budget: ${d.get('budget')}. Could you send me the payment plan and the operator's terms?`,
+                `Hola, soy ${d.get('name')}${d.get('country') ? ' de ' + d.get('country') : ''}. Me interesa ${suite} en AIRA Cartagena. Uso: ${d.get('use')}. Presupuesto: ${d.get('budget')}. ¿Me pueden enviar el plan de pagos y las condiciones del operador?`);
   window.open(waLink(msg), '_blank', 'noopener');
 });
 
@@ -1309,8 +1354,10 @@ $('lead').addEventListener('submit', e => {
    Front face of the tower measured on img/hero.jpg (2200 x 1424):
    7 columns (x edges below) by 11 suite floors, slabs sloping slightly to the right.
 ========================================================= */
+const HERO_GLOW = false;   // glowing suites on the hero photo: switched off for now, set to true to bring it back
 (function heroMap() {
   const hmap = $('hmap'), hero = document.querySelector('.hero'), htip = $('htip'), hhint = $('hhint');
+  hero.classList.toggle('glow', HERO_GLOW);
   const XS = [1495, 1525, 1562, 1600, 1642, 1685, 1735, 1800];
   const topY = x => 370 + 8 * (x - XS[0]) / (XS[7] - XS[0]);
   const botY = x => 958 + 10 * (x - XS[0]) / (XS[7] - XS[0]);
@@ -1339,7 +1386,7 @@ $('lead').addEventListener('submit', e => {
   });
   function tipFor(s, e) {
     const r = hero.getBoundingClientRect();
-    htip.innerHTML = `<b>Suite ${s.id}</b>Floor ${s.floor} · type ${s.type} · ${s.area} m²<br><span class="s">${cop(s.price)} · click to fly in</span>`;
+    htip.innerHTML = `<b>Suite ${s.id}</b>${L('Floor', 'Piso')} ${s.floor} · ${L('type', 'tipo')} ${s.type} · ${ar(s.area)}<br><span class="s">${cop(s.price)} · ${L('click to fly in', 'clic para entrar')}</span>`;
     htip.style.left = Math.min(Math.max(e.clientX - r.left, 120), r.width - 120) + 'px';
     htip.style.top = (e.clientY - r.top) + 'px';
     htip.classList.add('on');
@@ -1350,6 +1397,7 @@ $('lead').addEventListener('submit', e => {
   hz.addEventListener('click', e => { if (!e.target.closest('.cell.av')) on(!hmap.classList.contains('on')); });  // taps on phones
   // place the hint chip just left of the tower, wherever the crop puts it
   function placeHint() {
+    if (!HERO_GLOW) return;
     const ctm = hmap.getScreenCTM(), r = hero.getBoundingClientRect(); if (!ctm) return;
     const pt = hmap.createSVGPoint(); pt.x = XS[0] - 10; pt.y = 520;
     const q = pt.matrixTransform(ctm);
@@ -1374,6 +1422,131 @@ function openSuite(id) {
   lightUp();
   setTimeout(() => select(id, { noScroll: true }), reduce() ? 0 : 650);
 }
+
+
+/* =========================================================
+   TRANSLATIONS for the fixed text on the page (English → Spanish).
+   Text drawn by code uses L(en, es) above.
+========================================================= */
+const ES = {
+  'Suites': 'Suites', 'Returns': 'Rentabilidad', 'Operation': 'Operación', 'Cartagena': 'Cartagena', 'Amenities': 'Amenidades', 'Contact': 'Contacto',
+  'Pick a suite': 'Elige tu suite', 'Hover the tower': 'Pasa el cursor por la torre',
+  'Cartagena de Indias · Licensed for short-term rental': 'Cartagena de Indias · Licencia para renta corta',
+  'A suite by the Caribbean': 'Una suite frente al Caribe', "that earns while you're away.": 'que renta mientras no estás.',
+  'AIRA is a 15-floor tower of 77 furnished suites, minutes from Marbella beach and the walled city. It is licensed for tourist rental and run end to end by an exclusive operator. Pick an available suite on the tower, fly to its floor and walk through it.':
+    'AIRA es una torre de 15 pisos con 77 suites amobladas, a minutos de la playa de Marbella y de la ciudad amurallada. Tiene licencia de apartamentos turísticos y un operador exclusivo que se encarga de todo. Elige una suite disponible en la torre, vuela hasta su piso y recórrela por dentro.',
+  'See available suites': 'Ver suites disponibles', 'Run the numbers': 'Haz las cuentas',
+  'Suites available of 77': 'Suites disponibles de 77', 'Starting price': 'Precio desde', 'Delivered furnished': 'Se entregan amobladas', 'Exclusive rental operator': 'Operador exclusivo de rentas',
+  'Live availability': 'Disponibilidad en vivo', 'Every lit window': 'Cada ventana iluminada', 'is for sale.': 'está a la venta.',
+  'Hover a window or a row in the list. Choose one and we fly to its floor, then walk you through the suite.': 'Pasa el cursor por una ventana o por la lista. Elige una y volamos hasta su piso para recorrer la suite.',
+  'Available': 'Disponible', 'Sold': 'Vendida', 'Column 01 = Type A, with private jacuzzi': 'Columna 01 = tipo A, con jacuzzi privado',
+  'Floor': 'Piso', 'Suite type B': 'Suite tipo B', '4 of 7 available': '4 de 7 disponibles', '▼ Down': '▼ Bajar', '▲ Up': '▲ Subir', 'Tower': 'Torre',
+  'Typical floor plate · suites 01 to 07 · terraces on the facade side': 'Planta tipo · suites 01 a 07 · terrazas hacia la fachada',
+  'Click a suite to see inside · click outside the plan to go back': 'Haz clic en una suite para verla por dentro · clic fuera del plano para volver',
+  'Available suites': 'Suites disponibles', 'All': 'Todas', 'Type A · jacuzzi': 'Tipo A · jacuzzi', 'Type B': 'Tipo B', 'Show sold': 'Ver vendidas',
+  'Total area': 'Área total', 'Price': 'Precio', 'Price per m²': 'Precio por m²', 'Approx. in USD': 'Aprox. en dólares', 'Status': 'Estado',
+  'Step inside · start the tour': 'Entra · empieza el recorrido', 'Reserve on WhatsApp': 'Separar por WhatsApp',
+  '· Floor': '· Piso', 'Back to the floor': 'Volver al piso', 'Pause': 'Pausa', 'Net / month*': 'Neto / mes*', 'Reserve': 'Separar',
+  'The investment': 'La inversión', 'on a real suite.': 'con una suite real.',
+  "Prices are AIRA's published list prices. The rental figures are your own assumptions. Set the nightly rate, occupancy and costs you believe in and see what the suite returns each year.":
+    'Los precios son los de la lista publicada por AIRA. Las cifras de renta son tus propios supuestos: define la tarifa por noche, la ocupación y los costos que consideres y mira cuánto renta la suite cada año.',
+  'Average nightly rate': 'Tarifa promedio por noche', 'Occupancy': 'Ocupación', 'Operator fee on revenue': 'Comisión del operador sobre ingresos', 'Monthly fixed costs': 'Costos fijos mensuales',
+  'Building fees, utilities, property tax and insurance, if not covered by the operator.': 'Administración, servicios, predial y seguros, si no los cubre el operador.',
+  'COP per US dollar': 'Pesos por dólar', 'Used only to show approximate US dollar figures. Set your own exchange rate.': 'Solo se usa para mostrar cifras aproximadas en dólares. Pon tu propia tasa de cambio.',
+  'Estimated net yield a year on the purchase price': 'Rentabilidad neta estimada al año sobre el precio de compra',
+  'Nights booked a year': 'Noches reservadas al año', 'Gross rental revenue': 'Ingresos brutos por renta', 'Operator fee': 'Comisión del operador', 'Fixed costs': 'Costos fijos',
+  'Net income a year': 'Ingreso neto al año', 'Net income a month': 'Ingreso neto al mes', 'In US dollars, a year': 'En dólares, al año', 'Years to recover the price from rent': 'Años para recuperar el precio con la renta',
+  'To you': 'Para ti', 'Operator': 'Operador',
+  "This is an illustration, not a forecast or a promise of return. AIRA and its operator do not guarantee rental income. Ask the sales team for the operator's contract, fees and real performance data before you invest.":
+    'Esto es una ilustración, no una proyección ni una promesa de rentabilidad. AIRA y su operador no garantizan ingresos por renta. Pide al equipo comercial el contrato del operador, sus comisiones y datos reales de desempeño antes de invertir.',
+  'Rent it short-term': 'Ponla en renta corta', "Hand the suite to Be Happy, the building's exclusive operator. They list it, take bookings, clean it, maintain it and pay you your share.":
+    'Entrega la suite a Be Happy, el operador exclusivo del edificio. Ellos la publican, gestionan las reservas, la limpian, la mantienen y te pagan tu parte.',
+  'Use it yourself': 'Úsala tú', 'Keep it as your own place by the sea in Cartagena, furnished and ready from day one.': 'Tenla como tu lugar propio junto al mar en Cartagena, amoblada y lista desde el primer día.',
+  'Mix the two': 'Combina las dos', 'Block the weeks you want to be there and let it earn for the rest of the year. AIRA is designed so each owner chooses.': 'Bloquea las semanas en que quieras estar y deja que genere ingresos el resto del año. AIRA está pensado para que cada propietario elija.',
+  'The operation': 'La operación', 'One operator.': 'Un solo operador.', 'Nothing for you to run.': 'Tú no gestionas nada.',
+  'Be Happy is a specialist in managing real estate assets and the only operator authorised in AIRA. You get the earnings without the work of running a rental.':
+    'Be Happy es especialista en la gestión de activos inmobiliarios y el único operador autorizado en AIRA. Recibes las ganancias sin el trabajo de administrar una renta.',
+  'Booking system and channel management': 'Sistema de reservas y gestión de canales', 'Guest supplies, cleaning and laundry': 'Suministros para huéspedes, aseo y lavandería',
+  'Maintenance of suites, building and common areas': 'Mantenimiento de suites, edificio y zonas comunes', 'Security, surveillance and insurance': 'Seguridad, vigilancia y seguros',
+  'Licences, permits and tourism fund': 'Licencias, permisos y fondo de turismo', 'Accounting, external audit and taxes': 'Contabilidad, auditoría externa e impuestos',
+  'Marketing, photography and listings': 'Mercadeo, fotografía y publicaciones', 'Customer service around the clock': 'Servicio al cliente las 24 horas',
+  'The market': 'El mercado', 'Cartagena fills up': 'Cartagena se llena', 'all year': 'todo el año', ', not only in high season.': ', no solo en temporada alta.',
+  "Holidays, conferences, cruises and weddings bring a steady flow of visitors who need somewhere to stay. That demand doesn't guarantee results, but it supports the case for owning a rental here.":
+    'Vacaciones, congresos, cruceros y bodas traen un flujo constante de visitantes que necesitan dónde quedarse. Esa demanda no garantiza resultados, pero respalda la lógica de tener una propiedad en renta aquí.',
+  'Tourists visited Cartagena in 2023': 'Turistas visitaron Cartagena en 2023', 'More foreign visitors in 2024 than in 2023': 'Más visitantes extranjeros en 2024 que en 2023',
+  'Growth in passenger arrivals, national and international, in 2023': 'Crecimiento en llegada de pasajeros nacionales e internacionales en 2023',
+  'Of non-resident foreigners arrive for tourism': 'De los extranjeros no residentes llegan por turismo',
+  '1st': '1.º', '3rd': '3.º', '4th': '4.º',
+  'Holiday and corporate destination in Colombia': 'Destino vacacional y corporativo de Colombia', '20th in the Americas in the ICCA events and conventions ranking': 'Puesto 20 en América en el ranking ICCA de eventos y convenciones',
+  'Most desired city in the Americas': 'Ciudad más deseada de América', 'Most popular tourist destination in South America': 'Destino turístico más popular de Suramérica',
+  "In Colombia's Regional Tourism Competitiveness Index": 'En el Índice de Competitividad Turística Regional de Colombia', '2023 edition': 'Edición 2023',
+  'Year the walled city became a UNESCO World Heritage Site': 'Año en que la ciudad amurallada fue declarada Patrimonio de la Humanidad por la UNESCO',
+  'Close to everything a guest wants': 'Cerca de todo lo que busca un huésped', 'Approximate driving times from AIRA, between Marbella beach and the Cabrero lagoon.': 'Tiempos aproximados en carro desde AIRA, entre la playa de Marbella y la laguna del Cabrero.',
+  'Cabrero lagoon': 'Laguna del Cabrero', 'Marbella beach': 'Playa de Marbella', 'Malecón del Mar seafront': 'Malecón del Mar', 'Walled historic centre': 'Centro histórico amurallado',
+  'Rafael Núñez airport': 'Aeropuerto Rafael Núñez', 'La Serrezuela mall': 'C.C. La Serrezuela',
+  "Sources quoted in AIRA's brochure: Corpoturismo, Invest in Cartagena.": 'Fuentes citadas en el brochure de AIRA: Corpoturismo, Invest in Cartagena.',
+  'What makes guests': 'Lo que hace que los huéspedes', 'book again.': 'vuelvan a reservar.',
+  "The amenities aren't the product. They make the suites more competitive on rental platforms and keep occupancy up.": 'Las amenidades no son el producto: hacen que las suites sean más competitivas en las plataformas de renta y ayudan a mantener la ocupación.',
+  'Rooftop pool and sun deck': 'Piscina y solárium en la terraza', 'Swimming pool': 'Piscina', 'Equipped gym': 'Gimnasio dotado', 'Turkish bath': 'Turco', 'Jacuzzi': 'Jacuzzi',
+  'Breakfast area': 'Zona de desayuno', 'Laundry and pet wash': 'Lavandería y pet wash',
+  'Talk to the sales team': 'Habla con el equipo comercial', 'Reserve a suite': 'Separa una suite', 'or ask for the brochure.': 'o pide el brochure.',
+  "Tell us which suite you like and how you want to use it. The team replies on WhatsApp with the payment plan, the trust details and the operator's terms.":
+    'Cuéntanos qué suite te gusta y cómo la quieres usar. El equipo te responde por WhatsApp con el plan de pagos, los datos de la fiducia y las condiciones del operador.',
+  'Phone': 'Teléfono', 'Email': 'Correo', 'Sales room': 'Sala de ventas', 'Download the PDF (21 MB)': 'Descargar el PDF (21 MB)',
+  'Name': 'Nombre', 'Country': 'País', "Suite you're interested in": 'Suite que te interesa', 'Not sure yet': 'Aún no sé',
+  'How you plan to use it': 'Cómo la piensas usar', 'Budget': 'Presupuesto', 'Send on WhatsApp': 'Enviar por WhatsApp',
+  'Opens WhatsApp with your message ready to send. Nothing is stored on this page.': 'Abre WhatsApp con tu mensaje listo para enviar. Esta página no guarda nada.',
+  'Short-term rental with the operator': 'Renta corta con el operador', 'Personal use': 'Uso personal', 'A mix of both': 'Una mezcla de las dos',
+  'Over COP 510M': 'Más de COP 510M', 'More than one suite': 'Más de una suite',
+  'Invest · Enjoy · Relax': 'Invierte · Disfruta · Descansa',
+  "Renders and photographs are artistic interpretations and may differ from the finished building. Suite specifications are set out in each purchase promise contract. Suites are delivered furnished. Prices and availability are taken from AIRA's published list and may change. Confirm them with the sales team. Rental estimates on this page are illustrative and not guaranteed.":
+    'Los renders y fotografías son interpretaciones artísticas y pueden variar frente al edificio terminado. Las especificaciones de cada suite constan en su contrato de promesa de compraventa. Las suites se entregan amobladas. Precios y disponibilidad tomados de la lista publicada por AIRA; pueden cambiar, confírmalos con el equipo comercial. Los cálculos de renta de esta página son ilustrativos y no están garantizados.',
+  // tower labels
+  'Rooftop': 'Terraza', 'Pool · jacuzzi · gym · Turkish bath': 'Piscina · jacuzzi · gimnasio · turco', 'Podium': 'Plataforma', 'Lobby · breakfast · laundry': 'Lobby · desayuno · lavandería', 'Floors 4 to 14': 'Pisos 4 a 14',
+  // attributes
+  'AIRA Suites, back to top': 'AIRA Suites, volver arriba', 'Sections': 'Secciones',
+  "AIRA tower rising above the green lot between the Caribbean and Cartagena's skyline": 'La torre AIRA entre el Caribe y el skyline de Cartagena',
+  'Pick a suite on the tower': 'Elige una suite en la torre', 'Front elevation of the AIRA tower. Lit windows are available suites.': 'Fachada de la torre AIRA. Las ventanas iluminadas son suites disponibles.',
+  'One floor down': 'Un piso abajo', 'One floor up': 'Un piso arriba',
+  'Typical floor plate with seven suites numbered 01 to 07 from left to right, terraces facing the street': 'Planta tipo con siete suites numeradas de 01 a 07 de izquierda a derecha, con terrazas hacia la calle',
+  'Filter suites': 'Filtrar suites', 'Suite plan': 'Plano de la suite', 'Walk through the suite': 'Recorrido por la suite', 'Previous room': 'Espacio anterior', 'Pause the tour': 'Pausar el recorrido', 'Next room': 'Espacio siguiente',
+  'Plan of the suite with the current room highlighted': 'Plano de la suite con el espacio actual resaltado',
+  "AIRA's entrance with tropical planting and a timber-clad podium": 'Acceso de AIRA con jardines tropicales y plataforma revestida en madera',
+  "Cartagena's walled city and cathedral domes against the Caribbean": 'La ciudad amurallada de Cartagena y las cúpulas de la catedral frente al Caribe',
+  "Rooftop infinity pool and sun deck looking over Cartagena's coastline": 'Piscina infinita y solárium en la terraza con vista a la costa de Cartagena',
+};
+const ATTRS = ['alt', 'aria-label', 'title'];
+const ORIG = new WeakMap();   // text node or element → original English
+function applyStatic() {
+  const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: n => n.parentElement.closest('script, style') ? 2 : 1 });
+  let n;
+  while ((n = w.nextNode())) {
+    if (!ORIG.has(n)) { const t = n.nodeValue.trim(); if (!t || !(t in ES)) continue; ORIG.set(n, n.nodeValue); }
+    const en = ORIG.get(n), t = en.trim();
+    n.nodeValue = LANG === 'es' ? en.replace(t, ES[t]) : en;
+  }
+  document.querySelectorAll(ATTRS.map(a => `[${a}]`).join(',')).forEach(el => {
+    let o = ORIG.get(el);
+    if (!o) { o = {}; ATTRS.forEach(a => { const v = el.getAttribute(a); if (v && ES[v.trim()]) o[a] = v; }); ORIG.set(el, o); }
+    for (const a in o) el.setAttribute(a, LANG === 'es' ? ES[o[a].trim()] : o[a]);
+  });
+  document.documentElement.lang = LANG;
+  document.title = L('AIRA Suites · Cartagena', 'AIRA Suites · Cartagena de Indias');
+  document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === LANG));
+}
+function setLang(l) {
+  if (l === LANG) return;
+  LANG = l;
+  try { localStorage.setItem('aira-lang', l); } catch (e) {}
+  // redraw everything that code writes, then the fixed text
+  labelUnits(); fillSuiteOptions(); buildList(); calc();
+  if (current && byId[current]) { paintCard(byId[current]); if (stage.classList.contains('floor')) paintFloor(curFloor); else $('panelTitle').textContent = L('Available suites', 'Suites disponibles'); }
+  if (tourEl.classList.contains('on')) { const keep = ri; openTour(); show(keep); }
+  setPlay && $('tPlay') && ($('tPlay').textContent = playing ? L('Pause', 'Pausa') : L('Play', 'Seguir'));
+  applyStatic();
+}
+document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+applyStatic();
 
 /* ---------- top bar, reveals, deep links ---------- */
 const bar = $('bar');
