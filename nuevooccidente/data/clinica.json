@@ -1,0 +1,93 @@
+{
+  "_nota": "Este archivo alimenta la web y el bot de WhatsApp. Cambia un precio aquí y cambia en los dos. Precios en pesos colombianos (COP). Cuando estén los precios reales, pon precios_de_ejemplo en false.",
+  "precios_de_ejemplo": true,
+  "clinica": {
+    "nombre": "Clínica Veterinaria Nuevo Occidente",
+    "whatsapp": "573004305292",
+    "telefono": "300 430 5292",
+    "instagram": "cvnuevoccidente",
+    "direccion": null,
+    "maps_url": null,
+    "horario": null,
+    "urgencias": "Si es una urgencia (dificultad para respirar, sangrado, convulsiones, envenenamiento, atropello), llámanos de inmediato al 300 430 5292."
+  },
+  "categorias": [
+    {
+      "id": "consultas",
+      "titulo": "Consultas",
+      "descripcion": "Medicina general y especialistas",
+      "claves": ["consult", "revis", "chequeo", "medico", "veterinari", "especialist", "control"],
+      "items": [
+        { "id": "consulta-general", "nombre": "Consulta general", "precio": 50000, "claves": ["consult", "general", "revis", "chequeo"] },
+        { "id": "consulta-especializada", "nombre": "Consulta especializada", "precio": 90000, "claves": ["especialist", "especializ", "dermatolog", "cardiolog", "ortoped", "oftalmolog"], "nota": "Dermatología, cardiología, ortopedia y más" },
+        { "id": "consulta-control", "nombre": "Control (dentro de 8 días)", "precio": 25000, "claves": ["control"] },
+        { "id": "consulta-urgencia", "nombre": "Consulta de urgencia", "precio": 80000, "claves": ["urgenc", "emergenc"] }
+      ]
+    },
+    {
+      "id": "vacunas",
+      "titulo": "Vacunas y desparasitación",
+      "descripcion": "Esquemas para perros y gatos",
+      "claves": ["vacun", "esquema", "despar", "refuerzo"],
+      "items": [
+        { "id": "vac-triple-felina", "nombre": "Triple felina", "precio": 55000, "claves": ["vacun", "triple", "felin", "gato", "gata", "michi"] },
+        { "id": "vac-leucemia", "nombre": "Leucemia felina", "precio": 65000, "claves": ["vacun", "leucemia", "felin", "gato", "gata", "michi"], "nota": "Requiere test negativo previo" },
+        { "id": "vac-polivalente", "nombre": "Polivalente canina", "precio": 55000, "claves": ["vacun", "polivalente", "parvo", "moquillo", "cachorr", "perro", "perra"] },
+        { "id": "vac-rabia", "nombre": "Antirrábica", "precio": 35000, "claves": ["vacun", "rabia", "antirrab"] },
+        { "id": "desparasitacion", "nombre": "Desparasitación", "precio": 20000, "desde": true, "claves": ["despar", "parasit", "pulga", "garrapat"], "nota": "Según el peso" }
+      ]
+    },
+    {
+      "id": "cirugias",
+      "titulo": "Cirugías",
+      "descripcion": "Esterilización y procedimientos",
+      "claves": ["cirug", "operar", "opera", "castr", "esteriliz", "procedim"],
+      "items": [
+        { "id": "castracion-gato", "nombre": "Castración gato macho", "precio": 120000, "claves": ["castr", "esteriliz", "gato", "michi"] },
+        { "id": "castracion-gata", "nombre": "Esterilización gata", "precio": 180000, "claves": ["castr", "esteriliz", "gata", "michi"] },
+        { "id": "castracion-perro", "nombre": "Castración perro macho", "precio": 200000, "desde": true, "claves": ["castr", "esteriliz", "perro"], "nota": "Según el peso" },
+        { "id": "castracion-perra", "nombre": "Esterilización perra", "precio": 280000, "desde": true, "claves": ["castr", "esteriliz", "perra"], "nota": "Según el peso" },
+        { "id": "profilaxis", "nombre": "Limpieza dental (profilaxis)", "precio": 220000, "desde": true, "claves": ["dental", "diente", "profilaxis", "sarro", "limpieza dental"], "nota": "Incluye anestesia" },
+        { "id": "cirugia-tejidos", "nombre": "Cirugía de tejidos blandos", "precio": 350000, "desde": true, "claves": ["tumor", "masa", "herida", "sutur", "hernia"], "nota": "Valor final tras valoración" }
+      ]
+    },
+    {
+      "id": "laboratorio",
+      "titulo": "Laboratorio e imágenes",
+      "descripcion": "Exámenes, ecografía y rayos X",
+      "claves": ["laborator", "examen", "examenes", "analisis", "sangre", "ecograf", "rayos", "radiograf", "rx", "placa"],
+      "items": [
+        { "id": "hemograma", "nombre": "Hemograma", "precio": 45000, "claves": ["hemograma", "cuadro hematico", "sangre"] },
+        { "id": "quimica", "nombre": "Química sanguínea (perfil)", "precio": 90000, "claves": ["quimica", "perfil", "renal", "hepatic", "sangre"] },
+        { "id": "test-vif-vilef", "nombre": "Test VIF / ViLeF", "precio": 80000, "claves": ["test", "vif", "vilef", "leucemia", "sida felino"] },
+        { "id": "coprologico", "nombre": "Coprológico", "precio": 30000, "claves": ["coprolog", "heces", "popo"] },
+        { "id": "ecografia", "nombre": "Ecografía abdominal", "precio": 120000, "claves": ["ecograf", "ultrason", "embaraz", "prenez"] },
+        { "id": "rayos-x", "nombre": "Rayos X (por placa)", "precio": 70000, "claves": ["rayos", "radiograf", "rx", "placa", "fractur"] }
+      ]
+    },
+    {
+      "id": "spa",
+      "titulo": "Spa y peluquería",
+      "descripcion": "Baño, corte y uñas",
+      "claves": ["spa", "bano", "banar", "peluquer", "corte", "motil", "grooming", "unas"],
+      "items": [
+        { "id": "bano-pequeno", "nombre": "Baño raza pequeña", "precio": 35000, "claves": ["bano", "banar", "pequen"] },
+        { "id": "bano-mediano", "nombre": "Baño raza mediana", "precio": 45000, "claves": ["bano", "banar", "median"] },
+        { "id": "bano-grande", "nombre": "Baño raza grande", "precio": 60000, "claves": ["bano", "banar", "grande"] },
+        { "id": "corte", "nombre": "Baño + corte de pelo", "precio": 55000, "desde": true, "claves": ["corte", "motil", "peluquer", "pelo"] },
+        { "id": "unas", "nombre": "Corte de uñas", "precio": 12000, "claves": ["unas"] }
+      ]
+    },
+    {
+      "id": "tienda",
+      "titulo": "Farmacia y pet shop",
+      "descripcion": "Medicamentos, alimento y accesorios",
+      "claves": ["farmac", "medicament", "droga", "pastilla", "concentrado", "alimento", "comida", "tienda", "shop", "accesori", "juguete", "arena", "collar"],
+      "items": [
+        { "id": "farmacia", "nombre": "Farmacia veterinaria", "precio": null, "claves": ["farmac", "medicament", "pastilla"], "nota": "Pregunta por tu medicamento" },
+        { "id": "alimento", "nombre": "Alimento y snacks", "precio": null, "claves": ["concentrado", "alimento", "comida", "snack"], "nota": "Marcas premium y de línea" },
+        { "id": "accesorios", "nombre": "Accesorios y juguetes", "precio": null, "claves": ["accesori", "juguete", "collar", "arena", "cama"] }
+      ]
+    }
+  ]
+}

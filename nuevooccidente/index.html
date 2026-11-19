@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clínica Veterinaria Nuevo Occidente</title>
+<meta name="description" content="Consulta general y especializada, cirugía, laboratorio clínico, ecografía, rayos X, farmacia, spa y pet shop para perros y gatos.">
+<meta name="theme-color" content="#1a6be0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='32' fill='%231a6be0'/><g fill='white'><ellipse cx='32' cy='40' rx='11' ry='9'/><circle cx='19' cy='27' r='5'/><circle cx='27' cy='19' r='5'/><circle cx='37' cy='19' r='5'/><circle cx='45' cy='27' r='5'/></g></svg>">
+<style>
+:root{
+  --blue:#1a6be0; --blue-d:#0d3f8f; --navy:#0b2557; --sky:#eaf3ff; --sky-2:#d6e8ff;
+  --ink:#0f1d33; --muted:#53627a; --line:#dbe4f0; --bg:#ffffff; --card:#ffffff; --wa:#1fae55;
+  --r:22px; --shadow:0 10px 30px -12px rgba(13,63,143,.28);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Nunito,system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Baloo 2",Nunito,sans-serif;line-height:1.05;color:var(--navy)}
+a{color:inherit}
+img,svg{display:block}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+.btn{display:inline-flex;align-items:center;gap:10px;font-weight:800;text-decoration:none;border-radius:999px;padding:14px 24px;border:0;cursor:pointer;font:inherit;font-weight:800;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn-wa{background:var(--wa);color:#fff;box-shadow:0 10px 24px -10px rgba(31,174,85,.7)}
+.btn-ghost{background:#fff;color:var(--blue-d);border:2px solid var(--sky-2)}
+.btn svg{width:20px;height:20px}
+
+/* header */
+header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand .mark{width:42px;height:42px;border-radius:50%;background:var(--sky);display:grid;place-items:center}
+.brand small{display:block;font-size:.72rem;color:var(--muted);font-weight:700;letter-spacing:.02em}
+.brand b{font-family:"Baloo 2";font-size:1.25rem;color:var(--blue);line-height:1}
+nav a{text-decoration:none;font-weight:700;color:var(--muted);margin-left:22px;font-size:.95rem}
+nav a:hover{color:var(--blue)}
+header .btn{padding:10px 18px;font-size:.9rem}
+@media (max-width:820px){nav{display:none}}
+
+/* hero */
+.hero{background:radial-gradient(1200px 500px at 85% -10%,var(--sky-2),transparent 60%),linear-gradient(180deg,var(--sky),#fff);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-top:64px;padding-bottom:72px}
+.pill{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--blue-d);font-weight:800;font-size:.85rem;padding:7px 14px;border-radius:999px;box-shadow:var(--shadow)}
+.hero h1{font-size:clamp(2.6rem,6vw,4.4rem);margin:18px 0 14px}
+.hero h1 em{font-style:normal;color:var(--blue)}
+.hero p.lead{font-size:1.15rem;color:var(--muted);max-width:520px}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.chips span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;font-weight:700;color:var(--blue-d)}
+.hero-art{position:relative;aspect-ratio:1;max-width:460px;justify-self:center;width:100%}
+.hero-art .blob{position:absolute;inset:6%;background:var(--blue);border-radius:46% 54% 50% 50%/55% 45% 55% 45%;box-shadow:0 30px 60px -20px rgba(26,107,224,.55)}
+.hero-art svg.pets{position:absolute;inset:14%;width:72%;height:72%}
+.float{position:absolute;background:#fff;border-radius:18px;padding:12px 14px;box-shadow:var(--shadow);font-weight:800;font-size:.9rem;display:flex;gap:10px;align-items:center;color:var(--navy)}
+.float i{font-style:normal;font-size:1.3rem}
+.f1{top:6%;left:-4%}.f2{bottom:10%;right:-4%}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;padding-top:40px}.hero-art{max-width:340px}.f1{left:0}.f2{right:0}}
+
+/* sections */
+section{padding:84px 0}
+.eyebrow{font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.12em;font-size:.8rem}
+.sec-head{max-width:640px;margin-bottom:40px}
+.sec-head h2{font-size:clamp(2rem,4vw,2.9rem);margin:8px 0 10px}
+.sec-head p{color:var(--muted);font-size:1.05rem}
+
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+@media (max-width:960px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.grid{grid-template-columns:1fr}}
+.svc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px;transition:transform .2s,box-shadow .2s}
+.svc:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.svc .ic{width:54px;height:54px;border-radius:16px;background:var(--sky);display:grid;place-items:center;margin-bottom:16px;color:var(--blue)}
+.svc .ic svg{width:28px;height:28px}
+.svc h3{font-size:1.3rem;margin-bottom:6px}
+.svc p{color:var(--muted);font-size:.95rem}
+
+/* prices */
+.prices{background:var(--sky)}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:22px;scrollbar-width:none}
+.tabs button{flex:0 0 auto;border:2px solid transparent;background:#fff;color:var(--blue-d);font:inherit;font-weight:800;padding:10px 18px;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--blue);color:#fff}
+.plist{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 24px;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row b{display:block;font-size:1.05rem}
+.row small{color:var(--muted)}
+.row .p{font-family:"Baloo 2";font-size:1.35rem;color:var(--blue-d);white-space:nowrap;text-align:right}
+.row .p span{display:block;font-family:Nunito;font-size:.72rem;color:var(--muted);font-weight:700;line-height:1}
+.note{margin-top:16px;color:var(--muted);font-size:.9rem}
+.demo-flag{display:none;background:#fff4d6;color:#7a5200;border-radius:14px;padding:10px 14px;font-weight:700;font-size:.9rem;margin-bottom:16px}
+
+/* bot promo */
+.bot .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+@media (max-width:860px){.bot .wrap{grid-template-columns:1fr}}
+.phone{background:#e9e1d6;border-radius:30px;padding:18px;box-shadow:var(--shadow);max-width:400px;justify-self:center;width:100%;border:10px solid var(--navy)}
+.bubble{background:#fff;border-radius:12px 12px 12px 2px;padding:10px 12px;margin:8px 0;max-width:88%;font-size:.92rem;box-shadow:0 1px 1px rgba(0,0,0,.08);white-space:pre-line}
+.bubble.me{background:#d9fdd3;margin-left:auto;border-radius:12px 12px 2px 12px}
+.checks{list-style:none;margin-top:18px}
+.checks li{padding-left:32px;position:relative;margin:10px 0;font-weight:700}
+.checks li::before{content:"";position:absolute;left:0;top:3px;width:20px;height:20px;border-radius:50%;background:var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E") center/14px no-repeat}
+
+/* contact */
+.contact{background:var(--navy);color:#cfe0ff}
+.contact h2{color:#fff}
+.contact .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+@media (max-width:860px){.contact .wrap{grid-template-columns:1fr}}
+.info{display:grid;gap:14px}
+.info div{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:16px 18px}
+.info b{display:block;color:#fff;font-size:1.05rem}
+footer{background:#071a40;color:#8ea6d1;font-size:.85rem;padding:22px 0}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+/* chat widget */
+.fab{position:fixed;right:18px;bottom:18px;z-index:50;display:flex;align-items:center;gap:10px;background:var(--blue);color:#fff;border:0;border-radius:999px;padding:14px 20px;font:inherit;font-weight:800;box-shadow:0 14px 30px -10px rgba(26,107,224,.8);cursor:pointer}
+.fab svg{width:22px;height:22px}
+.chat{position:fixed;right:18px;bottom:84px;z-index:50;width:min(380px,calc(100vw - 36px));height:min(560px,calc(100vh - 120px));background:#efeae2;border-radius:22px;box-shadow:0 30px 60px -20px rgba(0,0,0,.4);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+.chat-top{background:var(--blue-d);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px}
+.chat-top .av{width:36px;height:36px;border-radius:50%;background:#fff;display:grid;place-items:center}
+.chat-top b{display:block}.chat-top small{opacity:.8}
+.chat-top button{margin-left:auto;background:none;border:0;color:#fff;font-size:1.6rem;cursor:pointer;line-height:1}
+.chat-body{flex:1;overflow-y:auto;padding:12px}
+.chat-body .bubble{font-size:.9rem}
+.opts{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px}
+.opts button{background:#fff;border:1px solid var(--sky-2);color:var(--blue-d);border-radius:999px;padding:7px 12px;font:inherit;font-size:.82rem;font-weight:800;cursor:pointer}
+.chat form{display:flex;gap:8px;padding:10px;background:#f6f6f6}
+.chat input{flex:1;border:1px solid var(--line);border-radius:999px;padding:11px 14px;font:inherit}
+.chat form button{background:var(--blue);color:#fff;border:0;border-radius:50%;width:44px;height:44px;cursor:pointer;display:grid;place-items:center}
+.handoff{display:block;text-align:center;margin:6px 0 10px}
+@media (max-width:520px){.fab span{display:none}.fab{padding:16px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="#">
+      <span class="mark"><svg width="26" height="26" viewBox="0 0 64 64" fill="#1a6be0"><ellipse cx="32" cy="42" rx="12" ry="10"/><circle cx="17" cy="28" r="6"/><circle cx="26" cy="17" r="6"/><circle cx="38" cy="17" r="6"/><circle cx="47" cy="28" r="6"/></svg></span>
+      <span><small>Clínica veterinaria</small><b>Nuevo Occidente</b></span>
+    </a>
+    <nav>
+      <a href="#servicios">Servicios</a>
+      <a href="#precios">Precios</a>
+      <a href="#asistente">Asistente</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a class="btn btn-wa wa-link" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg>Escríbenos</a>
+  </div>
+</header>
+
+<section class="hero" style="padding:0">
+  <div class="wrap">
+    <div>
+      <span class="pill">🐾 Perros y gatos · Consulta y especialistas</span>
+      <h1>Cuidamos a tu familia de <em>4 patas</em></h1>
+      <p class="lead">Consulta general y especializada, cirugía, laboratorio clínico, ecografía y rayos X en un solo lugar. Además farmacia, spa y pet shop.</p>
+      <div class="ctas">
+        <a class="btn btn-wa wa-link" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg>Agendar por WhatsApp</a>
+        <a class="btn btn-ghost" href="#precios">Ver precios</a>
+      </div>
+      <div class="chips"><span>Cirugía</span><span>Lab clínico</span><span>Ecografía</span><span>Rayos X</span><span>Farmacia</span><span>Spa</span></div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="blob"></div>
+      <svg class="pets" viewBox="0 0 200 200" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M100 172C58 146 30 118 30 84c0-22 16-38 36-38 14 0 26 8 34 20 8-12 20-20 34-20 20 0 36 16 36 38 0 34-28 62-70 88Z"/>
+        <g fill="#fff" stroke="none"><ellipse cx="100" cy="118" rx="22" ry="18"/><circle cx="72" cy="94" r="10"/><circle cx="88" cy="76" r="10"/><circle cx="112" cy="76" r="10"/><circle cx="128" cy="94" r="10"/></g>
+      </svg>
+      <div class="float f1"><i>💉</i>Esquemas de vacunación</div>
+      <div class="float f2"><i>🩺</i>Médicos especialistas</div>
+    </div>
+  </div>
+</section>
+
+<section id="servicios">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Servicios</span>
+      <h2>Todo lo que tu mascota necesita</h2>
+      <p>Desde el primer chequeo del cachorro hasta cirugías y exámenes con resultados el mismo día.</p>
+    </div>
+    <div class="grid">
+      <div class="svc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 3v6a5 5 0 0 0 10 0V3"/><path d="M11 14v2a5 5 0 0 0 10 0v-1"/><circle cx="21" cy="12" r="2"/></svg></div><h3>Consulta general</h3><p>Chequeos, diagnóstico y seguimiento para perros y gatos.</p></div>
+      <div class="svc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/><path d="M16 4l2-2"/></svg></div><h3>Especialistas</h3><p>Dermatología, cardiología, ortopedia y otras especialidades.</p></div>
+      <div class="svc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="18" r="3"/><circle cx="18" cy="18" r="3"/><path d="M8 16L19 3M16 16L5 3"/></svg></div><h3>Cirugía</h3><p>Esterilización, tejidos blandos y limpieza dental con anestesia segura.</p></div>
+      <div class="svc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 3h6M10 3v6L4 19a2 2 0 0 0 2 3h12a2 2 0 0 0 2-3L14 9V3"/><path d="M7 15h10"/></svg></div><h3>Laboratorio clínico</h3><p>Hemograma, química sanguínea, test VIF/ViLeF, coprológicos.</p></div>
+      <div class="svc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M7 21h10M12 17v4M7 12c2-4 4 2 6-2s3 1 4 0"/></svg></div><h3>Ecografía y rayos X</h3><p>Imágenes diagnósticas sin salir de la clínica.</p></div>
+      <div class="svc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.5 20.5l10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="M8.5 8.5l7 7"/></svg></div><h3>Farmacia</h3><p>Medicamentos veterinarios formulados por nuestros médicos.</p></div>
+      <div class="svc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9h16l-1 11H5L4 9Z"/><path d="M8 9V7a4 4 0 0 1 8 0v2"/></svg></div><h3>Pet shop</h3><p>Alimento, snacks, arena, camas, collares y juguetes.</p></div>
+      <div class="svc"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12h16v2a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6v-2Z"/><path d="M6 12V6a2 2 0 0 1 4 0M14 4c0 2 2 2 2 4M18 4c0 2 2 2 2 4"/></svg></div><h3>Spa</h3><p>Baño, corte de pelo y uñas para que salga feliz y oliendo rico.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="precios" class="prices">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Precios</span>
+      <h2>Precios claros, sin sorpresas</h2>
+      <p>Valores de referencia. El precio final puede variar según el peso de tu mascota y la valoración del médico.</p>
+    </div>
+    <div class="demo-flag" id="demoFlag">⚠️ Precios de ejemplo — la clínica los confirma antes de publicar.</div>
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <div class="plist" id="plist"><div class="row"><b>Cargando precios…</b></div></div>
+    <p class="note">¿No ves lo que buscas? <a class="wa-link" href="#" target="_blank" rel="noopener"><b>Pregúntanos por WhatsApp</b></a>.</p>
+  </div>
+</section>
+
+<section id="asistente" class="bot">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Asistente 24/7</span>
+      <div class="sec-head" style="margin-bottom:0">
+        <h2>Pregunta precios por WhatsApp, a cualquier hora</h2>
+        <p>Nuestro asistente responde al instante los precios de consultas, vacunas, cirugías, exámenes y spa. Cuando quieras agendar, te pasa con una persona del equipo.</p>
+      </div>
+      <ul class="checks">
+        <li>Respuesta inmediata, también de noche y festivos</li>
+        <li>Precios de cirugías y vacunas en segundos</li>
+        <li>Te conecta con un asesor para agendar</li>
+      </ul>
+      <div class="ctas" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
+        <button class="btn btn-ghost" id="tryBot" type="button">Probar aquí</button>
+        <a class="btn btn-wa wa-link" href="#" target="_blank" rel="noopener">Abrir WhatsApp</a>
+      </div>
+    </div>
+    <div class="phone" aria-hidden="true">
+      <div class="bubble me">Hola, ¿cuánto vale castrar una gata?</div>
+      <div class="bubble" id="sampleAnswer">• <b>Esterilización gata</b>: …</div>
+      <div class="bubble me">Quiero agendar 🙏</div>
+      <div class="bubble">📅 Envíanos el nombre de tu mascota, servicio y el día que prefieres. Una persona del equipo te confirma la cita. 🙌</div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" class="contact">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow" style="color:#8fb8ff">Contacto</span>
+      <h2 style="font-size:clamp(2rem,4vw,2.9rem);margin:8px 0 12px">Ven a visitarnos</h2>
+      <p style="font-size:1.05rem;max-width:520px">Escríbenos por WhatsApp para agendar tu cita, preguntar por un medicamento o reservar el spa.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
+        <a class="btn btn-wa wa-link" href="#" target="_blank" rel="noopener">WhatsApp <span id="tel"></span></a>
+        <a class="btn btn-ghost" id="igLink" href="#" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+    <div class="info">
+      <div><b>📍 Dirección</b><span id="dir">Escríbenos y te enviamos la ubicación.</span></div>
+      <div><b>🕒 Horario</b><span id="hor">Escríbenos y te confirmamos.</span></div>
+      <div><b>🚨 Urgencias</b><span id="urg"></span></div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap"><span>© <span id="yr"></span> Clínica Veterinaria Nuevo Occidente</span><span>Hecho con 💙 para perros y gatos</span></div></footer>
+
+<button class="fab" id="fab" type="button" aria-controls="chat" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/></svg><span>¿Precios? Pregúntame</span></button>
+<div class="chat" id="chat" role="dialog" aria-label="Asistente de precios">
+  <div class="chat-top">
+    <span class="av"><svg width="22" height="22" viewBox="0 0 64 64" fill="#1a6be0"><ellipse cx="32" cy="42" rx="12" ry="10"/><circle cx="17" cy="28" r="6"/><circle cx="26" cy="17" r="6"/><circle cx="38" cy="17" r="6"/><circle cx="47" cy="28" r="6"/></svg></span>
+    <span><b>Asistente Nuevo Occidente</b><small>Responde al instante</small></span>
+    <button type="button" id="closeChat" aria-label="Cerrar">×</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <form id="chatForm"><input id="chatIn" autocomplete="off" placeholder="Ej: precio vacuna para gato" maxlength="300"><button aria-label="Enviar"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20l18-8L3 4v6l12 2-12 2v6Z"/></svg></button></form>
+</div>
+
+<script>
+(function(){
+  var DATA=null;
+  var money=function(n){return '$'+Number(n).toLocaleString('es-CO').replace(/,/g,'.');};
+  var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+  // WhatsApp-style *bold* and _italic_
+  var fmt=function(s){return esc(s).replace(/\*([^*\n]+)\*/g,'<b>$1</b>').replace(/_([^_\n]+)_/g,'<i>$1</i>');};
+  document.getElementById('yr').textContent=new Date().getFullYear();
+
+  fetch('/data/clinica.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
+    DATA=d; var c=d.clinica;
+    var wa='https://wa.me/'+c.whatsapp+'?text='+encodeURIComponent('Hola, quiero información 🐾');
+    document.querySelectorAll('.wa-link').forEach(function(a){a.href=wa;});
+    document.getElementById('tel').textContent=c.telefono;
+    document.getElementById('igLink').href='https://instagram.com/'+c.instagram;
+    if(c.direccion) document.getElementById('dir').innerHTML=esc(c.direccion)+(c.maps_url?' · <a href="'+esc(c.maps_url)+'" target="_blank" rel="noopener">Ver mapa</a>':'');
+    if(c.horario) document.getElementById('hor').textContent=c.horario;
+    document.getElementById('urg').textContent=c.urgencias;
+    if(d.precios_de_ejemplo) document.getElementById('demoFlag').style.display='block';
+    var g=d.categorias[2]&&d.categorias[2].items.find(function(i){return i.id==='castracion-gata';});
+    if(g) document.getElementById('sampleAnswer').innerHTML='• <b>'+esc(g.nombre)+'</b>: '+money(g.precio)+'<br><i>Los valores pueden variar según el peso.</i>';
+    renderTabs();
+  }).catch(function(){document.getElementById('plist').innerHTML='<div class="row"><b>Escríbenos por WhatsApp para conocer los precios.</b></div>';});
+
+  function renderTabs(){
+    var tabs=document.getElementById('tabs');
+    tabs.innerHTML='';
+    DATA.categorias.forEach(function(cat,i){
+      var b=document.createElement('button');
+      b.type='button';b.role='tab';b.textContent=cat.titulo;
+      b.setAttribute('aria-selected',i===0?'true':'false');
+      b.onclick=function(){tabs.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-selected','false');});b.setAttribute('aria-selected','true');renderList(cat);};
+      tabs.appendChild(b);
+    });
+    renderList(DATA.categorias[0]);
+  }
+  function renderList(cat){
+    document.getElementById('plist').innerHTML=cat.items.map(function(it){
+      var p=it.precio==null?'Consultar':money(it.precio);
+      return '<div class="row"><div><b>'+esc(it.nombre)+'</b>'+(it.nota?'<small>'+esc(it.nota)+'</small>':'')+'</div><div class="p">'+(it.desde&&it.precio!=null?'<span>desde</span>':'')+p+'</div></div>';
+    }).join('');
+  }
+
+  // ---- chat demo (same brain as the WhatsApp bot) ----
+  var chat=document.getElementById('chat'),body=document.getElementById('chatBody'),fab=document.getElementById('fab'),started=false;
+  function open(){chat.classList.add('open');fab.setAttribute('aria-expanded','true');if(!started){started=true;ask({text:'hola'},true);}document.getElementById('chatIn').focus();}
+  function close(){chat.classList.remove('open');fab.setAttribute('aria-expanded','false');}
+  fab.onclick=function(){chat.classList.contains('open')?close():open();};
+  document.getElementById('closeChat').onclick=close;
+  document.getElementById('tryBot').onclick=open;
+  function bubble(html,me){var d=document.createElement('div');d.className='bubble'+(me?' me':'');d.innerHTML=html;body.appendChild(d);body.scrollTop=body.scrollHeight;}
+  function options(list){
+    var w=document.createElement('div');w.className='opts';
+    list.forEach(function(o){var b=document.createElement('button');b.type='button';b.textContent=o.title;b.onclick=function(){bubble(esc(o.title),true);ask({id:o.id});};w.appendChild(b);});
+    body.appendChild(w);body.scrollTop=body.scrollHeight;
+  }
+  function ask(input,silent){
+    if(!silent&&input.text) bubble(esc(input.text),true);
+    fetch('/api/bot-demo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(input)})
+      .then(function(r){return r.json();})
+      .then(function(r){
+        r.messages.forEach(function(m){
+          bubble(fmt(m.body));
+          if(m.type==='buttons') options(m.buttons);
+          if(m.type==='list') options(m.sections[0].rows);
+        });
+        if(r.handoff&&DATA){var a=document.createElement('a');a.className='btn btn-wa handoff';a.target='_blank';a.rel='noopener';a.href='https://wa.me/'+DATA.clinica.whatsapp;a.textContent='Continuar en WhatsApp';body.appendChild(a);body.scrollTop=body.scrollHeight;}
+      })
+      .catch(function(){bubble('Uy, no pudimos responder ahora. Escríbenos por WhatsApp 🙏');});
+  }
+  document.getElementById('chatForm').onsubmit=function(e){e.preventDefault();var i=document.getElementById('chatIn');var t=i.value.trim();if(!t)return;i.value='';ask({text:t});};
+})();
+</script>
+</body>
+</html>
