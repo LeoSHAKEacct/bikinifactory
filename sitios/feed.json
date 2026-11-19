@@ -3,6 +3,17 @@
   "subtitle": "Negocios creados por nuestros estudiantes",
   "sites": [
     {
+      "slug": "luna",
+      "name": "Luna Masoterapia",
+      "category": "",
+      "description": "Luna Masoterapia — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta.",
+      "photo": "/luna/foto-mwnr6fsk.jpg",
+      "phone": "573011968199",
+      "places": [],
+      "owner": "",
+      "updatedAt": "2026-11-19T17:00:49.363Z"
+    },
+    {
       "slug": "patricia-spa",
       "name": "Amanda Spa",
       "category": "",

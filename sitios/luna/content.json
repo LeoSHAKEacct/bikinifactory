@@ -1,0 +1,137 @@
+{
+  "name": "Luna Masoterapia",
+  "phone": "+573011968199",
+  "waMessage": "Hola {nombre}, quiero reservar un masaje",
+  "seo": {
+    "title": "{nombre} · Masajes",
+    "description": "{nombre} — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta."
+  },
+  "nav": {
+    "services": "Masajes",
+    "facilities": "Instalaciones",
+    "zones": "Zonas",
+    "reserve": "Reservar"
+  },
+  "footer": "{nombre} · Masajes · Solo mayores de 18 años",
+  "sections": [
+    {
+      "type": "hero",
+      "photo": "foto-mwnr6fsk.jpg",
+      "eyebrow": "Masajes · Medellín",
+      "title": "Relajación y placer",
+      "titleAccent": "en un masaje",
+      "greeting": "¡Hola, soy {nombre}!",
+      "lead": "Ven y le daré un roce con mis manos a tu cuerpo.",
+      "ctaPrimary": "Escríbeme por WhatsApp",
+      "ctaSecondary": "Ver masajes",
+      "badgeTitle": "{nombre}",
+      "badgeText": "Apartamento discreto · Domicilios",
+      "photoFit": "",
+      "photoPos": ""
+    },
+    {
+      "type": "intro",
+      "quote": "¡Nada que un buen masaje erótico",
+      "quoteAccent": "no pueda arreglar!",
+      "body": "Ven y disfruta de un agradable masaje relajante. Cada movimiento que realizaré con mis suaves manos está diseñado para reconectar tu cuerpo con tu energía, para que por medio de unas delicadas caricias y nuestro toque erótico llegues a ese éxtasis de placer."
+    },
+    {
+      "type": "services",
+      "eyebrow": "Masajes en camilla",
+      "title": "Elige tu experiencia",
+      "items": [
+        {
+          "name": "Masaje Relajante  60 minutos · $150.000 COP",
+          "desc": "Desconéctate del estrés diario y renueva tu energía. A través de maniobras suaves, fluidas y envolventes, este masaje libera la tensión muscular acumulada, mejora la circulación y calma el sistema nervioso. Ideal para encontrar un momento de paz profunda y bienestar integral.\nDuración: 45 minutos | Valor: $150.000 COP",
+          "photo": "foto-mwnr6ron.jpg"
+        },
+        {
+          "name": "Masaje Anti Estres Piedras Calientes  60 minutos · $130.000 COP",
+          "desc": "Libera la tensión más profunda a través del poder terapéutico del calor. Combinamos maniobras relajantes con piedras volcánicas calientes colocadas en puntos estratégicos del cuerpo para disolver contracturas, mejorar la circulación y llevar tu mente a un estado de calma absoluta.\nDuración: 60 minutos | Valor: $130.000 COP",
+          "photo": "foto-mwnrmnpv.jpg",
+          "pos": "bottom"
+        },
+        {
+          "name": "Masaje Descontracturante 60 minutos · $180.000 COP",
+          "desc": "Alivia el dolor muscular y recupera tu movilidad. Mediante maniobras profundas, firmes y focalizadas, trabajamos directamente sobre los nudos y zonas de mayor rigidez—como espalda, cuello y hombros—para liberar la sobrecarga física, mejorar la circulación y devolverle a tu cuerpo su bienestar natural.\nDuración: 60 minutos | Valor: $180.000 COP",
+          "photo": "foto-mwnrlvb7.jpg",
+          "pos": ""
+        }
+      ],
+      "benefit": "Una experiencia PARA LOS SENTIDOS\n\nUn encuentro entre el bienestar, la sensualidad y el placer de desconectar."
+    },
+    {
+      "type": "services",
+      "eyebrow": "Masajes en cama",
+      "title": "Elige tu experiencia",
+      "items": [
+        {
+          "name": "Cuerpo a cuerpo 60 minutos · $200.000 COP",
+          "desc": "Una experiencia profundamente envolvente diseñada para despertar los sentidos y liberar la tensión de manera integral. A través de movimientos fluidos, continuos y armoniosos, este masaje promueve una conexión total con el bienestar, disolviendo el estrés y brindando una sensación única de calidez y relajación.\nDuración: 60 minutos | Valor: $200.000 COP",
+          "photo": "foto-mwnr6ron.jpg"
+        },
+        {
+          "name": "Masaje Erotico (incluye relación intima) 60 minutos · $230.000 COP",
+          "desc": "Una experiencia íntima y sensorial diseñada para despertar los sentidos y liberar la tensión de manera profunda. A través de caricias suaves, maniobras envolventes y un ritmo pausado, este masaje estimula la sensibilidad de todo el cuerpo, disolviendo el estrés y brindando una sensación única de placer y bienestar.\nDuración: 60 minutos | Valor: $230.000 COP",
+          "photo": "foto-mwnsjjya.jpg",
+          "pos": "center"
+        },
+        {
+          "name": "Masaje Prostatico ( Uso de dildo 30 arnes 50) · $150.000 COP",
+          "desc": "Una experiencia íntima y especializada enfocada en la estimulación profunda, el alivio de tensiones y el bienestar integral masculino. Realizado con técnicas cuidadosas, suaves y progresivas en un ambiente de total respeto y privacidad, este servicio promueve una relajación intensa y una sensación única de placer.\nValor base: $150.000 COP",
+          "photo": "foto-mwnsmr4e.jpg",
+          "pos": ""
+        }
+      ],
+      "benefit": "Una experiencia PARA LOS SENTIDOS\n\nUn encuentro entre el bienestar, la sensualidad y el placer de desconectar."
+    },
+    {
+      "type": "facilities",
+      "eyebrow": "Instalaciones",
+      "title": "Comodidad y total discreción",
+      "items": [
+        {
+          "icon": "home",
+          "title": "Apartamento cómodo",
+          "desc": "Me ubico en laureles sector la castellana cuento con mi propio apartamento soy independiente  Horarios lunes a viernes 9am-7pm Sábados 8am-4 pm  no domingos  Trabajo con cita previa"
+        },
+        {
+          "icon": "heart",
+          "title": "Totalmente discreto",
+          "desc": "Tu privacidad es lo primero."
+        },
+        {
+          "icon": "drink",
+          "title": "Bebida de bienvenida",
+          "desc": "Relájate desde el primer momento."
+        }
+      ],
+      "gallery": [
+        {
+          "photo": "foto-mwlatbwa.jpg",
+          "caption": "",
+          "placeholder": "Sala de masajes",
+          "fit": "contain"
+        },
+        {
+          "photo": "foto-mwnsohhn.jpg",
+          "caption": "",
+          "placeholder": "Ambiente",
+          "fit": "contain"
+        },
+        {
+          "photo": "foto-mwnsoyiv.jpg",
+          "caption": "",
+          "placeholder": "Amenidades"
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "eyebrow": "Reserva tu cita",
+      "title": "¡Te espero!",
+      "text": "Escríbeme por WhatsApp y agenda tu momento de relajación y placer.",
+      "button": "WhatsApp {telefono}"
+    }
+  ]
+}
