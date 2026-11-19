@@ -1,0 +1,1276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AIRA Suites · Cartagena</title>
+<meta name="description" content="AIRA Suites, Cartagena de Indias: 77 furnished suites licensed for short-term rental, operated by Be Happy. Pick a suite on the tower, fly to its floor and walk through it.">
+<meta property="og:title" content="AIRA Suites · Cartagena de Indias">
+<meta property="og:description" content="Pick an available suite on the tower, fly to its floor and walk through it. Furnished, licensed for short-term rental, from COP 435M.">
+<meta property="og:image" content="img/hero.jpg">
+<meta name="theme-color" content="#0d2624">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Urbanist:wght@400;500;600;700&display=swap">
+<style>
+/* One deliberate theme: Caribbean blue hour on the tower (deep teal, warm window light), sand and cream for the reading sections.
+   AIRA brand teal and mint carry through from the brochure. */
+:root {
+  --deep: #0b2422;        /* stage ground */
+  --deep-2: #10302d;      /* panels on the stage */
+  --teal: #246660;        /* brand teal */
+  --mint: #7fd1bd;        /* selection, focus */
+  --glow: #f0cf92;        /* window light: available suites */
+  --sand: #f4efe4;        /* reading sections */
+  --sand-2: #e9e1cf;
+  --ink: #15302d;         /* text on sand */
+  --ink-dim: #55706b;
+  --fog: #e7efec;         /* text on deep */
+  --fog-dim: #9db6b0;
+  --line: rgba(231,239,236,.16);
+  --line-ink: rgba(21,48,45,.14);
+  --sold: #2a4542;
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --body: "Urbanist", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --gut: max(24px, env(safe-area-inset-left, 0px));
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { background: var(--deep); scroll-behavior: smooth; }
+body { margin: 0; background: var(--sand); color: var(--ink); font: 400 17px/1.6 var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.num { font-variant-numeric: tabular-nums lining-nums; }
+
+/* ---------- top bar ---------- */
+.bar { position: fixed; inset: 0 0 auto; z-index: 40; display: flex; align-items: center; justify-content: space-between; gap: 18px;
+  padding: 14px var(--gut); padding-top: max(14px, env(safe-area-inset-top, 0px)); transition: background .35s, box-shadow .35s; }
+.bar.solid { background: rgba(11,36,34,.88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 1px 0 var(--line); }
+.bar .logo img { height: 28px; width: auto; }
+.bar nav { display: flex; gap: 4px; }
+.bar nav a { color: var(--fog); text-decoration: none; font: 600 12px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; padding: 10px 12px; border-radius: 999px; }
+.bar nav a:hover { background: rgba(255,255,255,.08); }
+.pill { display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; text-decoration: none; white-space: nowrap;
+  font: 700 12px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; padding: 13px 18px; border-radius: 999px; border: 1px solid var(--line); background: rgba(11,36,34,.5); color: var(--fog); }
+.pill:hover { border-color: rgba(231,239,236,.4); }
+.pill.glow { background: var(--glow); border-color: var(--glow); color: #2a1c05; }
+.pill.glow:hover { background: #f6dcaa; }
+.pill.mint { background: var(--mint); border-color: var(--mint); color: #082320; }
+.pill.ink { background: var(--ink); border-color: var(--ink); color: var(--sand); }
+.pill.line-ink { background: transparent; border-color: var(--line-ink); color: var(--ink); }
+
+/* ---------- hero ---------- */
+.hero { position: relative; min-height: 100svh; display: grid; align-items: end; color: var(--fog); background: var(--deep); overflow: hidden; }
+.hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; transform: scale(1.06); animation: drift 22s ease-out forwards; }
+@keyframes drift { to { transform: scale(1); } }
+.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(8,28,26,.95) 0%, rgba(8,28,26,.6) 34%, rgba(8,28,26,0) 62%), linear-gradient(90deg, rgba(8,28,26,.82) 0%, rgba(8,28,26,.5) 38%, rgba(8,28,26,0) 62%), linear-gradient(180deg, rgba(8,28,26,.6) 0%, rgba(8,28,26,0) 22%); }
+.hero .in { text-shadow: 0 1px 18px rgba(4,16,15,.45); }
+.hero .in { position: relative; z-index: 1; padding: 120px var(--gut) 44px; max-width: 1280px; width: 100%; margin: 0 auto; }
+.eyebrow { font: 700 11.5px/1.3 var(--body); letter-spacing: .22em; text-transform: uppercase; color: var(--glow); }
+.hero h1 { font: 300 clamp(44px, 7.2vw, 104px)/.98 var(--display); letter-spacing: -.02em; margin: 18px 0 20px; max-width: 13ch; text-wrap: balance; }
+.hero h1 em { font-style: italic; color: var(--glow); }
+.hero p.lede { max-width: 52ch; font-size: 19px; color: #d9e6e2; margin: 0; }
+.hero .cta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px; }
+.hero .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 48px; border-top: 1px solid var(--line); }
+.hero .stats div { padding: 16px 16px 0 0; }
+.hero .stats b { display: block; font: 300 clamp(28px, 3.4vw, 44px)/1 var(--display); }
+.hero .stats span { display: block; margin-top: 6px; font: 600 11px/1.3 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--fog-dim); }
+
+/* ---------- tower stage ---------- */
+.stage { position: relative; height: 100svh; min-height: 640px; background: radial-gradient(120% 80% at 30% 0%, #17423e 0%, #0d2b29 45%, #081c1b 100%); color: var(--fog);
+  display: grid; grid-template-columns: minmax(0, 1fr) min(440px, 36vw); overflow: hidden; }
+.stage .left { position: relative; min-width: 0; min-height: 0; }
+.tower { position: absolute; inset: 64px 0 0 0; width: 100%; height: calc(100% - 64px); display: block; }
+@media (min-width: 901px) { .stage .tower { left: min(30%, 360px); width: auto; right: 0; } }
+.stage .intro { position: absolute; z-index: 2; left: var(--gut); top: 92px; max-width: 360px; pointer-events: none; transition: opacity .4s; }
+.stage .intro h2 { font: 300 clamp(32px, 3.6vw, 52px)/1.02 var(--display); margin: 12px 0 10px; }
+.stage .intro h2 em { color: var(--glow); }
+.stage .intro p { margin: 0; color: var(--fog-dim); font-size: 15px; }
+.legend { position: absolute; z-index: 2; left: var(--gut); bottom: 22px; display: flex; gap: 16px; flex-wrap: wrap; font: 600 11px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--fog-dim); transition: opacity .4s; }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 7px; vertical-align: -2px; }
+.stage.floor .intro, .stage.floor .legend { opacity: 0; }
+
+/* svg tower parts */
+.tower .slab { fill: #d8d2c4; }
+.tower .slab-shadow { fill: rgba(0,0,0,.28); }
+.tower .fin { fill: none; stroke: #e2dccd; stroke-width: 5; stroke-linejoin: round; }
+.tower .core { fill: #183836; }
+.tower .wall { fill: #12302e; }
+.tower .wood { fill: #7a5236; }
+.tower .wood-line { stroke: #5c3c26; stroke-width: 1.2; }
+.tower .glass-dark { fill: #1c3f45; }
+.tower .glass-lobby { fill: #f3d9a6; opacity: .85; }
+.tower .vine { fill: #3e7a43; opacity: .9; pointer-events: none; }
+.tower .pool { fill: #59c2d6; }
+.tower .pergola { stroke: #e2dccd; stroke-width: 3; }
+.tower .tag { fill: var(--fog-dim); font: 600 10px var(--body); letter-spacing: .16em; text-transform: uppercase; }
+.tower .flabel { fill: var(--fog-dim); font: 600 12px var(--body); text-anchor: end; dominant-baseline: central; cursor: pointer; }
+.tower .flabel:hover, .tower .flabel.on { fill: var(--glow); }
+.tower .ground { fill: #0a1f1e; }
+.tower .palm { fill: #214d3c; }
+.u { cursor: pointer; }
+.u rect.g { fill: var(--sold); stroke: transparent; stroke-width: 2.5; transition: fill .5s, stroke .2s, filter .3s; }
+.u text { fill: rgba(231,239,236,.35); font: 700 10px var(--body); text-anchor: middle; dominant-baseline: central; pointer-events: none; font-variant-numeric: tabular-nums; transition: fill .3s; }
+.u .rail { stroke: rgba(231,239,236,.32); stroke-width: 1.2; pointer-events: none; }
+.u.av.lit rect.g { fill: url(#warm); }
+.u.av.lit text { fill: rgba(60,38,8,.75); }
+.u.sold { cursor: not-allowed; }
+.u.av:hover rect.g, .u.hot rect.g { stroke: var(--mint); filter: drop-shadow(0 0 8px rgba(127,209,189,.9)); }
+.u.sel rect.g { stroke: #fff; filter: drop-shadow(0 0 12px rgba(255,226,170,1)); }
+.u.dim { opacity: .28; }
+.u.fade { opacity: .5; }
+
+.tip { position: absolute; z-index: 6; pointer-events: none; padding: 10px 12px; border-radius: 10px; background: rgba(8,28,26,.92); border: 1px solid var(--line); font-size: 13px; line-height: 1.35; white-space: nowrap; opacity: 0; transform: translate(-50%, calc(-100% - 14px)); transition: opacity .15s; }
+.tip.on { opacity: 1; }
+.tip b { font: 400 18px/1 var(--display); display: block; margin-bottom: 4px; }
+.tip .s { color: var(--fog-dim); }
+
+/* floor view (after picking) */
+.floorview { position: absolute; inset: 64px 0 0 0; z-index: 3; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 14px; padding: 22px var(--gut) 22px; opacity: 0; pointer-events: none; transition: opacity .55s .15s; }
+.stage.floor .floorview { opacity: 1; pointer-events: auto; }
+.stage.floor .tower { filter: blur(3px) brightness(.55); transition: filter .6s .2s; }
+.tower { transition: filter .4s; }
+.fv-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.fv-head .t { display: flex; align-items: baseline; gap: 14px; }
+.fv-head .t b { font: 300 clamp(44px, 5vw, 72px)/.9 var(--display); color: var(--glow); }
+.fv-head .t span { font: 700 11px/1.3 var(--body); letter-spacing: .2em; text-transform: uppercase; color: var(--fog-dim); }
+.steps { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: rgba(8,28,26,.6); }
+.steps button { cursor: pointer; border: 0; background: transparent; border-radius: 999px; padding: 9px 14px; font: 700 11px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--fog); }
+.steps button:hover:not(:disabled) { background: rgba(255,255,255,.08); }
+.steps button:disabled { opacity: .35; cursor: default; }
+.plate { position: relative; min-height: 0; display: grid; place-items: center; }
+.plate .frame { position: relative; width: 100%; max-height: 100%; aspect-ratio: 1600 / 960; max-width: calc((100svh - 260px) * 1.667); }
+.plate img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 20px 40px rgba(0,0,0,.45)); }
+.plate .hit { position: absolute; top: 29.5%; height: 57.5%; border-radius: 6px; border: 2px solid transparent; background: transparent; cursor: pointer; padding: 0; transition: background .25s, border-color .25s, box-shadow .25s; }
+.plate .hit.sold { cursor: not-allowed; background: repeating-linear-gradient(135deg, rgba(8,28,26,.62) 0 8px, rgba(8,28,26,.42) 8px 16px); }
+.plate .hit.sold::after { content: "Sold"; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font: 700 11px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--fog); background: rgba(8,28,26,.85); padding: 6px 8px; border-radius: 999px; }
+.plate .hit.av:hover { border-color: var(--mint); background: rgba(127,209,189,.12); }
+.plate .hit.sel { border-color: var(--glow); background: rgba(240,207,146,.2); box-shadow: 0 0 0 4px rgba(240,207,146,.25), 0 0 40px rgba(240,207,146,.55); }
+.fv-foot { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; align-items: center; font-size: 13px; color: var(--fog-dim); }
+
+/* side panel */
+.panel { position: relative; z-index: 4; background: rgba(13,40,38,.92); border-left: 1px solid var(--line); display: grid; grid-template-rows: auto auto minmax(0, 1fr); padding: 84px 22px 0; min-height: 0; }
+.panel .ph { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.panel .ph h3 { margin: 0; font: 400 26px/1.05 var(--display); }
+.panel .ph span { font: 700 11px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--fog-dim); }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; margin: 16px 0 14px; }
+.chip { cursor: pointer; border: 1px solid var(--line); background: transparent; border-radius: 999px; padding: 8px 12px; font: 700 11px/1 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--fog-dim); }
+.chip[aria-pressed="true"] { background: var(--fog); color: var(--deep); border-color: var(--fog); }
+.list { overflow: auto; min-height: 0; margin: 0 -22px; padding: 0 22px 24px; border-top: 1px solid var(--line); scrollbar-width: thin; scrollbar-color: rgba(231,239,236,.2) transparent; }
+.fl { padding-top: 14px; }
+.fl h4 { margin: 0 0 6px; display: flex; justify-content: space-between; font: 700 11px/1 var(--body); letter-spacing: .18em; text-transform: uppercase; color: var(--fog-dim); }
+.fl h4 b { color: var(--glow); font-weight: 700; }
+.row { all: unset; box-sizing: border-box; cursor: pointer; width: 100%; display: grid; grid-template-columns: 52px 1fr auto; gap: 10px; align-items: center; padding: 10px 10px; border-radius: 10px; font-size: 14px; }
+.row:hover, .row.hot { background: rgba(255,255,255,.06); }
+.row.sel { background: rgba(240,207,146,.14); box-shadow: inset 0 0 0 1px rgba(240,207,146,.5); }
+.row:focus-visible { outline: 2px solid var(--mint); }
+.row .n { font: 400 19px/1 var(--display); }
+.row .m { color: var(--fog-dim); font-size: 13px; }
+.row .m em { font-style: normal; color: var(--mint); font-weight: 700; letter-spacing: .06em; }
+.row .p { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+.row.is-sold { opacity: .4; cursor: default; }
+.row.is-sold .p { font-weight: 500; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+
+/* suite card (panel in floor mode) */
+.card { display: none; overflow: auto; min-height: 0; padding-bottom: 24px; }
+.stage.floor .card { display: block; }
+.stage.floor .chips, .stage.floor .list { display: none; }
+.card .type { font: 700 11px/1 var(--body); letter-spacing: .2em; text-transform: uppercase; color: var(--mint); margin-top: 16px; }
+.card h3 { font: 300 64px/.95 var(--display); margin: 8px 0 4px; color: var(--glow); }
+.card .sub { color: var(--fog-dim); font-size: 14px; margin: 0 0 16px; }
+.card dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 9px 14px; font-size: 14px; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.card dt { color: var(--fog-dim); }
+.card dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+.card .earn { margin-top: 14px; padding: 14px; border-radius: 12px; background: rgba(127,209,189,.09); border: 1px solid rgba(127,209,189,.25); font-size: 13.5px; color: var(--fog-dim); }
+.card .earn b { display: block; font: 400 26px/1.1 var(--display); color: var(--fog); margin-bottom: 4px; }
+.card .earn a { color: var(--mint); }
+.card .acts { display: grid; gap: 8px; margin-top: 16px; }
+.card .acts .pill { width: 100%; }
+.card .thumb { margin-top: 14px; border-radius: 10px; background: #f3efe6; padding: 8px; }
+
+/* ---------- tour (full screen) ---------- */
+.tour { position: fixed; inset: 0; z-index: 60; background: #050d0c; color: var(--fog); display: grid; grid-template-columns: minmax(0, 1fr) min(400px, 32vw); opacity: 0; pointer-events: none; transition: opacity .6s; }
+.tour.on { opacity: 1; pointer-events: auto; }
+.tour .flash { position: absolute; inset: 0; z-index: 5; pointer-events: none; background: radial-gradient(ellipse at center, rgba(255,232,190,1) 0%, rgba(255,214,150,.8) 45%, rgba(255,200,130,0) 80%); opacity: 0; }
+.tour .flash.go { animation: flash 1.1s ease-out; }
+@keyframes flash { 0% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 0; } }
+.view { position: relative; overflow: hidden; }
+.view .r { position: absolute; inset: 0; opacity: 0; transition: opacity 1.1s ease; }
+.view .r.on { opacity: 1; }
+.view .r img { position: absolute; inset: -6%; width: 112%; height: 112%; max-width: none; object-fit: cover; transform: translate3d(0,0,0) scale(1); }
+.view .r.on img { animation: var(--kb) var(--dur, 7s) linear forwards; }
+@keyframes kbR { from { transform: translate3d(-4%, 0, 0) scale(1.02); } to { transform: translate3d(4%, -1%, 0) scale(1.12); } }
+@keyframes kbL { from { transform: translate3d(4%, 0, 0) scale(1.1); } to { transform: translate3d(-4%, 1%, 0) scale(1.02); } }
+@keyframes kbIn { from { transform: scale(1.0); } to { transform: scale(1.16) translate3d(0, -1%, 0); } }
+.view::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(0deg, rgba(5,13,12,.9) 0%, rgba(5,13,12,0) 42%), linear-gradient(180deg, rgba(5,13,12,.6) 0%, rgba(5,13,12,0) 20%); }
+.tbar { position: absolute; z-index: 4; inset: 0 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px var(--gut); padding-top: max(16px, env(safe-area-inset-top, 0px)); }
+.tbar .who { font: 700 11px/1.3 var(--body); letter-spacing: .2em; text-transform: uppercase; color: var(--fog-dim); }
+.tbar .who b { color: var(--glow); }
+.roomcap { position: absolute; z-index: 3; left: var(--gut); right: var(--gut); bottom: 84px; }
+.roomcap .k { font: 700 11px/1 var(--body); letter-spacing: .2em; text-transform: uppercase; color: var(--glow); font-variant-numeric: tabular-nums; }
+.roomcap h2 { font: 300 clamp(40px, 5.4vw, 84px)/1 var(--display); margin: 12px 0 10px; }
+.roomcap p { margin: 0; max-width: 52ch; color: #d5e2de; }
+.vctl { position: absolute; z-index: 3; left: var(--gut); right: var(--gut); bottom: 24px; display: flex; align-items: center; gap: 14px; }
+.progress { display: flex; gap: 4px; flex: 1; max-width: 420px; }
+.progress i { flex: 1; height: 3px; border-radius: 2px; background: rgba(231,239,236,.22); position: relative; overflow: hidden; cursor: pointer; }
+.progress i b { position: absolute; inset: 0; background: var(--glow); transform-origin: left; transform: scaleX(0); }
+.progress i.done b { transform: scaleX(1); }
+.progress i.on b { animation: fill var(--dur, 7s) linear forwards; }
+.tour.paused .progress i.on b, .tour.paused .view .r.on img { animation-play-state: paused; }
+@keyframes fill { to { transform: scaleX(1); } }
+.ctl { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: rgba(8,28,26,.6); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.ctl button { cursor: pointer; border: 0; background: transparent; border-radius: 999px; min-width: 40px; height: 36px; padding: 0 12px; font: 700 11px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--fog); }
+.ctl button:hover { background: rgba(255,255,255,.1); }
+
+.tplan { background: var(--deep-2); border-left: 1px solid var(--line); display: grid; grid-template-rows: auto auto auto minmax(0, 1fr) auto; gap: 14px; padding: 78px 22px 22px; min-height: 0; }
+.tplan .ph { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.tplan .ph b { font: 400 24px/1.1 var(--display); }
+.tplan .ph span { font: 700 10.5px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--fog-dim); }
+.pwrap { position: relative; border-radius: 10px; background: #f3efe6; padding: 8px; }
+.pwrap img { width: 100%; height: auto; border-radius: 4px; }
+.pwrap .zone { position: absolute; border-radius: 4px; border: 2px solid var(--glow); background: rgba(240,207,146,.28); box-shadow: 0 0 18px rgba(240,170,60,.5); transition: all .7s cubic-bezier(.6,.05,.2,1); }
+.pwrap .zone.off { opacity: 0; }
+.pwrap .where { position: absolute; inset: 8px; display: grid; place-items: center; background: rgba(13,40,38,.78); color: var(--fog); border-radius: 4px; font: 700 12px/1.3 var(--body); letter-spacing: .18em; text-transform: uppercase; text-align: center; opacity: 0; transition: opacity .5s; }
+.pwrap .where.on { opacity: 1; }
+.tspecs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.tspecs div { border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
+.tspecs b { display: block; font: 400 20px/1.1 var(--display); font-variant-numeric: tabular-nums; }
+.tspecs span { font: 700 10px/1.2 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--fog-dim); }
+.stops { list-style: none; margin: 0; padding: 0; overflow: auto; min-height: 0; border-top: 1px solid var(--line); }
+.stop { all: unset; box-sizing: border-box; cursor: pointer; width: 100%; display: grid; grid-template-columns: 30px 1fr auto; gap: 10px; align-items: baseline; padding: 10px 2px; border-bottom: 1px solid var(--line); font-size: 14.5px; color: var(--fog-dim); }
+.stop .i { font: 700 11px/1 var(--body); font-variant-numeric: tabular-nums; }
+.stop .w { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+.stop.on { color: var(--fog); }
+.stop.on .i { color: var(--glow); }
+.stop:focus-visible { outline: 2px solid var(--mint); }
+.tplan .acts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+/* ---------- reading sections ---------- */
+section.read { padding: 110px var(--gut); }
+.wrap { max-width: 1200px; margin: 0 auto; }
+.kick { font: 700 11.5px/1 var(--body); letter-spacing: .22em; text-transform: uppercase; color: var(--teal); }
+h2.big { font: 300 clamp(38px, 5vw, 68px)/1.02 var(--display); letter-spacing: -.015em; margin: 16px 0 18px; max-width: 18ch; text-wrap: balance; }
+h2.big em { font-style: italic; color: var(--teal); }
+.lede2 { font-size: 19px; color: var(--ink-dim); max-width: 60ch; margin: 0; }
+
+/* returns */
+#returns { background: var(--sand); }
+.calc { margin-top: 48px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 28px; }
+.inputs, .outputs { background: #fff; border: 1px solid var(--line-ink); border-radius: 20px; padding: 28px; }
+.field { display: grid; gap: 8px; padding: 14px 0; border-bottom: 1px solid var(--line-ink); }
+.field:last-child { border-bottom: 0; }
+.field label { display: flex; justify-content: space-between; gap: 12px; font-weight: 600; font-size: 15px; }
+.field label output { font-variant-numeric: tabular-nums; color: var(--teal); font-weight: 700; }
+.field .hint { font-size: 13px; color: var(--ink-dim); }
+.field select, .field input[type=number] { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line-ink); background: var(--sand); font-weight: 600; }
+input[type=range] { width: 100%; accent-color: var(--teal); }
+.outputs { background: var(--ink); color: var(--fog); border-color: var(--ink); display: grid; align-content: start; gap: 22px; }
+.yield { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.yield b { font: 300 clamp(64px, 8vw, 112px)/.9 var(--display); color: var(--glow); font-variant-numeric: tabular-nums; }
+.yield span { color: var(--fog-dim); font-size: 15px; max-width: 22ch; }
+.ledger { display: grid; grid-template-columns: 1fr auto; gap: 10px 18px; font-size: 15px; border-top: 1px solid var(--line); padding-top: 18px; }
+.ledger dt { color: var(--fog-dim); }
+.ledger dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+.ledger .tot { color: var(--fog); font-weight: 700; border-top: 1px solid var(--line); padding-top: 10px; }
+.ledger dd.tot { color: var(--glow); }
+.flow { display: grid; gap: 6px; }
+.flow .bar2 { height: 14px; border-radius: 7px; background: rgba(231,239,236,.12); overflow: hidden; display: flex; }
+.flow .bar2 i { display: block; height: 100%; transition: width .4s; }
+.flow .keys { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--fog-dim); }
+.flow .keys i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+.fine { font-size: 13px; color: var(--fog-dim); margin: 0; }
+.ways { margin-top: 56px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.way { border-top: 2px solid var(--teal); padding-top: 18px; }
+.way b { font: 400 24px/1.15 var(--display); display: block; margin-bottom: 6px; }
+.way p { margin: 0; color: var(--ink-dim); font-size: 15.5px; }
+
+/* operator */
+#operator { background: var(--sand-2); }
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: center; }
+.split img { border-radius: 22px; width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+.ticks { list-style: none; padding: 0; margin: 26px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 22px; }
+.ticks li { position: relative; padding-left: 26px; font-size: 15.5px; }
+.ticks li::before { content: ""; position: absolute; left: 0; top: .5em; width: 14px; height: 8px; border-left: 2px solid var(--teal); border-bottom: 2px solid var(--teal); transform: rotate(-45deg); }
+
+/* cartagena */
+#cartagena { background: var(--deep); color: var(--fog); position: relative; overflow: hidden; }
+#cartagena .kick { color: var(--glow); }
+#cartagena h2.big em { color: var(--glow); }
+#cartagena .lede2 { color: var(--fog-dim); }
+.mstats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 52px; border-top: 1px solid var(--line); }
+.mstats div { padding: 22px 20px 22px 0; border-bottom: 1px solid var(--line); }
+.mstats b { display: block; font: 300 clamp(40px, 4.6vw, 64px)/1 var(--display); color: var(--glow); font-variant-numeric: tabular-nums; }
+.mstats span { display: block; margin-top: 10px; font-size: 14.5px; color: var(--fog-dim); max-width: 26ch; }
+.ranks { margin-top: 56px; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+.ranks img { border-radius: 22px; aspect-ratio: 3/2; object-fit: cover; width: 100%; }
+.rank { display: grid; grid-template-columns: 92px 1fr; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.rank b { font: 300 44px/1 var(--display); color: var(--glow); }
+.rank p { margin: 0; font-size: 16px; }
+.rank small { display: block; color: var(--fog-dim); font-size: 13px; margin-top: 2px; }
+.near { margin-top: 64px; }
+.near h3 { font: 400 28px/1.1 var(--display); margin: 0 0 6px; }
+.near > p { color: var(--fog-dim); margin: 0 0 22px; }
+.times { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px; }
+.times div { border: 1px solid var(--line); border-radius: 14px; padding: 16px 14px; }
+.times b { display: block; font: 300 38px/1 var(--display); color: var(--fog); font-variant-numeric: tabular-nums; }
+.times b small { font: 600 12px var(--body); letter-spacing: .1em; color: var(--fog-dim); margin-left: 4px; }
+.times span { display: block; margin-top: 8px; font-size: 13.5px; color: var(--fog-dim); line-height: 1.35; }
+.src { margin-top: 26px; font-size: 12.5px; color: var(--fog-dim); }
+
+/* amenities */
+#amenities { background: var(--sand); }
+.amen-hero { margin-top: 44px; position: relative; border-radius: 26px; overflow: hidden; }
+.amen-hero img { width: 100%; aspect-ratio: 21/9; object-fit: cover; }
+.amen-hero figcaption { position: absolute; left: 24px; bottom: 20px; color: #fff; font: 700 12px/1 var(--body); letter-spacing: .18em; text-transform: uppercase; text-shadow: 0 1px 12px rgba(0,0,0,.5); }
+.amen { margin-top: 18px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; }
+.amen figure { margin: 0; }
+.amen img { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 16px; background: var(--sand-2); }
+.amen figcaption { margin-top: 10px; font-weight: 600; font-size: 15px; }
+
+/* contact */
+#contact { background: var(--ink); color: var(--fog); }
+#contact .kick { color: var(--glow); }
+#contact h2.big em { color: var(--glow); }
+#contact .lede2 { color: var(--fog-dim); }
+.contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; }
+form.lead { background: rgba(255,255,255,.04); border: 1px solid var(--line); border-radius: 20px; padding: 26px; display: grid; gap: 14px; }
+form.lead label { display: grid; gap: 6px; font-size: 13px; font-weight: 600; letter-spacing: .04em; color: var(--fog-dim); }
+form.lead input, form.lead select { width: 100%; padding: 13px 14px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.06); color: var(--fog); font-size: 16px; }
+form.lead select option { color: #111; }
+form.lead .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.reach { display: grid; gap: 4px; margin-top: 30px; }
+.reach a, .reach div { display: grid; grid-template-columns: 110px 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); text-decoration: none; font-size: 16px; }
+.reach span { font: 700 11px/1.6 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--fog-dim); }
+.reach a:hover b { color: var(--glow); }
+.reach b { font-weight: 600; }
+footer { background: #081b1a; color: var(--fog-dim); padding: 40px var(--gut) max(40px, env(safe-area-inset-bottom, 0px)); font-size: 12.5px; }
+footer .wrap { display: grid; gap: 16px; }
+footer .top { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
+footer img { height: 22px; width: auto; opacity: .8; }
+footer p { margin: 0; max-width: 110ch; }
+
+/* reveal */
+.rv { opacity: 0; transform: translateY(18px); transition: opacity .8s ease, transform .8s ease; }
+.rv.in { opacity: 1; transform: none; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1100px) {
+  .times { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .amen { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 900px) {
+  .bar nav { display: none; }
+  .hero::after { background: linear-gradient(0deg, rgba(8,28,26,.96) 0%, rgba(8,28,26,.75) 50%, rgba(8,28,26,.35) 75%, rgba(8,28,26,.55) 100%); }
+  .hero .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero .stats div { padding-bottom: 14px; }
+  .stage { height: auto; min-height: 0; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; }
+  .stage .left { height: 92svh; min-height: 560px; }
+  .stage .intro { top: 78px; right: var(--gut); max-width: none; }
+  .stage .intro h2 { font-size: 30px; }
+  .stage .intro p { display: none; }
+  .tower { inset: 150px 0 40px 0; height: calc(100% - 190px); }
+  .floorview { inset: 72px 0 0 0; padding: 14px 16px; }
+  .plate .frame { max-width: none; }
+  .panel { border-left: 0; border-top: 1px solid var(--line); padding: 22px 16px 0; max-height: none; }
+  .list { max-height: 70svh; margin: 0 -16px; padding: 0 16px 24px; }
+  .card { overflow: visible; }
+  .tour { grid-template-columns: minmax(0, 1fr); }
+  .tplan { position: absolute; z-index: 4; top: 64px; right: 12px; width: 52vw; max-width: 240px; padding: 8px; gap: 6px; border: 1px solid var(--line); border-radius: 12px; background: rgba(16,48,45,.9); grid-template-rows: auto auto; }
+  .tplan .ph span, .tspecs, .stops, .tplan .acts { display: none; }
+  .tplan .ph b { font-size: 14px; }
+  .roomcap { bottom: 80px; }
+  .roomcap h2 { font-size: 40px; }
+  .roomcap p { font-size: 15px; }
+  .calc, .split, .ranks, .contact { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .ways { grid-template-columns: minmax(0, 1fr); }
+  .mstats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ticks { grid-template-columns: 1fr; }
+  section.read { padding: 80px var(--gut); }
+}
+@media (max-width: 560px) {
+  :root { --gut: 16px; }
+  .bar .pill.glow { padding: 11px 14px; }
+  .hero h1 { font-size: 46px; }
+  .times { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .amen { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .amen-hero img { aspect-ratio: 4/3; }
+  .inputs, .outputs { padding: 20px; }
+  form.lead .two { grid-template-columns: 1fr; }
+  .card h3 { font-size: 52px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .rv { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="bar" id="bar">
+  <a class="logo" href="#top" aria-label="AIRA Suites, back to top"><img src="img/logo-white.png" alt="AIRA" width="260" height="83"></a>
+  <nav aria-label="Sections">
+    <a href="#suites">Suites</a>
+    <a href="#returns">Returns</a>
+    <a href="#operator">Operation</a>
+    <a href="#cartagena">Cartagena</a>
+    <a href="#amenities">Amenities</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a class="pill glow" href="#suites">Pick a suite</a>
+</header>
+
+<!-- hero -->
+<section class="hero" id="top">
+  <img src="img/hero.jpg" alt="AIRA tower rising above the green lot between the Caribbean and Cartagena's skyline" fetchpriority="high">
+  <div class="in">
+    <div class="eyebrow">Cartagena de Indias · Licensed for short-term rental</div>
+    <h1>A suite by the Caribbean <em>that earns while you're away.</em></h1>
+    <p class="lede">AIRA is a 15-floor tower of 77 furnished suites, minutes from Marbella beach and the walled city. It is licensed for tourist rental and run end to end by an exclusive operator. Pick an available suite on the tower, fly to its floor and walk through it.</p>
+    <div class="cta">
+      <a class="pill glow" href="#suites">See available suites</a>
+      <a class="pill" href="#returns">Run the numbers</a>
+    </div>
+    <div class="stats">
+      <div><b class="num" id="statAvail">55</b><span>Suites available of 77</span></div>
+      <div><b class="num">COP 435M</b><span>Starting price</span></div>
+      <div><b class="num">32–40 m²</b><span>Delivered furnished</span></div>
+      <div><b>Be Happy</b><span>Exclusive rental operator</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- tower picker -->
+<section class="stage" id="suites" aria-label="Pick a suite on the tower">
+  <div class="left" id="left">
+    <div class="intro">
+      <div class="eyebrow">Live availability</div>
+      <h2>Every lit window <em>is for sale.</em></h2>
+      <p>Hover a window or a row in the list. Choose one and we fly to its floor, then walk you through the suite.</p>
+    </div>
+    <svg class="tower" id="tower" viewBox="30 40 700 1000" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Front elevation of the AIRA tower. Lit windows are available suites."></svg>
+    <div class="legend" aria-hidden="true">
+      <span><i style="background:linear-gradient(#f6dca8,#e6b86a)"></i>Available</span>
+      <span><i style="background:var(--sold)"></i>Sold</span>
+      <span>Column 01 = Type A, with private jacuzzi</span>
+    </div>
+    <div class="tip" id="tip"></div>
+
+    <div class="floorview" id="floorview" aria-live="polite">
+      <div class="fv-head">
+        <div class="t"><b id="fvNum">12</b><span>Floor<br><span id="fvAvail">4 of 7 available</span></span></div>
+        <div class="steps">
+          <button type="button" id="fDown" aria-label="One floor down">▼ Down</button>
+          <button type="button" id="fUp" aria-label="One floor up">▲ Up</button>
+          <button type="button" id="fBack">Tower</button>
+        </div>
+      </div>
+      <div class="plate">
+        <div class="frame" id="frame">
+          <img src="img/floorplate.webp" alt="Typical floor plate with seven suites numbered 01 to 07 from left to right, terraces facing the street">
+        </div>
+      </div>
+      <div class="fv-foot"><span>Typical floor plate · suites 01 to 07 · terraces on the facade side</span><span>Tap another suite on this floor to compare</span></div>
+    </div>
+  </div>
+
+  <aside class="panel" aria-label="Suites">
+    <div class="ph"><h3 id="panelTitle">Available suites</h3><span id="panelCount" class="num">55 / 77</span></div>
+    <div class="chips" role="group" aria-label="Filter suites">
+      <button class="chip" type="button" data-f="all" aria-pressed="true">All</button>
+      <button class="chip" type="button" data-f="A" aria-pressed="false">Type A · jacuzzi</button>
+      <button class="chip" type="button" data-f="B" aria-pressed="false">Type B</button>
+      <button class="chip" type="button" data-f="sold" aria-pressed="false">Show sold</button>
+    </div>
+    <div class="list" id="list"></div>
+
+    <div class="card" id="card">
+      <div class="type" id="cType">Suite type B</div>
+      <h3 class="num" id="cNum">1403</h3>
+      <p class="sub" id="cSub">Floor 14 · outdoor area, bedroom, living room, bathroom, kitchen and dining</p>
+      <dl>
+        <dt>Total area</dt><dd id="cArea">32.35 m²</dd>
+        <dt>Price</dt><dd id="cPrice">COP 461,117,062</dd>
+        <dt>Price per m²</dt><dd id="cM2">COP 14.25M</dd>
+        <dt>Approx. in USD</dt><dd id="cUsd">US$ 115,000</dd>
+        <dt>Status</dt><dd><span style="color:var(--mint)">Available</span></dd>
+      </dl>
+      <div class="earn" id="cEarn"><b>~ COP 3.1M / month</b>Estimated net rental income with the default assumptions. <a href="#returns">Adjust them</a>.</div>
+      <div class="acts">
+        <button class="pill glow" type="button" id="cTour">Step inside · start the tour</button>
+        <a class="pill" id="cWa" href="#" target="_blank" rel="noopener">Reserve on WhatsApp</a>
+      </div>
+      <div class="thumb"><img id="cPlan" src="img/plan-b.jpg" alt="Suite plan"></div>
+    </div>
+  </aside>
+</section>
+
+<!-- the tour -->
+<div class="tour" id="tour" role="dialog" aria-modal="true" aria-label="Walk through the suite" aria-hidden="true">
+  <div class="view" id="view">
+    <div class="flash" id="flash"></div>
+    <div class="tbar">
+      <div class="who">Suite <b id="tNum">1403</b> · Floor <b id="tFloor">14</b></div>
+      <div class="ctl">
+        <button type="button" id="tClose">Back to the floor</button>
+      </div>
+    </div>
+    <div class="roomcap" aria-live="polite">
+      <div class="k num" id="rk">01 / 06</div>
+      <h2 id="rname">Arrival</h2>
+      <p id="rtext"></p>
+    </div>
+    <div class="vctl">
+      <div class="ctl">
+        <button type="button" id="tPrev" aria-label="Previous room">←</button>
+        <button type="button" id="tPlay" aria-label="Pause the tour">Pause</button>
+        <button type="button" id="tNext" aria-label="Next room">→</button>
+      </div>
+      <div class="progress" id="progress"></div>
+    </div>
+  </div>
+  <aside class="tplan" aria-label="Suite plan">
+    <div class="ph"><b id="tpTitle">Suite type B</b><span id="tpArea">32.35 m²</span></div>
+    <div class="pwrap" id="pwrap">
+      <img id="tpImg" src="img/plan-b.jpg" alt="Plan of the suite with the current room highlighted">
+      <div class="zone off" id="zone"></div>
+      <div class="where" id="where">Ground floor · Lobby</div>
+    </div>
+    <div class="tspecs">
+      <div><b class="num" id="tsPrice">461M</b><span>COP</span></div>
+      <div><b class="num" id="tsM2">14.3M</b><span>COP / m²</span></div>
+      <div><b class="num" id="tsNet">3.1M</b><span>Net / month*</span></div>
+    </div>
+    <ol class="stops" id="stops"></ol>
+    <div class="acts">
+      <a class="pill glow" id="tWa" href="#" target="_blank" rel="noopener">Reserve</a>
+      <button class="pill" type="button" id="tCalc">Returns</button>
+    </div>
+  </aside>
+</div>
+
+<!-- returns -->
+<section class="read" id="returns">
+  <div class="wrap">
+    <div class="kick rv">The investment</div>
+    <h2 class="big rv">Run the numbers <em>on a real suite.</em></h2>
+    <p class="lede2 rv">Prices are AIRA's published list prices. The rental figures are your own assumptions. Set the nightly rate, occupancy and costs you believe in and see what the suite returns each year.</p>
+
+    <div class="calc">
+      <div class="inputs rv">
+        <div class="field">
+          <label for="kSuite">Suite</label>
+          <select id="kSuite"></select>
+          <span class="hint" id="kSuiteHint">Type B · 32.35 m² · COP 461,117,062</span>
+        </div>
+        <div class="field">
+          <label for="kRate">Average nightly rate <output id="oRate" class="num">COP 300,000</output></label>
+          <input type="range" id="kRate" min="150000" max="700000" step="10000" value="300000">
+        </div>
+        <div class="field">
+          <label for="kOcc">Occupancy <output id="oOcc" class="num">62%</output></label>
+          <input type="range" id="kOcc" min="30" max="90" step="1" value="62">
+        </div>
+        <div class="field">
+          <label for="kFee">Operator fee on revenue <output id="oFee" class="num">25%</output></label>
+          <input type="range" id="kFee" min="10" max="40" step="1" value="25">
+        </div>
+        <div class="field">
+          <label for="kCost">Monthly fixed costs <output id="oCost" class="num">COP 900,000</output></label>
+          <input type="range" id="kCost" min="0" max="3000000" step="50000" value="900000">
+          <span class="hint">Building fees, utilities, property tax and insurance, if not covered by the operator.</span>
+        </div>
+        <div class="field">
+          <label for="kFx">COP per US dollar</label>
+          <input type="number" id="kFx" min="1000" max="10000" step="10" value="4000" inputmode="numeric">
+          <span class="hint">Used only to show approximate US dollar figures. Set your own exchange rate.</span>
+        </div>
+      </div>
+
+      <div class="outputs rv">
+        <div class="yield"><b class="num" id="yNet">8.2%</b><span>Estimated net yield a year on the purchase price</span></div>
+        <dl class="ledger">
+          <dt>Nights booked a year</dt><dd class="num" id="lNights">226</dd>
+          <dt>Gross rental revenue</dt><dd class="num" id="lGross">COP 67.9M</dd>
+          <dt>Operator fee</dt><dd class="num" id="lFee">− COP 17.0M</dd>
+          <dt>Fixed costs</dt><dd class="num" id="lCost">− COP 10.8M</dd>
+          <dt class="tot">Net income a year</dt><dd class="num tot" id="lNet">COP 40.1M</dd>
+          <dt>Net income a month</dt><dd class="num" id="lMonth">COP 3.3M</dd>
+          <dt>In US dollars, a year</dt><dd class="num" id="lUsd">US$ 10,000</dd>
+          <dt>Years to recover the price from rent</dt><dd class="num" id="lPay">12.2</dd>
+        </dl>
+        <div class="flow" aria-hidden="true">
+          <div class="bar2"><i id="bNet" style="background:var(--glow)"></i><i id="bFee" style="background:#4f8f86"></i><i id="bCost" style="background:#2f5753"></i></div>
+          <div class="keys"><span><i style="background:var(--glow)"></i>To you</span><span><i style="background:#4f8f86"></i>Operator</span><span><i style="background:#2f5753"></i>Fixed costs</span></div>
+        </div>
+        <p class="fine">This is an illustration, not a forecast or a promise of return. AIRA and its operator do not guarantee rental income. Ask the sales team for the operator's contract, fees and real performance data before you invest.</p>
+      </div>
+    </div>
+
+    <div class="ways">
+      <div class="way rv"><b>Rent it short-term</b><p>Hand the suite to Be Happy, the building's exclusive operator. They list it, take bookings, clean it, maintain it and pay you your share.</p></div>
+      <div class="way rv"><b>Use it yourself</b><p>Keep it as your own place by the sea in Cartagena, furnished and ready from day one.</p></div>
+      <div class="way rv"><b>Mix the two</b><p>Block the weeks you want to be there and let it earn for the rest of the year. AIRA is designed so each owner chooses.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- operator -->
+<section class="read" id="operator">
+  <div class="wrap split">
+    <div>
+      <div class="kick rv">The operation</div>
+      <h2 class="big rv">One operator. <em>Nothing for you to run.</em></h2>
+      <p class="lede2 rv">Be Happy is a specialist in managing real estate assets and the only operator authorised in AIRA. You get the earnings without the work of running a rental.</p>
+      <ul class="ticks rv">
+        <li>Booking system and channel management</li>
+        <li>Guest supplies, cleaning and laundry</li>
+        <li>Maintenance of suites, building and common areas</li>
+        <li>Security, surveillance and insurance</li>
+        <li>Licences, permits and tourism fund</li>
+        <li>Accounting, external audit and taxes</li>
+        <li>Marketing, photography and listings</li>
+        <li>Customer service around the clock</li>
+      </ul>
+    </div>
+    <img class="rv" src="img/entrance.jpg" alt="AIRA's entrance with tropical planting and a timber-clad podium" loading="lazy">
+  </div>
+</section>
+
+<!-- cartagena -->
+<section class="read" id="cartagena">
+  <div class="wrap">
+    <div class="kick rv">The market</div>
+    <h2 class="big rv">Cartagena fills up <em>all year</em>, not only in high season.</h2>
+    <p class="lede2 rv">Holidays, conferences, cruises and weddings bring a steady flow of visitors who need somewhere to stay. That demand doesn't guarantee results, but it supports the case for owning a rental here.</p>
+    <div class="mstats rv">
+      <div><b class="num">5.8M</b><span>Tourists visited Cartagena in 2023</span></div>
+      <div><b class="num">+57%</b><span>More foreign visitors in 2024 than in 2023</span></div>
+      <div><b class="num">+84%</b><span>Growth in passenger arrivals, national and international, in 2023</span></div>
+      <div><b class="num">91%</b><span>Of non-resident foreigners arrive for tourism</span></div>
+    </div>
+    <div class="ranks">
+      <img class="rv" src="img/oldcity.jpg" alt="Cartagena's walled city and cathedral domes against the Caribbean" loading="lazy">
+      <div class="rv">
+        <div class="rank"><b>1st</b><p>Holiday and corporate destination in Colombia<small>20th in the Americas in the ICCA events and conventions ranking</small></p></div>
+        <div class="rank"><b>3rd</b><p>Most desired city in the Americas<small>Wanderlust Travel Awards</small></p></div>
+        <div class="rank"><b>4th</b><p>Most popular tourist destination in South America</p></div>
+        <div class="rank"><b>4th</b><p>In Colombia's Regional Tourism Competitiveness Index<small>2023 edition</small></p></div>
+        <div class="rank"><b>1984</b><p>Year the walled city became a UNESCO World Heritage Site</p></div>
+      </div>
+    </div>
+    <div class="near">
+      <h3>Close to everything a guest wants</h3>
+      <p>Approximate driving times from AIRA, between Marbella beach and the Cabrero lagoon.</p>
+      <div class="times rv">
+        <div><b class="num">2<small>min</small></b><span>Cabrero lagoon</span></div>
+        <div><b class="num">3<small>min</small></b><span>Marbella beach</span></div>
+        <div><b class="num">3<small>min</small></b><span>Malecón del Mar seafront</span></div>
+        <div><b class="num">7<small>min</small></b><span>Walled historic centre</span></div>
+        <div><b class="num">8<small>min</small></b><span>Rafael Núñez airport</span></div>
+        <div><b class="num">8<small>min</small></b><span>Bocagrande</span></div>
+        <div><b class="num">8<small>min</small></b><span>La Serrezuela mall</span></div>
+      </div>
+    </div>
+    <p class="src">Sources quoted in AIRA's brochure: Corpoturismo, Invest in Cartagena.</p>
+  </div>
+</section>
+
+<!-- amenities -->
+<section class="read" id="amenities">
+  <div class="wrap">
+    <div class="kick rv">Amenities</div>
+    <h2 class="big rv">What makes guests <em>book again.</em></h2>
+    <p class="lede2 rv">The amenities aren't the product. They make the suites more competitive on rental platforms and keep occupancy up.</p>
+    <figure class="amen-hero rv">
+      <img src="img/rooftop.jpg" alt="Rooftop infinity pool and sun deck looking over Cartagena's coastline" loading="lazy">
+      <figcaption>Rooftop pool and sun deck</figcaption>
+    </figure>
+    <div class="amen rv">
+      <figure><img src="img/am-pool.jpg" alt="" loading="lazy"><figcaption>Swimming pool</figcaption></figure>
+      <figure><img src="img/am-gym.jpg" alt="" loading="lazy"><figcaption>Equipped gym</figcaption></figure>
+      <figure><img src="img/am-turkish.jpg" alt="" loading="lazy"><figcaption>Turkish bath</figcaption></figure>
+      <figure><img src="img/am-jacuzzi.jpg" alt="" loading="lazy"><figcaption>Jacuzzi</figcaption></figure>
+      <figure><img src="img/am-breakfast.jpg" alt="" loading="lazy"><figcaption>Breakfast area</figcaption></figure>
+      <figure><img src="img/am-laundry.jpg" alt="" loading="lazy"><figcaption>Laundry and pet wash</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- contact -->
+<section class="read" id="contact">
+  <div class="wrap contact">
+    <div>
+      <div class="kick rv">Talk to the sales team</div>
+      <h2 class="big rv">Reserve a suite <em>or ask for the brochure.</em></h2>
+      <p class="lede2 rv">Tell us which suite you like and how you want to use it. The team replies on WhatsApp with the payment plan, the trust details and the operator's terms.</p>
+      <div class="reach rv">
+        <a href="https://wa.me/573332786726" target="_blank" rel="noopener"><span>WhatsApp</span><b>+57 333 278 6726</b></a>
+        <a href="tel:+573177640814"><span>Phone</span><b>+57 317 764 0814</b></a>
+        <a href="mailto:info@airacartagena.com"><span>Email</span><b>info@airacartagena.com</b></a>
+        <div><span>Sales room</span><b>Centro Comercial Bocagrande, local 316 · Av. San Martín #8-16, Bocagrande</b></div>
+        <a href="https://www.airacartagena.com/wp-content/uploads/2025/01/AIRA_BROCHURE.pdf" target="_blank" rel="noopener"><span>Brochure</span><b>Download the PDF (21 MB)</b></a>
+        <a href="https://www.instagram.com/airasuites_/" target="_blank" rel="noopener"><span>Instagram</span><b>@airasuites_</b></a>
+      </div>
+    </div>
+    <form class="lead rv" id="lead">
+      <div class="two">
+        <label>Name<input name="name" autocomplete="name" required></label>
+        <label>Country<input name="country" autocomplete="country-name"></label>
+      </div>
+      <label>Suite you're interested in<select name="suite" id="leadSuite"><option value="">Not sure yet</option></select></label>
+      <label>How you plan to use it
+        <select name="use">
+          <option>Short-term rental with the operator</option>
+          <option>Personal use</option>
+          <option>A mix of both</option>
+        </select>
+      </label>
+      <label>Budget
+        <select name="budget">
+          <option>COP 430M – 470M</option>
+          <option>COP 470M – 510M</option>
+          <option>Over COP 510M</option>
+          <option>More than one suite</option>
+        </select>
+      </label>
+      <button class="pill glow" type="submit">Send on WhatsApp</button>
+      <p class="fine" style="color:var(--fog-dim)">Opens WhatsApp with your message ready to send. Nothing is stored on this page.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="top"><img src="img/logo-white.png" alt="AIRA" width="260" height="83"><span>Invest · Enjoy · Relax</span></div>
+    <p>Renders and photographs are artistic interpretations and may differ from the finished building. Suite specifications are set out in each purchase promise contract. Suites are delivered furnished. Prices and availability are taken from AIRA's published list and may change. Confirm them with the sales team. Rental estimates on this page are illustrative and not guaranteed.</p>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   DATA: AIRA's published list (floor 4 to 14, suites 01 to 07)
+   [suite, available, total m², price COP]
+========================================================= */
+const RAW = [["1401",0,0,0],["1402",0,0,0],["1403",1,32.35,461117062],["1404",1,32.5,463255163],["1405",1,33.5,477509168],["1406",1,34.7,494613974],["1407",1,35.5,506017178],["1301",0,0,0],["1302",0,0,0],["1303",0,0,0],["1304",1,33.5,474632623],["1305",0,0,0],["1306",1,33.7,477466251],["1307",0,0,0],["1201",0,0,0],["1202",1,32.7,460490229],["1203",0,0,0],["1204",1,32.5,457673775],["1205",1,33.5,471756045],["1206",1,34.7,488654769],["1207",0,0,0],["1101",0,0,0],["1102",0,0,0],["1103",1,33.5,468879501],["1104",1,33.5,468879501],["1105",1,32.5,454883098],["1106",0,0,0],["1107",1,36.5,510868710],["1001",0,0,0],["1002",0,0,0],["1003",1,32.35,450005807],["1004",1,32.5,452092388],["1005",0,0,0],["1006",1,34.7,482695565],["1007",1,35.5,493823993],["901",0,0,0],["902",0,0,0],["903",1,33.5,463126378],["904",1,33.5,463126378],["905",1,32.5,449301710],["906",0,0,0],["907",1,36.5,504600382],["801",1,40.0,549552000],["802",1,32.7,449258760],["803",1,32.35,444450180],["804",1,32.5,446511000],["805",1,33.5,460249800],["806",1,34.7,476736360],["807",0,0,0],["701",1,38.0,518811454],["702",1,32.3,440989736],["703",1,33.5,457373256],["704",1,33.5,457373256],["705",1,32.5,443720323],["706",1,33.7,460103842],["707",1,36.5,498332055],["601",1,40.0,542682600],["602",1,32.7,443643026],["603",1,32.35,438894553],["604",1,32.5,440929613],["605",1,33.5,454496678],["606",1,34.7,470777156],["607",1,35.5,481630808],["501",0,0,0],["502",1,32.3,435442695],["503",1,33.5,451620133],["504",1,33.5,451620133],["505",1,32.5,438138935],["506",1,33.7,454316373],["507",1,36.5,492063727],["401",1,40.0,535813200],["402",1,32.7,438027291],["403",0,0,0],["404",1,32.5,435348225],["405",1,33.5,448743555],["406",1,34.7,464817951],["407",1,35.5,475534215]];
+const WA = '573332786726';
+const SUITES = RAW.map(([id, av, area, price]) => {
+  const floor = Math.floor(+id / 100), col = +id % 100;
+  return { id, floor, col, av: !!av, area, price, type: col === 1 ? 'A' : 'B', m2: area ? price / area : 0 };
+});
+const byId = Object.fromEntries(SUITES.map(s => [s.id, s]));
+const FLOORS = []; for (let f = 14; f >= 4; f--) FLOORS.push(f);
+const AVAIL = SUITES.filter(s => s.av);
+
+const TYPE = {
+  A: { name: 'Suite type A', plan: 'img/plan-a.jpg', rooms: 'Outdoor area, private indoor jacuzzi, bedroom, living room, bathroom, kitchen and dining', rate: 360000 },
+  B: { name: 'Suite type B', plan: 'img/plan-b.jpg', rooms: 'Outdoor area, bedroom, living room, bathroom, kitchen and dining', rate: 300000 },
+};
+
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id);
+const NS = 'http://www.w3.org/2000/svg';
+const svgEl = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+const fmt = n => Math.round(n).toLocaleString('en-US');
+const cop = n => 'COP ' + fmt(n);
+const copM = (n, d = 1) => 'COP ' + (n / 1e6).toFixed(d) + 'M';
+const mOnly = (n, d = 1) => (n / 1e6).toFixed(d) + 'M';
+const usd = n => 'US$ ' + fmt(Math.round(n / 500) * 500);
+const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+const waLink = text => `https://wa.me/${WA}?text=${encodeURIComponent(text)}`;
+
+$('statAvail').textContent = AVAIL.length;
+
+/* =========================================================
+   TOWER: a front elevation drawn after AIRA's facade drawing:
+   rooftop pergola + pool, 11 suite floors with wavy fins, podium.
+========================================================= */
+const tower = $('tower');
+const X0 = 130, BAY = 56, X1 = X0 + BAY * 7;    // 7 suites across
+const FT = 58;                                   // floor height
+const Y14 = 200;                                 // top of floor 14
+const fTop = f => Y14 + (14 - f) * FT;
+const PODIUM_TOP = fTop(3);                       // y where floor 3 starts
+const GROUND = PODIUM_TOP + 3 * 54;
+
+(function drawTower() {
+  const defs = svgEl('defs', {}, tower);
+  const g1 = svgEl('linearGradient', { id: 'warm', x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+  svgEl('stop', { offset: 0, 'stop-color': '#fbe6bd' }, g1);
+  svgEl('stop', { offset: 1, 'stop-color': '#e6b467' }, g1);
+  const g2 = svgEl('linearGradient', { id: 'sea', x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+  svgEl('stop', { offset: 0, 'stop-color': '#0f3433' }, g2);
+  svgEl('stop', { offset: 1, 'stop-color': '#081c1b' }, g2);
+
+  // ground + palms
+  svgEl('rect', { x: -400, y: GROUND, width: 1440, height: 200, fill: 'url(#sea)' }, tower);
+  const palm = (x, h) => {
+    const g = svgEl('g', { class: 'palm' }, tower);
+    svgEl('rect', { x: x - 2, y: GROUND - h, width: 4, height: h }, g);
+    for (let a = -150; a <= -30; a += 30) {
+      const r = a * Math.PI / 180;
+      svgEl('ellipse', { cx: x + Math.cos(r) * 16, cy: GROUND - h + Math.sin(r) * 9 + 4, rx: 18, ry: 4, transform: `rotate(${a + 90} ${x + Math.cos(r) * 16} ${GROUND - h + Math.sin(r) * 9 + 4})` }, g);
+    }
+  };
+
+  // side core (the solid wall seen on the left of the renders)
+  svgEl('rect', { class: 'core', x: X0 - 34, y: Y14 - 20, width: 34, height: GROUND - Y14 + 20 }, tower);
+  for (let f = 14; f >= 4; f--) svgEl('rect', { x: X0 - 24, y: fTop(f) + 14, width: 10, height: FT - 28, fill: '#24504f' }, tower);
+
+  // rooftop: pergola, pool and amenities
+  const RT = Y14 - 76;
+  svgEl('rect', { class: 'wall', x: X0 + BAY * 3, y: RT + 14, width: BAY * 4, height: 62 }, tower);
+  svgEl('rect', { x: X0 + BAY * 3 + 8, y: RT + 30, width: BAY * 4 - 16, height: 34, fill: '#f0cf92', opacity: .22 }, tower);
+  for (let i = 0; i <= 8; i++) svgEl('line', { class: 'pergola', x1: X0 + BAY * 3 + i * (BAY * 4 / 8), y1: RT + 8, x2: X0 + BAY * 3 + i * (BAY * 4 / 8), y2: RT + 18 }, tower);
+  svgEl('rect', { x: X0 + BAY * 3 - 6, y: RT + 4, width: BAY * 4 + 12, height: 6, fill: '#e2dccd' }, tower);
+  svgEl('rect', { class: 'pool', x: X0 + 10, y: Y14 - 18, width: BAY * 3 - 20, height: 10, rx: 2 }, tower);
+  svgEl('line', { x1: X0 + 4, y1: Y14 - 28, x2: X0 + BAY * 3, y2: Y14 - 28, stroke: 'rgba(231,239,236,.35)', 'stroke-width': 1.5 }, tower);
+  const rt = svgEl('text', { class: 'tag', x: X1 + 26, y: RT + 34 }, tower); rt.textContent = 'Rooftop';
+  const rt2 = svgEl('text', { class: 'tag', x: X1 + 26, y: RT + 50, style: 'letter-spacing:.04em;text-transform:none;font-weight:500' }, tower); rt2.textContent = 'Pool · jacuzzi · gym · Turkish bath';
+
+  // suite floors
+  const units = svgEl('g', { id: 'units' }, tower);
+  FLOORS.forEach(f => {
+    const top = fTop(f);
+    // floor label
+    const fl = svgEl('text', { class: 'flabel', x: X0 - 48, y: top + FT / 2, 'data-floor': f }, tower); fl.textContent = f;
+    fl.addEventListener('click', () => { const s = SUITES.find(x => x.floor === f && x.av) || SUITES.find(x => x.floor === f); select(s.id); });
+    for (let c = 1; c <= 7; c++) {
+      const s = byId[String(f * 100 + c)];
+      const x = X0 + (c - 1) * BAY;
+      const g = svgEl('g', { class: 'u ' + (s.av ? 'av' : 'sold'), 'data-id': s.id, tabindex: s.av ? 0 : -1, role: 'button', 'aria-label': s.av ? `Suite ${s.id}, type ${s.type}, ${s.area} square metres, ${cop(s.price)}` : `Suite ${s.id}, sold` }, units);
+      svgEl('rect', { class: 'g', x: x + 5, y: top + 5, width: BAY - 10, height: FT - 12, rx: 2 }, g);
+      svgEl('line', { class: 'rail', x1: x + 5, y1: top + FT * .62, x2: x + BAY - 5, y2: top + FT * .62 }, g);
+      const t = svgEl('text', { x: x + BAY / 2, y: top + FT * .34 }, g); t.textContent = s.id;
+      s.g = g;
+    }
+    // slab under the floor
+    svgEl('rect', { class: 'slab-shadow', x: X0 - 8, y: top + FT - 4, width: X1 - X0 + 16, height: 8 }, tower);
+    svgEl('rect', { class: 'slab', x: X0 - 10, y: top + FT - 7, width: X1 - X0 + 20, height: 6, rx: 1 }, tower);
+  });
+  // roof slab of floor 14
+  svgEl('rect', { class: 'slab', x: X0 - 10, y: Y14 - 7, width: X1 - X0 + 20, height: 7, rx: 1 }, tower);
+
+  // wavy fins between bays (AIRA's facade signature)
+  for (let c = 0; c <= 7; c++) {
+    const x = X0 + c * BAY;
+    let d = `M${x} ${Y14 - 4}`;
+    FLOORS.forEach((f, i) => { const off = (i % 2 ? 1 : -1) * (c === 0 || c === 7 ? 2 : 6); d += ` L${x + off} ${fTop(f) + FT / 2} L${x} ${fTop(f) + FT - 4}`; });
+    svgEl('path', { class: 'fin', d }, tower);
+  }
+
+  // hanging vines, as in the renders
+  [[3, 13, 3], [4, 12, 4], [2, 9, 3], [3, 8, 2], [6, 6, 3], [5, 5, 2]].forEach(([c, f, n]) => {
+    const x = X0 + c * BAY;
+    for (let k = 0; k < n * 5; k++) {
+      const y = fTop(f) + 4 + k * (FT * n / (n * 5));
+      svgEl('ellipse', { class: 'vine', cx: x + Math.sin(k * 1.7) * 3, cy: y, rx: 3.6, ry: 6 }, tower);
+    }
+  });
+
+  // podium: floors 1 to 3 (lobby, breakfast area, parking)
+  svgEl('rect', { class: 'wall', x: X0 - 34, y: PODIUM_TOP, width: X1 - X0 + 34 + 70, height: GROUND - PODIUM_TOP }, tower);
+  svgEl('rect', { class: 'wood', x: X0 - 34, y: PODIUM_TOP + 6, width: X1 - X0 + 34 + 70, height: 92 }, tower);
+  for (let x = X0 - 30; x < X1 + 70; x += 7) svgEl('line', { class: 'wood-line', x1: x, y1: PODIUM_TOP + 6, x2: x, y2: PODIUM_TOP + 98 }, tower);
+  svgEl('rect', { class: 'slab', x: X0 - 40, y: PODIUM_TOP, width: X1 - X0 + 40 + 80, height: 7 }, tower);
+  svgEl('rect', { class: 'glass-lobby', x: X0 + BAY * 4, y: PODIUM_TOP + 104, width: BAY * 2, height: GROUND - PODIUM_TOP - 104 }, tower);
+  for (let i = 1; i < 4; i++) svgEl('line', { x1: X0 + BAY * 4 + i * BAY / 2, y1: PODIUM_TOP + 104, x2: X0 + BAY * 4 + i * BAY / 2, y2: GROUND, stroke: '#7a5236', 'stroke-width': 2 }, tower);
+  svgEl('rect', { class: 'glass-dark', x: X0 + 10, y: PODIUM_TOP + 112, width: BAY * 3, height: GROUND - PODIUM_TOP - 122 }, tower);
+  const pt = svgEl('text', { class: 'tag', x: X1 + 26, y: PODIUM_TOP + 30 }, tower); pt.textContent = 'Podium';
+  const pt2 = svgEl('text', { class: 'tag', x: X1 + 26, y: PODIUM_TOP + 46, style: 'letter-spacing:.04em;text-transform:none;font-weight:500' }, tower); pt2.textContent = 'Lobby · breakfast · laundry';
+  const st = svgEl('text', { class: 'tag', x: X1 + 26, y: fTop(14) + 20 }, tower); st.textContent = 'Suites';
+  const st2 = svgEl('text', { class: 'tag', x: X1 + 26, y: fTop(14) + 36, style: 'letter-spacing:.04em;text-transform:none;font-weight:500' }, tower); st2.textContent = 'Floors 4 to 14';
+
+  palm(X0 - 70, 88); palm(X0 - 52, 64); palm(X1 + 60, 96); palm(X1 + 86, 70);
+  svgEl('rect', { class: 'ground', x: -400, y: GROUND, width: 1440, height: 4 }, tower);
+})();
+
+/* ---------- the light climbs: available windows switch on floor by floor ---------- */
+let lit = false;
+function lightUp() {
+  if (lit) return; lit = true;
+  const order = [...FLOORS].reverse();
+  order.forEach((f, i) => {
+    setTimeout(() => SUITES.filter(s => s.floor === f && s.av).forEach((s, k) => setTimeout(() => s.g.classList.add('lit'), k * 40)), reduce() ? 0 : 200 + i * 150);
+  });
+}
+new IntersectionObserver((es, o) => { if (es.some(e => e.isIntersecting)) { lightUp(); o.disconnect(); } }, { threshold: .25 }).observe($('suites'));
+
+/* ---------- tooltip + hover links between tower and list ---------- */
+const tip = $('tip'), left = $('left');
+function hot(id, on) {
+  const s = byId[id]; if (!s) return;
+  s.g.classList.toggle('hot', on);
+  if (s.row) s.row.classList.toggle('hot', on);
+}
+function showTip(s, evt) {
+  const r = left.getBoundingClientRect();
+  let x, y;
+  if (evt && evt.clientX) { x = evt.clientX - r.left; y = evt.clientY - r.top; }
+  else { const b = s.g.getBoundingClientRect(); x = b.left + b.width / 2 - r.left; y = b.top - r.top; }
+  tip.innerHTML = s.av
+    ? `<b>Suite ${s.id}</b>Type ${s.type} · ${s.area} m²<br><span class="s">${cop(s.price)}</span>`
+    : `<b>Suite ${s.id}</b><span class="s">Sold</span>`;
+  tip.style.left = Math.min(Math.max(x, 90), r.width - 90) + 'px'; tip.style.top = y + 'px';
+  tip.classList.add('on');
+}
+tower.addEventListener('pointermove', e => {
+  const g = e.target.closest('.u'); if (!g || stage.classList.contains('floor')) { tip.classList.remove('on'); return; }
+  showTip(byId[g.dataset.id], e);
+});
+tower.addEventListener('pointerleave', () => tip.classList.remove('on'));
+tower.addEventListener('pointerover', e => { const g = e.target.closest('.u'); if (g) hot(g.dataset.id, true); });
+tower.addEventListener('pointerout', e => { const g = e.target.closest('.u'); if (g) hot(g.dataset.id, false); });
+tower.addEventListener('click', e => { const g = e.target.closest('.u'); if (g && byId[g.dataset.id].av) select(g.dataset.id); });
+tower.addEventListener('keydown', e => { const g = e.target.closest('.u'); if (g && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); select(g.dataset.id); } });
+tower.addEventListener('focusin', e => { const g = e.target.closest('.u'); if (g) showTip(byId[g.dataset.id]); });
+tower.addEventListener('focusout', () => tip.classList.remove('on'));
+
+/* ---------- the list beside the building ---------- */
+const list = $('list');
+let filter = 'all', showSold = false;
+function buildList() {
+  list.innerHTML = '';
+  let shownAv = 0;
+  FLOORS.forEach(f => {
+    const all = SUITES.filter(s => s.floor === f);
+    const rows = all.filter(s => (showSold || s.av) && (filter === 'all' || s.type === filter));
+    if (!rows.length) return;
+    const avN = all.filter(s => s.av).length;
+    const wrap = document.createElement('div'); wrap.className = 'fl';
+    wrap.innerHTML = `<h4><span>Floor ${f}</span><b>${avN} of 7 available</b></h4>`;
+    rows.forEach(s => {
+      const b = document.createElement('button'); b.type = 'button';
+      b.className = 'row' + (s.av ? '' : ' is-sold') + (s.id === current ? ' sel' : '');
+      b.innerHTML = s.av
+        ? `<span class="n num">${s.id}</span><span class="m"><em>Type ${s.type}</em> · ${s.area} m²${s.type === 'A' ? ' · jacuzzi' : ''}</span><span class="p">${mOnly(s.price)}</span>`
+        : `<span class="n num">${s.id}</span><span class="m">Type ${s.type}</span><span class="p">Sold</span>`;
+      if (s.av) {
+        shownAv++;
+        b.addEventListener('click', () => select(s.id));
+        b.addEventListener('pointerenter', () => { hot(s.id, true); });
+        b.addEventListener('pointerleave', () => { hot(s.id, false); });
+        b.addEventListener('focus', () => hot(s.id, true));
+        b.addEventListener('blur', () => hot(s.id, false));
+      } else b.disabled = true;
+      s.row = b; wrap.appendChild(b);
+    });
+    list.appendChild(wrap);
+  });
+  $('panelCount').textContent = filter === 'all' ? `${AVAIL.length} / 77` : `${shownAv} type ${filter}`;
+  // dim tower cells that don't match the filter
+  SUITES.forEach(s => s.g.classList.toggle('dim', filter !== 'all' && filter !== 'sold' && s.type !== filter));
+}
+document.querySelectorAll('.chip').forEach(ch => ch.addEventListener('click', () => {
+  const f = ch.dataset.f;
+  if (f === 'sold') { showSold = !showSold; ch.setAttribute('aria-pressed', showSold); }
+  else { filter = f; document.querySelectorAll('.chip:not([data-f=sold])').forEach(c => c.setAttribute('aria-pressed', c === ch)); }
+  buildList();
+}));
+
+/* =========================================================
+   CAMERA: animate the SVG viewBox to fly to a floor
+========================================================= */
+const stage = $('suites');
+const HOME = [30, 40, 700, 1000];
+let vb = HOME.slice(), vbAnim = null;
+function setVB(v) { vb = v; tower.setAttribute('viewBox', v.map(n => n.toFixed(2)).join(' ')); }
+function flyTo(target, ms = 1100) {
+  cancelAnimationFrame(vbAnim);
+  if (reduce()) { setVB(target); return Promise.resolve(); }
+  const from = vb.slice(), t0 = performance.now();
+  const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  return new Promise(res => {
+    const step = now => {
+      const t = Math.min(1, (now - t0) / ms), k = ease(t);
+      setVB(from.map((v, i) => v + (target[i] - v) * k));
+      if (t < 1) vbAnim = requestAnimationFrame(step); else res();
+    };
+    vbAnim = requestAnimationFrame(step);
+  });
+}
+function floorVB(f) {
+  const r = tower.getBoundingClientRect();
+  const w = 520, h = Math.max(160, w * (r.height / Math.max(r.width, 1)));
+  const cy = fTop(f) + FT / 2;
+  return [X0 + BAY * 3.5 - w / 2, cy - h / 2, w, h];
+}
+
+/* =========================================================
+   FLOOR VIEW + SUITE CARD
+========================================================= */
+let current = null;
+const COLS = [[3.8, 15.8], [15.8, 28.8], [28.8, 42], [42, 55], [55, 68.3], [68.3, 82.5], [82.5, 96.3]];
+const frame = $('frame');
+const hits = COLS.map(([a, b], i) => {
+  const h = document.createElement('button'); h.type = 'button'; h.className = 'hit';
+  h.style.left = a + '%'; h.style.width = (b - a) + '%';
+  h.addEventListener('click', () => { const s = byId[String(curFloor * 100 + i + 1)]; if (s.av) select(s.id, { stay: true }); });
+  frame.appendChild(h); return h;
+});
+let curFloor = 14;
+
+function paintFloor(f) {
+  curFloor = f;
+  $('fvNum').textContent = f;
+  const all = SUITES.filter(s => s.floor === f), n = all.filter(s => s.av).length;
+  $('fvAvail').textContent = `${n} of 7 available`;
+  hits.forEach((h, i) => {
+    const s = all[i];
+    h.className = 'hit ' + (s.av ? 'av' : 'sold') + (s.id === current ? ' sel' : '');
+    h.disabled = !s.av;
+    h.setAttribute('aria-label', s.av ? `Suite ${s.id}, type ${s.type}, ${s.area} square metres` : `Suite ${s.id}, sold`);
+  });
+  const fls = FLOORS;
+  $('fUp').disabled = f >= 14; $('fDown').disabled = f <= 4;
+  document.querySelectorAll('.flabel').forEach(t => t.classList.toggle('on', +t.dataset.floor === f));
+  SUITES.forEach(s => s.g.classList.toggle('fade', s.floor !== f));
+}
+
+function paintCard(s) {
+  const T = TYPE[s.type];
+  $('panelTitle').textContent = 'Your suite';
+  $('panelCount').textContent = `Floor ${s.floor}`;
+  $('cType').textContent = T.name + (s.type === 'A' ? ' · private jacuzzi' : '');
+  $('cNum').textContent = s.id;
+  $('cSub').textContent = `Floor ${s.floor} · ${T.rooms.toLowerCase()}`;
+  $('cArea').textContent = s.area + ' m²';
+  $('cPrice').textContent = cop(s.price);
+  $('cM2').textContent = copM(s.m2, 2);
+  $('cUsd').textContent = '≈ ' + usd(s.price / fx());
+  const e = estimate(s);
+  $('cEarn').innerHTML = `<b>≈ ${copM(e.net / 12)} / month</b>Estimated net rental income, ${(e.yield * 100).toFixed(1)}% a year, using the assumptions in the <a href="#returns">returns calculator</a>.`;
+  $('cWa').href = waLink(`Hello, I'd like to reserve suite ${s.id} (floor ${s.floor}, type ${s.type}, ${s.area} m²) at AIRA Cartagena. Could you send me the payment plan?`);
+  $('cPlan').src = T.plan; $('cPlan').alt = `Plan of ${T.name.toLowerCase()}`;
+}
+
+async function select(id, opts = {}) {
+  const s = byId[id]; if (!s || !s.av) return;
+  if (current && byId[current]) { byId[current].g.classList.remove('sel'); byId[current].row && byId[current].row.classList.remove('sel'); }
+  current = id; s.g.classList.add('sel'); s.row && s.row.classList.add('sel');
+  tip.classList.remove('on');
+  history.replaceState(null, '', '#suite-' + id);
+  kSuite.value = id; calc();
+  paintCard(s);
+  const sameFloor = stage.classList.contains('floor') && curFloor === s.floor;
+  if (!opts.stay && !opts.noScroll) {
+    const r = stage.getBoundingClientRect();
+    if (Math.abs(r.top) > 4 && innerWidth > 900) stage.scrollIntoView({ behavior: reduce() ? 'auto' : 'smooth' });
+  }
+  if (sameFloor) { paintFloor(s.floor); return; }
+  stage.classList.remove('floor');
+  paintFloor(s.floor);
+  await flyTo(floorVB(s.floor));
+  stage.classList.add('floor');
+  if (innerWidth <= 900 && !opts.noScroll) $('left').scrollIntoView({ behavior: reduce() ? 'auto' : 'smooth' });
+}
+function goFloor(d) {
+  const f = Math.min(14, Math.max(4, curFloor + d));
+  const s = SUITES.find(x => x.floor === f && x.av);
+  if (s) select(s.id, { stay: true, force: true });
+  else { paintFloor(f); flyTo(floorVB(f), 600); }
+}
+async function backToTower() {
+  stage.classList.remove('floor');
+  SUITES.forEach(s => s.g.classList.remove('fade'));
+  document.querySelectorAll('.flabel').forEach(t => t.classList.remove('on'));
+  $('panelTitle').textContent = 'Available suites';
+  buildList();
+  history.replaceState(null, '', '#suites');
+  await flyTo(HOME, 900);
+}
+$('fUp').addEventListener('click', () => goFloor(1));
+$('fDown').addEventListener('click', () => goFloor(-1));
+$('fBack').addEventListener('click', backToTower);
+addEventListener('resize', () => { if (stage.classList.contains('floor')) setVB(floorVB(curFloor)); });
+
+/* =========================================================
+   THE TOUR: renders from AIRA's brochure, plan alongside
+   zone: [left, top, width, height] in % of each type's plan
+========================================================= */
+const ROOMS = [
+  { name: 'Arrival', where: 'Ground floor · Lobby', img: 'img/lobby.jpg', kb: 'kbIn',
+    text: 'A double-height lobby with a green wall and timber curves. The operator\'s front desk checks your guests in, so you never have to hand over a key.' },
+  { name: 'Living and kitchen', zone: { A: [24, 2, 44, 94], B: [1, 2, 49, 96] }, img: 'img/suite-living.jpg', kb: 'kbR',
+    text: 'The TV wall, a work desk and a bar counter under a pendant lamp, with floor-to-ceiling glass looking over the city.' },
+  { name: 'Living to bedroom', zone: { A: [43, 2, 43, 94], B: [26, 2, 53, 96] }, img: 'img/suite-wide.jpg', kb: 'kbL',
+    text: 'One continuous space from the sofa to the bed, with floor-to-ceiling glass onto the outdoor area. It is easy to clean and easy to turn over between guests.' },
+  { name: 'Bedroom', zone: { A: [66, 2, 20, 94], B: [50, 2, 29, 96] }, img: 'img/suite-bed.jpg', kb: 'kbR',
+    text: 'A queen bed facing the window, a desk for guests who work while they travel, and a terrace with a planted edge beyond the glass.' },
+  { name: 'Rooftop lounge', where: 'Rooftop · Lounge and pool', img: 'img/lounge.jpg', kb: 'kbL',
+    text: 'A shaded lounge under the pergola beside the pool, with the city and the Caribbean on the horizon. This is the photo your guests will post.' },
+  { name: 'Infinity deck', where: 'Rooftop · Sun deck', img: 'img/rooftop.jpg', kb: 'kbIn',
+    text: 'Sun loungers on a timber deck at the water\'s edge of the pool. This is where a suite earns its five-star reviews.' },
+];
+const DUR = 7000;
+const tourEl = $('tour'), view = $('view'), zone = $('zone'), where = $('where');
+ROOMS.forEach((r, i) => {
+  const d = document.createElement('div'); d.className = 'r';
+  d.innerHTML = `<img src="${r.img}" alt="" loading="lazy">`;
+  d.style.setProperty('--kb', r.kb); d.style.setProperty('--dur', DUR + 'ms');
+  view.insertBefore(d, view.querySelector('.tbar')); r.el = d;
+  const li = document.createElement('li');
+  li.innerHTML = `<button class="stop" type="button"><span class="i num">${String(i + 1).padStart(2, '0')}</span><span>${r.name}</span><span class="w">${r.where ? r.where.split(' · ')[0] : 'Suite'}</span></button>`;
+  li.firstChild.addEventListener('click', () => show(i));
+  $('stops').appendChild(li); r.stop = li.firstChild;
+  const bar = document.createElement('i'); bar.innerHTML = '<b></b>'; bar.style.setProperty('--dur', DUR + 'ms');
+  bar.addEventListener('click', () => show(i));
+  $('progress').appendChild(bar); r.bar = bar;
+});
+let ri = 0, timer = null, playing = true, lastFocus = null;
+function show(i) {
+  ri = (i + ROOMS.length) % ROOMS.length;
+  const s = byId[current], r = ROOMS[ri];
+  ROOMS.forEach((q, k) => {
+    q.el.classList.toggle('on', k === ri);
+    q.stop.classList.toggle('on', k === ri);
+    q.bar.classList.toggle('done', k < ri);
+    q.bar.classList.remove('on');
+  });
+  // restart the animations on the active room
+  const img = r.el.firstChild; img.style.animation = 'none'; void img.offsetWidth; img.style.animation = '';
+  void r.bar.offsetWidth; r.bar.classList.add('on');
+  $('rk').textContent = `${String(ri + 1).padStart(2, '0')} / ${String(ROOMS.length).padStart(2, '0')}${r.where ? ' · ' + r.where : ' · Suite ' + s.id}`;
+  $('rname').textContent = r.name; $('rtext').textContent = r.text;
+  if (r.zone) {
+    const [x, y, w, h] = r.zone[s.type];
+    Object.assign(zone.style, { left: `calc(8px + (100% - 16px) * ${x / 100})`, top: `calc(8px + (100% - 16px) * ${y / 100})`, width: `calc((100% - 16px) * ${w / 100})`, height: `calc((100% - 16px) * ${h / 100})` });
+    zone.classList.remove('off'); where.classList.remove('on');
+  } else { zone.classList.add('off'); where.textContent = r.where; where.classList.add('on'); }
+  r.stop.scrollIntoView({ block: 'nearest' });
+  clearTimeout(timer);
+  if (playing && ri < ROOMS.length - 1) timer = setTimeout(() => show(ri + 1), DUR);
+  else if (playing) timer = setTimeout(() => setPlay(false), DUR);
+}
+function setPlay(p) {
+  playing = p; tourEl.classList.toggle('paused', !p);
+  $('tPlay').textContent = p ? 'Pause' : 'Play'; $('tPlay').setAttribute('aria-label', p ? 'Pause the tour' : 'Play the tour');
+  clearTimeout(timer);
+  if (p) { if (ri >= ROOMS.length - 1) show(0); else timer = setTimeout(() => show(ri + 1), DUR * .6); }
+}
+function openTour() {
+  const s = byId[current]; if (!s) return;
+  const T = TYPE[s.type], e = estimate(s);
+  $('tNum').textContent = s.id; $('tFloor').textContent = s.floor;
+  $('tpTitle').textContent = T.name; $('tpArea').textContent = s.area + ' m²';
+  $('tpImg').src = T.plan;
+  $('tsPrice').textContent = mOnly(s.price, 0); $('tsM2').textContent = mOnly(s.m2, 1); $('tsNet').textContent = mOnly(e.net / 12, 1);
+  $('tWa').href = $('cWa').href;
+  lastFocus = document.activeElement;
+  tourEl.classList.add('on'); tourEl.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  if (!reduce()) { const fl = $('flash'); fl.classList.remove('go'); void fl.offsetWidth; fl.classList.add('go'); }
+  playing = true; tourEl.classList.remove('paused'); $('tPlay').textContent = 'Pause';
+  show(0);
+  $('tClose').focus();
+}
+function closeTour() {
+  clearTimeout(timer);
+  tourEl.classList.remove('on'); tourEl.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  if (lastFocus) lastFocus.focus();
+}
+$('cTour').addEventListener('click', openTour);
+$('tClose').addEventListener('click', closeTour);
+$('tPrev').addEventListener('click', () => show(ri - 1));
+$('tNext').addEventListener('click', () => show(ri + 1));
+$('tPlay').addEventListener('click', () => setPlay(!playing));
+$('tCalc').addEventListener('click', () => { closeTour(); $('returns').scrollIntoView({ behavior: reduce() ? 'auto' : 'smooth' }); });
+addEventListener('keydown', e => {
+  if (!tourEl.classList.contains('on')) { if (e.key === 'Escape' && stage.classList.contains('floor')) backToTower(); return; }
+  if (e.key === 'Escape') closeTour();
+  else if (e.key === 'ArrowRight') show(ri + 1);
+  else if (e.key === 'ArrowLeft') show(ri - 1);
+  else if (e.key === ' ' && e.target.tagName !== 'BUTTON') { e.preventDefault(); setPlay(!playing); }
+  else if (e.key === 'Tab') { // keep focus inside the tour
+    const f = [...tourEl.querySelectorAll('button, a[href]')].filter(x => x.offsetParent);
+    if (!f.length) return;
+    if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+    else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+  }
+});
+// swipe between rooms on touch screens
+let sx = null;
+view.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+view.addEventListener('touchend', e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) show(ri + (dx < 0 ? 1 : -1)); sx = null; });
+
+/* =========================================================
+   RETURNS CALCULATOR
+========================================================= */
+const kSuite = $('kSuite'), kRate = $('kRate'), kOcc = $('kOcc'), kFee = $('kFee'), kCost = $('kCost'), kFx = $('kFx');
+let rateTouched = false;
+AVAIL.forEach(s => {
+  const o = document.createElement('option'); o.value = s.id;
+  o.textContent = `${s.id} · floor ${s.floor} · type ${s.type} · ${s.area} m² · ${copM(s.price)}`;
+  kSuite.appendChild(o);
+  const o2 = o.cloneNode(true); $('leadSuite').appendChild(o2);
+});
+const fx = () => Math.max(1000, +kFx.value || 4000);
+function estimate(s, rate) {
+  rate = rate ?? (rateTouched ? +kRate.value : TYPE[s.type].rate);
+  const nights = 365 * (+kOcc.value / 100);
+  const gross = nights * rate, fee = gross * (+kFee.value / 100), cost = +kCost.value * 12;
+  const net = gross - fee - cost;
+  return { nights, gross, fee, cost, net, yield: net / s.price };
+}
+function calc() {
+  const s = byId[kSuite.value] || AVAIL[0];
+  if (!rateTouched) kRate.value = TYPE[s.type].rate;
+  const e = estimate(s, +kRate.value);
+  $('kSuiteHint').textContent = `Type ${s.type}${s.type === 'A' ? ' with private jacuzzi' : ''} · ${s.area} m² · ${cop(s.price)}`;
+  $('oRate').textContent = cop(+kRate.value); $('oOcc').textContent = kOcc.value + '%';
+  $('oFee').textContent = kFee.value + '%'; $('oCost').textContent = cop(+kCost.value);
+  $('yNet').textContent = (e.yield * 100).toFixed(1) + '%';
+  $('lNights').textContent = Math.round(e.nights);
+  $('lGross').textContent = copM(e.gross);
+  $('lFee').textContent = '− ' + copM(e.fee);
+  $('lCost').textContent = '− ' + copM(e.cost);
+  $('lNet').textContent = copM(e.net);
+  $('lMonth').textContent = copM(e.net / 12);
+  $('lUsd').textContent = usd(e.net / fx());
+  $('lPay').textContent = e.net > 0 ? (s.price / e.net).toFixed(1) : '—';
+  const tot = Math.max(e.gross, 1);
+  $('bNet').style.width = Math.max(0, e.net) / tot * 100 + '%';
+  $('bFee').style.width = e.fee / tot * 100 + '%';
+  $('bCost').style.width = Math.min(e.cost, tot) / tot * 100 + '%';
+  if (current && byId[current]) {
+    const c = byId[current], ce = estimate(c);
+    $('cEarn').innerHTML = `<b>≈ ${copM(ce.net / 12)} / month</b>Estimated net rental income, ${(ce.yield * 100).toFixed(1)}% a year, using the assumptions in the <a href="#returns">returns calculator</a>.`;
+    $('cUsd').textContent = '≈ ' + usd(c.price / fx());
+  }
+}
+kRate.addEventListener('input', () => { rateTouched = true; calc(); });
+[kOcc, kFee, kCost, kFx].forEach(i => i.addEventListener('input', calc));
+kSuite.addEventListener('change', () => { calc(); });
+
+/* ---------- lead form: opens WhatsApp with the message ready ---------- */
+$('lead').addEventListener('submit', e => {
+  e.preventDefault();
+  const d = new FormData(e.target);
+  const suite = d.get('suite') ? `suite ${d.get('suite')}` : 'a suite (not sure which yet)';
+  const msg = `Hello, I'm ${d.get('name')}${d.get('country') ? ' from ' + d.get('country') : ''}. I'm interested in ${suite} at AIRA Cartagena. Use: ${d.get('use')}. Budget: ${d.get('budget')}. Could you send me the payment plan and the operator's terms?`;
+  window.open(waLink(msg), '_blank', 'noopener');
+});
+
+/* ---------- top bar, reveals, deep links ---------- */
+const bar = $('bar');
+const onScroll = () => bar.classList.toggle('solid', scrollY > innerHeight * .6);
+addEventListener('scroll', onScroll, { passive: true }); onScroll();
+const ro = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } }), { threshold: .12 });
+document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+
+buildList();
+kSuite.value = AVAIL[0].id; calc();
+const m = location.hash.match(/^#suite-(\d{3,4})$/);
+if (m && byId[m[1]] && byId[m[1]].av) {
+  stage.scrollIntoView();
+  lightUp();
+  setTimeout(() => select(m[1], { noScroll: true }), 300);
+}
+</script>
+</body>
+</html>
