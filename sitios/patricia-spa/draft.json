@@ -104,13 +104,6 @@
       ]
     },
     {
-      "type": "zones",
-      "eyebrow": "Domicilios",
-      "title": "Também vou a onde estas",
-      "text": "Atendimento em domicílio na região metropolitana. Realizo atendimentos em:",
-      "places": []
-    },
-    {
       "type": "cta",
       "eyebrow": "Reserva tu cita",
       "title": "Te espero!",
