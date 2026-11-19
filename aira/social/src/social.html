@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>AIRA social posts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Urbanist:wght@400;500;600;700;800&display=swap">
+<style>
+/* Renders one post at a time: social.html?p=<id>&t=<seconds>. render.js screenshots it. */
+:root { --deep: #0b2422; --deep-2: #10302d; --teal: #246660; --mint: #7fd1bd; --glow: #f0cf92; --sand: #f4efe4; --ink: #15302d; --fog: #e7efec; --fog-dim: #a9c0ba;
+  --display: "Fraunces", Georgia, serif; --body: "Urbanist", system-ui, sans-serif; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #000; }
+#post { position: relative; overflow: hidden; background: var(--deep); color: var(--fog); font-family: var(--body); }
+.abs { position: absolute; }
+.fill { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.logo { position: absolute; top: 64px; left: 72px; height: 54px; }
+.eyebrow { font: 800 26px/1.2 var(--body); letter-spacing: .22em; text-transform: uppercase; color: var(--glow); }
+.title { font: 300 92px/1.0 var(--display); letter-spacing: -.02em; margin: 0; }
+.title em { font-style: italic; color: var(--glow); }
+.sub { font: 500 36px/1.35 var(--body); color: #dbe7e3; margin: 0; }
+.foot { position: absolute; left: 72px; right: 72px; bottom: 60px; display: flex; justify-content: space-between; align-items: center; font: 700 26px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--fog); }
+.foot .wa { display: inline-flex; align-items: center; gap: 14px; padding: 20px 26px; border-radius: 999px; background: var(--glow); color: #2a1c05; letter-spacing: .06em; }
+.foot .wa svg { width: 30px; height: 30px; }
+.shade-b { background: linear-gradient(0deg, rgba(8,28,26,.96) 0%, rgba(8,28,26,.78) 34%, rgba(8,28,26,0) 64%); }
+.shade-t { background: linear-gradient(180deg, rgba(8,28,26,.75) 0%, rgba(8,28,26,0) 26%); }
+.chip { display: inline-block; padding: 16px 24px; border-radius: 999px; border: 2px solid rgba(231,239,236,.35); font: 700 28px/1 var(--body); letter-spacing: .04em; background: rgba(8,28,26,.45); margin: 0 10px 12px 0; }
+.stat { border-top: 2px solid rgba(231,239,236,.22); padding-top: 22px; }
+.stat b { display: block; font: 300 66px/1 var(--display); color: var(--glow); }
+.stat span { display: block; margin-top: 10px; font: 600 26px/1.3 var(--body); color: var(--fog-dim); }
+.tick { position: relative; padding-left: 58px; font: 600 36px/1.3 var(--body); margin-bottom: 24px; }
+.tick::before { content: ""; position: absolute; left: 4px; top: 14px; width: 28px; height: 15px; border-left: 5px solid var(--mint); border-bottom: 5px solid var(--mint); transform: rotate(-45deg); }
+.time { display: grid; grid-template-columns: 170px 1fr; align-items: baseline; padding: 20px 0; border-bottom: 2px solid rgba(231,239,236,.18); }
+.time b { font: 300 70px/1 var(--display); color: var(--glow); }
+.time b small { font: 700 26px var(--body); color: var(--fog-dim); margin-left: 6px; letter-spacing: .08em; }
+.time span { font: 600 36px/1.2 var(--body); }
+/* reels */
+.scene { position: absolute; inset: 0; overflow: hidden; opacity: 0; }
+.scene img { position: absolute; left: 50%; top: 50%; width: auto; height: auto; max-width: none; transform-origin: 50% 50%; will-change: transform; }
+.txt { position: absolute; left: 80px; right: 80px; opacity: 0; will-change: transform, opacity; }
+.big { font: 300 112px/1.0 var(--display); letter-spacing: -.02em; text-shadow: 0 4px 40px rgba(0,0,0,.45); }
+.big em { font-style: italic; color: var(--glow); }
+.mid { font: 600 44px/1.3 var(--body); text-shadow: 0 2px 24px rgba(0,0,0,.55); }
+.num { font: 300 230px/.9 var(--display); color: var(--glow); letter-spacing: -.03em; text-shadow: 0 6px 50px rgba(0,0,0,.4); }
+.phone { position: absolute; left: 50%; width: 640px; height: 1310px; margin-left: -320px; border-radius: 76px; background: #050d0c; padding: 22px; box-shadow: 0 60px 120px rgba(0,0,0,.55), 0 0 0 3px rgba(231,239,236,.16); }
+.phone .scr { position: relative; width: 100%; height: 100%; border-radius: 56px; overflow: hidden; background: var(--deep); }
+.phone .scr img { position: absolute; left: 0; top: 0; width: 100%; height: auto; opacity: 0; }
+.end { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; padding: 0 90px; opacity: 0; background: radial-gradient(120% 80% at 50% 30%, #17423e 0%, #0b2422 60%, #071918 100%); }
+.end img.lg { height: 120px; margin: 0 auto 60px; }
+.end .pill { display: inline-block; margin-top: 56px; padding: 30px 44px; border-radius: 999px; background: var(--glow); color: #2a1c05; font: 800 38px/1 var(--body); letter-spacing: .06em; }
+.progress { position: absolute; left: 80px; right: 80px; top: 70px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.22); overflow: hidden; }
+.progress i { position: absolute; inset: 0; background: var(--glow); transform-origin: left; }
+</style>
+</head>
+<body>
+<div id="post"></div>
+<script>
+const WA_ICON = '<svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6a10.6 10.6 0 0 1-5.4-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.7 3.7 0 0 0-1.1 2.7 6.4 6.4 0 0 0 1.3 3.4 14.6 14.6 0 0 0 5.6 5c2.1.9 2.9 1 4 .8a3.4 3.4 0 0 0 2.2-1.6 2.8 2.8 0 0 0 .2-1.6c-.1-.1-.3-.2-.6-.4z"/></svg>';
+const I = '../../img/';
+const LOGO = `<img class="logo" src="${I}logo-white.png" alt="">`;
+const FOOT = (left = 'Cartagena de Indias') => `<div class="foot"><span>${left}</span><span class="wa">${WA_ICON}+57 333 278 6726</span></div>`;
+
+/* ---------------- static posts: 1080 x 1350 ---------------- */
+const STATIC = {
+  'regreso': () => `
+    <img class="cover" src="${I}hero.jpg" style="object-position:72% 50%">
+    <div class="fill shade-b"></div><div class="fill shade-t"></div>${LOGO}
+    <div class="abs" style="left:72px;right:72px;bottom:190px">
+      <div class="eyebrow">Diciembre en Colombia</div>
+      <h1 class="title" style="margin:26px 0 28px">Este diciembre vuelves a casa. <em>Esta vez, quédate con algo tuyo.</em></h1>
+      <p class="sub">Suites amobladas en Cartagena desde COP 435 millones, con licencia para renta turística.</p>
+    </div>${FOOT()}`,
+
+  'ganas-afuera': () => `
+    <img class="abs" src="${I}suite-wide.jpg" style="left:0;top:0;width:100%;height:660px;object-fit:cover">
+    <div class="abs" style="left:0;top:560px;width:100%;height:100px;background:linear-gradient(0deg,var(--deep),rgba(11,36,34,0))"></div>${LOGO}
+    <div class="abs" style="left:72px;right:72px;top:640px">
+      <div class="eyebrow">Para los colombianos en el exterior</div>
+      <h1 class="title" style="margin:22px 0 40px;font-size:96px">Ganas afuera. <em>Inviertes en casa.</em></h1>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:30px">
+        <div class="stat"><b>435M</b><span>Pesos, precio desde</span></div>
+        <div class="stat"><b>32–40</b><span>m², se entregan amobladas</span></div>
+        <div class="stat"><b>77</b><span>suites con licencia turística</span></div>
+      </div>
+    </div>${FOOT('Operada por Be Happy')}`,
+
+  'cerca-de-todo': () => `
+    <img class="cover" src="${I}oldcity.jpg" style="object-position:40% 50%">
+    <div class="fill" style="background:linear-gradient(90deg,rgba(8,28,26,.95) 0%,rgba(8,28,26,.86) 52%,rgba(8,28,26,.35) 100%)"></div>${LOGO}
+    <div class="abs" style="left:72px;width:720px;top:190px">
+      <div class="eyebrow">Ubicación</div>
+      <h1 class="title" style="margin:24px 0 40px;font-size:84px">Cerca de la familia, <em>del mar y del aeropuerto.</em></h1>
+      <div class="time"><b>3<small>min</small></b><span>Playa de Marbella</span></div>
+      <div class="time"><b>7<small>min</small></b><span>Centro histórico</span></div>
+      <div class="time"><b>8<small>min</small></b><span>Aeropuerto Rafael Núñez</span></div>
+      <div class="time" style="border-bottom:0"><b>8<small>min</small></b><span>Bocagrande</span></div>
+    </div>${FOOT('Tiempos aproximados en carro')}`,
+
+  'en-buenas-manos': () => `
+    <img class="cover" src="${I}lobby.jpg" style="object-position:62% 50%">
+    <div class="fill shade-b" style="background:linear-gradient(0deg,rgba(8,28,26,.97) 0%,rgba(8,28,26,.86) 46%,rgba(8,28,26,0) 72%)"></div><div class="fill shade-t"></div>${LOGO}
+    <div class="abs" style="left:72px;right:72px;bottom:180px">
+      <div class="eyebrow">Tú afuera, tu suite en buenas manos</div>
+      <h1 class="title" style="margin:24px 0 40px;font-size:82px">Desde Madrid, Miami o Toronto, <em>sin administrar nada.</em></h1>
+      <div class="tick">Reservas y publicación en plataformas</div>
+      <div class="tick">Check-in y atención a tus huéspedes</div>
+      <div class="tick">Aseo, lavandería y mantenimiento</div>
+      <div class="tick" style="margin-bottom:0">Contabilidad, impuestos y licencias</div>
+    </div>${FOOT('Be Happy · operador exclusivo')}`,
+
+  'ano-nuevo': () => `
+    <img class="cover" src="${I}rooftop.jpg" style="object-position:58% 50%">
+    <div class="fill shade-b"></div><div class="fill shade-t"></div>${LOGO}
+    <div class="abs" style="left:72px;right:72px;bottom:180px">
+      <div class="eyebrow">La terraza de AIRA</div>
+      <h1 class="title" style="margin:24px 0 36px">La terraza donde vas a <em>recibir el Año Nuevo.</em></h1>
+      <div><span class="chip">Piscina</span><span class="chip">Jacuzzi</span><span class="chip">Gimnasio</span><span class="chip">Turco</span><span class="chip">Zona de desayuno</span><span class="chip">Lavandería</span></div>
+    </div>${FOOT()}`,
+
+  'tipo-a': () => `
+    <div class="fill" style="background:var(--sand)"></div>
+    <img class="abs" src="${I}interiors/suite-default.jpg" style="left:0;top:0;width:100%;height:480px;object-fit:cover">
+    <img class="abs" src="${I}logo-white.png" style="top:64px;left:72px;height:54px">
+    <div class="abs" style="left:72px;right:72px;top:530px;color:var(--ink)">
+      <div class="eyebrow" style="color:var(--teal)">Solo 4 disponibles</div>
+      <h1 class="title" style="margin:20px 0 26px;font-size:84px">Suite tipo A, <em style="color:var(--teal)">con jacuzzi privado.</em></h1>
+      <div style="background:#fff;border-radius:24px;padding:18px;box-shadow:0 20px 50px rgba(21,48,45,.12)"><img src="${I}plan-a.jpg" style="width:100%;display:block;border-radius:10px"></div>
+      <div style="display:flex;gap:40px;margin-top:30px;font:600 32px/1.3 var(--body);color:#3c5a55">
+        <span><b style="font:400 50px/1 var(--display);color:var(--ink)">38–40 m²</b><br>área total</span>
+        <span><b style="font:400 50px/1 var(--display);color:var(--ink)">COP 518M</b><br>precio desde</span>
+        <span><b style="font:400 50px/1 var(--display);color:var(--ink)">4 · 6 · 7 · 8</b><br>pisos disponibles</span>
+      </div>
+    </div>
+    <div class="foot" style="color:var(--ink)"><span>AIRA Cartagena</span><span class="wa">${WA_ICON}+57 333 278 6726</span></div>`,
+};
+
+/* ---------------- reels: 1080 x 1920, 15 s ---------------- */
+// scene: { img, t0, t1, kb: [scaleFrom, scaleTo, xFrom, xTo, yFrom, yTo] (x/y in % of the overflow), pos }
+// text:  { html, t0, t1, top | bottom, cls }
+const REELS = {
+  'diciembre-todo-el-ano': {
+    scenes: [
+      { img: 'interiors/suite-default.jpg', t0: 0, t1: 4.2, kb: [1.05, 1.18, 0, -6, 0, 0] },
+      { img: 'rooftop.jpg', t0: 3.8, t1: 8.2, kb: [1.15, 1.02, -8, 4, 0, 0] },
+      { img: 'lounge.jpg', t0: 7.8, t1: 12.2, kb: [1.02, 1.14, 6, -4, 0, 0] },
+    ],
+    texts: [
+      { html: '<div class="big">Vienes en <em>diciembre.</em></div>', t0: .4, t1: 3.8, bottom: 380 },
+      { html: '<div class="big">Te quedas en <em>tu propia suite.</em></div>', t0: 4.4, t1: 7.8, bottom: 380 },
+      { html: '<div class="big">Cuando te vas, <em>sigue generando ingresos.</em></div><div class="mid" style="margin-top:30px">El operador se encarga de todo.</div>', t0: 8.4, t1: 11.8, bottom: 340 },
+    ],
+    end: { t0: 12, html: `<img class="lg" src="${I}logo-white.png"><div class="big" style="font-size:96px">Suites en Cartagena <em>desde COP 435M</em></div><div class="mid" style="margin-top:34px;color:var(--fog-dim)">Amobladas · licencia de renta turística</div><div><span class="pill">Agenda tu visita este diciembre</span></div>` },
+  },
+
+  'elige-desde-donde-estes': {
+    bg: 'hero.jpg',
+    phone: [
+      { img: 'social/src/shots/m-tower.jpg', t0: 0, t1: 3.4, y: [0, -6] },
+      { img: 'social/src/shots/m-list.jpg', t0: 3.2, t1: 6.2, y: [0, -3] },
+      { img: 'social/src/shots/m-floor.jpg', t0: 6, t1: 9.2, y: [0, -2] },
+      { img: 'social/src/shots/m-tour.jpg', t0: 9, t1: 12.4, y: [0, 0], zoom: [1, 1.06] },
+    ],
+    texts: [
+      { html: '<div class="big" style="font-size:92px;text-align:center">Elige tu suite <em>desde donde estés.</em></div>', t0: .3, t1: 3.2, top: 130 },
+      { html: '<div class="big" style="font-size:92px;text-align:center">55 suites <em>disponibles en vivo.</em></div>', t0: 3.4, t1: 6.1, top: 130 },
+      { html: '<div class="big" style="font-size:92px;text-align:center">Vuela a <em>su piso.</em></div>', t0: 6.3, t1: 9.1, top: 130 },
+      { html: '<div class="big" style="font-size:92px;text-align:center">Y recórrela <em>por dentro.</em></div>', t0: 9.3, t1: 12.3, top: 130 },
+    ],
+    end: { t0: 12.4, html: `<img class="lg" src="${I}logo-white.png"><div class="big" style="font-size:96px">Recorrido virtual <em>en el link de la bio</em></div><div class="mid" style="margin-top:34px;color:var(--fog-dim)">Precios y disponibilidad de cada suite</div><div><span class="pill">${WA_ICON.replace('<svg', '<svg style="width:40px;height:40px;vertical-align:-8px;margin-right:12px"')}+57 333 278 6726</span></div>` },
+  },
+
+  '5-razones': {
+    scenes: [
+      { img: 'sunset.jpg', t0: 0, t1: 2.8, kb: [1.08, 1.2, 0, -4, 0, 0] },
+      { img: 'oldcity.jpg', t0: 2.5, t1: 5.3, kb: [1.2, 1.08, -6, 2, 0, 0] },
+      { img: 'clock.jpg', t0: 5, t1: 7.8, kb: [1.05, 1.16, 0, 0, 2, -2] },
+      { img: 'suite-living.jpg', t0: 7.5, t1: 10.3, kb: [1.14, 1.04, 4, -4, 0, 0] },
+      { img: 'lobby.jpg', t0: 10, t1: 12.8, kb: [1.04, 1.14, -3, 3, 0, 0] },
+    ],
+    texts: [
+      { html: '<div class="eyebrow" style="font-size:30px">5 razones para invertir en Cartagena · 1</div><div class="num">5,8 M</div><div class="big" style="font-size:80px">turistas visitaron Cartagena en 2023.</div>', t0: .2, t1: 2.6, bottom: 300 },
+      { html: '<div class="eyebrow" style="font-size:30px">2</div><div class="num">+57 %</div><div class="big" style="font-size:80px">más visitantes extranjeros en 2024.</div>', t0: 2.7, t1: 5.1, bottom: 300 },
+      { html: '<div class="eyebrow" style="font-size:30px">3</div><div class="num">1.º</div><div class="big" style="font-size:80px">destino vacacional y corporativo de Colombia.</div>', t0: 5.2, t1: 7.6, bottom: 300 },
+      { html: '<div class="eyebrow" style="font-size:30px">4</div><div class="big">Licencia de <em>apartamentos turísticos.</em></div><div class="mid" style="margin-top:24px">Lista para Airbnb y plataformas de renta.</div>', t0: 7.7, t1: 10.1, bottom: 300 },
+      { html: '<div class="eyebrow" style="font-size:30px">5</div><div class="big">Un operador exclusivo. <em>Tú no gestionas nada.</em></div>', t0: 10.2, t1: 12.6, bottom: 300 },
+    ],
+    progress: true,
+    end: { t0: 12.7, html: `<img class="lg" src="${I}logo-white.png"><div class="big" style="font-size:96px">AIRA Suites, <em>Cartagena de Indias</em></div><div class="mid" style="margin-top:34px;color:var(--fog-dim)">Desde COP 435M · 32 a 40 m² amobladas</div><div><span class="pill">Escríbenos por WhatsApp</span></div><div class="mid" style="margin-top:40px;font-size:26px;color:var(--fog-dim)">Fuentes: Corpoturismo, Invest in Cartagena</div>` },
+  },
+
+  'visita-la-sala': {
+    scenes: [
+      { img: 'sunset.jpg', t0: 0, t1: 4.2, kb: [1.15, 1.03, 3, -3, 0, 0] },
+      { img: 'entrance.jpg', t0: 3.8, t1: 8.2, kb: [1.03, 1.15, 0, -5, 0, 0] },
+      { img: 'tower-sky.jpg', t0: 7.8, t1: 12.2, kb: [1.02, 1.12, 0, 0, 3, -3] },
+    ],
+    texts: [
+      { html: '<div class="big">¿Estás en Colombia <em>estas fiestas?</em></div>', t0: .4, t1: 3.8, bottom: 380 },
+      { html: '<div class="big">Ven a conocer AIRA <em>con tu familia.</em></div>', t0: 4.4, t1: 7.8, bottom: 380 },
+      { html: '<div class="eyebrow" style="font-size:30px">Sala de ventas</div><div class="big" style="font-size:96px;margin-top:20px">C.C. Bocagrande, <em>local 316</em></div><div class="mid" style="margin-top:24px">Av. San Martín #8-16, Bocagrande</div>', t0: 8.4, t1: 11.8, bottom: 340 },
+    ],
+    end: { t0: 12, html: `<img class="lg" src="${I}logo-white.png"><div class="big" style="font-size:96px">Agenda tu visita <em>antes del regreso</em></div><div class="mid" style="margin-top:34px;color:var(--fog-dim)">Te mostramos las suites disponibles y el plan de pagos</div><div><span class="pill">${WA_ICON.replace('<svg', '<svg style="width:40px;height:40px;vertical-align:-8px;margin-right:12px"')}+57 333 278 6726</span></div>` },
+  },
+};
+const DUR = 15;
+
+/* ---------------- engine ---------------- */
+const q = new URLSearchParams(location.search), P = q.get('p');
+const root = document.getElementById('post');
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const ease = t => t * t * (3 - 2 * t);
+const lerp = (a, b, t) => a + (b - a) * t;
+const fade = (t, t0, t1, f = .5) => ease(clamp((t - t0) / f)) * (1 - ease(clamp((t - (t1 - f)) / f)));
+let R = null;
+const ready = [];
+
+if (STATIC[P]) {
+  root.style.width = '1080px'; root.style.height = '1350px';
+  root.innerHTML = STATIC[P]();
+} else if (REELS[P]) {
+  R = REELS[P];
+  root.style.width = '1080px'; root.style.height = '1920px';
+  if (R.bg) root.insertAdjacentHTML('beforeend', `<img class="cover" src="${I}${R.bg}" style="filter:blur(26px) brightness(.45);transform:scale(1.15)">`);
+  (R.scenes || []).forEach(s => { const d = document.createElement('div'); d.className = 'scene'; d.innerHTML = `<img src="${I}${s.img}">`; root.appendChild(d); s.el = d; s.im = d.firstChild; });
+  if (R.scenes) root.insertAdjacentHTML('beforeend', '<div class="fill" style="background:linear-gradient(0deg,rgba(8,28,26,.92) 0%,rgba(8,28,26,.55) 34%,rgba(8,28,26,0) 60%),linear-gradient(180deg,rgba(8,28,26,.6) 0%,rgba(8,28,26,0) 20%)"></div>');
+  if (R.phone) {
+    const ph = document.createElement('div'); ph.className = 'phone'; ph.style.top = '470px'; ph.innerHTML = '<div class="scr"></div>'; root.appendChild(ph); R.ph = ph;
+    R.phone.forEach(s => { const im = document.createElement('img'); im.src = '../../' + s.img; ph.firstChild.appendChild(im); s.im = im; });
+  }
+  root.insertAdjacentHTML('beforeend', R.phone ? '' : `<img class="logo" src="${I}logo-white.png" style="top:110px">`);
+  R.texts.forEach(x => { const d = document.createElement('div'); d.className = 'txt'; d.innerHTML = x.html; if (x.top != null) d.style.top = x.top + 'px'; else d.style.bottom = x.bottom + 'px'; root.appendChild(d); x.el = d; });
+  if (R.progress) { root.insertAdjacentHTML('beforeend', '<div class="progress"><i></i></div>'); R.bar = root.querySelector('.progress i'); }
+  const e = document.createElement('div'); e.className = 'end'; e.innerHTML = R.end.html; root.appendChild(e); R.endEl = e;
+}
+
+function frame(t) {
+  if (!R) return;
+  (R.scenes || []).forEach(s => {
+    const op = fade(t, s.t0, s.t1 + .4, .5);
+    s.el.style.opacity = op.toFixed(3);
+    if (op <= 0) return;
+    const k = clamp((t - s.t0) / (s.t1 - s.t0 + .4));
+    const iw = s.im.naturalWidth, ih = s.im.naturalHeight;
+    const base = Math.max(1080 / iw, 1920 / ih);
+    const [s0, s1, x0, x1, y0, y1] = s.kb;
+    const sc = base * lerp(s0, s1, k);
+    const ox = (iw * sc - 1080) / 2, oy = (ih * sc - 1920) / 2;
+    const tx = lerp(x0, x1, k) / 100 * ox * 2, ty = lerp(y0, y1, k) / 100 * oy * 2;
+    s.im.style.width = iw + 'px'; s.im.style.height = ih + 'px';
+    s.im.style.transform = `translate(-50%, -50%) translate(${tx.toFixed(1)}px, ${ty.toFixed(1)}px) scale(${sc.toFixed(4)})`;
+  });
+  if (R.phone) {
+    const enter = ease(clamp(t / .7)), leave = ease(clamp((t - R.end.t0 + .3) / .6));
+    R.ph.style.transform = `translateY(${(1 - enter) * 160 + leave * -60}px) scale(${1 - leave * .06})`;
+    R.ph.style.opacity = (enter * (1 - leave)).toFixed(3);
+    R.phone.forEach(s => {
+      const op = fade(t, s.t0, s.t1, .35);
+      s.im.style.opacity = s === R.phone[0] ? (t < s.t1 - .35 ? 1 : op).toFixed(3) : op.toFixed(3);
+      const k = clamp((t - s.t0) / (s.t1 - s.t0)), z = s.zoom ? lerp(s.zoom[0], s.zoom[1], k) : 1;
+      s.im.style.transform = `translateY(${lerp(s.y[0], s.y[1], ease(k))}%) scale(${z})`;
+    });
+  }
+  R.texts.forEach(x => {
+    const op = fade(t, x.t0, x.t1, .45);
+    x.el.style.opacity = op.toFixed(3);
+    const rise = 1 - ease(clamp((t - x.t0) / .6));
+    x.el.style.transform = `translateY(${(rise * 40).toFixed(1)}px)`;
+  });
+  if (R.bar) R.bar.style.transform = `scaleX(${clamp(t / R.end.t0).toFixed(4)})`;
+  const eo = ease(clamp((t - R.end.t0) / .6));
+  R.endEl.style.opacity = eo.toFixed(3);
+  R.endEl.style.transform = `scale(${(1.04 - .04 * eo).toFixed(4)})`;
+}
+window.frame = frame;
+window.isReel = !!R;
+window.ready = (async () => {
+  await document.fonts.ready;
+  await Promise.all([...document.images].map(im => im.decode().catch(() => {})));
+  frame(+(q.get('t') || 0));
+})();
+</script>
+</body>
+</html>
