@@ -132,6 +132,39 @@ section.s{padding:clamp(80px,13vh,140px) 0}
 .doc img{border-radius:200px 200px 20px 20px;aspect-ratio:3/3.6;object-fit:cover;width:100%;max-width:340px}
 .quote{font:italic 400 clamp(22px,2.4vw,30px)/1.4 "Cormorant Garamond",serif;margin-top:18px}
 @media(max-width:860px){.doc{grid-template-columns:1fr}}
+
+/* booking bot */
+#botBtn{position:fixed;right:18px;bottom:18px;z-index:50;display:flex;align-items:center;gap:10px;padding:14px 20px;border-radius:999px;background:var(--jade);color:#fff;font:500 15px Jost;box-shadow:0 14px 34px -12px rgba(28,60,50,.7);transition:transform .2s}
+#botBtn:hover{transform:translateY(-2px)}
+#botBtn i{width:10px;height:10px;border-radius:50%;background:#7ef0b0;box-shadow:0 0 0 0 rgba(126,240,176,.7);animation:pl 2s infinite;font-style:normal}
+@keyframes pl{70%{box-shadow:0 0 0 10px rgba(126,240,176,0)}100%{box-shadow:0 0 0 0 rgba(126,240,176,0)}}
+#bot{position:fixed;right:18px;bottom:84px;z-index:51;width:min(380px,calc(100vw - 24px));height:min(600px,calc(100svh - 110px));background:#fff;border-radius:22px;box-shadow:0 30px 70px -20px rgba(43,36,24,.45);display:none;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
+#bot.on{display:flex;animation:fin .35s ease}
+.bh{display:flex;align-items:center;gap:10px;padding:14px 16px;background:linear-gradient(120deg,var(--jade),#2f574a);color:#fff}
+.bh img{width:34px;height:34px;border-radius:50%;background:#fff;padding:4px;object-fit:contain}
+.bh b{display:block;font-weight:500;font-size:15px}.bh small{opacity:.8;font-size:12px}
+.bh button{margin-left:auto;font-size:22px;line-height:1;color:#fff;opacity:.8}
+.bm{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:10px;background:var(--cream)}
+.msg{max-width:84%;padding:10px 13px;border-radius:16px;font-size:15px;line-height:1.45;white-space:pre-line}
+.msg.b{background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px;align-self:flex-start}
+.msg.u{background:var(--jade);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.typing{align-self:flex-start;display:flex;gap:4px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:16px}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--mut);animation:tp 1s infinite}.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}
+@keyframes tp{50%{opacity:.25;transform:translateY(-3px)}}
+.chips{display:flex;flex-wrap:wrap;gap:6px;align-self:flex-start;max-width:100%}
+.chip{border:1px solid var(--gold);color:var(--gold3);background:#fff;border-radius:999px;padding:7px 12px;font-size:14px;transition:all .2s}
+.chip:hover{background:#fbf3e2}
+.chip.pri{background:var(--gold);color:#fff}
+.chip small{color:var(--mut);margin-left:4px}
+.card{align-self:stretch;background:#fff;border:1px solid var(--gold2);border-radius:16px;padding:12px 14px;font-size:14px}
+.card div{display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-bottom:1px dashed var(--line)}
+.card div:last-child{border:0}.card span{color:var(--mut)}
+.bi{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line);background:#fff}
+.bi input{flex:1;border:1px solid var(--line);border-radius:999px;padding:10px 14px;font:300 15px Jost;background:var(--cream)}
+.bi input:focus{outline:none;border-color:var(--gold)}
+.bi button{width:42px;height:42px;border-radius:50%;background:var(--gold);color:#fff;font-size:18px}
+.bi.off{opacity:.45;pointer-events:none}
+@media(max-width:520px){#botBtn span{display:none}#bot{right:12px;bottom:80px}}
 footer{background:var(--ink);color:#c9bfae;padding:30px 0;font-size:14px}
 footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
 footer img{height:34px;filter:brightness(1.3)}
@@ -196,7 +229,7 @@ footer img{height:34px;filter:brightness(1.3)}
 <section class="s" id="agenda"><div class="wrap">
   <p class="eb">Agenda en línea</p>
   <h2 class="h2">Reserva tu cita <i>en un minuto.</i></h2>
-  <p class="lead">Elige el tratamiento, el día y la hora. Tu solicitud llega directo al WhatsApp del centro y puedes guardarla en tu Google Calendar.</p>
+  <p class="lead">Elige el tratamiento, el día y la hora. Tu solicitud llega directo al WhatsApp del centro y te confirmamos por ahí mismo.</p>
   <div class="bk-wrap">
     <form class="panel" id="form" novalidate>
       <div class="step"><b>1</b><span>Tratamiento</span></div>
@@ -229,10 +262,9 @@ footer img{height:34px;filter:brightness(1.3)}
         <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20"/><path d="M15 25l6 6 12-13"/></svg>
         <h3 class="cg" style="font-size:28px">¡Solicitud enviada!</h3>
         <p style="color:var(--mut);font-size:15px;margin:8px 0 16px" id="okText"></p>
-        <a class="btn o" id="gcal" href="#" target="_blank" rel="noopener" style="width:100%;justify-content:center">Añadir a Google Calendar</a>
         <button class="btn" id="again" type="button" style="width:100%;justify-content:center;margin-top:8px;color:var(--mut)">Agendar otra cita</button>
       </div>
-      <p class="demo">Ejemplo: los horarios ocupados son de muestra. La conexión con el calendario del centro se activa después.</p>
+      <p class="demo">Ejemplo: los horarios ocupados son de muestra. Todo se confirma por WhatsApp.</p>
     </aside>
   </div>
 </div></section>
@@ -252,6 +284,12 @@ footer img{height:34px;filter:brightness(1.3)}
   </div>
 </div></section>
 
+<button id="botBtn" type="button" aria-controls="bot" aria-expanded="false"><i></i><span>Reserva tu masaje</span><b aria-hidden="true">💬</b></button>
+<section id="bot" role="dialog" aria-label="Asistente de reservas">
+  <div class="bh"><img src="img/hands.png" alt=""><div><b>Asistente Oriental Wellness</b><small>Reservas de masajes · responde al instante</small></div><button type="button" id="botX" aria-label="Cerrar">×</button></div>
+  <div class="bm" id="bm" aria-live="polite"></div>
+  <form class="bi off" id="bi"><input id="bin" autocomplete="off" placeholder="Escribe aquí…" aria-label="Tu respuesta"><button type="submit" aria-label="Enviar">➤</button></form>
+</section>
 <footer><div class="wrap"><img src="img/hands.png" alt="Oriental Wellness Center"><span>© Oriental Wellness Center by Dr. Tsang · Acupuntura, clínica del dolor y medicina tradicional china</span></div></footer>
 
 <script>
@@ -290,6 +328,28 @@ footer img{height:34px;filter:brightness(1.3)}
 
   // ---------- booking ----------
   const WA = '50760000000';                    // example number: replace with the clinic's WhatsApp
+  const CC = '507';                            // country code added to patient numbers typed without one (example)
+  const REVIEW = 'https://www.google.com/maps/search/?api=1&query=Oriental+Wellness+Center+Dr+Tsang';   // replace with the Google "write a review" link
+  const waNum = p => { let d = p.replace(/\D/g, ''); if (d.length <= 8) d = CC + d; return d; };
+  const hhmm = d => String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+  // Everything runs through WhatsApp, no calendar service:
+  // the patient sends the request; inside it the clinic gets one-tap links that open a chat
+  // with the patient carrying a ready confirmation (or a new-time proposal), and the review
+  // message to send 30 minutes after the session ends.
+  function sendRequest(b) {
+    const [h, m] = b.time.split(':').map(Number), start = new Date(b.day); start.setHours(h, m);
+    const end = new Date(start.getTime() + b.dur * 60000), rv = new Date(end.getTime() + 30 * 60000);
+    const when = `${fmtL.format(b.day)} a las ${b.time}`, to = 'https://wa.me/' + waNum(b.phone) + '?text=';
+    const ok = `Hola ${b.name}, tu cita de ${b.svc} en Oriental Wellness Center queda CONFIRMADA para el ${when} (${b.dur} min). Te esperamos. Si necesitas cambiarla, responde a este mensaje.`;
+    const alt = `Hola ${b.name}, el horario del ${when} ya no está disponible para ${b.svc}. ¿Te sirve otra hora? Respóndenos y te la reservamos.`;
+    const rev = `Hola ${b.name}, gracias por visitarnos hoy en Oriental Wellness Center. ¿Cómo te sentiste con tu ${b.svc}? Nos ayudaría mucho tu opinión en Google: ${REVIEW}`;
+    const msg = `🗓 NUEVA SOLICITUD DE CITA\n• Servicio: ${b.svc} (${b.dur} min)\n• Día: ${when}\n• Termina: ${hhmm(end)}\n• Nombre: ${b.name}\n• Teléfono: ${b.phone}` + (b.note ? `\n• Nota: ${b.note}` : '') +
+      `\n\n✅ Confirmar (toca para enviar al cliente):\n${to + encodeURIComponent(ok)}` +
+      `\n\n🔁 Proponer otra hora:\n${to + encodeURIComponent(alt)}` +
+      `\n\n⭐ Enviar a las ${hhmm(rv)} (30 min después de terminar) para pedir reseña en Google:\n${to + encodeURIComponent(rev)}`;
+    window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+    return { end, rv };
+  }
   const SVC = [['Acupuntura', 60], ['Eliminación de toxinas', 45], ['Moxibustión', 45], ['Terapia herbal', 30], ['Valoración inicial', 30], ['Clínica del dolor', 60]];
   const HOURS = { 1: [9, 18], 2: [9, 18], 3: [9, 18], 4: [9, 18], 5: [9, 18], 6: [9, 13] };   // Mon-Sat; Sunday closed (example)
   const state = { svc: null, day: null, time: null };
@@ -339,27 +399,104 @@ footer img{height:34px;filter:brightness(1.3)}
     $('sDay').textContent = state.day ? fmtL.format(state.day) : '—'; $('sTime').textContent = state.time || '—';
     $('err').textContent = '';
   }
-  const pad = n => String(n).padStart(2, '0');
-  const gstamp = d => `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
   $('confirm').onclick = () => {
     const name = $('fName').value.trim(), phone = $('fPhone').value.trim();
     const miss = [!state.svc && 'tratamiento', !state.day && 'día', !state.time && 'hora', !name && 'nombre', !phone && 'teléfono'].filter(Boolean);
     if (miss.length) { $('err').textContent = 'Falta: ' + miss.join(', ') + '.'; return; }
-    const [h, m] = state.time.split(':').map(Number), start = new Date(state.day); start.setHours(h, m);
-    const dur = SVC.find(s => s[0] === state.svc)[1], end = new Date(start.getTime() + dur * 60000);
-    const note = $('fNote').value.trim();
-    const msg = `Hola Dr. Tsang, quiero agendar una cita:\n• Tratamiento: ${state.svc}\n• Día: ${fmtL.format(state.day)}\n• Hora: ${state.time}\n• Nombre: ${name}\n• Teléfono: ${phone}` + (note ? `\n• Motivo: ${note}` : '');
-    window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
-    const g = new URL('https://calendar.google.com/calendar/render');
-    g.searchParams.set('action', 'TEMPLATE'); g.searchParams.set('text', `${state.svc} · Oriental Wellness Center`);
-    g.searchParams.set('dates', `${gstamp(start)}/${gstamp(end)}`);
-    g.searchParams.set('details', `Cita con el Dr. Tsang.\nPaciente: ${name} (${phone})` + (note ? `\nMotivo: ${note}` : ''));
-    g.searchParams.set('location', 'Oriental Wellness Center');
-    $('gcal').href = g.toString();
-    $('okText').textContent = `${state.svc}, ${fmtL.format(state.day)} a las ${state.time}. Te confirmaremos por WhatsApp.`;
+    const dur = SVC.find(s => s[0] === state.svc)[1];
+    sendRequest({ svc: state.svc, dur, day: state.day, time: state.time, name, phone, note: $('fNote').value.trim() });
+    $('okText').textContent = `${state.svc}, ${fmtL.format(state.day)} a las ${state.time}. Queda pendiente hasta que te confirmemos por WhatsApp.`;
     $('sumBox').style.display = 'none'; $('ok').classList.add('on');
   };
   $('again').onclick = () => { $('ok').classList.remove('on'); $('sumBox').style.display = ''; };
+
+  // ---------- booking bot: pick a massage, a day, a time, your details, then it goes to WhatsApp ----------
+  const MAS = [['Masaje Tui Na', 60, 'Masaje terapéutico chino sobre los meridianos'], ['Masaje relajante', 60, 'Para soltar el estrés y dormir mejor'],
+    ['Masaje descontracturante', 45, 'Cuello, espalda y hombros'], ['Reflexología podal', 40, 'Puntos de los pies conectados con todo el cuerpo'],
+    ['Masaje con ventosas', 45, 'Circulación y eliminación de toxinas'], ['Masaje con piedras calientes', 75, 'Calor profundo para músculos cansados']];
+  const bm = $('bm'), bi = $('bi'), bin = $('bin'), bot = $('bot'), botBtn = $('botBtn');
+  const B = {}; let ask = null, started = false;
+  const scroll = () => requestAnimationFrame(() => bm.scrollTop = bm.scrollHeight);
+  function say(text, then) {
+    const t = document.createElement('div'); t.className = 'typing'; t.innerHTML = '<span></span><span></span><span></span>'; bm.appendChild(t); scroll();
+    setTimeout(() => { t.remove(); const m = document.createElement('div'); m.className = 'msg b'; m.textContent = text; bm.appendChild(m); scroll(); then && then(); }, RM ? 0 : 550 + Math.min(700, text.length * 8));
+  }
+  function me(text) { const m = document.createElement('div'); m.className = 'msg u'; m.textContent = text; bm.appendChild(m); scroll(); }
+  function chips(list, on) {
+    const c = document.createElement('div'); c.className = 'chips';
+    list.forEach(([label, val, extra, pri]) => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'chip' + (pri ? ' pri' : '');
+      b.innerHTML = label + (extra ? `<small>${extra}</small>` : '');
+      b.onclick = () => { c.remove(); me(label); on(val); };
+      c.appendChild(b);
+    });
+    bm.appendChild(c); scroll();
+  }
+  function input(ph, type, on) { bi.classList.remove('off'); bin.type = type; bin.placeholder = ph; bin.value = ''; bin.focus(); ask = on; }
+  bi.onsubmit = e => {
+    e.preventDefault(); const v = bin.value.trim(); if (!v || !ask) return;
+    const f = ask; ask = null; bi.classList.add('off'); me(v); f(v);
+  };
+  function stepMassage() {
+    say('¿Qué masaje te gustaría?', () => chips(MAS.map(([n, d]) => [n, n, d + ' min']), n => {
+      const m = MAS.find(x => x[0] === n); B.svc = n; B.dur = m[1];
+      say(`${n}: ${m[2].toLowerCase()}. Dura ${m[1]} minutos.`, stepDay);
+    }));
+  }
+  function stepDay() {
+    const out = [], t0 = new Date(); t0.setHours(0, 0, 0, 0);
+    for (let i = 0; out.length < 6 && i < 14; i++) {
+      const d = new Date(t0); d.setDate(d.getDate() + i);
+      if (HOURS[d.getDay()] && freeTimes(d).length) out.push([i === 0 ? 'Hoy' : i === 1 ? 'Mañana' : fmtL.format(d).replace(/^\w/, c => c.toUpperCase()), d]);
+    }
+    say('¿Qué día te queda mejor?', () => chips(out, d => { B.day = d; stepTime(); }));
+  }
+  function freeTimes(d) {
+    const [a, z] = HOURS[d.getDay()], now = new Date(), out = [];
+    for (let h = a; h < z; h++) for (const m of [0, 30]) {
+      const t = new Date(d); t.setHours(h, m);
+      if (t > now && !busy(d, h * 2 + m / 30)) out.push(`${String(h).padStart(2, '0')}:${m ? '30' : '00'}`);
+    }
+    return out;
+  }
+  function stepTime() {
+    const f = freeTimes(B.day);
+    say('Estos son los horarios libres:', () => chips(f.map(t => [t, t]).concat([['Otro día', null]]), t => {
+      if (!t) return stepDay();
+      B.time = t; say('Perfecto. ¿A nombre de quién reservo?', () => input('Tu nombre', 'text', n => {
+        B.name = n;
+        const askPhone = p => {
+          if (p.replace(/\D/g, '').length < 7) { say('Ese número parece incompleto. ¿Me lo escribes de nuevo?', () => input('Tu WhatsApp', 'tel', askPhone)); return; }
+          B.phone = p; stepSummary();
+        };
+        say(`Gracias, ${n.split(' ')[0]}. ¿A qué número de WhatsApp te confirmamos?`, () => input('Ej. +507 6000 0000', 'tel', askPhone));
+      }));
+    }));
+  }
+  function stepSummary() {
+    const [h, m] = B.time.split(':').map(Number), st = new Date(B.day); st.setHours(h, m);
+    const end = new Date(st.getTime() + B.dur * 60000);
+    say('Revisa tu reserva:', () => {
+      const c = document.createElement('div'); c.className = 'card';
+      c.innerHTML = [['Masaje', B.svc], ['Día', fmtL.format(B.day)], ['Hora', `${B.time} – ${hhmm(end)}`], ['Nombre', B.name], ['WhatsApp', B.phone]]
+        .map(([k, v]) => `<div><span>${k}</span><b></b></div>`).join('');
+      [...c.querySelectorAll('b')].forEach((b, i) => b.textContent = [B.svc, fmtL.format(B.day), `${B.time} – ${hhmm(end)}`, B.name, B.phone][i]);
+      bm.appendChild(c); scroll();
+      chips([['Enviar por WhatsApp', 'send', '', true], ['Cambiar algo', 'redo']], v => {
+        if (v === 'redo') return restart();
+        sendRequest({ ...B, note: '' });
+        say('¡Listo! Tu solicitud llegó al WhatsApp del centro. Tu cita queda pendiente hasta que te escribamos para confirmarla, normalmente en pocos minutos.', () =>
+          say('Cuando termines tu masaje te pediremos tu opinión. ¿Algo más?', () => chips([['Reservar otro masaje', 'again']], restart)));
+      });
+    });
+  }
+  function restart() { for (const k in B) delete B[k]; stepMassage(); }
+  function open(v) {
+    bot.classList.toggle('on', v); botBtn.setAttribute('aria-expanded', v);
+    if (v && !started) { started = true; say('¡Hola! 👋 Soy el asistente de Oriental Wellness Center. Te ayudo a reservar tu masaje en un minuto.', stepMassage); }
+  }
+  botBtn.onclick = () => open(!bot.classList.contains('on'));
+  $('botX').onclick = () => open(false);
 })();
 </script>
 </body>
