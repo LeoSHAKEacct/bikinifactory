@@ -3,6 +3,9 @@
 window.HOSPITAL = {
   name: 'CareFlow General Hospital',
   emergencyNumber: '112',
+  // Reception WhatsApp number, international format, digits only (e.g. '351912345678').
+  // Leave empty and WhatsApp will ask the patient to pick a contact.
+  receptionWhatsApp: '',
   phone: '+000 000 0000',
   specialties: [
     { id: 'gp', name: 'General Practice', icon: '🩺', desc: 'Check-ups, common illness, referrals' },

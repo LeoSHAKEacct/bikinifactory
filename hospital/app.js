@@ -126,7 +126,7 @@
   }
   function renderTriageResult() {
     const r = T.assess(tri), s = specById(r.spec);
-    store.set('lastTriage', { at: Date.now(), level: r.level, complaint: r.complaint.label, reasons: r.reasons, severity: tri.severity, days: tri.days, age: tri.age, conditions: tri.conditions });
+    store.set('lastTriage', { at: Date.now(), level: r.level, flags: r.complaint.flags.filter((f, i) => tri.flags[i] && f.level).map(f => f.q.replace(/\?$/, '')), pregnant: tri.pregnant, complaint: r.complaint.label, reasons: r.reasons, severity: tri.severity, days: tri.days, age: tri.age, conditions: tri.conditions });
     let cta = '';
     if (r.level <= 2) cta = `<a class="btn danger block" href="tel:${H.emergencyNumber}">Call ${H.emergencyNumber} now</a><a class="btn ghost block" style="margin-top:8px;background:var(--card)" href="#/emergency">Emergency Department — open 24h</a>`;
     else if (r.level === 3) cta = `<a class="btn block" href="#/book?spec=${r.spec}&urgent=1">Find the earliest slot today</a><p class="small" style="margin:8px 0 0">Or go straight to the Emergency Department — open 24h.</p>`;
@@ -142,6 +142,9 @@
         <p class="small muted">Get help sooner if things get worse or any danger sign appears.</p></div>` : ''}
       <div class="card"><b>Recommended</b><p class="muted" style="margin:4px 0">${s.icon} ${esc(s.name)}</p>
         <p class="small muted" style="margin:0">Your answers will be shared with the clinician so you don't have to repeat yourself. This is an estimate — the triage nurse confirms your colour on arrival.</p></div>
+      <a class="card" href="#/checkin" style="display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit;border-color:var(--brand)">
+        <span class="wa-ic">${WA_ICON}</span><span><b>${r.level <= 2 ? 'On your way? Warn reception now' : 'Check in — send your details to reception'}</b><br>
+        <span class="small muted">Your ${r.info.color.toLowerCase()} triage result and details go to the receptionist by WhatsApp.</span></span></a>
       <div class="row"><button class="btn ghost" data-act="restart">Start again</button><a class="btn ghost" href="#/assistant">Ask the assistant</a></div>
       ${disclaimer()}`;
   }
@@ -271,7 +274,7 @@
         ${a.triage ? `<p class="small muted" style="margin:6px 0 0"><span class="dot ${T.LEVELS[a.triage.level]?.key || ''}"></span>Symptom check attached: ${esc(a.triage.complaint)} · ${T.LEVELS[a.triage.level]?.color || ''}</p>` : ''}
         <div class="row" style="margin-top:12px">
           ${a.date >= today ? `
-            ${isToday && !a.checkedIn ? `<button class="btn" data-checkin="${a.id}">${a.mode === 'video' ? 'Join waiting room' : 'Check in'}</button>` : ''}
+            ${isToday && !a.checkedIn ? (a.mode === 'video' ? `<button class="btn" data-checkin="${a.id}">Join waiting room</button>` : `<a class="btn" href="#/checkin?id=${a.id}">Check in</a>`) : ''}
             <button class="btn ghost" data-intake="${a.id}">${a.intake ? 'Edit form' : 'Fill pre-visit form'}</button>
             <button class="btn ghost" data-ics="${a.id}">Add to calendar</button>
             <a class="btn ghost" href="#/book?re=${a.id}">Reschedule</a>
@@ -381,14 +384,88 @@
   }
 
   // ---------- router ----------
-  const ROUTES = { '': home, triage, book, appointments, intake, assistant, emergency };
+  const WA_ICON = '<svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><path fill="#fff" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6c-2 0-4-.5-5.7-1.6l-.4-.2-3.9 1 1-3.8-.3-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5 1-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.9 1 3.9.8a3.3 3.3 0 0 0 2.2-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.2-.3-.2-.6-.4z"/></svg>';
+  const DOT = { 1: '🔴', 2: '🟠', 3: '🟡', 4: '🟢', 5: '🔵' };
+  const AGE_LABEL = { adult: 'Adult 16–74', senior: 'Adult 75+', child: 'Child', infant: 'Baby under 3 months' };
+  const DAYS_LABEL = { today: 'today', days: '1–7 days ago', week: '1–2 weeks ago', weeks: 'more than 2 weeks ago' };
+
+  // ----- check-in: patient data -> receptionist via WhatsApp -----
+  function ageFrom(dob) { if (!dob) return ''; const d = new Date(dob), n = new Date(); let y = n.getFullYear() - d.getFullYear();
+    if (n < new Date(n.getFullYear(), d.getMonth(), d.getDate())) y--; return y >= 0 ? y : ''; }
+  function checkin(params) {
+    const p = store.get('patient', {}), last = store.get('lastTriage', null);
+    const tr = last && Date.now() - last.at < 12 * 36e5 ? last : null;
+    const a = params.get('id') ? appts().find(x => x.id === params.get('id')) : null;
+    const L = tr && T.LEVELS[tr.level];
+    view.innerHTML = `${a ? '<a class="btn ghost" href="#/appointments">← My visits</a>' : ''}
+      <h1>Check in</h1><p class="lead">Fill in your details. They go straight to reception with your triage colour, so you don't have to repeat them at the desk.</p>
+      ${L ? `<div class="level ${L.key}" style="padding:14px">
+          <div class="row" style="justify-content:space-between"><span class="small" style="font-weight:700;text-transform:uppercase">Your triage colour</span><a class="small" href="#/triage">Redo</a></div>
+          <h2 style="margin:4px 0">${DOT[tr.level]} ${L.title}</h2><p style="margin:0">${esc(tr.complaint)} · ${L.target}</p></div>`
+        : `<div class="card"><b>No triage colour yet</b><p class="small muted" style="margin:4px 0 10px">Do the 2-minute symptom check first so reception can prioritise you.</p><a class="btn" href="#/triage">Check symptoms</a></div>`}
+      ${tr && tr.level <= 2 ? `<a class="btn danger block" href="tel:${H.emergencyNumber}">If it's getting worse, call ${H.emergencyNumber}</a>` : ''}
+      ${a ? `<div class="card"><b>Appointment ${a.id}</b><p class="small muted" style="margin:4px 0 0">${esc(docById(a.doc).name)} · ${fmtDate(a.date)} ${a.time}</p></div>` : ''}
+      <form id="ckform" class="card">
+        <label for="cn">Full name</label><input id="cn" name="name" required autocomplete="name" value="${esc(p.name)}">
+        <div class="grid"><div><label for="cd">Date of birth</label><input id="cd" name="dob" type="date" required value="${esc(p.dob)}"></div>
+          <div><label for="cs">Sex</label><select id="cs" name="sex">${['', 'Female', 'Male', 'Other'].map(x => `<option ${p.sex === x ? 'selected' : ''}>${x}</option>`).join('')}</select></div></div>
+        <label for="cp">Mobile</label><input id="cp" name="phone" type="tel" required autocomplete="tel" value="${esc(p.phone)}">
+        <label for="cid">ID / citizen card number</label><input id="cid" name="idnum" value="${esc(p.idnum)}">
+        <label for="ci">Health insurance / health number</label><input id="ci" name="ins" value="${esc(p.ins)}">
+        <label for="ca">Allergies</label><input id="ca" name="allergies" placeholder="e.g. penicillin, none" value="${esc(p.allergies)}">
+        <label for="cm">Current medicines</label><input id="cm" name="meds" placeholder="Name and dose" value="${esc(p.meds)}">
+        <label for="ce">Emergency contact (name + phone)</label><input id="ce" name="contact" value="${esc(p.contact)}">
+        <label for="cr">Arrival</label><select id="cr" name="arrival">
+          ${['Already at the hospital', 'Arriving in 15 minutes', 'Arriving in 30 minutes', 'Arriving in 1 hour'].map(x => `<option>${x}</option>`).join('')}</select>
+        <label for="cx">Anything else for reception?</label><textarea id="cx" name="notes" placeholder="e.g. need a wheelchair, interpreter"></textarea>
+        <label><input type="checkbox" name="consent" required style="width:auto"> I agree to send this information to the hospital reception</label>
+        <button class="btn block wa-btn" style="margin-top:14px">${WA_ICON} Send to reception on WhatsApp</button>
+      </form>`;
+    $('#ckform').onsubmit = e => {
+      e.preventDefault();
+      const f = Object.fromEntries(new FormData(e.target));
+      store.set('patient', { ...p, name: f.name, dob: f.dob, sex: f.sex, phone: f.phone, idnum: f.idnum, ins: f.ins, allergies: f.allergies, meds: f.meds, contact: f.contact });
+      const BR = '\u0001';
+      const ref = a ? a.id : 'CK-' + Math.random().toString(36).slice(2, 7).toUpperCase();
+      const lines = [
+        `*${H.name} — Patient check-in* (${ref})`, BR,
+        L ? `${DOT[tr.level]} *TRIAGE: ${L.color.toUpperCase()} — ${L.name}* (${L.target})` : '⚪ *TRIAGE: not done*',
+        L ? `_Patient self-triage estimate — please confirm at the desk_` : '', BR,
+        tr ? `*Complaint:* ${tr.complaint}` : '',
+        tr && tr.flags && tr.flags.length ? `*Danger signs:* ${tr.flags.join('; ')}` : '',
+        tr ? `*Severity:* ${tr.severity}/10 · *Started:* ${DAYS_LABEL[tr.days] || '-'}` : '',
+        tr && (tr.conditions.length || tr.pregnant) ? `*Conditions:* ${[...tr.conditions, tr.pregnant ? 'Pregnant' : ''].filter(Boolean).join(', ')}` : '',
+        tr ? BR : '',
+        `*Name:* ${f.name}`,
+        `*DOB:* ${f.dob}${ageFrom(f.dob) !== '' ? ' (' + ageFrom(f.dob) + ' y)' : ''}${f.sex ? ' · ' + f.sex : ''}`,
+        `*Phone:* ${f.phone}`,
+        f.idnum ? `*ID:* ${f.idnum}` : '', f.ins ? `*Insurance/health no.:* ${f.ins}` : '',
+        `*Allergies:* ${f.allergies || 'not given'}`, f.meds ? `*Medicines:* ${f.meds}` : '',
+        f.contact ? `*Emergency contact:* ${f.contact}` : '',
+        a ? `*Appointment:* ${docById(a.doc).name}, ${a.date} ${a.time}` : '',
+        `*Arrival:* ${f.arrival}`, f.notes ? `*Notes:* ${f.notes}` : ''
+      ].filter(Boolean).map(x => x === BR ? '' : x);
+      const text = lines.join('\n');
+      if (a) saveAppts(appts().map(x => x.id === a.id ? { ...x, checkedIn: true } : x));
+      const num = String(H.receptionWhatsApp || '').replace(/\D/g, '');
+      const url = 'https://wa.me/' + num + '?text=' + encodeURIComponent(text);
+      window.open(url, '_blank', 'noopener') || (location.href = url);
+      view.innerHTML = `<div class="level ${L ? L.key : 'l4'}"><h2>${L ? DOT[tr.level] + ' ' + L.title : 'Details ready'}</h2>
+        <p>Press <b>Send</b> in WhatsApp to deliver it to reception. Show reference <b>${ref}</b> at the desk.</p>
+        <a class="btn block wa-btn" href="${url}" target="_blank" rel="noopener">${WA_ICON} Open WhatsApp again</a></div>
+        <div class="card"><b>Message preview</b><pre class="small" style="white-space:pre-wrap;margin:8px 0 0;font:inherit">${esc(text.replace(/\*/g, '').replace(/_/g, ''))}</pre></div>
+        <a class="btn ghost" href="#/">Home</a>`;
+    };
+  }
+
+  const ROUTES = { '': home, triage, book, appointments, intake, assistant, emergency, checkin };
   function route() {
     const [path, qs] = location.hash.replace(/^#\/?/, '').split('?');
     const fn = ROUTES[path] || home;
     if (fn !== triage) tri = null;
     if (fn !== book) bk = null;
     fn(new URLSearchParams(qs || ''));
-    document.querySelectorAll('.tabbar a').forEach(a => a.classList.toggle('active', a.dataset.tab === (path || 'home') || (path === 'intake' && a.dataset.tab === 'appointments')));
+    document.querySelectorAll('.tabbar a').forEach(a => a.classList.toggle('active', a.dataset.tab === (path || 'home') || ((path === 'intake' || path === 'checkin') && a.dataset.tab === 'appointments')));
     view.focus({ preventScroll: true });
     if (fn !== book || !location.hash.includes('new=')) window.scrollTo(0, 0);
   }

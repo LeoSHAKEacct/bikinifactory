@@ -109,3 +109,6 @@ textarea{min-height:90px;resize:vertical}
   padding:10px 16px;border-radius:10px;font-size:14px;z-index:10}
 .qr{width:140px;height:140px;image-rendering:pixelated;background:#fff;padding:8px;border-radius:8px}
 ul.clean{padding-left:18px;margin:6px 0}
+.wa-btn{background:#25d366;color:#073b1d}
+.wa-btn svg path{fill:#073b1d}
+.wa-ic{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#25d366}
