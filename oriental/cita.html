@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Reserva · Oriental Wellness Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#fbf7ef;--gold:#c09a48;--gold3:#8f6d2a;--ink:#2b2418;--mut:#7a6f5f;--jade:#3f6b5c;--line:rgba(143,109,42,.2)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--cream);color:var(--ink);font:300 16px/1.6 Jost,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button,a{font:inherit;color:inherit;text-decoration:none;cursor:pointer;border:0;background:none}
+.box{max-width:440px;margin:0 auto;padding:22px 16px 40px}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.top img{width:40px;height:40px;object-fit:contain}
+.top b{font:500 20px "Cormorant Garamond",serif;color:var(--gold3)}
+.top small{display:block;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--mut)}
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 18px 8px}
+.card h1{font:500 30px/1.1 "Cormorant Garamond",serif;margin-bottom:10px}
+.card div{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px dashed var(--line);font-size:15px}
+.card span{color:var(--mut)}
+.card b{font-weight:500;text-align:right}
+.acts{display:grid;gap:10px;margin-top:18px}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px;border-radius:16px;font-weight:500;font-size:17px;transition:transform .15s}
+.btn:active{transform:scale(.98)}
+.btn svg{width:22px;height:22px;flex:none}
+.ok{background:#25d366;color:#06331a}
+.alt{background:#fff;box-shadow:inset 0 0 0 1.5px var(--gold);color:var(--gold3)}
+.rev{background:var(--jade);color:#fff}
+.btn:focus-visible{outline:2px solid var(--jade);outline-offset:3px}
+.times{display:none;grid-template-columns:repeat(4,1fr);gap:6px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px}
+.times.on{display:grid}
+.times p{grid-column:1/-1;font-size:14px;color:var(--mut)}
+.times button{border:1px solid var(--line);border-radius:999px;padding:8px 0;font-size:14px}
+.times button:hover{border-color:var(--gold);color:var(--gold3)}
+.note{font-size:13px;color:var(--mut);text-align:center;margin-top:4px}
+.err{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;text-align:center}
+</style>
+</head>
+<body>
+<main class="box">
+  <div class="top"><img src="img/hands.png" alt=""><div><b>Oriental Wellness Center</b><small>Gestionar reserva</small></div></div>
+  <div id="app"></div>
+</main>
+<script>
+(() => {
+  const REVIEW = 'https://maps.app.goo.gl/RxkfF9YyPGKULd2ZA';
+  const HOURS = { 1: [9, 18], 2: [9, 18], 3: [9, 18], 4: [9, 18], 5: [9, 18], 6: [9, 13] };
+  const app = document.getElementById('app');
+  let d;
+  try {
+    const b64 = location.hash.slice(1).replace(/-/g, '+').replace(/_/g, '/');
+    d = JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(b64), c => c.charCodeAt(0))));
+  } catch (e) { app.innerHTML = '<div class="err">Este enlace de reserva no es válido.</div>'; return; }
+  const [svc, dur, iso, name, phone, note] = d;
+  const start = new Date(iso), end = new Date(start.getTime() + dur * 60000), rv = new Date(end.getTime() + 30 * 60000);
+  const day = new Intl.DateTimeFormat('es', { weekday: 'long', day: 'numeric', month: 'long' }).format(start);
+  const hm = t => String(t.getHours()).padStart(2, '0') + ':' + String(t.getMinutes()).padStart(2, '0');
+  const first = name.split(' ')[0];
+  const wa = text => 'https://wa.me/' + phone + '?text=' + encodeURIComponent(text);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const icon = p => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+
+  // messages the customer receives: only the confirmation, a new-time proposal, or the review request
+  const okText = `Hola ${first}, tu cita de ${svc} en Oriental Wellness Center queda CONFIRMADA para el ${day} a las ${hm(start)} (${dur} min). Te esperamos. Si necesitas cambiarla, responde a este mensaje.`;
+  const altText = t => `Hola ${first}, el ${day} a las ${hm(start)} ya no tenemos espacio para ${svc}. ¿Te sirve a las ${t} ese mismo día? Responde "sí" y te la dejamos reservada.`;
+  const revText = `Hola ${first}, gracias por visitarnos hoy en Oriental Wellness Center. ¿Cómo te sentiste con tu ${svc}? Tu opinión en Google nos ayuda mucho: ${REVIEW}`;
+
+  const rows = [['Servicio', `${svc} (${dur} min)`], ['Día', day], ['Hora', `${hm(start)} – ${hm(end)}`], ['Cliente', name], ['WhatsApp', '+' + phone]].concat(note ? [['Nota', note]] : []);
+  // other free half-hours that day (the busy ones aren't known here yet)
+  const [a, z] = HOURS[start.getDay()] || [9, 18], alts = [];
+  for (let h = a; h < z; h++) for (const m of [0, 30]) { const t = new Date(start); t.setHours(h, m); if (t.getTime() !== start.getTime() && t > new Date()) alts.push(hm(t)); }
+
+  app.innerHTML = `
+    <section class="card"><h1>Nueva reserva</h1>${rows.map(([k, v]) => `<div><span>${k}</span><b>${esc(v)}</b></div>`).join('')}</section>
+    <div class="acts">
+      <a class="btn ok" href="${wa(okText)}" target="_blank" rel="noopener">${icon('<path d="M20 6 9 17l-5-5"/>')}Confirmar</a>
+      <button class="btn alt" id="altBtn" type="button" aria-expanded="false">${icon('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>')}Proponer otra hora</button>
+      <div class="times" id="times"><p>Elige la hora que le propones:</p>${alts.map(t => `<button type="button" data-t="${t}">${t}</button>`).join('')}</div>
+      <a class="btn rev" href="${wa(revText)}" target="_blank" rel="noopener">${icon('<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>')}Pedir reseña</a>
+      <p class="note">Envía "Pedir reseña" a las ${hm(rv)}, 30 min después de terminar.</p>
+    </div>`;
+  const times = document.getElementById('times'), altBtn = document.getElementById('altBtn');
+  altBtn.onclick = () => { const on = times.classList.toggle('on'); altBtn.setAttribute('aria-expanded', on); };
+  times.querySelectorAll('[data-t]').forEach(b => b.onclick = () => window.open(wa(altText(b.dataset.t)), '_blank', 'noopener'));
+})();
+</script>
+</body>
+</html>
