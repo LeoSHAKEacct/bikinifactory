@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CareFlow Hospital</title>
+<meta name="description" content="Book hospital appointments, check your symptoms and get guided to the right care.">
+<meta name="theme-color" content="#0b6e6e">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <a href="#/" class="brand"><span class="logo">+</span> CareFlow</a>
+  <a href="#/emergency" class="sos">Emergency</a>
+</header>
+
+<main id="view" tabindex="-1"></main>
+
+<nav class="tabbar" aria-label="Main">
+  <a href="#/" data-tab="home"><span>⌂</span>Home</a>
+  <a href="#/triage" data-tab="triage"><span>✚</span>Symptoms</a>
+  <a href="#/book" data-tab="book"><span>▦</span>Book</a>
+  <a href="#/appointments" data-tab="appointments"><span>☰</span>My visits</a>
+  <a href="#/assistant" data-tab="assistant"><span>✦</span>Assistant</a>
+</nav>
+
+<script src="data.js"></script>
+<script src="triage.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
