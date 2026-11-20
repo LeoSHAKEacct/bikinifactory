@@ -344,9 +344,15 @@ footer img{height:34px;filter:brightness(1.3)}
         body: JSON.stringify({ svc: b.svc, dur: b.dur, start: s0.toISOString(), name: b.name, phone: waNum(b.phone), note: b.note || '' }) }).catch(() => {});
       return;
     }
-    // The customer sends a short, clean request; the clinic answers in that same chat
-    // with its WhatsApp Business quick replies (/confirmar, /otrahora, /resena).
-    const msg = `Hola, quiero reservar una cita en Oriental Wellness Center.\n\nServicio: ${b.svc} (${b.dur} min)\nDía: ${fmtL.format(b.day)}\nHora: ${b.time}\nNombre: ${b.name}` + (b.note ? `\nNota: ${b.note}` : '');
+    // The customer sends a short, clean request. The clinic gets one booking link that opens
+    // a page with real buttons (Confirmar / Proponer otra hora / Reseña).
+    const [h, m] = b.time.split(':').map(Number), start = new Date(b.day); start.setHours(h, m);
+    const p2 = n => String(n).padStart(2, '0');
+    const iso = `${start.getFullYear()}-${p2(start.getMonth() + 1)}-${p2(start.getDate())}T${p2(h)}:${p2(m)}`;
+    const code = btoa(String.fromCharCode(...new TextEncoder().encode(JSON.stringify([b.svc, b.dur, iso, b.name, waNum(b.phone), b.note || '']))))
+      .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    const link = new URL('cita.html#' + code, location.href).href;
+    const msg = `Hola, quiero reservar una cita en Oriental Wellness Center.\n\nServicio: ${b.svc} (${b.dur} min)\nDía: ${fmtL.format(b.day)}\nHora: ${b.time}\nNombre: ${b.name}` + (b.note ? `\nNota: ${b.note}` : '') + `\n\nReserva: ${link}`;
     window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
   }
   const SVC = [['Acupuntura', 60], ['Eliminación de toxinas', 45], ['Moxibustión', 45], ['Terapia herbal', 30], ['Valoración inicial', 30], ['Clínica del dolor', 60]];
