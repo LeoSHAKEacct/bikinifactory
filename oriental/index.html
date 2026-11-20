@@ -327,9 +327,10 @@ footer img{height:34px;filter:brightness(1.3)}
   requestAnimationFrame(frame);
 
   // ---------- booking ----------
-  const WA = '50760000000';                    // example number: replace with the clinic's WhatsApp
-  const CC = '507';                            // country code added to patient numbers typed without one (example)
-  const REVIEW = 'https://www.google.com/maps/search/?api=1&query=Oriental+Wellness+Center+Dr+Tsang';   // replace with the Google "write a review" link
+  const WA = '50767852323';                    // clinic WhatsApp +507 6785-2323
+  const CC = '507';                            // Panama: added to patient numbers typed without a country code
+  const REVIEW = 'https://maps.app.goo.gl/RxkfF9YyPGKULd2ZA';   // the clinic on Google Maps (ratings)
+  const BOT_URL = '';   // booking server address once it's deployed; empty = send through wa.me
   const waNum = p => { let d = p.replace(/\D/g, ''); if (d.length <= 8) d = CC + d; return d; };
   const hhmm = d => String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
   // Everything runs through WhatsApp, no calendar service:
@@ -337,6 +338,12 @@ footer img{height:34px;filter:brightness(1.3)}
   // with the patient carrying a ready confirmation (or a new-time proposal), and the review
   // message to send 30 minutes after the session ends.
   function sendRequest(b) {
+    if (BOT_URL) {
+      const [h0, m0] = b.time.split(':').map(Number), s0 = new Date(b.day); s0.setHours(h0, m0);
+      fetch(BOT_URL + '/book', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ svc: b.svc, dur: b.dur, start: s0.toISOString(), name: b.name, phone: waNum(b.phone), note: b.note || '' }) }).catch(() => {});
+      return;
+    }
     const [h, m] = b.time.split(':').map(Number), start = new Date(b.day); start.setHours(h, m);
     const end = new Date(start.getTime() + b.dur * 60000), rv = new Date(end.getTime() + 30 * 60000);
     const when = `${fmtL.format(b.day)} a las ${b.time}`, to = 'https://wa.me/' + waNum(b.phone) + '?text=';

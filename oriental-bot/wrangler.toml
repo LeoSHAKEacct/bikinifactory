@@ -1,0 +1,19 @@
+name = "oriental-citas"
+main = "src/index.js"
+compatibility_date = "2026-01-01"
+
+# check every minute for review messages that are due
+[triggers]
+crons = ["* * * * *"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "oriental-citas"
+database_id = "PASTE_THE_ID_FROM_wrangler_d1_create"
+
+[vars]
+STAFF_PHONE = "PASTE_STAFF_MOBILE_DIGITS"     # the phone that taps Confirm / Other time, e.g. 5076XXXXXXX (not the clinic number itself)
+REVIEW_URL = "https://maps.app.goo.gl/RxkfF9YyPGKULd2ZA"
+ALLOWED_ORIGIN = "https://leoshakeacct.github.io"
+GRAPH_VERSION = "v23.0"
+TZ_OFFSET_MIN = "-300"                          # Panama, UTC-5, no daylight saving
