@@ -1,14 +1,15 @@
 :root{
   --bg:#f4f7f7; --card:#fff; --ink:#122626; --muted:#5b6f6f; --line:#dfe7e7;
   --brand:#0b6e6e; --brand-2:#e3f2f1; --red:#c62828; --red-bg:#fdecec;
-  --amber:#b26a00; --amber-bg:#fff4e0; --yellow:#8a7400; --yellow-bg:#fffbe0;
-  --green:#2e7d32; --green-bg:#e8f5e9; --radius:16px;
+  --amber:#c45000; --amber-bg:#fff0e3; --yellow:#8a7400; --yellow-bg:#fffbe0;
+  --green:#2e7d32; --green-bg:#e8f5e9; --blue:#1565c0; --blue-bg:#e6f0fb;
+  --mts-red:#d32f2f; --mts-orange:#f57c00; --mts-yellow:#fbc02d; --mts-green:#388e3c; --mts-blue:#1976d2; --radius:16px;
 }
 @media (prefers-color-scheme: dark){
   :root{ --bg:#0d1515; --card:#152121; --ink:#e6f0f0; --muted:#9ab0b0; --line:#243434;
     --brand:#4fc3b8; --brand-2:#163231; --red:#ff6b6b; --red-bg:#3a1717;
     --amber:#ffb74d; --amber-bg:#3a2a10; --yellow:#e6d25a; --yellow-bg:#33300f;
-    --green:#81c784; --green-bg:#16301a; }
+    --green:#81c784; --green-bg:#16301a; --blue:#64b5f6; --blue-bg:#13263a; }
 }
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -64,6 +65,15 @@ textarea{min-height:90px;resize:vertical}
 .level.l2{background:var(--amber-bg);border-color:var(--amber);color:var(--amber)}
 .level.l3{background:var(--yellow-bg);border-color:var(--yellow);color:var(--yellow)}
 .level.l4{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.level.l5{background:var(--blue-bg);border-color:var(--blue);color:var(--blue)}
+.mts{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:8px 0 4px}
+.mts-step{border-radius:8px;padding:6px 2px;text-align:center;color:#fff;opacity:.35;font-size:13px;line-height:1.2}
+.mts-step small{display:block;font-size:10px;opacity:.95}
+.mts-step.on{opacity:1;transform:scale(1.06);box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.mts-step.l1,.dot.l1{background:var(--mts-red)} .mts-step.l2,.dot.l2{background:var(--mts-orange)}
+.mts-step.l3,.dot.l3{background:var(--mts-yellow);color:#222} .mts-step.l4,.dot.l4{background:var(--mts-green)}
+.mts-step.l5,.dot.l5{background:var(--mts-blue)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
 .level p,.level li{color:var(--ink)}
 .doc{display:flex;gap:12px;align-items:center}
 .avatar{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-weight:700;

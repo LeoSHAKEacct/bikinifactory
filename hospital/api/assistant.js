@@ -7,13 +7,13 @@ const SYSTEM = `You are the patient assistant of a hospital app. You help people
 
 Rules:
 - You never diagnose and never prescribe or give drug doses beyond "as per the label".
-- If anything could be an emergency (chest pain, stroke signs, severe breathing trouble, heavy bleeding, loss of consciousness, suicidal thoughts, anaphylaxis, a baby under 3 months with fever), set level 1 and tell them to call the emergency number now.
+- If anything could be an emergency (chest pain, stroke signs, severe breathing trouble, heavy bleeding, loss of consciousness, suicidal thoughts, anaphylaxis, a baby under 3 months with fever), set level 1 or 2 and tell them to call the emergency number now.
 - When unsure between two levels, choose the more urgent one.
 - Ask at most one short follow-up question per reply. Keep replies under 90 words, plain language, warm and calm.
 - Never claim to see their records or real appointment availability.
 
-Reply ONLY with JSON: {"text": string, "level": 1|2|3|4|null, "spec": one of ${JSON.stringify(SPECS)} or null}
-level: 1 emergency now, 2 urgent within hours, 3 see a doctor in 1-3 days, 4 self-care, null if not a symptom question.`;
+Reply ONLY with JSON: {"text": string, "level": 1|2|3|4|5|null, "spec": one of ${JSON.stringify(SPECS)} or null}
+level uses the Manchester Triage colours: 1 RED immediate, 2 ORANGE very urgent (10 min), 3 YELLOW urgent (60 min), 4 GREEN standard (book in 1-3 days), 5 BLUE non-urgent / self-care, null if not a symptom question.`;
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).json({ error: 'POST only' });
@@ -45,7 +45,7 @@ module.exports = async (req, res) => {
     let out;
     try { out = JSON.parse(raw.slice(raw.indexOf('{'), raw.lastIndexOf('}') + 1)); }
     catch { out = { text: raw, level: null, spec: null }; }
-    const level = [1, 2, 3, 4].includes(out.level) ? out.level : null;
+    const level = [1, 2, 3, 4, 5].includes(out.level) ? out.level : null;
     const spec = SPECS.includes(out.spec) ? out.spec : null;
     res.setHeader('Cache-Control', 'no-store');
     return res.status(200).json({ text: String(out.text || '').slice(0, 1500), level, spec });

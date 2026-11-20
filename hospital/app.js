@@ -128,16 +128,20 @@
     const r = T.assess(tri), s = specById(r.spec);
     store.set('lastTriage', { at: Date.now(), level: r.level, complaint: r.complaint.label, reasons: r.reasons, severity: tri.severity, days: tri.days, age: tri.age, conditions: tri.conditions });
     let cta = '';
-    if (r.level === 1) cta = `<a class="btn danger block" href="tel:${H.emergencyNumber}">Call ${H.emergencyNumber} now</a>`;
-    else if (r.level === 2) cta = `<a class="btn block" href="#/book?spec=${r.spec}&urgent=1">Find the earliest slot today</a><p class="small" style="margin:8px 0 0">Or go straight to the Emergency Department — open 24h.</p>`;
+    if (r.level <= 2) cta = `<a class="btn danger block" href="tel:${H.emergencyNumber}">Call ${H.emergencyNumber} now</a><a class="btn ghost block" style="margin-top:8px;background:var(--card)" href="#/emergency">Emergency Department — open 24h</a>`;
+    else if (r.level === 3) cta = `<a class="btn block" href="#/book?spec=${r.spec}&urgent=1">Find the earliest slot today</a><p class="small" style="margin:8px 0 0">Or go straight to the Emergency Department — open 24h.</p>`;
     else cta = `<a class="btn block" href="#/book?spec=${r.spec}">Book ${esc(s.name)}</a>`;
+    const scale = [1, 2, 3, 4, 5].map(n => { const L = T.LEVELS[n];
+      return `<div class="mts-step ${L.key}${n === r.level ? ' on' : ''}"><b>${L.color}</b><small>${L.target.replace('Seen ', '')}</small></div>`; }).join('');
     view.innerHTML = `
-      <div class="level ${r.info.key}"><h2>${r.info.title}</h2><p>${r.info.action}</p>${cta}</div>
+      <div class="mts" aria-label="Manchester triage scale">${scale}</div>
+      <div class="level ${r.info.key}"><span class="small" style="font-weight:700;text-transform:uppercase;letter-spacing:.04em">Estimated triage colour</span>
+        <h2>${r.info.title}</h2><p style="margin:0 0 4px"><b>${r.info.target}</b> in the Emergency Department</p><p>${r.info.action}</p>${cta}</div>
       ${r.reasons.length ? `<div class="card"><b>Why</b><ul class="clean">${r.reasons.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>` : ''}
-      ${r.level >= 3 ? `<div class="card"><b>Meanwhile</b><ul class="clean">${r.selfCare.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+      ${r.level >= 4 ? `<div class="card"><b>Meanwhile</b><ul class="clean">${r.selfCare.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
         <p class="small muted">Get help sooner if things get worse or any danger sign appears.</p></div>` : ''}
-      <div class="card"><b>Recommended</b><p class="muted" style="margin:4px 0">${s.icon} ${esc(s.name)} · ${r.info.wait}</p>
-        <p class="small muted" style="margin:0">Your answers will be shared with the clinician so you don't have to repeat yourself.</p></div>
+      <div class="card"><b>Recommended</b><p class="muted" style="margin:4px 0">${s.icon} ${esc(s.name)}</p>
+        <p class="small muted" style="margin:0">Your answers will be shared with the clinician so you don't have to repeat yourself. This is an estimate — the triage nurse confirms your colour on arrival.</p></div>
       <div class="row"><button class="btn ghost" data-act="restart">Start again</button><a class="btn ghost" href="#/assistant">Ask the assistant</a></div>
       ${disclaimer()}`;
   }
@@ -155,7 +159,7 @@
     else if (b.dataset.act === 'restart') return triage();
     else return;
     // Danger sign ticked: jump straight to the result, no more questions.
-    if (tri.step === 2 && b.dataset.flag && T.COMPLAINTS.find(c => c.id === tri.complaint).flags[+b.dataset.flag].level === 1 && tri.flags[+b.dataset.flag]) tri.step = 5;
+    if (tri.step === 2 && b.dataset.flag && T.COMPLAINTS.find(c => c.id === tri.complaint).flags[+b.dataset.flag].level <= 2 && T.COMPLAINTS.find(c => c.id === tri.complaint).flags[+b.dataset.flag].level > 0 && tri.flags[+b.dataset.flag]) tri.step = 5;
     renderTriage();
   });
   view.addEventListener('input', e => {
@@ -183,7 +187,7 @@
         .sort((a, b) => ((a.day || 'z') + (a.slot || '')).localeCompare((b.day || 'z') + (b.slot || '')));
       view.innerHTML = `<button class="btn ghost" data-act="spec">← Specialties</button>
         <h1>${s.icon} ${esc(s.name)}</h1>
-        ${bk.urgent ? `<div class="level l2" style="padding:12px"><b>Urgent:</b> showing the earliest slots first. If you get worse, go to the Emergency Department.</div>` : ''}
+        ${bk.urgent ? `<div class="level l3" style="padding:12px"><b>Yellow — urgent:</b> showing the earliest slots first. If you get worse, go to the Emergency Department.</div>` : ''}
         ${rows.map(({ d, day, slot }) => `<button class="option" data-doc="${d.id}">
           <div class="avatar">${initials(d.name)}</div>
           <span style="flex:1"><b>${esc(d.name)}</b><small>★ ${d.rating} · ${d.langs.join(' · ')}${d.tele ? ' · Video available' : ''}</small>
@@ -264,7 +268,7 @@
         <div class="doc" style="margin:10px 0"><div class="avatar">${initials(d.name)}</div>
           <div><b>${esc(d.name)}</b><br><span class="muted small">${s.icon} ${esc(s.name)}</span></div></div>
         <p style="margin:0"><b>${fmtDate(a.date)} · ${a.time}</b> · ${a.mode === 'video' ? '📹 Video call' : '🏥 ' + esc(H.name)}</p>
-        ${a.triage ? `<p class="small muted" style="margin:4px 0 0">Symptom check attached: ${esc(a.triage.complaint)}</p>` : ''}
+        ${a.triage ? `<p class="small muted" style="margin:6px 0 0"><span class="dot ${T.LEVELS[a.triage.level]?.key || ''}"></span>Symptom check attached: ${esc(a.triage.complaint)} · ${T.LEVELS[a.triage.level]?.color || ''}</p>` : ''}
         <div class="row" style="margin-top:12px">
           ${a.date >= today ? `
             ${isToday && !a.checkedIn ? `<button class="btn" data-checkin="${a.id}">${a.mode === 'video' ? 'Join waiting room' : 'Check in'}</button>` : ''}
@@ -352,8 +356,8 @@
   function assistantRender(reply) {
     $('#chat').innerHTML = chat.map(m => `<div class="msg ${m.role === 'user' ? 'me' : 'ai'}">${esc(m.content)}</div>`).join('');
     const cta = $('#chatcta');
-    if (reply && reply.level === 1) cta.innerHTML = `<a class="btn danger block" style="margin-top:12px" href="tel:${H.emergencyNumber}">Call ${H.emergencyNumber}</a>`;
-    else if (reply && reply.spec) cta.innerHTML = `<div class="row" style="margin-top:12px"><a class="btn" href="#/book?spec=${reply.spec}${reply.level === 2 ? '&urgent=1' : ''}">Book ${esc(specById(reply.spec)?.name || 'a visit')}</a><a class="btn ghost" href="#/triage">Run full symptom check</a></div>`;
+    if (reply && reply.level && reply.level <= 2) cta.innerHTML = `<a class="btn danger block" style="margin-top:12px" href="tel:${H.emergencyNumber}">Call ${H.emergencyNumber}</a>`;
+    else if (reply && reply.spec) cta.innerHTML = `<div class="row" style="margin-top:12px"><a class="btn" href="#/book?spec=${reply.spec}${reply.level === 3 ? '&urgent=1' : ''}">Book ${esc(specById(reply.spec)?.name || 'a visit')}</a><a class="btn ghost" href="#/triage">Run full symptom check</a></div>`;
     else cta.innerHTML = '';
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   }
@@ -371,7 +375,7 @@
       return j;
     } catch {
       const c = T.guessComplaint(q), comp = T.COMPLAINTS.find(x => x.id === c), s = specById(comp.spec);
-      return { spec: comp.spec, level: 3,
+      return { spec: comp.spec, level: 4,
         text: `It sounds like this may be about: ${comp.label.toLowerCase()}. The best next step is the 2-minute symptom check — it asks about the danger signs — or you can book ${s.name} directly.\n\nIf anything feels severe or is getting worse quickly, go to the Emergency Department.` };
     }
   }

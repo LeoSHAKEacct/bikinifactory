@@ -4,7 +4,7 @@
 
 | Feature | What it does |
 |---|---|
-| Symptom check (self-triage) | 5-step wizard: age → main problem → danger signs → severity/duration → conditions. Gives 4 levels: **Emergency now / Urgent today / See a doctor in 1–3 days / Self-care**. A danger sign skips the rest of the questions and shows the emergency result. |
+| Symptom check (self-triage) | 5-step wizard: age → main problem → danger signs → severity/duration → conditions. Gives a **Manchester Triage System colour**: 🔴 Red (immediate) · 🟠 Orange (10 min) · 🟡 Yellow (60 min) · 🟢 Green (2 h) · 🔵 Blue (4 h), with what to do next. A Red/Orange danger sign skips the rest of the questions. It's shown as an *estimate*; the triage nurse confirms the official colour on arrival. |
 | Booking | Specialty → doctors ranked by earliest slot → 14-day calendar → time → details. Choice of in person or video. Urgent triage results show the earliest slots first. |
 | My visits | Upcoming and past visits; check in on the day; reschedule; cancel (frees the slot); add to calendar (.ics). |
 | Pre-visit form | Concern, medicines, allergies, questions, consent. The doctor sees it before the visit. |
@@ -41,7 +41,7 @@ AI **drafts, sorts and summarises**. A human **decides and signs**. Every AI out
 
 | # | Module | Users | What it does | Why first |
 |---|---|---|---|---|
-| 1 | **Triage inbox** | Front desk, triage nurses | All symptom checks, chats and pre-visit forms in one queue, sorted by triage level. One-click actions: call back, book urgent, send to ER. | Already fed by the patient app. Safety value from day one. |
+| 1 | **Triage inbox** | Front desk, triage nurses | All symptom checks, chats and pre-visit forms in one queue, sorted by Manchester colour; the nurse confirms or changes the colour on arrival. One-click actions: call back, book urgent, send to ER. | Already fed by the patient app. Safety value from day one. |
 | 2 | **Pre-visit brief** | Doctors | One screen per patient: reason, triage answers, medicines, allergies, recent results, open questions. Ready before the visit. | Saves 3–5 minutes per visit. Low risk because it's read-only. |
 | 3 | **Ambient scribe** | Doctors, nurses | Records the visit (with consent) and drafts the SOAP note, orders, referral letter and patient summary. The clinician edits and signs. | The biggest time-saver in healthcare AI today. Reduces burnout. |
 | 4 | **Scheduling optimiser** | Admin, ops | Fills gaps from the waitlist, overbooks based on no-show risk, balances doctors' lists, forecasts demand by specialty and week. | Direct revenue: fewer empty slots. |
