@@ -529,7 +529,7 @@ function uploadTex(src, repeat){
 }
 const IMGS = {};
 function loadTextures(onEach){
-  return Promise.all(MATS.map(m => new Promise(res => { const im=new Image(); im.onload=()=>{ IMGS[m.id]=im; onEach&&onEach(); res(); }; im.onerror=res; im.src=`textures/${m.id}.jpg`; })));
+  return Promise.all(MATS.map(m => new Promise(res => { const im=new Image(); im.crossOrigin='anonymous'; im.onload=()=>{ IMGS[m.id]=im; onEach&&onEach(); res(); }; im.onerror=res; im.src=`textures/${m.id}.jpg`; })));
 }
 function getTex(id){ if(!texCache[id] && IMGS[id]) texCache[id]=uploadTex(IMGS[id],true); return texCache[id]; }
 
@@ -565,12 +565,16 @@ function drawMaterial(ctx, room, surf, seed){
     ctx.drawImage(glc,0,0);
   });
 }
+let drawFailed=false;
 function composeScene(ctx, room, before){
   ctx.clearRect(0,0,room.w,room.h);
   ctx.drawImage(room.base,0,0,room.w,room.h);
   const maxLayer = room.layers.length;
   for (let L=0; L<=maxLayer; L++){
-    if (!before && gl) room.surfaces.forEach((s,i)=>{ if(s.layer===L) drawMaterial(ctx, room, s, i+1); });
+    if (!before && gl) room.surfaces.forEach((s,i)=>{ if(s.layer!==L) return;
+      try { drawMaterial(ctx, room, s, i+1); }
+      catch(err){ console.error(err); if(!drawFailed){ drawFailed=true; const n=$('notice'); n.hidden=false; n.textContent='The materials couldn’t be drawn in this browser. Try reloading the page, or open it in a current version of Chrome or Safari.'; } }
+    });
     if (L < maxLayer) ctx.drawImage(room.layers[L],0,0);
   }
 }
