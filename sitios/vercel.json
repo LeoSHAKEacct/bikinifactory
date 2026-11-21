@@ -12,41 +12,11 @@
     {
       "source": "/editor/",
       "destination": "/admin/index.html"
-    },
-    {
-      "source": "/((?!_site/|api/|admin|editor|feed|e/).*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "madame-spa.co"
-        }
-      ],
-      "destination": "/e/$1"
-    },
-    {
-      "source": "/((?!_site/|api/|admin|editor|feed|e/).*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.madame-spa.co"
-        }
-      ],
-      "destination": "/e/$1"
     }
   ],
   "redirects": [
     {
       "source": "/",
-      "missing": [
-        {
-          "type": "host",
-          "value": "madame-spa.co"
-        },
-        {
-          "type": "host",
-          "value": "www.madame-spa.co"
-        }
-      ],
       "destination": "/feed/",
       "permanent": false
     }
