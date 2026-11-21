@@ -36,6 +36,18 @@
     return m ? m[1] : '';
   }
 
+  // A pasted video link -> { src, tall } for an iframe, or null if it isn't one we know.
+  // tall: vertical videos (Reels, TikTok, Shorts) get a 9:16 frame, the rest 16:9.
+  function videoEmbed(u) {
+    u = String(u || '').trim();
+    var m, yt = youtubeId(u);
+    if (yt) return { src: 'https://www.youtube-nocookie.com/embed/' + yt + '?rel=0', tall: /\/shorts\//.test(u) };
+    if ((m = /vimeo\.com\/(?:video\/)?(\d+)/.exec(u))) return { src: 'https://player.vimeo.com/video/' + m[1], tall: false };
+    if ((m = /tiktok\.com\/.*\/video\/(\d+)/.exec(u))) return { src: 'https://www.tiktok.com/embed/v2/' + m[1], tall: true };
+    if ((m = /instagram\.com\/(?:[\w.]+\/)?(reels?|p|tv)\/([\w-]+)/.exec(u))) return { src: 'https://www.instagram.com/' + (m[1] === 'p' ? 'p' : 'reel') + '/' + m[2] + '/embed', tall: true };
+    return null;
+  }
+
   function frame(url, alt, fit, pos, lazy) {
     var contain = fit === 'contain', u = esc(url), l = lazy ? ' loading="lazy"' : '';
     return '<div class="pframe' + (contain ? ' contain' : '') + (!contain && /^(top|center|bottom)$/.test(pos) ? ' ' + pos : '') + '">' +
@@ -155,6 +167,17 @@
           '</div></section>';
       },
       gallery: function (x, id) { return R.facilities(x, id); },
+      videos: function (x, id) {
+        var vids = (x.videos || []).slice(0, 2).map(function (v) {
+          var e = videoEmbed(v.url);
+          var body = e
+            ? '<div class="vid-frame' + (e.tall ? ' tall' : '') + '"><iframe src="' + esc(e.src) + '" title="' + esc(v.caption || 'Video') + '" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>'
+            : '<div class="vid-frame ph">' + PHOTO_ICON + (v.url ? 'Link de video no reconocido' : 'Video próximamente') + '</div>';
+          return '<figure class="vid reveal">' + body + (v.caption ? '<figcaption>' + esc(v.caption) + '</figcaption>' : '') + '</figure>';
+        });
+        return '<section id="' + id + '"><div class="wrap">' + head(x, x.text) +
+          '<div class="vids' + (vids.length === 1 ? ' one' : '') + '">' + vids.join('') + '</div></div></section>';
+      },
       zones: function (x, id) {
         var places = (x.places || []).filter(Boolean).map(function (p) { return '<span class="chip">' + esc(p) + '</span>'; }).join('');
         return '<section id="' + id + '" class="zones"><div class="wrap">' + head(x, x.text) +
@@ -330,6 +353,7 @@
   window.renderSite = render;
   window.siteMigrate = migrate;
   window.siteYoutubeId = youtubeId;
+  window.siteVideoEmbed = videoEmbed;
 
   // Published pages carry their content inline.
   var inline = document.getElementById('site-content');

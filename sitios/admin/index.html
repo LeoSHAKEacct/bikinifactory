@@ -367,6 +367,11 @@ var SECTION_TYPES = {
   gallery: { label: 'Galería de fotos y videos', fields: [
     ['eyebrow', 'Texto pequeño (dorado)'], ['title', 'Título'], GALLERY_LIST
   ], blank: { eyebrow: 'Galería', title: 'Nuestro trabajo', gallery: [{ kind: '', photo: '', video: '', caption: '', placeholder: 'Foto 1' }, { kind: '', photo: '', video: '', caption: '', placeholder: 'Foto 2' }, { kind: 'video', photo: '', video: '', caption: '', placeholder: 'Video' }] } },
+  videos: { label: 'Videos (máximo 2)', fields: [
+    ['eyebrow', 'Texto pequeño (dorado)'], ['title', 'Título'], ['text', 'Texto', 'textarea'],
+    { list: 'videos', label: 'Video', add: '+ Agregar video', max: 2, empty: { url: '', caption: '' },
+      fields: [['url', 'Link del video', 'text', 'YouTube, Instagram, TikTok o Vimeo'], ['caption', 'Texto debajo del video']] }
+  ], blank: { eyebrow: 'Videos', title: 'Conócenos', text: '', videos: [{ url: '', caption: '' }] } },
   zones: { label: 'Zonas / lugares', fields: [
     ['eyebrow', 'Texto pequeño (dorado)'], ['title', 'Título'], ['text', 'Texto', 'textarea'],
     ['places', 'Lugares (uno por línea)', 'lines']
@@ -774,7 +779,8 @@ function renderEditor() {
         f.fields.forEach(function (sf) { if (showField(sf[5], it)) html += fieldHtml(lp + '.' + i + '.' + sf[0], sf[1], sf[2], sf[3], it[sf[0]], sf[4]); });
         html += '</div>';
       });
-      if (!f.fixed) html += '<button type="button" class="btn small" data-add="' + lp + '|' + sec.type + '|' + f.list + '">' + esc(f.add) + '</button>';
+      if (!f.fixed && !(f.max && items.length >= f.max)) html += '<button type="button" class="btn small" data-add="' + lp + '|' + sec.type + '|' + f.list + '">' + esc(f.add) + '</button>';
+      else if (f.max && items.length >= f.max) html += '<div class="sub">Máximo ' + f.max + '.</div>';
     });
     html += '</div></details>';
   });
