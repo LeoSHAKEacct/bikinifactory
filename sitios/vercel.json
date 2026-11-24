@@ -12,13 +12,43 @@
     {
       "source": "/editor/",
       "destination": "/admin/index.html"
+    },
+    {
+      "source": "/((?!_site/|api/|admin|editor|feed|patricia-spa/).*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "tantraessence.eu"
+        }
+      ],
+      "destination": "/patricia-spa/$1"
+    },
+    {
+      "source": "/((?!_site/|api/|admin|editor|feed|patricia-spa/).*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.tantraessence.eu"
+        }
+      ],
+      "destination": "/patricia-spa/$1"
     }
   ],
   "redirects": [
     {
       "source": "/",
       "destination": "/feed/",
-      "permanent": false
+      "permanent": false,
+      "missing": [
+        {
+          "type": "host",
+          "value": "tantraessence.eu"
+        },
+        {
+          "type": "host",
+          "value": "www.tantraessence.eu"
+        }
+      ]
     }
   ]
 }
