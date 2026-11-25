@@ -3,17 +3,6 @@
   "subtitle": "Negocios creados por nuestros estudiantes",
   "sites": [
     {
-      "slug": "ana-guima",
-      "name": "Ana Spa",
-      "category": "",
-      "description": "{nome} — relaxamento e prazer em uma massagem. Apartamento discreto com estacionamento e atendimento em domicílio em Lisboa.",
-      "photo": "/ana-guima/foto-mwqn3we0.jpg",
-      "phone": "1234565678",
-      "places": [],
-      "owner": "",
-      "updatedAt": "2026-11-21T16:48:05.111Z"
-    },
-    {
       "slug": "luna",
       "name": "Lunna Masoterapia",
       "category": "",
