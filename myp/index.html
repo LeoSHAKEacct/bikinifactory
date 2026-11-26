@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Motor Yachts Portugal · Vilamoura</title>
+<meta name="description" content="Official Azimut and Benetti dealer in Portugal. Yachts for sale, charters, maintenance and guardiennage at Vilamoura Marina.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#04121c;--deep:#06202f;--sea:#0d3b4f;--foam:#eef3f2;--sand:#d9c7a3;--gold:#c8a66a;--mut:rgba(238,243,242,.62);--line:rgba(238,243,242,.16)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ink)}
+body{background:var(--ink);color:var(--foam);font:300 16px/1.6 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block}
+.serif{font-family:Fraunces,Georgia,serif;font-weight:300;letter-spacing:-.02em}
+.eyebrow{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:500}
+
+/* top bar */
+header{position:fixed;inset:0 0 auto;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px clamp(16px,4vw,48px);pointer-events:none;mix-blend-mode:difference}
+header>*{pointer-events:auto}
+header .logo{width:clamp(150px,18vw,230px)}
+header nav{display:flex;gap:28px;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+header nav a{opacity:.85;transition:opacity .2s}header nav a:hover{opacity:1}
+.cta{position:fixed;right:clamp(16px,4vw,48px);bottom:26px;z-index:50;display:flex;align-items:center;gap:10px;background:var(--foam);color:var(--ink);padding:13px 20px;border-radius:999px;font-weight:600;font-size:14px;box-shadow:0 18px 40px -18px #000;transition:transform .25s}
+.cta:hover{transform:translateY(-2px)}
+.cta i{width:8px;height:8px;border-radius:50%;background:#1fbf6b;box-shadow:0 0 0 4px rgba(31,191,107,.25)}
+
+/* progress */
+.prog{position:fixed;left:clamp(16px,4vw,48px);bottom:34px;z-index:50;display:flex;align-items:center;gap:14px;font-size:12px;letter-spacing:.2em;color:var(--mut)}
+.prog .bar{width:min(220px,30vw);height:1px;background:var(--line);position:relative;overflow:hidden}
+.prog .bar b{position:absolute;inset:0;background:var(--foam);transform-origin:left;transform:scaleX(0)}
+.prog span{font-variant-numeric:tabular-nums;color:var(--foam)}
+
+/* horizontal machine */
+#h{position:relative}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.track{display:flex;height:100%;will-change:transform}
+.panel{position:relative;flex:none;height:100%;overflow:hidden}
+.skew{height:100%;display:flex;will-change:transform}
+
+/* 1 hero */
+.hero{width:100vw}
+.hero .bg{position:absolute;inset:-4% -12% -4% -4%;background:url(img/fjord.webp) center/cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,18,28,.72) 0%,rgba(4,18,28,.15) 55%,rgba(4,18,28,.35) 100%),linear-gradient(0deg,rgba(4,18,28,.8),transparent 45%)}
+.hero .in{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;height:100%;padding:0 clamp(16px,6vw,96px) clamp(96px,14vh,150px)}
+.hero h1{font-size:clamp(54px,11vw,190px);line-height:.88}
+.hero h1 em{font-style:italic;color:var(--sand)}
+.hero h1 .w{display:inline-block;overflow:hidden;vertical-align:top}
+.hero h1 .w span{display:inline-block;transform:translateY(105%);animation:up 1.2s cubic-bezier(.2,.8,.2,1) forwards}
+.hero p{max-width:440px;margin-top:26px;color:var(--mut);font-size:clamp(15px,1.2vw,18px);opacity:0;animation:fade 1s .9s forwards}
+.hint{position:absolute;right:clamp(16px,6vw,96px);top:50%;z-index:2;display:flex;align-items:center;gap:14px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;opacity:0;animation:fade 1s 1.4s forwards}
+.hint i{width:70px;height:1px;background:var(--foam);position:relative;overflow:hidden}
+.hint i::after{content:"";position:absolute;inset:0;background:var(--gold);animation:slide 1.8s infinite}
+@keyframes up{to{transform:none}}@keyframes fade{to{opacity:1}}@keyframes slide{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+
+/* 2 manifesto */
+.mani{width:clamp(560px,95vw,1500px);display:flex;align-items:center;padding:0 clamp(24px,7vw,120px)}
+.mani h2{font-size:clamp(36px,5.6vw,92px);line-height:1}
+.mani h2 em{color:var(--sand);font-style:italic}
+.mani .brands{display:flex;gap:clamp(24px,4vw,64px);margin-top:48px;align-items:baseline;flex-wrap:wrap}
+.mani .brands b{font:400 clamp(22px,2.4vw,38px) Fraunces,serif;letter-spacing:.22em;text-transform:uppercase;color:var(--foam)}
+.mani .brands small{display:block;font:500 11px Manrope;letter-spacing:.24em;color:var(--mut);margin-top:6px}
+.stat{display:flex;gap:56px;margin-top:56px;flex-wrap:wrap}
+.stat div{border-top:1px solid var(--line);padding-top:14px;min-width:120px}
+.stat b{font:300 clamp(34px,3.6vw,56px)/1 Fraunces,serif;display:block}
+.stat span{font-size:13px;color:var(--mut)}
+
+/* 3 fleet */
+.fleet-head{width:clamp(320px,34vw,520px);display:flex;flex-direction:column;justify-content:center;padding:0 clamp(24px,4vw,64px)}
+.fleet-head h2{font-size:clamp(44px,5vw,84px);line-height:.95;margin:16px 0 20px}
+.fleet-head p{color:var(--mut);max-width:340px}
+.boat{width:clamp(300px,44vw,720px);padding:clamp(70px,11vh,110px) clamp(10px,1.2vw,20px) clamp(90px,13vh,120px);display:flex;flex-direction:column}
+.boat:nth-child(even) .ph{margin-top:6vh}
+.boat .ph{position:relative;flex:1;overflow:hidden;border-radius:4px;min-height:0}
+.boat .ph img{position:absolute;top:0;left:-16%;width:132%;height:100%;object-fit:cover;transition:filter .6s}
+.boat .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,18,28,.65),transparent 50%)}
+.boat .num{position:absolute;left:18px;top:14px;z-index:2;font:300 14px Fraunces;letter-spacing:.1em}
+.boat .price{position:absolute;right:18px;top:14px;z-index:2;background:rgba(4,18,28,.55);backdrop-filter:blur(8px);padding:6px 12px;border-radius:999px;font-size:13px;font-weight:500}
+.boat .nm{position:absolute;left:18px;right:18px;bottom:16px;z-index:2;font:300 clamp(26px,2.6vw,44px)/1 Fraunces,serif}
+.boat .spec{display:flex;gap:22px;margin-top:16px;font-size:13px;color:var(--mut);flex-wrap:wrap}
+.boat .spec b{color:var(--foam);font-weight:500;margin-right:4px}
+.boat .spec a{margin-left:auto;color:var(--gold);font-weight:500}
+.boat:hover .ph img{filter:saturate(1.2) brightness(1.06)}
+
+/* 4 new range */
+.range{width:clamp(560px,100vw,1500px);background:var(--foam);color:var(--ink);display:flex;flex-direction:column;justify-content:center;padding:0 clamp(24px,6vw,96px)}
+.range .eyebrow{color:#8a6a33}
+.range h2{font-size:clamp(40px,5.4vw,90px);line-height:.95;margin:14px 0 8px}
+.range p.l{color:#4a5a61;max-width:520px}
+.models{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(10px,1.4vw,22px);margin-top:44px}
+.models a{display:block}
+.models .t{aspect-ratio:3/2;overflow:hidden;border-radius:4px;background:#dfe6e5}
+.models img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.models a:hover img{transform:scale(1.08)}
+.models b{display:block;font:400 clamp(18px,1.7vw,26px) Fraunces,serif;margin-top:12px}
+.models span{font-size:12px;color:#5e6d73;letter-spacing:.08em;text-transform:uppercase}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+.chips span{border:1px solid rgba(4,18,28,.2);border-radius:999px;padding:6px 14px;font-size:13px}
+
+/* 5 services */
+.svc{width:clamp(620px,130vw,2000px);display:flex;align-items:center;padding:0 clamp(24px,5vw,80px);gap:clamp(24px,3vw,48px)}
+.svc .lead{flex:0 0 clamp(260px,26vw,420px)}
+.svc .lead h2{font-size:clamp(40px,4.8vw,80px);line-height:.95;margin:14px 0 18px}
+.svc .lead p{color:var(--mut)}
+.cards{display:grid;grid-template-rows:repeat(2,1fr);grid-auto-flow:column;grid-auto-columns:clamp(220px,22vw,340px);gap:16px;height:min(64vh,560px)}
+.card{border:1px solid var(--line);border-radius:6px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(160deg,rgba(13,59,79,.45),rgba(4,18,28,.2));transition:background .4s,transform .4s}
+.card:hover{background:linear-gradient(160deg,rgba(200,166,106,.22),rgba(4,18,28,.2));transform:translateY(-4px)}
+.card i{font:300 13px Fraunces;color:var(--gold);font-style:normal;letter-spacing:.1em}
+.card h3{font:400 clamp(20px,1.8vw,28px)/1.1 Fraunces,serif;margin-bottom:8px}
+.card p{font-size:14px;color:var(--mut)}
+
+/* 6 charter */
+.charter{width:clamp(560px,110vw,1700px)}
+.charter .bg{position:absolute;inset:0 -10%;background:url(img/marina.webp) center/cover}
+.charter::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,18,28,.85),rgba(4,18,28,.1) 60%)}
+.charter .in{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:0 clamp(24px,7vw,120px) clamp(110px,16vh,170px)}
+.charter h2{font-size:clamp(50px,9vw,160px);line-height:.88}
+.charter h2 em{font-style:italic;color:var(--sand)}
+.charter p{max-width:480px;color:var(--mut);margin-top:22px}
+.charter .btn{display:inline-block;margin-top:28px;border:1px solid var(--foam);padding:13px 22px;border-radius:999px;font-size:14px;font-weight:500;transition:background .3s,color .3s;align-self:flex-start}
+.charter .btn:hover{background:var(--foam);color:var(--ink)}
+
+/* 7 voices */
+.voices{width:clamp(560px,120vw,1900px);display:flex;align-items:center;gap:clamp(30px,5vw,90px);padding:0 clamp(24px,6vw,100px)}
+.voices .q{flex:0 0 clamp(260px,30vw,460px)}
+.voices blockquote{font:300 clamp(22px,2.2vw,34px)/1.25 Fraunces,serif}
+.voices blockquote::before{content:"“";display:block;font-size:2.6em;line-height:.6;color:var(--gold)}
+.voices cite{display:block;margin-top:20px;font-style:normal;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+
+/* 8 contact */
+.contact{width:100vw;display:grid;grid-template-columns:1.1fr 1fr}
+.contact .ph{position:relative;overflow:hidden}
+.contact .ph img{position:absolute;inset:0 -10%;width:120%;height:100%;object-fit:cover}
+.contact .info{display:flex;flex-direction:column;justify-content:center;padding:0 clamp(24px,5vw,90px);background:var(--deep)}
+.contact h2{font-size:clamp(42px,5vw,86px);line-height:.95;margin:14px 0 30px}
+.contact dl{display:grid;gap:18px}
+.contact dt{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--mut)}
+.contact dd{font:300 clamp(18px,1.6vw,24px) Fraunces,serif}
+.contact dd a{border-bottom:1px solid var(--line)}
+.contact dd a:hover{border-color:var(--gold)}
+.contact .foot{margin-top:44px;font-size:12px;color:var(--mut)}
+
+/* giant marquee words that live behind panels */
+.ghost{position:absolute;bottom:-.18em;left:0;font:300 clamp(120px,22vw,380px)/1 Fraunces,serif;color:transparent;-webkit-text-stroke:1px rgba(238,243,242,.09);white-space:nowrap;pointer-events:none}
+
+/* reveal on enter */
+.rv{opacity:0;transform:translateX(60px);transition:opacity 1s,transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.rv.on{opacity:1;transform:none}
+
+@media (max-width:760px){
+  header nav{display:none}
+  .prog{bottom:30px}.prog .bar{width:24vw}
+  .cta{padding:11px 16px;font-size:13px;bottom:22px}
+  .mani{width:100vw}
+  .fleet-head{width:86vw}
+  .boat{width:84vw}
+  .range{width:100vw;padding-top:80px;padding-bottom:90px}
+  .models{grid-template-columns:repeat(3,1fr)}
+  .models a:nth-child(n+4){display:none}
+  .svc{width:max-content;flex-direction:column;align-items:flex-start;justify-content:center;padding-top:80px;padding-bottom:100px}
+  .svc .lead{flex:none;width:84vw}
+  .svc .lead h2{font-size:40px}
+  .cards{display:flex;height:auto;gap:12px}
+  .card{flex:0 0 64vw;min-height:190px}
+  .charter{width:100vw}
+  .voices{width:max-content}
+  .voices .q{flex-basis:78vw}
+  .contact{grid-template-columns:1fr;grid-template-rows:34% 1fr}
+  .contact h2{margin-bottom:20px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01s!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="#" aria-label="Motor Yachts Portugal"><img class="logo" src="img/logo.svg" alt="Motor Yachts Portugal"></a>
+  <nav><a href="#" data-go="fleet">Yachts</a><a href="#" data-go="range">New Azimut</a><a href="#" data-go="svc">Services</a><a href="#" data-go="charter">Charter</a><a href="#" data-go="contact">Contact</a></nav>
+</header>
+
+<main id="h">
+  <div class="stage">
+    <div class="track" id="track">
+
+      <section class="panel hero" data-id="hero">
+        <div class="bg px" data-px="-.12"></div>
+        <div class="in">
+          <p class="eyebrow" style="opacity:0;animation:fade 1s .3s forwards">Vilamoura Marina · Algarve</p>
+          <h1 class="serif"><span class="w"><span>Life,</span></span><br><span class="w"><span style="animation-delay:.12s">at <em>sea.</em></span></span></h1>
+          <p>Official Azimut &amp; Benetti dealer in Portugal. We sell, charter, look after and repair motor yachts, from Vilamoura Marina.</p>
+        </div>
+        <div class="hint">Scroll<i></i></div>
+      </section>
+
+      <section class="panel mani" data-id="mani">
+        <div class="ghost px" data-px=".25">Azimut · Benetti · Agilis</div>
+        <div class="rv">
+          <p class="eyebrow">Motor Yachts Portugal</p>
+          <h2 class="serif" style="margin-top:18px">One harbour.<br>Every part of <em>owning</em> a yacht.</h2>
+          <div class="brands"><div><b>Azimut</b><small>Official dealer</small></div><div><b>Benetti</b><small>Official dealer</small></div><div><b>Agilis</b><small>Tenders &amp; toys</small></div></div>
+          <div class="stat"><div><b data-count="9">0</b><span>Yachts in stock now</span></div><div><b data-count="10">0</b><span>New Azimut models</span></div><div><b>1</b><span>Base: Vilamoura Marina</span></div></div>
+        </div>
+      </section>
+
+      <section class="panel fleet-head" data-id="fleet">
+        <div class="rv">
+          <p class="eyebrow">Brokerage · In stock</p>
+          <h2 class="serif">The<br>fleet.</h2>
+          <p>Hand-picked, inspected by our Azimut-certified technicians and ready to sail. Keep scrolling to walk the pontoon.</p>
+        </div>
+      </section>
+      <div class="skew" id="fleet"></div>
+
+      <section class="panel range" data-id="range">
+        <div class="rv">
+          <p class="eyebrow">New · Azimut Yachts</p>
+          <h2 class="serif">Ordered new,<br>delivered to Vilamoura.</h2>
+          <p class="l">The full Azimut range, from the Seadeck to the Grande S10. We handle the specification, the build visits and the hand-over at our pontoon.</p>
+          <div class="models">
+            <a href="https://motoryachtsportugal.com/" target="_blank" rel="noopener"><div class="t"><img src="img/m55.webp" alt="Azimut 55" loading="lazy"></div><b>Azimut 55</b><span>Flybridge</span></a>
+            <a href="https://motoryachtsportugal.com/" target="_blank" rel="noopener"><div class="t"><img src="img/m60.webp" alt="Azimut 60" loading="lazy"></div><b>Azimut 60</b><span>Flybridge</span></a>
+            <a href="https://motoryachtsportugal.com/" target="_blank" rel="noopener"><div class="t"><img src="img/m68.webp" alt="Azimut 68" loading="lazy"></div><b>Azimut 68</b><span>Flybridge</span></a>
+            <a href="https://motoryachtsportugal.com/" target="_blank" rel="noopener"><div class="t"><img src="img/m72.webp" alt="Azimut 72" loading="lazy"></div><b>Azimut 72</b><span>Flybridge</span></a>
+            <a href="https://motoryachtsportugal.com/" target="_blank" rel="noopener"><div class="t"><img src="img/m78.webp" alt="Azimut 78" loading="lazy"></div><b>Azimut 78</b><span>Flybridge</span></a>
+          </div>
+          <div class="chips"><span>Grande S10</span><span>S8</span><span>S7</span><span>53</span><span>50</span><span>Seadeck</span><span>Magellano</span></div>
+        </div>
+      </section>
+
+      <section class="panel svc" data-id="svc">
+        <div class="lead rv">
+          <p class="eyebrow">Services</p>
+          <h2 class="serif">We look after it.<br>You enjoy it.</h2>
+          <p>One team in the marina for everything after the purchase, so the boat is ready the day you arrive.</p>
+        </div>
+        <div class="cards">
+          <div class="card"><i>01</i><div><h3>Maintenance &amp; repair</h3><p>Azimut-certified technicians, engines, systems and annual service.</p></div></div>
+          <div class="card"><i>02</i><div><h3>Guardiennage</h3><p>We watch, wash, run and ventilate your yacht in Vilamoura Marina.</p></div></div>
+          <div class="card"><i>03</i><div><h3>After sales</h3><p>Azimut and Benetti warranties handled locally, no shipping to Italy.</p></div></div>
+          <div class="card"><i>04</i><div><h3>Complete service</h3><p>Registration, flag, taxes and paperwork for buying or selling.</p></div></div>
+          <div class="card"><i>05</i><div><h3>Boat detective</h3><p>We find the right used yacht for you and inspect it before you pay.</p></div></div>
+          <div class="card"><i>06</i><div><h3>Interior design</h3><p>Upholstery, fabrics and refits that make a used boat feel new.</p></div></div>
+          <div class="card"><i>07</i><div><h3>Crew</h3><p>Captains and crew, for a weekend or the whole season.</p></div></div>
+          <div class="card"><i>08</i><div><h3>Paint &amp; hull</h3><p>Antifouling, gelcoat, polishing and paint in the yard.</p></div></div>
+          <div class="card"><i>09</i><div><h3>Yacht Sentinel</h3><p>Remote monitoring: battery, bilge, position and alarms on your phone.</p></div></div>
+          <div class="card"><i>10</i><div><h3>SEABOB</h3><p>Official SEABOB sea scooters, sold and serviced here.</p></div></div>
+        </div>
+      </section>
+
+      <section class="panel charter" data-id="charter">
+        <div class="bg px" data-px=".1"></div>
+        <div class="in rv">
+          <p class="eyebrow">Charter</p>
+          <h2 class="serif">A day on the<br><em>Algarve.</em></h2>
+          <p>Skippered charters from Vilamoura: the Benagil caves, the Ria Formosa, a sunset off Albufeira. Half day, full day or the week.</p>
+          <a class="btn" href="https://wa.me/351289301329?text=Hello%2C%20I%27d%20like%20to%20ask%20about%20a%20yacht%20charter%20from%20Vilamoura." target="_blank" rel="noopener">Ask for dates</a>
+        </div>
+      </section>
+
+      <section class="panel voices" data-id="voices">
+        <div class="ghost px" data-px=".3">Owners</div>
+        <div class="q rv"><blockquote>We have no words to say how thankful we are with your help. It is a beautiful company, and I say it to everyone!</blockquote><cite>Kim &amp; Dennis</cite></div>
+        <div class="q rv"><blockquote>It was a first time experience buying a boat blindfolded… only relying on your honesty and professional approach.</blockquote><cite>Robert Abela · Malta</cite></div>
+        <div class="q rv"><blockquote>A wide team takes care of all kinds of problems on your boat in the quickest time. Your boat looks as new all over the year.</blockquote><cite>Ângelo Ferreira · Portugal</cite></div>
+        <div class="q rv"><blockquote>Exceptional service is often rare to experience, but at MY Portugal it’s a way of life!</blockquote><cite>Simon King · UK</cite></div>
+      </section>
+
+      <section class="panel contact" data-id="contact">
+        <div class="ph"><img class="px" data-px=".1" src="img/office.webp" alt="Motor Yachts Portugal office in Vilamoura Marina" loading="lazy"></div>
+        <div class="info rv">
+          <p class="eyebrow">Come aboard</p>
+          <h2 class="serif">See you<br>in the marina.</h2>
+          <dl>
+            <div><dt>Office</dt><dd>Edifício Vilamarina, Office 31<br>Marina de Vilamoura, 8125 Quarteira</dd></div>
+            <div><dt>Phone</dt><dd><a href="tel:+351289301329">+351 289 301 329</a></dd></div>
+            <div><dt>Email</dt><dd><a href="mailto:geral@motoryachtsportugal.com">geral@motoryachtsportugal.com</a></dd></div>
+          </dl>
+          <p class="foot">© Motor Yachts Portugal · Azimut · Benetti · Agilis</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<div class="prog"><span id="pn">01</span><div class="bar"><b id="pb"></b></div><span id="pt">08</span></div>
+<a class="cta" href="https://wa.me/351289301329?text=Hello%2C%20I%27m%20interested%20in%20a%20yacht." target="_blank" rel="noopener"><i></i>Talk to a broker</a>
+
+<script>
+(() => {
+  const BOATS = [
+    ['Azimut S6', '€1 685 000', '—', '18.00 m', '190 h', 's6', 'azimut-s6'],
+    ['Azimut Fly 50', '€945 000', '2021', '16.08 m', '285 h', 'fly50', 'azimut-fly-50'],
+    ['Azimut Magellano 53', '€850 000', '2016', '16.89 m', '1 300 h', 'magellano2', 'azimut-magellano-53'],
+    ['Beneteau Swift Trawler 41 Fly', '€495 000', '2022', '12.52 m', '', 'swift', 'beneteau-swift-trawler-41-fly'],
+    ['Mochi Craft 51 Dolphin', '€445 000', '2006', '15.85 m', '855 h', 'mochi', 'mochi-craft-51-dolphin'],
+    ['Atlantis 50×4', '€350 000', '2010', '15.56 m', '725 h', 'atlantis', 'atlantis-50x4'],
+    ['Fjord Open 36', '€300 000', '2011', '10.80 m', '', 'fjord', 'fjord-open-36'],
+    ['Fairline Targa 44 GT', '€275 000', '2008', '13.68 m', '685 h', 'targa', 'fairline-targa-44-gt'],
+    ['Sunseeker Camargue 50', '€185 000', '2000', '15.24 m', '895 h', 'camargue', 'sunseeker-camargue-50'],
+  ];
+  const fleet = document.getElementById('fleet');
+  fleet.innerHTML = BOATS.map(([n, p, y, l, h, img, slug], i) => `
+    <article class="panel boat">
+      <div class="ph"><img class="px" data-px=".07" src="img/${img}.webp" alt="${n}" loading="${i < 2 ? 'eager' : 'lazy'}">
+        <span class="num">${String(i + 1).padStart(2, '0')} / ${BOATS.length}</span><span class="price">${p}</span><span class="nm">${n}</span></div>
+      <div class="spec">${y !== '—' ? `<span><b>${y}</b>year</span>` : '<span><b>New</b>condition</span>'}<span><b>${l}</b>length</span>${h ? `<span><b>${h}</b>engine</span>` : ''}
+        <a href="https://motoryachtsportugal.com/yachts/${slug}/" target="_blank" rel="noopener">View →</a></div>
+    </article>`).join('');
+
+  const h = document.getElementById('h'), track = document.getElementById('track');
+  const pb = document.getElementById('pb'), pn = document.getElementById('pn');
+  const pxEls = [...document.querySelectorAll('.px')];
+  const rvEls = [...document.querySelectorAll('.rv')];
+  const sections = [...track.querySelectorAll('section.panel')];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let maxX = 0, cur = 0, target = 0, vel = 0;
+
+  function size() {
+    maxX = track.scrollWidth - innerWidth;
+    h.style.height = (maxX + innerHeight) + 'px';
+    target = Math.min(Math.max(scrollY - h.offsetTop, 0), maxX);
+  }
+  addEventListener('resize', size);
+  addEventListener('load', size);
+  addEventListener('scroll', () => { target = Math.min(Math.max(scrollY - h.offsetTop, 0), maxX); }, { passive: true });
+  size();
+  document.getElementById('pt').textContent = String(sections.length).padStart(2, '0');
+
+  // nav: jump to a panel by scrolling the page to its horizontal offset
+  document.querySelectorAll('[data-go]').forEach(a => a.onclick = e => {
+    e.preventDefault();
+    const el = document.querySelector(`[data-id="${a.dataset.go}"]`);
+    scrollTo({ top: h.offsetTop + Math.min(el.offsetLeft, maxX), behavior: reduce ? 'auto' : 'smooth' });
+  });
+
+  // count-up stats
+  const counted = new WeakSet();
+  function countUp(el) {
+    if (counted.has(el)) return; counted.add(el);
+    const n = +el.dataset.count, t0 = performance.now();
+    const step = t => { const k = Math.min((t - t0) / 1200, 1); el.textContent = Math.round(n * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+
+  function frame() {
+    const prev = cur;
+    cur += (target - cur) * (reduce ? 1 : 0.09);
+    if (Math.abs(target - cur) < 0.1) cur = target;
+    vel += ((cur - prev) - vel) * 0.2;
+    track.style.transform = `translate3d(${-cur}px,0,0)`;
+    // a little skew with speed on the fleet row
+    if (!reduce) fleet.style.transform = `skewX(${Math.max(-6, Math.min(6, -vel * 0.12))}deg)`;
+
+    const W = innerWidth;
+    for (const el of pxEls) {
+      const r = el.parentElement.getBoundingClientRect();
+      if (r.right < -200 || r.left > W + 200) continue;
+      const off = (r.left + r.width / 2 - W / 2);
+      el.style.transform = `translate3d(${off * -(+el.dataset.px)}px,0,0)`;
+    }
+    for (const el of rvEls) {
+      if (el.classList.contains('on')) continue;
+      const r = el.getBoundingClientRect();
+      if (r.left < W * 0.86) { el.classList.add('on'); el.querySelectorAll('[data-count]').forEach(countUp); }
+    }
+    const p = maxX ? cur / maxX : 0;
+    pb.style.transform = `scaleX(${p})`;
+    let idx = 0;
+    sections.forEach((s, i) => { if (s.getBoundingClientRect().left < W * 0.5) idx = i; });
+    pn.textContent = String(idx + 1).padStart(2, '0');
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
