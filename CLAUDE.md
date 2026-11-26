@@ -8,6 +8,9 @@ This repo holds several separate websites. Each folder is deployed by its own Ve
 | `lase/`    | `lase-properties` (was `bikinifactory-5h36`) | LASE Properties site         |
 | `sitios/`  | `sitios` (to be created)               | Admin, student feed and student sites (`/admin`, `/editor`, `/feed`, `/<slug>`) |
 
+- **Own domains for student sites** are managed by the teacher in the admin ("Dominio propio" box).
+  They are stored as host rewrites in `sitios/vercel.json` (written by `sitios/api/_domains.js`); don't edit
+  those entries by hand.
 - **Never force-push `main`** and never rewrite its history (no `git push --force`, no `reset` + push).
   Other sessions' sites live on `main`; a force-push deletes them from production.
   Always `git fetch origin main` and add your commit on top, or merge.

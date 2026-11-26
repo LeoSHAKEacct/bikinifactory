@@ -367,6 +367,11 @@ var SECTION_TYPES = {
   gallery: { label: 'Galería de fotos y videos', fields: [
     ['eyebrow', 'Texto pequeño (dorado)'], ['title', 'Título'], GALLERY_LIST
   ], blank: { eyebrow: 'Galería', title: 'Nuestro trabajo', gallery: [{ kind: '', photo: '', video: '', caption: '', placeholder: 'Foto 1' }, { kind: '', photo: '', video: '', caption: '', placeholder: 'Foto 2' }, { kind: 'video', photo: '', video: '', caption: '', placeholder: 'Video' }] } },
+  videos: { label: 'Videos (máximo 2)', fields: [
+    ['eyebrow', 'Texto pequeño (dorado)'], ['title', 'Título'], ['text', 'Texto', 'textarea'],
+    { list: 'videos', label: 'Video', add: '+ Agregar video', max: 2, empty: { url: '', caption: '' },
+      fields: [['url', 'Link del video', 'text', 'YouTube, Instagram, TikTok o Vimeo'], ['caption', 'Texto debajo del video']] }
+  ], blank: { eyebrow: 'Videos', title: 'Conócenos', text: '', videos: [{ url: '', caption: '' }] } },
   zones: { label: 'Zonas / lugares', fields: [
     ['eyebrow', 'Texto pequeño (dorado)'], ['title', 'Título'], ['text', 'Texto', 'textarea'],
     ['places', 'Lugares (uno por línea)', 'lines']
@@ -719,7 +724,7 @@ function renderEditor() {
   html += '<div class="note" style="background:rgba(236,95,122,.07);border-color:var(--line2);color:var(--rose2)">Tip: escribe <b>{nombre}</b> o <b>{telefono}</b> en cualquier texto y se reemplaza solo.</div>';
   html += '<div class="note">Editando <b>' + esc(siteLabel(state.slug)) + '</b> · link: <b>' + esc(location.host) + '/' + esc(state.slug) + '/</b><br>Todo se <b>guarda solo</b> en la nube unos segundos después de editar (también desde otro computador). Con <b>Publicar</b> queda en vivo en ~1 minuto.</div>';
 
-  if (state.who && state.who.role === 'admin') html += ownerBox();
+  if (state.who && state.who.role === 'admin') html += ownerBox() + domainBox();
   var open = function (key, dflt) { return key in openState ? openState[key] : dflt; };
   html += '<details class="sec" data-key="g"' + (open('g', true) ? ' open' : '') + '><summary><span class="n">⚙</span>General</summary><div class="sec-body">';
   GENERAL.forEach(function (f) { html += fieldHtml(f[0], f[1], f[2], f[3], get(d, f[0])); });
@@ -774,7 +779,8 @@ function renderEditor() {
         f.fields.forEach(function (sf) { if (showField(sf[5], it)) html += fieldHtml(lp + '.' + i + '.' + sf[0], sf[1], sf[2], sf[3], it[sf[0]], sf[4]); });
         html += '</div>';
       });
-      if (!f.fixed) html += '<button type="button" class="btn small" data-add="' + lp + '|' + sec.type + '|' + f.list + '">' + esc(f.add) + '</button>';
+      if (!f.fixed && !(f.max && items.length >= f.max)) html += '<button type="button" class="btn small" data-add="' + lp + '|' + sec.type + '|' + f.list + '">' + esc(f.add) + '</button>';
+      else if (f.max && items.length >= f.max) html += '<div class="sub">Máximo ' + f.max + '.</div>';
     });
     html += '</div></details>';
   });
@@ -793,7 +799,39 @@ state.links = {};
 async function loadLinks() {
   if (!state.who || state.who.role !== 'admin') return;
   try { state.links = (await api('GET', '/api/owners')).links || {}; } catch (e) { state.links = {}; }
+  try { var dj = await api('GET', '/api/domains'); state.domains = dj.domains || {}; state.domainsAuto = dj.auto; } catch (e) { state.domains = {}; }
 }
+// ---------- own domain (teacher only) ----------
+state.domains = {};
+function domainBox() {
+  var mine = Object.keys(state.domains).filter(function (d) { return state.domains[d].slug === state.slug; })[0];
+  var st = '';
+  if (!mine) st = 'Escribe el dominio que compró la persona (sin www) y pulsa Conectar. Esta página se verá en ese dominio.';
+  else {
+    var s = state.domains[mine].status;
+    st = s === 'ok' ? '<b>✓ Conectado.</b> ' + esc(mine) + ' muestra este sitio.'
+      : s === 'missing' ? 'Falta agregar el dominio en Vercel: proyecto <b>sitios</b> → Settings → Domains → Add → <b>' + esc(mine) + '</b>.'
+      : 'Falta el DNS: en Vercel (proyecto <b>sitios</b> → Settings → Domains) haz clic en el aviso del dominio y copia los registros que muestra (un <b>A</b> para @ y un <b>CNAME</b> para www) donde se compró el dominio. Puede tardar de minutos a unas horas.' +
+        (s === 'unknown' ? '<br>Y agrega el dominio en Vercel: proyecto <b>sitios</b> → Settings → Domains → Add.' : '');
+  }
+  return '<div class="note owner-box"><b>Dominio propio</b>' +
+    '<div class="row"><input id="domainInput" placeholder="ejemplo.com" value="' + esc(mine || '') + '"></div>' +
+    '<div class="row"><button type="button" class="btn small primary" id="domainSave">' + (mine ? 'Cambiar' : 'Conectar') + '</button>' +
+    (mine ? '<button type="button" class="btn small danger" id="domainRemove">Quitar dominio</button>' : '') + '</div>' +
+    '<div class="st">' + st + '</div></div>';
+}
+$('editor').addEventListener('click', async function (e) {
+  var b = e.target.closest('#domainSave, #domainRemove'); if (!b) return;
+  var slug = state.slug, remove = b.id === 'domainRemove';
+  if (remove && !confirm('¿Quitar el dominio de ' + siteLabel(slug) + '?')) return;
+  b.disabled = true;
+  try {
+    await api('POST', '/api/domains', remove ? { slug: slug, remove: true } : { slug: slug, domain: $('domainInput').value });
+    await loadLinks();
+    toast(remove ? 'Dominio quitado.' : 'Dominio guardado. Queda activo en ~1 minuto, cuando el DNS esté listo.', 'ok', 7000);
+    if (state.slug === slug) renderEditor();
+  } catch (err) { toast(esc(err.message), 'err'); b.disabled = false; }
+});
 function ownerBox() {
   var l = state.links[state.slug] || {}, a = l.account;
   var st = a ? '<b>✓ Cuenta creada</b> · ' + esc(a.email || a.phone || a.name) + ' puede entrar y editar este sitio.'

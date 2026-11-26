@@ -223,6 +223,50 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
 .reveal.in{opacity:1;transform:none}
 #cursor{position:fixed;width:400px;height:400px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(79,216,255,.06),transparent 60%);transform:translate(-50%,-50%);z-index:1;left:-500px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+
+/* ===== "Ask Pranav" chat: an AI version of Pranav answers visitors (text now; voice and a 3D talking face plug in later) ===== */
+.ap-launch{position:fixed;left:20px;bottom:20px;z-index:61;display:flex;align-items:center;gap:10px;padding:6px 16px 6px 6px;border-radius:999px;border:1px solid rgba(216,180,106,.55);background:rgba(10,14,23,.92);backdrop-filter:blur(10px);color:var(--text);font:600 14px "Space Grotesk";cursor:pointer;box-shadow:0 14px 40px -12px rgba(216,180,106,.6);transition:transform .3s}
+.ap-launch:hover{transform:translateY(-2px)}
+.ap-launch img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)}
+.ap-launch small{display:block;font:500 11px Inter;color:var(--muted)}
+.ap-launch .on{position:absolute;left:40px;bottom:8px;width:11px;height:11px;border-radius:50%;background:#25d366;border:2px solid #0a0e17}
+.ap-launch.hide{opacity:0;pointer-events:none}
+.ap{position:fixed;left:20px;bottom:20px;z-index:70;width:min(390px,calc(100vw - 40px));height:min(620px,calc(100vh - 40px));display:flex;flex-direction:column;border-radius:24px;border:1px solid rgba(216,180,106,.45);background:linear-gradient(170deg,#121826,#070a11 60%);box-shadow:0 40px 100px -20px rgba(0,0,0,.9);overflow:hidden;opacity:0;transform:translateY(16px) scale(.98);pointer-events:none;transition:opacity .25s,transform .25s}
+.ap.open{opacity:1;transform:none;pointer-events:auto}
+.ap-head{position:relative;display:flex;flex-direction:column;align-items:center;padding:20px 16px 12px;border-bottom:1px solid var(--line);background:radial-gradient(ellipse at 50% 0,rgba(216,180,106,.18),transparent 70%)}
+.ap-face{position:relative;width:104px;height:104px;border-radius:50%;overflow:hidden;border:2px solid var(--gold);box-shadow:0 0 0 6px rgba(216,180,106,.12),0 16px 40px -10px rgba(216,180,106,.5)}
+.ap-face img,.ap-face video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ap-face video{opacity:0;transition:opacity .3s}.ap-face video.show{opacity:1}
+.ap.talking .ap-face{animation:apPulse 1s ease-in-out infinite}
+@keyframes apPulse{50%{box-shadow:0 0 0 10px rgba(216,180,106,.18),0 16px 40px -10px rgba(216,180,106,.7)}}
+.ap-head b{font:600 17px "Space Grotesk";margin-top:10px}
+.ap-head small{color:var(--muted);font-size:12px;display:flex;align-items:center;gap:6px}
+.ap-head small i{width:7px;height:7px;border-radius:50%;background:#25d366}
+.ap-x{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--text);font-size:20px;cursor:pointer}
+.ap-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;scrollbar-width:thin}
+.ap-m{max-width:85%;padding:10px 14px;border-radius:16px;font-size:14.5px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word}
+.ap-m.bot{align-self:flex-start;background:rgba(255,255,255,.06);border:1px solid var(--line);border-bottom-left-radius:4px}
+.ap-m.me{align-self:flex-end;background:linear-gradient(100deg,var(--gold2),var(--gold));color:#1a1205;border-bottom-right-radius:4px}
+.ap-m.err{border-color:rgba(255,120,120,.4)}
+.ap-dots{align-self:flex-start;display:flex;gap:4px;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.06)}
+.ap-dots i{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:apDot 1.2s infinite}.ap-dots i:nth-child(2){animation-delay:.15s}.ap-dots i:nth-child(3){animation-delay:.3s}
+@keyframes apDot{30%{transform:translateY(-4px);background:var(--gold)}}
+.ap-wa{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:#25d366;color:#fff;font:600 13.5px Inter}
+.ap-chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 10px}
+.ap-chips button{padding:7px 12px;border-radius:999px;border:1px solid rgba(216,180,106,.45);background:rgba(216,180,106,.08);color:var(--gold2);font:500 12.5px Inter;cursor:pointer}
+.ap-chips button:hover{background:rgba(216,180,106,.18)}
+.ap-chips[hidden]{display:none}
+.ap-form{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+.ap-form textarea{flex:1;resize:none;height:44px;max-height:120px;padding:11px 14px;border-radius:14px;border:1px solid var(--line);background:#070a11;color:var(--text);font:400 14.5px Inter}
+.ap-form textarea:focus{outline:0;border-color:var(--gold)}
+.ap-form button{width:44px;height:44px;border-radius:50%;border:0;background:linear-gradient(140deg,var(--gold2),var(--gold));cursor:pointer;display:grid;place-items:center}
+.ap-form button:disabled{opacity:.5;cursor:default}
+.ap-form svg{width:20px;height:20px;fill:#1a1205}
+.ap-note{padding:0 16px 10px;color:var(--muted);font-size:11px;text-align:center}
+@media(max-width:600px){
+  .ap{left:0;bottom:0;width:100vw;height:100dvh;border-radius:0;border:0}
+  .ap-launch{padding:4px;left:14px;bottom:16px}.ap-launch span{display:none}.ap-launch .on{left:38px;bottom:4px}
+}
 </style>
 </head>
 <body>
@@ -683,6 +727,90 @@ tilt.addEventListener("pointerleave", () => tilt.style.transform = "");
   };
   f.addEventListener("keydown", e => { if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") { e.preventDefault(); next.click(); } });
   show(1);
+})();
+</script>
+
+<button class="ap-launch" id="apLaunch" type="button" aria-label="Chat with Pranav"><img src="avatar.jpg" alt=""><i class="on"></i><span>Ask Pranav<small>Replies instantly</small></span></button>
+<div class="ap" id="ap" role="dialog" aria-label="Chat with Pranav" aria-modal="false">
+  <div class="ap-head">
+    <button class="ap-x" id="apX" type="button" aria-label="Close chat">×</button>
+    <div class="ap-face"><img src="avatar.jpg" alt="Pranav Sheth"><video id="apIdle" muted playsinline loop preload="none"></video><video id="apTalk" muted playsinline loop preload="none"></video></div>
+    <b>Pranav Sheth</b><small><i></i>AI version · replies instantly</small>
+  </div>
+  <div class="ap-msgs" id="apMsgs" aria-live="polite"></div>
+  <div class="ap-chips" id="apChips"><button type="button">I want to buy in Dubai</button><button type="button">Off-plan launches</button><button type="button">Sell my property</button><button type="button">What yields can I expect?</button></div>
+  <form class="ap-form" id="apForm"><textarea id="apIn" rows="1" maxlength="1500" placeholder="Ask me about Dubai property…" aria-label="Your message"></textarea><button type="submit" id="apSend" aria-label="Send"><svg viewBox="0 0 24 24"><path d="M3 20l18-8L3 4v6l12 2-12 2z"/></svg></button></form>
+  <p class="ap-note">AI answers can be wrong. For anything binding, talk to Pranav directly.</p>
+</div>
+<script>
+/* "Ask Pranav" chat. Text replies come from /api/chat (Claude). Ready for later:
+   - a 3D talking face: drop avatar-idle.mp4 / avatar-talk.mp4 next to this page and set AVATAR_VIDEO = true
+   - his real voice: set VOICE = true and fill in speak() with the voice service */
+(() => {
+  const AVATAR_VIDEO = false, VOICE = false, WA_NUM = "971555366354";
+  const $ = id => document.getElementById(id), box = $("ap"), msgs = $("apMsgs"), input = $("apIn"), send = $("apSend");
+  const history = [];
+  let busy = false, greeted = false;
+  const idle = $("apIdle"), talk = $("apTalk");
+  if (AVATAR_VIDEO) {
+    idle.src = "avatar-idle.mp4"; talk.src = "avatar-talk.mp4";
+    idle.oncanplay = () => { idle.classList.add("show"); idle.play().catch(() => {}); };
+    [idle, talk].forEach(v => v.onerror = () => v.remove());
+  }
+  function talking(ms) {
+    box.classList.add("talking");
+    if (AVATAR_VIDEO && talk.isConnected) { talk.currentTime = 0; talk.classList.add("show"); talk.play().catch(() => {}); }
+    clearTimeout(talking.t);
+    talking.t = setTimeout(() => { box.classList.remove("talking"); talk.classList.remove("show"); if (talk.pause) talk.pause(); }, ms);
+  }
+  function speak(text) { /* voice goes here once Pranav's voice is ready */ }
+  function bubble(text, who, cls) {
+    const d = document.createElement("div"); d.className = "ap-m " + who + (cls ? " " + cls : ""); d.textContent = text;
+    msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight; return d;
+  }
+  function waButton(summary) {
+    const a = document.createElement("a"); a.className = "ap-wa"; a.target = "_blank"; a.rel = "noopener";
+    a.href = `https://wa.me/${WA_NUM}?text=${encodeURIComponent(summary)}`; a.textContent = "Send this to Pranav on WhatsApp →";
+    msgs.appendChild(a); msgs.scrollTop = msgs.scrollHeight;
+  }
+  function botSays(text) { bubble(text, "bot"); history.push({ role: "assistant", content: text }); talking(Math.min(9000, 900 + text.length * 45)); if (VOICE) speak(text); }
+  function open() {
+    box.classList.add("open"); $("apLaunch").classList.add("hide");
+    if (!greeted) { greeted = true; botSays("Hi, I'm Pranav, or rather my AI version. Looking to buy, sell, rent or invest in Dubai? Tell me what you have in mind."); }
+    if (AVATAR_VIDEO && idle.isConnected && idle.preload === "none") { idle.preload = "auto"; idle.load(); }
+    setTimeout(() => input.focus(), 250);
+  }
+  function close() { box.classList.remove("open"); $("apLaunch").classList.remove("hide"); }
+  async function ask(text) {
+    text = text.trim(); if (!text || busy) return;
+    busy = true; send.disabled = true; $("apChips").hidden = true;
+    bubble(text, "me"); history.push({ role: "user", content: text }); input.value = ""; input.style.height = "";
+    const dots = document.createElement("div"); dots.className = "ap-dots"; dots.innerHTML = "<i></i><i></i><i></i>"; msgs.appendChild(dots); msgs.scrollTop = msgs.scrollHeight;
+    try {
+      const r = await fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages: history }) });
+      const data = await r.json().catch(() => ({}));
+      dots.remove();
+      if (!r.ok || !data.reply) {
+        history.pop();
+        bubble(data.error || "I couldn't answer just now. Message me on WhatsApp and I'll reply there.", "bot", "err");
+        waButton("Hi Pranav, I have a question about Dubai property: " + text);
+      } else {
+        botSays(data.reply);
+        if (data.handoff) waButton(data.handoff);
+      }
+    } catch (_) {
+      dots.remove(); history.pop();
+      bubble("No connection right now. Message me on WhatsApp instead.", "bot", "err");
+      waButton("Hi Pranav, " + text);
+    }
+    busy = false; send.disabled = false;
+  }
+  $("apLaunch").onclick = open; $("apX").onclick = close;
+  addEventListener("keydown", e => { if (e.key === "Escape" && box.classList.contains("open")) close(); });
+  $("apForm").onsubmit = e => { e.preventDefault(); ask(input.value); };
+  input.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); ask(input.value); } });
+  input.addEventListener("input", () => { input.style.height = ""; input.style.height = Math.min(120, input.scrollHeight) + "px"; });
+  $("apChips").querySelectorAll("button").forEach(b => b.onclick = () => ask(b.textContent));
 })();
 </script>
 </body>
