@@ -282,6 +282,8 @@ html,body{height:100%;overflow:hidden}
 #hpDots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer;transition:.3s}
 #hpDots i.on{width:22px;border-radius:4px;background:var(--gold)}
 .scroll-hint{display:none!important}
+/* on the opening panel the pager and "Ask Pranav" sit above the numbers box instead of covering it */
+.hpager,.ap-launch{translate:0 calc(-1 * var(--lift, 0px));transition:translate .45s cubic-bezier(.2,.8,.2,1),opacity .3s,transform .3s}
 @media(max-width:600px){.hpager{bottom:auto;top:80px;padding:6px 8px}.hpager button{width:28px;height:28px;font-size:14px}}
 </style>
 </head>
@@ -784,6 +786,16 @@ tilt.addEventListener("pointerleave", () => tilt.style.transform = "");
   dots.querySelectorAll("i").forEach((d, i) => d.onclick = () => go(i));
   const mark = () => { const i = idx(); dots.querySelectorAll("i").forEach((d, k) => d.classList.toggle("on", k === i)); prev.disabled = i === 0; nextB.disabled = i === pnls.length - 1; };
   hs.addEventListener("scroll", mark, {passive: true}); mark();
+  // keep the bottom controls clear of the numbers box on the opening panel
+  const stats = document.querySelector("#p-top .stats-grid"), pager = document.getElementById("hpager");
+  const lift = () => {
+    let px = 0;
+    if (stats && idx() === 0) { const top = stats.getBoundingClientRect().top; if (top < innerHeight) px = Math.max(0, innerHeight - top + 16 - 22); }
+    if (!matchMedia("(max-width:600px)").matches) pager.style.setProperty("--lift", px + "px"); else pager.style.removeProperty("--lift");   // on phones the pager sits at the top
+    const chatBtn = document.getElementById("apLaunch"); if (chatBtn) chatBtn.style.setProperty("--lift", px + "px");
+  };
+  hs.addEventListener("scroll", lift, {passive: true}); pnls[0].addEventListener("scroll", lift, {passive: true});
+  addEventListener("resize", lift); addEventListener("load", lift); lift();
   prev.onclick = () => go(idx() - 1); nextB.onclick = () => go(idx() + 1);
   // vertical wheel -> sideways, once the current panel has no more room to scroll that way
   let lock = 0;
