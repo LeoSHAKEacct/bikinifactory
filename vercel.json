@@ -5,5 +5,6 @@
     }
   },
   "buildCommand": "echo 'Static site'",
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "ignoreCommand": "[ -f scripts/vercel-ignore.sh ] && sh scripts/vercel-ignore.sh . ':!pranav' ':!lase' ':!sitios' ':!hospital' ':!scripts' || exit 1"
 }

@@ -1,4 +1,5 @@
 {
+  "ignoreCommand": "[ -f ../scripts/vercel-ignore.sh ] && sh ../scripts/vercel-ignore.sh || exit 1",
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
