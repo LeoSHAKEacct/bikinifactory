@@ -108,6 +108,17 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:7
 .stat:last-child{border:0}
 .stat b{display:block;font:700 clamp(30px,4vw,46px) "Space Grotesk"}
 .stat>span{font-size:13px;color:var(--muted);letter-spacing:.04em}
+/* opening screen: the pencil drawing first; the first scroll brings in the Dubai photos behind it */
+.hero-bg{transition:opacity 1.8s ease}
+.hero[data-hstage="0"] .hero-bg{opacity:0}
+#heroSketch{position:absolute;right:0;top:9%;width:37%;height:86%;z-index:1;pointer-events:none}
+#heroSketch canvas{display:block;width:100%;height:100%}
+#heroSketch .cu-pencil{position:absolute;left:0;top:0}
+@media(max-width:760px){#heroSketch{right:-14%;top:6%;width:86%;height:62%;opacity:.5}}
+/* About: the page fits the window, so the strip of place names at the bottom shows straight away */
+@media(min-width:761px){.pnl:has(>#about){display:flex;flex-direction:column}
+.pnl>#about{flex:1 1 auto;min-height:0;padding:clamp(80px,11vh,110px) 0 clamp(16px,3vh,40px)}
+.pnl:has(>#about)>.marquee{flex:none}}
 /* the opening screen fits the window: the numbers box is always visible without scrolling */
 @media(min-width:761px){#p-top{display:flex;flex-direction:column}
 #p-top .hero{flex:1 1 auto;min-height:0;padding:0 0 64px}
@@ -455,9 +466,10 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
 
 <main class="hs" id="hs">
 <div class="pnl" id="p-top">
-<header class="hero" id="top">
+<header class="hero" id="top" data-hstage="0">
   <div class="hero-bg" id="heroBg"></div>
   <canvas id="sky"></canvas>
+  <div id="heroSketch" aria-hidden="true"></div>
   <div class="grid-floor"></div>
   <div class="wrap hero-inner">
     <div>
@@ -1062,10 +1074,15 @@ tilt.addEventListener("pointerleave", () => tilt.style.transform = "");
     document.dispatchEvent(new CustomEvent("pranav:stage", {detail: {stage: n, reset: !!reset}})); };
   window.bpStage = 0;
   if (stager) stager.querySelectorAll("[data-go]").forEach(b => b.onclick = () => setStage(+b.dataset.go));
+  // the opening screen has 2 steps: the pencil drawing alone, then the Dubai photos behind it
+  const heroEl = document.getElementById("top"), gl = (() => { try { return !!document.createElement("canvas").getContext("webgl2"); } catch (_) { return false; } })();
+  let hstage = gl && !reduce ? 0 : 1; if (heroEl) heroEl.dataset.hstage = hstage;
+  const setHero = n => { hstage = n; if (heroEl) heroEl.dataset.hstage = n; };
+  pnls[0].addEventListener("scroll", () => { if (pnls[0].scrollTop > 30 && hstage === 0) setHero(1); }, {passive: true});   // phones scroll down
   // returns true when the step was used inside the panel instead of moving to another panel
-  const stepIn = (i, dir) => { if (i !== SP || !(dir > 0 ? stage < 2 : stage > 0)) return false; setStage(stage + dir); return true; };
+  const stepIn = (i, dir) => { if (i === 0 && (dir > 0 ? hstage < 1 : hstage > 0)) { setHero(hstage + dir); return true; } if (i !== SP || !(dir > 0 ? stage < 2 : stage > 0)) return false; setStage(stage + dir); return true; };
   const mark = () => { const i = idx();
-    if (i !== lastI) { if (i === SP && lastI >= 0) setStage(lastI < SP ? 0 : 2, lastI < SP); lastI = i; } dots.querySelectorAll("i").forEach((d, k) => d.classList.toggle("on", k === i)); prev.disabled = i === 0; nextB.disabled = i === pnls.length - 1; document.getElementById("hpFirst").hidden = i === 0; };
+    if (i !== lastI) { if (i === SP && lastI >= 0) setStage(lastI < SP ? 0 : 2, lastI < SP); if (i === 0 && lastI > 0) setHero(1); lastI = i; } dots.querySelectorAll("i").forEach((d, k) => d.classList.toggle("on", k === i)); prev.disabled = i === 0; nextB.disabled = i === pnls.length - 1; document.getElementById("hpFirst").hidden = i === 0; };
   hs.addEventListener("scroll", mark, {passive: true}); mark();
   // keep the bottom controls clear of the numbers box on the opening panel
   const stats = document.querySelector("#p-top .stats-grid"), pager = document.getElementById("hpager");
