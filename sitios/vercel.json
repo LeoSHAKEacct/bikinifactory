@@ -14,6 +14,26 @@
       "destination": "/admin/index.html"
     },
     {
+      "source": "/((?!_site/|api/|admin|editor|feed|luna/).*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "lunnamasaje.xyz"
+        }
+      ],
+      "destination": "/luna/$1"
+    },
+    {
+      "source": "/((?!_site/|api/|admin|editor|feed|luna/).*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lunnamasaje.xyz"
+        }
+      ],
+      "destination": "/luna/$1"
+    },
+    {
       "source": "/((?!_site/|api/|admin|editor|feed|patricia-spa/).*)",
       "has": [
         {
@@ -40,6 +60,14 @@
       "destination": "/feed/",
       "permanent": false,
       "missing": [
+        {
+          "type": "host",
+          "value": "lunnamasaje.xyz"
+        },
+        {
+          "type": "host",
+          "value": "www.lunnamasaje.xyz"
+        },
         {
           "type": "host",
           "value": "tantraessence.eu"
