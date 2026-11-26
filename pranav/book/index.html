@@ -63,7 +63,7 @@ input:focus,select:focus,textarea:focus{outline:0;border-color:var(--gold)}
 </style>
 </head>
 <body>
-<div class="top"><a href="/" class="logo">PRANAV<span>.</span>SHETH</a><a href="/" class="back">← Back to the site</a></div>
+<div class="top"><a href="/" class="back">← Back to the site</a><a href="/" class="logo">PRANAV<span>.</span>SHETH</a></div>
 <main>
   <div class="card">
     <aside class="side">
@@ -100,6 +100,7 @@ input:focus,select:focus,textarea:focus{outline:0;border-color:var(--gold)}
         </div>
         <label for="m">Anything I should know before the call?</label><textarea id="m" rows="3"></textarea>
         <button class="btn" type="submit">Request this time →</button>
+        <p class="tz" style="text-align:center;margin-top:10px">Your details are saved and sent to Pranav so he can confirm.</p>
       </form>
     </section>
     <section class="done" id="done">
@@ -110,6 +111,7 @@ input:focus,select:focus,textarea:focus{outline:0;border-color:var(--gold)}
     </section>
   </div>
 </main>
+<script src="/track.js"></script>
 <script>
 /* Booking: Monday–Saturday, 10:00–18:00 Dubai time (UTC+4, no daylight saving), 30-minute calls.
    The request goes to Pranav on WhatsApp; he confirms there. */
@@ -160,6 +162,10 @@ function drawSlots() {
   });
 }
 const when = dt => `${fmtDxb(dt, { weekday: "long", day: "numeric", month: "long" })} at ${fmtDxb(dt, { hour: "2-digit", minute: "2-digit" })} Dubai time` + (sameAsDubai ? "" : ` (${fmtLocal(dt, { weekday: "short", hour: "2-digit", minute: "2-digit" })} your time)`);
+// save progress so unfinished bookings still reach Pranav's admin
+const track = window.leadTracker ? leadTracker("booking") : null;
+const bookingFields = () => ({ slot: slot ? slot.toISOString() : "", slotDubai: slot ? when(slot) : "", name: $("n").value, phone: $("w").value, email: $("e").value, topic: $("t").value, how: $("how").value, budget: $("b").value, notes: $("m").value, tz: localTZ });
+["input", "change"].forEach(ev => $("f").addEventListener(ev, () => track && track.progress(bookingFields())));
 function showForm() { $("sum").textContent = "Your time: " + when(slot); $("f").classList.add("show"); $("n").focus({ preventScroll: true }); $("f").scrollIntoView({ behavior: "smooth", block: "nearest" }); }
 const stamp = d => `${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}00Z`;
 $("f").onsubmit = e => {
@@ -168,6 +174,7 @@ $("f").onsubmit = e => {
   const msg = `Hi Pranav, I'd like to book a free consultation.\n\nTime: ${when(slot)}\nName: ${v("n")}\nWhatsApp: ${v("w")}${v("e") ? "\nEmail: " + v("e") : ""}\nTopic: ${v("t")}\nMeeting: ${v("how")}\nBudget: ${v("b")}${v("m") ? "\nNotes: " + v("m") : ""}`;
   const wa = `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
   window.open(wa, "_blank", "noopener");
+  if (track) track.submit(bookingFields());
   const title = "Consultation with Pranav Sheth (pending confirmation)", details = `${v("t")} · ${v("how")}. Pranav confirms on WhatsApp: +971 55 536 6354`;
   $("gcal").href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${stamp(slot)}/${stamp(end)}&details=${encodeURIComponent(details)}`;
   const ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Pranav Sheth//Booking//EN", "BEGIN:VEVENT", `UID:${Date.now()}@pranav-sheth`, `DTSTAMP:${stamp(new Date())}`, `DTSTART:${stamp(slot)}`, `DTEND:${stamp(end)}`, `SUMMARY:${title}`, `DESCRIPTION:${details}`, "END:VEVENT", "END:VCALENDAR"].join("\r\n");

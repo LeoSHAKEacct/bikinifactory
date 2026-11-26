@@ -514,6 +514,7 @@ html,body{height:100%;overflow:hidden}
           <div class="field"><label>WhatsApp (with country code) *</label><input name="phone" type="tel" autocomplete="tel" placeholder="+971 …" required></div>
         </div>
         <div class="field"><label>City / Country *</label><input name="city" autocomplete="country-name" required></div>
+        <p style="color:var(--muted);font-size:12px;margin-top:10px">Your details are saved and sent to Pranav so he can get back to you.</p>
       </div>
 
       <div class="fstep" data-step="4">
@@ -557,6 +558,7 @@ html,body{height:100%;overflow:hidden}
   <svg viewBox="0 0 32 32"><path d="M16 3a13 13 0 00-11.2 19.6L3 29l6.6-1.7A13 13 0 1016 3zm0 23.7a10.7 10.7 0 01-5.5-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.7 10.7 0 1116 26.7zm5.9-8c-.3-.2-1.9-1-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.8 8.8 0 01-4.4-3.8c-.3-.6.3-.5.9-1.7a.6.6 0 000-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 00-.9.4 3.6 3.6 0 00-1.1 2.7 6.3 6.3 0 001.3 3.3 14.3 14.3 0 005.5 4.9c2 .9 2.8.9 3.8.8a3.3 3.3 0 002.2-1.5 2.7 2.7 0 00.2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg>
 </a>
 
+<script src="/track.js"></script>
 <script>
 const WA = "971555366354", EMAIL = "pranav@shethrealestate.in";
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -747,6 +749,10 @@ tilt.addEventListener("pointerleave", () => tilt.style.transform = "");
     return "";
   }
   f.querySelectorAll("[name=goal]").forEach(r => r.addEventListener("change", () => setTimeout(() => show(2), 250)));
+  // save progress so unfinished requests still reach Pranav's admin
+  const track = window.leadTracker ? leadTracker("contact") : null;
+  const formData = () => Object.fromEntries(new FormData(f));
+  if (track) ["input", "change"].forEach(ev => f.addEventListener(ev, () => track.progress(formData())));
   back.onclick = () => show(cur - 1);
   next.onclick = () => {
     const e = valid(cur); if (e) { err.textContent = e; return; }
@@ -756,6 +762,7 @@ tilt.addEventListener("pointerleave", () => tilt.style.transform = "");
     const wa = `https://wa.me/${WA}?text=${encodeURIComponent(text)}`;
     document.getElementById("waLink").href = wa;
     document.getElementById("mailLink").href = `mailto:${EMAIL}?subject=${encodeURIComponent("Website enquiry — " + d.goal)}&body=${encodeURIComponent(text)}`;
+    if (track) track.submit(d);
     show(5); window.open(wa, "_blank", "noopener");
   };
   f.addEventListener("keydown", e => { if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") { e.preventDefault(); next.click(); } });
