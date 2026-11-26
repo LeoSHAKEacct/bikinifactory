@@ -811,7 +811,7 @@ function domainBox() {
     var s = state.domains[mine].status;
     st = s === 'ok' ? '<b>✓ Conectado.</b> ' + esc(mine) + ' muestra este sitio.'
       : s === 'missing' ? 'Falta agregar el dominio en Vercel: proyecto <b>sitios</b> → Settings → Domains → Add → <b>' + esc(mine) + '</b>.'
-      : 'Donde se compró el dominio, crea estos registros DNS (o los que muestre Vercel):<br><b>A</b> · @ · 76.76.21.21<br><b>CNAME</b> · www · cname.vercel-dns.com<br>Puede tardar de minutos a unas horas.' +
+      : 'Falta el DNS: en Vercel (proyecto <b>sitios</b> → Settings → Domains) haz clic en el aviso del dominio y copia los registros que muestra (un <b>A</b> para @ y un <b>CNAME</b> para www) donde se compró el dominio. Puede tardar de minutos a unas horas.' +
         (s === 'unknown' ? '<br>Y agrega el dominio en Vercel: proyecto <b>sitios</b> → Settings → Domains → Add.' : '');
   }
   return '<div class="note owner-box"><b>Dominio propio</b>' +
