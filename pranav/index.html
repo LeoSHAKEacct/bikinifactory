@@ -116,6 +116,10 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:7
 #heroSketch canvas{display:block;width:100%;height:100%}
 #heroSketch .cu-pencil{position:absolute;left:0;top:0}
 @media(max-width:760px){#heroSketch{right:-14%;top:6%;width:86%;height:62%;opacity:.5}}
+/* All over Dubai: one screen, the photo grid takes the height that is left */
+@media(min-width:901px){.pnl>#dubai{padding:clamp(84px,11vh,110px) 0 clamp(20px,4vh,48px)}
+#dubai .sec-head{margin-bottom:clamp(20px,3.5vh,48px)}#dubai .sec-head h2{margin-top:12px}#dubai .sec-head p{margin-top:10px}
+#dubai .gallery{grid-auto-rows:clamp(140px,calc((100dvh - 470px) / 2),260px)}}
 /* About: the page fits the window, so the strip of place names at the bottom shows straight away */
 @media(min-width:761px){.pnl:has(>#about){display:flex;flex-direction:column}
 .pnl>#about{flex:1 1 auto;min-height:0;padding:clamp(80px,11vh,110px) 0 clamp(16px,3vh,40px)}
