@@ -1,12 +1,12 @@
-/* Blueprint -> 3D Dubai.
-   One WebGL scene is shared by two neighbouring panels. On "On site" it is an architect's drawing of a tower
-   that draws itself and then comes to life. Scrolling on to "Find your area" lifts the camera into a bird's-eye view
-   while the rest of Dubai rises around it, and that view becomes the interactive area map.
-   The view sits behind the page in each panel's empty box (#bpSlot, #map). Without WebGL the flat SVG map stays. */
+/* Pencil drawing -> living tower -> 3D Dubai, all in one window (#bpSlot) of the "I build what I promise" panel.
+   Stage 0: a tower is sketched in pencil on paper. Stage 1 (first scroll): it comes alive, glass and lights.
+   Stage 2 (next scroll): the camera rises into a bird's-eye map of Dubai, the area guide.
+   The page's scroll script sets the stage (window.bpStage + "pranav:stage" events); this file only draws.
+   The view sits behind the page inside the window's box. Without WebGL the flat SVG map (#map) is shown instead. */
 const $ = id => document.getElementById(id);
-const slotA = $("bpSlot"), slotB = $("map"), hs = $("hs");
+const slotA = $("bpSlot"), hs = $("hs");
 
-if (slotA && slotB && hs) start();
+if (slotA && hs) start();
 
 async function start() {
   const t = document.createElement("canvas");
@@ -54,7 +54,7 @@ function build(THREE) {
   R.setScissorTest(true);
   const scene = new THREE.Scene(), fog = new THREE.Fog(0x0a2340, 10, 45); scene.fog = fog;
   const cam = new THREE.PerspectiveCamera(35, 1, 0.05, 600);
-  const BLUE = new THREE.Color(0x0a2647), NIGHT = new THREE.Color(0x060a12), clr = new THREE.Color();
+  const PAPER = new THREE.Color(0xf1ebdd), DUSK = new THREE.Color(0x14263f), NIGHT = new THREE.Color(0x060a12), GRAPHITE = new THREE.Color(0x34302a), clr = new THREE.Color(), tmpC = new THREE.Color();
   const CYAN = new THREE.Color(0x7fd6ff), WHITE = new THREE.Color(0xe6f6ff), GOLD = new THREE.Color(0xf3dca4);
 
   const geo = arr => { const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(arr, 3)); return g; };
@@ -233,7 +233,10 @@ function build(THREE) {
   const DX = BX + Math.cos(-.35 + 1.0472) * 1.0, DZ = BZ + Math.sin(-.35 + 1.0472) * 1.0;
   const dim = [DX, 0, DZ, DX, 3.9, DZ]; for (let i = 0; i <= 13; i++) dim.push(DX - .06, i * .3, DZ, DX + .06, i * .3, DZ);
   hero.segs.sort((a, b) => Math.min(a[0][1], a[1][1]) - Math.min(b[0][1], b[1][1]) || a[0][1] - b[0][1]);
-  const heroSegs = plan.concat(hero.segs), nPlan = plan.length;
+  const sketch = list => list.flatMap(([a, b]) => { const L = Math.hypot(b[0] - a[0], b[1] - a[1], b[2] - a[2]) || 1, o = Math.min(.05, L * .08);
+    return [0, 1].map(k => { const j = () => (rnd() - .5) * .012 * (k + 1), d = [(b[0] - a[0]) / L * o, (b[1] - a[1]) / L * o, (b[2] - a[2]) / L * o];
+      return [[a[0] - d[0] * k + j(), a[1] - d[1] * k + j(), a[2] - d[2] * k + j()], [b[0] + d[0] * (1 - k) + j(), b[1] + d[1] * (1 - k) + j(), b[2] + d[2] * (1 - k) + j()]]; }); });
+  const heroSegs = sketch(plan).concat(sketch(hero.segs)), nPlan = plan.length * 2;
 
   const meshOf = (B, mat) => { const g = geo(B.p); g.setAttribute("normal", new THREE.Float32BufferAttribute(B.n, 3)); g.setAttribute("aDelay", new THREE.Float32BufferAttribute(B.d, 1)); g.setAttribute("aSeed", new THREE.Float32BufferAttribute(B.s, 1)); return new THREE.Mesh(g, mat); };
   add(meshOf(city, fillMat), 10);
@@ -270,12 +273,12 @@ function build(THREE) {
     return { a, x, z, beam, rg };
   });
   const ui = document.createElement("div"); ui.id = "cityUI";
-  ui.innerHTML = `<svg>${pins.map(() => "<line/>").join("")}</svg>` +
+  ui.innerHTML = `<svg class="cu-lines">${pins.map(() => "<line/>").join("")}</svg>` +
     pins.map(p => `<button type="button" class="cu-pin" data-id="${p.a.id}"><i></i>${p.a.name}</button>`).join("") +
-    `<span class="cu-note" data-n="top">828 m · spire</span><span class="cu-note" data-n="base">Level 0 · ±0.00</span><span class="cu-note" data-n="plan">Plan · Y-core</span>`;
-  ui.insertAdjacentHTML("afterbegin", `<div class="cu-frame">${slotA.innerHTML}</div>`);
+    `<span class="cu-note" data-n="top">828 m · spire</span><span class="cu-note" data-n="base">level 0 · ±0.00</span><span class="cu-note" data-n="plan">plan · Y-core</span>` +
+    `<svg class="cu-pencil" viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-135 32 32)"><rect x="26" y="4" width="12" height="40" rx="2" fill="#e8b64c"/><rect x="26" y="4" width="12" height="6" fill="#d98c8c"/><rect x="26" y="10" width="12" height="3" fill="#b9b9b9"/><path d="M26 44h12l-6 14z" fill="#f3dcb0"/><path d="M30 53h4l-2 5z" fill="#2b2b2b"/></g></svg>`;
   document.body.appendChild(ui);
-  const frameEl = ui.querySelector(".cu-frame");
+  const pencil = ui.querySelector(".cu-pencil");
   const lines = [...ui.querySelectorAll("line")], btns = [...ui.querySelectorAll(".cu-pin")], notes = [...ui.querySelectorAll(".cu-note")];
   btns.forEach(b => b.onclick = () => window.showArea && window.showArea(b.dataset.id));
   let sel = window.currentArea || "marina";
@@ -283,12 +286,12 @@ function build(THREE) {
   document.addEventListener("pranav:area", e => { sel = e.detail; mark(); }); mark();
 
   // the flat map gives way to the 3D one
-  slotB.innerHTML = ""; slotA.innerHTML = ""; slotB.classList.add("is3d"); slotA.classList.add("is3d");
+  slotA.classList.add("is3d");
 
   // drag the map to turn it (mouse only: on phones a swipe moves between panels)
   let drag = 0, dragGoal = 0, down = null;
-  slotB.addEventListener("pointerdown", e => { if (e.pointerType === "mouse") { down = e.clientX; slotB.setPointerCapture(e.pointerId); } });
-  slotB.addEventListener("pointermove", e => { if (down != null) { dragGoal = clamp(dragGoal + (e.clientX - down) * .004, -.9, .9); down = e.clientX; } });
+  slotA.addEventListener("pointerdown", e => { if (e.pointerType === "mouse" && (window.bpStage || 0) === 2) { down = e.clientX; slotA.setPointerCapture(e.pointerId); } });
+  slotA.addEventListener("pointermove", e => { if (down != null) { dragGoal = clamp(dragGoal + (e.clientX - down) * .004, -.9, .9); down = e.clientX; } });
   addEventListener("pointerup", () => { down = null; });
 
   // ---- per frame
@@ -300,65 +303,74 @@ function build(THREE) {
   const fovT = Math.tan(35 / 2 * Math.PI / 180);
   const toScreen = (x, y, z, r) => { v.set(x, y, z).project(cam); return [r.left + (v.x + 1) / 2 * r.width, r.top + (1 - v.y) / 2 * r.height, v.z < 1]; };
 
+  let ps = window.bpStage || 0, goal = ps, lastNow = 0;
+  document.addEventListener("pranav:stage", e => { goal = e.detail.stage; if (e.detail.reset) { drawStart = null; ps = goal; } });
+  const segAt = i => heroSegs[Math.max(0, Math.min(heroSegs.length - 1, i))];
+
   function frame(now) {
     requestAnimationFrame(frame);
-    const pnls = [...hs.children], iA = pnls.indexOf(slotA.closest(".pnl")), iB = pnls.indexOf(slotB.closest(".pnl"));
-    const W = hs.clientWidth || innerWidth, s = hs.scrollLeft / W;
-    const ra = slotA.getBoundingClientRect(), rbb = slotB.getBoundingClientRect();
-    const t = iB > iA ? clamp((s - iA) / (iB - iA)) : 1;
-    const k = s <= iA ? 0 : s >= iB ? 1 : t;
-    const r = { left: mix(ra.left, rbb.left, k), top: mix(ra.top, rbb.top, k), width: mix(ra.width, rbb.width, k), height: mix(ra.height, rbb.height, k) };
-    r.right = r.left + r.width; r.bottom = r.top + r.height;
-    frameEl.style.cssText = `left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px;--bp:${(1 - sstep(.1, .7, t)).toFixed(3)}`;
+    const dt = Math.min(.1, (now - (lastNow || now)) / 1000); lastNow = now;
+    const b = slotA.getBoundingClientRect(), r = { left: b.left, top: b.top, width: b.width, height: b.height, right: b.right, bottom: b.bottom };
     const vis = r.width > 20 && r.right > 0 && r.left < innerWidth && r.bottom > 0 && r.top < innerHeight;
     if (!vis) { if (shown) { canvas.style.visibility = ui.style.visibility = "hidden"; shown = false; } return; }
     if (!shown) { canvas.style.visibility = ui.style.visibility = "visible"; shown = true; }
-    const clip = `inset(${r.top}px ${innerWidth - r.right}px ${innerHeight - r.bottom}px ${r.left}px round 24px)`;
-    canvas.style.clipPath = ui.style.clipPath = clip;
+    canvas.style.clipPath = ui.style.clipPath = `inset(${r.top}px ${innerWidth - r.right}px ${innerHeight - r.bottom}px ${r.left}px round 24px)`;
 
-    // the drawing starts when the "On site" panel comes into view; arriving further along shows it finished
-    if (drawStart == null) drawStart = reduce || t > .5 ? now - 1e5 : now;
+    // stage 0 -> 1 -> 2, eased
+    ps += (goal - ps) * (reduce ? 1 : 1 - Math.exp(-dt * 2.4)); if (Math.abs(goal - ps) < .002) ps = goal;
+    const alive = clamp(ps), t = clamp(ps - 1);
+    // the pencil drawing starts when the window first shows; it finishes at once when the visitor moves on
+    if (drawStart == null) drawStart = reduce || goal > 0 ? now - 1e6 : now;
     const tau = (now - drawStart) / 1000;
-    const pPlan = clamp(tau / 1.2), pDraw = Math.max(clamp((tau - 1.0) / 3.2), sstep(0, .5, t)), pFill = Math.max(clamp((tau - 4.0) / 1.4), sstep(0, .6, t)), pLit = Math.max(clamp((tau - 4.8) / 1.2), sstep(0, .6, t));
-    const stage = pFill >= 1 ? 3 : pDraw >= 1 ? 2 : 1;
-    const sec = slotA.closest("section"); if (sec && sec.dataset.stage != stage) sec.dataset.stage = stage;
+    const pPlan = Math.max(clamp(tau / 1.8), alive), pDraw = Math.max(clamp((tau - 1.8) / 6.5), sstep(0, .5, alive));
+    const pFill = sstep(.2, .9, alive), pLit = sstep(.45, 1, alive), night = sstep(.05, .7, alive);
+    const e = ease(t), toMap = sstep(.12, .75, t), lab = sstep(.78, .98, t);
+    const city3 = Math.max(.14 * sstep(.35, 1, alive), sstep(.04, .85, t));
 
-    const e = ease(t), toMap = sstep(.12, .75, t), city3 = sstep(.04, .85, t), lab = sstep(.78, .98, t);
-    // camera: close to the drawing (A) -> high above the city (B)
+    // camera: beside the tower (slowly walking round it) -> high above the city
     cam.aspect = r.width / r.height;
     const hTan = fovT * cam.aspect;
     const dA = Math.max(2.3 / fovT, 2.1 / hTan) * 1.05, dB = Math.max(((maxX - minX) / 2 + 2.5) / hTan, ((maxZ - minZ) / 2 + 4) / fovT) * .94;
     drag += (dragGoal - drag) * .08;
-    const selP = pins.find(p => p.a.id === sel); if (selP) { selT.lerp(v.set(mix(TB.x, selP.x, .22), 0, mix(TB.z, selP.z, .22)), .05); }
-    const orbit = reduce ? 0 : tau * .05;
-    const thB = -.12 + drag, thA = thB + .85 + orbit * (1 - e);
-    const th = mix(thA, thB, e), ph = mix(1.36, .56, e), d = Math.exp(mix(Math.log(dA), Math.log(dB), e));
+    const selP = pins.find(p => p.a.id === sel); if (selP) selT.lerp(v.set(mix(TB.x, selP.x, .22), 0, mix(TB.z, selP.z, .22)), .05);
+    const orbit = reduce ? 0 : tau * .035;
+    const thB = -.12 + drag, thA = thB + .85 + orbit * (1 - e) + .35 * alive;
+    const th = mix(thA, thB, e), ph = mix(mix(1.36, 1.25, alive), .56, e), d = Math.exp(mix(Math.log(dA * mix(1, 1.12, alive)), Math.log(dB), e));
     tgt.set(mix(BX, selT.x, e), mix(1.75, 0, e), mix(BZ, selT.z, e));
     cam.position.set(tgt.x + d * Math.sin(ph) * Math.sin(th), tgt.y + d * Math.cos(ph), tgt.z + d * Math.sin(ph) * Math.cos(th));
     cam.lookAt(tgt); cam.updateProjectionMatrix();
 
-    // look: blueprint blue and white lines -> night city in gold and glass
-    clr.copy(BLUE).lerp(NIGHT, toMap); fog.color.copy(clr); fog.near = mix(9, 60, e); fog.far = mix(42, 190, e);
-    seaMat.opacity = toMap; landMat.opacity = toMap; waterMat.opacity = toMap; roadMat.opacity = .45 * toMap; road2Mat.opacity = .18 * toMap;
-    grid.material.opacity = mix(.22, .012, toMap) * Math.max(pPlan, e); fine.material.opacity = .32 * pPlan * (1 - sstep(0, .4, t));
-    coastLine.material.opacity = mix(.55, .75, toMap); coastLine.material.color.copy(WHITE).lerp(CYAN, toMap);
+    // look: pencil on paper -> lit tower at dusk -> night map
+    clr.copy(PAPER).lerp(DUSK, night).lerp(NIGHT, toMap); fog.color.copy(clr); fog.near = mix(9, 60, e); fog.far = mix(42, 190, e);
+    seaMat.opacity = landMat.opacity = waterMat.opacity = toMap; roadMat.opacity = .45 * toMap; road2Mat.opacity = .18 * toMap;
+    grid.material.opacity = mix(mix(.34, .16, night), .012, toMap) * Math.max(pPlan, e); fine.material.opacity = mix(.42, .26, night) * pPlan * (1 - sstep(0, .4, t));
+    coastLine.material.opacity = mix(mix(.45, .5, night), .75, toMap); coastLine.material.color.copy(GRAPHITE).lerp(WHITE, night).lerp(CYAN, toMap);
     const hsc = mix(1, 2.3, e); heroG.scale.y = hsc; fillMat.uniforms.uH.value = cityEdgeMat.uniforms.uH.value = hsc;
-    fillMat.uniforms.uT.value = city3 * 1.0; fillMat.uniforms.uTime.value = now / 1000; fillMat.uniforms.uLit.value = 1;
+    fillMat.uniforms.uT.value = city3; fillMat.uniforms.uTime.value = now / 1000; fillMat.uniforms.uLit.value = 1;
     cityEdgeMat.uniforms.uT.value = city3; cityEdgeMat.uniforms.uAlpha.value = mix(.55, .22, toMap);
     heroFillMat.uniforms.uAlpha.value = pFill; heroFillMat.uniforms.uLit.value = pLit; heroFillMat.uniforms.uTime.value = now / 1000;
-    heroLines.geometry.setDrawRange(0, 2 * (Math.floor(nPlan * pPlan) + (pPlan >= 1 ? Math.floor((heroSegs.length - nPlan) * pDraw) : 0)));
-    heroLineMat.color.copy(WHITE).lerp(GOLD, Math.max(pFill * .6, toMap)); heroLineMat.opacity = mix(.95, .55, toMap);
-    beacon.material.opacity = pDraw >= 1 ? .5 + .5 * Math.sin(now / 260) : 0;
-    craneMat.opacity = .85 * pPlan * (1 - sstep(.15, .5, t)); jib.rotation.y = reduce ? .6 : Math.sin(now / 4000) * .7 + .6;
+    const nDone = nPlan * pPlan + (pPlan >= 1 ? (heroSegs.length - nPlan) * pDraw : 0), nSeg = Math.floor(nDone);
+    heroLines.geometry.setDrawRange(0, 2 * nSeg);
+    heroLineMat.color.copy(GRAPHITE).lerp(GOLD, night); heroLineMat.opacity = mix(mix(.85, .5, night), .55, toMap);
+    dimMat.color.copy(GRAPHITE).lerp(WHITE, night); dimMat.opacity = .75 * Math.min(1, pDraw * 1.5) * (1 - sstep(0, .25, t));
+    beacon.material.opacity = sstep(.6, 1, alive) * (.5 + .5 * Math.sin(now / 260));
+    craneMat.color.copy(GRAPHITE).lerp(tmpC.set(0xd8b46a), night); craneMat.opacity = .85 * pPlan * (1 - sstep(.15, .5, t)); jib.rotation.y = reduce ? .6 : Math.sin(now / 4000) * .7 + .6;
     wheelMat.opacity = .6 * toMap;
     pinMat.opacity = .75 * lab;
     const beamH = 1.2 * hsc + .6;
     for (const p of pins) { const on = p.a.id === sel; p.beam.scale.y = beamH; p.rg.material.opacity = lab * (on ? .9 : .4); p.rg.scale.setScalar(on ? 1.2 + .15 * Math.sin(now / 300) : 1); }
 
-    // draw only into this panel's box
+    // draw only into the window's box
     const sx = Math.max(0, r.left), sy = Math.max(0, innerHeight - r.bottom), sw = Math.min(innerWidth, r.right) - sx, sh = Math.min(innerHeight, innerHeight - r.top) - sy;
     R.setViewport(r.left, innerHeight - r.bottom, r.width, r.height); R.setScissor(sx, sy, Math.max(1, sw), Math.max(1, sh));
     R.setClearColor(clr, 1); R.render(scene, cam);
+
+    // the pencil tip follows the stroke being drawn
+    const drawing = nDone < heroSegs.length - .5 && alive < .02;
+    pencil.style.opacity = drawing ? 1 : 0;
+    if (drawing) { const [a0, a1] = segAt(nSeg), f = nDone - nSeg;
+      const [px, py] = toScreen(mix(a0[0], a1[0], f), mix(a0[1], a1[1], f), mix(a0[2], a1[2], f), r);
+      pencil.style.transform = `translate(${px.toFixed(1)}px,${(py - 44).toFixed(1)}px)`; }
 
     // labels: above each pin, pushed up when they would overlap, with a thin leader line
     ui.classList.toggle("labels", lab > .02); ui.style.setProperty("--lab", lab.toFixed(3));
@@ -374,13 +386,12 @@ function build(THREE) {
         const ln = lines[o.i]; ln.setAttribute("x1", o.x); ln.setAttribute("y1", o.y); ln.setAttribute("x2", bx + w / 2); ln.setAttribute("y2", by + h);
       }
     }
-    // drawing notes on the blueprint
+    // handwritten notes on the drawing
     const nv = pDraw * (1 - sstep(.02, .25, t));
-    dimMat.opacity = .8 * Math.min(1, pDraw * 1.5) * (1 - sstep(0, .25, t)); dimLine.scale.y = 1;
-    ui.style.setProperty("--note", nv.toFixed(3));
+    ui.style.setProperty("--note", nv.toFixed(3)); ui.style.setProperty("--paper", (1 - night).toFixed(3));
     if (nv > .01) {
-      const spots = { top: [DX + .12, 3.9, DZ], base: [DX + .12, .05, DZ], plan: [BX + Math.cos(-.35 - 1.0472) * 1.3, .02, BZ + Math.sin(-.35 - 1.0472) * 1.3] };
-      notes.forEach(n => { const [x, y] = toScreen(...spots[n.dataset.n], r); n.style.transform = `translate(${x.toFixed(1)}px,${(y - 6).toFixed(1)}px)`; });
+      const spots = { top: [DX + .12, 3.9 * hsc, DZ], base: [DX + .12, .05, DZ], plan: [BX + Math.cos(-.35 - 1.0472) * 1.3, .02, BZ + Math.sin(-.35 - 1.0472) * 1.3] };
+      notes.forEach(n => { const [x, y] = toScreen(...spots[n.dataset.n], r); n.style.transform = `translate(${x.toFixed(1)}px,${(y - 8).toFixed(1)}px)`; });
     }
   }
   requestAnimationFrame(frame);
