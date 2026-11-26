@@ -82,7 +82,7 @@ input:focus{outline:0;border-color:var(--gold)}
     </div>
     <div class="filters">
       <input id="q" placeholder="Search name, email, phone, area…">
-      <select id="kind"><option value="">All forms</option><option value="contact">Contact form</option><option value="booking">Consultation bookings</option></select>
+      <select id="kind"><option value="">All forms</option><option value="contact">Contact form</option><option value="booking">Consultation bookings</option><option value="launch">Launch list</option></select>
       <select id="hand"><option value="">Handled and open</option><option value="open">Open only</option><option value="handled">Handled only</option></select>
     </div>
     <div class="list" id="list"></div>
@@ -92,7 +92,7 @@ input:focus{outline:0;border-color:var(--gold)}
 const $ = id => document.getElementById(id);
 const esc = v => String(v == null ? "" : v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const FRESH = 15 * 60 * 1000;   // an unfinished form untouched for 15 minutes counts as abandoned
-const LABELS = { goal: "Interested in", type: "Property type", budget: "Budget (AED)", timeline: "Timeline", email: "Email", phone: "WhatsApp", city: "City / Country", slotDubai: "Requested time", topic: "Topic", how: "Meeting", tz: "Their timezone" };
+const LABELS = { launch: "Launch", goal: "Interested in", type: "Property type", budget: "Budget (AED)", timeline: "Timeline", email: "Email", phone: "WhatsApp", city: "City / Country", slotDubai: "Requested time", topic: "Topic", how: "Meeting", tz: "Their timezone" };
 let PW = "", leads = [], filter = "all";
 try { PW = sessionStorage.getItem("pranav-admin") || ""; } catch (_) {}
 
@@ -132,7 +132,7 @@ function draw() {
   $("list").innerHTML = list.map(l => {
     const f = l.fields || {}, st = state(l), phone = (f.phone || "").replace(/\D/g, "");
     const tag = st === "submitted" ? '<span class="tag sub">SUBMITTED</span>' : st === "now" ? '<span class="tag now">FILLING IN NOW</span>' : '<span class="tag ab">ABANDONED</span>';
-    const kind = `<span class="tag kind">${l.kind === "booking" ? "Consultation booking" : "Contact form"}</span>`;
+    const kind = `<span class="tag kind">${l.kind === "booking" ? "Consultation booking" : l.kind === "launch" ? "Launch list" : "Contact form"}</span>`;
     const rows = Object.keys(LABELS).filter(k => f[k]).map(k => `<div><small>${LABELS[k]}</small>${esc(f[k])}</div>`).join("");
     const note = f.msg || f.notes;
     const hello = `Hi ${(f.name || "").split(" ")[0]}, this is Pranav Sheth. Thanks for reaching out through my website.`;
