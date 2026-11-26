@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#05070c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#05070c; --bg2:#0a0e17; --panel:rgba(255,255,255,.035); --line:rgba(255,255,255,.09);
@@ -309,10 +309,7 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
 /* ===== blueprint -> 3D Dubai (city3d.js draws behind these empty boxes) ===== */
 #city3d{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;visibility:hidden}
 #cityUI{position:fixed;inset:0;z-index:6;pointer-events:none;visibility:hidden}
-.cu-frame{position:absolute;border-radius:24px;border:1px solid color-mix(in srgb,rgba(160,220,255,.4) calc(var(--bp,1)*100%),rgba(216,180,106,.28))}
-.cu-frame>*{opacity:var(--bp,1)}
-.bp-slot.is3d,.map.is3d{border-color:transparent}
-#cityUI svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;opacity:var(--lab,0)}
+#cityUI svg.cu-lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;opacity:var(--lab,0)}
 #cityUI line{stroke:rgba(243,220,164,.6);stroke-width:1}
 .cu-pin{position:absolute;left:0;top:0;display:flex;align-items:center;gap:6px;padding:5px 11px 5px 8px;border-radius:999px;border:1px solid rgba(216,180,106,.5);background:rgba(6,10,18,.82);backdrop-filter:blur(6px);color:#e8ecf3;font:600 12px Inter,sans-serif;white-space:nowrap;cursor:pointer;opacity:var(--lab,0);pointer-events:none;transition:background .2s,color .2s,border-color .2s}
 #cityUI.labels .cu-pin{pointer-events:auto}
@@ -320,31 +317,46 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
 .cu-pin:hover,.cu-pin:focus-visible{border-color:var(--gold2);outline:none}
 .cu-pin.on{background:linear-gradient(140deg,#f3dca4,#d4af6a);color:#1a1205;border-color:transparent;z-index:2}
 .cu-pin.on i{background:#1a1205}
-.cu-note{position:absolute;left:0;top:0;font:600 10px "Space Grotesk",sans-serif;letter-spacing:.18em;color:#d8efff;text-transform:uppercase;white-space:nowrap;opacity:var(--note,0)}
-.bp-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:44px;align-items:center}
-.bp-text .sec-head,.bp-text{margin-bottom:0}
-.bp-slot{position:relative;height:min(70vh,680px);border-radius:24px;border:1px solid rgba(160,220,255,.35)}
-.bp-slot.no3d{background:#0a2647;background-image:linear-gradient(rgba(207,234,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(207,234,255,.12) 1px,transparent 1px);background-size:32px 32px}
-.bp-c{position:absolute;pointer-events:none;width:18px;height:18px;border:0 solid rgba(216,239,255,.7)}
+.cu-note{position:absolute;left:0;top:0;font:600 17px Caveat,cursive;color:color-mix(in srgb,#3a352d calc(var(--paper,1)*100%),#d8efff);white-space:nowrap;opacity:var(--note,0)}
+.bp-grid{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:44px;align-items:center}
+.bp-steps{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px;padding:0;list-style:none}
+.bp-steps button{padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:none;color:var(--muted);font:600 13px "Space Grotesk",sans-serif;cursor:pointer;transition:color .4s,border-color .4s,background .4s}
+.bp-steps b{margin-right:8px;opacity:.7}
+#onsite[data-stage="0"] .bp-steps li:nth-child(1) button,#onsite[data-stage="1"] .bp-steps li:nth-child(-n+2) button,#onsite[data-stage="2"] .bp-steps button{border-color:rgba(216,180,106,.7);color:var(--gold2);background:rgba(216,180,106,.08)}
+.bp-slides{display:grid}
+.bp-slide{grid-area:1/1;align-self:center;opacity:0;visibility:hidden;transform:translateY(18px);transition:opacity .55s,transform .55s,visibility 0s .55s}
+#onsite[data-stage="0"] .bp-slide[data-s="0"],#onsite[data-stage="1"] .bp-slide[data-s="1"],#onsite[data-stage="2"] .bp-slide[data-s="2"]{opacity:1;visibility:visible;transform:none;transition:opacity .55s .15s,transform .55s .15s,visibility 0s}
+.bp-slide h2{font-size:clamp(34px,4.6vw,58px);margin-top:16px}
+.bp-slide p{color:var(--muted);margin-top:16px;font-size:17px}
+.bp-slide[data-s="2"] h2{font-size:clamp(30px,3.4vw,44px)}
+.bp-slide[data-s="2"] p{font-size:15px;margin-top:10px}
+.bp-slide .area-card{margin-top:18px;padding:22px 24px}
+.bp-slide .area-card h3{font-size:24px;margin:8px 0 6px}
+.bp-ig{display:inline-block;margin-top:18px;color:var(--gold2);font-weight:600;font-size:15px}
+.bp-hint{margin-top:24px!important;font-size:13px!important;letter-spacing:.04em}
+.bp-hint i{font-style:normal;display:inline-block;color:var(--gold);animation:bpn 1.4s ease-in-out infinite}
+@keyframes bpn{50%{transform:translateY(5px)}}
+.bp-slot{position:relative;height:min(72vh,700px);border-radius:24px;border:1px solid rgba(160,190,220,.28);overflow:hidden;touch-action:pan-x}
+.bp-slot>.map{position:absolute;inset:0;display:flex;align-items:center;border:0;border-radius:24px}
+.bp-slot.is3d>.map{display:none}
+.bp-slot.is3d{cursor:default}#onsite[data-stage="2"] .bp-slot.is3d{cursor:grab}
+.bp-slot::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 1s;mix-blend-mode:multiply;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .4 0 0 0 0 .32 0 0 0 .35 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+#onsite[data-stage="0"] .bp-slot.is3d::before{opacity:.55}
+.bp-c{position:absolute;width:18px;height:18px;border:0 solid rgba(216,239,255,.7);pointer-events:none;transition:border-color .8s,opacity .8s}
 .bp-c.c1{left:12px;top:12px;border-left-width:1px;border-top-width:1px}.bp-c.c2{right:12px;top:12px;border-right-width:1px;border-top-width:1px}
 .bp-c.c3{left:12px;bottom:12px;border-left-width:1px;border-bottom-width:1px}.bp-c.c4{right:12px;bottom:12px;border-right-width:1px;border-bottom-width:1px}
-.bp-title{position:absolute;right:16px;bottom:16px;display:grid;grid-template-columns:auto auto;border:1px solid rgba(216,239,255,.45);font:600 9.5px "Space Grotesk",sans-serif;letter-spacing:.16em;color:#d8efff;text-transform:uppercase;background:rgba(10,38,71,.55)}
+.bp-title{position:absolute;right:16px;bottom:16px;display:grid;grid-template-columns:auto auto;border:1px solid rgba(216,239,255,.45);font:600 9.5px "Space Grotesk",sans-serif;letter-spacing:.16em;color:#d8efff;text-transform:uppercase;background:rgba(10,20,36,.55);pointer-events:none;transition:color .8s,border-color .8s,background .8s,opacity .8s}
 .bp-title span{padding:5px 9px;border-bottom:1px solid rgba(216,239,255,.25)}
-.bp-title span:nth-child(odd){color:rgba(216,239,255,.6);border-right:1px solid rgba(216,239,255,.25)}
+.bp-title span:nth-child(odd){color:inherit;opacity:.6;border-right:1px solid rgba(216,239,255,.25)}
 .bp-title span:nth-last-child(-n+2){border-bottom:0}
-.bp-steps{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 20px;padding:0;list-style:none}
-.bp-steps li{padding:8px 15px;border-radius:999px;border:1px solid var(--line);color:var(--muted);font:600 13px "Space Grotesk",sans-serif;transition:color .5s,border-color .5s,background .5s}
-.bp-steps b{margin-right:8px;opacity:.7}
-#onsite[data-stage="1"] .bp-steps li:nth-child(1),#onsite[data-stage="2"] .bp-steps li:nth-child(-n+2),#onsite[data-stage="3"] .bp-steps li{border-color:rgba(216,180,106,.7);color:var(--gold2);background:rgba(216,180,106,.08)}
-.bp-ig{display:inline-block;color:var(--gold2);font-weight:600;font-size:15px}
-.bp-hint{margin-top:22px;color:var(--muted);font-size:13px;letter-spacing:.04em}
-.bp-hint i{font-style:normal;display:inline-block;color:var(--gold);animation:bpn 1.6s ease-in-out infinite}
-@keyframes bpn{50%{transform:translateX(6px)}}
+#onsite[data-stage="0"] .bp-slot.is3d .bp-title{color:#3a352d;border-color:rgba(52,48,42,.55);background:rgba(241,235,221,.7);font-family:Caveat,"Space Grotesk",cursive;font-size:15px;letter-spacing:.04em;text-transform:none}
+#onsite[data-stage="0"] .bp-slot.is3d .bp-title span{border-color:rgba(52,48,42,.3);padding:2px 10px}
+#onsite[data-stage="0"] .bp-slot.is3d .bp-c{border-color:rgba(52,48,42,.6)}
+#onsite[data-stage="2"] .bp-title,#onsite[data-stage="2"] .bp-c{opacity:0}
+.cu-pencil{position:absolute;left:0;top:0;width:46px;height:46px;transition:opacity .4s;filter:drop-shadow(2px 4px 3px rgba(0,0,0,.25))}
 #onsite .diary,#onsite .reels{margin-top:40px}
-.map.is3d{background:none;min-height:min(64vh,620px);cursor:grab}
-.map.is3d:active{cursor:grabbing}
-@media(max-width:900px){.bp-grid{display:flex;flex-direction:column;align-items:stretch;gap:0}.bp-text{display:contents}.bp-text>*{order:1;margin-left:0;margin-right:0;text-align:left}.bp-text>h2{margin:14px 0 0}.bp-text>p{margin:14px 0 0}.bp-slot{order:2;width:100%;height:56vh;margin:18px 0 6px}.bp-steps,.bp-ig{order:3}.bp-hint{display:none}.map.is3d{min-height:58vh}.bp-title{font-size:8.5px}}
-@media(max-width:600px){.cu-frame .bp-title{display:none}.cu-pin{font-size:10.5px;padding:3px 8px 3px 6px;gap:5px}.cu-pin i{width:5px;height:5px}}
+@media(max-width:900px){.bp-grid{display:flex;flex-direction:column;align-items:stretch;gap:0}.bp-left{display:contents}.bp-steps{order:1;margin-bottom:14px}.bp-slot{order:2;width:100%;height:52vh}.bp-slides{order:3;margin-top:18px}.bp-slide{align-self:start}.bp-hint{display:none}.bp-title{display:none}}
+@media(max-width:600px){.cu-pin{font-size:10.5px;padding:3px 8px 3px 6px;gap:5px}.cu-pin i{width:5px;height:5px}.bp-steps button{padding:7px 11px;font-size:12px}}
 /* ===== extra sections: on site, area map, launch, investor tools, voices, deal ticker ===== */
 .fine{color:var(--muted);font-size:12px;margin-top:14px}
 .ticker{position:absolute;left:0;right:0;bottom:0;z-index:3;overflow:hidden;border-top:1px solid var(--line);background:rgba(5,7,12,.6);backdrop-filter:blur(8px);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
@@ -506,29 +518,30 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
 </section>
 </div>
 <div class="pnl">
-<section id="onsite">
+<section id="onsite" data-stages="3" data-stage="0">
   <div class="wrap">
     <div class="bp-grid">
-      <div class="sec-head reveal bp-text"><span class="eyebrow">From drawing to skyline</span><h2>I build what I <span class="gold">promise.</span></h2>
-        <p>Every project starts as a drawing. I stay on site from ground-breaking to handover, so what you're sold is exactly what gets built.</p>
-        <ol class="bp-steps"><li><b>01</b>Drawing</li><li><b>02</b>Structure</li><li><b>03</b>Handover</li></ol>
-        <a class="bp-ig" href="https://www.instagram.com/exclusivewithpranav/" target="_blank" rel="noopener">Follow the build on Instagram · @exclusivewithpranav →</a>
-        <p class="bp-hint">Keep scrolling: the drawing becomes the city <i>→</i></p>
+      <div class="bp-left">
+        <ol class="bp-steps"><li><button type="button" data-go="0"><b>01</b>Drawing</button></li><li><button type="button" data-go="1"><b>02</b>Alive</button></li><li><button type="button" data-go="2"><b>03</b>Find your area</button></li></ol>
+        <div class="bp-slides">
+          <div class="bp-slide" data-s="0"><span class="eyebrow">From drawing to skyline</span><h2>I build what I <span class="gold">promise.</span></h2>
+            <p>Every project starts as a drawing, a pencil on paper. I stay on site from ground-breaking to handover, so what you're sold is exactly what gets built.</p>
+            <p class="bp-hint">Scroll to bring it to life <i>↓</i></p></div>
+          <div class="bp-slide" data-s="1"><span class="eyebrow">Ground-breaking to handover</span><h2>Then it comes <span class="gold">alive.</span></h2>
+            <p>Glass, light, people moving in. I'm on site at every stage, so the building you were sold is the building you get.</p>
+            <a class="bp-ig" href="https://www.instagram.com/exclusivewithpranav/" target="_blank" rel="noopener">Follow the build on Instagram · @exclusivewithpranav →</a>
+            <p class="bp-hint">Scroll to see where it stands in Dubai <i>↓</i></p></div>
+          <div class="bp-slide" data-s="2" id="areas"><span class="eyebrow">Area guide</span><h2>Find your <span class="gold">area.</span></h2>
+            <p>Tap an area on the map to see what it's like, who it suits and what to expect.</p>
+            <aside class="area-card" id="areaCard"></aside></div>
+        </div>
       </div>
       <div class="bp-slot" id="bpSlot"><i class="bp-c c1"></i><i class="bp-c c2"></i><i class="bp-c c3"></i><i class="bp-c c4"></i>
+        <div class="map" id="map"></div>
         <div class="bp-title"><span>Project</span><span>Dubai skyline</span><span>Drawn by</span><span>P. Sheth</span><span>Scale</span><span>1 : 5000</span><span>Sheet</span><span>A-01</span></div></div>
     </div>
     <div class="diary" id="diary"></div>
     <div class="reels" id="reels"></div>
-  </div>
-</section>
-</div>
-
-<div class="pnl">
-<section id="areas">
-  <div class="wrap">
-    <div class="sec-head reveal"><span class="eyebrow">Area Guide</span><h2>Find your <span class="gold">area.</span></h2><p>Tap an area on the map to see what it's like, who it suits and what to expect.</p></div>
-    <div class="map-wrap reveal"><div class="map" id="map"></div><aside class="area-card" id="areaCard"></aside></div>
   </div>
 </section>
 </div>
@@ -1033,7 +1046,18 @@ tilt.addEventListener("pointerleave", () => tilt.style.transform = "");
   const go = (i, fromTop = true) => { i = Math.max(0, Math.min(pnls.length - 1, i)); if (fromTop && i !== idx()) pnls[i].scrollTop = 0; hs.scrollTo({left: i * hs.clientWidth, behavior: reduce ? "auto" : "smooth"}); };
   dots.innerHTML = pnls.map(() => "<i></i>").join("");
   dots.querySelectorAll("i").forEach((d, i) => d.onclick = () => go(i));
-  const mark = () => { const i = idx(); dots.querySelectorAll("i").forEach((d, k) => d.classList.toggle("on", k === i)); prev.disabled = i === 0; nextB.disabled = i === pnls.length - 1; document.getElementById("hpFirst").hidden = i === 0; };
+  // the "I build what I promise" panel has 3 steps in one window: pencil drawing -> alive -> map.
+  // Scrolling, arrows and keys walk through the steps before moving on; arriving from the left starts at the drawing.
+  const stager = document.querySelector("[data-stages]"), SP = stager ? pnls.findIndex(p => p.contains(stager)) : -1;
+  let stage = 0, lastI = -1;
+  const setStage = (n, reset) => { n = Math.max(0, Math.min(2, n)); if (!stager || (n === stage && !reset)) return; stage = n; stager.dataset.stage = n; window.bpStage = n;
+    document.dispatchEvent(new CustomEvent("pranav:stage", {detail: {stage: n, reset: !!reset}})); };
+  window.bpStage = 0;
+  if (stager) stager.querySelectorAll("[data-go]").forEach(b => b.onclick = () => setStage(+b.dataset.go));
+  // returns true when the step was used inside the panel instead of moving to another panel
+  const stepIn = (i, dir) => { if (i !== SP || !(dir > 0 ? stage < 2 : stage > 0)) return false; setStage(stage + dir); return true; };
+  const mark = () => { const i = idx();
+    if (i !== lastI) { if (i === SP && lastI >= 0) setStage(lastI < SP ? 0 : 2, lastI < SP); lastI = i; } dots.querySelectorAll("i").forEach((d, k) => d.classList.toggle("on", k === i)); prev.disabled = i === 0; nextB.disabled = i === pnls.length - 1; document.getElementById("hpFirst").hidden = i === 0; };
   hs.addEventListener("scroll", mark, {passive: true}); mark();
   // keep the bottom controls clear of the numbers box on the opening panel
   const stats = document.querySelector("#p-top .stats-grid"), pager = document.getElementById("hpager");
@@ -1046,23 +1070,48 @@ tilt.addEventListener("pointerleave", () => tilt.style.transform = "");
   hs.addEventListener("scroll", lift, {passive: true}); pnls[0].addEventListener("scroll", lift, {passive: true});
   addEventListener("resize", lift); addEventListener("load", lift); lift();
   document.getElementById("hpFirst").onclick = () => { pnls[0].scrollTop = 0; go(0); };
-  prev.onclick = () => go(idx() - 1); nextB.onclick = () => go(idx() + 1);
-  // vertical wheel -> sideways, once the current panel has no more room to scroll that way
-  let lock = 0;
-  hs.addEventListener("wheel", e => {
+  prev.onclick = () => stepIn(idx(), -1) || go(idx() - 1); nextB.onclick = () => stepIn(idx(), 1) || go(idx() + 1);
+  // phones: swiping up/down on the window walks the steps (sideways swipes still change panel)
+  const slot = document.getElementById("bpSlot");
+  if (slot) { let sy = null, sx = 0;
+    slot.addEventListener("touchstart", e => { sy = e.touches[0].clientY; sx = e.touches[0].clientX; }, {passive: true});
+    slot.addEventListener("touchend", e => { if (sy == null) return; const t = e.changedTouches[0], dy = t.clientY - sy, dx = t.clientX - sx; sy = null;
+      if (Math.abs(dy) > 40 && Math.abs(dy) > Math.abs(dx) * 1.2) stepIn(idx(), dy < 0 ? 1 : -1); }, {passive: true}); }
+  // vertical wheel -> sideways, once the current panel has no more room to scroll that way.
+  // One flick = one panel. Trackpad momentum after a move (or after reaching a panel's end) is absorbed,
+  // but a new flick is recognised straight away (its speed rises again), so the page never feels stuck.
+  // Listening on the window also covers the parts that float above the panels (map labels, pager, buttons).
+  let lastMove = -1e9, edgeAt = 0, lastMag = 0, lastT = 0, target = -1, absorbing = false;
+  addEventListener("wheel", e => {
     if (e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;            // pinch-zoom or a real sideways swipe: leave it
-    if (e.target.closest && e.target.closest("textarea,select,.ap")) return;
-    const p = pnls[idx()], down = e.deltaY > 0;
+    if (e.target.closest && e.target.closest("textarea,select,.ap,.lang ul")) return;
+    const now = e.timeStamp || performance.now(), mag = Math.abs(e.deltaY) * (e.deltaMode === 1 ? 30 : 1);
+    const fresh = (now - lastT > 220 && mag > 12) || mag > lastMag * 1.4 + 4;                    // a new flick, not the tail of the last one
+    lastMag = mag; lastT = now;
+    const moving = now - lastMove < 650, cur = moving && target >= 0 ? target : idx();
+    const p = pnls[cur], down = e.deltaY > 0, inHs = hs.contains(e.target);
     const room = down ? p.scrollHeight - p.clientHeight - p.scrollTop > 2 : p.scrollTop > 2;
-    if (room) return;                                                               // let the panel scroll down/up first
+    if (absorbing && fresh && now - lastMove >= 450) absorbing = false;
+    if (room && !absorbing) {
+      edgeAt = 0;
+      if (!inHs) { e.preventDefault(); p.scrollTop += e.deltaY * (e.deltaMode === 1 ? 30 : 1); }   // floating parts: scroll the panel ourselves
+      return;                                                                       // inside the panel: the browser scrolls it
+    }
     e.preventDefault();
-    const now = performance.now(); if (now < lock) { lock = Math.max(lock, now + 120); return; }
-    lock = now + 700; go(idx() + (down ? 1 : -1), down);
+    if (!edgeAt) edgeAt = now;
+    if (absorbing) { if (!fresh || now - lastMove < 450) return; absorbing = false; }   // the tail of the flick that just moved us
+    if (!moving && now - edgeAt < 120 && !fresh) return;                            // just hit the panel's end while scrolling: wait for a new flick
+    if (stepIn(cur, down ? 1 : -1)) { lastMove = now; edgeAt = 0; absorbing = true; return; }
+    const next = Math.max(0, Math.min(pnls.length - 1, cur + (down ? 1 : -1)));
+    if (next === cur) return;
+    lastMove = now; target = next; edgeAt = 0; absorbing = true; go(next, down);
   }, {passive: false});
   addEventListener("keydown", e => {
     if (e.target.closest && e.target.closest("input,textarea,select,.ap")) return;
-    if (["ArrowRight", "PageDown"].includes(e.key)) { e.preventDefault(); go(idx() + 1); }
-    if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); go(idx() - 1); }
+    if (["ArrowRight", "PageDown"].includes(e.key)) { e.preventDefault(); stepIn(idx(), 1) || go(idx() + 1); }
+    if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); stepIn(idx(), -1) || go(idx() - 1); }
+    if (e.key === "ArrowDown" && stepIn(idx(), 1)) e.preventDefault();
+    if (e.key === "ArrowUp" && stepIn(idx(), -1)) e.preventDefault();
   });
   const panelOf = id => { const t = id && document.getElementById(id); return t ? pnls.findIndex(p => p.contains(t)) : -1; };
   document.addEventListener("click", e => {
