@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book a free consultation — Pranav Sheth</title>
+<meta name="description" content="Book a free 30-minute consultation with Pranav Sheth, Dubai real estate broker and developer. Pick a time in Dubai time; Pranav confirms on WhatsApp.">
+<meta name="theme-color" content="#05070c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05070c;--panel:rgba(255,255,255,.035);--line:rgba(255,255,255,.09);--text:#eef1f7;--muted:#8b93a7;--gold:#d8b46a;--gold2:#f3dca4}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(ellipse at 50% -10%,rgba(216,180,106,.14),transparent 60%),var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:inherit;text-decoration:none}
+h1,h2,.logo{font-family:"Space Grotesk",sans-serif;letter-spacing:-.02em}
+.top{display:flex;justify-content:space-between;align-items:center;max-width:980px;margin:0 auto;padding:22px 20px}
+.logo{font-weight:700;font-size:17px;letter-spacing:.14em}.logo span{color:var(--gold)}
+.back{font-size:14px;color:var(--muted)}.back:hover{color:var(--gold2)}
+main{max-width:980px;margin:0 auto;padding:10px 20px 80px}
+.card{display:grid;grid-template-columns:300px minmax(0,1fr);border:1px solid rgba(216,180,106,.35);border-radius:26px;background:linear-gradient(160deg,#111723,#080b12);overflow:hidden;box-shadow:0 40px 90px -40px rgba(0,0,0,.9)}
+.side{padding:30px 26px;border-right:1px solid var(--line)}
+.side img{width:86px;height:86px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)}
+.side h1{font-size:26px;line-height:1.15;margin:16px 0 6px}
+.side p{color:var(--muted);font-size:14px}
+.facts{list-style:none;margin:18px 0;display:grid;gap:10px;font-size:14px}
+.facts li{display:flex;gap:10px;align-items:center}.facts b{color:var(--gold2);font-weight:600}
+.facts svg{width:18px;height:18px;stroke:var(--gold);fill:none;stroke-width:1.8;flex:none}
+.free{display:inline-block;padding:5px 12px;border-radius:999px;background:rgba(37,211,102,.12);color:#5ee08f;font:600 12px "Space Grotesk";letter-spacing:.08em}
+.pick{padding:28px;min-width:0}
+.pick h2{font-size:18px;margin-bottom:12px}
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.days button{flex:none;width:64px;padding:10px 0;border-radius:14px;border:1px solid var(--line);background:var(--panel);color:var(--text);cursor:pointer;text-align:center;font:500 12px Inter;transition:.2s}
+.days button b{display:block;font:600 20px "Space Grotesk";margin:2px 0}
+.days button:hover{border-color:rgba(216,180,106,.6)}
+.days button.on{background:linear-gradient(140deg,var(--gold2),var(--gold));color:#1a1205;border-color:transparent}
+.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:18px 0 6px}
+.slots button{padding:11px 0;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--text);font:500 14px Inter;cursor:pointer}
+.slots button:hover{border-color:rgba(216,180,106,.6)}
+.slots button.on{background:linear-gradient(140deg,var(--gold2),var(--gold));color:#1a1205;border-color:transparent}
+.slots button small{display:block;font-size:10.5px;opacity:.75}
+.tz{color:var(--muted);font-size:12.5px}
+.none{color:var(--muted);font-size:14px;padding:14px 0}
+form{margin-top:22px;display:none}
+form.show{display:block}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:12px 0 6px}
+input,select,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#070a11;color:var(--text);font:400 15px Inter}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--gold)}
+.btn{display:flex;justify-content:center;align-items:center;gap:10px;width:100%;margin-top:18px;padding:15px;border-radius:999px;border:0;background:linear-gradient(100deg,var(--gold2),var(--gold) 55%,#b88c3e);color:#1a1205;font:600 15px "Space Grotesk";cursor:pointer}
+.sum{margin-top:6px;color:var(--gold2);font-size:14px}
+.done{display:none;padding:34px 28px;text-align:center}
+.done.show{display:block}
+.done h2{font-size:26px;margin:12px 0 8px}
+.done p{color:var(--muted)}
+.done .row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px}
+.done .row a{padding:12px 18px;border-radius:999px;border:1px solid var(--line);font:600 14px "Space Grotesk"}
+.done .row a.wa{background:#25d366;border-color:#25d366;color:#fff}
+.ok{width:62px;height:62px;border-radius:50%;margin:0 auto;display:grid;place-items:center;background:rgba(37,211,102,.15);color:#5ee08f;font-size:30px}
+@media(max-width:820px){.card{grid-template-columns:1fr}.side{border-right:0;border-bottom:1px solid var(--line)}.slots{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:480px){.two{grid-template-columns:1fr}.pick{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="top"><a href="/" class="logo">PRANAV<span>.</span>SHETH</a><a href="/" class="back">← Back to the site</a></div>
+<main>
+  <div class="card">
+    <aside class="side">
+      <img src="/avatar.jpg" alt="Pranav Sheth">
+      <h1>Free consultation with Pranav</h1>
+      <p>Buying, selling, renting, off-plan or a development in Dubai: tell me your plan and I'll tell you how to get there.</p>
+      <ul class="facts">
+        <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b>30 minutes</b></li>
+        <li><svg viewBox="0 0 24 24"><path d="M15 10l5-3v10l-5-3M3 7h12v10H3z"/></svg>Video call, phone or WhatsApp</li>
+        <li><svg viewBox="0 0 24 24"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Or in person in Dubai</li>
+      </ul>
+      <span class="free">FREE · NO OBLIGATION</span>
+    </aside>
+    <section class="pick" id="pick">
+      <h2>1. Pick a day</h2>
+      <div class="days" id="days"></div>
+      <h2 style="margin-top:22px">2. Pick a time</h2>
+      <p class="tz" id="tz"></p>
+      <div class="slots" id="slots"></div>
+      <form id="f">
+        <h2>3. Your details</h2>
+        <p class="sum" id="sum"></p>
+        <div class="two">
+          <div><label for="n">Full name *</label><input id="n" required autocomplete="name"></div>
+          <div><label for="w">WhatsApp (with country code) *</label><input id="w" required inputmode="tel" autocomplete="tel" placeholder="+971 50 123 4567"></div>
+        </div>
+        <div class="two">
+          <div><label for="e">Email</label><input id="e" type="email" autocomplete="email"></div>
+          <div><label for="t">Topic</label><select id="t"><option>Buy</option><option>Sell</option><option>Rent / Lease</option><option>Off-plan investment</option><option>Development / JV</option><option>Something else</option></select></div>
+        </div>
+        <div class="two">
+          <div><label for="how">How should we meet?</label><select id="how"><option>Video call</option><option>Phone / WhatsApp call</option><option>In person in Dubai</option></select></div>
+          <div><label for="b">Budget (AED)</label><select id="b"><option>Prefer to discuss</option><option>Under 1M</option><option>1M – 3M</option><option>3M – 7M</option><option>7M – 15M</option><option>15M+</option></select></div>
+        </div>
+        <label for="m">Anything I should know before the call?</label><textarea id="m" rows="3"></textarea>
+        <button class="btn" type="submit">Request this time →</button>
+      </form>
+    </section>
+    <section class="done" id="done">
+      <div class="ok">✓</div>
+      <h2>Request sent</h2>
+      <p id="doneTxt"></p>
+      <div class="row"><a class="wa" id="waAgain" target="_blank" rel="noopener" href="#">Open WhatsApp again</a><a id="gcal" target="_blank" rel="noopener" href="#">Add to Google Calendar</a><a id="ics" href="#" download="consultation-pranav.ics">Add to Apple / Outlook</a></div>
+    </section>
+  </div>
+</main>
+<script>
+/* Booking: Monday–Saturday, 10:00–18:00 Dubai time (UTC+4, no daylight saving), 30-minute calls.
+   The request goes to Pranav on WhatsApp; he confirms there. */
+const WA = "971555366354", DAYS = 14, OPEN = [1, 2, 3, 4, 5, 6], FROM = 10, TO = 18, STEP = 30, LEAD_MIN = 120;
+const DXB = 4 * 60;   // Dubai is UTC+4 all year
+const $ = id => document.getElementById(id);
+const pad = n => String(n).padStart(2, "0");
+// a Dubai wall-clock time -> real instant
+const dxbToDate = (y, mo, d, h, mi) => new Date(Date.UTC(y, mo, d, h, mi) - DXB * 60000);
+const dxbParts = date => { const t = new Date(date.getTime() + DXB * 60000); return { y: t.getUTCFullYear(), mo: t.getUTCMonth(), d: t.getUTCDate(), wd: t.getUTCDay() }; };
+const localTZ = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+const sameAsDubai = new Date().getTimezoneOffset() === -DXB;
+const fmtDxb = (dt, o) => dt.toLocaleString("en-GB", Object.assign({ timeZone: "Asia/Dubai" }, o));
+const fmtLocal = (dt, o) => dt.toLocaleString("en-GB", o);
+$("tz").textContent = sameAsDubai ? "Times are in Dubai time (GST)." : `Times are in Dubai time (GST). Your local time (${localTZ.replace("_", " ")}) is shown underneath.`;
+
+let day = null, slot = null;
+const days = [];
+for (let i = 0; days.length < DAYS && i < 30; i++) {
+  const p = dxbParts(new Date(Date.now() + i * 86400000));
+  if (OPEN.includes(p.wd)) days.push(p);
+}
+function slotsFor(p) {
+  const out = [], soon = Date.now() + LEAD_MIN * 60000;
+  for (let m = FROM * 60; m < TO * 60; m += STEP) { const dt = dxbToDate(p.y, p.mo, p.d, Math.floor(m / 60), m % 60); if (dt.getTime() > soon) out.push(dt); }
+  return out;
+}
+function drawDays() {
+  $("days").innerHTML = "";
+  days.forEach(p => {
+    const dt = dxbToDate(p.y, p.mo, p.d, 12, 0), b = document.createElement("button"); b.type = "button";
+    b.innerHTML = `${fmtDxb(dt, { weekday: "short" })}<b>${p.d}</b>${fmtDxb(dt, { month: "short" })}`;
+    if (!slotsFor(p).length) { b.disabled = true; b.style.opacity = .35; }
+    b.onclick = () => { day = p; slot = null; [...$("days").children].forEach(x => x.classList.toggle("on", x === b)); drawSlots(); };
+    $("days").appendChild(b);
+  });
+  const first = [...$("days").children].find(b => !b.disabled); if (first) first.click();
+}
+function drawSlots() {
+  $("slots").innerHTML = ""; $("f").classList.remove("show");
+  const list = slotsFor(day);
+  if (!list.length) { $("slots").innerHTML = '<p class="none">No times left on this day. Pick another day.</p>'; return; }
+  list.forEach(dt => {
+    const b = document.createElement("button"); b.type = "button";
+    b.innerHTML = fmtDxb(dt, { hour: "2-digit", minute: "2-digit" }) + (sameAsDubai ? "" : `<small>${fmtLocal(dt, { hour: "2-digit", minute: "2-digit" })} yours</small>`);
+    b.onclick = () => { slot = dt; [...$("slots").children].forEach(x => x.classList.toggle("on", x === b)); showForm(); };
+    $("slots").appendChild(b);
+  });
+}
+const when = dt => `${fmtDxb(dt, { weekday: "long", day: "numeric", month: "long" })} at ${fmtDxb(dt, { hour: "2-digit", minute: "2-digit" })} Dubai time` + (sameAsDubai ? "" : ` (${fmtLocal(dt, { weekday: "short", hour: "2-digit", minute: "2-digit" })} your time)`);
+function showForm() { $("sum").textContent = "Your time: " + when(slot); $("f").classList.add("show"); $("n").focus({ preventScroll: true }); $("f").scrollIntoView({ behavior: "smooth", block: "nearest" }); }
+const stamp = d => `${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}00Z`;
+$("f").onsubmit = e => {
+  e.preventDefault();
+  const v = id => $(id).value.trim(), end = new Date(slot.getTime() + STEP * 60000);
+  const msg = `Hi Pranav, I'd like to book a free consultation.\n\nTime: ${when(slot)}\nName: ${v("n")}\nWhatsApp: ${v("w")}${v("e") ? "\nEmail: " + v("e") : ""}\nTopic: ${v("t")}\nMeeting: ${v("how")}\nBudget: ${v("b")}${v("m") ? "\nNotes: " + v("m") : ""}`;
+  const wa = `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+  window.open(wa, "_blank", "noopener");
+  const title = "Consultation with Pranav Sheth (pending confirmation)", details = `${v("t")} · ${v("how")}. Pranav confirms on WhatsApp: +971 55 536 6354`;
+  $("gcal").href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${stamp(slot)}/${stamp(end)}&details=${encodeURIComponent(details)}`;
+  const ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Pranav Sheth//Booking//EN", "BEGIN:VEVENT", `UID:${Date.now()}@pranav-sheth`, `DTSTAMP:${stamp(new Date())}`, `DTSTART:${stamp(slot)}`, `DTEND:${stamp(end)}`, `SUMMARY:${title}`, `DESCRIPTION:${details}`, "END:VEVENT", "END:VCALENDAR"].join("\r\n");
+  $("ics").href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
+  $("waAgain").href = wa;
+  $("doneTxt").textContent = `Your request for ${when(slot)} is in Pranav's WhatsApp. He'll confirm the time there. If WhatsApp didn't open, use the green button.`;
+  $("pick").style.display = "none"; $("done").classList.add("show");
+};
+drawDays();
+</script>
+</body>
+</html>
