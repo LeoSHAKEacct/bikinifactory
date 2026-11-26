@@ -33,9 +33,8 @@
     <div class="dy-body"><span class="dy-stage">${esc(d.stage || "")}</span><h3>${esc(d.project || "")}</h3><p>${esc(d.text || "")}</p><small>${esc(d.date || "")}</small></div></article>`).join("");
   else $("diary").remove();
   const reels = (C.reels || []).map(u => String(u).match(/instagram\.com\/(?:reel|p|tv)\/([\w-]+)/)).filter(Boolean);
-  $("reels").innerHTML = reels.length
-    ? reels.slice(0, 6).map(m => `<div class="reel reveal"><iframe src="https://www.instagram.com/${m[0].includes("/p/") ? "p" : "reel"}/${m[1]}/embed" loading="lazy" allowfullscreen title="Instagram reel"></iframe></div>`).join("")
-    : `<a class="ig-card reveal" href="https://www.instagram.com/exclusivewithpranav/" target="_blank" rel="noopener"><b>@exclusivewithpranav</b><span>Site visits, new launches and market takes, every week on Instagram.</span><em>Follow on Instagram →</em></a>`;
+  if (reels.length) $("reels").innerHTML = reels.slice(0, 6).map(m => `<div class="reel reveal"><iframe src="https://www.instagram.com/${m[0].includes("/p/") ? "p" : "reel"}/${m[1]}/embed" loading="lazy" allowfullscreen title="Instagram reel"></iframe></div>`).join("");
+  else $("reels").remove();
 
   /* ---- next launch: countdown + first-access list ---- */
   const L = C.launch;
@@ -66,16 +65,16 @@
 
   /* ---- area map ---- */
   const AREAS = [
-    { id: "palm", name: "Palm Jumeirah", x: 250, y: 205, tier: 4, demand: "High", homes: "Villas & beach apartments", best: "Trophy homes and luxury holiday lets", note: "Dubai's icon: private beaches, signature villas and branded hotels." },
-    { id: "marina", name: "Dubai Marina", x: 170, y: 300, tier: 3, demand: "Very high", homes: "Apartments", best: "Rental investors and young professionals", note: "Walkable waterfront towers with restaurants, metro and tram on the doorstep." },
-    { id: "jbr", name: "JBR", x: 205, y: 270, tier: 3, demand: "Very high", homes: "Beachfront apartments", best: "Short-term holiday lets", note: "Right on the beach and The Walk; tourists all year." },
-    { id: "beachfront", name: "Emaar Beachfront", x: 228, y: 245, tier: 4, demand: "High", homes: "New beach towers", best: "Off-plan buyers who want sea views", note: "Private-beach island between the Marina and the Palm." },
-    { id: "jvc", name: "JVC", x: 290, y: 345, tier: 1, demand: "High", homes: "Apartments & townhouses", best: "Strong yields at a lower entry price", note: "Popular with tenants; one of the best yield-to-price areas." },
-    { id: "hills", name: "Dubai Hills Estate", x: 370, y: 300, tier: 3, demand: "High", homes: "Villas, townhouses & apartments", best: "Families: parks, golf and top schools", note: "Green master community between Downtown and the Marina." },
-    { id: "downtown", name: "Downtown", x: 470, y: 205, tier: 4, demand: "Very high", homes: "Apartments & penthouses", best: "Prestige buys and short-term rentals", note: "Burj Khalifa, Dubai Mall and the Opera on your doorstep." },
-    { id: "bay", name: "Business Bay", x: 500, y: 225, tier: 3, demand: "High", homes: "Canal-side apartments", best: "Yield-focused investors", note: "Next to Downtown at a lower entry price, along the Dubai Water Canal." },
-    { id: "creek", name: "Dubai Creek Harbour", x: 575, y: 165, tier: 3, demand: "Growing", homes: "Waterfront apartments", best: "Long-term growth with skyline views", note: "Emaar's waterfront master plan facing the Downtown skyline." },
-    { id: "south", name: "Dubai South", x: 150, y: 430, tier: 1, demand: "Growing", homes: "Apartments, townhouses & villas", best: "Early buyers betting on the new airport district", note: "Around Al Maktoum Airport and Expo City; early-stage growth." },
+    { id: "palm", lat: 25.118, lon: 55.136, name: "Palm Jumeirah", x: 250, y: 205, tier: 4, demand: "High", homes: "Villas & beach apartments", best: "Trophy homes and luxury holiday lets", note: "Dubai's icon: private beaches, signature villas and branded hotels." },
+    { id: "marina", lat: 25.08, lon: 55.141, name: "Dubai Marina", x: 170, y: 300, tier: 3, demand: "Very high", homes: "Apartments", best: "Rental investors and young professionals", note: "Walkable waterfront towers with restaurants, metro and tram on the doorstep." },
+    { id: "jbr", lat: 25.0775, lon: 55.132, name: "JBR", x: 205, y: 270, tier: 3, demand: "Very high", homes: "Beachfront apartments", best: "Short-term holiday lets", note: "Right on the beach and The Walk; tourists all year." },
+    { id: "beachfront", lat: 25.096, lon: 55.14, name: "Emaar Beachfront", x: 228, y: 245, tier: 4, demand: "High", homes: "New beach towers", best: "Off-plan buyers who want sea views", note: "Private-beach island between the Marina and the Palm." },
+    { id: "jvc", lat: 25.06, lon: 55.209, name: "JVC", x: 290, y: 345, tier: 1, demand: "High", homes: "Apartments & townhouses", best: "Strong yields at a lower entry price", note: "Popular with tenants; one of the best yield-to-price areas." },
+    { id: "hills", lat: 25.108, lon: 55.248, name: "Dubai Hills Estate", x: 370, y: 300, tier: 3, demand: "High", homes: "Villas, townhouses & apartments", best: "Families: parks, golf and top schools", note: "Green master community between Downtown and the Marina." },
+    { id: "downtown", lat: 25.1972, lon: 55.2744, name: "Downtown", x: 470, y: 205, tier: 4, demand: "Very high", homes: "Apartments & penthouses", best: "Prestige buys and short-term rentals", note: "Burj Khalifa, Dubai Mall and the Opera on your doorstep." },
+    { id: "bay", lat: 25.1855, lon: 55.27, name: "Business Bay", x: 500, y: 225, tier: 3, demand: "High", homes: "Canal-side apartments", best: "Yield-focused investors", note: "Next to Downtown at a lower entry price, along the Dubai Water Canal." },
+    { id: "creek", lat: 25.2045, lon: 55.3465, name: "Dubai Creek Harbour", x: 575, y: 165, tier: 3, demand: "Growing", homes: "Waterfront apartments", best: "Long-term growth with skyline views", note: "Emaar's waterfront master plan facing the Downtown skyline." },
+    { id: "south", lat: 24.93, lon: 55.155, name: "Dubai South", x: 150, y: 430, tier: 1, demand: "Growing", homes: "Apartments, townhouses & villas", best: "Early buyers betting on the new airport district", note: "Around Al Maktoum Airport and Expo City; early-stage growth." },
   ];
   if ($("map")) {
     // label offsets [dx, dy, anchor] so close-together areas don't overlap
@@ -89,6 +88,7 @@
     </svg>`;
     const show = id => {
       const a = AREAS.find(x => x.id === id) || AREAS[0];
+      window.currentArea = a.id; document.dispatchEvent(new CustomEvent("pranav:area", {detail: a.id}));
       $("map").querySelectorAll(".pin").forEach(p => p.classList.toggle("on", p.dataset.id === a.id));
       $("areaCard").innerHTML = `<span class="eyebrow">Area guide</span><h3>${a.name}</h3><p class="ar-note">${a.note}</p>
         <dl><div><dt>Price level</dt><dd><span class="tier">${"●".repeat(a.tier)}<i>${"●".repeat(4 - a.tier)}</i></span></dd></div><div><dt>Rental demand</dt><dd>${a.demand}</dd></div><div><dt>Homes</dt><dd>${a.homes}</dd></div><div><dt>Best for</dt><dd>${a.best}</dd></div></dl>
@@ -97,6 +97,7 @@
     };
     $("map").addEventListener("click", e => { const p = e.target.closest(".pin"); if (p) show(p.dataset.id); });
     $("map").addEventListener("keydown", e => { const p = e.target.closest(".pin"); if (p && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); show(p.dataset.id); } });
+    window.PRANAV_AREAS = AREAS; window.showArea = show;   // used by the 3D map (city3d.js)
     show("marina");
   }
 

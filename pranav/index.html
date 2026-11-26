@@ -306,6 +306,45 @@ body{top:0!important}
 @media(max-width:560px){.lang>button{padding:8px 10px}.nav-cta{padding:9px 13px;font-size:12px;white-space:nowrap}.nav-right{gap:8px}}
 nav#nav{z-index:65}   /* the language list opens above the pager */
 
+/* ===== blueprint -> 3D Dubai (city3d.js draws behind these empty boxes) ===== */
+#city3d{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;visibility:hidden}
+#cityUI{position:fixed;inset:0;z-index:6;pointer-events:none;visibility:hidden}
+.cu-frame{position:absolute;border-radius:24px;border:1px solid color-mix(in srgb,rgba(160,220,255,.4) calc(var(--bp,1)*100%),rgba(216,180,106,.28))}
+.cu-frame>*{opacity:var(--bp,1)}
+.bp-slot.is3d,.map.is3d{border-color:transparent}
+#cityUI svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;opacity:var(--lab,0)}
+#cityUI line{stroke:rgba(243,220,164,.6);stroke-width:1}
+.cu-pin{position:absolute;left:0;top:0;display:flex;align-items:center;gap:6px;padding:5px 11px 5px 8px;border-radius:999px;border:1px solid rgba(216,180,106,.5);background:rgba(6,10,18,.82);backdrop-filter:blur(6px);color:#e8ecf3;font:600 12px Inter,sans-serif;white-space:nowrap;cursor:pointer;opacity:var(--lab,0);pointer-events:none;transition:background .2s,color .2s,border-color .2s}
+#cityUI.labels .cu-pin{pointer-events:auto}
+.cu-pin i{width:7px;height:7px;border-radius:50%;background:var(--gold);flex:none}
+.cu-pin:hover,.cu-pin:focus-visible{border-color:var(--gold2);outline:none}
+.cu-pin.on{background:linear-gradient(140deg,#f3dca4,#d4af6a);color:#1a1205;border-color:transparent;z-index:2}
+.cu-pin.on i{background:#1a1205}
+.cu-note{position:absolute;left:0;top:0;font:600 10px "Space Grotesk",sans-serif;letter-spacing:.18em;color:#d8efff;text-transform:uppercase;white-space:nowrap;opacity:var(--note,0)}
+.bp-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:44px;align-items:center}
+.bp-text .sec-head,.bp-text{margin-bottom:0}
+.bp-slot{position:relative;height:min(70vh,680px);border-radius:24px;border:1px solid rgba(160,220,255,.35)}
+.bp-slot.no3d{background:#0a2647;background-image:linear-gradient(rgba(207,234,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(207,234,255,.12) 1px,transparent 1px);background-size:32px 32px}
+.bp-c{position:absolute;pointer-events:none;width:18px;height:18px;border:0 solid rgba(216,239,255,.7)}
+.bp-c.c1{left:12px;top:12px;border-left-width:1px;border-top-width:1px}.bp-c.c2{right:12px;top:12px;border-right-width:1px;border-top-width:1px}
+.bp-c.c3{left:12px;bottom:12px;border-left-width:1px;border-bottom-width:1px}.bp-c.c4{right:12px;bottom:12px;border-right-width:1px;border-bottom-width:1px}
+.bp-title{position:absolute;right:16px;bottom:16px;display:grid;grid-template-columns:auto auto;border:1px solid rgba(216,239,255,.45);font:600 9.5px "Space Grotesk",sans-serif;letter-spacing:.16em;color:#d8efff;text-transform:uppercase;background:rgba(10,38,71,.55)}
+.bp-title span{padding:5px 9px;border-bottom:1px solid rgba(216,239,255,.25)}
+.bp-title span:nth-child(odd){color:rgba(216,239,255,.6);border-right:1px solid rgba(216,239,255,.25)}
+.bp-title span:nth-last-child(-n+2){border-bottom:0}
+.bp-steps{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 20px;padding:0;list-style:none}
+.bp-steps li{padding:8px 15px;border-radius:999px;border:1px solid var(--line);color:var(--muted);font:600 13px "Space Grotesk",sans-serif;transition:color .5s,border-color .5s,background .5s}
+.bp-steps b{margin-right:8px;opacity:.7}
+#onsite[data-stage="1"] .bp-steps li:nth-child(1),#onsite[data-stage="2"] .bp-steps li:nth-child(-n+2),#onsite[data-stage="3"] .bp-steps li{border-color:rgba(216,180,106,.7);color:var(--gold2);background:rgba(216,180,106,.08)}
+.bp-ig{display:inline-block;color:var(--gold2);font-weight:600;font-size:15px}
+.bp-hint{margin-top:22px;color:var(--muted);font-size:13px;letter-spacing:.04em}
+.bp-hint i{font-style:normal;display:inline-block;color:var(--gold);animation:bpn 1.6s ease-in-out infinite}
+@keyframes bpn{50%{transform:translateX(6px)}}
+#onsite .diary,#onsite .reels{margin-top:40px}
+.map.is3d{background:none;min-height:min(64vh,620px);cursor:grab}
+.map.is3d:active{cursor:grabbing}
+@media(max-width:900px){.bp-grid{display:flex;flex-direction:column;align-items:stretch;gap:0}.bp-text{display:contents}.bp-text>*{order:1;margin-left:0;margin-right:0;text-align:left}.bp-text>h2{margin:14px 0 0}.bp-text>p{margin:14px 0 0}.bp-slot{order:2;width:100%;height:56vh;margin:18px 0 6px}.bp-steps,.bp-ig{order:3}.bp-hint{display:none}.map.is3d{min-height:58vh}.bp-title{font-size:8.5px}}
+@media(max-width:600px){.cu-frame .bp-title{display:none}.cu-pin{font-size:10.5px;padding:3px 8px 3px 6px;gap:5px}.cu-pin i{width:5px;height:5px}}
 /* ===== extra sections: on site, area map, launch, investor tools, voices, deal ticker ===== */
 .fine{color:var(--muted);font-size:12px;margin-top:14px}
 .ticker{position:absolute;left:0;right:0;bottom:0;z-index:3;overflow:hidden;border-top:1px solid var(--line);background:rgba(5,7,12,.6);backdrop-filter:blur(8px);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
@@ -450,16 +489,6 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
 <div class="marquee"><div class="track" id="mq"></div></div>
 </div>
 <div class="pnl">
-<section id="onsite" class="bg-alt">
-  <div class="wrap">
-    <div class="sec-head reveal"><span class="eyebrow">On Site</span><h2>I build what I <span class="gold">promise.</span></h2><p>From ground-breaking to handover: the latest from my sites and my Instagram.</p></div>
-    <div class="diary" id="diary"></div>
-    <div class="reels" id="reels"></div>
-  </div>
-</section>
-</div>
-
-<div class="pnl">
 <section id="dubai">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -476,6 +505,25 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
   </div>
 </section>
 </div>
+<div class="pnl">
+<section id="onsite">
+  <div class="wrap">
+    <div class="bp-grid">
+      <div class="sec-head reveal bp-text"><span class="eyebrow">From drawing to skyline</span><h2>I build what I <span class="gold">promise.</span></h2>
+        <p>Every project starts as a drawing. I stay on site from ground-breaking to handover, so what you're sold is exactly what gets built.</p>
+        <ol class="bp-steps"><li><b>01</b>Drawing</li><li><b>02</b>Structure</li><li><b>03</b>Handover</li></ol>
+        <a class="bp-ig" href="https://www.instagram.com/exclusivewithpranav/" target="_blank" rel="noopener">Follow the build on Instagram · @exclusivewithpranav →</a>
+        <p class="bp-hint">Keep scrolling: the drawing becomes the city <i>→</i></p>
+      </div>
+      <div class="bp-slot" id="bpSlot"><i class="bp-c c1"></i><i class="bp-c c2"></i><i class="bp-c c3"></i><i class="bp-c c4"></i>
+        <div class="bp-title"><span>Project</span><span>Dubai skyline</span><span>Drawn by</span><span>P. Sheth</span><span>Scale</span><span>1 : 5000</span><span>Sheet</span><span>A-01</span></div></div>
+    </div>
+    <div class="diary" id="diary"></div>
+    <div class="reels" id="reels"></div>
+  </div>
+</section>
+</div>
+
 <div class="pnl">
 <section id="areas">
   <div class="wrap">
@@ -736,6 +784,7 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
 <script src="/track.js"></script>
 <script src="/content.js"></script>
 <script src="/extras.js"></script>
+<script type="module" src="/city3d.js"></script>
 <script>
 /* language picker: English is the original; other languages are machine-translated live by Google Translate */
 (() => {
