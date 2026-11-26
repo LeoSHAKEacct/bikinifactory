@@ -118,7 +118,6 @@ section{padding:120px 0;position:relative}
 .about{display:grid;grid-template-columns:1fr 1.1fr;gap:70px;align-items:center}
 .portrait{position:relative;aspect-ratio:620/525;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(160deg,#1a1f2c,#07090f)}
 .portrait .mono{position:absolute;inset:0;display:grid;place-items:center;font:700 min(34vw,190px) "Space Grotesk";color:transparent;-webkit-text-stroke:1px rgba(216,180,106,.45)}
-.portrait .scan{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 20px var(--cyan);animation:scan 4s ease-in-out infinite}
 @keyframes scan{0%,100%{top:8%}50%{top:92%}}
 .portrait .tag{position:absolute;left:18px;bottom:18px;right:18px;padding:16px 18px;border-radius:14px;background:rgba(5,7,12,.7);backdrop-filter:blur(10px);border:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-size:13px}
 .portrait .corner{position:absolute;width:26px;height:26px;border:2px solid var(--gold)}
@@ -510,7 +509,6 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
     <div class="portrait reveal" id="tilt">
       <div class="photo" style="background-image:url(pranav.jpg)"></div>
       <div class="photo-tint"></div><div class="photo-glow"></div><div class="photo-lines"></div>
-      <div class="scan"></div>
       <div class="corner c1"></div><div class="corner c2"></div>
       <div class="tag"><span><b>Pranav Sheth</b><br><small style="color:var(--muted)">Broker · Developer</small></span><span class="gold" style="font:600 13px 'Space Grotesk'">VERIFIED ✦</span></div>
     </div>
