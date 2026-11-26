@@ -1,0 +1,7 @@
+{
+  "name": "pranav-site",
+  "private": true,
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.14.0"
+  }
+}
