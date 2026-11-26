@@ -108,6 +108,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:7
 .stat:last-child{border:0}
 .stat b{display:block;font:700 clamp(30px,4vw,46px) "Space Grotesk"}
 .stat>span{font-size:13px;color:var(--muted);letter-spacing:.04em}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.9s;animation-timing-function:cubic-bezier(.4,0,.2,1)}
 /* opening screen: the pencil drawing first; the first scroll brings in the Dubai photos behind it */
 .hero-bg{transition:opacity 1.8s ease}
 .hero[data-hstage="0"] .hero-bg{opacity:0}
@@ -365,7 +366,7 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
 .bp-c{position:absolute;width:18px;height:18px;border:0 solid rgba(216,239,255,.7);pointer-events:none;transition:border-color .8s,opacity .8s}
 .bp-c.c1{left:12px;top:12px;border-left-width:1px;border-top-width:1px}.bp-c.c2{right:12px;top:12px;border-right-width:1px;border-top-width:1px}
 .bp-c.c3{left:12px;bottom:12px;border-left-width:1px;border-bottom-width:1px}.bp-c.c4{right:12px;bottom:12px;border-right-width:1px;border-bottom-width:1px}
-.bp-title{position:absolute;right:16px;bottom:16px;display:grid;grid-template-columns:auto auto;border:1px solid rgba(216,239,255,.45);font:600 9.5px "Space Grotesk",sans-serif;letter-spacing:.16em;color:#d8efff;text-transform:uppercase;background:rgba(10,20,36,.55);pointer-events:none;transition:color .8s,border-color .8s,background .8s,opacity .8s}
+.bp-title{position:absolute;left:16px;bottom:16px;display:grid;grid-template-columns:auto auto;border:1px solid rgba(216,239,255,.45);font:600 9.5px "Space Grotesk",sans-serif;letter-spacing:.16em;color:#d8efff;text-transform:uppercase;background:rgba(10,20,36,.55);pointer-events:none;transition:color .8s,border-color .8s,background .8s,opacity .8s}
 .bp-title span{padding:5px 9px;border-bottom:1px solid rgba(216,239,255,.25)}
 .bp-title span:nth-child(odd){color:inherit;opacity:.6;border-right:1px solid rgba(216,239,255,.25)}
 .bp-title span:nth-last-child(-n+2){border-bottom:0}
@@ -1063,7 +1064,11 @@ tilt.addEventListener("pointerleave", () => tilt.style.transform = "");
   const dots = document.getElementById("hpDots"), prev = document.getElementById("hpPrev"), nextB = document.getElementById("hpNext");
   const idx = () => Math.round(hs.scrollLeft / hs.clientWidth);
   // fromTop: open the panel at its top (menu links, dots, arrows, moving forward); going back by wheel keeps its place
-  const go = (i, fromTop = true) => { i = Math.max(0, Math.min(pnls.length - 1, i)); if (fromTop && i !== idx()) pnls[i].scrollTop = 0; hs.scrollTo({left: i * hs.clientWidth, behavior: reduce ? "auto" : "smooth"}); };
+  // between the opening screen and page 2 the page cross-fades in place (the drawn tower stays where it is); elsewhere it slides
+  const go = (i, fromTop = true) => { i = Math.max(0, Math.min(pnls.length - 1, i)); const cur = idx(); if (fromTop && i !== cur) pnls[i].scrollTop = 0;
+    if (document.startViewTransition && !reduce && Math.min(cur, i) === 0 && Math.max(cur, i) === 1 && pnls[1].querySelector("[data-stages]")) {
+      document.startViewTransition(() => { hs.scrollLeft = i * hs.clientWidth; mark(); }); return; }
+    hs.scrollTo({left: i * hs.clientWidth, behavior: reduce ? "auto" : "smooth"}); };
   dots.innerHTML = pnls.map(() => "<i></i>").join("");
   dots.querySelectorAll("i").forEach((d, i) => d.onclick = () => go(i));
   // the "I build what I promise" panel has 3 steps in one window: pencil drawing -> alive -> map.
