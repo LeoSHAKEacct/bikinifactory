@@ -545,10 +545,10 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
       <p>From Downtown towers to Palm waterfronts and the new projects rising in between.</p>
     </div>
     <div class="gallery">
-      <div class="tile big reveal"><div class="img" data-img="lRCWtOEPwiY"></div><div class="lbl"><small>Downtown</small><b>Burj Khalifa District</b></div></div>
+      <div class="tile big reveal"><div class="img" data-img="/bg/burj-cranes.jpg" style="background-position:center 30%"></div><div class="lbl"><small>Downtown</small><b>Burj Khalifa District</b></div></div>
       <div class="tile reveal"><div class="img" data-img="dYLzGcPqrtE"></div><div class="lbl"><small>Waterfront</small><b>Palm Jumeirah</b></div></div>
       <div class="tile reveal"><div class="img" data-img="O8IjeygwJlc"></div><div class="lbl"><small>Development</small><b>Rising Now</b></div></div>
-      <div class="tile wide reveal"><div class="img" data-img="2fqptw4fKWI"></div><div class="lbl"><small>Coastline</small><b>Marina &amp; JBR</b></div></div>
+      <div class="tile wide reveal"><div class="img" data-img="/bg/coast-aerial.jpg"></div><div class="lbl"><small>Coastline</small><b>Jumeirah &amp; Burj Al Arab</b></div></div>
     </div>
   </div>
 </section>
@@ -594,7 +594,7 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
 
 <div class="pnl">
 <section id="process" class="bg-alt photo-band">
-  <div class="bandimg" data-img="UxYEwaanctE"></div>
+  <div class="bandimg" data-img="/bg/szr-sunset.jpg"></div>
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">The Process</span>
@@ -709,7 +709,7 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
 
 <div class="pnl">
 <section id="contact" class="bg-alt photo-band">
-  <div class="bandimg" data-img="9n7rZJLWY7o"></div>
+  <div class="bandimg" data-img="/bg/museum-future.jpg" style="background-position:center 55%"></div>
   <div class="wrap contact">
     <div class="reveal contact-info">
       <span class="eyebrow">Let's Talk</span>
@@ -837,7 +837,7 @@ document.getElementById("yr").textContent = new Date().getFullYear();
 
 /* nav */
 /* real Dubai photos (Unsplash) — load then fade in; gradient stays if a photo fails */
-const img = (id, w) => `https://unsplash.com/photos/${id}/download?w=${w}`;
+const img = (id, w) => id.startsWith("/") ? id : `https://unsplash.com/photos/${id}/download?w=${w}`;   // "/bg/..." = Pranav's own photos
 function setBg(el, id, w) {
   const i = new Image();
   i.onload = () => { el.style.backgroundImage = `url("${i.src}")`; el.classList.add("loaded"); };
@@ -845,7 +845,7 @@ function setBg(el, id, w) {
 }
 document.querySelectorAll("[data-img]").forEach(el => setBg(el, el.dataset.img, el.classList.contains("bandimg") ? 1920 : 1200));
 (() => {
-  const bg = document.getElementById("heroBg"), ids = ["j-nRfGUHswQ", "lRCWtOEPwiY", "9n7rZJLWY7o", "2fqptw4fKWI"];
+  const bg = document.getElementById("heroBg"), ids = ["/bg/coast-aerial.jpg", "/bg/szr-sunset.jpg", "/bg/burj-cranes.jpg"];
   const slides = ids.map(id => { const s = document.createElement("div"); s.className = "slide"; bg.appendChild(s); setBg(s, id, 1920); return s; });
   let k = 0;
   const next = () => {
