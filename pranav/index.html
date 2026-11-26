@@ -305,6 +305,73 @@ body{top:0!important}
 .goog-text-highlight{background:none!important;box-shadow:none!important}
 @media(max-width:560px){.lang>button{padding:8px 10px}.nav-cta{padding:9px 13px;font-size:12px;white-space:nowrap}.nav-right{gap:8px}}
 nav#nav{z-index:65}   /* the language list opens above the pager */
+
+/* ===== extra sections: on site, area map, launch, investor tools, voices, deal ticker ===== */
+.fine{color:var(--muted);font-size:12px;margin-top:14px}
+.ticker{position:absolute;left:0;right:0;bottom:0;z-index:3;overflow:hidden;border-top:1px solid var(--line);background:rgba(5,7,12,.6);backdrop-filter:blur(8px);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.tk-track{display:flex;gap:46px;width:max-content;padding:10px 0;animation:tk 40s linear infinite;font:500 13px "Space Grotesk";letter-spacing:.06em;color:var(--gold2)}
+@keyframes tk{to{transform:translateX(-50%)}}
+.diary{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-bottom:26px}
+.dy{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--panel)}
+.dy-img{aspect-ratio:16/10;background:#0d1220 center/cover}
+.dy-body{padding:18px 20px}.dy-stage{font:600 11px "Space Grotesk";letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.dy h3{font-size:19px;margin:6px 0}.dy p{color:var(--muted);font-size:14px}.dy small{color:var(--muted);font-size:12px}
+.reels{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.reel{border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#000;aspect-ratio:9/15}
+.reel iframe{width:100%;height:100%;border:0}
+.ig-card{display:flex;flex-direction:column;gap:8px;padding:30px;border-radius:22px;border:1px solid rgba(216,180,106,.45);background:linear-gradient(130deg,rgba(214,41,118,.18),rgba(250,126,30,.12),rgba(10,14,23,.6));max-width:520px}
+.ig-card b{font:700 24px "Space Grotesk"}.ig-card span{color:#c9d0dc}.ig-card em{font-style:normal;color:var(--gold2);font-weight:600;margin-top:6px}
+.map-wrap{display:grid;grid-template-columns:1.4fr 1fr;gap:22px;align-items:stretch}
+.map{border:1px solid var(--line);border-radius:24px;background:radial-gradient(ellipse at 60% 40%,#121a2a,#070a11);overflow:hidden}
+.map svg{display:block;width:100%;height:auto}
+.map .sea{fill:rgba(79,216,255,.07)}.map .coast{fill:none;stroke:rgba(79,216,255,.45);stroke-width:2}
+.map .palm{fill:none;stroke:rgba(216,180,106,.6);stroke-width:3;stroke-linecap:round}
+.map .road{fill:none;stroke:rgba(255,255,255,.08);stroke-width:6;stroke-linecap:round}
+.map .pin{cursor:pointer;outline:none}
+.map .pin circle{fill:rgba(216,180,106,.12);stroke:rgba(216,180,106,.55);transition:.2s}
+.map .pin .dot{fill:var(--gold);stroke:none}
+.map .pin text{fill:#c9d0dc;font:600 12px Inter;pointer-events:none;paint-order:stroke;stroke:#070a11;stroke-width:4px}
+.map .pin:hover circle,.map .pin:focus circle{fill:rgba(216,180,106,.25)}
+.map .pin.on circle{fill:rgba(216,180,106,.35);stroke:var(--gold2);r:16}.map .pin.on text{fill:var(--gold2)}
+.area-card{border:1px solid rgba(216,180,106,.4);border-radius:24px;padding:28px;background:var(--panel)}
+.area-card h3{font-size:28px;margin:12px 0 8px}.ar-note{color:#c9d0dc}
+.area-card dl{display:grid;gap:10px;margin:18px 0 22px}.area-card dl div{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.area-card dt{color:var(--muted);font-size:13px}.area-card dd{text-align:right;font-size:14px}
+.tier{color:var(--gold);letter-spacing:2px}.tier i{font-style:normal;color:rgba(255,255,255,.15)}
+.ln-card{display:grid;grid-template-columns:1fr 1.1fr;border:1px solid rgba(216,180,106,.45);border-radius:26px;overflow:hidden;background:var(--panel)}
+.ln-card:not(:has(.ln-img)){grid-template-columns:1fr}
+.ln-img{min-height:320px;background:#0d1220 center/cover}.ln-body{padding:32px}
+.ln-body h3{font-size:clamp(26px,3vw,38px);margin:12px 0 6px}.ln-meta{color:var(--gold2)}.ln-blurb{color:#c9d0dc;margin-top:10px}
+.cd{display:flex;gap:10px;margin:22px 0}.cd div{min-width:70px;text-align:center;padding:12px 8px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+.cd b{display:block;font:700 30px "Space Grotesk"}.cd span{color:var(--muted);font-size:12px}
+.ln-form{display:grid;gap:10px}.ln-form input{padding:13px 15px;border-radius:12px;border:1px solid var(--line);background:#070a11;color:var(--text);font:400 15px Inter}
+.ln-ok{color:#5ee08f;margin-top:10px}
+.tt{border:1px solid var(--line);border-radius:24px;padding:28px;background:var(--panel)}
+.tt-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.tt-tabs button{padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:none;color:var(--text);font:600 14px "Space Grotesk";cursor:pointer}
+.tt-tabs button.on{background:linear-gradient(100deg,var(--gold2),var(--gold));color:#140f05;border-color:transparent}
+.tt-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
+.tt label{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin:18px 0 8px}.tt label b{color:var(--text);font:600 15px "Space Grotesk"}
+.tt label.tick{justify-content:flex-start;gap:8px;align-items:center;cursor:pointer}
+.tt select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#070a11;color:var(--text);font:400 14px Inter}
+.tt input[type=range]{width:100%;accent-color:var(--gold)}
+.pp-row{display:grid;grid-template-columns:1fr auto;gap:4px 14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.pp-row b{font-size:15px}.pp-row small{display:block;color:var(--muted);font-size:12.5px}.pp-row strong{font:700 20px "Space Grotesk";color:var(--gold2)}
+.pp-bar{grid-column:1/-1;height:6px;border-radius:4px;background:rgba(255,255,255,.06);overflow:hidden}.pp-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold))}
+.pp-total{display:flex;justify-content:space-between;padding-top:14px;color:var(--muted)}.pp-total b{color:var(--text);font:700 22px "Space Grotesk"}
+.gv-out{padding:24px;border-radius:18px;border:1px solid var(--line)}
+.gv-out h3{font-size:24px;margin-bottom:8px}.gv-out p{color:#c9d0dc;margin-bottom:18px}
+.gv-out.ok{border-color:rgba(37,211,102,.5);background:rgba(37,211,102,.06)}.gv-out.ok h3{color:#5ee08f}
+.gv-out.mid{border-color:rgba(216,180,106,.5);background:rgba(216,180,106,.06)}.gv-out.mid h3{color:var(--gold2)}
+.cmp-scroll{overflow-x:auto}
+.cmp{width:100%;border-collapse:collapse;min-width:560px}.cmp th,.cmp td{padding:14px 12px;border-bottom:1px solid var(--line);text-align:left;font-size:14px}
+.cmp thead th{font:600 14px "Space Grotesk";color:var(--muted)}.cmp tbody th{color:var(--muted);font-weight:500}
+.cmp .dxb{color:var(--gold2);background:rgba(216,180,106,.06);font-weight:600}
+.voices{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.vc{padding:24px;border-radius:20px;border:1px solid var(--line);background:var(--panel)}.vc blockquote{font-size:16px;color:#e6e9f0}.vc figcaption{margin-top:14px;color:var(--muted);font-size:13px}.vc b{color:var(--gold2)}
+.takes{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.tk{padding:22px;border-radius:20px;border:1px solid var(--line);background:var(--panel)}.tk small{color:var(--gold)}.tk h3{font-size:19px;margin:6px 0}.tk p{color:var(--muted);font-size:14px}.tk a{color:var(--gold2);font-size:14px;display:inline-block;margin-top:10px}
+@media(max-width:900px){.map-wrap,.tt-grid,.ln-card{grid-template-columns:1fr}.tt{padding:20px}}
 </style>
 </head>
 <body>
@@ -343,6 +410,7 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
     </div>
     </div>
   </div>
+  <div class="ticker" id="ticker" hidden></div>
   <div class="scroll-hint">Scroll<i></i></div>
 </header>
 
@@ -381,6 +449,15 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
 
 <div class="marquee"><div class="track" id="mq"></div></div>
 </div>
+<div class="pnl">
+<section id="onsite" class="bg-alt">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">On Site</span><h2>I build what I <span class="gold">promise.</span></h2><p>From ground-breaking to handover: the latest from my sites and my Instagram.</p></div>
+    <div class="diary" id="diary"></div>
+    <div class="reels" id="reels"></div>
+  </div>
+</section>
+</div>
 
 <div class="pnl">
 <section id="dubai">
@@ -396,6 +473,14 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
       <div class="tile reveal"><div class="img" data-img="O8IjeygwJlc"></div><div class="lbl"><small>Development</small><b>Rising Now</b></div></div>
       <div class="tile wide reveal"><div class="img" data-img="2fqptw4fKWI"></div><div class="lbl"><small>Coastline</small><b>Marina &amp; JBR</b></div></div>
     </div>
+  </div>
+</section>
+</div>
+<div class="pnl">
+<section id="areas">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">Area Guide</span><h2>Find your <span class="gold">area.</span></h2><p>Tap an area on the map to see what it's like, who it suits and what to expect.</p></div>
+    <div class="map-wrap reveal"><div class="map" id="map"></div><aside class="area-card" id="areaCard"></aside></div>
   </div>
 </section>
 </div>
@@ -458,6 +543,14 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
   </div>
 </section>
 </div>
+<div class="pnl">
+<section id="launch" class="bg-alt">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">First Access</span><h2>Next exclusive <span class="gold">launch.</span></h2><p>Get the brochure, floor plans and launch prices before they go public.</p></div>
+    <div id="launchBox"></div>
+  </div>
+</section>
+</div>
 
 <div class="pnl">
 <section id="invest">
@@ -488,6 +581,60 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
         <p class="disclaimer">Illustrative only — not financial advice. Excludes fees, service charges and financing.</p>
       </div>
     </div>
+  </div>
+</section>
+</div>
+<div class="pnl">
+<section id="tools">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">Investor Tools</span><h2>Plan it <span class="gold">properly.</span></h2><p>Off-plan payments, Golden Visa eligibility and how Dubai compares.</p></div>
+    <div class="tt reveal">
+      <div class="tt-tabs"><button type="button" class="on" data-pane="ppPane">Payment plan</button><button type="button" data-pane="gvPane">Golden Visa</button><button type="button" data-pane="cmpPane">Dubai vs the world</button></div>
+      <div class="tt-pane" id="ppPane">
+        <div class="tt-grid">
+          <div>
+            <label>Property price <b id="ppPriceV"></b></label><input type="range" id="ppPrice" min="500000" max="20000000" step="50000" value="2000000">
+            <label>Payment plan</label><select id="ppPlan"><option value="60/40">60/40 (60% during construction)</option><option value="50/50">50/50</option><option value="70/30">70/30</option><option value="80/20">80/20</option><option value="40/60">40/60 (more at handover)</option></select>
+            <label>Construction period <b id="ppMonthsV"></b></label><input type="range" id="ppMonths" min="12" max="60" step="6" value="36">
+            <label class="tick"><input type="checkbox" id="ppDld" checked> Include the 4% Dubai Land Department fee</label>
+          </div>
+          <div class="pp-out" id="ppOut"></div>
+        </div>
+        <p class="fine">Typical structure with a 20% deposit (10% on 40/60). Every project's plan differs; Pranav sends the exact schedule.</p>
+      </div>
+      <div class="tt-pane" id="gvPane" hidden>
+        <div class="tt-grid">
+          <div>
+            <label>Value of your property in Dubai <b id="gvValV"></b></label><input type="range" id="gvVal" min="250000" max="10000000" step="50000" value="1500000">
+            <label>Type</label><select id="gvType"><option value="ready">Ready property</option><option value="offplan">Off-plan</option></select>
+            <label class="tick"><input type="checkbox" id="gvMort"> It has a mortgage</label>
+          </div>
+          <div class="gv-out" id="gvOut"></div>
+        </div>
+        <p class="fine">Based on the UAE's published property thresholds (AED 750K for the 2-year investor visa, AED 2M for the 10-year Golden Visa). Rules can change; Pranav confirms your case.</p>
+      </div>
+      <div class="tt-pane" id="cmpPane" hidden>
+        <div class="cmp-scroll"><table class="cmp">
+          <thead><tr><th></th><th class="dxb">Dubai</th><th>London</th><th>Mumbai</th><th>Lisbon</th></tr></thead>
+          <tbody>
+            <tr><th>Typical gross rental yield</th><td class="dxb">5–8%</td><td>3–5%</td><td>2–4%</td><td>4–6%</td></tr>
+            <tr><th>Tax on rental income</th><td class="dxb">None</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+            <tr><th>Tax when you sell</th><td class="dxb">None</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+            <tr><th>Residency through property</th><td class="dxb">Golden Visa from AED 2M</td><td>No</td><td>No</td><td>No longer (ended 2023)</td></tr>
+            <tr><th>Off-plan payment plans</th><td class="dxb">Common, often 0% interest</td><td>Rare</td><td>Common</td><td>Rare</td></tr>
+          </tbody>
+        </table></div>
+        <p class="fine">Indicative, for comparison only; not tax advice. Yields vary by area and property.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+<div class="pnl">
+<section id="voices" class="bg-alt">
+  <div class="wrap">
+    <div id="voiceWrap"><div class="sec-head reveal"><span class="eyebrow">Client Voices</span><h2>In their <span class="gold">words.</span></h2></div><div class="voices" id="voiceList"></div></div>
+    <div id="takeWrap"><div class="sec-head reveal" style="margin-top:50px"><span class="eyebrow">Market Take</span><h2>Crash or <span class="gold">correction?</span></h2><p>My weekly read on the Dubai market.</p></div><div class="takes" id="takeList"></div></div>
   </div>
 </section>
 </div>
@@ -587,6 +734,8 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
 </a>
 
 <script src="/track.js"></script>
+<script src="/content.js"></script>
+<script src="/extras.js"></script>
 <script>
 /* language picker: English is the original; other languages are machine-translated live by Google Translate */
 (() => {
