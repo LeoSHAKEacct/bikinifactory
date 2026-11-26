@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hospital CareFlow</title>
+<meta name="description" content="Pide cita en el hospital, revisa tus síntomas y te orientamos hacia la atención adecuada.">
+<meta name="theme-color" content="#0b6e6e">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <a href="#/" class="brand"><span class="logo">+</span> CareFlow</a>
+  <a href="#/emergency" class="sos">Emergencia</a>
+</header>
+
+<main id="view" tabindex="-1"></main>
+
+<nav class="tabbar" aria-label="Principal">
+  <a href="#/" data-tab="home"><span>⌂</span>Inicio</a>
+  <a href="#/triage" data-tab="triage"><span>✚</span>Síntomas</a>
+  <a href="#/book" data-tab="book"><span>▦</span>Citas</a>
+  <a href="#/appointments" data-tab="appointments"><span>☰</span>Mis citas</a>
+  <a href="#/assistant" data-tab="assistant"><span>✦</span>Asistente</a>
+</nav>
+
+<script src="data.js"></script>
+<script src="triage.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
