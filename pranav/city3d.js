@@ -305,8 +305,7 @@ function build(THREE) {
 
   let ps = window.bpStage || 0, goal = ps, lastNow = 0;
   // arriving from the opening screen: the drawing carries on, at least almost finished
-  document.addEventListener("pranav:stage", e => { goal = e.detail.stage; if (e.detail.reset) { ps = goal;
-    if (drawStart != null && !reduce) { const n = performance.now(); if ((n - drawStart) / 1000 < 7.4) drawStart = n - 7400; } } });
+  document.addEventListener("pranav:stage", e => { goal = e.detail.stage; if (e.detail.reset) ps = goal; });
 
   // ---- the same drawing on the opening screen (#heroSketch): chalk-white pencil lines over the hero, no city
   const heroSlot = $("heroSketch"); let R2 = null, cam2, pencil2, h2w = 0, h2h = 0;
@@ -318,6 +317,17 @@ function build(THREE) {
     heroG.traverse(o => o.layers.enable(1)); crane.traverse(o => o.layers.enable(1));
     heroSlot.insertAdjacentHTML("beforeend", pencil.outerHTML); pencil2 = heroSlot.querySelector(".cu-pencil");
   }
+  // on computers the opening screen's drawing sits exactly where page 2's window is, so the tower stays put between the two
+  const alignHero = () => {
+    if (!heroSlot) return;
+    if (innerWidth < 761) { heroSlot.style.cssText = ""; return; }
+    const p1 = slotA.closest(".pnl"), pr = p1.getBoundingClientRect(), sr = slotA.getBoundingClientRect();
+    heroSlot.style.cssText = `left:${(sr.left - pr.left).toFixed(1)}px;top:${(sr.top - pr.top + p1.scrollTop).toFixed(1)}px;width:${sr.width.toFixed(1)}px;height:${sr.height.toFixed(1)}px;right:auto`;
+  };
+  alignHero(); let alT; addEventListener("resize", () => { clearTimeout(alT); alT = setTimeout(alignHero, 150); });
+  if (document.fonts) document.fonts.ready.then(alignHero); setTimeout(alignHero, 1200);
+  // while it is a drawing the tower stands right of centre in its window (clear of the headline on the opening screen)
+  const shiftView = (c, w, h, k) => { const off = .2 * w * k; if (off > .5) c.setViewOffset(w, h, -off, 0, w, h); else c.clearViewOffset(); };
   const segAt = i => heroSegs[Math.max(0, Math.min(heroSegs.length - 1, i))];
 
   function frame(now) {
@@ -337,12 +347,12 @@ function build(THREE) {
     if (hb && hb.width > 20 && hb.right > 0 && hb.left < innerWidth && hb.bottom > 0 && hb.top < innerHeight) {
       const w = Math.round(hb.width), h = Math.round(hb.height);
       if (w !== h2w || h !== h2h) { R2.setSize(w, h, false); h2w = w; h2h = h; }
-      cam2.aspect = w / h; const ht = fovT * cam2.aspect, d2 = Math.max(2.25 / fovT, 2.0 / ht), th2 = .73 + (reduce ? 0 : tau * .035);
-      cam2.position.set(BX + d2 * Math.sin(1.36) * Math.sin(th2), 1.75 + d2 * Math.cos(1.36), BZ + d2 * Math.sin(1.36) * Math.cos(th2)); cam2.lookAt(BX, 1.75, BZ); cam2.updateProjectionMatrix();
+      cam2.aspect = w / h; const ht = fovT * cam2.aspect, d2 = Math.max(2.3 / fovT, 2.1 / ht) * 1.05, th2 = .73 + (reduce ? 0 : tau * .035);
+      cam2.position.set(BX + d2 * Math.sin(1.36) * Math.sin(th2), 1.75 + d2 * Math.cos(1.36), BZ + d2 * Math.sin(1.36) * Math.cos(th2)); cam2.lookAt(BX, 1.75, BZ); shiftView(cam2, w, h, 1); cam2.updateProjectionMatrix();
       heroLines.geometry.setDrawRange(0, 2 * nSeg); heroLineMat.color.copy(CHALK); heroLineMat.opacity = .92;
       dimMat.color.copy(CHALK); dimMat.opacity = .55 * Math.min(1, pDraw * 1.5); craneMat.color.copy(CHALK); craneMat.opacity = .7 * pPlan;
-      jib.rotation.y = reduce ? .6 : Math.sin(now / 4000) * .7 + .6; heroG.scale.y = 1; heroMesh.visible = false; beacon.visible = false;
-      const f0 = scene.fog; scene.fog = null; R2.render(scene, cam2); scene.fog = f0; heroMesh.visible = true; beacon.visible = true;
+      jib.rotation.y = reduce ? .6 : Math.sin(now / 4000) * .7 + .6; heroG.scale.y = 1; heroFillMat.uniforms.uAlpha.value = 0; beacon.visible = false;   // invisible faces still hide the back lines, as on page 2
+      const f0 = scene.fog; scene.fog = null; R2.render(scene, cam2); scene.fog = f0; beacon.visible = true;
       const going = nDone < heroSegs.length - .5; pencil2.style.opacity = going ? 1 : 0;
       if (going) { const [a0, a1] = segAt(nSeg), f = nDone - nSeg; v.set(mix(a0[0], a1[0], f), mix(a0[1], a1[1], f), mix(a0[2], a1[2], f)).project(cam2);
         pencil2.style.transform = `translate(${((v.x + 1) / 2 * w).toFixed(1)}px,${((1 - v.y) / 2 * h - 44).toFixed(1)}px)`; }
@@ -368,7 +378,7 @@ function build(THREE) {
     const th = mix(thA, thB, e), ph = mix(mix(1.36, 1.25, alive), .56, e), d = Math.exp(mix(Math.log(dA * mix(1, 1.12, alive)), Math.log(dB), e));
     tgt.set(mix(BX, selT.x, e), mix(1.75, 0, e), mix(BZ, selT.z, e));
     cam.position.set(tgt.x + d * Math.sin(ph) * Math.sin(th), tgt.y + d * Math.cos(ph), tgt.z + d * Math.sin(ph) * Math.cos(th));
-    cam.lookAt(tgt); cam.updateProjectionMatrix();
+    cam.lookAt(tgt); shiftView(cam, r.width, r.height, 1 - sstep(0, .8, ps)); cam.updateProjectionMatrix();
 
     // look: pencil on paper -> lit tower at dusk -> night map
     clr.copy(PAPER).lerp(DUSK, night).lerp(NIGHT, toMap); fog.color.copy(clr); fog.near = mix(9, 60, e); fog.far = mix(42, 190, e);
