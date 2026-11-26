@@ -323,9 +323,22 @@ body.nophoto .hero-bg{background:radial-gradient(ellipse at 60% 40%,#0d2236,#050
 /* native snap: each screen lands on a section; tall sections scroll freely inside */
 body.intro{overflow:hidden}
 /* stop at every section: native snap, handled by the browser (fast, trackpad-safe) */
-html{scroll-snap-type:y mandatory}
-header.hero,section{scroll-snap-align:start;scroll-snap-stop:always}
-footer{scroll-snap-align:end}
+/* horizontal page: each section is a full-screen panel, side by side */
+html,body{height:100%;overflow:hidden}
+.hs{position:fixed;inset:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior:contain}
+body.intro .hs{overflow:hidden}
+.hs::-webkit-scrollbar,.pnl::-webkit-scrollbar{display:none}
+.pnl{position:relative;flex:0 0 100vw;width:100vw;height:100vh;height:100dvh;overflow-y:auto;overflow-x:hidden;scroll-snap-align:start;scroll-snap-stop:always;scrollbar-width:none;overscroll-behavior-y:contain}
+.pnl>section{min-height:100%}
+.pager{display:none!important}
+.hpager{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:58;display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(5,7,12,.72);backdrop-filter:blur(10px);transition:opacity .6s}
+body.intro .hpager{opacity:0;pointer-events:none}
+.hpager button{width:32px;height:32px;border-radius:50%;border:1px solid rgba(212,175,106,.5);background:none;color:#f3dca4;font-size:15px;cursor:pointer}
+.hpager button:disabled{opacity:.3;cursor:default}
+#hpDots{display:flex;gap:6px}
+#hpDots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer;transition:.3s}
+#hpDots i.on{width:20px;border-radius:4px;background:#d4af6a}
+@media(max-width:700px){.hpager{bottom:auto;top:80px;padding:5px 7px;gap:6px}.hpager button{width:26px;height:26px;font-size:13px}#hpDots{gap:4px}#hpDots i{width:5px;height:5px}#hpDots i.on{width:14px}}
 /* title screen: centred */
 .hero-inner{text-align:center}
 .hero p.lead{margin-left:auto;margin-right:auto}
@@ -594,6 +607,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
   </div>
 </nav>
 
+<main class="hs" id="hs">
+<div class="pnl" id="p-top">
 <header class="hero" id="top">
   <div class="hero-bg" id="heroBg"></div>
   <canvas id="sky"></canvas>
@@ -617,8 +632,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
     </div>
   </div>
 </header>
-
-
+</div>
+<div class="pnl">
 <section id="dubai">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -636,7 +651,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
 </section>
 
 <div class="marquee"><div class="track" id="mq"></div></div>
-
+</div>
+<div class="pnl">
 <section id="properties" class="bg-alt">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -659,7 +675,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
     <p class="note" id="lstNote">Sample listings for illustration. Contact us for current availability and prices.</p>
   </div>
 </section>
-
+</div>
+<div class="pnl">
 <section id="projects">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -670,7 +687,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
     <div class="projects" id="projectList"></div>
   </div>
 </section>
-
+</div>
+<div class="pnl">
 <section id="track" class="bg-alt">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -713,7 +731,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
     </div>
   </div>
 </section>
-
+</div>
+<div class="pnl">
 <section id="land" class="photo-band">
   <div class="wrap land">
     <div class="reveal">
@@ -736,7 +755,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
     </div>
   </div>
 </section>
-
+</div>
+<div class="pnl">
 <section id="brands" class="bg-alt">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -760,7 +780,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
     </div>
   </div>
 </section>
-
+</div>
+<div class="pnl">
 <section id="leadership" class="bg-alt">
   <div class="wrap ceo">
     <div class="reveal">
@@ -787,7 +808,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
     </div>
   </div>
 </section>
-
+</div>
+<div class="pnl">
 <section id="why">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -803,7 +825,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
     <div class="why-cta reveal"><a href="#consult" class="btn btn-gilt">Schedule a Consultation →</a></div>
   </div>
 </section>
-
+</div>
+<div class="pnl">
 <section id="services">
   <div class="wrap">
     <div class="svc-top">
@@ -844,7 +867,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
     <p class="mission reveal">Connecting visionary investors with <span class="gilt-text">exceptional land opportunities</span> across Dubai.</p>
   </div>
 </section>
-
+</div>
+<div class="pnl">
 <section id="process" class="bg-alt photo-band">
   <div class="bandimg" data-img="UxYEwaanctE"></div>
   <div class="wrap">
@@ -862,7 +886,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
     </div>
   </div>
 </section>
-
+</div>
+<div class="pnl">
 <section id="about">
   <div class="wrap about">
     <div class="portrait reveal" id="tilt">
@@ -884,7 +909,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
     </div>
   </div>
 </section>
-
+</div>
+<div class="pnl">
 <section id="markets">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -903,7 +929,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
     </div>
   </div>
 </section>
-
+</div>
+<div class="pnl">
 <section id="invest" class="bg-alt">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -934,7 +961,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
     </div>
   </div>
 </section>
-
+</div>
+<div class="pnl">
 <section id="contact" class="bg-alt photo-band">
   <div class="bandimg" data-img="9n7rZJLWY7o"></div>
   <div class="wrap contact">
@@ -1021,6 +1049,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
     <span>Land · Value · Future</span>
   </div>
 </footer>
+</div>
+</main>
+<div class="hpager" id="hpager" role="navigation" aria-label="Sections"><button type="button" id="hpPrev" aria-label="Previous">←</button><span id="hpDots"></span><button type="button" id="hpNext" aria-label="Next">→</button></div>
 
 <div class="brand-pop" id="brandPop" hidden role="dialog" aria-modal="true" aria-label="Partner brand">
   <div class="bp-card"><button type="button" class="bp-x" aria-label="Close">×</button>
@@ -1123,12 +1154,12 @@ document.querySelectorAll("[data-img]").forEach(el => setBg(el, el.dataset.img, 
     if (ok) { clearInterval(first); if (!slides[0].classList.contains("loaded")) k = slides.findIndex(x => x.classList.contains("loaded")); next(); if (!reduce) tick(); }
   }, 150);
 })();
-addEventListener("scroll", () => {
+document.addEventListener("scroll", () => {
   document.querySelectorAll(".bandimg").forEach(b => { const r = b.parentElement.getBoundingClientRect(); b.style.transform = `translateY(${r.top * -0.15}px)`; });
-}, {passive:true});
+}, {passive:true, capture:true});
 
 const nav = document.getElementById("nav");
-addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 30), {passive:true});
+document.addEventListener("scroll", () => { const h = document.getElementById("hs"), p = document.getElementById("p-top"); nav.classList.toggle("scrolled", !!h && (h.scrollLeft > 30 || p.scrollTop > 30)); }, {passive:true, capture:true});
 
 /* cursor glow */
 const cur = document.getElementById("cursor");
@@ -1302,7 +1333,7 @@ const PROJECTS = [
   // title reveal: at the very top, the first scroll down shows the titles, scrolling up hides them again.
   // Only these two moves are taken over; all other scrolling is the browser's own (fast, trackpad-friendly).
   let lock = 0, lockEnd = 0, t0 = 0, lastAbs = 0;
-  const atTop = () => scrollY < 5;
+  const atTop = () => { const h = document.getElementById("hs"), p = document.getElementById("p-top"); return !h || (h.scrollLeft < 5 && p.scrollTop < 5); };
   function intro(on) { B.classList.toggle("intro", on); t0 = performance.now(); lock = t0 + 450; lockEnd = t0 + 1000; lastAbs = 0; if (!on) setTimeout(() => document.querySelectorAll(".stats [data-count]").forEach(count), 450); }
   if (scrollY > 10 || location.hash) B.classList.remove("intro");
   document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener("click", e => { const t = a.getAttribute("href").length > 1 && document.querySelector(a.getAttribute("href")); B.classList.remove("intro"); if (t) { e.preventDefault(); t.scrollIntoView({behavior: "smooth"}); } }));
@@ -1454,9 +1485,10 @@ const PROJECTS = [
 /* back-to-top: appears once you're past the middle of the page */
 (() => {
   const b = document.getElementById("toTop");
-  const upd = () => b.classList.toggle("show", scrollY > (document.documentElement.scrollHeight - innerHeight) / 2);
-  addEventListener("scroll", upd, {passive: true}); upd();
-  b.onclick = () => scrollTo({top: 0, behavior: reduce ? "auto" : "smooth"});
+  const hs = document.getElementById("hs"), p0 = document.getElementById("p-top");
+  const upd = () => b.classList.toggle("show", hs.scrollLeft > innerWidth * .5);
+  hs.addEventListener("scroll", upd, {passive: true}); upd();
+  b.onclick = () => { p0.scrollTop = 0; hs.scrollTo({left: 0, behavior: reduce ? "auto" : "smooth"}); };
 })();
 /* reveal + counters + timeline */
 const io = new IntersectionObserver(es => es.forEach(e => {
@@ -1544,6 +1576,41 @@ tilt.addEventListener("pointerleave", () => tilt.style.transform = "");
   };
   f.addEventListener("keydown", e => { if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") { e.preventDefault(); next.click(); } });
   show(1);
+})();
+</script>
+
+<script>
+/* horizontal page: the wheel / trackpad / keys move one panel at a time (after the title reveal on the
+   first screen, which keeps its own handler). A panel taller than the screen scrolls down first.
+   Links to #sections keep their own handler: scrollIntoView slides to the right panel. */
+(() => {
+  const hs = document.getElementById("hs"), pnls = [...hs.querySelectorAll(":scope > .pnl")], B = document.body;
+  const dots = document.getElementById("hpDots"), prev = document.getElementById("hpPrev"), nextB = document.getElementById("hpNext");
+  const idx = () => Math.round(hs.scrollLeft / hs.clientWidth);
+  const go = (i, fromTop = true) => { i = Math.max(0, Math.min(pnls.length - 1, i)); B.classList.remove("intro"); if (fromTop && i !== idx()) pnls[i].scrollTop = 0; hs.scrollTo({left: i * hs.clientWidth, behavior: reduce ? "auto" : "smooth"}); };
+  dots.innerHTML = pnls.map(() => "<i></i>").join("");
+  dots.querySelectorAll("i").forEach((d, i) => d.onclick = () => go(i));
+  const mark = () => { const i = idx(); dots.querySelectorAll("i").forEach((d, k) => d.classList.toggle("on", k === i)); prev.disabled = i === 0; nextB.disabled = i === pnls.length - 1; };
+  hs.addEventListener("scroll", mark, {passive: true}); mark();
+  prev.onclick = () => go(idx() - 1); nextB.onclick = () => go(idx() + 1);
+  let lock = 0;
+  addEventListener("wheel", e => {
+    if (e.defaultPrevented || B.classList.contains("intro") || e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    if (e.target.closest && e.target.closest("textarea,select,.brand-pop")) return;
+    const p = pnls[idx()], down = e.deltaY > 0;
+    if (down ? p.scrollHeight - p.clientHeight - p.scrollTop > 2 : p.scrollTop > 2) return;   // let the panel scroll first
+    if (!down && idx() === 0) return;                                                          // top of the first panel: the title reveal handles it
+    e.preventDefault();
+    const now = performance.now(); if (now < lock) { lock = Math.max(lock, now + 120); return; }
+    lock = now + 700; go(idx() + (down ? 1 : -1), down);
+  }, {passive: false});
+  addEventListener("keydown", e => {
+    if (e.defaultPrevented || B.classList.contains("intro") || (e.target.closest && e.target.closest("input,textarea,select"))) return;
+    if (["ArrowRight", "PageDown"].includes(e.key)) { e.preventDefault(); go(idx() + 1); }
+    if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); go(idx() - 1); }
+  });
+  addEventListener("resize", () => { hs.scrollLeft = idx() * hs.clientWidth; });
+  if (location.hash) { const t = document.getElementById(location.hash.slice(1)), i = t ? pnls.findIndex(p => p.contains(t)) : -1; if (i > 0) requestAnimationFrame(() => { B.classList.remove("intro"); hs.scrollLeft = i * hs.clientWidth; mark(); }); }
 })();
 </script>
 </body>
