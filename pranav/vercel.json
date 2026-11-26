@@ -23,5 +23,6 @@
         }
       ]
     }
-  ]
+  ],
+  "ignoreCommand": "[ -f ../scripts/vercel-ignore.sh ] && sh ../scripts/vercel-ignore.sh || exit 1"
 }
