@@ -106,7 +106,16 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:7
 .stat{padding:30px 26px;border-right:1px solid var(--line)}
 .stat:last-child{border:0}
 .stat b{display:block;font:700 clamp(30px,4vw,46px) "Space Grotesk"}
-.stat span{font-size:13px;color:var(--muted);letter-spacing:.04em}
+.stat>span{font-size:13px;color:var(--muted);letter-spacing:.04em}
+/* the opening screen fits the window: the numbers box is always visible without scrolling */
+@media(min-width:761px){#p-top{display:flex;flex-direction:column}
+#p-top .hero{flex:1 1 auto;min-height:0;padding:0 0 64px}
+#p-top .hero-inner{padding-top:clamp(64px,10vh,90px)}
+#p-top .hero h1{font-size:clamp(40px,min(9vw,12vh),124px);margin:1.8vh 0 1.4vh}
+#p-top .hero .ctas{margin-top:3vh}
+#p-top .stats{flex:none;padding-bottom:14px}
+#p-top .stat{padding:clamp(14px,2.6vh,30px) 26px}
+#p-top .stat b{font-size:clamp(26px,min(4vw,5.4vh),46px)}}
 @media(max-width:760px){.stats-grid{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}}
 
 section{padding:120px 0;position:relative}
