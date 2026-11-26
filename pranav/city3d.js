@@ -304,25 +304,55 @@ function build(THREE) {
   const toScreen = (x, y, z, r) => { v.set(x, y, z).project(cam); return [r.left + (v.x + 1) / 2 * r.width, r.top + (1 - v.y) / 2 * r.height, v.z < 1]; };
 
   let ps = window.bpStage || 0, goal = ps, lastNow = 0;
-  document.addEventListener("pranav:stage", e => { goal = e.detail.stage; if (e.detail.reset) { drawStart = null; ps = goal; } });
+  // arriving from the opening screen: the drawing carries on, at least almost finished
+  document.addEventListener("pranav:stage", e => { goal = e.detail.stage; if (e.detail.reset) { ps = goal;
+    if (drawStart != null && !reduce) { const n = performance.now(); if ((n - drawStart) / 1000 < 7.4) drawStart = n - 7400; } } });
+
+  // ---- the same drawing on the opening screen (#heroSketch): chalk-white pencil lines over the hero, no city
+  const heroSlot = $("heroSketch"); let R2 = null, cam2, pencil2, h2w = 0, h2h = 0;
+  const CHALK = new THREE.Color(0xf1e9d6);
+  if (heroSlot) {
+    const c2 = document.createElement("canvas"); c2.setAttribute("aria-hidden", "true"); heroSlot.appendChild(c2);
+    R2 = new THREE.WebGLRenderer({ canvas: c2, antialias: true, alpha: true }); R2.setPixelRatio(Math.min(devicePixelRatio || 1, 1.75)); R2.setClearColor(0x000000, 0);
+    cam2 = new THREE.PerspectiveCamera(35, 1, .05, 600); cam2.layers.set(1);
+    heroG.traverse(o => o.layers.enable(1)); crane.traverse(o => o.layers.enable(1));
+    heroSlot.insertAdjacentHTML("beforeend", pencil.outerHTML); pencil2 = heroSlot.querySelector(".cu-pencil");
+  }
   const segAt = i => heroSegs[Math.max(0, Math.min(heroSegs.length - 1, i))];
 
   function frame(now) {
     requestAnimationFrame(frame);
     const dt = Math.min(.1, (now - (lastNow || now)) / 1000); lastNow = now;
+    // stage 0 -> 1 -> 2, eased
+    ps += (goal - ps) * (reduce ? 1 : 1 - Math.exp(-dt * 2.4)); if (Math.abs(goal - ps) < .002) ps = goal;
+    const alive = clamp(ps), t = clamp(ps - 1);
+    // the pencil drawing starts with the page (opening screen) and carries on in the window of page 2
+    if (drawStart == null) drawStart = reduce || goal > 0 ? now - 1e6 : now;
+    const tau = (now - drawStart) / 1000;
+    const pPlan = Math.max(clamp(tau / 1.8), alive), pDraw = Math.max(clamp((tau - 1.8) / 6.5), sstep(0, .5, alive));
+    const nDone = nPlan * pPlan + (pPlan >= 1 ? (heroSegs.length - nPlan) * pDraw : 0), nSeg = Math.floor(nDone);
+
+    // opening screen: the drawing alone, chalk lines on a transparent canvas over the hero
+    const hb = heroSlot && heroSlot.getBoundingClientRect();
+    if (hb && hb.width > 20 && hb.right > 0 && hb.left < innerWidth && hb.bottom > 0 && hb.top < innerHeight) {
+      const w = Math.round(hb.width), h = Math.round(hb.height);
+      if (w !== h2w || h !== h2h) { R2.setSize(w, h, false); h2w = w; h2h = h; }
+      cam2.aspect = w / h; const ht = fovT * cam2.aspect, d2 = Math.max(2.25 / fovT, 2.0 / ht), th2 = .73 + (reduce ? 0 : tau * .035);
+      cam2.position.set(BX + d2 * Math.sin(1.36) * Math.sin(th2), 1.75 + d2 * Math.cos(1.36), BZ + d2 * Math.sin(1.36) * Math.cos(th2)); cam2.lookAt(BX, 1.75, BZ); cam2.updateProjectionMatrix();
+      heroLines.geometry.setDrawRange(0, 2 * nSeg); heroLineMat.color.copy(CHALK); heroLineMat.opacity = .92;
+      dimMat.color.copy(CHALK); dimMat.opacity = .55 * Math.min(1, pDraw * 1.5); craneMat.color.copy(CHALK); craneMat.opacity = .7 * pPlan;
+      jib.rotation.y = reduce ? .6 : Math.sin(now / 4000) * .7 + .6; heroG.scale.y = 1; heroMesh.visible = false; beacon.visible = false;
+      const f0 = scene.fog; scene.fog = null; R2.render(scene, cam2); scene.fog = f0; heroMesh.visible = true; beacon.visible = true;
+      const going = nDone < heroSegs.length - .5; pencil2.style.opacity = going ? 1 : 0;
+      if (going) { const [a0, a1] = segAt(nSeg), f = nDone - nSeg; v.set(mix(a0[0], a1[0], f), mix(a0[1], a1[1], f), mix(a0[2], a1[2], f)).project(cam2);
+        pencil2.style.transform = `translate(${((v.x + 1) / 2 * w).toFixed(1)}px,${((1 - v.y) / 2 * h - 44).toFixed(1)}px)`; }
+    }
+
     const b = slotA.getBoundingClientRect(), r = { left: b.left, top: b.top, width: b.width, height: b.height, right: b.right, bottom: b.bottom };
     const vis = r.width > 20 && r.right > 0 && r.left < innerWidth && r.bottom > 0 && r.top < innerHeight;
     if (!vis) { if (shown) { canvas.style.visibility = ui.style.visibility = "hidden"; shown = false; } return; }
     if (!shown) { canvas.style.visibility = ui.style.visibility = "visible"; shown = true; }
     canvas.style.clipPath = ui.style.clipPath = `inset(${r.top}px ${innerWidth - r.right}px ${innerHeight - r.bottom}px ${r.left}px round 24px)`;
-
-    // stage 0 -> 1 -> 2, eased
-    ps += (goal - ps) * (reduce ? 1 : 1 - Math.exp(-dt * 2.4)); if (Math.abs(goal - ps) < .002) ps = goal;
-    const alive = clamp(ps), t = clamp(ps - 1);
-    // the pencil drawing starts when the window first shows; it finishes at once when the visitor moves on
-    if (drawStart == null) drawStart = reduce || goal > 0 ? now - 1e6 : now;
-    const tau = (now - drawStart) / 1000;
-    const pPlan = Math.max(clamp(tau / 1.8), alive), pDraw = Math.max(clamp((tau - 1.8) / 6.5), sstep(0, .5, alive));
     const pFill = sstep(.2, .9, alive), pLit = sstep(.45, 1, alive), night = sstep(.05, .7, alive);
     const e = ease(t), toMap = sstep(.12, .75, t), lab = sstep(.78, .98, t);
     const city3 = Math.max(.14 * sstep(.35, 1, alive), sstep(.04, .85, t));
@@ -349,7 +379,6 @@ function build(THREE) {
     fillMat.uniforms.uT.value = city3; fillMat.uniforms.uTime.value = now / 1000; fillMat.uniforms.uLit.value = 1;
     cityEdgeMat.uniforms.uT.value = city3; cityEdgeMat.uniforms.uAlpha.value = mix(.55, .22, toMap);
     heroFillMat.uniforms.uAlpha.value = pFill; heroFillMat.uniforms.uLit.value = pLit; heroFillMat.uniforms.uTime.value = now / 1000;
-    const nDone = nPlan * pPlan + (pPlan >= 1 ? (heroSegs.length - nPlan) * pDraw : 0), nSeg = Math.floor(nDone);
     heroLines.geometry.setDrawRange(0, 2 * nSeg);
     heroLineMat.color.copy(GRAPHITE).lerp(GOLD, night); heroLineMat.opacity = mix(mix(.85, .5, night), .55, toMap);
     dimMat.color.copy(GRAPHITE).lerp(WHITE, night); dimMat.opacity = .75 * Math.min(1, pDraw * 1.5) * (1 - sstep(0, .25, t));
