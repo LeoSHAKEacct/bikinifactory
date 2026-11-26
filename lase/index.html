@@ -334,6 +334,8 @@ body.intro .hs{overflow:hidden}
 .hpager{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:58;display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(5,7,12,.72);backdrop-filter:blur(10px);transition:opacity .6s}
 body.intro .hpager{opacity:0;pointer-events:none}
 .hpager button{width:32px;height:32px;border-radius:50%;border:1px solid rgba(212,175,106,.5);background:none;color:#f3dca4;font-size:15px;cursor:pointer}
+.hpager .hp-first{background:linear-gradient(140deg,#f3dca4,#d4af6a);color:#1a1205;border-color:transparent;font-weight:700}
+.hpager .hp-first[hidden]{display:none}
 .hpager button:disabled{opacity:.3;cursor:default}
 #hpDots{display:flex;gap:6px}
 #hpDots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer;transition:.3s}
@@ -1051,7 +1053,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
 </footer>
 </div>
 </main>
-<div class="hpager" id="hpager" role="navigation" aria-label="Sections"><button type="button" id="hpPrev" aria-label="Previous">←</button><span id="hpDots"></span><button type="button" id="hpNext" aria-label="Next">→</button></div>
+<div class="hpager" id="hpager" role="navigation" aria-label="Sections"><button type="button" id="hpFirst" class="hp-first" aria-label="Back to the start" title="Back to the start">⇤</button><button type="button" id="hpPrev" aria-label="Previous">←</button><span id="hpDots"></span><button type="button" id="hpNext" aria-label="Next">→</button></div>
 
 <div class="brand-pop" id="brandPop" hidden role="dialog" aria-modal="true" aria-label="Partner brand">
   <div class="bp-card"><button type="button" class="bp-x" aria-label="Close">×</button>
@@ -1590,8 +1592,9 @@ tilt.addEventListener("pointerleave", () => tilt.style.transform = "");
   const go = (i, fromTop = true) => { i = Math.max(0, Math.min(pnls.length - 1, i)); B.classList.remove("intro"); if (fromTop && i !== idx()) pnls[i].scrollTop = 0; hs.scrollTo({left: i * hs.clientWidth, behavior: reduce ? "auto" : "smooth"}); };
   dots.innerHTML = pnls.map(() => "<i></i>").join("");
   dots.querySelectorAll("i").forEach((d, i) => d.onclick = () => go(i));
-  const mark = () => { const i = idx(); dots.querySelectorAll("i").forEach((d, k) => d.classList.toggle("on", k === i)); prev.disabled = i === 0; nextB.disabled = i === pnls.length - 1; };
+  const mark = () => { const i = idx(); dots.querySelectorAll("i").forEach((d, k) => d.classList.toggle("on", k === i)); prev.disabled = i === 0; nextB.disabled = i === pnls.length - 1; document.getElementById("hpFirst").hidden = i === 0; };
   hs.addEventListener("scroll", mark, {passive: true}); mark();
+  document.getElementById("hpFirst").onclick = () => { pnls[0].scrollTop = 0; go(0); };
   prev.onclick = () => go(idx() - 1); nextB.onclick = () => go(idx() + 1);
   let lock = 0;
   addEventListener("wheel", e => {

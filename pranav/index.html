@@ -277,6 +277,8 @@ html,body{height:100%;overflow:hidden}
 .pnl>section>.wrap{width:100%}
 .hpager{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(5,7,12,.72);backdrop-filter:blur(10px)}
 .hpager button{width:34px;height:34px;border-radius:50%;border:1px solid rgba(216,180,106,.45);background:none;color:var(--gold2);font-size:16px;cursor:pointer}
+.hpager .hp-first{background:linear-gradient(140deg,#f3dca4,#d4af6a);color:#1a1205;border-color:transparent;font-weight:700}
+.hpager .hp-first[hidden]{display:none}
 .hpager button:disabled{opacity:.3;cursor:default}
 #hpDots{display:flex;gap:7px}
 #hpDots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer;transition:.3s}
@@ -285,6 +287,24 @@ html,body{height:100%;overflow:hidden}
 /* on the opening panel the pager and "Ask Pranav" sit above the numbers box instead of covering it */
 .hpager,.ap-launch{translate:0 calc(-1 * var(--lift, 0px));transition:translate .45s cubic-bezier(.2,.8,.2,1),opacity .3s,transform .3s}
 @media(max-width:600px){.hpager{bottom:auto;top:80px;padding:6px 8px}.hpager button{width:28px;height:28px;font-size:14px}}
+/* language picker (same as LASE): English original, other languages translated live by Google Translate */
+.nav-right{display:flex;align-items:center;gap:12px}
+.lang{position:relative}
+.lang>button{display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--text);font:600 13px "Space Grotesk";letter-spacing:.06em;cursor:pointer}
+.lang>button:hover,.lang.open>button{border-color:var(--gold)}
+.lang>button svg{width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2;transition:transform .2s}
+.lang.open>button svg{transform:rotate(180deg)}
+.lang ul{position:absolute;right:0;top:calc(100% + 8px);min-width:170px;list-style:none;margin:0;padding:6px;border-radius:16px;border:1px solid var(--line);background:#0b1019;box-shadow:0 20px 50px -10px rgba(0,0,0,.7);display:none}
+.lang.open ul{display:block}
+.lang li button{width:100%;display:flex;align-items:center;gap:10px;padding:10px 12px;border:0;border-radius:10px;background:none;color:var(--text);font:500 14px "Inter",sans-serif;cursor:pointer;text-align:left}
+.lang li button:hover,.lang li button.on{background:rgba(212,175,106,.12);color:var(--gold)}
+.lang .fl{font-size:18px;line-height:1}
+/* Google's translate bar and tooltips stay hidden; the picker above drives it */
+.goog-te-banner-frame,.skiptranslate,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}
+body{top:0!important}
+.goog-text-highlight{background:none!important;box-shadow:none!important}
+@media(max-width:560px){.lang>button{padding:8px 10px}.nav-cta{padding:9px 13px;font-size:12px;white-space:nowrap}.nav-right{gap:8px}}
+nav#nav{z-index:65}   /* the language list opens above the pager */
 </style>
 </head>
 <body>
@@ -292,11 +312,17 @@ html,body{height:100%;overflow:hidden}
 
 <nav id="nav">
   <div class="wrap">
-    <a href="#top" class="logo">PRANAV<span>.</span>SHETH</a>
+    <a href="#top" class="logo notranslate">PRANAV<span>.</span>SHETH</a>
     <div class="links">
       <a href="#about">About</a><a href="#services">Services</a><a href="#process">Process</a><a href="#invest">Invest</a><a href="#contact">Contact</a>
     </div>
-    <a href="/book" class="btn btn-gold nav-cta">Book a Call</a>
+    <div class="nav-right">
+      <div class="lang notranslate" id="lang">
+        <button type="button" aria-haspopup="true" aria-label="Language"><span class="fl" id="langFl">🇬🇧</span><span id="langNm">EN</span><svg viewBox="0 0 10 10"><path d="M1 3l4 4 4-4"/></svg></button>
+        <ul id="langList"></ul>
+      </div>
+      <a href="/book" class="btn btn-gold nav-cta">Book a Call</a>
+    </div>
   </div>
 </nav>
 
@@ -554,7 +580,7 @@ html,body{height:100%;overflow:hidden}
 </footer>
 </div>
 </main>
-<div class="hpager" id="hpager" role="navigation" aria-label="Sections"><button type="button" id="hpPrev" aria-label="Previous">←</button><span id="hpDots"></span><button type="button" id="hpNext" aria-label="Next">→</button></div>
+<div class="hpager" id="hpager" role="navigation" aria-label="Sections"><button type="button" id="hpFirst" class="hp-first" aria-label="Back to the start" title="Back to the start">⇤</button><button type="button" id="hpPrev" aria-label="Previous">←</button><span id="hpDots"></span><button type="button" id="hpNext" aria-label="Next">→</button></div>
 
 <a class="wa-float" href="https://wa.me/971555366354" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
   <svg viewBox="0 0 32 32"><path d="M16 3a13 13 0 00-11.2 19.6L3 29l6.6-1.7A13 13 0 1016 3zm0 23.7a10.7 10.7 0 01-5.5-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.7 10.7 0 1116 26.7zm5.9-8c-.3-.2-1.9-1-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.8 8.8 0 01-4.4-3.8c-.3-.6.3-.5.9-1.7a.6.6 0 000-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 00-.9.4 3.6 3.6 0 00-1.1 2.7 6.3 6.3 0 001.3 3.3 14.3 14.3 0 005.5 4.9c2 .9 2.8.9 3.8.8a3.3 3.3 0 002.2-1.5 2.7 2.7 0 00.2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg>
@@ -562,6 +588,31 @@ html,body{height:100%;overflow:hidden}
 
 <script src="/track.js"></script>
 <script>
+/* language picker: English is the original; other languages are machine-translated live by Google Translate */
+(() => {
+  const LANGS = [["en", "🇬🇧", "English"], ["ar", "🇦🇪", "العربية"], ["ru", "🇷🇺", "Русский"], ["zh-CN", "🇨🇳", "中文"], ["hi", "🇮🇳", "हिन्दी"], ["fr", "🇫🇷", "Français"]];
+  const box = document.getElementById("lang"), list = document.getElementById("langList");
+  const m = document.cookie.match(/(?:^|;\s*)googtrans=\/[^/]*\/([^;]+)/), cur = m ? decodeURIComponent(m[1]) : "en";
+  const now = LANGS.find(l => l[0] === cur) || LANGS[0];
+  document.getElementById("langFl").textContent = now[1];
+  document.getElementById("langNm").textContent = now[0].slice(0, 2).toUpperCase();
+  list.innerHTML = LANGS.map(([c, f, n]) => `<li><button type="button" data-l="${c}" class="${c === now[0] ? "on" : ""}"><span class="fl">${f}</span>${n}</button></li>`).join("");
+  box.querySelector("button").onclick = e => { e.stopPropagation(); box.classList.toggle("open"); };
+  document.addEventListener("click", () => box.classList.remove("open"));
+  list.onclick = e => {
+    const b = e.target.closest("button[data-l]"); if (!b) return;
+    const c = b.dataset.l, host = location.hostname, dom = host.split(".").slice(-2).join(".");
+    for (const d of ["", "; domain=" + host, "; domain=." + dom]) document.cookie = "googtrans=; path=/; max-age=0" + d;
+    if (c !== "en") document.cookie = `googtrans=/en/${c}; path=/`;
+    location.reload();
+  };
+  if (now[0] !== "en") {
+    window.googleTranslateInit = () => new google.translate.TranslateElement({pageLanguage: "en", autoDisplay: false}, "gtEl");
+    const el = document.createElement("div"); el.id = "gtEl"; el.style.display = "none"; document.body.appendChild(el);
+    const sc = document.createElement("script"); sc.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateInit"; document.body.appendChild(sc);
+  }
+})();
+
 const WA = "971555366354", EMAIL = "pranav@shethrealestate.in";
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 document.getElementById("yr").textContent = new Date().getFullYear();
@@ -784,7 +835,7 @@ tilt.addEventListener("pointerleave", () => tilt.style.transform = "");
   const go = (i, fromTop = true) => { i = Math.max(0, Math.min(pnls.length - 1, i)); if (fromTop && i !== idx()) pnls[i].scrollTop = 0; hs.scrollTo({left: i * hs.clientWidth, behavior: reduce ? "auto" : "smooth"}); };
   dots.innerHTML = pnls.map(() => "<i></i>").join("");
   dots.querySelectorAll("i").forEach((d, i) => d.onclick = () => go(i));
-  const mark = () => { const i = idx(); dots.querySelectorAll("i").forEach((d, k) => d.classList.toggle("on", k === i)); prev.disabled = i === 0; nextB.disabled = i === pnls.length - 1; };
+  const mark = () => { const i = idx(); dots.querySelectorAll("i").forEach((d, k) => d.classList.toggle("on", k === i)); prev.disabled = i === 0; nextB.disabled = i === pnls.length - 1; document.getElementById("hpFirst").hidden = i === 0; };
   hs.addEventListener("scroll", mark, {passive: true}); mark();
   // keep the bottom controls clear of the numbers box on the opening panel
   const stats = document.querySelector("#p-top .stats-grid"), pager = document.getElementById("hpager");
@@ -796,6 +847,7 @@ tilt.addEventListener("pointerleave", () => tilt.style.transform = "");
   };
   hs.addEventListener("scroll", lift, {passive: true}); pnls[0].addEventListener("scroll", lift, {passive: true});
   addEventListener("resize", lift); addEventListener("load", lift); lift();
+  document.getElementById("hpFirst").onclick = () => { pnls[0].scrollTop = 0; go(0); };
   prev.onclick = () => go(idx() - 1); nextB.onclick = () => go(idx() + 1);
   // vertical wheel -> sideways, once the current panel has no more room to scroll that way
   let lock = 0;
