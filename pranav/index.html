@@ -323,6 +323,23 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
   .ap-launch{left:auto;right:16px;top:80px;bottom:auto;padding:3px}.ap-launch span{display:none}.ap-launch img{width:38px;height:38px}.ap-launch .on{left:32px;bottom:3px}
 }
 
+/* phones: Services as full screens, one service per swipe (no boxes) */
+@media(max-width:760px){
+  .pnl:has(>#services){scroll-snap-type:y mandatory}
+  #services{padding:0}
+  #services .svc-top{min-height:calc(100dvh - 36px - env(safe-area-inset-bottom));margin:0;padding:96px 0 32px;display:flex;flex-direction:column;justify-content:center;scroll-snap-align:start}
+  #services .site-card{width:100%;aspect-ratio:auto;height:34svh}
+  #services .site-card .img{background-position:center 78%}
+  #services .cards{display:block}
+  #services .card{min-height:calc(100dvh - 36px - env(safe-area-inset-bottom));display:flex;flex-direction:column;justify-content:center;padding:96px 6px 40px;border:0;border-radius:0;background:none;overflow:visible;scroll-snap-align:start;scroll-snap-stop:always;transform:none!important}
+  #services .card::before{display:none}
+  #services .card .num{font:700 96px/1 "Space Grotesk";color:transparent;-webkit-text-stroke:1px rgba(216,180,106,.45);letter-spacing:0}
+  #services .card svg{width:56px;height:56px;margin:22px 0 18px}
+  #services .card h3{font-size:clamp(30px,9vw,40px);margin-bottom:14px}
+  #services .card p{font-size:17px;line-height:1.6;max-width:30ch}
+  .pnl .wrap{padding-right:40px}   /* clear of the page bar on the right */
+}
+
 /* ===== horizontal page: each part is a full-screen panel, side by side ===== */
 html,body{height:100%;overflow:hidden}
 .hs{position:fixed;inset:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior:contain}
