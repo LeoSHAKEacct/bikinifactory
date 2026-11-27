@@ -16,7 +16,7 @@
   "sections": [
     {
       "type": "hero",
-      "photo": "foto-mwnqd78w.jpg",
+      "photo": "foto-mwzmsrkz.jpg",
       "eyebrow": "Massagens . Famalicão",
       "title": "Relaxamento e prazer",
       "titleAccent": "em uma massagem. ",
@@ -26,7 +26,7 @@
       "ctaSecondary": "Ver massagens",
       "badgeTitle": "{nombre}",
       "badgeText": "Massagem tantrica sensual ",
-      "photoFit": "contain",
+      "photoFit": "",
       "photoPos": ""
     },
     {
@@ -41,15 +41,15 @@
       "title": "Escolhe a tua experiência",
       "items": [
         {
-          "name": "Masagem em tatami",
+          "name": "Masagem tantra lingerie",
           "desc": "Um ritual caloroso e envolvente que desperta cada canto da sua pele."
         },
         {
-          "name": "Massagem corpo-a-corpo",
+          "name": "Massagem tantra naturista",
           "desc": "Carícias lentas e suaves que ativam todos os seus sentidos."
         },
         {
-          "name": "Massagem tantrico",
+          "name": "Massagem 4 mãos ",
           "desc": "Uma experiência guiada para descobrir e desfrutar a arte do toque e do prazer."
         }
       ],
@@ -95,7 +95,7 @@
     },
     {
       "type": "cta",
-      "eyebrow": "Reserva tu cita",
+      "eyebrow": "Reserva a tua massagem",
       "title": "Te espero!",
       "text": "Contacta-me pelo WhatsApp e agenda o teu momento de relaxamento e prazer.",
       "button": "WhatsApp {telefono}"
