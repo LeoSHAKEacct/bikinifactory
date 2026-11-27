@@ -115,7 +115,24 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:7
 #heroSketch{position:absolute;right:0;top:9%;width:37%;height:86%;z-index:1;pointer-events:none}
 #heroSketch canvas{display:block;width:100%;height:100%}
 #heroSketch .cu-pencil{position:absolute;left:0;top:0}
-@media(max-width:760px){#heroSketch{right:-14%;top:6%;width:86%;height:62%;opacity:.5}}
+/* phones: the drawing sits at the top (where page 2's window is), the headline, buttons and numbers below it */
+@media(max-width:760px){
+#p-top{display:flex;flex-direction:column}
+#p-top .hero{min-height:0;flex:none;align-items:flex-start;padding:0}
+#p-top .hero-inner{padding-top:calc(var(--sk-bottom,470px) + 16px)}
+#p-top .badge{display:none}
+#p-top .hero h1{font-size:clamp(30px,9vw,40px);margin:0 0 8px}
+#p-top .hero p.lead{font-size:14.5px;line-height:1.5}
+#p-top .hero .ctas{margin-top:14px;gap:8px;flex-wrap:nowrap}
+#p-top .hero .ctas .btn{padding:11px 14px;font-size:12.5px;white-space:nowrap}
+#p-top .stats{margin-top:12px;padding-bottom:10px}
+#p-top .stats-grid{grid-template-columns:repeat(4,1fr)}
+#p-top .stat{padding:11px 8px;border-right:1px solid var(--line)!important;border-bottom:0!important}
+#p-top .stat:last-child{border-right:0!important}
+#p-top .stat b{font-size:19px}
+#p-top .stat>span{font-size:9.5px;line-height:1.3;display:block}
+#onsite .bp-slot{height:36svh}}
+@media(max-width:760px) and (max-height:740px){#onsite .bp-slot{height:30svh}#p-top .hero h1{font-size:29px}#p-top .hero p.lead{font-size:13.5px}#p-top .stats{padding-bottom:70px}}
 /* All over Dubai: one screen, the photo grid takes the height that is left */
 @media(min-width:901px){.pnl>#dubai{padding:clamp(84px,11vh,110px) 0 clamp(20px,4vh,48px)}
 #dubai .sec-head{margin-bottom:clamp(20px,3.5vh,48px)}#dubai .sec-head h2{margin-top:12px}#dubai .sec-head p{margin-top:10px}
@@ -1087,7 +1104,7 @@ tilt.addEventListener("pointerleave", () => tilt.style.transform = "");
   const heroEl = document.getElementById("top"), gl = (() => { try { return !!document.createElement("canvas").getContext("webgl2"); } catch (_) { return false; } })();
   let hstage = gl && !reduce ? 0 : 1; if (heroEl) heroEl.dataset.hstage = hstage;
   const setHero = n => { hstage = n; if (heroEl) heroEl.dataset.hstage = n; };
-  pnls[0].addEventListener("scroll", () => { if (pnls[0].scrollTop > 30 && hstage === 0) setHero(1); }, {passive: true});   // phones scroll down
+  pnls[0].addEventListener("scroll", () => { if (pnls[0].scrollTop > 8 && hstage === 0) setHero(1); }, {passive: true});   // phones scroll down
   // returns true when the step was used inside the panel instead of moving to another panel
   const stepIn = (i, dir) => { if (i === 0 && (dir > 0 ? hstage < 1 : hstage > 0)) { setHero(hstage + dir); return true; } if (i !== SP || !(dir > 0 ? stage < 2 : stage > 0)) return false; setStage(stage + dir); return true; };
   const mark = () => { const i = idx();
@@ -1099,18 +1116,28 @@ tilt.addEventListener("pointerleave", () => tilt.style.transform = "");
     let px = 0;
     if (stats && idx() === 0) { const top = stats.getBoundingClientRect().top; if (top < innerHeight) px = Math.max(0, innerHeight - top + 16 - 22); }
     if (!matchMedia("(max-width:600px)").matches) pager.style.setProperty("--lift", px + "px"); else pager.style.removeProperty("--lift");   // on phones the pager sits at the top
-    const chatBtn = document.getElementById("apLaunch"); if (chatBtn) chatBtn.style.setProperty("--lift", px + "px");
+    const chatBtn = document.getElementById("apLaunch"); if (chatBtn) chatBtn.style.setProperty("--lift", (matchMedia("(max-width:760px)").matches ? 0 : px) + "px");   // phones: the numbers row leaves room below for it
   };
   hs.addEventListener("scroll", lift, {passive: true}); pnls[0].addEventListener("scroll", lift, {passive: true});
   addEventListener("resize", lift); addEventListener("load", lift); lift();
   document.getElementById("hpFirst").onclick = () => { pnls[0].scrollTop = 0; go(0); };
   prev.onclick = () => stepIn(idx(), -1) || go(idx() - 1); nextB.onclick = () => stepIn(idx(), 1) || go(idx() + 1);
-  // phones: swiping up/down on the window walks the steps (sideways swipes still change panel)
+  // phones: on the opening screen and the drawing page, swiping up/down walks the same steps as the wheel
+  // (opening drawing -> photos -> page 2 -> alive -> map -> next page); sideways swipes still slide between pages
+  { let tY = null, tX = 0, tTop = 0;
+    hs.addEventListener("touchstart", e => { const i = idx(); tY = null;
+      if ((i !== 0 && i !== SP) || (e.target.closest && e.target.closest("#bpSlot,input,textarea,select,.ap"))) return;
+      tY = e.touches[0].clientY; tX = e.touches[0].clientX; tTop = pnls[i].scrollTop; }, {passive: true});
+    hs.addEventListener("touchend", e => { if (tY == null) return; const i = idx(), p = pnls[i], t = e.changedTouches[0], dy = t.clientY - tY, dx = t.clientX - tX; tY = null;
+      if (Math.abs(dy) < 50 || Math.abs(dy) < Math.abs(dx) * 1.3) return;
+      const down = dy < 0, atEdge = down ? tTop >= p.scrollHeight - p.clientHeight - 2 : tTop <= 2;
+      if (atEdge) stepIn(i, down ? 1 : -1) || go(i + (down ? 1 : -1), down); }, {passive: true}); }
+  // the window itself: swiping up/down on it always walks the steps
   const slot = document.getElementById("bpSlot");
   if (slot) { let sy = null, sx = 0;
     slot.addEventListener("touchstart", e => { sy = e.touches[0].clientY; sx = e.touches[0].clientX; }, {passive: true});
     slot.addEventListener("touchend", e => { if (sy == null) return; const t = e.changedTouches[0], dy = t.clientY - sy, dx = t.clientX - sx; sy = null;
-      if (Math.abs(dy) > 40 && Math.abs(dy) > Math.abs(dx) * 1.2) stepIn(idx(), dy < 0 ? 1 : -1); }, {passive: true}); }
+      if (Math.abs(dy) > 40 && Math.abs(dy) > Math.abs(dx) * 1.2) { const i = idx(); stepIn(i, dy < 0 ? 1 : -1) || (dy < 0 ? go(i + 1) : go(i - 1, false)); } }, {passive: true}); }
   // vertical wheel -> sideways, once the current panel has no more room to scroll that way.
   // One flick = one panel. Trackpad momentum after a move (or after reaching a panel's end) is absorbed,
   // but a new flick is recognised straight away (its speed rises again), so the page never feels stuck.

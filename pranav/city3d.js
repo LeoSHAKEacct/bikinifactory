@@ -320,14 +320,14 @@ function build(THREE) {
   // on computers the opening screen's drawing sits exactly where page 2's window is, so the tower stays put between the two
   const alignHero = () => {
     if (!heroSlot) return;
-    if (innerWidth < 761) { heroSlot.style.cssText = ""; return; }
-    const p1 = slotA.closest(".pnl"), pr = p1.getBoundingClientRect(), sr = slotA.getBoundingClientRect();
-    heroSlot.style.cssText = `left:${(sr.left - pr.left).toFixed(1)}px;top:${(sr.top - pr.top + p1.scrollTop).toFixed(1)}px;width:${sr.width.toFixed(1)}px;height:${sr.height.toFixed(1)}px;right:auto`;
+    const p1 = slotA.closest(".pnl"), pr = p1.getBoundingClientRect(), sr = slotA.getBoundingClientRect(), top = sr.top - pr.top + p1.scrollTop;
+    heroSlot.style.cssText = `left:${(sr.left - pr.left).toFixed(1)}px;top:${top.toFixed(1)}px;width:${sr.width.toFixed(1)}px;height:${sr.height.toFixed(1)}px;right:auto`;
+    const heroEl = heroSlot.closest(".hero"); if (heroEl) heroEl.style.setProperty("--sk-bottom", (top + sr.height).toFixed(0) + "px");   // phones: the text starts below the drawing
   };
   alignHero(); let alT; addEventListener("resize", () => { clearTimeout(alT); alT = setTimeout(alignHero, 150); });
   if (document.fonts) document.fonts.ready.then(alignHero); setTimeout(alignHero, 1200);
   // while it is a drawing the tower stands right of centre in its window (clear of the headline on the opening screen)
-  const shiftView = (c, w, h, k) => { const off = .2 * w * k; if (off > .5) c.setViewOffset(w, h, -off, 0, w, h); else c.clearViewOffset(); };
+  const shiftView = (c, w, h, k) => { const off = (innerWidth > 760 ? .2 : 0) * w * k; if (off > .5) c.setViewOffset(w, h, -off, 0, w, h); else c.clearViewOffset(); };
   const segAt = i => heroSegs[Math.max(0, Math.min(heroSegs.length - 1, i))];
 
   function frame(now) {
