@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Registros · HollyAI Ley</title>
+<link rel="icon" type="image/png" href="/img/favicon.png">
+<style>
+:root{--bg:#f6f3ec;--card:#fff;--ink:#14213a;--muted:#5d6678;--line:#e3ddd0;--gold:#b88a2e}
+@media (prefers-color-scheme: dark){:root{--bg:#0c1424;--card:#132038;--ink:#e9edf5;--muted:#a3adc2;--line:#24324f;--gold:#e2b85a}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:20px 16px}
+h1{font-size:22px;display:flex;gap:10px;align-items:center}h1 img{width:36px;border-radius:8px}
+input,button{font:inherit;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+button{background:#0f2240;color:#fff;border:0;cursor:pointer;font-weight:600}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}
+.card h3{margin:0 0 4px;font-size:16px}.muted{color:var(--muted)}.small{font-size:13px}
+.pill{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;font-weight:700;background:#f4ead3;color:#8a6417;margin-right:4px}
+a{color:#1d4ed8}
+</style>
+</head>
+<body>
+<main>
+  <h1><img src="/img/owl-head.webp" alt=""> Registros · HollyAI Ley</h1>
+  <form id="login" class="row">
+    <input type="password" id="pw" placeholder="Contraseña" autocomplete="current-password" required>
+    <button>Ver registros</button>
+    <span id="msg" class="muted"></span>
+  </form>
+  <div id="out"></div>
+</main>
+<script>
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const PLAN = { inicial: 'Plan Inicial', redes: 'Plan con Redes', nose: 'No sabe aún' };
+let pw = sessionStorage.getItem('ley-pw') || '';
+async function load() {
+  document.getElementById('msg').textContent = 'Cargando…';
+  const r = await fetch('/api/leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: pw }) });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) { document.getElementById('msg').textContent = j.error || 'Error'; sessionStorage.removeItem('ley-pw'); return; }
+  sessionStorage.setItem('ley-pw', pw);
+  document.getElementById('msg').textContent = `${j.leads.length} registro(s)` + (j.warning ? ' · ' + j.warning : '');
+  document.getElementById('out').innerHTML = j.leads.map(l => {
+    const wa = String(l.phone || '').replace(/\D/g, '');
+    return `<div class="card"><h3>${esc(l.name)} ${l.firm ? '· ' + esc(l.firm) : ''}</h3>
+      <div class="row small">
+        <a href="mailto:${esc(l.email)}">${esc(l.email)}</a> ·
+        <a href="tel:${esc(l.phone)}">${esc(l.phone)}</a> ·
+        <a href="https://wa.me/${wa}" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+      <div class="small" style="margin-top:6px">
+        ${l.plan ? `<span class="pill">${esc(PLAN[l.plan] || l.plan)}</span>` : ''}
+        ${l.size ? `<span class="pill">${esc(l.size)} abogados</span>` : ''}
+        ${(l.interests || []).map(i => `<span class="pill">${esc(i)}</span>`).join('')}
+      </div>
+      ${l.msg ? `<p style="margin:8px 0 0;white-space:pre-wrap">${esc(l.msg)}</p>` : ''}
+      <p class="muted small" style="margin:6px 0 0">${new Date(l.created).toLocaleString('es-CO')}</p></div>`;
+  }).join('') || '<p class="muted">Aún no hay registros.</p>';
+}
+document.getElementById('login').addEventListener('submit', e => { e.preventDefault(); pw = document.getElementById('pw').value; load(); });
+if (pw) load();
+</script>
+</body>
+</html>
