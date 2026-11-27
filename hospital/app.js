@@ -353,19 +353,44 @@
 
   // ----- AI assistant -----
   let chat = store.get('chat_es', []);
+  // ----- voice: speech-to-text (browser) and read-aloud -----
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const MIC_ICON = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2z"/></svg>';
+  let rec = null, speakReplies = store.get('speakReplies', false);
+  function speak(text) {
+    try {
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text.replace(/[*_#]/g, ''));
+      u.lang = 'es-ES'; u.rate = 1;
+      const v = speechSynthesis.getVoices().find(v => /^es(-|_)/i.test(v.lang));
+      if (v) u.voice = v;
+      u.onstart = () => owl('base', 'wave', '', 'pulse');
+      u.onend = () => owl('base', 'wave', '', 'bob');
+      speechSynthesis.speak(u);
+    } catch {}
+  }
   function assistant() {
-    if (!chat.length) chat = [{ role: 'assistant', content: 'Hola, soy el asistente de CareFlow. Cuéntame qué te pasa con tus propias palabras, o pregúntame por horarios de visita, cómo prepararte para una prueba o tus citas.\n\nNo puedo diagnosticar, pero te indicaré la atención adecuada.' }];
+    if (!chat.length) chat = [{ role: 'assistant', content: 'Hola, soy el asistente de CareFlow. Cuéntame qué te pasa con tus propias palabras — escribiendo o pulsando 🎤 para hablar — o pregúntame por horarios de visita, cómo prepararte para una prueba o tus citas.\n\nNo puedo diagnosticar, pero te indicaré la atención adecuada.' }];
     owl('base', 'wave', 'Cuéntame qué te pasa, con tus palabras', 'hop');
     view.innerHTML = `<h1>Asistente</h1>
       <div class="chat" id="chat" aria-live="polite">${chat.map(m => `<div class="msg ${m.role === 'user' ? 'me' : 'ai'}">${esc(m.content)}</div>`).join('')}</div>
       <div id="chatcta"></div>
-      <form class="composer" id="composer"><input id="q" placeholder="p. ej. dolor de garganta y fiebre desde ayer" autocomplete="off" required><button class="btn">Enviar</button></form>
-      <div class="row" style="margin-top:8px"><button class="btn ghost small" id="clear">Nueva conversación</button></div>
+      <form class="composer" id="composer">
+        <button type="button" class="mic" id="mic" aria-label="Hablar" aria-pressed="false" ${SR ? '' : 'hidden'}>${MIC_ICON}</button>
+        <input id="q" placeholder="${SR ? 'Pulsa 🎤 y habla, o escribe aquí' : 'p. ej. dolor de garganta y fiebre desde ayer'}" autocomplete="off" required>
+        <button class="btn">Enviar</button></form>
+      <p class="small muted" id="micstatus" style="margin:6px 0 0;min-height:1.4em">${SR ? 'Puedes hablar en vez de escribir.' : ''}</p>
+      <div class="row" style="margin-top:8px">
+        <button class="btn ghost small" id="clear">Nueva conversación</button>
+        ${'speechSynthesis' in window ? `<button class="chip" id="speak" aria-pressed="${speakReplies}">🔊 Leer respuestas en voz alta</button>` : ''}
+      </div>
       ${disclaimer()}`;
+    let spokenTurn = false;
     $('#composer').onsubmit = async e => {
       e.preventDefault();
       const q = $('#q').value.trim(); if (!q) return;
       $('#q').value = '';
+      const viaVoice = spokenTurn; spokenTurn = false;
       chat.push({ role: 'user', content: q }); assistantRender();
       owl('base', 'think', 'Pensando…', 'pulse');
       const reply = await askAssistant(q);
@@ -373,6 +398,35 @@
       else { owl('base', 'wave', '', 'bob'); owl('flash', 'cheer', 'hop', 800); }
       chat.push({ role: 'assistant', content: reply.text }); store.set('chat_es', chat.slice(-30));
       assistantRender(reply);
+      if (viaVoice || speakReplies) speak(reply.text);
+    };
+    const sp = $('#speak');
+    if (sp) sp.onclick = () => { speakReplies = !speakReplies; store.set('speakReplies', speakReplies); sp.setAttribute('aria-pressed', speakReplies); if (!speakReplies) speechSynthesis.cancel(); };
+    const mic = $('#mic');
+    if (SR && mic) mic.onclick = () => {
+      if (rec) { rec.stop(); return; }
+      try { speechSynthesis.cancel(); } catch {}
+      const status = $('#micstatus'), input = $('#q');
+      rec = new SR(); rec.lang = 'es-ES'; rec.interimResults = true; rec.continuous = false; rec.maxAlternatives = 1;
+      let finalText = '';
+      rec.onstart = () => { mic.classList.add('on'); mic.setAttribute('aria-pressed', 'true'); status.textContent = '🎙️ Te escucho… habla con calma. Pulsa de nuevo para terminar.'; owl('base', 'think', 'Te escucho…', 'pulse'); };
+      rec.onresult = ev => {
+        let interim = ''; finalText = '';
+        for (const r of ev.results) (r.isFinal ? (finalText += r[0].transcript) : (interim += r[0].transcript));
+        input.value = (finalText + interim).trim();
+      };
+      rec.onerror = ev => {
+        status.textContent = ev.error === 'not-allowed' || ev.error === 'service-not-allowed'
+          ? 'Permite el uso del micrófono en tu navegador para poder hablar.'
+          : ev.error === 'no-speech' ? 'No te he oído. Pulsa 🎤 e inténtalo de nuevo.' : 'No se pudo usar el micrófono. Puedes escribir.';
+      };
+      rec.onend = () => {
+        mic.classList.remove('on'); mic.setAttribute('aria-pressed', 'false'); rec = null;
+        const text = input.value.trim();
+        if (text) { status.textContent = 'Enviando lo que dijiste…'; spokenTurn = true; $('#composer').requestSubmit(); setTimeout(() => { status.textContent = 'Puedes hablar en vez de escribir.'; }, 1500); }
+        else owl('base', 'wave', '', 'bob');
+      };
+      rec.start();
     };
     $('#clear').onclick = () => { chat = []; store.set('chat_es', []); assistant(); };
   }
@@ -487,6 +541,7 @@
     const fn = ROUTES[path] || home;
     if (fn !== triage) tri = null;
     if (fn !== book) bk = null;
+    if (fn !== assistant) { try { rec && rec.abort(); speechSynthesis.cancel(); } catch {} rec = null; }
     fn(new URLSearchParams(qs || ''));
     if (owlPending) { owl('celebrate', owlPending); owlPending = null; }
     document.querySelectorAll('.tabbar a').forEach(a => a.classList.toggle('active', a.dataset.tab === (path || 'home') || ((path === 'intake' || path === 'checkin') && a.dataset.tab === 'appointments')));
