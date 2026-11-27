@@ -110,6 +110,7 @@
     }
   ],
   "booking": {
-    "timezone": "America/Bogota"
+    "timezone": "America/Bogota",
+    "step": "60"
   }
 }
