@@ -145,3 +145,9 @@ ul.clean{padding-left:18px;margin:6px 0}
 @media (max-width:420px){.owl-btn,.owl-img{width:76px;height:76px}.owl-bubble{max-width:180px;font-size:13px}}
 @media (max-width:899px){main{padding-bottom:110px}}
 @media (prefers-reduced-motion: reduce){.owl *, .owl{animation:none!important;transition:none!important}}
+.mic{flex:none;width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:var(--brand-2);color:var(--brand);
+  display:grid;place-items:center;cursor:pointer;position:relative}
+.mic.on{background:var(--red);color:#fff;border-color:var(--red)}
+.mic.on::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:3px solid var(--red);animation:mic-ring 1.2s ease-out infinite}
+@keyframes mic-ring{from{transform:scale(.9);opacity:.9}to{transform:scale(1.35);opacity:0}}
+.composer{align-items:center}
