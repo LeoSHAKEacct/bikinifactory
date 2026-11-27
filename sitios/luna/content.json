@@ -1,14 +1,14 @@
 {
   "name": "Lunna Masoterapia",
   "phone": "+573011968199",
-  "waMessage": "Hola {nombre}, quiero reservar un masaje",
+  "waMessage": "Hola lunna quiero reservar un masaje",
   "seo": {
     "title": "{nombre} · Masajes",
-    "description": "{nombre} — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en Medellín, Itagüí, La Estrella y Sabaneta."
+    "description": "{nombre} — relajación y placer en un masaje. Apartamento discreto con parqueadero y servicio a domicilio en poblado y laureles "
   },
   "nav": {
-    "services": "Masajes",
-    "facilities": "Instalaciones",
+    "services": "Masajes relajante anti estres descontracturante erotico cuerpo a cuerpo prostatico ",
+    "facilities": "Apartamento propio en Laureles cerca a la iglesia santa gema ",
     "zones": "Zonas",
     "reserve": "Reservar"
   },
@@ -16,12 +16,12 @@
   "sections": [
     {
       "type": "hero",
-      "photo": "foto-mwnr6fsk.jpg",
+      "photo": "foto-mwz74gzj.jpg",
       "eyebrow": "Masajes · Medellín",
       "title": "Relajación y placer",
       "titleAccent": "en un masaje",
-      "greeting": "¡Hola, soy {nombre}!",
-      "lead": "Ven y le daré un roce con mis manos a tu cuerpo.",
+      "greeting": "¡Hola, soy lunna ",
+      "lead": "Si busca relajarte y disfrutar ven y agenda con migo una agradable sesión de masaje ",
       "ctaPrimary": "Escríbeme por WhatsApp",
       "ctaSecondary": "Ver masajes",
       "badgeTitle": "{nombre}",
@@ -108,5 +108,9 @@
       "text": "Escríbeme por WhatsApp y agenda tu momento de relajación y placer.",
       "button": "WhatsApp {telefono}"
     }
-  ]
+  ],
+  "booking": {
+    "timezone": "America/Bogota",
+    "step": "60"
+  }
 }
