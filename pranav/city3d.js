@@ -276,7 +276,7 @@ function build(THREE) {
   ui.innerHTML = `<svg class="cu-lines">${pins.map(() => "<line/>").join("")}</svg>` +
     pins.map(p => `<button type="button" class="cu-pin" data-id="${p.a.id}"><i></i>${p.a.name}</button>`).join("") +
     `<span class="cu-note" data-n="top">828 m · spire</span><span class="cu-note" data-n="base">level 0 · ±0.00</span><span class="cu-note" data-n="plan">plan · Y-core</span>` +
-    `<svg class="cu-pencil" viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-135 32 32)"><rect x="26" y="4" width="12" height="40" rx="2" fill="#e8b64c"/><rect x="26" y="4" width="12" height="6" fill="#d98c8c"/><rect x="26" y="10" width="12" height="3" fill="#b9b9b9"/><path d="M26 44h12l-6 14z" fill="#f3dcb0"/><path d="M30 53h4l-2 5z" fill="#2b2b2b"/></g></svg>`;
+    `<svg class="cu-pencil" viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(45 32 32)"><rect x="26" y="4" width="12" height="40" rx="2" fill="#e8b64c"/><rect x="26" y="4" width="12" height="6" fill="#d98c8c"/><rect x="26" y="10" width="12" height="3" fill="#b9b9b9"/><path d="M26 44h12l-6 14z" fill="#f3dcb0"/><path d="M30 53h4l-2 5z" fill="#2b2b2b"/></g></svg>`;
   document.body.appendChild(ui);
   const pencil = ui.querySelector(".cu-pencil");
   const lines = [...ui.querySelectorAll("line")], btns = [...ui.querySelectorAll(".cu-pin")], notes = [...ui.querySelectorAll(".cu-note")];
@@ -355,7 +355,7 @@ function build(THREE) {
       const f0 = scene.fog; scene.fog = null; R2.render(scene, cam2); scene.fog = f0; beacon.visible = true;
       const going = nDone < heroSegs.length - .5; pencil2.style.opacity = going ? 1 : 0;
       if (going) { const [a0, a1] = segAt(nSeg), f = nDone - nSeg; v.set(mix(a0[0], a1[0], f), mix(a0[1], a1[1], f), mix(a0[2], a1[2], f)).project(cam2);
-        pencil2.style.transform = `translate(${((v.x + 1) / 2 * w).toFixed(1)}px,${((1 - v.y) / 2 * h - 44).toFixed(1)}px)`; }
+        pencil2.style.transform = `translate(${((v.x + 1) / 2 * w - 10).toFixed(1)}px,${((1 - v.y) / 2 * h - 36).toFixed(1)}px)`; }
     }
 
     const b = slotA.getBoundingClientRect(), r = { left: b.left, top: b.top, width: b.width, height: b.height, right: b.right, bottom: b.bottom };
@@ -412,7 +412,7 @@ function build(THREE) {
     pencil.style.opacity = drawing ? 1 : 0;
     if (drawing) { const [a0, a1] = segAt(nSeg), f = nDone - nSeg;
       const [px, py] = toScreen(mix(a0[0], a1[0], f), mix(a0[1], a1[1], f), mix(a0[2], a1[2], f), r);
-      pencil.style.transform = `translate(${px.toFixed(1)}px,${(py - 44).toFixed(1)}px)`; }
+      pencil.style.transform = `translate(${(px - 10).toFixed(1)}px,${(py - 36).toFixed(1)}px)`; }
 
     // labels: above each pin, pushed up when they would overlap, with a thin leader line
     ui.classList.toggle("labels", lab > .02); ui.style.setProperty("--lab", lab.toFixed(3));
