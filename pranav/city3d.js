@@ -363,6 +363,9 @@ function build(THREE) {
     if (!vis) { if (shown) { canvas.style.visibility = ui.style.visibility = "hidden"; shown = false; } return; }
     if (!shown) { canvas.style.visibility = ui.style.visibility = "visible"; shown = true; }
     canvas.style.clipPath = ui.style.clipPath = `inset(${r.top}px ${innerWidth - r.right}px ${innerHeight - r.bottom}px ${r.left}px round 24px)`;
+    // the paper fades softly into the page while it is a drawing; the edges sharpen as the tower comes alive
+    { const fe = 1 - sstep(0, .6, ps), m = fe > .01 ? `radial-gradient(${(r.width * .68).toFixed(0)}px ${(r.height * .68).toFixed(0)}px at ${(r.left + r.width / 2).toFixed(0)}px ${(r.top + r.height / 2).toFixed(0)}px,#000 ${mix(100, 60, fe).toFixed(1)}%,transparent 100%)` : "none";
+      canvas.style.webkitMaskImage = canvas.style.maskImage = m; }
     const pFill = sstep(.2, .9, alive), pLit = sstep(.45, 1, alive), night = sstep(.05, .7, alive);
     const e = ease(t), toMap = sstep(.12, .75, t), lab = sstep(.78, .98, t);
     const city3 = Math.max(.14 * sstep(.35, 1, alive), sstep(.04, .85, t));
