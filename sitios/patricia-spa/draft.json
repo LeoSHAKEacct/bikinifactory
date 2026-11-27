@@ -12,7 +12,7 @@
     "zones": "Mais",
     "reserve": "Reservar"
   },
-  "footer": "{nombre} · Massagens· Só maiores de 18 anos",
+  "footer": "{ Massagens· Só maiores de 18 anos",
   "sections": [
     {
       "type": "hero",
