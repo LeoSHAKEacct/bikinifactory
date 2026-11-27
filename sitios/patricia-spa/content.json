@@ -33,7 +33,7 @@
       "type": "intro",
       "quote": "Nada como uma boa massagem erótica",
       "quoteAccent": "não consiga consertar!",
-      "body": "Venha desfrutar de uma agradável massagem relaxante. Cada movimento que farei com minhas mãos suaves foi pensado para reconectar seu corpo à sua energia, para que, por meio de carícias delicadas e do nosso toque erótico, você alcance esse êxtase de prazer."
+      "body": "Venha desfrutar de uma agradável massagem relaxante. Cada movimento que faço com as minhas mãos suaves foi pensado para reconectar seu corpo à sua energia, para que, por meio de carícias delicadas e do toque erótico, você alcance esse êxtase de prazer."
     },
     {
       "type": "services",
@@ -58,22 +58,17 @@
     {
       "type": "facilities",
       "eyebrow": "Local",
-      "title": "Comodidad y total discreción",
+      "title": "Comodidade e total discreção",
       "items": [
         {
           "icon": "home",
           "title": "Apartamento cómodo",
-          "desc": "Instalaciones totalmente cómodas y acogedoras."
+          "desc": "Instalaciones totalmente comodas e aconchegantes."
         },
         {
           "icon": "heart",
           "title": "Totalmente discreto",
-          "desc": "Tu privacidad es lo primero."
-        },
-        {
-          "icon": "drink",
-          "title": "Bebida de boas-vindas",
-          "desc": "Relaxe desde o primeiro momento."
+          "desc": "A tua privacidade esta em primeiro lugar"
         }
       ],
       "gallery": [
@@ -102,7 +97,7 @@
       "type": "cta",
       "eyebrow": "Reserva tu cita",
       "title": "Te espero!",
-      "text": "Me escreva pelo WhatsApp e agende seu momento de relaxamento e prazer.",
+      "text": "Contacta-me pelo WhatsApp e agenda o teu momento de relaxamento e prazer.",
       "button": "WhatsApp {telefono}"
     }
   ],
