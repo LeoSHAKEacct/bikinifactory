@@ -12,6 +12,8 @@
     get(k, d) { try { const v = localStorage.getItem('careflow.' + k); return v ? JSON.parse(v) : d; } catch { return d; } },
     set(k, v) { try { localStorage.setItem('careflow.' + k, JSON.stringify(v)); } catch {} }
   };
+  const owl = (fn, ...args) => { try { window.Owl && window.Owl[fn](...args); } catch {} };
+  let owlPending = null, greeted = false;
   const appts = () => store.get('appointments', []);
   const saveAppts = list => store.set('appointments', list);
 
@@ -47,6 +49,7 @@
   // ---------- views ----------
   function home() {
     const up = appts().filter(a => a.status === 'booked' && a.date >= ymd(new Date())).sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time))[0];
+    owl('base', 'wave', greeted ? '' : '¡Hola! Soy Holly 🦉 ¿En qué te ayudo hoy?', 'hop'); greeted = true;
     view.innerHTML = `
       <h1>¿Cómo podemos ayudarte hoy?</h1>
       <p class="lead">${esc(H.name)} — pide cita, revisa tus síntomas y te orientamos hacia la atención adecuada, 24/7.</p>
@@ -70,6 +73,7 @@
   }
 
   function emergency() {
+    owl('base', 'shock', 'Si es grave, llama al ' + H.emergencyNumber + ' ahora mismo', 'shake');
     view.innerHTML = `
       <div class="level l1"><h2>Emergencia</h2><p>Si la vida de alguien puede estar en peligro, llama ahora.</p>
         <a class="btn danger block" href="tel:${H.emergencyNumber}">Llamar al ${H.emergencyNumber}</a></div>
@@ -122,10 +126,17 @@
     } else {
       return renderTriageResult();
     }
+    const OWL_STEP = [['think', 'Empecemos: ¿para quién es?'], ['think', 'Elige lo que más se parezca'],
+      ['point', 'Marca cualquier señal de alarma'], ['think', 'Mueve la barra con sinceridad'], ['cheer', '¡Casi terminamos!']];
+    if (tri.lastOwl !== tri.step) { tri.lastOwl = tri.step; owl('base', OWL_STEP[tri.step][0], OWL_STEP[tri.step][1], tri.step === 4 ? 'hop' : 'lean'); }
     view.innerHTML = `<div class="progress"><i style="width:${pct}%"></i></div>${body}<div class="row" style="margin-top:12px">${back}</div>`;
   }
   function renderTriageResult() {
     const r = T.assess(tri), s = specById(r.spec);
+    const OWL_RES = { 1: ['shock', '¡Esto es una emergencia! Llama al ' + H.emergencyNumber + ' ya.', 'shake'],
+      2: ['shock', '¡Muy urgente! Ve a Urgencias ahora.', 'shake'], 3: ['point', 'Hoy mismo: Urgencias o cita urgente.', 'lean'],
+      4: ['idle', 'Nada grave, pero que te vea un médico pronto.', 'bob'], 5: ['cheer', '¡Buenas noticias! Parece leve. Cuídate 💙', 'hop'] };
+    owl('base', ...OWL_RES[r.level]);
     store.set('lastTriage', { at: Date.now(), level: r.level, flags: r.complaint.flags.filter((f, i) => tri.flags[i] && f.level).map(f => f.q.replace(/^¿|\?$/g, '')), pregnant: tri.pregnant, complaint: r.complaint.label, reasons: r.reasons, severity: tri.severity, days: tri.days, age: tri.age, conditions: tri.conditions });
     let cta = '';
     if (r.level <= 2) cta = `<a class="btn danger block" href="tel:${H.emergencyNumber}">Llamar al ${H.emergencyNumber} ahora</a><a class="btn ghost block" style="margin-top:8px;background:var(--card)" href="#/emergency">Urgencias — abierto 24 h</a>`;
@@ -178,6 +189,7 @@
   }
   function renderBook() {
     if (!bk.spec) {
+      owl('base', 'think', '¿Qué especialidad necesitas?', 'lean');
       view.innerHTML = `<h1>Pedir cita</h1><p class="lead">Elige una especialidad. ¿No estás seguro? <a href="#/triage">Revisa tus síntomas</a> primero.</p>
         ${H.specialties.map(s => `<button class="option" data-spec="${s.id}"><span style="font-size:22px">${s.icon}</span><span><b>${esc(s.name)}</b><small>${esc(s.desc)}</small></span></button>`).join('')}`;
       return;
@@ -211,6 +223,7 @@
       <label>Hora</label>
       ${slots.length ? `<div class="slots">${slots.map(t => `<button class="slot" data-time="${t}" aria-pressed="${bk.time === t}">${t}</button>`).join('')}</div>` : '<p class="muted">No hay horas libres este día.</p>'}
       ${bk.time ? patientForm() : ''}`;
+    if (bk.time) owl('base', 'phone', 'Último paso: tus datos y listo', 'lean');
   }
   function patientForm() {
     const p = store.get('patient', {}), last = store.get('lastTriage', null);
@@ -254,6 +267,7 @@
     };
     list.push(a); saveAppts(list);
     toast(bk.reschedule ? 'Cita cambiada' : '¡Cita confirmada! Referencia ' + a.id);
+    owlPending = bk.reschedule ? '¡Cita cambiada! 🎉' : '¡Cita confirmada! Te esperamos 🎉';
     location.hash = '#/appointments?new=' + a.id;
   });
 
@@ -281,6 +295,7 @@
             <button class="btn ghost" data-cancel="${a.id}" style="color:var(--red)">Cancelar</button>` : ''}
         </div></div>`;
     };
+    owl('base', 'idle', up.length ? '' : 'Aún no tienes citas. ¿Pedimos una?', 'bob');
     view.innerHTML = `<h1>Mis citas</h1>
       ${up.length ? up.map(card).join('') : `<div class="card"><p>No tienes citas próximas.</p><a class="btn" href="#/book">Pedir una</a></div>`}
       ${past.length ? `<h2>Anteriores</h2>${past.map(card).join('')}` : ''}`;
@@ -317,6 +332,7 @@
     const a = appts().find(x => x.id === params.get('id'));
     if (!a) { location.hash = '#/appointments'; return; }
     const i = a.intake || {};
+    owl('base', 'phone', 'Así tu médico lo sabe antes de la cita', 'lean');
     view.innerHTML = `<a class="btn ghost" href="#/appointments">← Mis citas</a>
       <h1>Formulario previo</h1><p class="lead">Son 2 minutos y ahorras tiempo en el mostrador. Tu médico lo verá antes de la consulta.</p>
       <form id="inform" class="card">
@@ -331,7 +347,7 @@
       e.preventDefault();
       const f = Object.fromEntries(new FormData(e.target)); f.consent = !!f.consent;
       saveAppts(appts().map(x => x.id === a.id ? { ...x, intake: f } : x));
-      toast('Guardado — gracias'); location.hash = '#/appointments';
+      toast('Guardado — gracias'); owlPending = '¡Formulario guardado! 🙌'; location.hash = '#/appointments';
     };
   }
 
@@ -339,6 +355,7 @@
   let chat = store.get('chat_es', []);
   function assistant() {
     if (!chat.length) chat = [{ role: 'assistant', content: 'Hola, soy el asistente de CareFlow. Cuéntame qué te pasa con tus propias palabras, o pregúntame por horarios de visita, cómo prepararte para una prueba o tus citas.\n\nNo puedo diagnosticar, pero te indicaré la atención adecuada.' }];
+    owl('base', 'wave', 'Cuéntame qué te pasa, con tus palabras', 'hop');
     view.innerHTML = `<h1>Asistente</h1>
       <div class="chat" id="chat" aria-live="polite">${chat.map(m => `<div class="msg ${m.role === 'user' ? 'me' : 'ai'}">${esc(m.content)}</div>`).join('')}</div>
       <div id="chatcta"></div>
@@ -350,7 +367,10 @@
       const q = $('#q').value.trim(); if (!q) return;
       $('#q').value = '';
       chat.push({ role: 'user', content: q }); assistantRender();
+      owl('base', 'think', 'Pensando…', 'pulse');
       const reply = await askAssistant(q);
+      if (reply.level && reply.level <= 2) owl('base', 'shock', 'Esto puede ser urgente', 'shake');
+      else { owl('base', 'wave', '', 'bob'); owl('flash', 'cheer', 'hop', 800); }
       chat.push({ role: 'assistant', content: reply.text }); store.set('chat_es', chat.slice(-30));
       assistantRender(reply);
     };
@@ -398,6 +418,7 @@
     const tr = last && Date.now() - last.at < 12 * 36e5 ? last : null;
     const a = params.get('id') ? appts().find(x => x.id === params.get('id')) : null;
     const L = tr && T.LEVELS[tr.level];
+    owl('base', 'phone', 'Rellena tus datos y los envío a recepción 📲', 'lean');
     view.innerHTML = `${a ? '<a class="btn ghost" href="#/appointments">← Mis citas</a>' : ''}
       <h1>Check-in</h1><p class="lead">Rellena tus datos. Llegan directamente a recepción junto con tu color de triaje, así no tienes que repetirlos en el mostrador.</p>
       ${L ? `<div class="level ${L.key}" style="padding:14px">
@@ -451,6 +472,7 @@
       const num = String(H.receptionWhatsApp || '').replace(/\D/g, '');
       const url = 'https://wa.me/' + num + '?text=' + encodeURIComponent(text);
       window.open(url, '_blank', 'noopener') || (location.href = url);
+      owl('base', 'cheer', '', 'bob'); owl('celebrate', '¡Listo! Pulsa Enviar en WhatsApp ✅');
       view.innerHTML = `<div class="level ${L ? L.key : 'l4'}"><h2>${L ? DOT[tr.level] + ' ' + L.title : 'Datos listos'}</h2>
         <p>Pulsa <b>Enviar</b> en WhatsApp para que llegue a recepción. Muestra la referencia <b>${ref}</b> en el mostrador.</p>
         <a class="btn block wa-btn" href="${url}" target="_blank" rel="noopener">${WA_ICON} Abrir WhatsApp de nuevo</a></div>
@@ -466,6 +488,7 @@
     if (fn !== triage) tri = null;
     if (fn !== book) bk = null;
     fn(new URLSearchParams(qs || ''));
+    if (owlPending) { owl('celebrate', owlPending); owlPending = null; }
     document.querySelectorAll('.tabbar a').forEach(a => a.classList.toggle('active', a.dataset.tab === (path || 'home') || ((path === 'intake' || path === 'checkin') && a.dataset.tab === 'appointments')));
     view.focus({ preventScroll: true });
     if (fn !== book || !location.hash.includes('new=')) window.scrollTo(0, 0);
