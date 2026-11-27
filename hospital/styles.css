@@ -112,3 +112,36 @@ ul.clean{padding-left:18px;margin:6px 0}
 .wa-btn{background:#25d366;color:#073b1d}
 .wa-btn svg path{fill:#073b1d}
 .wa-ic{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#25d366}
+
+/* ---------- Holly, the owl mascot ---------- */
+.logo-owl{width:34px;height:34px;border-radius:10px;object-fit:cover;background:var(--brand-2)}
+.owl{position:fixed;right:12px;bottom:calc(70px + env(safe-area-inset-bottom));z-index:6;display:flex;flex-direction:column;align-items:flex-end;pointer-events:none;transition:transform .35s ease}
+.owl.tuck{transform:translateX(70%) translateY(30px)}
+.owl-btn{pointer-events:auto;border:0;background:none;padding:0;cursor:pointer;width:96px;height:96px;display:grid;place-items:end center}
+.owl-tilt{display:block;transition:transform .25s ease-out;transform-origin:50% 90%}
+.owl-img{display:block;width:96px;height:96px;object-fit:contain;filter:drop-shadow(0 6px 8px rgba(0,0,0,.18))}
+.owl-img.pop{animation:owl-pop .35s cubic-bezier(.3,1.6,.5,1)}
+.owl[data-anim="bob"] .owl-btn{animation:owl-bob 3.2s ease-in-out infinite}
+.owl[data-anim="lean"] .owl-btn{animation:owl-lean .5s ease-out both}
+.owl[data-anim="hop"] .owl-btn{animation:owl-hop .6s cubic-bezier(.3,1.5,.6,1)}
+.owl[data-anim="fly"] .owl-btn{animation:owl-fly 2.4s ease-in-out}
+.owl[data-anim="shake"] .owl-btn{animation:owl-shake .5s ease-in-out 2}
+.owl[data-anim="pulse"] .owl-btn{animation:owl-pulse 1s ease-in-out infinite}
+.owl-bubble{max-width:220px;margin:0 6px 4px 0;background:var(--card);color:var(--ink);border:1px solid var(--line);
+  border-radius:14px 14px 4px 14px;padding:8px 12px;font-size:14px;line-height:1.35;box-shadow:0 4px 14px rgba(0,0,0,.12);
+  opacity:0;transform:translateY(6px) scale(.95);transform-origin:100% 100%;transition:opacity .2s,transform .2s}
+.owl-bubble.on{opacity:1;transform:none}
+.owl-confetti{position:absolute;right:0;bottom:40px;width:200px;height:10px;pointer-events:none}
+.owl-confetti i{position:absolute;bottom:0;width:7px;height:11px;border-radius:2px;animation:owl-confetti 1.6s ease-out forwards}
+@keyframes owl-pop{0%{transform:scale(.7);opacity:.4}100%{transform:scale(1);opacity:1}}
+@keyframes owl-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes owl-lean{to{transform:translateY(-4px) scale(1.06)}}
+@keyframes owl-hop{0%{transform:translateY(0)}35%{transform:translateY(-22px) scale(1.05)}70%{transform:translateY(0) scale(1,.94)}100%{transform:none}}
+@keyframes owl-fly{0%{transform:none}25%{transform:translate(-30px,-60px) rotate(-6deg) scale(1.15)}50%{transform:translate(-10px,-80px) rotate(4deg) scale(1.15)}75%{transform:translate(0,-40px) rotate(-2deg)}100%{transform:none}}
+@keyframes owl-shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px) rotate(-3deg)}40%{transform:translateX(5px) rotate(3deg)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+@keyframes owl-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+@keyframes owl-confetti{0%{transform:translate(0,0) rotate(0);opacity:1}100%{transform:translate(var(--dx),-170px) rotate(var(--rot));opacity:0}}
+@media (min-width:900px){.owl{right:max(16px,calc(50% - 520px));bottom:90px}.owl-btn,.owl-img{width:130px;height:130px}}
+@media (max-width:420px){.owl-btn,.owl-img{width:76px;height:76px}.owl-bubble{max-width:180px;font-size:13px}}
+@media (max-width:899px){main{padding-bottom:110px}}
+@media (prefers-reduced-motion: reduce){.owl *, .owl{animation:none!important;transition:none!important}}
