@@ -315,11 +315,11 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
 /* phones (as on LASE): WhatsApp is a green "Chat Now" bar along the bottom; every page ends above it.
    Pranav's round photo (the chat) sits at the top right, under "Book a Call" */
 @media(max-width:760px){
-  .wa-float{left:0;right:0;bottom:0;width:auto;height:auto;border-radius:0;display:flex;justify-content:center;align-items:center;gap:10px;padding:13px 16px calc(13px + env(safe-area-inset-bottom));box-shadow:0 -6px 24px rgba(0,0,0,.35)}
+  .wa-float{left:0;right:0;bottom:0;width:auto;height:auto;border-radius:0;display:flex;justify-content:center;align-items:center;gap:10px;padding:8px 16px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.3)}
   .wa-float:hover{transform:none}
-  .wa-float svg{width:24px;height:24px}
-  .wa-float span{display:inline;color:#fff;font:600 17px "Space Grotesk";letter-spacing:.02em}
-  .pnl{padding-bottom:calc(52px + env(safe-area-inset-bottom))}
+  .wa-float svg{width:18px;height:18px}
+  .wa-float span{display:inline;color:#fff;font:600 14px "Space Grotesk";letter-spacing:.03em}
+  .pnl{padding-bottom:calc(36px + env(safe-area-inset-bottom))}
   .ap-launch{left:auto;right:16px;top:80px;bottom:auto;padding:3px}.ap-launch span{display:none}.ap-launch img{width:38px;height:38px}.ap-launch .on{left:32px;bottom:3px}
 }
 
@@ -372,7 +372,7 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
 .cu-pin:hover,.cu-pin:focus-visible{border-color:var(--gold2);outline:none}
 .cu-pin.on{background:linear-gradient(140deg,#f3dca4,#d4af6a);color:#1a1205;border-color:transparent;z-index:2}
 .cu-pin.on i{background:#1a1205}
-.cu-note{position:absolute;left:0;top:0;font:600 17px Caveat,cursive;color:color-mix(in srgb,#3a352d calc(var(--paper,1)*100%),#d8efff);white-space:nowrap;opacity:var(--note,0)}
+.cu-note{position:absolute;left:0;top:0;font:600 17px Caveat,cursive;color:#efe7d4;white-space:nowrap;opacity:var(--note,0)}
 .bp-grid{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:44px;align-items:center}
 .bp-steps{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px;padding:0;list-style:none}
 .bp-steps button{padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:none;color:var(--muted);font:600 13px "Space Grotesk",sans-serif;cursor:pointer;transition:color .4s,border-color .4s,background .4s}
@@ -396,7 +396,6 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
 .bp-slot.is3d>.map{display:none}
 .bp-slot.is3d{cursor:default}#onsite[data-stage="2"] .bp-slot.is3d{cursor:grab}
 .bp-slot::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 1s;mix-blend-mode:multiply;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .4 0 0 0 0 .32 0 0 0 .35 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
-#onsite[data-stage="0"] .bp-slot.is3d::before{opacity:.55}
 .bp-c{position:absolute;width:18px;height:18px;border:0 solid rgba(216,239,255,.7);pointer-events:none;transition:border-color .8s,opacity .8s}
 .bp-c.c1{left:12px;top:12px;border-left-width:1px;border-top-width:1px}.bp-c.c2{right:12px;top:12px;border-right-width:1px;border-top-width:1px}
 .bp-c.c3{left:12px;bottom:12px;border-left-width:1px;border-bottom-width:1px}.bp-c.c4{right:12px;bottom:12px;border-right-width:1px;border-bottom-width:1px}
@@ -404,8 +403,8 @@ nav#nav{z-index:65}   /* the language list opens above the pager */
 .bp-title span{padding:5px 9px;border-bottom:1px solid rgba(216,239,255,.25)}
 .bp-title span:nth-child(odd){color:inherit;opacity:.6;border-right:1px solid rgba(216,239,255,.25)}
 .bp-title span:nth-last-child(-n+2){border-bottom:0}
-#onsite[data-stage="0"] .bp-slot.is3d .bp-title{color:#3a352d;border-color:rgba(52,48,42,.55);background:rgba(241,235,221,.7);font-family:Caveat,"Space Grotesk",cursive;font-size:15px;letter-spacing:.04em;text-transform:none}
-#onsite[data-stage="0"] .bp-slot.is3d .bp-title span{border-color:rgba(52,48,42,.3);padding:2px 10px}
+#onsite[data-stage="0"] .bp-slot.is3d .bp-title{color:#e9e2d0;border-color:rgba(233,226,208,.3);background:transparent;font-family:Caveat,"Space Grotesk",cursive;font-size:15px;letter-spacing:.04em;text-transform:none}
+#onsite[data-stage="0"] .bp-slot.is3d .bp-title span{border-color:rgba(233,226,208,.18);padding:2px 10px}
 #onsite[data-stage="0"] .bp-slot.is3d .bp-c{border-color:rgba(52,48,42,.6)}
 /* the paper fades softly into the page (city3d.js feathers the view's edges); no hard frame while it is a drawing */
 .bp-slot.is3d{transition:border-color 1.2s}

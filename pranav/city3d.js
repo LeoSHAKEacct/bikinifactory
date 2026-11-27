@@ -54,7 +54,7 @@ function build(THREE) {
   R.setScissorTest(true);
   const scene = new THREE.Scene(), fog = new THREE.Fog(0x0a2340, 10, 45); scene.fog = fog;
   const cam = new THREE.PerspectiveCamera(35, 1, 0.05, 600);
-  const PAPER = new THREE.Color(0xf1ebdd), DUSK = new THREE.Color(0x14263f), NIGHT = new THREE.Color(0x060a12), GRAPHITE = new THREE.Color(0x34302a), clr = new THREE.Color(), tmpC = new THREE.Color();
+  const PAPER = new THREE.Color(0x05070c), DUSK = new THREE.Color(0x14263f), NIGHT = new THREE.Color(0x060a12), GRAPHITE = new THREE.Color(0xf1e9d6), clr = new THREE.Color(), tmpC = new THREE.Color();
   const CYAN = new THREE.Color(0x7fd6ff), WHITE = new THREE.Color(0xe6f6ff), GOLD = new THREE.Color(0xf3dca4);
 
   const geo = arr => { const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(arr, 3)); return g; };
@@ -386,14 +386,14 @@ function build(THREE) {
     // look: pencil on paper -> lit tower at dusk -> night map
     clr.copy(PAPER).lerp(DUSK, night).lerp(NIGHT, toMap); fog.color.copy(clr); fog.near = mix(9, 60, e); fog.far = mix(42, 190, e);
     seaMat.opacity = landMat.opacity = waterMat.opacity = toMap; roadMat.opacity = .45 * toMap; road2Mat.opacity = .18 * toMap;
-    grid.material.opacity = mix(mix(.34, .16, night), .012, toMap) * Math.max(pPlan, e); fine.material.opacity = mix(.42, .26, night) * pPlan * (1 - sstep(0, .4, t));
+    grid.material.opacity = mix(mix(.12, .16, night), .012, toMap) * Math.max(pPlan, e); fine.material.opacity = mix(.16, .26, night) * pPlan * (1 - sstep(0, .4, t));
     coastLine.material.opacity = mix(mix(.45, .5, night), .75, toMap); coastLine.material.color.copy(GRAPHITE).lerp(WHITE, night).lerp(CYAN, toMap);
     const hsc = mix(1, 2.3, e); heroG.scale.y = hsc; fillMat.uniforms.uH.value = cityEdgeMat.uniforms.uH.value = hsc;
     fillMat.uniforms.uT.value = city3; fillMat.uniforms.uTime.value = now / 1000; fillMat.uniforms.uLit.value = 1;
     cityEdgeMat.uniforms.uT.value = city3; cityEdgeMat.uniforms.uAlpha.value = mix(.55, .22, toMap);
     heroFillMat.uniforms.uAlpha.value = pFill; heroFillMat.uniforms.uLit.value = pLit; heroFillMat.uniforms.uTime.value = now / 1000;
     heroLines.geometry.setDrawRange(0, 2 * nSeg);
-    heroLineMat.color.copy(GRAPHITE).lerp(GOLD, night); heroLineMat.opacity = mix(mix(.85, .5, night), .55, toMap);
+    heroLineMat.color.copy(GRAPHITE).lerp(GOLD, night); heroLineMat.opacity = mix(mix(.92, .5, night), .55, toMap);
     dimMat.color.copy(GRAPHITE).lerp(WHITE, night); dimMat.opacity = .75 * Math.min(1, pDraw * 1.5) * (1 - sstep(0, .25, t));
     beacon.material.opacity = sstep(.6, 1, alive) * (.5 + .5 * Math.sin(now / 260));
     craneMat.color.copy(GRAPHITE).lerp(tmpC.set(0xd8b46a), night); craneMat.opacity = .85 * pPlan * (1 - sstep(.15, .5, t)); jib.rotation.y = reduce ? .6 : Math.sin(now / 4000) * .7 + .6;
