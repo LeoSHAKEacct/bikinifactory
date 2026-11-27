@@ -1,10 +1,10 @@
 {
-  "name": "Amanda Spa",
+  "name": "Tantra essence ",
   "phone": "1234565678",
-  "waMessage": "Olá {nombre}, quero reservar uma massagem.",
+  "waMessage": "Olá Patricia, quero reservar uma massagem.",
   "seo": {
-    "title": "{nombre} · Massagens",
-    "description": "{nome} — relaxamento e prazer em uma massagem. Apartamento discreto com estacionamento e atendimento em domicílio em Lisboa."
+    "title": " Massagens",
+    "description": "Relaxamento e prazer em uma massagem. Apartamento discreto com estacionamento."
   },
   "nav": {
     "services": "Massagens",
@@ -12,7 +12,7 @@
     "zones": "Mais",
     "reserve": "Reservar"
   },
-  "footer": "{nombre} · Massagens· Só maiores de 18 anos",
+  "footer": " Massagens· Só maiores de 18 anos",
   "sections": [
     {
       "type": "hero",
@@ -20,12 +20,12 @@
       "eyebrow": "Massagens . Famalicão",
       "title": "Relaxamento e prazer",
       "titleAccent": "em uma massagem. ",
-      "greeting": "Olá sou {nombre}!",
+      "greeting": "Olá sou a Patricia!",
       "lead": "Venha, e eu passarei minhas mãos pelo seu corpo.",
       "ctaPrimary": "Escreve-me por WhatsApp",
       "ctaSecondary": "Ver massagens",
       "badgeTitle": "{nombre}",
-      "badgeText": "Apartamento discreto · Domicilios",
+      "badgeText": "Massagem tantrica sensual ",
       "photoFit": "contain",
       "photoPos": ""
     },

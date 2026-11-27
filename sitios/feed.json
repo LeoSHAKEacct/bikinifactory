@@ -3,6 +3,17 @@
   "subtitle": "Negocios creados por nuestros estudiantes",
   "sites": [
     {
+      "slug": "patricia-spa",
+      "name": "Tantra essence ",
+      "category": "",
+      "description": "Relaxamento e prazer em uma massagem. Apartamento discreto com estacionamento.",
+      "photo": "/patricia-spa/foto-mwnqd78w.jpg",
+      "phone": "1234565678",
+      "places": [],
+      "owner": "Sitio PATRICIA-SPA",
+      "updatedAt": "2026-11-27T23:34:03.175Z"
+    },
+    {
       "slug": "luna",
       "name": "Lunna Masoterapia",
       "category": "",
@@ -12,17 +23,6 @@
       "places": [],
       "owner": "Sitio LUNA",
       "updatedAt": "2026-11-27T16:32:49.836Z"
-    },
-    {
-      "slug": "patricia-spa",
-      "name": "Amanda Spa",
-      "category": "",
-      "description": "{nome} — relaxamento e prazer em uma massagem. Apartamento discreto com estacionamento e atendimento em domicílio em Lisboa.",
-      "photo": "/patricia-spa/foto-mwnqd78w.jpg",
-      "phone": "1234565678",
-      "places": [],
-      "owner": "",
-      "updatedAt": "2026-11-19T16:07:01.071Z"
     },
     {
       "slug": "dany",
