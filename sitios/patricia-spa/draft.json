@@ -94,6 +94,44 @@
       ]
     },
     {
+      "type": "facilities",
+      "eyebrow": "Local",
+      "title": "Comodidade e total discreção",
+      "items": [
+        {
+          "icon": "home",
+          "title": "Apartamento cómodo",
+          "desc": "Instalaciones totalmente comodas e aconchegantes."
+        },
+        {
+          "icon": "heart",
+          "title": "Totalmente discreto",
+          "desc": "A tua privacidade esta em primeiro lugar"
+        }
+      ],
+      "gallery": [
+        {
+          "photo": "foto-mwnqe4bh.jpg",
+          "caption": "",
+          "placeholder": "Sala de masajes",
+          "fit": "contain"
+        },
+        {
+          "photo": "foto-mwnqeto8.jpg",
+          "caption": "",
+          "placeholder": "Ambiente",
+          "fit": "contain"
+        },
+        {
+          "photo": "foto-mwnqf3da.jpg",
+          "caption": "",
+          "placeholder": "Amenidades",
+          "fit": "",
+          "pos": "center"
+        }
+      ]
+    },
+    {
       "type": "cta",
       "eyebrow": "Reserva a tua massagem",
       "title": "Te espero!",
